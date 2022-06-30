@@ -1,16 +1,19 @@
 .container {
+  --padding: 16px;
+
+  padding: 0 var(--padding);
   margin: 0 auto;
 }
 
 /* Sizes */
 .sm {
-  max-width: 1060px;
+  max-width: calc(1060px + var(--padding) * 2);
 }
 
 .md {
-  max-width: 1280px;
+  max-width: calc(1280px + var(--padding) * 2);
 }
 
 .lg {
-  max-width: 1360px;
+  max-width: calc(1360px + var(--padding) * 2);
 }
