@@ -57,3 +57,9 @@ $duration: $reciprocal-golden-ratio * 1.2;
     margin-left: $px;
   }
 }
+
+@mixin space-y($px) {
+  & > *:not(:first-child) {
+    margin-top: $px;
+  }
+}

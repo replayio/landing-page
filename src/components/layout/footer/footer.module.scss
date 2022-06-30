@@ -1,3 +1,79 @@
+@import 'css/helpers';
+
+.section {
+  padding-top: 336px;
+  padding-bottom: 64px;
+}
+
 .footer {
-  height: 400px;
+  color: var(--color-white);
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius-2xl);
+  padding: 40px;
+
+  .top {
+    .head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        @include space-x(32px);
+      }
+    }
+  }
+
+  .middle {
+    margin-top: 90px;
+    display: flex;
+    justify-content: space-between;
+
+    .get-in-touch {
+      width: 100%;
+      max-width: 365px;
+
+      .title {
+        font-family: var(--font-heading);
+        font-size: 32px;
+      }
+
+      .email {
+        width: 100%;
+        margin-top: 24px;
+      }
+    }
+
+    .nav {
+      flex: 1;
+      display: grid;
+      justify-content: end;
+      grid-auto-columns: minmax(0, 160px);
+      grid-auto-flow: column;
+      gap: 0 40px;
+
+      .nav-group {
+        width: 100%;
+        @include space-y(16px);
+
+        .title {
+          text-transform: capitalize;
+          font-weight: 700;
+          font-size: 18px;
+        }
+
+        .list {
+          @include space-y(16px);
+        }
+      }
+    }
+  }
+
+  .bottom {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--color-white);
+  }
 }
