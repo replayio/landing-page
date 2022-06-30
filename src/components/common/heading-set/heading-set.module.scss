@@ -1,0 +1,22 @@
+.heading-set {
+  max-width: 400px;
+
+  .heading-set__overtitle {
+    color: var(--color-pink-crayon);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .heading-set__title {
+    font-family: var(--font-family-heading);
+    font-size: 32px;
+    margin-top: 8px;
+  }
+
+  .heading-set__description {
+    color: var(--colors-gray-darker);
+    margin-top: 16px;
+  }
+}

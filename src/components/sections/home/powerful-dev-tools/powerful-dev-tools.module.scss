@@ -1,0 +1,33 @@
+.section {
+  margin-top: 42px;
+
+  .asset-player {
+    margin-top: 112px;
+
+    .progress-chunks {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      gap: 0 40px;
+    }
+
+    .progress {
+      width: 100%;
+      margin-top: 32px;
+      border-radius: var(--border-radius-full);
+      overflow: hidden;
+
+      .progress-bar {
+        height: 3px;
+        width: 100%;
+        background: var(--color-pink-crayon);
+      }
+    }
+
+    .asset {
+      margin-top: 72px;
+      overflow: hidden;
+      border-radius: var(--border-radius-xl);
+    }
+  }
+}

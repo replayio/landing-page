@@ -1,0 +1,9 @@
+.heading {
+  font-family: var(--font-heading);
+  font-size: 64px;
+  letter-spacing: -0.04em;
+
+  &.centered {
+    text-align: center;
+  }
+}

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "clsx": "1.1.1",
+    "global": "^4.4.0",
     "hls.js": "1.1.5",
     "mousetrap": "1.6.5",
     "next": "^12.1.3",

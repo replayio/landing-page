@@ -9,7 +9,8 @@ const config = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
-    formats: ['image/avif', 'image/webp']
+    formats: ['image/avif', 'image/webp'],
+    domains: ['dummyimage.com']
   },
   experimental: { images: { layoutRaw: true } }
 }
