@@ -1,0 +1,95 @@
+@font-face {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-Light.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: italic;
+  font-weight: 300;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-LightItalic.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-Regular.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-RegularItalic.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-Medium.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: italic;
+  font-weight: 500;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-MediumItalic.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-SemiBold.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: italic;
+  font-weight: 600;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-SemiBoldItalic.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-Bold.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: italic;
+  font-weight: 700;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-BoldItalic.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: 900;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-Heavy.otf') format('otf');
+}
+
+@font-face {
+  font-family: Roobert;
+  font-style: italic;
+  font-weight: 900;
+  font-stretch: 100%;
+  src: url('/fonts/roobert/Roobert-HeavyItalic.otf') format('otf');
+}

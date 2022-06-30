@@ -1,0 +1,16 @@
+.button {
+  color: var(--color-white);
+  border-radius: var(--border-radius-md);
+}
+
+/* Sizes */
+
+.sm {
+  padding: 12px 16px;
+}
+
+/* Variants */
+
+.secondary {
+  background: var(--color-gray-darker);
+}

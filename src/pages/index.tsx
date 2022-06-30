@@ -1,5 +1,5 @@
 import { Meta } from '~/components/common/meta'
-import Welcome from '~/components/common/welcome'
+import { Header } from '~/components/layout/header'
 import { PageLayout } from '~/components/layout/page'
 
 const HomePage = () => {
@@ -7,7 +7,7 @@ const HomePage = () => {
     <PageLayout>
       <Meta />
 
-      <Welcome />
+      <Header />
     </PageLayout>
   )
 }

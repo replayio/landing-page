@@ -1,0 +1,32 @@
+@import 'css/helpers';
+
+.header {
+  padding: 32px 0;
+  position: sticky;
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav {
+    ul {
+      display: flex;
+      justify-content: center;
+      @include space-x(2px);
+
+      li .nav-link {
+        padding: 12px 16px;
+        font-weight: 500;
+        border-radius: 8px;
+        background: var(--color-transparent);
+        transition: background var(--duration-fast) ease-in;
+
+        &:hover {
+          background: var(--color-gray-light);
+        }
+      }
+    }
+  }
+}

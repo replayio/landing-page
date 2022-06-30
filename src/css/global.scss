@@ -1,12 +1,28 @@
 @import './helpers';
 @import './reset.css';
 @import './inter.css';
+@import './roobert.css';
 
 :root {
   --font-system: -apple-system, blinkmacsystemfont, segoe ui, roboto, oxygen,
     ubuntu, cantarell, fira sans, droid sans, helvetica neue, sans-serif;
   --font-body: 'Inter', var(--font-system), sans-serif;
+  --font-heading: 'Roobert', var(--font-system);
   --inspect-color: #f00;
+
+  /* Colors */
+  --color-transparent: transparent;
+  --color-pink-crayon: #f31c52;
+  --color-white: #fff;
+  --color-gray-light: #f5f5f5;
+  --color-gray: #505050;
+  --color-gray-darker: #323232;
+
+  /* Durations */
+  --duration-fast: 0.15s;
+
+  /* Border Radius */
+  --border-radius-md: 8px;
 }
 
 html {
@@ -20,8 +36,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
 
   // tweak if site is light mode.
-  color-scheme: dark;
-  background-color: black;
+  background-color: var(--color-white);
+  color: var(--color-gray);
 }
 
 body {
