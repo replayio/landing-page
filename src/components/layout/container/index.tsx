@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 
 import s from './container.module.scss'
 
-type ContainerProps = {
+export type ContainerProps = {
   size?: 'sm' | 'md' | 'lg'
 } & JSX.IntrinsicElements['div']
 
