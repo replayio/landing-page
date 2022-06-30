@@ -53,8 +53,7 @@ $duration: $reciprocal-golden-ratio * 1.2;
 }
 
 @mixin space-x($px) {
-  & > * {
+  & > *:not(:first-child) {
     margin-left: $px;
-    margin-right: $px;
   }
 }

@@ -4,7 +4,7 @@ import { forwardRef } from 'react'
 import s from './container.module.scss'
 
 type ContainerProps = {
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
 } & JSX.IntrinsicElements['div']
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(

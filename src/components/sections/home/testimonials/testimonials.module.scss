@@ -1,0 +1,81 @@
+@import 'css/helpers';
+
+.section {
+  margin-top: 112px;
+}
+
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--gradient-primary);
+  width: 100%;
+  padding: 112px 0;
+  border-radius: var(--border-radius-xl);
+  color: var(--color-white);
+
+  .pictures {
+    display: flex;
+    @include space-x(12px);
+
+    .picture {
+      overflow: hidden;
+      border-radius: var(--border-radius-full);
+    }
+  }
+
+  .quotes {
+    position: relative;
+    margin-top: 32px;
+
+    .quote {
+      font-size: 56px;
+      font-family: var(--font-heading);
+      letter-spacing: -0.04em;
+      line-height: 64px;
+      text-align: center;
+      max-width: 840px;
+
+      &:not(.placeholder) {
+        top: 0;
+        opacity: 0;
+        position: absolute;
+      }
+    }
+  }
+
+  .identities {
+    position: relative;
+    margin-top: 48px;
+    width: 100%;
+
+    .identity {
+      width: 100%;
+      text-align: center;
+
+      &:not(.placeholder) {
+        top: 0;
+        opacity: 0;
+        position: absolute;
+      }
+
+      .identity-name {
+        font-weight: 700;
+      }
+
+      .identity-position {
+        margin-top: 8px;
+
+        span {
+          display: inline-block;
+        }
+
+        .company-logo {
+          overflow: hidden;
+          transform: translateY(2px);
+          border-radius: var(--border-radius-full);
+        }
+      }
+    }
+  }
+}
