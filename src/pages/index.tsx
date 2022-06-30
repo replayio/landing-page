@@ -6,7 +6,9 @@ import { AsyncCollab } from '~/components/sections/home/async-collab'
 import { Hero } from '~/components/sections/home/hero'
 import { MainFeatures } from '~/components/sections/home/main-features'
 import { PowerfulDevTools } from '~/components/sections/home/powerful-dev-tools'
+import { SoftwareTellsStory } from '~/components/sections/home/software-tells-story'
 import { Testimonials } from '~/components/sections/home/testimonials'
+import { TrustedBy } from '~/components/sections/home/trusted-by'
 
 const HomePage = () => {
   return (
@@ -20,6 +22,8 @@ const HomePage = () => {
       <PowerfulDevTools />
       <Testimonials />
       <AsyncCollab />
+      <TrustedBy />
+      <SoftwareTellsStory />
 
       <Footer />
     </PageLayout>

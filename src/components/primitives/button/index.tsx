@@ -3,7 +3,10 @@ import { FC } from 'react'
 
 import s from './button.module.scss'
 
-type ButtonProps = { size?: 'sm' | 'md'; variant?: 'primary' | 'secondary' }
+type ButtonProps = {
+  size?: 'sm' | 'md'
+  variant?: 'primary' | 'secondary' | 'tertiary'
+}
 
 export const Button: FC<ButtonProps> = ({
   children,

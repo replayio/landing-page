@@ -2,8 +2,29 @@
   margin-top: 200px;
 }
 
-.subtitle {
-  margin: 24px auto 0;
-  max-width: 620px;
-  text-align: center;
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-auto-rows: auto;
+  grid-gap: 40px;
+  margin-top: 112px;
+}
+
+.card {
+  width: 100%;
+  padding: 56px 44px;
+  border: 2px solid #dcdcdc;
+  border-radius: var(--border-radius-3xl);
+
+  .card-heading {
+    .title {
+      font-size: 40px;
+      line-height: 1.2;
+      font-family: var(--font-heading);
+    }
+
+    .subtitle {
+      margin-top: 16px;
+    }
+  }
 }

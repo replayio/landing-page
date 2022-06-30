@@ -1,0 +1,58 @@
+@import 'css/helpers';
+
+.section {
+  margin-top: 200px;
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 132px;
+  @include space-x(64px);
+
+  .story {
+    .story-chunk {
+      display: flex;
+
+      .timeline {
+        // padding-top: 30px;
+      }
+
+      .content {
+        padding: 28px 0 28px 32px;
+
+        .content-title {
+          position: relative;
+          font-size: 18px;
+
+          .timeline-marker {
+            top: 50%;
+            left: -32px;
+            transform: translate(-50%, -50%);
+            position: absolute;
+          }
+        }
+
+        .content-subtitle {
+          margin-top: 8px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .asset {
+    max-width: 785px;
+    width: 100%;
+    height: 100%;
+    background: var(--color-pink-crayon);
+    border-radius: var(--border-radius-2xl);
+  }
+}

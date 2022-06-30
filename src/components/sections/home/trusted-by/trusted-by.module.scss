@@ -1,0 +1,18 @@
+.section {
+  margin-top: 200px;
+}
+
+.logos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-auto-rows: 80px;
+  grid-gap: 24px;
+  margin-top: 112px;
+
+  .logo {
+    height: 100%;
+    width: 100%;
+    background: var(--color-gray-light);
+    border-radius: var(--border-radius-lg);
+  }
+}

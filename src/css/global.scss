@@ -30,8 +30,10 @@
 
   /* Border Radius */
   --border-radius-md: 8px;
+  --border-radius-lg: 16px;
   --border-radius-xl: 24px;
   --border-radius-2xl: 32px;
+  --border-radius-3xl: 56px;
   --border-radius-full: 9999px;
 }
 
@@ -47,7 +49,7 @@ html {
 
   // tweak if site is light mode.
   background-color: var(--color-white);
-  color: var(--color-gray);
+  color: var(--color-gray-darker);
 }
 
 body {

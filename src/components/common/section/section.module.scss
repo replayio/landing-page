@@ -1,3 +1,14 @@
 .section {
   display: block;
 }
+
+.section-heading {
+  .subtitle {
+    max-width: 620px;
+
+    &.centered {
+      text-align: center;
+      margin: 24px auto 0;
+    }
+  }
+}
