@@ -5,10 +5,76 @@
   background: #f41c5266;
 }
 
+.progress {
+  --width: 3px;
+  --height: 30%;
+  --top: 0;
+
+  height: 100%;
+  position: relative;
+  width: 3px;
+  overflow: hidden;
+
+  .progress-gradient {
+    position: absolute;
+    top: var(--top);
+    height: var(--height);
+    width: var(--width);
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background: linear-gradient(to bottom, transparent, #f41c52);
+  }
+}
+
 .marker {
+  --top: 0;
+  --translate-x: 0.5;
+  --translate-y: 0.5;
+
   top: var(--top);
   position: absolute;
   left: 50%;
   display: inline-block;
-  transform: translate(-50%, -50%);
+
+  .marker-thumb {
+    --width: 18px;
+    --height: 18px;
+
+    transform: translate(
+      calc(var(--translate-x) * -100%),
+      calc(var(--translate-y) * -100%)
+    );
+    position: relative;
+    display: inline-block;
+    background: var(--color-pink-crayon);
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius-full);
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: var(--width);
+      height: var(--height);
+      background: var(--color-pink-crayon);
+      border-radius: var(--border-radius-full);
+      animation: 4s linear infinite radar;
+    }
+  }
+}
+
+@keyframes radar {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  40% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
 }
