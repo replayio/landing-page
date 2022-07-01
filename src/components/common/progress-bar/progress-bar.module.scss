@@ -1,0 +1,14 @@
+.progress-bar {
+  position: relative;
+  width: 3px;
+  height: 100%;
+  background: #f41c5266;
+}
+
+.marker {
+  top: var(--top);
+  position: absolute;
+  left: 50%;
+  display: inline-block;
+  transform: translate(-50%, -50%);
+}

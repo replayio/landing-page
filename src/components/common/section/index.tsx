@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC } from 'react'
+import { FC, forwardRef } from 'react'
 
 import { Heading } from '~/components/common/heading'
 
@@ -7,9 +7,11 @@ import s from './section.module.scss'
 
 type SectionProps = JSX.IntrinsicElements['section']
 
-export const Section: FC<SectionProps> = ({ className, ...props }) => {
-  return <section className={clsx(s['section'], className)} {...props} />
-}
+export const Section = forwardRef<HTMLDivElement, SectionProps>(
+  ({ className, ...props }, ref) => (
+    <section className={clsx(s['section'], className)} {...props} ref={ref} />
+  )
+)
 
 type SectionHeadingProps = {
   title: string
