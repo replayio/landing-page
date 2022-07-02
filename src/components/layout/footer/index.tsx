@@ -72,7 +72,7 @@ export const Footer: FC = () => {
             <div className={s['head']}>
               <div className={s['logo']}>
                 <IsoLogo />
-                <Heading>Start Replaing now</Heading>
+                <Heading>Start Replay now</Heading>
               </div>
               <div>
                 <Link href="/">

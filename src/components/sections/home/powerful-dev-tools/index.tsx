@@ -3,6 +3,7 @@ import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { HeadingSet } from '~/components/common/heading-set'
+import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
@@ -45,7 +46,7 @@ const AssetPlayer = () => {
         />
       </div>
       <div className={s['progress']}>
-        <div className={s['progress-bar']} />
+        <ProgressBar progress={25} direction="horizontal" thumbless />
       </div>
       <div className={s['asset']}>
         <Image

@@ -15,13 +15,7 @@
       width: 100%;
       margin-top: 32px;
       border-radius: var(--border-radius-full);
-      overflow: hidden;
-
-      .progress-bar {
-        height: 3px;
-        width: 100%;
-        background: var(--color-pink-crayon);
-      }
+      // overflow: hidden;
     }
 
     .asset {

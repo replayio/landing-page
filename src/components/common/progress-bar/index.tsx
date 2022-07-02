@@ -1,36 +1,48 @@
+import clsx from 'clsx'
 import { FC, forwardRef, useCallback, useEffect, useRef } from 'react'
 
 import s from './progress-bar.module.scss'
 
 type ProgressProps = {
   progress: number
+  direction?: 'horizontal' | 'vertical'
+  thumbless?: boolean
 }
 
-export const ProgressBar: FC<ProgressProps> = ({ progress }) => {
+export const ProgressBar: FC<ProgressProps> = ({
+  progress,
+  direction = 'horizontal',
+  thumbless = false
+}) => {
   const barRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
   const markerRef = useRef<HTMLSpanElement>(null)
 
-  const getTopValue = useCallback((progress: number) => {
-    if (!barRef.current) return 0
-
-    const { offsetHeight } = barRef.current
-
-    return (offsetHeight * progress) / 100
-  }, [])
-
   const update = useCallback(
     (progress) => {
-      if (!markerRef.current || !progressRef.current) return
-
       const normalized = progress / 100
-      const top = getTopValue(progress)
 
-      markerRef.current.style.setProperty('--top', `${top}px`)
-      markerRef.current.style.setProperty('--translate-y', `${normalized}`)
-      progressRef.current.style.setProperty('--top', `${top}px`)
+      if (direction === 'horizontal') {
+        if (markerRef.current) {
+          markerRef.current.style.setProperty('--left', `${progress}%`)
+          markerRef.current.style.setProperty('--translate-x', `${normalized}`)
+        }
+
+        if (progressRef.current) {
+          progressRef.current.style.setProperty('--left', `${progress}%`)
+        }
+      } else {
+        if (markerRef.current) {
+          markerRef.current.style.setProperty('--top', `${progress}%`)
+          markerRef.current.style.setProperty('--translate-y', `${normalized}`)
+        }
+
+        if (progressRef.current) {
+          progressRef.current.style.setProperty('--top', `${progress}%`)
+        }
+      }
     },
-    [getTopValue]
+    [direction]
   )
 
   useEffect(() => {
@@ -38,11 +50,17 @@ export const ProgressBar: FC<ProgressProps> = ({ progress }) => {
   }, [update, progress])
 
   return (
-    <div className={s['progress-bar']} ref={barRef}>
+    <div
+      className={clsx(s['progress-bar'], {
+        [s['vertical']]: direction === 'vertical',
+        [s['horizontal']]: direction === 'horizontal'
+      })}
+      ref={barRef}
+    >
       <div className={s['progress']} ref={progressRef}>
         <div className={s['progress-gradient']} />
       </div>
-      <ProgressThumb ref={markerRef} />
+      {!thumbless && <ProgressThumb ref={markerRef} />}
     </div>
   )
 }

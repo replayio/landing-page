@@ -1,39 +1,73 @@
 .progress-bar {
   position: relative;
-  width: 3px;
-  height: 100%;
+  width: var(--progress-bar-width);
+  height: var(--progress-bar-height);
   background: #f41c5266;
-}
+  border-radius: var(--border-radius-full);
 
-.progress {
-  --width: 3px;
-  --height: 30%;
-  --top: 0;
+  &.vertical {
+    --progress-bar-height: 100%;
+    --progress-bar-width: 3px;
 
-  height: 100%;
-  position: relative;
-  width: 3px;
-  overflow: hidden;
+    .progress {
+      --width: 3px;
+      --height: 30%;
+      --translate-x: -50%;
+      --translate-y: -100%;
+      --gradient-direction: to bottom;
+      --top: 0px;
+      --left: 50%;
+    }
+  }
 
-  .progress-gradient {
-    position: absolute;
-    top: var(--top);
-    height: var(--height);
-    width: var(--width);
-    left: 50%;
-    transform: translate(-50%, -100%);
-    background: linear-gradient(to bottom, transparent, #f41c52);
+  &.horizontal {
+    --progress-bar-height: 3px;
+    --progress-bar-width: 100%;
+
+    .progress {
+      --width: 30%;
+      --height: 3px;
+      --translate-x: -100%;
+      --translate-y: -50%;
+      --gradient-direction: to right;
+      --top: 50%;
+      --left: 0px;
+    }
+  }
+
+  .progress {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--border-radius-full);
+
+    .progress-gradient {
+      border-radius: var(--border-radius-full);
+      position: absolute;
+      top: var(--top);
+      left: var(--left);
+      height: var(--height);
+      width: var(--width);
+      transform: translate(var(--translate-x), var(--translate-y));
+      background: linear-gradient(
+        var(--gradient-direction),
+        transparent,
+        #f41c52
+      );
+    }
   }
 }
 
 .marker {
-  --top: 0;
+  --top: 50%;
+  --left: 50%;
   --translate-x: 0.5;
   --translate-y: 0.5;
 
   top: var(--top);
+  left: var(--left);
   position: absolute;
-  left: 50%;
   display: inline-block;
 
   .marker-thumb {
