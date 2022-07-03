@@ -18,31 +18,40 @@
   @include space-x(64px);
 
   .story {
-    .story-chunk {
-      display: flex;
+    position: relative;
 
-      .timeline {
-        // padding-top: 30px;
-      }
+    .progress {
+      top: 0;
+      transform: translateX(-50%);
+      position: absolute;
+      height: 100%;
+    }
 
-      .content {
-        padding: 28px 0 28px 32px;
+    .story-chunks {
+      @include space-y(56px);
 
-        .content-title {
-          position: relative;
-          font-size: 18px;
+      .story-chunk {
+        display: flex;
 
-          .timeline-marker {
-            top: 50%;
-            left: -32px;
-            transform: translate(-50%, -50%);
-            position: absolute;
+        .content {
+          padding-left: 32px;
+
+          .content-title {
+            position: relative;
+            font-size: 18px;
+
+            .timeline-marker {
+              top: 50%;
+              left: -32px;
+              transform: translate(-50%, -50%);
+              position: absolute;
+            }
           }
-        }
 
-        .content-subtitle {
-          margin-top: 8px;
-          font-size: 14px;
+          .content-subtitle {
+            margin-top: 8px;
+            font-size: 14px;
+          }
         }
       }
     }

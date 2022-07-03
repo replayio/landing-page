@@ -1,6 +1,7 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
+import { ProgressBar, ProgressThumb } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
@@ -46,6 +47,18 @@ const story = [
 ]
 
 export const SoftwareTellsStory: FC = () => {
+  const [progress, setProgress] = useState(0)
+
+  const updateProgress = () => {
+    setProgress((progress) => (progress + 1) % 100)
+  }
+
+  useEffect(() => {
+    const interval = setInterval(updateProgress, 200)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <Section className={s['section']}>
       <Container size="lg">
@@ -60,35 +73,25 @@ export const SoftwareTellsStory: FC = () => {
         </div>
         <div className={s['main']}>
           <div className={s['story']}>
-            {story.map(({ title, subtitle }) => (
-              <div className={s['story-chunk']} key={title}>
-                <div className={s['timeline']}></div>
-                <div className={s['content']}>
-                  <p className={s['content-title']}>
-                    <span className={s['timeline-marker']}>
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="10"
-                          cy="10"
-                          r="10"
-                          fill="#F41C52"
-                          fillOpacity="0.2"
-                        />
-                        <circle cx="10" cy="10" r="5.625" fill="#F41C52" />
-                      </svg>
-                    </span>
-                    {title}
-                  </p>
-                  <p className={s['content-subtitle']}>{subtitle}</p>
+            <div className={s['progress']}>
+              <ProgressBar direction="vertical" progress={progress} thumbless />
+            </div>
+            <div className={s['story-chunks']}>
+              {story.map(({ title, subtitle }) => (
+                <div className={s['story-chunk']} key={title}>
+                  <div className={s['timeline']}></div>
+                  <div className={s['content']}>
+                    <p className={s['content-title']}>
+                      <span className={s['timeline-marker']}>
+                        <ProgressThumb size={14} />
+                      </span>
+                      {title}
+                    </p>
+                    <p className={s['content-subtitle']}>{subtitle}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <div className={s['asset']}>
             <AspectBox ratio={785 / 627} />

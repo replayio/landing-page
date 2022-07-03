@@ -35,6 +35,15 @@
     }
   }
 
+  .marker {
+    --top: 50%;
+    --left: 50%;
+
+    top: var(--top);
+    left: var(--left);
+    position: absolute;
+  }
+
   .progress {
     position: relative;
     overflow: hidden;
@@ -60,19 +69,13 @@
 }
 
 .marker {
-  --top: 50%;
-  --left: 50%;
-  --translate-x: 0.5;
-  --translate-y: 0.5;
+  --translate-x: 0;
+  --translate-y: 0;
 
-  top: var(--top);
-  left: var(--left);
-  position: absolute;
   display: inline-block;
 
   .marker-thumb {
-    --width: 18px;
-    --height: 18px;
+    --size: 18px;
 
     transform: translate(
       calc(var(--translate-x) * -100%),
@@ -81,15 +84,15 @@
     position: relative;
     display: inline-block;
     background: var(--color-pink-crayon);
-    width: var(--width);
-    height: var(--height);
+    width: var(--size);
+    height: var(--size);
     border-radius: var(--border-radius-full);
 
     &::before {
       content: '';
       position: absolute;
-      width: var(--width);
-      height: var(--height);
+      width: var(--size);
+      height: var(--size);
       background: var(--color-pink-crayon);
       border-radius: var(--border-radius-full);
       animation: 4s linear infinite radar;

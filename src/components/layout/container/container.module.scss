@@ -1,8 +1,14 @@
+@import 'css/variables';
+
 .container {
   --padding: 16px;
 
   padding: 0 var(--padding);
   margin: 0 auto;
+
+  @media (min-width: $screen-lg) {
+    --padding: 32px;
+  }
 }
 
 /* Sizes */

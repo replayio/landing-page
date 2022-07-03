@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { HeadingSet } from '~/components/common/heading-set'
@@ -25,6 +25,18 @@ const AssetChunk: FC<AssetChunkProps> = ({ title, description }) => {
 }
 
 const AssetPlayer = () => {
+  const [progress, setProgress] = useState(0)
+
+  const updateProgress = () => {
+    setProgress((progress) => (progress + 1) % 100)
+  }
+
+  useEffect(() => {
+    const interval = setInterval(updateProgress, 200)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className={s['asset-player']}>
       <div className={s['progress-chunks']}>
@@ -46,7 +58,7 @@ const AssetPlayer = () => {
         />
       </div>
       <div className={s['progress']}>
-        <ProgressBar progress={25} direction="horizontal" thumbless />
+        <ProgressBar progress={progress} direction="horizontal" thumbless />
       </div>
       <div className={s['asset']}>
         <Image

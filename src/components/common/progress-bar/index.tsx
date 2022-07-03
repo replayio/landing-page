@@ -25,6 +25,7 @@ export const ProgressBar: FC<ProgressProps> = ({
       if (direction === 'horizontal') {
         if (markerRef.current) {
           markerRef.current.style.setProperty('--left', `${progress}%`)
+          markerRef.current.style.setProperty('--translate-y', '0.5')
           markerRef.current.style.setProperty('--translate-x', `${normalized}`)
         }
 
@@ -34,6 +35,7 @@ export const ProgressBar: FC<ProgressProps> = ({
       } else {
         if (markerRef.current) {
           markerRef.current.style.setProperty('--top', `${progress}%`)
+          markerRef.current.style.setProperty('--translate-x', '0.5')
           markerRef.current.style.setProperty('--translate-y', `${normalized}`)
         }
 
@@ -60,22 +62,22 @@ export const ProgressBar: FC<ProgressProps> = ({
       <div className={s['progress']} ref={progressRef}>
         <div className={s['progress-gradient']} />
       </div>
-      {!thumbless && <ProgressThumb ref={markerRef} />}
+      {!thumbless && <ProgressThumb className={s['marker']} ref={markerRef} />}
     </div>
   )
 }
 
 type ProgressThumbProp = {
   size?: number
-}
+} & JSX.IntrinsicElements['span']
 
 export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
-  ({ size = 18 }, ref) => (
-    <span className={s['marker']} ref={ref}>
+  ({ size = 18, className, ...props }, ref) => (
+    <span className={clsx(s['marker'], className)} {...props} ref={ref}>
       <span
         className={s['marker-thumb']}
         /* @ts-ignore */
-        style={{ '--width': size + 'px', '--size': size + 'px' }}
+        style={{ '--size': size + 'px' }}
       />
     </span>
   )
