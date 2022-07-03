@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { gsap } from 'lib/gsap'
 import { FC, forwardRef, useCallback, useEffect, useRef } from 'react'
 
 import s from './progress-bar.module.scss'
@@ -7,44 +8,78 @@ type ProgressProps = {
   progress: number
   direction?: 'horizontal' | 'vertical'
   thumbless?: boolean
+  /*
+    If progress bar is animated we use
+    gsap.timeline if not, just use gsap.set
+  */
+  animated?: boolean
 }
+
+export const UPDATE_INTERVAL_MS = 200
+export const UPDATE_INTERVAL_SEC = UPDATE_INTERVAL_MS / 1000
 
 export const ProgressBar: FC<ProgressProps> = ({
   progress,
   direction = 'horizontal',
+  animated = true,
   thumbless = false
 }) => {
   const barRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
   const markerRef = useRef<HTMLSpanElement>(null)
+  const timeline = useRef<GSAPTimeline | GSAP>(
+    animated ? gsap.timeline() : gsap
+  )
+  const prevProgress = useRef(progress)
 
   const update = useCallback(
     (progress) => {
       const normalized = progress / 100
+      const duration = UPDATE_INTERVAL_SEC
+      const gsapFunc =
+        progress < prevProgress.current || !animated ? 'set' : 'to'
 
       if (direction === 'horizontal') {
         if (markerRef.current) {
-          markerRef.current.style.setProperty('--left', `${progress}%`)
-          markerRef.current.style.setProperty('--translate-y', '0.5')
-          markerRef.current.style.setProperty('--translate-x', `${normalized}`)
+          timeline.current[gsapFunc](markerRef.current, {
+            '--left': `${progress}%`,
+            '--translate-y': '0.5',
+            '--translate-x': `${normalized}`,
+            ease: 'linear',
+            duration
+          })
         }
 
         if (progressRef.current) {
-          progressRef.current.style.setProperty('--left', `${progress}%`)
+          timeline.current[gsapFunc](progressRef.current, {
+            '--left': `${progress}%`,
+            ease: 'linear',
+            duration
+          })
         }
       } else {
         if (markerRef.current) {
-          markerRef.current.style.setProperty('--top', `${progress}%`)
-          markerRef.current.style.setProperty('--translate-x', '0.5')
-          markerRef.current.style.setProperty('--translate-y', `${normalized}`)
+          timeline.current[gsapFunc](markerRef.current, {
+            '--top': `${progress}%`,
+            '--translate-x': '0.5',
+            '--translate-y': `${normalized}`,
+            ease: 'linear',
+            duration
+          })
         }
 
         if (progressRef.current) {
-          progressRef.current.style.setProperty('--top', `${progress}%`)
+          timeline.current[gsapFunc](progressRef.current, {
+            '--top': `${progress}%`,
+            ease: 'linear',
+            duration
+          })
         }
       }
+
+      prevProgress.current = progress
     },
-    [direction]
+    [direction, animated]
   )
 
   useEffect(() => {

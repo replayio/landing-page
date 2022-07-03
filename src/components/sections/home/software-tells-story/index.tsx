@@ -1,7 +1,11 @@
 import { FC, useEffect, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import { ProgressBar, ProgressThumb } from '~/components/common/progress-bar'
+import {
+  ProgressBar,
+  ProgressThumb,
+  UPDATE_INTERVAL_MS
+} from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
@@ -50,11 +54,11 @@ export const SoftwareTellsStory: FC = () => {
   const [progress, setProgress] = useState(0)
 
   const updateProgress = () => {
-    setProgress((progress) => (progress + 1) % 100)
+    setProgress((progress) => (progress + 1) % 101)
   }
 
   useEffect(() => {
-    const interval = setInterval(updateProgress, 200)
+    const interval = setInterval(updateProgress, UPDATE_INTERVAL_MS)
 
     return () => clearInterval(interval)
   }, [])

@@ -3,7 +3,10 @@ import { FC, useEffect, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { HeadingSet } from '~/components/common/heading-set'
-import { ProgressBar } from '~/components/common/progress-bar'
+import {
+  ProgressBar,
+  UPDATE_INTERVAL_MS
+} from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
@@ -28,11 +31,11 @@ const AssetPlayer = () => {
   const [progress, setProgress] = useState(0)
 
   const updateProgress = () => {
-    setProgress((progress) => (progress + 1) % 100)
+    setProgress((progress) => (progress + 1) % 101)
   }
 
   useEffect(() => {
-    const interval = setInterval(updateProgress, 200)
+    const interval = setInterval(updateProgress, UPDATE_INTERVAL_MS)
 
     return () => clearInterval(interval)
   }, [])

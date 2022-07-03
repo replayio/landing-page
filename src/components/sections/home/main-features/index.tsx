@@ -31,7 +31,9 @@ const ScrollProgressBar = () => {
     }
   }, [])
 
-  return <ProgressBar progress={progress} direction="vertical" />
+  return (
+    <ProgressBar progress={progress} direction="vertical" animated={false} />
+  )
 }
 
 export const MainFeatures: FC = () => {
