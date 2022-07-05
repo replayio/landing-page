@@ -1,9 +1,11 @@
+import Image from 'next/image'
 import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
+import footerBgSvg from '~/public/images/home/footer-bg.svg'
 
 import { Container } from '../container'
 import s from './footer.module.scss'
@@ -63,16 +65,34 @@ const links = {
   ]
 }
 
+const social = {
+  discord: {
+    icon: '/images/logos/discord.svg',
+    href: '/'
+  },
+  twitter: {
+    icon: '/images/logos/twitter.svg',
+    href: '/'
+  },
+  linkedIn: {
+    icon: '/images/logos/linkedIn.svg',
+    href: '/'
+  }
+}
+
 export const Footer: FC = () => {
   return (
     <footer className={s['section']}>
+      <div className={s['bg']}>
+        <Image src={footerBgSvg} alt="footer background" />
+      </div>
       <Container size="lg">
         <div className={s['footer']}>
           <div className={s['top']}>
             <div className={s['head']}>
               <div className={s['logo']}>
                 <IsoLogo />
-                <Heading>Start Replay now</Heading>
+                <Heading>Start Replaying now</Heading>
               </div>
               <div>
                 <Link href="/">
@@ -120,7 +140,20 @@ export const Footer: FC = () => {
             <div className={s['rights']}>
               <p>© {new Date().getFullYear()} Replay, All rights reserved.</p>
             </div>
-            <ul className={s['social']}></ul>
+            <ul className={s['social']}>
+              {Object.entries(social).map(([key, link]) => (
+                <li key={key} title={key}>
+                  <Link href={link.href}>
+                    <Image
+                      layout="raw"
+                      width={32}
+                      height={32}
+                      src={link.icon}
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </Container>

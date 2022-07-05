@@ -1,8 +1,19 @@
 @import 'css/helpers';
 
 .section {
+  overflow: hidden;
+  margin-top: 40px;
   padding-top: 336px;
   padding-bottom: 64px;
+  position: relative;
+
+  .bg {
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    overflow: visible;
+    transform: translateY(-60%);
+  }
 }
 
 .footer {
@@ -72,8 +83,21 @@
   }
 
   .bottom {
+    display: flex;
+    justify-content: space-between;
     margin-top: 40px;
     padding-top: 40px;
     border-top: 1px solid var(--color-white);
+
+    .rights {
+      display: flex;
+      align-items: center;
+    }
+
+    .social {
+      display: flex;
+      align-items: center;
+      @include space-x(16px);
+    }
   }
 }
