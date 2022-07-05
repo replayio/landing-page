@@ -5,4 +5,11 @@
   height: 48px;
   font-size: 14px;
   padding: 0 24px;
+
+  &::placeholder {
+    color: var(--color-white);
+    opacity: 0.75;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 }

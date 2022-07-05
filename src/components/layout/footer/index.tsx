@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
+import { ProgressBar } from '~/components/common/progress-bar'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
@@ -112,13 +113,24 @@ export const Footer: FC = () => {
                 </Link>
               </div>
             </div>
-            <div></div>
+            <div className={s['timeline']}>
+              <ProgressBar
+                primaryColor="#FFF"
+                secondaryColor="#FFFFFF4D"
+                progress={50}
+                direction="horizontal"
+                animated={false}
+              />
+            </div>
           </div>
 
           <div className={s['middle']}>
             <div className={s['get-in-touch']}>
               <p className={s['title']}>Get in touch</p>
-              <Input className={s['email']} />
+              <Input
+                placeholder="Enter your email address"
+                className={s['email']}
+              />
             </div>
             <div className={s['nav']}>
               {Object.entries(links).map(([key, items]) => (

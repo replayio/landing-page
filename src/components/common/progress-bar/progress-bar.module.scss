@@ -1,9 +1,12 @@
 .progress-bar {
+  --color-primary: var(--color-pink-crayon);
+  --color-secondary: #f41c5266;
+
   position: relative;
   width: var(--progress-bar-width);
   height: var(--progress-bar-height);
-  background: #f41c5266;
   border-radius: var(--border-radius-full);
+  background: var(--color-secondary);
 
   &.vertical {
     --progress-bar-height: 100%;
@@ -62,13 +65,14 @@
       background: linear-gradient(
         var(--gradient-direction),
         transparent,
-        #f41c52
+        var(--color-primary)
       );
     }
   }
 }
 
 .marker {
+  --color-primary: var(--color-pink-crayon);
   --translate-x: 0;
   --translate-y: 0;
 
@@ -83,7 +87,7 @@
     );
     position: relative;
     display: inline-block;
-    background: var(--color-pink-crayon);
+    background: var(--color-primary);
     width: var(--size);
     height: var(--size);
     border-radius: var(--border-radius-full);
@@ -93,7 +97,7 @@
       position: absolute;
       width: var(--size);
       height: var(--size);
-      background: var(--color-pink-crayon);
+      background: var(--color-primary);
       border-radius: var(--border-radius-full);
       animation: 4s linear infinite radar;
     }

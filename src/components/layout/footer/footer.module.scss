@@ -35,10 +35,14 @@
         @include space-x(32px);
       }
     }
+
+    .timeline {
+      margin-top: 32px;
+    }
   }
 
   .middle {
-    margin-top: 90px;
+    margin-top: 80px;
     display: flex;
     justify-content: space-between;
 

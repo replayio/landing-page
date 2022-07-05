@@ -8,6 +8,8 @@ type ProgressProps = {
   progress: number
   direction?: 'horizontal' | 'vertical'
   thumbless?: boolean
+  primaryColor?: string
+  secondaryColor?: string
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -19,6 +21,8 @@ export const UPDATE_INTERVAL_MS = 200
 export const UPDATE_INTERVAL_SEC = UPDATE_INTERVAL_MS / 1000
 
 export const ProgressBar: FC<ProgressProps> = ({
+  primaryColor,
+  secondaryColor,
   progress,
   direction = 'horizontal',
   animated = true,
@@ -88,6 +92,11 @@ export const ProgressBar: FC<ProgressProps> = ({
 
   return (
     <div
+      style={{
+        // @ts-ignore
+        '--color-primary': primaryColor,
+        '--color-secondary': secondaryColor
+      }}
       className={clsx(s['progress-bar'], {
         [s['vertical']]: direction === 'vertical',
         [s['horizontal']]: direction === 'horizontal'
@@ -97,18 +106,31 @@ export const ProgressBar: FC<ProgressProps> = ({
       <div className={s['progress']} ref={progressRef}>
         <div className={s['progress-gradient']} />
       </div>
-      {!thumbless && <ProgressThumb className={s['marker']} ref={markerRef} />}
+      {!thumbless && (
+        <ProgressThumb
+          color={primaryColor}
+          className={s['marker']}
+          ref={markerRef}
+        />
+      )}
     </div>
   )
 }
 
 type ProgressThumbProp = {
   size?: number
+  color?: string
 } & JSX.IntrinsicElements['span']
 
 export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
-  ({ size = 18, className, ...props }, ref) => (
-    <span className={clsx(s['marker'], className)} {...props} ref={ref}>
+  ({ size = 18, className, color, ...props }, ref) => (
+    <span
+      // @ts-ignore
+      style={{ '--color-primary': color }}
+      className={clsx(s['marker'], className)}
+      {...props}
+      ref={ref}
+    >
       <span
         className={s['marker-thumb']}
         /* @ts-ignore */
