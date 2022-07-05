@@ -1,6 +1,10 @@
 .heading-set {
   max-width: 400px;
 
+  &.centered {
+    text-align: center;
+  }
+
   .heading-set__overtitle {
     color: var(--color-pink-crayon);
     letter-spacing: 0.1em;

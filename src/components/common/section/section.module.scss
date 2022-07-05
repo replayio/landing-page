@@ -5,10 +5,12 @@
 .section-heading {
   .subtitle {
     max-width: 620px;
+    margin-top: 24px;
 
     &.centered {
       text-align: center;
-      margin: 24px auto 0;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }

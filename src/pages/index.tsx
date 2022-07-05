@@ -3,6 +3,7 @@ import { Footer } from '~/components/layout/footer'
 import { Header } from '~/components/layout/header'
 import { PageLayout } from '~/components/layout/page'
 import { AsyncCollab } from '~/components/sections/home/async-collab'
+import { FastAndSecure } from '~/components/sections/home/fast-and-secure'
 import { Hero } from '~/components/sections/home/hero'
 import { MainFeatures } from '~/components/sections/home/main-features'
 import { PowerfulDevTools } from '~/components/sections/home/powerful-dev-tools'
@@ -23,6 +24,7 @@ const HomePage = () => {
       <Testimonials />
       <AsyncCollab />
       <TrustedBy />
+      <FastAndSecure />
       <SoftwareTellsStory />
 
       <Footer />

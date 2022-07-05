@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { FC } from 'react'
 
 import s from './heading-set.module.scss'
@@ -6,16 +7,20 @@ type HeadingSetProps = {
   overtitle?: string | JSX.Element
   title?: string | JSX.Element
   description?: string | JSX.Element
+  centered?: boolean
 }
 
 export const HeadingSet: FC<HeadingSetProps> = ({
   overtitle,
   title,
-  description
+  description,
+  centered = false
 }) => (
-  <div className={s['heading-set']}>
-    <p className={s['heading-set__overtitle']}>{overtitle}</p>
-    <h3 className={s['heading-set__title']}>{title}</h3>
-    <p className={s['heading-set__description']}>{description}</p>
+  <div className={clsx(s['heading-set'], { [s['centered']]: centered })}>
+    {overtitle && <p className={s['heading-set__overtitle']}>{overtitle}</p>}
+    {title && <h3 className={s['heading-set__title']}>{title}</h3>}
+    {description && (
+      <p className={s['heading-set__description']}>{description}</p>
+    )}
   </div>
 )

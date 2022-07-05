@@ -1,13 +1,12 @@
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 
-import { Heading } from '~/components/common/heading'
 import { HeadingSet } from '~/components/common/heading-set'
 import {
   ProgressBar,
   UPDATE_INTERVAL_MS
 } from '~/components/common/progress-bar'
-import { Section } from '~/components/common/section'
+import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
 import s from './powerful-dev-tools.module.scss'
@@ -79,8 +78,11 @@ export const PowerfulDevTools: FC = () => {
   return (
     <Section className={s['section']}>
       <Container size="md">
-        <Heading centered>Powerful Developer Tools</Heading>
-
+        <SectionHeading
+          title="Developer Tools"
+          subtitle="Replay is the first Time Travel Debugger for modern web applications. This means you can inspect your application at any point in time and even add a print statement and see the new logs in the Console. Replay should feel both familiar and magical."
+          centered
+        />
         <AssetPlayer />
       </Container>
     </Section>
