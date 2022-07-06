@@ -90,7 +90,7 @@ export const ProgressBar: FC<ProgressProps> = ({
           color={primaryColor}
           style={{
             [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
-            position + '%',
+              position + '%',
             //@ts-ignore
             '--translate-y': '0.5',
             '--translate-x': '0.5'
@@ -109,10 +109,10 @@ type ProgressThumbProp = {
 } & JSX.IntrinsicElements['span']
 
 export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
-  ({ size = 18, className, color, ...props }, ref) => (
+  ({ size = 18, className, style, color, ...props }, ref) => (
     <span
       // @ts-ignore
-      style={{ '--color-primary': color }}
+      style={{ '--color-primary': color, ...style }}
       className={clsx(s['marker'], className)}
       {...props}
       ref={ref}

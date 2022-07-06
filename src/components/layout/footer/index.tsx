@@ -115,6 +115,7 @@ export const Footer: FC = () => {
             </div>
             <div className={s['timeline']}>
               <ProgressBar
+                markers={[{ position: 50 }]}
                 primaryColor="#FFF"
                 secondaryColor="#FFFFFF4D"
                 progress={50}

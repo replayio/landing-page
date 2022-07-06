@@ -1,7 +1,9 @@
+@import 'css/variables';
 @import 'css/helpers';
 
 .section {
   margin-top: 112px;
+  background: var(--gradient-primary);
 }
 
 .testimonials {
@@ -10,7 +12,7 @@
   align-items: center;
   background: var(--gradient-primary);
   width: 100%;
-  padding: 112px 0;
+  padding: 64px 0;
   border-radius: var(--border-radius-xl);
   color: var(--color-white);
 
@@ -29,10 +31,10 @@
     margin-top: 32px;
 
     .quote {
-      font-size: 56px;
+      font-size: 32px;
       font-family: var(--font-heading);
       letter-spacing: -0.04em;
-      line-height: 64px;
+      line-height: 38px;
       text-align: center;
       max-width: 840px;
 
@@ -46,7 +48,7 @@
 
   .identities {
     position: relative;
-    margin-top: 48px;
+    margin-top: 40px;
     width: 100%;
 
     .identity {
@@ -76,6 +78,27 @@
           border-radius: var(--border-radius-full);
         }
       }
+    }
+  }
+}
+
+@media (min-width: $screen-md) {
+  .section {
+    background: none;
+  }
+
+  .testimonials {
+    padding: 112px 0;
+
+    .quotes {
+      .quote {
+        font-size: 56px;
+        line-height: 64px;
+      }
+    }
+
+    .identities {
+      margin-top: 48px;
     }
   }
 }

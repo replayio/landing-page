@@ -16,14 +16,15 @@
 
 .card {
   width: 100%;
-  padding: 56px 44px;
+  padding: 24px;
   border: 2px solid #dcdcdc;
-  border-radius: var(--border-radius-3xl);
+  border-radius: var(--border-radius-2xl);
   background: var(--color-white);
 
   .card-heading {
     .title {
-      font-size: 40px;
+      font-size: 32px;
+      letter-spacing: -0.04em;
       line-height: 1.2;
       font-family: var(--font-heading);
     }
@@ -55,6 +56,17 @@
     .cards {
       grid-template-columns: repeat(2, 1fr);
       margin-top: 112px;
+    }
+  }
+
+  .card {
+    border-radius: var(--border-radius-3xl);
+    padding: 56px 44px;
+
+    .card-heading {
+      .title {
+        font-size: 40px;
+      }
     }
   }
 }

@@ -50,13 +50,8 @@ export const MainFeatures: FC = () => {
           <HeadingSet
             className={s['feature']}
             overtitle="Time Travel"
-            title={
-              <>
-                Debug your application as&nbsp;if it is running locally on your
-                computer.
-              </>
-            }
-            description="Inspect React components, view Network events, everything you need is at the tip of your fingers."
+            title="Record and share replays with your team."
+            description="Replays help your team debug the problem without reproducing it locally on their computer. You’ll be amazed at how much faster issues are resolved when they include a replay."
           />
 
           <div className={s['progress-bar']}>
@@ -66,8 +61,8 @@ export const MainFeatures: FC = () => {
           <HeadingSet
             className={s['feature']}
             overtitle="Async Collaboration"
-            title="Add replays to Bug Reports and Pull Requests and share them in Slack."
-            description="Collaboratively debug the hardest problems asynchronously."
+            title="Debug replays with developer tools."
+            description="Travel back in time and debug your application as it initially ran. You’ll love how easy it is to test your assumptions and see what actually went wrong."
           />
         </div>
       </Container>
