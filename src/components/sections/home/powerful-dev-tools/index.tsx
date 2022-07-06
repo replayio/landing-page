@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/future/image'
 import { FC, useEffect, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'

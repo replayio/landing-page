@@ -1,14 +1,45 @@
+@import 'css/variables';
+
 .section {
   margin-top: 64px;
 
   .main-features {
+    position: relative;
+    padding-left: 40px;
+    margin-left: 16px;
     max-width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(1, auto);
     justify-content: space-between;
+
+    .feature:last-child {
+      margin-top: 96px;
+    }
   }
 }
 
 .progress-bar {
-  height: 640px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+@media (min-width: $screen-md) {
+  .section {
+    .main-features {
+      padding-left: 0;
+      margin-left: 0;
+      grid-template-columns: repeat(3, auto);
+
+      .feature:last-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .progress-bar {
+    position: static;
+    height: 640px;
+  }
 }

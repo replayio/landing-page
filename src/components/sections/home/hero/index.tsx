@@ -13,7 +13,7 @@ export const Hero: FC = () => {
       <Container>
         <div className={s['hero']}>
           <div className={s['heading']}>
-            <Heading>
+            <Heading size="lg">
               <span className={s['heading-highlight']}>
                 Record, Share, and Debug
               </span>{' '}

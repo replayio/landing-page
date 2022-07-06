@@ -43,6 +43,7 @@ export const MainFeatures: FC = () => {
       <Container size="sm">
         <div className={s['main-features']}>
           <HeadingSet
+            className={s['feature']}
             overtitle="Time Travel"
             title={
               <>
@@ -58,6 +59,7 @@ export const MainFeatures: FC = () => {
           </div>
 
           <HeadingSet
+            className={s['feature']}
             overtitle="Async Collaboration"
             title="Add replays to Bug Reports and Pull Requests and share them in Slack."
             description="Collaboratively debug the hardest problems asynchronously."

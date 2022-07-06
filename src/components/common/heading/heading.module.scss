@@ -1,10 +1,31 @@
+@import 'css/variables';
+
 .heading {
   font-family: var(--font-heading);
-  font-size: 64px;
   letter-spacing: -0.04em;
   line-height: 1.14;
 
   &.centered {
     text-align: center;
+  }
+
+  &.sm {
+    font-size: 32px;
+  }
+
+  &.lg {
+    font-size: 32px;
+  }
+}
+
+@media (min-width: $screen-md) {
+  .heading {
+    &.sm {
+      font-size: 56px;
+    }
+
+    &.lg {
+      font-size: 64px;
+    }
   }
 }

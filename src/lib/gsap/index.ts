@@ -5,6 +5,8 @@ import { DrawSVGPlugin } from 'gsap/dist/DrawSVGPlugin'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { TextPlugin } from 'gsap/dist/TextPlugin'
 
+// ScrollTrigger.normalizeScroll(true)
+
 let GSDevTools
 
 if (process.env.NODE_ENV === 'development') {

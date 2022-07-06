@@ -8,15 +8,19 @@ type HeadingSetProps = {
   title?: string | JSX.Element
   description?: string | JSX.Element
   centered?: boolean
+  className?: string
 }
 
 export const HeadingSet: FC<HeadingSetProps> = ({
   overtitle,
   title,
   description,
-  centered = false
+  centered = false,
+  className
 }) => (
-  <div className={clsx(s['heading-set'], { [s['centered']]: centered })}>
+  <div
+    className={clsx(s['heading-set'], { [s['centered']]: centered }, className)}
+  >
     {overtitle && <p className={s['heading-set__overtitle']}>{overtitle}</p>}
     {title && <h3 className={s['heading-set__title']}>{title}</h3>}
     {description && (

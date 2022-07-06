@@ -1,9 +1,14 @@
+@import 'css/variables';
+
 .button:not(.unstyled) {
   color: var(--color-white);
   font-weight: 500;
   border-radius: var(--border-radius-md);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 
   /* Sizes */
 
@@ -28,5 +33,11 @@
   &.tertiary {
     color: var(--color-gray-darker);
     background: var(--color-gray-lightest);
+  }
+}
+
+@media (min-width: $screen-md) {
+  .button:not(.unstyled) {
+    width: auto;
   }
 }

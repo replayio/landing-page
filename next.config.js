@@ -12,7 +12,7 @@ const config = {
     formats: ['image/avif', 'image/webp'],
     domains: ['dummyimage.com']
   },
-  experimental: { images: { layoutRaw: true } }
+  experimental: { images: { allowFutureImage: true } }
 }
 
 module.exports = withPlugins(

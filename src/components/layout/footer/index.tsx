@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/future/image'
 import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
@@ -157,6 +157,7 @@ export const Footer: FC = () => {
                 <li key={key} title={key}>
                   <Link href={link.href}>
                     <Image
+                      // @ts-ignore
                       layout="raw"
                       width={32}
                       height={32}

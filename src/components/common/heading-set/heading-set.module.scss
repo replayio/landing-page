@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 .heading-set {
   max-width: 400px;
 
@@ -15,12 +17,20 @@
 
   .heading-set__title {
     font-family: var(--font-family-heading);
-    font-size: 32px;
+    font-size: 24px;
     margin-top: 8px;
   }
 
   .heading-set__description {
     color: var(--colors-gray-darker);
     margin-top: 16px;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .heading-set {
+    .heading-set__title {
+      font-size: 32px;
+    }
   }
 }

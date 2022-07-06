@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import { FC } from 'react'
 
 import { Section } from '~/components/common/section'
@@ -58,6 +58,7 @@ export const Testimonials: FC = () => {
             {testimonials.map(({ picture, name }) => (
               <button key={name}>
                 <div className={s['picture']}>
+                  {/* @ts-ignore */}
                   <Image src={picture} width={64} height={64} layout="raw" />
                 </div>
               </button>
@@ -89,6 +90,7 @@ export const Testimonials: FC = () => {
                       src={testimonials[activeIdx].company.logo}
                       width={16}
                       height={16}
+                      // @ts-ignore
                       layout="raw"
                     />
                   </span>{' '}
@@ -108,6 +110,7 @@ export const Testimonials: FC = () => {
                         src={company.logo}
                         width={16}
                         height={16}
+                        // @ts-ignore
                         layout="raw"
                       />
                     </span>{' '}
