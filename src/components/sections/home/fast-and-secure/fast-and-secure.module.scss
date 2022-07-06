@@ -57,6 +57,8 @@
 }
 
 .slider {
+  max-width: 100%;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   margin-top: 112px;

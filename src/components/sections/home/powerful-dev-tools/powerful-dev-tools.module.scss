@@ -5,15 +5,18 @@
     margin-top: 112px;
 
     .progress-chunks {
+      max-width: 100%;
+      overflow: auto;
       display: grid;
       grid-auto-columns: 1fr;
       grid-auto-flow: column;
       gap: 0 40px;
+      padding: 26px 12px;
     }
 
     .progress {
       width: 100%;
-      margin-top: 32px;
+      margin-top: 6px;
       border-radius: var(--border-radius-full);
     }
 

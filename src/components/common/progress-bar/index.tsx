@@ -10,6 +10,7 @@ type ProgressProps = {
   thumbless?: boolean
   primaryColor?: string
   secondaryColor?: string
+  markers?: { position: number }[]
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -25,12 +26,11 @@ export const ProgressBar: FC<ProgressProps> = ({
   secondaryColor,
   progress,
   direction = 'horizontal',
-  animated = true,
-  thumbless = false
+  markers,
+  animated = true
 }) => {
   const barRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
-  const markerRef = useRef<HTMLSpanElement>(null)
   const timeline = useRef<GSAPTimeline | GSAP>(
     animated ? gsap.timeline() : gsap
   )
@@ -38,22 +38,11 @@ export const ProgressBar: FC<ProgressProps> = ({
 
   const update = useCallback(
     (progress) => {
-      const normalized = progress / 100
       const duration = UPDATE_INTERVAL_SEC
       const gsapFunc =
         progress < prevProgress.current || !animated ? 'set' : 'to'
 
       if (direction === 'horizontal') {
-        if (markerRef.current) {
-          timeline.current[gsapFunc](markerRef.current, {
-            '--left': `${progress}%`,
-            '--translate-y': '0.5',
-            '--translate-x': `${normalized}`,
-            ease: 'linear',
-            duration
-          })
-        }
-
         if (progressRef.current) {
           timeline.current[gsapFunc](progressRef.current, {
             '--left': `${progress}%`,
@@ -62,16 +51,6 @@ export const ProgressBar: FC<ProgressProps> = ({
           })
         }
       } else {
-        if (markerRef.current) {
-          timeline.current[gsapFunc](markerRef.current, {
-            '--top': `${progress}%`,
-            '--translate-x': '0.5',
-            '--translate-y': `${normalized}`,
-            ease: 'linear',
-            duration
-          })
-        }
-
         if (progressRef.current) {
           timeline.current[gsapFunc](progressRef.current, {
             '--top': `${progress}%`,
@@ -106,13 +85,20 @@ export const ProgressBar: FC<ProgressProps> = ({
       <div className={s['progress']} ref={progressRef}>
         <div className={s['progress-gradient']} />
       </div>
-      {!thumbless && (
+      {markers?.map(({ position }) => (
         <ProgressThumb
           color={primaryColor}
+          style={{
+            [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
+            position + '%',
+            //@ts-ignore
+            '--translate-y': '0.5',
+            '--translate-x': '0.5'
+          }}
           className={s['marker']}
-          ref={markerRef}
+          key={position}
         />
-      )}
+      ))}
     </div>
   )
 }

@@ -33,7 +33,12 @@ const ScrollProgressBar = () => {
   }, [])
 
   return (
-    <ProgressBar progress={progress} direction="vertical" animated={false} />
+    <ProgressBar
+      markers={[{ position: 20 }, { position: 80 }]}
+      progress={progress}
+      direction="vertical"
+      animated={false}
+    />
   )
 }
 

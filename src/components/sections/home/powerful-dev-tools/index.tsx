@@ -16,11 +16,11 @@ type AssetChunkProps = {
   description: string
 } & JSX.IntrinsicElements['div']
 
-const AssetChunk: FC<AssetChunkProps> = ({ title, description }) => {
+const AssetChunk: FC<AssetChunkProps> = ({ title }) => {
   return (
     <div className={s['asset-chunk']}>
       <div className={s['asset-chunk__header']}>
-        <HeadingSet overtitle={title} description={description} />
+        <HeadingSet centered overtitle={title} />
       </div>
     </div>
   )
