@@ -53,12 +53,12 @@ export const FastAndSecure: FC = () => {
           ]}
         />
         <div className={s['slider']}>
-          {cards.map((card) => (
+          {cards.map((card, index) => (
             <Card
               icon={card.icon}
               title={card.title}
               badge={card.badge}
-              key={card.title}
+              key={index}
             />
           ))}
         </div>
