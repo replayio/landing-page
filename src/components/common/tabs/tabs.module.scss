@@ -1,27 +1,33 @@
-.tabs {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+.wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
 
-  .tab {
-    width: 100%;
-    padding: 16px;
-    border-bottom: 2px solid transparent;
+  .tabs {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
 
-    &.active {
-      border-color: var(--color-pink-crayon);
+    .tab {
+      width: 100%;
+      padding: 16px;
+      border-bottom: 2px solid transparent;
+
+      &.active {
+        border-color: var(--color-pink-crayon);
+
+        .title {
+          color: var(--color-pink-crayon);
+        }
+      }
 
       .title {
-        color: var(--color-pink-crayon);
+        color: var(--color-gray-lighter);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 14px;
       }
-    }
-
-    .title {
-      color: var(--color-gray-lighter);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-size: 14px;
     }
   }
 }

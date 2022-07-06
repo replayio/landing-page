@@ -456,8 +456,7 @@ export const AutomatedTests = () => {
 export const PullRequests = () => {
   return (
     <svg
-      width="532"
-      height="208"
+      width="100%"
       viewBox="0 0 532 208"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

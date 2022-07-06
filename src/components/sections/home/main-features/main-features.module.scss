@@ -2,6 +2,7 @@
   margin-top: 64px;
 
   .main-features {
+    max-width: 100%;
     display: grid;
     grid-template-columns: repeat(3, auto);
     justify-content: space-between;

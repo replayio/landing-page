@@ -9,6 +9,7 @@
   --font-body: 'Inter', var(--font-system), sans-serif;
   --font-heading: 'Roobert', var(--font-system);
   --inspect-color: #f00;
+  --header-height: 56px;
 
   /* Colors */
   --color-transparent: transparent;
@@ -36,6 +37,15 @@
   --border-radius-2xl: 32px;
   --border-radius-3xl: 56px;
   --border-radius-full: 9999px;
+
+  /* Z Index */
+  --z-index-min-1: -1;
+  --z-index-0: 0;
+  --z-index-10: 10;
+  --z-index-20: 20;
+  --z-index-30: 30;
+  --z-index-40: 40;
+  --z-index-50: 50;
 }
 
 html {

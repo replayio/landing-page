@@ -1,32 +1,32 @@
-.button {
+.button:not(.unstyled) {
   color: var(--color-white);
   font-weight: 500;
   border-radius: var(--border-radius-md);
   display: inline-flex;
   align-items: center;
-}
 
-/* Sizes */
+  /* Sizes */
 
-.md {
-  padding: 16px 32px;
-}
+  &.md {
+    padding: 16px 32px;
+  }
 
-.sm {
-  padding: 12px 16px;
-}
+  &.sm {
+    padding: 12px 16px;
+  }
 
-/* Variants */
+  /* Variants */
 
-.primary {
-  background-color: var(--color-pink-crayon);
-}
+  &.primary {
+    background-color: var(--color-pink-crayon);
+  }
 
-.secondary {
-  background: var(--color-gray-darker);
-}
+  &.secondary {
+    background: var(--color-gray-darker);
+  }
 
-.tertiary {
-  color: var(--color-gray-darker);
-  background: var(--color-gray-lightest);
+  &.tertiary {
+    color: var(--color-gray-darker);
+    background: var(--color-gray-lightest);
+  }
 }

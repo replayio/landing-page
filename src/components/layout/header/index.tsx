@@ -28,11 +28,56 @@ const link = [
   }
 ]
 
+const Burger = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3 18H21"
+      stroke="#464646"
+      strokeWidth="2"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M3 12H21"
+      stroke="#464646"
+      strokeWidth="2"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M3 6H21"
+      stroke="#464646"
+      strokeWidth="2"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+  </svg>
+)
+
 export const Header = () => {
   return (
     <header className={s['header']}>
-      <Container>
-        <div className={s['inner']}>
+      <Container size="md">
+        <div className={s['inner-mobile']}>
+          <div className={s['logo']}>
+            <Link href="/">
+              <Logo />
+            </Link>
+          </div>
+          <div className={s['menu']}>
+            <Button unstyled>
+              <Burger />
+            </Button>
+          </div>
+        </div>
+
+        <div className={s['inner-desktop']}>
           <div className={s['logo']}>
             <Link href="/">
               <Logo />
