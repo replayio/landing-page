@@ -64,6 +64,7 @@ const AssetPlayer = () => {
       </div>
       <div className={s['asset']}>
         <Image
+          // @ts-ignore
           layout="raw"
           src="https://dummyimage.com/1286x712/000/fff"
           width={1286}
