@@ -3468,10 +3468,17 @@ react-dom@^18.0.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-is@^16.13.1:
+react-is@^16.13.1, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-keyed-flatten-children@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-keyed-flatten-children/-/react-keyed-flatten-children-1.3.0.tgz#38d171582c6358909f430648a7a7d094aebae42a"
+  integrity sha512-qB7A6n+NHU0x88qTZGAJw6dsqwI941jcRPBB640c/CyWqjPQQ+YUmXOuzPziuHb7iqplM3xksWAbGYwkQT0tXA==
+  dependencies:
+    react-is "^16.8.6"
 
 react-merge-refs@1.1.0:
   version "1.1.0"
@@ -4322,6 +4329,13 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-indexed-children@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/use-indexed-children/-/use-indexed-children-0.2.0.tgz#c1a39be8792df0fea7777b1e95663b776894391e"
+  integrity sha512-CMj/X18+NEOFOfbcgWKMuDTbCSUA501UvfwTuzYEAje5bgTCtNwFi5CEUqalUSjdNW0Mq1QLHpm7+Vcnmvgr9w==
+  dependencies:
+    react-keyed-flatten-children "^1.3.0"
 
 use-sync-external-store@1.1.0:
   version "1.1.0"

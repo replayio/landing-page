@@ -67,7 +67,7 @@ export const Header = () => {
         <div className={s['inner-mobile']}>
           <div className={s['logo']}>
             <Link href="/">
-              <Logo />
+              <Logo isMobile />
             </Link>
           </div>
           <div className={s['menu']}>
@@ -87,7 +87,7 @@ export const Header = () => {
           <div className={s['nav']}>
             <ul>
               {link.map(({ href, label }) => (
-                <li key={href}>
+                <li key={label}>
                   <Link href={href}>
                     <div className={s['nav-link']}>{label}</div>
                   </Link>
