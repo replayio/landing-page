@@ -81,7 +81,14 @@ export const useScrollTimeline = (
         opacity: computedStyles.opacity
       }
 
-      scrollTimelineContext.set(id, currentFrames)
+      scrollTimelineContext.set(
+        id,
+        /** Remove empty values since indexes do not need to be in consecutive order. */
+        Array.from(
+          { length: currentFrames.length },
+          (_, index) => currentFrames[index]
+        ).filter(Boolean)
+      )
     }
 
     /** Now that we've collected measurements we can remove the components from the DOM. */
