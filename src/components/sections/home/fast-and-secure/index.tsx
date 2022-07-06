@@ -62,6 +62,15 @@ export const FastAndSecure: FC = () => {
             />
           ))}
         </div>
+        <div className={s['content']}>
+          <div className={s['line-container']}>
+            <span className={s['line']} />
+          </div>
+          <p className={s['description']}>
+            We believe software should be replayable regardless of where and how
+            it is run.
+          </p>
+        </div>
       </Container>
     </Section>
   )

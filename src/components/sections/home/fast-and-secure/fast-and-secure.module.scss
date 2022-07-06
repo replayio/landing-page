@@ -6,6 +6,28 @@
   .tabs {
     margin-top: 112px;
   }
+
+  .content {
+    .line-container {
+      display: flex;
+      justify-content: center;
+
+      .line {
+        width: 3px;
+        height: 90px;
+        background: linear-gradient(
+          to bottom,
+          var(--color-pink-crayon),
+          transparent
+        );
+      }
+    }
+
+    .description {
+      text-align: center;
+      margin-top: 24px;
+    }
+  }
 }
 
 .card {

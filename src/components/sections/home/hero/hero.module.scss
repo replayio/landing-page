@@ -1,10 +1,16 @@
 .hero {
-  max-width: 730px;
   padding-top: 44px;
   min-height: 100vh;
 
-  .heading-highlight {
-    color: var(--color-pink-crayon);
-    text-decoration: underline;
+  .heading {
+    max-width: 810px;
+
+    .heading-highlight {
+      color: var(--color-pink-crayon);
+    }
+
+    .cta {
+      margin-top: 56px;
+    }
   }
 }
