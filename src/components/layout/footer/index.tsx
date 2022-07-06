@@ -76,7 +76,7 @@ const social = {
     href: '/'
   },
   linkedIn: {
-    icon: '/images/logos/linkedIn.svg',
+    icon: '/images/logos/linkedin.svg',
     href: '/'
   }
 }
