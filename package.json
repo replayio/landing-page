@@ -17,10 +17,11 @@
   },
   "dependencies": {
     "clsx": "1.1.1",
+    "embla-carousel-react": "^7.0.0-rc03",
     "global": "^4.4.0",
+    "gsap": "./src/lib/gsap/gsap-bonus.tgz",
     "hls.js": "1.1.5",
     "mousetrap": "1.6.5",
-    "gsap": "./src/lib/gsap/gsap-bonus.tgz",
     "next": "^12.1.3",
     "react": "^18.0.0",
     "react-device-detect": "2.1.2",

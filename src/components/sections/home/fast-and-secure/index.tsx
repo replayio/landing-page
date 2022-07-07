@@ -1,6 +1,7 @@
 import Image, { ImageProps } from 'next/image'
 import { FC } from 'react'
 
+import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Tabs } from '~/components/common/tabs'
 import { Container } from '~/components/layout/container'
@@ -52,16 +53,12 @@ export const FastAndSecure: FC = () => {
             { title: 'Test Runners' }
           ]}
         />
-        <div className={s['slider']}>
-          {cards.map((card, index) => (
-            <Card
-              icon={card.icon}
-              title={card.title}
-              badge={card.badge}
-              key={index}
-            />
+        <Carousel className={s['slider']}>
+          {cards.map(({ icon, title, badge }) => (
+            <Card key={title} icon={icon} title={title} badge={badge} />
           ))}
-        </div>
+        </Carousel>
+
         <div className={s['content']}>
           <div className={s['line-container']}>
             <span className={s['line']} />
