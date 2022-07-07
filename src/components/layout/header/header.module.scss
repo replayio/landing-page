@@ -7,10 +7,11 @@
   width: 100%;
   background: #fff9;
   z-index: var(--z-index-50);
-  backdrop-filter: saturate(100%) blur(12px);
-  perspective: 1000;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  // position: sticky;
+  // backdrop-filter: saturate(100%) blur(12px);
+  // perspective: 1000;
+  // transform: translateZ(0);
+  // backface-visibility: hidden;
   height: var(--header-height);
   top: 0;
 

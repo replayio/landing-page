@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-import { useScrollTimeline } from '../primitives/scroll-timeline'
-
 export const IsoLogo = () => {
   return (
     <svg viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,17 +19,9 @@ export const IsoLogo = () => {
   )
 }
 
-export const Logo = ({ isMobile }: { isMobile?: boolean }) => {
-  const ref = React.useRef(null)
-  const shouldRender = isMobile ? true : useScrollTimeline('logo', ref)
-
-  return shouldRender ? (
-    <svg
-      ref={ref}
-      viewBox="0 0 94 28"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+export const Logo = () => {
+  return (
+    <svg viewBox="0 0 94 28" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M11.6392 5.47932L2.05138 0.175346C1.84346 0.0604304 1.60765 -4.33109e-05 1.36763 2.32728e-08C1.1276 4.33574e-05 0.89181 0.0606018 0.683941 0.175593C0.476072 0.290583 0.303445 0.455958 0.183393 0.655106C0.0633405 0.854255 9.05063e-05 1.08016 0 1.31015V11.918C8.07129e-05 12.148 0.0633241 12.3739 0.183372 12.573C0.303421 12.7722 0.476047 12.9376 0.683917 13.0526C0.891788 13.1676 1.12758 13.2281 1.36761 13.2282C1.60764 13.2282 1.84346 13.1678 2.05138 13.0528L11.6392 7.74892C11.8471 7.63392 12.0198 7.46851 12.1398 7.26931C12.2599 7.07011 12.3231 6.84414 12.3231 6.61412C12.3231 6.3841 12.2599 6.15813 12.1398 5.95893C12.0198 5.75973 11.8471 5.59432 11.6392 5.47932Z"
         fill="#F41C52"
@@ -69,5 +59,5 @@ export const Logo = ({ isMobile }: { isMobile?: boolean }) => {
         fill="#F41C52"
       />
     </svg>
-  ) : null
+  )
 }

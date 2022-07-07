@@ -67,7 +67,7 @@ export const Header = () => {
         <div className={s['inner-mobile']}>
           <div className={s['logo']}>
             <Link href="/">
-              <Logo isMobile />
+              <Logo />
             </Link>
           </div>
           <div className={s['menu']}>

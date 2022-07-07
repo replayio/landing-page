@@ -1,8 +1,9 @@
 import { gsap } from 'lib/gsap'
-import * as React from 'react'
-import { FC, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { Logo } from '~/components/primitives/logo'
+import { useScrollTimeline } from '~/components/primitives/scroll-timeline'
+import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
@@ -181,11 +182,35 @@ function TabNav({
   )
 }
 
-function ViewToggle() {
-  const isSelected = true
-
+function ViewToggleButton({
+  label,
+  isActive
+}: {
+  label: string
+  isActive: boolean
+}) {
   return (
+    <button
+      style={{
+        fontSize: 14,
+        padding: '4px 16px',
+        borderRadius: 6,
+        color: isActive ? '#FFFFFF' : '#464646',
+        backgroundColor: isActive ? '#464646' : 'transparent'
+      }}
+    >
+      {label}
+    </button>
+  )
+}
+
+function ViewToggle({ activeView }: { activeView: 'viewer' | 'devtools' }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const shouldRender = useScrollTimeline('view-toggle', ref)
+
+  return shouldRender ? (
     <div
+      ref={ref}
       style={{
         display: 'inline-grid',
         gridAutoFlow: 'column',
@@ -195,30 +220,80 @@ function ViewToggle() {
         borderRadius: 8
       }}
     >
-      <button style={{ fontSize: 14, padding: '4px 16px', borderRadius: 6 }}>
-        Viewer
-      </button>
-      <button
-        style={{
-          fontSize: 14,
-          padding: '4px 16px',
-          borderRadius: 6,
-          color: isSelected ? '#FFFFFF' : 'transparent',
-          backgroundColor: isSelected ? '#464646' : 'transparent'
-        }}
-      >
-        DevTools
-      </button>
+      <ViewToggleButton label="Viewer" isActive={activeView === 'viewer'} />
+      <ViewToggleButton label="DevTools" isActive={activeView === 'devtools'} />
+    </div>
+  ) : null
+}
+
+function Viewer() {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'minmax(200px, 400px) 1fr',
+        padding: 32,
+        gap: 24,
+        backgroundColor: '#F5F5F5'
+      }}
+    >
+      Viewer
     </div>
   )
 }
 
-export const OverboardStory: FC = () => {
+function DevTools() {
   const [activePanel, setActivePanel] = useState<keyof typeof tabs>('React')
   const ActiveTabPanel = tabs[activePanel]
-  const ref = React.useRef<HTMLDivElement>(null)
 
-  React.useEffect(() => {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'minmax(200px, 400px) 1fr',
+        padding: 32,
+        gap: 24,
+        backgroundColor: '#F5F5F5'
+      }}
+    >
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: 'auto 1fr',
+          width: '100%',
+          height: '100%',
+          border: '1px solid #DCDCDC',
+          borderRadius: 8,
+          overflow: 'hidden'
+        }}
+      >
+        <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
+        <ActiveTabPanel />
+      </div>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: 'auto 1fr',
+          width: '100%',
+          height: '100%',
+          border: '1px solid #DCDCDC',
+          borderRadius: 8,
+          overflow: 'hidden'
+        }}
+      />
+    </div>
+  )
+}
+
+export function OverboardStory({
+  activeView
+}: {
+  activeView: 'viewer' | 'devtools'
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useIsomorphicLayoutEffect(() => {
     if (ref.current) {
       gsap
         .timeline({
@@ -264,7 +339,9 @@ export const OverboardStory: FC = () => {
             borderBottom: '1px solid #DCDCDC'
           }}
         >
-          <Logo />
+          <div style={{ width: 96 }}>
+            <Logo />
+          </div>
           <div
             style={{
               display: 'grid',
@@ -279,44 +356,10 @@ export const OverboardStory: FC = () => {
             <img src={avatarTwo.src} style={{ borderRadius: '100%' }} />
             <img src={avatarThree.src} style={{ borderRadius: '100%' }} />
           </div>
-          <ViewToggle />
+          <ViewToggle activeView={activeView} />
         </div>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(200px, 400px) 1fr',
-            padding: 32,
-            gap: 24,
-            backgroundColor: '#F5F5F5'
-          }}
-        >
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateRows: 'auto 1fr',
-              width: '100%',
-              height: '100%',
-              border: '1px solid #DCDCDC',
-              borderRadius: 8,
-              overflow: 'hidden'
-            }}
-          >
-            <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
-            <ActiveTabPanel />
-          </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateRows: 'auto 1fr',
-              width: '100%',
-              height: '100%',
-              border: '1px solid #DCDCDC',
-              borderRadius: 8,
-              overflow: 'hidden'
-            }}
-          />
-        </div>
+        {activeView === 'viewer' ? <Viewer /> : <DevTools />}
       </div>
     </div>
   )
