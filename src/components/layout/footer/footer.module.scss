@@ -1,11 +1,11 @@
+@import 'css/variables';
 @import 'css/helpers';
 
 .section {
   overflow: hidden;
   margin-top: 40px;
-  padding-top: 336px;
-  padding-bottom: 64px;
   position: relative;
+  background: var(--gradient-primary);
 
   .bg {
     z-index: -1;
@@ -18,32 +18,42 @@
 
 .footer {
   color: var(--color-white);
-  background: var(--gradient-primary);
   border-radius: var(--border-radius-2xl);
-  padding: 40px;
+  padding: 40px 0;
 
   .top {
     .head {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: space-between;
 
       .logo {
         display: flex;
         align-items: center;
-        margin-bottom: 24px;
-        @include space-x(32px);
+        @include space-x(16px);
+
+        .iso {
+          display: inline-block;
+          width: 32px;
+        }
+      }
+
+      .cta {
+        margin-top: 40px;
+        width: 100%;
       }
     }
 
     .timeline {
-      margin-top: 32px;
+      margin-top: 48px;
     }
   }
 
   .middle {
-    margin-top: 80px;
+    margin-top: 48px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 
     .get-in-touch {
@@ -65,9 +75,9 @@
       flex: 1;
       display: grid;
       justify-content: end;
-      grid-auto-columns: minmax(0, 160px);
-      grid-auto-flow: column;
-      gap: 0 40px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px 20px;
+      margin-top: 56px;
 
       .nav-group {
         width: 100%;
@@ -102,6 +112,76 @@
       display: flex;
       align-items: center;
       @include space-x(16px);
+    }
+  }
+}
+
+@media (min-width: $screen-md) {
+  .footer {
+    background: var(--gradient-primary);
+    padding: 40px;
+
+    .top {
+      .head {
+        flex-direction: row;
+        @include space-x(32px);
+
+        .logo {
+          @include space-x(24px);
+
+          .iso {
+            width: 48px;
+          }
+        }
+
+        .cta {
+          width: auto;
+          min-width: 94px;
+          margin-top: 0;
+
+          & > * {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .section {
+    background: none;
+    padding-top: 336px;
+    padding-bottom: 64px;
+  }
+
+  .footer {
+    background: var(--gradient-primary);
+    padding: 40px;
+
+    .top {
+      .head {
+        .logo {
+          @include space-x(32px);
+
+          .iso {
+            width: 52px;
+          }
+        }
+      }
+    }
+
+    .middle {
+      margin-top: 80px;
+      flex-direction: row;
+
+      .nav {
+        margin-top: 0;
+        grid-template-columns: none;
+        grid-auto-columns: minmax(0, 160px);
+        grid-auto-flow: column;
+        gap: 0 40px;
+      }
     }
   }
 }

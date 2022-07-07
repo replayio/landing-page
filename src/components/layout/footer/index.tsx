@@ -3,6 +3,7 @@ import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressBar } from '~/components/common/progress-bar'
+import { Button } from '~/components/primitives/button'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
@@ -92,25 +93,26 @@ export const Footer: FC = () => {
           <div className={s['top']}>
             <div className={s['head']}>
               <div className={s['logo']}>
-                <IsoLogo />
-                <Heading>Start Replaying now</Heading>
+                <span className={s['iso']}>
+                  <IsoLogo />
+                </span>
+                <Heading size="lg">Start Replaying now</Heading>
               </div>
-              <div>
-                <Link href="/">
+              <div className={s['cta']}>
+                <Button size="sm" rounded variant="tertiary">
                   <svg
-                    width="94"
-                    height="49"
-                    viewBox="0 0 94 49"
+                    width="30"
+                    height="31"
+                    viewBox="0 0 30 31"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <rect y="0.5" width="94" height="48" rx="24" fill="white" />
                     <path
-                      d="M56.0214 23.6453C56.6595 24.0258 56.6595 24.9742 56.0214 25.3547L45.9406 31.3655C45.3009 31.7469 44.5 31.2718 44.5 30.5107L44.5 18.4893C44.5 17.7282 45.3009 17.2531 45.9406 17.6345L56.0214 23.6453Z"
+                      d="M21.0214 14.6453C21.6595 15.0258 21.6595 15.9742 21.0214 16.3547L10.9406 22.3655C10.3009 22.7469 9.5 22.2718 9.5 21.5107L9.5 9.48927C9.5 8.72824 10.3009 8.25307 10.9406 8.63452L21.0214 14.6453Z"
                       fill="#F41C52"
                     />
                   </svg>
-                </Link>
+                </Button>
               </div>
             </div>
             <div className={s['timeline']}>

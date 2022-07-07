@@ -10,6 +10,10 @@
   text-align: center;
   width: 100%;
 
+  &.rounded {
+    border-radius: var(--border-radius-full);
+  }
+
   /* Sizes */
 
   &.md {
@@ -33,6 +37,11 @@
   &.tertiary {
     color: var(--color-gray-darker);
     background: var(--color-gray-lightest);
+  }
+
+  &.tertiary-inverted {
+    color: var(--color-gray-darker);
+    background: var(--color-white);
   }
 }
 

@@ -1,8 +1,10 @@
+@import 'css/variables';
+
 .section {
   margin-top: 112px;
 
   .asset-player {
-    margin-top: 112px;
+    margin-top: 36px;
 
     .progress-chunks {
       max-width: 100%;
@@ -24,6 +26,14 @@
       margin-top: 72px;
       overflow: hidden;
       border-radius: var(--border-radius-xl);
+    }
+  }
+}
+
+@media (min-width: $screen-md) {
+  .section {
+    .asset-player {
+      margin-top: 80px;
     }
   }
 }

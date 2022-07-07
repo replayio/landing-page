@@ -1,8 +1,10 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 
+import { PlayIcon } from '~/components/common/play-icon'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { Button } from '~/components/primitives/button'
 
 import s from './async-collab.module.scss'
 import { AutomatedTests, BugReports, PullRequests } from './illustrations'
@@ -34,6 +36,14 @@ export const AsyncCollab: FC = () => {
           title="Async Collaboration"
           subtitle="Replay lets you collaborate with your team in new ways. Because replays are as easy to record as a video and as powerful to inspect as running application, you can easily file the perfect bug report, answer a new team member’s question, give feedback on a new feature, and even debug a failing test. The possibilities are endless."
         />
+        <div className={s['cta']}>
+          <Button variant="tertiary-inverted">
+            Learn more{' '}
+            <span style={{ marginLeft: 8 }}>
+              <PlayIcon />
+            </span>
+          </Button>
+        </div>
         <div className={s['cards']}>
           <Card
             contentSpacing="lg"

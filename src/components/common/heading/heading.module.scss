@@ -21,6 +21,18 @@
 @media (min-width: $screen-md) {
   .heading {
     &.sm {
+      font-size: 48px;
+    }
+
+    &.lg {
+      font-size: 56px;
+    }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .heading {
+    &.sm {
       font-size: 56px;
     }
 
