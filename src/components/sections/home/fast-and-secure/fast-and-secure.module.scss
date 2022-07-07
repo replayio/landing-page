@@ -1,15 +1,16 @@
+@import 'css/variables';
 @import 'css/helpers';
 
 .section {
   margin-top: 200px;
 
   .tabs {
-    margin-top: 112px;
+    margin-top: 48px;
   }
 
   .content {
     .line-container {
-      display: flex;
+      display: none;
       justify-content: center;
 
       .line {
@@ -25,7 +26,7 @@
 
     .description {
       text-align: center;
-      margin-top: 24px;
+      margin-top: 48px;
     }
   }
 }
@@ -61,7 +62,29 @@
   overflow: hidden;
   display: flex;
   justify-content: space-between;
-  margin-top: 112px;
+  margin-top: 64px;
 
   @include space-x(24px);
+}
+
+@media (min-width: $screen-md) {
+  .section {
+    .tabs {
+      margin-top: 112px;
+    }
+
+    .content {
+      .line-container {
+        display: flex;
+      }
+
+      .description {
+        margin-top: 24px;
+      }
+    }
+  }
+
+  .slider {
+    margin-top: 112px;
+  }
 }

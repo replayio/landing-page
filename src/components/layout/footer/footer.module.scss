@@ -98,6 +98,7 @@
 
   .bottom {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-top: 40px;
     padding-top: 40px;
@@ -109,6 +110,7 @@
     }
 
     .social {
+      margin-top: 24px;
       display: flex;
       align-items: center;
       @include space-x(16px);
@@ -143,6 +145,14 @@
             width: 100%;
           }
         }
+      }
+    }
+
+    .bottom {
+      flex-direction: row;
+
+      .social {
+        margin-top: 0;
       }
     }
   }
