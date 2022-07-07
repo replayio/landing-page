@@ -22,8 +22,8 @@ const HomePage = () => {
       <Hero />
 
       <ScrollTimeline>
-        <OverboardStory activeView="viewer" />
-        <OverboardStory activeView="devtools" />
+        <OverboardStory initialView="viewer" />
+        <OverboardStory initialView="devtools" />
       </ScrollTimeline>
 
       <MainFeatures />

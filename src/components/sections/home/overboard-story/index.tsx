@@ -2,7 +2,6 @@ import { gsap } from 'lib/gsap'
 import { useRef, useState } from 'react'
 
 import { Logo } from '~/components/primitives/logo'
-import { useScrollTimeline } from '~/components/primitives/scroll-timeline'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
@@ -182,48 +181,121 @@ function TabNav({
   )
 }
 
-function ViewToggleButton({
-  label,
-  isActive
+const views = ['viewer', 'devtools'] as const
+
+function ViewToggle({
+  activeView,
+  setActiveView
 }: {
-  label: string
-  isActive: boolean
+  activeView: 'viewer' | 'devtools'
+  setActiveView: (view: 'viewer' | 'devtools') => void
 }) {
-  return (
-    <button
-      style={{
-        fontSize: 14,
-        padding: '4px 16px',
-        borderRadius: 6,
-        color: isActive ? '#FFFFFF' : '#464646',
-        backgroundColor: isActive ? '#464646' : 'transparent'
-      }}
-    >
-      {label}
-    </button>
-  )
-}
-
-function ViewToggle({ activeView }: { activeView: 'viewer' | 'devtools' }) {
+  const activeViewIndex = views.indexOf(activeView)
   const ref = useRef<HTMLDivElement>(null)
-  const shouldRender = useScrollTimeline('view-toggle', ref)
 
-  return shouldRender ? (
+  useIsomorphicLayoutEffect(() => {
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ref.current?.closest('section'),
+        start: 'top top',
+        end: '+=400vh',
+        scrub: true,
+        pin: true
+      }
+    })
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: ref.current?.closest('section'),
+          start: 'top top',
+          end: '+=400vh',
+          scrub: true
+        }
+      })
+      .fromTo(
+        ref.current,
+        { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
+        { clipPath: 'inset(4px 4px 4px 50% round 4px)' }
+      )
+  }, [])
+
+  return (
     <div
-      ref={ref}
       style={{
+        position: 'relative',
         display: 'inline-grid',
-        gridAutoFlow: 'column',
-        gridAutoColumns: '1fr',
+        gridTemplateColumns: 'repeat(2, 1fr)',
         backgroundColor: '#F5F5F5',
+        color: '#464646',
         padding: 4,
-        borderRadius: 8
+        borderRadius: 8,
+        fontSize: 14,
+        textAlign: 'center'
       }}
     >
-      <ViewToggleButton label="Viewer" isActive={activeView === 'viewer'} />
-      <ViewToggleButton label="DevTools" isActive={activeView === 'devtools'} />
+      <div
+        ref={ref}
+        aria-hidden={true}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'inline-grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          padding: 4,
+          borderRadius: 8,
+          clipPath:
+            activeViewIndex === 0
+              ? 'inset(4px 50% 4px 4px round 4px)'
+              : 'inset(4px 4px 4px 50% round 4px)',
+          backgroundColor: '#464646',
+          color: '#FFFFFF',
+          transition: 'clip-path 0.16s ease-out'
+        }}
+      >
+        <span
+          style={{
+            gridArea: '1 / 1',
+            padding: '4px 16px'
+          }}
+        >
+          Viewer
+        </span>
+        <span
+          style={{
+            gridArea: '1 / 2',
+            padding: '4px 16px'
+          }}
+        >
+          DevTools
+        </span>
+      </div>
+
+      <button
+        onClick={() => setActiveView('viewer')}
+        style={{
+          all: 'unset',
+          gridColumn: 1,
+          gridRow: 1,
+          padding: '4px 16px'
+        }}
+      >
+        Viewer
+      </button>
+
+      <button
+        onClick={() => setActiveView('devtools')}
+        style={{
+          all: 'unset',
+          gridColumn: 2,
+          gridRow: 1,
+          padding: '4px 16px'
+        }}
+      >
+        DevTools
+      </button>
     </div>
-  ) : null
+  )
 }
 
 function Viewer() {
@@ -287,10 +359,11 @@ function DevTools() {
 }
 
 export function OverboardStory({
-  activeView
+  initialView
 }: {
-  activeView: 'viewer' | 'devtools'
+  initialView: 'viewer' | 'devtools'
 }) {
+  const [activeView, setActiveView] = useState(initialView)
   const ref = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
@@ -311,7 +384,7 @@ export function OverboardStory({
   }, [])
 
   return (
-    <div
+    <section
       ref={ref}
       style={{
         display: 'grid',
@@ -356,11 +429,11 @@ export function OverboardStory({
             <img src={avatarTwo.src} style={{ borderRadius: '100%' }} />
             <img src={avatarThree.src} style={{ borderRadius: '100%' }} />
           </div>
-          <ViewToggle activeView={activeView} />
+          <ViewToggle activeView={activeView} setActiveView={setActiveView} />
         </div>
 
-        {activeView === 'viewer' ? <Viewer /> : <DevTools />}
+        {initialView === 'viewer' ? <Viewer /> : <DevTools />}
       </div>
-    </div>
+    </section>
   )
 }
