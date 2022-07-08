@@ -2,7 +2,6 @@ import { Meta } from '~/components/common/meta'
 import { Footer } from '~/components/layout/footer'
 import { Header } from '~/components/layout/header'
 import { PageLayout } from '~/components/layout/page'
-import { ScrollTimeline } from '~/components/primitives/scroll-timeline'
 import { AsyncCollab } from '~/components/sections/home/async-collab'
 import { FastAndSecure } from '~/components/sections/home/fast-and-secure'
 import { Hero } from '~/components/sections/home/hero'
@@ -17,19 +16,14 @@ const HomePage = () => {
   return (
     <PageLayout>
       <Meta />
-
       <Header />
+
       <Hero />
-
-      <ScrollTimeline>
-        <OverboardStory initialView="viewer" />
-        <OverboardStory initialView="devtools" />
-      </ScrollTimeline>
-
+      <OverboardStory />
       <MainFeatures />
       <PowerfulDevTools />
-      <Testimonials />
       <AsyncCollab />
+      <Testimonials />
       <TrustedBy />
       <FastAndSecure />
       <SoftwareTellsStory />

@@ -2,8 +2,10 @@ import clsx from 'clsx'
 import Image from 'next/future/image'
 import { FC } from 'react'
 
+import { PlayIcon } from '~/components/common/play-icon'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 
 import s from './testimonials.module.scss'
@@ -120,6 +122,12 @@ export const Testimonials: FC = () => {
               </div>
             ))}
           </div>
+
+          <Container className={s['cta']} size="lg">
+            <Button className={s['button']} variant="tertiary">
+              See shoutouts <PlayIcon style={{ marginLeft: 8 }} />
+            </Button>
+          </Container>
         </div>
       </Container>
     </Section>

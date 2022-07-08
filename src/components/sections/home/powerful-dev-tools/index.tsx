@@ -62,7 +62,7 @@ const AssetPlayer = () => {
         />
       </div>
       <div className={s['progress']}>
-        <ProgressBar ref={progressRef} direction="horizontal" thumbless />
+        <ProgressBar ref={progressRef} direction="horizontal" />
       </div>
       <div className={s['asset']}>
         <Image

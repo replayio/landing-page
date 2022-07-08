@@ -9,6 +9,7 @@
 .testimonials {
   display: flex;
   flex-direction: column;
+  position: relative;
   align-items: center;
   background: var(--gradient-primary);
   width: 100%;
@@ -78,6 +79,19 @@
           border-radius: var(--border-radius-full);
         }
       }
+    }
+  }
+
+  .cta {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(50%);
+
+    .button {
+      box-shadow: 0px 4px 16px rgb(0 0 0 / 0.1);
     }
   }
 }

@@ -38,10 +38,7 @@ export const AsyncCollab: FC = () => {
         />
         <div className={s['cta']}>
           <Button variant="tertiary-inverted">
-            Learn more{' '}
-            <span style={{ marginLeft: 8 }}>
-              <PlayIcon />
-            </span>
+            Learn more <PlayIcon style={{ marginLeft: 8 }} />
           </Button>
         </div>
         <div className={s['cards']}>

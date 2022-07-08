@@ -11,12 +11,11 @@ import {
 import s from './progress-bar.module.scss'
 
 type ProgressProps = {
-  progress: number
+  progress?: number
   direction?: 'horizontal' | 'vertical'
-  thumbless?: boolean
   primaryColor?: string
   secondaryColor?: string
-  markers?: { position: number }[]
+  markers?: { position: number; size?: number }[]
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -47,7 +46,7 @@ export const ProgressBar = forwardRef<
     const timeline = useRef<GSAPTimeline | GSAP>(
       animated ? gsap.timeline() : gsap
     )
-    const prevProgress = useRef(progress)
+    const prevProgress = useRef(progress || 0)
 
     const update = useCallback(
       (progress) => {
@@ -100,8 +99,9 @@ export const ProgressBar = forwardRef<
         <div className={s['progress']} ref={progressRef}>
           <div className={s['progress-gradient']} />
         </div>
-        {markers?.map(({ position }) => (
+        {markers?.map(({ position, size }) => (
           <ProgressThumb
+            size={size}
             color={primaryColor}
             style={{
               [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
