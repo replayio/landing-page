@@ -11,9 +11,8 @@ import {
 import s from './progress-bar.module.scss'
 
 type ProgressProps = {
-  progress: number
+  progress?: number
   direction?: 'horizontal' | 'vertical'
-  thumbless?: boolean
   primaryColor?: string
   secondaryColor?: string
   markers?: { position: number }[]
@@ -47,7 +46,7 @@ export const ProgressBar = forwardRef<
     const timeline = useRef<GSAPTimeline | GSAP>(
       animated ? gsap.timeline() : gsap
     )
-    const prevProgress = useRef(progress)
+    const prevProgress = useRef(progress || 0)
 
     const update = useCallback(
       (progress) => {

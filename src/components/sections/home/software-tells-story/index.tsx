@@ -66,7 +66,7 @@ export const SoftwareTellsStory: FC = () => {
         <div className={s['main']}>
           <div className={s['story']}>
             <div className={s['progress']}>
-              <ProgressBar ref={progressRef} direction="vertical" thumbless />
+              <ProgressBar ref={progressRef} direction="vertical" />
             </div>
             <div className={s['story-chunks']}>
               {story.map(({ title, subtitle }) => (
