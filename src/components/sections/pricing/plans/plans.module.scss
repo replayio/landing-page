@@ -1,0 +1,133 @@
+.section {
+  margin-top: 200px;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    place-items: center;
+    width: 100%;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 48px;
+    color: var(--color-gray-light);
+    margin-bottom: 68px;
+    padding: 18px 32px;
+
+    button {
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 14px;
+
+      &.active {
+        color: var(--color-pink-crayon);
+      }
+    }
+  }
+
+  .plan-container {
+    display: flex;
+    flex-direction: column;
+
+    .plan {
+      display: grid;
+      grid-template-columns: 0.9fr 1fr;
+      border: 2px solid var(--color-gray-light);
+      border-radius: var(--border-radius-2xl);
+      padding: 80px 76px;
+
+      &:not(:first-child) {
+        margin-top: 40px;
+      }
+
+      &:last-child {
+        margin-bottom: -40px;
+      }
+
+      > div {
+        &:first-child {
+          display: flex;
+          flex-direction: column;
+          max-width: 310px;
+
+          button {
+            margin-top: 24px;
+            width: fit-content;
+          }
+
+          span {
+            &:nth-child(2) {
+              font-family: var(--font-heading);
+              font-size: 40px;
+              letter-spacing: -0.04em;
+              line-height: 120%;
+              margin-top: 24px;
+            }
+
+            &:nth-child(3) {
+              font-size: 14px;
+              line-height: 150%;
+              margin-top: 16px;
+            }
+          }
+        }
+
+        &:nth-child(2) {
+          > div {
+            display: flex;
+            flex-direction: column;
+
+            &:not(:first-child) {
+              margin-top: 56px;
+            }
+
+            span {
+              &:first-child {
+                color: var(--color-pink-crayon);
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                line-height: 143%;
+                margin-bottom: 16px;
+                text-transform: uppercase;
+              }
+
+              &:nth-child(2) {
+                line-height: 138%;
+                max-width: 600px;
+              }
+            }
+
+            ul {
+              display: flex;
+              flex-direction: column;
+              gap: 16px;
+              width: 100%;
+
+              li {
+                position: relative;
+                font-size: 16px;
+                line-height: 121%;
+                padding-left: 26px;
+                width: 100%;
+
+                &::before {
+                  position: absolute;
+                  left: 0;
+                  content: '';
+                  background: url('/images/pricing/okey.svg');
+                  background-repeat: no-repeat;
+                  width: 18px;
+                  height: 18px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

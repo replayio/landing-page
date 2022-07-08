@@ -61,7 +61,7 @@ export const Hero: FC = () => {
       <Container>
         <div className={s['hero']}>
           <div className={s['heading']}>
-            <Heading size="lg">Pricing</Heading>
+            <Heading size="sm">Pricing</Heading>
             <span>
               Individuals and open source communities
               <br /> will always be able to use Replay for free.
