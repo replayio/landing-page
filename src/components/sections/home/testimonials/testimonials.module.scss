@@ -9,6 +9,7 @@
 .testimonials {
   display: flex;
   flex-direction: column;
+  position: relative;
   align-items: center;
   background: var(--gradient-primary);
   width: 100%;
@@ -80,11 +81,24 @@
       }
     }
   }
+
+  .cta {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(50%);
+  }
 }
 
 @media (min-width: $screen-md) {
   .section {
     background: none;
+
+    .cta {
+      // transform: translateY(-26px);
+    }
   }
 
   .testimonials {
