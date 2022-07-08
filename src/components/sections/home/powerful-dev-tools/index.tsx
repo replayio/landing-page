@@ -19,9 +19,7 @@ type AssetChunkProps = {
 const AssetChunk: FC<AssetChunkProps> = ({ title }) => {
   return (
     <div className={s['asset-chunk']}>
-      <div className={s['asset-chunk__header']}>
-        <HeadingSet centered overtitle={title} />
-      </div>
+      <HeadingSet centered overtitle={title} />
     </div>
   )
 }
@@ -45,7 +43,15 @@ const AssetPlayer = () => {
     <div className={s['asset-player']}>
       <div className={s['progress-chunks']}>
         <AssetChunk
+          title="Print Statements"
+          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
+        />
+        <AssetChunk
           title="Console"
+          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
+        />
+        <AssetChunk
+          title="Debugger"
           description="Add replays to Bug Reports and Pull Requests and share them in Slack."
         />
         <AssetChunk
@@ -53,7 +59,7 @@ const AssetPlayer = () => {
           description="Add replays to Bug Reports and Pull Requests and share them in Slack."
         />
         <AssetChunk
-          title="Debugger"
+          title="Elements"
           description="Add replays to Bug Reports and Pull Requests and share them in Slack."
         />
         <AssetChunk

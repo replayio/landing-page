@@ -9,6 +9,9 @@
   justify-content: center;
   text-align: center;
   width: 100%;
+  font-size: 14px;
+  line-height: 20px;
+  min-width: 94px;
 
   &.rounded {
     border-radius: var(--border-radius-full);

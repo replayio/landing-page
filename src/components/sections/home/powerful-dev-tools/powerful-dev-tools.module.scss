@@ -30,6 +30,12 @@
   }
 }
 
+.asset-chunk {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: $screen-md) {
   .section {
     .asset-player {
