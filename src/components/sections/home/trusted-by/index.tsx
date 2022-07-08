@@ -1,6 +1,7 @@
 import Image from 'next/future/image'
 import { FC } from 'react'
 
+import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import circleCiSvg from '~/public/images/logos/circle-ci.svg'
@@ -15,38 +16,42 @@ import xStateSvg from '~/public/images/logos/xstate.svg'
 import s from './trusted-by.module.scss'
 
 const logos = [
-  {
-    title: 'Circle Ci',
-    logo: circleCiSvg
-  },
-  {
-    title: 'Gitbook',
-    logo: gitbookSvg
-  },
-  {
-    title: 'Code Sandbox',
-    logo: codeSandboxSvg
-  },
-  {
-    title: 'Repl.it',
-    logo: replItSvg
-  },
-  {
-    title: 'Excalidraw',
-    logo: excalidrawSvg
-  },
-  {
-    title: 'Solid JS',
-    logo: solidJsSvg
-  },
-  {
-    title: 'XState',
-    logo: xStateSvg
-  },
-  {
-    title: 'Glide',
-    logo: glideSvg
-  }
+  [
+    {
+      title: 'Circle Ci',
+      logo: circleCiSvg
+    },
+    {
+      title: 'Gitbook',
+      logo: gitbookSvg
+    },
+    {
+      title: 'Code Sandbox',
+      logo: codeSandboxSvg
+    },
+    {
+      title: 'Repl.it',
+      logo: replItSvg
+    }
+  ],
+  [
+    {
+      title: 'Excalidraw',
+      logo: excalidrawSvg
+    },
+    {
+      title: 'Solid JS',
+      logo: solidJsSvg
+    },
+    {
+      title: 'XState',
+      logo: xStateSvg
+    },
+    {
+      title: 'Glide',
+      logo: glideSvg
+    }
+  ]
 ]
 
 export const TrustedBy: FC = () => {
@@ -54,12 +59,29 @@ export const TrustedBy: FC = () => {
     <Section className={s['section']}>
       <Container size="sm">
         <SectionHeading centered title="Trusted by top teams" />
-        <div className={s['logos-grid']}>
-          {logos.map(({ title, logo }) => (
-            <div className={s['logo']} title={title} key={title}>
-              <Image src={logo} />
-            </div>
-          ))}
+
+        <div className={s['logos-desktop']}>
+          <div className={s['logos-grid']}>
+            {logos.flat().map(({ title, logo }) => (
+              <div className={s['logo']} title={title} key={title}>
+                <Image src={logo} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={s['logos-mobile']}>
+          <Carousel slideClassName={s['slide']}>
+            {logos.map((logos, idx) => (
+              <div className={s['logos-grid']} key={idx}>
+                {logos.map(({ logo, title }) => (
+                  <div className={s['logo']} title={title} key={title}>
+                    <Image src={logo} />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </Carousel>
         </div>
       </Container>
     </Section>

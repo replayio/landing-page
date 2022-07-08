@@ -53,7 +53,12 @@ export const FastAndSecure: FC = () => {
             { title: 'Test Runners' }
           ]}
         />
-        <Carousel className={s['slider']}>
+
+        <Carousel
+          config={{ startIndex: Math.floor(cards.length / 2) }}
+          className={s['slider']}
+          dots={false}
+        >
           {cards.map(({ icon, title, badge }) => (
             <Card key={title} icon={icon} title={title} badge={badge} />
           ))}
