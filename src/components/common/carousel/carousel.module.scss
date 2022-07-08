@@ -1,3 +1,6 @@
+@import 'css/variables';
+@import 'css/helpers';
+
 .embla {
   position: relative;
 }
@@ -20,6 +23,8 @@
   display: flex;
   justify-content: space-between;
   user-select: none;
+
+  @include space-x(24px);
 }
 
 .embla__slide {

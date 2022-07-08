@@ -9,7 +9,7 @@ type CarouselProps = JSX.IntrinsicElements['div']
 export const Carousel: FC<CarouselProps> = ({ children, className }) => {
   const [viewportRef] = useEmblaCarousel({
     align: 'center',
-    startIndex: Array.isArray(children) ? Math.round(children.length / 2) : 0
+    startIndex: Array.isArray(children) ? Math.floor(children.length / 2) : 0
   })
 
   return (

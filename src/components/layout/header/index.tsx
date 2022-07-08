@@ -1,6 +1,8 @@
+import clsx from 'clsx'
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { Logo } from '~/components/primitives/logo'
+import { useToggleState } from '~/hooks/use-toggle-state'
 
 import { Container } from '../container'
 import s from './header.module.scss'
@@ -61,28 +63,45 @@ const Burger = () => (
 )
 
 export const Header = () => {
+  const { isOn, handleToggle } = useToggleState()
+
   return (
-    <header className={s['header']}>
+    <header className={clsx(s['header'], s['has-scrolled'])}>
       <Container size="md">
         <div className={s['inner-mobile']}>
-          <div className={s['logo']}>
+          <div className={s['mobile-wrapper']}>
             <Link href="/">
-              <Logo isMobile />
+              <Logo width={80} className={s['logo']} isMobile />
             </Link>
-          </div>
-          <div className={s['menu']}>
-            <Button unstyled>
-              <Burger />
-            </Button>
-          </div>
-        </div>
 
-        <div className={s['inner-desktop']}>
-          <div className={s['logo']}>
-            <Link href="/">
-              <Logo />
-            </Link>
+            <div className={s['burger']}>
+              <Button onClick={handleToggle} unstyled>
+                <Burger />
+              </Button>
+            </div>
           </div>
+
+          {isOn && (
+            <div className={s['menu']}>
+              <ul>
+                {link.map(({ href, label }) => (
+                  <li key={label}>
+                    <Link href={href}>
+                      <div className={s['nav-link']}>{label}</div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Button size="sm" variant="secondary">
+                Login
+              </Button>
+            </div>
+          )}
+        </div>
+        <div className={s['inner-desktop']}>
+          <Link href="/">
+            <Logo width={94} className={s['logo']} />
+          </Link>
 
           <div className={s['nav']}>
             <ul>
