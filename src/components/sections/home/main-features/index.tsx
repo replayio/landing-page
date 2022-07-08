@@ -5,8 +5,8 @@ import { HeadingSet } from '~/components/common/heading-set'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { isDev } from '~/lib/constants'
 
+// import { isDev } from '~/lib/constants'
 import s from './main-features.module.scss'
 
 const ScrollProgressBar = () => {
@@ -19,7 +19,7 @@ const ScrollProgressBar = () => {
 
     const trigger = ScrollTrigger.create({
       trigger: sectionRef,
-      markers: isDev,
+      markers: false,
       scrub: 1,
       start: 'top bottom',
       onUpdate: (stState) => {

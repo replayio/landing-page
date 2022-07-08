@@ -1,3 +1,4 @@
+import range from 'lodash/range'
 import Image, { ImageProps } from 'next/image'
 import { FC } from 'react'
 
@@ -15,7 +16,7 @@ type CardProps = {
   badge: string
 }
 
-const cards = [...Array(5)].map(() => ({
+const cards = range(5).map(() => ({
   icon: chromeSvg,
   title: 'Chromium',
   badge: 'Beta'
@@ -59,8 +60,8 @@ export const FastAndSecure: FC = () => {
           className={s['slider']}
           dots={false}
         >
-          {cards.map(({ icon, title, badge }) => (
-            <Card key={title} icon={icon} title={title} badge={badge} />
+          {cards.map(({ icon, title, badge }, idx) => (
+            <Card key={idx} icon={icon} title={title} badge={badge} />
           ))}
         </Carousel>
 
