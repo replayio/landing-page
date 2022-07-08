@@ -36,6 +36,7 @@ const ScrollProgressBar = () => {
 
   return (
     <ProgressBar
+      progress={0}
       ref={progressRef}
       markers={[{ position: 20 }, { position: 80 }]}
       direction="vertical"
