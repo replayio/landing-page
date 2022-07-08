@@ -194,16 +194,6 @@ function ViewToggle({
   const ref = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: ref.current?.closest('section'),
-        start: 'top top',
-        end: '+=400vh',
-        scrub: true,
-        pin: true
-      }
-    })
-
     gsap
       .timeline({
         scrollTrigger: {
@@ -359,9 +349,9 @@ function DevTools() {
 }
 
 export function OverboardStory({
-  initialView
+  initialView = 'devtools'
 }: {
-  initialView: 'viewer' | 'devtools'
+  initialView?: 'viewer' | 'devtools'
 }) {
   const [activeView, setActiveView] = useState(initialView)
   const ref = useRef<HTMLDivElement>(null)
@@ -371,35 +361,43 @@ export function OverboardStory({
       gsap
         .timeline({
           scrollTrigger: {
+            trigger: ref.current,
             start: 0,
-            end: ref.current.offsetTop + ref.current.offsetHeight / 2,
+            end: 'bottom bottom',
             scrub: true
           }
         })
         .from(ref.current, {
           opacity: 0,
-          scale: 0.8
+          yPercent: 10,
+          scale: 0.9
         })
     }
   }, [])
 
+  const frameCount = 4
+  const padding = 32
+
   return (
     <section
-      ref={ref}
       style={{
         display: 'grid',
         placeItems: 'stretch',
-        height: 'max(100vh, 600px)',
+        height: `max(calc(${frameCount * 100}vh - ${padding}px), 600px)`,
         padding: 80
       }}
     >
       <div
+        ref={ref}
         style={{
           display: 'grid',
           gridTemplateRows: 'auto 1fr',
+          height: `calc(100vh - ${padding * 2}px)`,
           overflow: 'hidden',
           borderRadius: 16,
-          border: '1px solid #DCDCDC'
+          border: '1px solid #DCDCDC',
+          position: 'sticky',
+          top: padding
         }}
       >
         <div
