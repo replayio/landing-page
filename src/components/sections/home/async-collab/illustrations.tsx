@@ -551,13 +551,7 @@ export const PullRequests = () => {
 
 export const Feedback = () => {
   return (
-    <svg
-      width="532"
-      height="216"
-      viewBox="0 0 532 216"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 532 216" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d_2147_7504)">
         <rect
           x="40"
