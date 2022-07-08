@@ -2,7 +2,7 @@
 @import 'css/helpers';
 
 .section {
-  margin-top: 200px;
+  margin-top: 112px;
 
   .tabs {
     margin-top: 48px;
@@ -69,6 +69,8 @@
 
 @media (min-width: $screen-md) {
   .section {
+    margin-top: 200px;
+
     .tabs {
       margin-top: 112px;
     }

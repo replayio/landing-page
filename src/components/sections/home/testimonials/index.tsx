@@ -124,8 +124,8 @@ export const Testimonials: FC = () => {
           </div>
 
           <Container className={s['cta']} size="lg">
-            <Button variant="tertiary">
-              See shoutouts <PlayIcon />
+            <Button className={s['button']} variant="tertiary">
+              See shoutouts <PlayIcon style={{ marginLeft: 8 }} />
             </Button>
           </Container>
         </div>

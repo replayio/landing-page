@@ -22,8 +22,8 @@ const HomePage = () => {
       <OverboardStory />
       <MainFeatures />
       <PowerfulDevTools />
-      <Testimonials />
       <AsyncCollab />
+      <Testimonials />
       <TrustedBy />
       <FastAndSecure />
       <SoftwareTellsStory />

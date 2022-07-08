@@ -1,7 +1,7 @@
 @import 'css/variables';
 
 .section {
-  margin-top: 200px;
+  margin-top: 112px;
 
   .logos-mobile {
     .slide {
@@ -51,6 +51,8 @@
 
 @media (min-width: $screen-lg) {
   .section {
+    margin-top: 200px;
+
     .logos-grid {
       margin-top: 112px;
       grid-gap: 24px;

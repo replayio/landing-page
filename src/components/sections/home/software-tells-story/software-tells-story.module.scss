@@ -2,7 +2,7 @@
 @import 'css/helpers';
 
 .section {
-  margin-top: 200px;
+  margin-top: 112px;
 
   .cta {
     display: flex;
@@ -82,6 +82,8 @@
 
 @media (min-width: $screen-lg) {
   .section {
+    margin-top: 200px;
+
     .main-mobile {
       display: none;
     }

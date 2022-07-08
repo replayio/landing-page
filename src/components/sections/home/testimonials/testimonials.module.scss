@@ -89,16 +89,16 @@
     display: flex;
     justify-content: center;
     transform: translateY(50%);
+
+    .button {
+      box-shadow: 0px 4px 16px rgb(0 0 0 / 0.1);
+    }
   }
 }
 
 @media (min-width: $screen-md) {
   .section {
     background: none;
-
-    .cta {
-      // transform: translateY(-26px);
-    }
   }
 
   .testimonials {

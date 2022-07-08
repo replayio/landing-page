@@ -72,10 +72,7 @@ export const SoftwareTellsStory: FC = () => {
         <SectionHeading title="Software tells a story" centered />
         <div className={s['cta']}>
           <Button variant="tertiary" size="md">
-            Replay for teams{' '}
-            <span style={{ marginLeft: 8 }}>
-              <PlayIcon />
-            </span>
+            Replay for teams <PlayIcon style={{ marginLeft: 8 }} />
           </Button>
         </div>
 
