@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { PlayIcon } from '~/components/common/play-icon'
@@ -37,10 +37,12 @@ const story = [
 ]
 
 export const SoftwareTellsStory: FC = () => {
-  const [progress, setProgress] = useState(0)
+  const progressRef = useRef<any>(null)
+  const currentProgress = useRef<number>(0)
 
   const updateProgress = () => {
-    setProgress((progress) => (progress + 1) % 101)
+    currentProgress.current = (currentProgress.current + 1) % 101
+    progressRef.current.update(currentProgress.current)
   }
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export const SoftwareTellsStory: FC = () => {
         <div className={s['main']}>
           <div className={s['story']}>
             <div className={s['progress']}>
-              <ProgressBar direction="vertical" progress={progress} thumbless />
+              <ProgressBar ref={progressRef} direction="vertical" thumbless />
             </div>
             <div className={s['story-chunks']}>
               {story.map(({ title, subtitle }) => (

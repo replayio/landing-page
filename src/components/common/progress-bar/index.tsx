@@ -1,11 +1,17 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import { FC, forwardRef, useCallback, useEffect, useRef } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef
+} from 'react'
 
 import s from './progress-bar.module.scss'
 
 type ProgressProps = {
-  progress: number
+  progress?: number
   direction?: 'horizontal' | 'vertical'
   thumbless?: boolean
   primaryColor?: string
@@ -21,87 +27,97 @@ type ProgressProps = {
 export const UPDATE_INTERVAL_MS = 200
 export const UPDATE_INTERVAL_SEC = UPDATE_INTERVAL_MS / 1000
 
-export const ProgressBar: FC<ProgressProps> = ({
-  primaryColor,
-  secondaryColor,
-  progress,
-  direction = 'horizontal',
-  markers,
-  animated = true
-}) => {
-  const barRef = useRef<HTMLDivElement>(null)
-  const progressRef = useRef<HTMLDivElement>(null)
-  const timeline = useRef<GSAPTimeline | GSAP>(
-    animated ? gsap.timeline() : gsap
-  )
-  const prevProgress = useRef(progress)
-
-  const update = useCallback(
-    (progress) => {
-      const duration = UPDATE_INTERVAL_SEC
-      const gsapFunc =
-        progress < prevProgress.current || !animated ? 'set' : 'to'
-
-      if (direction === 'horizontal') {
-        if (progressRef.current) {
-          timeline.current[gsapFunc](progressRef.current, {
-            '--left': `${progress}%`,
-            ease: 'linear',
-            duration
-          })
-        }
-      } else {
-        if (progressRef.current) {
-          timeline.current[gsapFunc](progressRef.current, {
-            '--top': `${progress}%`,
-            ease: 'linear',
-            duration
-          })
-        }
-      }
-
-      prevProgress.current = progress
+export const ProgressBar = forwardRef<
+  { update: (progress: number) => void },
+  ProgressProps
+>(
+  (
+    {
+      primaryColor,
+      secondaryColor,
+      progress,
+      direction = 'horizontal',
+      markers,
+      animated = true
     },
-    [direction, animated]
-  )
+    ref
+  ) => {
+    const barRef = useRef<HTMLDivElement>(null)
+    const progressRef = useRef<HTMLDivElement>(null)
+    const timeline = useRef<GSAPTimeline | GSAP>(
+      animated ? gsap.timeline() : gsap
+    )
+    const prevProgress = useRef(progress)
 
-  useEffect(() => {
-    update(progress)
-  }, [update, progress])
+    const update = useCallback(
+      (progress) => {
+        const duration = UPDATE_INTERVAL_SEC
+        const gsapFunc =
+          progress < prevProgress.current || !animated ? 'set' : 'to'
 
-  return (
-    <div
-      style={{
-        // @ts-ignore
-        '--color-primary': primaryColor,
-        '--color-secondary': secondaryColor
-      }}
-      className={clsx(s['progress-bar'], {
-        [s['vertical']]: direction === 'vertical',
-        [s['horizontal']]: direction === 'horizontal'
-      })}
-      ref={barRef}
-    >
-      <div className={s['progress']} ref={progressRef}>
-        <div className={s['progress-gradient']} />
+        if (direction === 'horizontal') {
+          if (progressRef.current) {
+            timeline.current[gsapFunc](progressRef.current, {
+              '--left': `${progress}%`,
+              ease: 'linear',
+              duration
+            })
+          }
+        } else {
+          if (progressRef.current) {
+            timeline.current[gsapFunc](progressRef.current, {
+              '--top': `${progress}%`,
+              ease: 'linear',
+              duration
+            })
+          }
+        }
+
+        prevProgress.current = progress
+      },
+      [direction, animated]
+    )
+
+    useImperativeHandle(ref, () => ({ update }))
+
+    useEffect(() => {
+      update(progress)
+    }, [update, progress])
+
+    return (
+      <div
+        style={{
+          // @ts-ignore
+          '--color-primary': primaryColor,
+          '--color-secondary': secondaryColor
+        }}
+        className={clsx(s['progress-bar'], {
+          [s['vertical']]: direction === 'vertical',
+          [s['horizontal']]: direction === 'horizontal'
+        })}
+        ref={barRef}
+      >
+        <div className={s['progress']} ref={progressRef}>
+          <div className={s['progress-gradient']} />
+        </div>
+        {markers?.map(({ position }) => (
+          <ProgressThumb
+            color={primaryColor}
+            style={{
+              [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
+                position + '%',
+              //@ts-ignore
+              '--translate-y': '0.5',
+              '--translate-x': '0.5'
+            }}
+            className={s['marker']}
+            key={position}
+          />
+        ))}
       </div>
-      {markers?.map(({ position }) => (
-        <ProgressThumb
-          color={primaryColor}
-          style={{
-            [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
-              position + '%',
-            //@ts-ignore
-            '--translate-y': '0.5',
-            '--translate-x': '0.5'
-          }}
-          className={s['marker']}
-          key={position}
-        />
-      ))}
-    </div>
-  )
-}
+    )
+  }
+)
 
 type ProgressThumbProp = {
   size?: number

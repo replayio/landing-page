@@ -1,5 +1,5 @@
 import Image from 'next/future/image'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useRef } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
 import {
@@ -27,10 +27,12 @@ const AssetChunk: FC<AssetChunkProps> = ({ title }) => {
 }
 
 const AssetPlayer = () => {
-  const [progress, setProgress] = useState(0)
+  const progressRef = useRef<any>(null)
+  const currentProgress = useRef<number>(0)
 
   const updateProgress = () => {
-    setProgress((progress) => (progress + 1) % 101)
+    currentProgress.current = (currentProgress.current + 1) % 101
+    progressRef.current.update(currentProgress.current)
   }
 
   useEffect(() => {
@@ -60,7 +62,7 @@ const AssetPlayer = () => {
         />
       </div>
       <div className={s['progress']}>
-        <ProgressBar progress={progress} direction="horizontal" thumbless />
+        <ProgressBar ref={progressRef} direction="horizontal" thumbless />
       </div>
       <div className={s['asset']}>
         <Image

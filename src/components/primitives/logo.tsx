@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-// import { useScrollTimeline } from '../primitives/scroll-timeline'
-
 export const IsoLogo = () => {
   return (
     <svg viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,18 +23,9 @@ export const Logo: React.FC<
   {
     isMobile?: boolean
   } & JSX.IntrinsicElements['svg']
-> = ({ /* isMobile,  */ width = 94, ...rest }) => {
-  const ref = React.useRef(null)
-  /* 
-    Temporary removal
-  const shouldRender = isMobile ? true : useScrollTimeline('logo', ref)
-   */
-
-  const shouldRender = true
-
-  return shouldRender ? (
+> = ({ width = 94, ...rest }) => {
+  return (
     <svg
-      ref={ref}
       width={width}
       viewBox="0 0 94 28"
       fill="none"
@@ -80,7 +69,5 @@ export const Logo: React.FC<
         fill="#F41C52"
       />
     </svg>
-  ) : (
-    <></>
   )
 }

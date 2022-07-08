@@ -18,10 +18,12 @@ const HomePage = () => {
     <PageLayout>
       <Meta />
 
+      <Header />
+      <Hero />
+
       <ScrollTimeline>
-        <Header />
-        <Hero />
-        <OverboardStory />
+        <OverboardStory initialView="viewer" />
+        <OverboardStory initialView="devtools" />
       </ScrollTimeline>
 
       <MainFeatures />
