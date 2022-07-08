@@ -15,7 +15,7 @@ type ProgressProps = {
   direction?: 'horizontal' | 'vertical'
   primaryColor?: string
   secondaryColor?: string
-  markers?: { position: number }[]
+  markers?: { position: number; size?: number }[]
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -99,8 +99,9 @@ export const ProgressBar = forwardRef<
         <div className={s['progress']} ref={progressRef}>
           <div className={s['progress-gradient']} />
         </div>
-        {markers?.map(({ position }) => (
+        {markers?.map(({ position, size }) => (
           <ProgressThumb
+            size={size}
             color={primaryColor}
             style={{
               [`--${direction === 'horizontal' ? 'left' : 'top'}`]:

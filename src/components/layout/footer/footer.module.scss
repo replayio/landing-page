@@ -3,7 +3,7 @@
 
 .section {
   overflow: hidden;
-  margin-top: 40px;
+  margin-top: 112px;
   position: relative;
   background: var(--gradient-primary);
 
@@ -159,6 +159,7 @@
 
 @media (min-width: $screen-lg) {
   .section {
+    margin-top: 40px;
     background: none;
     padding-top: 336px;
     padding-bottom: 64px;

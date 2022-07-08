@@ -19,11 +19,10 @@ export const IsoLogo = () => {
   )
 }
 
-export const Logo: React.FC<
-  {
-    isMobile?: boolean
-  } & JSX.IntrinsicElements['svg']
-> = ({ width = 94, ...rest }) => {
+export const Logo: React.FC<JSX.IntrinsicElements['svg']> = ({
+  width = 94,
+  ...rest
+}) => {
   return (
     <svg
       width={width}
