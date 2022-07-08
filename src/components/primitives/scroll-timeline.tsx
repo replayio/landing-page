@@ -140,8 +140,6 @@ export const useScrollTimeline = (
       translateX -= invertedTransform.x
       translateY -= invertedTransform.y
 
-      console.log(startTranslateX, translateX, startTranslateY, translateY)
-
       gsap
         .timeline({
           scrollTrigger: {

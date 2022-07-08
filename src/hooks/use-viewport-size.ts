@@ -40,7 +40,7 @@ export const useViewportSize = (
         clearTimeout(resizeTimeout.current)
       }
     }
-  }, [])
+  }, [callTreshhold])
 
   return windowSize
 }
