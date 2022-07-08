@@ -2,7 +2,6 @@ import { useRouter } from 'next/dist/client/router'
 import NextHead from 'next/head'
 import * as React from 'react'
 
-import { useMedia } from '~/hooks/use-media'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 
 type BasicMeta = {
@@ -21,7 +20,6 @@ export type MetaProps = BasicMeta
 
 export const Meta = (props: MetaProps) => {
   const router = useRouter()
-  const isDark = useMedia('(prefers-color-scheme: dark)')
 
   const resolvedMetadata = React.useMemo(() => {
     const data = {
@@ -64,14 +62,29 @@ export const Meta = (props: MetaProps) => {
           content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no"
         />
         <meta name="theme-color" content={props.themeColor ?? '#000000'} />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+
+        {/* Favicon */}
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
         <link
           rel="icon"
-          href={isDark ? '/favicon-dark.svg' : '/favicon.svg'}
-          type="image/svg+xml"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
         />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.webmanifest" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
 
         {props.noIndex && <meta name="robots" content="noindex" />}
         {props.noFollow && <meta name="robots" content="nofollow" />}
