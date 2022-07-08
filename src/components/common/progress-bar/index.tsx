@@ -11,7 +11,7 @@ import {
 import s from './progress-bar.module.scss'
 
 type ProgressProps = {
-  progress?: number
+  progress: number
   direction?: 'horizontal' | 'vertical'
   thumbless?: boolean
   primaryColor?: string
