@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { Logo } from '~/components/primitives/logo'
@@ -17,7 +18,7 @@ const link = [
     label: 'About'
   },
   {
-    href: '/',
+    href: '/pricing',
     label: 'Pricing'
   },
   {

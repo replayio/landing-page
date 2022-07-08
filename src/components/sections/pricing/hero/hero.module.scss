@@ -1,0 +1,35 @@
+.hero {
+  padding-top: 44px;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    place-items: center;
+    width: 100%;
+
+    .annual {
+      display: flex;
+      gap: 8px;
+      padding-top: 35px;
+      font-size: 14px;
+
+      span {
+        &:nth-child(2) {
+          font-weight: 600;
+        }
+
+        &:last-child {
+          color: var(--color-gray);
+        }
+      }
+    }
+  }
+
+  .plans {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 48px;
+  }
+}

@@ -1,0 +1,87 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--border-radius-2xl);
+  border: 1px solid var(--color-gray-lighter);
+  padding: 48px 24px;
+
+  button {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 143%;
+    margin: 24px 0 32px;
+    width: 100% !important;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 104px;
+
+    span {
+      text-align: center;
+
+      &:first-child {
+        font-family: var(--font-heading);
+        font-size: 32px;
+        line-height: 1.2;
+        font-weight: 500;
+        margin-top: 32px;
+      }
+
+      &:nth-child(2) {
+        margin-top: 8px;
+        line-height: 138%;
+      }
+    }
+  }
+
+  > span {
+    &:first-child {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    li {
+      position: relative;
+      font-size: 14px;
+      line-height: 121%;
+      padding-left: 26px;
+      width: 100%;
+
+      &::before {
+        position: absolute;
+        left: 0;
+        content: '';
+        background: url('/images/pricing/okey.svg');
+        background-repeat: no-repeat;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  &.primary {
+    color: var(--color-white);
+    background: var(--gradient-primary);
+
+    ul {
+      li {
+        &::before {
+          background: url('/images/pricing/okey-2.svg');
+        }
+      }
+    }
+  }
+}
