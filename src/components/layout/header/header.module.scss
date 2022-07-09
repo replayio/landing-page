@@ -3,8 +3,8 @@
 
 .header {
   /* Temporary position */
-  position: relative;
-  // position: sticky;
+  // position: relative;
+  position: sticky;
   display: flex;
   align-items: center;
   width: 100%;
@@ -73,6 +73,8 @@
 
         li .nav-link {
           padding: 12px 16px;
+          font-size: 14px;
+          line-height: 20px;
           font-weight: 500;
           border-radius: 8px;
           background: var(--color-transparent);
@@ -90,7 +92,7 @@
 @media (min-width: $screen-lg) {
   .header {
     height: auto;
-    padding: 32px 0;
+    padding: 16px 0;
     min-height: var(--header-height);
 
     .inner-mobile {

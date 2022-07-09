@@ -37,7 +37,7 @@ export const basementLog = `
 export const defaultMeta = {
   title: 'Replay',
   description: `Record, Share, and Debug your application with DevTools.`,
-  ogImage: `${siteOrigin}/og.jpg`,
+  ogImage: `${siteOrigin}/og.png`,
   twitter: {
     handle: '@replayio',
     site: '@replayio'
