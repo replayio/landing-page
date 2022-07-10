@@ -1,9 +1,11 @@
 import { FC, useState } from 'react'
 
+import { Carousel } from '~/components/common/carousel'
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
+// import { useMedia } from '~/hooks/use-media'
 import { Card } from './card'
 import s from './hero.module.scss'
 
@@ -54,11 +56,13 @@ const plansData = [
 ]
 
 export const Hero: FC = () => {
+  // const isMobile = useMedia('(max-width: 640px)')
+
   const [annual, setAnnual] = useState(false)
 
   return (
-    <Section>
-      <Container>
+    <Section className={s.section}>
+      <Container className={s.container}>
         <div className={s['hero']}>
           <div className={s['heading']}>
             <Heading size="sm">Pricing</Heading>
@@ -86,6 +90,24 @@ export const Hero: FC = () => {
                 data={item}
               />
             ))}
+          </div>
+          <div className={s.plans__mobile}>
+            <Carousel
+              className={s.slider}
+              // config={{
+              //   align: isMobile ? 'start' : 'center'
+              // }}
+              slideClassName={s['slide']}
+            >
+              {plansData.map((item, i) => (
+                <Card
+                  variant={item.type === 'Organization' ? 'primary' : 'default'}
+                  annual={annual}
+                  key={i}
+                  data={item}
+                />
+              ))}
+            </Carousel>
           </div>
         </div>
       </Container>

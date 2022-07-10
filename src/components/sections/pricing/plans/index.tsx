@@ -19,19 +19,21 @@ export const Plans: FC = () => {
 
   return (
     <Section className={s.section}>
-      <Container size="lg">
+      <Container className={s.container} size="lg">
         <div className={s['heading']}>
           <Heading size="sm">Plans</Heading>
-          <div className={s.tabs}>
-            {tabs.map((tab, i) => (
-              <button
-                onClick={() => setActiveKey(i)}
-                className={clsx({ [s.active]: activeKey === i })}
-                key={i}
-              >
-                {tab}
-              </button>
-            ))}
+          <div className={s['tabs-container']}>
+            <div className={s.tabs}>
+              {tabs.map((tab, i) => (
+                <button
+                  onClick={() => setActiveKey(i)}
+                  className={clsx({ [s.active]: activeKey === i })}
+                  key={i}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
         <div className={s['plan-container']}>

@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 .hero {
   padding-top: 44px;
 
@@ -31,5 +33,74 @@
     gap: 16px;
     grid-template-columns: repeat(4, 1fr);
     margin-top: 48px;
+
+    &__mobile {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $screen-xl) {
+  .container {
+    padding: 0;
+  }
+
+  .hero {
+    .plans {
+      display: none;
+
+      &__mobile {
+        display: unset;
+
+        .slider {
+          margin-top: 64px;
+          height: 100%;
+
+          .slide {
+            margin: 0 20px;
+
+            > div {
+              width: 35vw;
+              min-width: 410px;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .hero {
+    .heading {
+      .annual {
+        padding-top: 15px;
+      }
+    }
+
+    .plans {
+      &__mobile {
+        .slider {
+          margin-top: 64px;
+          height: 100%;
+
+          > div {
+            > div {
+              gap: 16px;
+            }
+          }
+
+          .slide {
+            margin: unset;
+
+            > div {
+              width: 75vw;
+              min-width: unset;
+            }
+          }
+        }
+      }
+    }
   }
 }
