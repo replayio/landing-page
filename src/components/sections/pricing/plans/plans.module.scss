@@ -9,23 +9,33 @@
     gap: 24px;
     place-items: center;
     width: 100%;
+    position: sticky;
+    top: -11px;
+    z-index: var(--z-index-10);
   }
 
-  .tabs {
+  .tabs-container {
+    background-color: var(--color-white);
     display: flex;
-    gap: 48px;
-    color: var(--color-gray-light);
     margin-bottom: 68px;
-    padding: 18px 32px;
+    place-content: center;
+    width: 100%;
 
-    button {
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-size: 14px;
+    .tabs {
+      display: flex;
+      gap: 48px;
+      color: var(--color-gray-light);
+      padding: 18px 32px;
 
-      &.active {
-        color: var(--color-pink-crayon);
+      button {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 14px;
+
+        &.active {
+          color: var(--color-pink-crayon);
+        }
       }
     }
   }
@@ -180,11 +190,13 @@
 
       .heading {
         gap: 64px;
+        position: unset;
       }
     }
 
     .tabs-container {
       width: 100%;
+      padding-top: 20px;
       mask-image: radial-gradient(
         circle,
         #d9d9d9 -1.02%,
