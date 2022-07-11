@@ -46,6 +46,7 @@
 
     .plan {
       display: grid;
+      gap: 25px;
       grid-template-columns: 0.9fr 1fr;
       border: 2px solid var(--color-gray-lighter);
       border-radius: var(--border-radius-2xl);
@@ -63,7 +64,7 @@
         &:first-child {
           display: flex;
           flex-direction: column;
-          max-width: 356px;
+          max-width: 350px;
 
           button {
             margin-top: 24px;
@@ -146,11 +147,17 @@
 
 @media (max-width: $screen-lg) {
   .section {
-    .tabs {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 45px;
-      padding: 10px 20px;
+    .heading {
+      top: -23px;
+    }
+
+    .tabs-container {
+      margin-bottom: 50px;
+
+      .tabs {
+        display: flex;
+        gap: 35px;
+      }
     }
 
     .plan-container {

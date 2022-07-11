@@ -16,6 +16,34 @@
       padding-top: 35px;
       font-size: 14px;
 
+      .switch {
+        all: unset;
+        position: relative;
+        width: 48px;
+        height: 24px;
+        background-color: var(--color-gray-lighter);
+        border-radius: var(--border-radius-sm);
+        cursor: pointer;
+
+        .thumb {
+          display: block;
+          position: relative;
+          left: 2px;
+          height: 20px;
+          width: 20px;
+          z-index: 20;
+          background-color: white;
+          border-radius: 2px;
+          box-shadow: 0px 0px 2px rgb(0 0 0 / 0.15),
+            0px 1px 2px rgb(0 0 0 / 0.1);
+          transition: transform 100ms;
+
+          &[data-state='checked'] {
+            transform: translateX(24px);
+          }
+        }
+      }
+
       span {
         &:nth-child(2) {
           font-weight: 600;

@@ -1,3 +1,4 @@
+import * as Switch from '@radix-ui/react-switch'
 import { FC, useState } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
@@ -71,12 +72,12 @@ export const Hero: FC = () => {
               <br /> will always be able to use Replay for free.
             </span>
             <div className={s.annual}>
-              <input
-                type="checkbox"
-                onChange={() => setAnnual(!annual)}
-                name="annual"
-                id="annual"
-              />
+              <Switch.Root
+                onCheckedChange={() => setAnnual(!annual)}
+                className={s.switch}
+              >
+                <Switch.Thumb className={s.thumb} />
+              </Switch.Root>
               <span>Annual</span>
               <span>Save 25%</span>
             </div>
