@@ -1,13 +1,14 @@
+import { Hoverboard, Logo } from '@replayio/overboard'
 import { gsap } from 'lib/gsap'
 import { useRef, useState } from 'react'
 
-import { Logo } from '~/components/primitives/logo'
+import { Logo as ReplayLogo } from '~/components/primitives/logo'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
-import overboardStore from '~/public/images/home/overboard-store.png'
 
+// import overboardStore from '~/public/images/home/overboard-store.png'
 import styles from './overboard-story.module.scss'
 
 const reactTree = {
@@ -252,7 +253,12 @@ function ViewToggle() {
       </div>
 
       <button
-        onClick={() => window.scrollTo(0, 0)}
+        onClick={() =>
+          window.scrollTo({
+            top: document.getElementById('overboard-story')?.offsetTop,
+            behavior: 'smooth'
+          })
+        }
         style={{
           all: 'unset',
           gridColumn: 1,
@@ -264,7 +270,14 @@ function ViewToggle() {
       </button>
 
       <button
-        onClick={() => window.scrollTo(0, 0)}
+        onClick={() =>
+          window.scrollTo({
+            top:
+              (document.getElementById('overboard-story')?.offsetTop ?? 0) +
+              window.innerHeight,
+            behavior: 'smooth'
+          })
+        }
         style={{
           all: 'unset',
           gridColumn: 2,
@@ -384,7 +397,7 @@ function ReplayApplication() {
         }}
       >
         <div style={{ width: 96 }}>
-          <Logo />
+          <ReplayLogo />
         </div>
         <div
           style={{
@@ -425,6 +438,7 @@ function OverboardStore() {
           }
         })
         .to(ref.current, {
+          y: '4vh',
           scale: 0.85
         })
 
@@ -438,29 +452,50 @@ function OverboardStore() {
           }
         })
         .to(ref.current, {
-          x: '21vw',
-          y: '-21vw',
-          scale: 0.4
+          x: '26vh',
+          y: '-6vh',
+          scale: 0.6
         })
     }
   }, [])
 
   return (
-    // <iframe
-    <img
+    <div
       ref={ref}
-      // src="https://overboard.dev"
-      src={overboardStore.src}
       style={{
         gridArea: '1 / 1 / 1 / 1',
         // transformOrigin: 'top left',
         height: frameHeight,
         width: '100%',
+        padding: 64,
         objectFit: 'contain',
-        borderRadius: 20
+        borderRadius: 20,
+        backgroundColor: '#1E076C'
       }}
-    />
+    >
+      <Logo />
+      <div style={{ height: '30vh' }}>
+        <Hoverboard />
+      </div>
+    </div>
   )
+
+  // return (
+  //   // <iframe
+  //   <img
+  //     ref={ref}
+  //     // src="https://overboard.dev"
+  //     src={overboardStore.src}
+  //     style={{
+  //       gridArea: '1 / 1 / 1 / 1',
+  //       // transformOrigin: 'top left',
+  //       height: frameHeight,
+  //       width: '100%',
+  //       objectFit: 'contain',
+  //       borderRadius: 20
+  //     }}
+  //   />
+  // )
 }
 
 export function OverboardStory() {
@@ -468,22 +503,18 @@ export function OverboardStory() {
   const frameCount = 4
 
   return (
-    <>
-      <section
-        style={{
-          height: `max(calc(${frameCount * 100}vh - ${padding}px), 600px)`,
-          padding: 80
-        }}
-      >
-        <div
-          style={{ position: 'sticky', top: padding }}
-          className={styles.grid}
-        >
-          <ReplayApplication />
+    <section
+      id="overboard-story"
+      style={{
+        height: `max(calc(${frameCount * 100}vh - ${padding}px), 600px)`,
+        padding: 80
+      }}
+    >
+      <div style={{ position: 'sticky', top: padding }} className={styles.grid}>
+        <ReplayApplication />
 
-          <OverboardStore />
-        </div>
-      </section>
-    </>
+        <OverboardStore />
+      </div>
+    </section>
   )
 }
