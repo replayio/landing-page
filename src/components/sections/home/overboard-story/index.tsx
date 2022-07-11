@@ -348,7 +348,7 @@ function ReplayApplication() {
         .timeline({
           scrollTrigger: {
             trigger: applicationRef.current.closest('section'),
-            start: 'top top',
+            start: 0,
             end: '+=100vh',
             scrub: true
           }
@@ -419,7 +419,7 @@ function OverboardStore() {
         .timeline({
           scrollTrigger: {
             trigger: ref.current.closest('section'),
-            start: 'top top',
+            start: 0,
             end: '+=100vh',
             scrub: true
           }
