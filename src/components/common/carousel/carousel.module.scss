@@ -44,7 +44,7 @@
   display: flex;
   list-style: none;
   justify-content: center;
-  margin-top: 64px;
+  margin-top: 48px;
 
   @include space-x(6px);
 }
@@ -74,4 +74,10 @@
 .embla__dot.is-selected::after {
   background: var(--color-pink-crayon);
   opacity: 1;
+}
+
+@media (min-width: $screen-sm) {
+  .embla__dots {
+    margin-top: 64px;
+  }
 }

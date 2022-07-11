@@ -44,5 +44,12 @@ export const defaultMeta = {
   }
 }
 
+export const breakpoints = {
+  screenSm: 640,
+  screenMd: 768,
+  screenLg: 1024,
+  screenXl: 1280
+}
+
 // TODO: add variable (NEXT_PUBLIC_GA_TRACKING_ID) to env if necessary
 export const gaTrackingId = process.env.NEXT_PUBLIC_GA_TRACKING_ID

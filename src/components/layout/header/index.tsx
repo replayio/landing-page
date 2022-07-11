@@ -1,4 +1,6 @@
 import clsx from 'clsx'
+import throttle from 'lodash/throttle'
+import { useEffect, useState } from 'react'
 
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
@@ -64,10 +66,28 @@ const Burger = () => (
 )
 
 export const Header = () => {
+  const [hasScrolled, setHasScrolled] = useState(false)
   const { isOn, handleToggle } = useToggleState()
 
+  useEffect(() => {
+    const handleScroll = throttle(() => {
+      const offset = 0
+      const { scrollTop } = document.documentElement
+      const scrolled = scrollTop > offset
+
+      if (hasScrolled !== scrolled) {
+        setHasScrolled(scrolled)
+      }
+    }, 200)
+
+    document.addEventListener('scroll', handleScroll)
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [hasScrolled])
+
   return (
-    <header className={clsx(s['header'], s['has-scrolled'])}>
+    <header className={clsx(s['header'], { [s['has-scrolled']]: hasScrolled })}>
       <Container size="md">
         <div className={s['inner-mobile']}>
           <div className={s['mobile-wrapper']}>

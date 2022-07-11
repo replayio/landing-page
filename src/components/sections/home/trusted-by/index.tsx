@@ -69,21 +69,22 @@ export const TrustedBy: FC = () => {
             ))}
           </div>
         </div>
-
-        <div className={s['logos-mobile']}>
-          <Carousel slideClassName={s['slide']}>
-            {logos.map((logos, idx) => (
-              <div className={s['logos-grid']} key={idx}>
+      </Container>
+      <div className={s['logos-mobile']}>
+        <Carousel slideClassName={s['slide']}>
+          {logos.map((logos, idx) => (
+            <Container size="sm" key={idx}>
+              <div className={s['logos-grid']}>
                 {logos.map(({ logo, title }) => (
                   <div className={s['logo']} title={title} key={title}>
                     <Image src={logo} />
                   </div>
                 ))}
               </div>
-            ))}
-          </Carousel>
-        </div>
-      </Container>
+            </Container>
+          ))}
+        </Carousel>
+      </div>
     </Section>
   )
 }

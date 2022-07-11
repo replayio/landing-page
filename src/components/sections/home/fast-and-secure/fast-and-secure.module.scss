@@ -9,8 +9,10 @@
   }
 
   .content {
+    display: none;
+
     .line-container {
-      display: none;
+      display: flex;
       justify-content: center;
 
       .line {
@@ -26,7 +28,7 @@
 
     .description {
       text-align: center;
-      margin-top: 48px;
+      margin-top: 24px;
     }
   }
 }
@@ -57,36 +59,86 @@
   }
 }
 
-.slider {
-  max-width: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 64px;
+.carousel-container {
+  position: relative;
 
-  @include space-x(24px);
+  .left-gradient,
+  .right-gradient {
+    --direction: to right;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    z-index: var(--z-index-10);
+    max-width: 150px;
+    background: linear-gradient(
+      var(--direction),
+      var(--color-white),
+      transparent
+    );
+  }
+
+  .left-gradient {
+    --direction: to right;
+
+    left: 0;
+  }
+
+  .right-gradient {
+    --direction: to left;
+
+    right: 0;
+  }
+
+  .slider {
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 64px;
+
+    @include space-x(24px);
+
+    .slide {
+      .description {
+        text-align: center;
+        margin-top: 48px;
+      }
+    }
+  }
 }
 
 @media (min-width: $screen-md) {
   .section {
-    margin-top: 200px;
-
     .tabs {
       margin-top: 112px;
     }
+  }
 
-    .content {
-      .line-container {
-        display: flex;
-      }
+  .carousel-container {
+    .slider {
+      margin-top: 112px;
+    }
+  }
+}
 
-      .description {
-        margin-top: 24px;
+@media (min-width: $screen-lg) {
+  .carousel-container {
+    .slider {
+      .slide {
+        .description {
+          display: none;
+        }
       }
     }
   }
 
-  .slider {
-    margin-top: 112px;
+  .section {
+    margin-top: 200px;
+
+    .content {
+      display: block;
+    }
   }
 }
