@@ -6,6 +6,9 @@ import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
+import overboardStore from '~/public/images/home/overboard-store.png'
+
+import styles from './overboard-story.module.scss'
 
 const reactTree = {
   type: 'App',
@@ -181,16 +184,7 @@ function TabNav({
   )
 }
 
-const views = ['viewer', 'devtools'] as const
-
-function ViewToggle({
-  activeView,
-  setActiveView
-}: {
-  activeView: 'viewer' | 'devtools'
-  setActiveView: (view: 'viewer' | 'devtools') => void
-}) {
-  const activeViewIndex = views.indexOf(activeView)
+function ViewToggle() {
   const ref = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
@@ -198,7 +192,7 @@ function ViewToggle({
       .timeline({
         scrollTrigger: {
           trigger: ref.current?.closest('section'),
-          start: 'top top',
+          start: '+=100vh',
           end: '+=400vh',
           scrub: true
         }
@@ -234,10 +228,6 @@ function ViewToggle({
           gridTemplateColumns: 'repeat(2, 1fr)',
           padding: 4,
           borderRadius: 8,
-          clipPath:
-            activeViewIndex === 0
-              ? 'inset(4px 50% 4px 4px round 4px)'
-              : 'inset(4px 4px 4px 50% round 4px)',
           backgroundColor: '#464646',
           color: '#FFFFFF',
           transition: 'clip-path 0.16s ease-out'
@@ -262,7 +252,7 @@ function ViewToggle({
       </div>
 
       <button
-        onClick={() => setActiveView('viewer')}
+        onClick={() => window.scrollTo(0, 0)}
         style={{
           all: 'unset',
           gridColumn: 1,
@@ -274,7 +264,7 @@ function ViewToggle({
       </button>
 
       <button
-        onClick={() => setActiveView('devtools')}
+        onClick={() => window.scrollTo(0, 0)}
         style={{
           all: 'unset',
           gridColumn: 2,
@@ -288,25 +278,23 @@ function ViewToggle({
   )
 }
 
-function Viewer() {
-  return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(200px, 400px) 1fr',
-        padding: 32,
-        gap: 24,
-        backgroundColor: '#F5F5F5'
-      }}
-    >
-      Viewer
-    </div>
-  )
-}
-
 function DevTools() {
   const [activePanel, setActivePanel] = useState<keyof typeof tabs>('React')
   const ActiveTabPanel = tabs[activePanel]
+  const ref = useRef<HTMLDivElement>(null)
+
+  useIsomorphicLayoutEffect(() => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: ref.current?.closest('section'),
+          start: '+=100vh',
+          end: '+=400vh',
+          scrub: true
+        }
+      })
+      .fromTo(ref.current, { opacity: 0 }, { opacity: 1 })
+  }, [])
 
   return (
     <div
@@ -319,6 +307,7 @@ function DevTools() {
       }}
     >
       <div
+        ref={ref}
         style={{
           display: 'grid',
           gridTemplateRows: 'auto 1fr',
@@ -339,7 +328,7 @@ function DevTools() {
           gridTemplateRows: 'auto 1fr',
           width: '100%',
           height: '100%',
-          border: '1px solid #DCDCDC',
+          // border: '1px solid #DCDCDC',
           borderRadius: 8,
           overflow: 'hidden'
         }}
@@ -348,90 +337,153 @@ function DevTools() {
   )
 }
 
-export function OverboardStory({
-  initialView = 'devtools'
-}: {
-  initialView?: 'viewer' | 'devtools'
-}) {
-  const [activeView, setActiveView] = useState(initialView)
-  const ref = useRef<HTMLDivElement>(null)
+function ReplayApplication() {
+  const applicationRef = useRef<HTMLDivElement>(null)
+  const padding = 32
+  const frameHeight = `calc(100vh - ${padding * 2}px)`
+
+  useIsomorphicLayoutEffect(() => {
+    if (applicationRef.current) {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: applicationRef.current.closest('section'),
+            start: 'top top',
+            end: '+=100vh',
+            scrub: true
+          }
+        })
+        .from(applicationRef.current, {
+          opacity: 0,
+          yPercent: 10,
+          scale: 0.98
+        })
+    }
+  }, [])
+
+  return (
+    <div
+      ref={applicationRef}
+      style={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
+        height: frameHeight,
+        overflow: 'hidden',
+        borderRadius: 16,
+        border: '1px solid #DCDCDC'
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '16px 32px',
+          backgroundColor: 'white',
+          borderBottom: '1px solid #DCDCDC'
+        }}
+      >
+        <div style={{ width: 96 }}>
+          <Logo />
+        </div>
+        <div
+          style={{
+            display: 'grid',
+            gridAutoFlow: 'column',
+            gridAutoColumns: 32,
+            gap: 8,
+            marginLeft: 'auto',
+            marginRight: 24
+          }}
+        >
+          <img src={avatarOne.src} style={{ borderRadius: '100%' }} />
+          <img src={avatarTwo.src} style={{ borderRadius: '100%' }} />
+          <img src={avatarThree.src} style={{ borderRadius: '100%' }} />
+        </div>
+        <ViewToggle />
+      </div>
+
+      <DevTools />
+    </div>
+  )
+}
+
+function OverboardStore() {
+  const ref = useRef<HTMLImageElement>(null)
+  const padding = 32
+  const frameHeight = `calc(100vh - ${padding * 2}px)`
 
   useIsomorphicLayoutEffect(() => {
     if (ref.current) {
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: ref.current,
-            start: 0,
-            end: 'bottom bottom',
+            trigger: ref.current.closest('section'),
+            start: 'top top',
+            end: '+=100vh',
             scrub: true
           }
         })
-        .from(ref.current, {
-          opacity: 0,
-          yPercent: 10,
-          scale: 0.9
+        .to(ref.current, {
+          scale: 0.85
+        })
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ref.current.closest('section'),
+            start: '+=100vh',
+            end: '+=200vh',
+            scrub: true
+          }
+        })
+        .to(ref.current, {
+          x: '21vw',
+          y: '-21vw',
+          scale: 0.4
         })
     }
   }, [])
 
-  const frameCount = 4
+  return (
+    // <iframe
+    <img
+      ref={ref}
+      // src="https://overboard.dev"
+      src={overboardStore.src}
+      style={{
+        gridArea: '1 / 1 / 1 / 1',
+        // transformOrigin: 'top left',
+        height: frameHeight,
+        width: '100%',
+        objectFit: 'contain',
+        borderRadius: 20
+      }}
+    />
+  )
+}
+
+export function OverboardStory() {
   const padding = 32
+  const frameCount = 4
 
   return (
-    <section
-      style={{
-        display: 'grid',
-        placeItems: 'stretch',
-        height: `max(calc(${frameCount * 100}vh - ${padding}px), 600px)`,
-        padding: 80
-      }}
-    >
-      <div
-        ref={ref}
+    <>
+      <section
         style={{
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr',
-          height: `calc(100vh - ${padding * 2}px)`,
-          overflow: 'hidden',
-          borderRadius: 16,
-          border: '1px solid #DCDCDC',
-          position: 'sticky',
-          top: padding
+          height: `max(calc(${frameCount * 100}vh - ${padding}px), 600px)`,
+          padding: 80
         }}
       >
         <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '16px 32px',
-            backgroundColor: 'white',
-            borderBottom: '1px solid #DCDCDC'
-          }}
+          style={{ position: 'sticky', top: padding }}
+          className={styles.grid}
         >
-          <div style={{ width: 96 }}>
-            <Logo />
-          </div>
-          <div
-            style={{
-              display: 'grid',
-              gridAutoFlow: 'column',
-              gridAutoColumns: 32,
-              gap: 8,
-              marginLeft: 'auto',
-              marginRight: 24
-            }}
-          >
-            <img src={avatarOne.src} style={{ borderRadius: '100%' }} />
-            <img src={avatarTwo.src} style={{ borderRadius: '100%' }} />
-            <img src={avatarThree.src} style={{ borderRadius: '100%' }} />
-          </div>
-          <ViewToggle activeView={activeView} setActiveView={setActiveView} />
-        </div>
+          <ReplayApplication />
 
-        {initialView === 'viewer' ? <Viewer /> : <DevTools />}
-      </div>
-    </section>
+          <OverboardStore />
+        </div>
+      </section>
+    </>
   )
 }
