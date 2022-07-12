@@ -12,6 +12,7 @@
     grid-template-columns: repeat(1, auto);
     justify-content: space-between;
 
+
     .feature:last-child {
       margin-top: 96px;
     }
@@ -32,6 +33,8 @@
       margin-left: 0;
       grid-template-columns: repeat(3, auto);
 
+  
+      
       .feature:last-child {
         margin-top: auto;
       }
