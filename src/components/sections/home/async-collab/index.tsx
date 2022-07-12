@@ -39,7 +39,7 @@ export const AsyncCollab: FC = () => {
         <SectionHeading
           centered
           title="Async Collaboration"
-          subtitle="Replay lets you collaborate with your team in new ways. Because replays are as easy to record as a video and as powerful to inspect as running application, you can easily file the perfect bug report, answer a new team member’s question, give feedback on a new feature, and even debug a failing test. The possibilities are endless."
+          subtitle="As easy to record as a video.  Sharing replays with your team lets you avoid needless back-and-forths and collaborate in new ways."
         />
         <div className={s['cta']}>
           <Button variant="tertiary-inverted">
@@ -50,28 +50,28 @@ export const AsyncCollab: FC = () => {
           <Card
             contentSpacing="lg"
             title="Bug Reports"
-            subtitle="Record the issue once. Never reproduce the issue locally again."
+            subtitle="Add replays to bug reports so that anyone on the team can debug the issue with a single click."
           >
             <BugReports />
           </Card>
           <Card
             contentSpacing="lg"
-            title="Automated Tests"
-            subtitle="Record end-to-end tests in CI. Fix flakey tests once and for all."
+            title="End-to-End Tests"
+            subtitle="Record your tests in CI and debug them after the fact. You’ll love how easy it is to see whether you broke the test or if it was simply flaky."
           >
             <AutomatedTests />
           </Card>
           <Card
             contentSpacing="sm"
             title="Pull requests"
-            subtitle="Include replays in descriptions. Receive feedback faster."
+            subtitle="Include replays of the problem and the fix in the PR so that reviewers can see what was wrong and how it was fixed."
           >
             <PullRequests />
           </Card>
           <Card
             contentSpacing="sm"
             title="Feedback"
-            subtitle="Share all the context. Avoid draining back-and-forths."
+            subtitle="Share replays in Slack when you want to get others feedback. In context comments make it easy to discuss function calls and ui elements."
           >
             <Feedback />
           </Card>

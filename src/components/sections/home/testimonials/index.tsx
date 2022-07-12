@@ -21,7 +21,7 @@ const testimonials = [
     },
     position: 'CEO',
     quote:
-      '“I think Replay has a very good chance of creating a new category around collaborative debugging”'
+      '“Replay has a very good chance of creating a new category around collaborative debugging”'
   },
   {
     picture: 'https://dummyimage.com/64/000/fff',

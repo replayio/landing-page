@@ -76,7 +76,18 @@ export const MainFeatures: FC = () => {
             className={s['feature']}
             overtitle="Time Travel"
             title="Record and share replays with your team."
-            description="Replays help your team debug the problem without reproducing it locally on their computer. You’ll be amazed at how much faster issues are resolved when they include a replay."
+            description={
+              <>
+                <p>
+                  Replays help your team debug the problem without reproducing
+                  it locally on their computer.
+                </p>
+                <p>
+                  You’ll be amazed at how much faster issues are resolved when
+                  they include a replay.
+                </p>
+              </>
+            }
           />
 
           <div className={s['progress-bar']}>
@@ -88,7 +99,18 @@ export const MainFeatures: FC = () => {
             className={s['feature']}
             overtitle="Async Collaboration"
             title="Debug replays with developer tools."
-            description="Travel back in time and debug your application as it initially ran. You’ll love how easy it is to test your assumptions and see what actually went wrong."
+            description={
+              <>
+                <p>
+                  Travel back in time and debug the application as it initially
+                  ran with familiar developer tools.
+                </p>
+                <p>
+                  You’ll love how easy it is to test your assumptions and see
+                  what actually went wrong!
+                </p>
+              </>
+            }
           />
         </div>
       </Container>

@@ -40,6 +40,10 @@
     color: var(--colors-gray-darker);
     margin-top: 16px;
   }
+
+  .heading-set__description p {
+    margin-top: 1rem;
+  }
 }
 
 @media (min-width: $screen-lg) {

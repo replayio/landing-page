@@ -1,7 +1,6 @@
 import { FC, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import { PlayIcon } from '~/components/common/play-icon'
 import {
   ProgressBar,
   ProgressThumb,
@@ -9,29 +8,32 @@ import {
 } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
 
 import s from './software-tells-story.module.scss'
 
 const story = [
   {
-    title: 'Replayable.dev',
-    subtitle: 'Share all the context. Avoid draining back-and-forths.',
+    title: 'Replayable issues',
+    subtitle:
+      'Have a question or want to help others? Add a replay to a GitHub issue and it will appear in replaylable.',
     asset: <></>
   },
   {
-    title: 'Tutorials',
-    subtitle: 'Share all the context. Avoid draining back-and-forths.',
+    title: 'Replayable tutorials',
+    subtitle:
+      'Want to teach others or learn how something works?  Replayable lists educational replayable tutorial.',
     asset: <></>
   },
   {
-    title: 'React Community Guide',
-    subtitle: 'Share all the context. Avoid draining back-and-forths.',
+    title: 'Replayable stories',
+    subtitle:
+      'Want to share a recent debugging journey or see how others debug? Replayable highlights great replayable stories.',
     asset: <></>
   },
   {
-    title: 'Walkthroughs',
-    subtitle: 'Share all the context. Avoid draining back-and-forths.',
+    title: 'OSS Community guide',
+    subtitle:
+      'Replayable’s OSS guide documents how you can update your issue template and encourage others to share replays when they have a question.',
     asset: <></>
   }
 ]
@@ -69,12 +71,11 @@ export const SoftwareTellsStory: FC = () => {
   return (
     <Section className={s['section']}>
       <Container size="lg">
-        <SectionHeading title="Software tells a story" centered />
-        <div className={s['cta']}>
-          <Button variant="tertiary" size="md">
-            Replay for teams <PlayIcon style={{ marginLeft: 8 }} />
-          </Button>
-        </div>
+        <SectionHeading
+          title="Replayable.dev"
+          subtitle="Replayable.dev is an experiment in what happens when you can share replays with others. Whether you want to ask a question, explain how something works, or share a debugging journey, we believe software is more understandable when you can replay it."
+          centered
+        />
 
         <div className={s['main-mobile']}>
           <div className={s['content']}>

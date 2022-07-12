@@ -30,7 +30,7 @@ export const HeadingSet: FC<HeadingSetProps> = ({
     {overtitle && <p className={s['heading-set__overtitle']}>{overtitle}</p>}
     {title && <h3 className={s['heading-set__title']}>{title}</h3>}
     {description && (
-      <p className={s['heading-set__description']}>{description}</p>
+      <div className={s['heading-set__description']}>{description}</div>
     )}
   </div>
 )
