@@ -95,7 +95,7 @@ export const FastAndSecure: FC = () => {
     <Section className={s['section']}>
       <Container size="md">
         <SectionHeading
-          title="Fast &amp; Secure"
+          title="Universal &amp; Secure"
           subtitle="We’ve spent the past 7 years researching how to record and deterministically replay runtimes securely, performantly, and reliably."
           centered
         />

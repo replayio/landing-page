@@ -89,7 +89,19 @@ export const PowerfulDevTools: FC = () => {
       <Container size="md">
         <SectionHeading
           title="Developer Tools"
-          subtitle="Replay is the first Time Travel Debugger for modern web applications. This means you can inspect your application at any point in time and even add a print statement and see the new logs in the Console. Replay should feel both familiar and magical."
+          subtitle={
+            <div>
+              Time travel debugging lets you replay the browser as it ran
+              before, so that you can start debugging immediately and get into
+              the flow state quickly.{' '}
+              <a
+                className={s['subtitle-link']}
+                href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
+              >
+                How Replay works.
+              </a>
+            </div>
+          }
           centered
         />
         <AssetPlayer />
