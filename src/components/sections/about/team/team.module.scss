@@ -39,6 +39,12 @@
             &:last-child {
               margin-right: 80px;
             }
+
+            div {
+              width: 27.6vw;
+              min-width: 360px;
+              max-width: 400px;
+            }
           }
         }
       }
