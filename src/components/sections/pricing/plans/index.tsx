@@ -11,8 +11,6 @@ import { Link } from '~/components/primitives/link'
 import { plans } from './plans'
 import s from './plans.module.scss'
 
-// type PlansProps = {}
-
 const tabs = ['Individual', 'Team', 'Organization', 'Enterprise']
 
 export const Plans: FC = () => {
@@ -23,19 +21,19 @@ export const Plans: FC = () => {
       <Container className={s.container} size="lg">
         <div className={s['heading']}>
           <Heading size="sm">Plans</Heading>
-          <div className={s['tabs-container']}>
-            <div className={s.tabs}>
-              {tabs.map((tab, i) => (
-                <Link
-                  href={`#${tab}`}
-                  onClick={() => setActiveKey(i)}
-                  className={clsx({ [s.active]: activeKey === i })}
-                  key={i}
-                >
-                  {tab}
-                </Link>
-              ))}
-            </div>
+        </div>
+        <div className={s['tabs-container']}>
+          <div className={s.tabs}>
+            {tabs.map((tab, i) => (
+              <Link
+                href={`#${tab}`}
+                onClick={() => setActiveKey(i)}
+                className={clsx({ [s.active]: activeKey === i })}
+                key={i}
+              >
+                {tab}
+              </Link>
+            ))}
           </div>
         </div>
         <div className={s['plan-container']}>

@@ -12,18 +12,26 @@
 
     .annual {
       display: flex;
+      align-items: center;
       gap: 8px;
       padding-top: 35px;
       font-size: 14px;
+      line-height: 121%;
 
       .switch {
         all: unset;
+        cursor: pointer;
         position: relative;
         width: 48px;
         height: 24px;
+        margin-right: 4px;
         background-color: var(--color-gray-lighter);
         border-radius: var(--border-radius-sm);
-        cursor: pointer;
+        transition: background-color var(--duration-fast);
+
+        &[data-state='checked'] {
+          background-color: var(--color-gray-dark);
+        }
 
         .thumb {
           display: block;
@@ -32,7 +40,7 @@
           height: 20px;
           width: 20px;
           z-index: 20;
-          background-color: white;
+          background-color: var(--color-white);
           border-radius: 2px;
           box-shadow: 0px 0px 2px rgb(0 0 0 / 0.15),
             0px 1px 2px rgb(0 0 0 / 0.1);

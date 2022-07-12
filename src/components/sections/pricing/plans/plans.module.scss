@@ -5,21 +5,20 @@
 
   .heading {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
-    place-items: center;
+    place-content: center;
     width: 100%;
-    position: sticky;
-    top: -11px;
-    z-index: var(--z-index-10);
+    margin-bottom: 24px;
   }
 
   .tabs-container {
-    background-color: var(--color-white);
+    position: sticky;
     display: flex;
-    margin-bottom: 68px;
     place-content: center;
     width: 100%;
+    margin-bottom: 68px;
+    background-color: var(--color-white);
+    top: calc(var(--header-height) - 1px);
+    z-index: var(--z-index-10);
 
     .tabs {
       display: flex;
@@ -147,10 +146,6 @@
 
 @media (max-width: $screen-lg) {
   .section {
-    .heading {
-      top: -23px;
-    }
-
     .tabs-container {
       margin-bottom: 50px;
 
@@ -196,12 +191,12 @@
       padding: 0;
 
       .heading {
-        gap: 64px;
         position: unset;
       }
     }
 
     .tabs-container {
+      position: unset;
       width: 100%;
       padding-top: 20px;
       mask-image: radial-gradient(
@@ -215,12 +210,11 @@
         overflow-x: auto;
         max-width: 100%;
         padding: 0 40px;
-        margin-bottom: 64px;
         display: grid;
         grid-auto-flow: column;
         grid-template-columns: repeat(auto, 1fr);
 
-        button {
+        a {
           padding-bottom: 32px;
 
           &.active {
