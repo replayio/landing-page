@@ -61,6 +61,8 @@ html {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  scroll-padding-top: 150px;
 
   // tweak if site is light mode.
   background-color: var(--color-white);

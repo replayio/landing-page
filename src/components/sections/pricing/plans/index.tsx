@@ -6,6 +6,7 @@ import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
+import { Link } from '~/components/primitives/link'
 
 import { plans } from './plans'
 import s from './plans.module.scss'
@@ -25,20 +26,21 @@ export const Plans: FC = () => {
           <div className={s['tabs-container']}>
             <div className={s.tabs}>
               {tabs.map((tab, i) => (
-                <button
+                <Link
+                  href={`#${tab}`}
                   onClick={() => setActiveKey(i)}
                   className={clsx({ [s.active]: activeKey === i })}
                   key={i}
                 >
                   {tab}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
         </div>
         <div className={s['plan-container']}>
           {plans.map((plan, i) => (
-            <div key={i} className={s.plan}>
+            <div key={i} className={s.plan} id={plan.type}>
               <div>
                 <Image src={plan.icon} alt={plan.type} />
                 <span>{plan.type}</span>
