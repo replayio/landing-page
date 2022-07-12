@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, forwardRef } from 'react'
+import { FC, forwardRef, ReactElement } from 'react'
 
 import { Heading } from '~/components/common/heading'
 
@@ -15,7 +15,7 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
 
 type SectionHeadingProps = {
   title: string
-  subtitle?: string
+  subtitle?: string | ReactElement
   centered?: boolean
 }
 

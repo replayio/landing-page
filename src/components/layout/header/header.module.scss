@@ -4,7 +4,7 @@
 .header {
   /* Temporary position */
   // position: relative;
-  position: sticky;
+  // position: sticky;
   display: flex;
   align-items: center;
   width: 100%;
@@ -12,6 +12,7 @@
   z-index: var(--z-index-50);
   height: var(--header-height);
   border-bottom: 1px solid transparent;
+  transition: border-color var(--duration-moderate) linear;
   top: 0;
 
   &.has-scrolled {

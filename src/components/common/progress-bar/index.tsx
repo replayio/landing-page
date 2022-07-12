@@ -5,17 +5,26 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useRef
+  useRef,
+  useState
 } from 'react'
 
 import s from './progress-bar.module.scss'
+
+type Marker = {
+  position: number
+  onActive?: () => void
+  onInactive?: () => void
+}
 
 type ProgressProps = {
   progress?: number
   direction?: 'horizontal' | 'vertical'
   primaryColor?: string
   secondaryColor?: string
-  markers?: { position: number; size?: number }[]
+  onMarkerUpdate?: (last: Marker, all: Marker[]) => void
+  markers?: Marker[]
+  markerSize?: number
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -35,24 +44,64 @@ export const ProgressBar = forwardRef<
       primaryColor,
       secondaryColor,
       progress,
-      direction = 'horizontal',
       markers,
+      markerSize,
+      onMarkerUpdate,
+      direction = 'horizontal',
       animated = true
     },
     ref
   ) => {
+    const [lastActiveMarker, setLastActiveMarker] = useState<
+      Marker | undefined
+    >(undefined)
     const barRef = useRef<HTMLDivElement>(null)
     const progressRef = useRef<HTMLDivElement>(null)
+    const prevProgress = useRef(progress || 0)
+    const orderedMarkers = useRef(
+      markers?.sort((a, b) => b.position - a.position)
+    )
     const timeline = useRef<GSAPTimeline | GSAP>(
       animated ? gsap.timeline() : gsap
     )
-    const prevProgress = useRef(progress || 0)
 
     const update = useCallback(
       (progress) => {
         const duration = UPDATE_INTERVAL_SEC
         const gsapFunc =
           progress < prevProgress.current || !animated ? 'set' : 'to'
+
+        if (
+          orderedMarkers.current?.some(({ position }) => position <= progress)
+        ) {
+          const firstCoincidence = orderedMarkers.current.find(
+            ({ position }) => position <= progress
+          )
+
+          if (firstCoincidence) {
+            setLastActiveMarker((prevValue) => {
+              if (prevValue?.position !== firstCoincidence?.position) {
+                onMarkerUpdate?.(
+                  firstCoincidence,
+                  orderedMarkers.current?.filter(
+                    ({ position }) => position <= progress
+                  ) || []
+                )
+
+                prevValue?.onInactive?.()
+                firstCoincidence.onActive?.()
+              }
+
+              return firstCoincidence
+            })
+          }
+        } else {
+          setLastActiveMarker((prevValue) => {
+            prevValue?.onInactive?.()
+
+            return undefined
+          })
+        }
 
         if (direction === 'horizontal') {
           if (progressRef.current) {
@@ -74,7 +123,7 @@ export const ProgressBar = forwardRef<
 
         prevProgress.current = progress
       },
-      [direction, animated]
+      [direction, onMarkerUpdate, animated]
     )
 
     useImperativeHandle(ref, () => ({ update }))
@@ -99,10 +148,14 @@ export const ProgressBar = forwardRef<
         <div className={s['progress']} ref={progressRef}>
           <div className={s['progress-gradient']} />
         </div>
-        {markers?.map(({ position, size }) => (
+        {markers?.map(({ position }) => (
           <ProgressThumb
-            size={size}
+            size={markerSize}
             color={primaryColor}
+            active={
+              lastActiveMarker !== undefined &&
+              position <= lastActiveMarker.position
+            }
             style={{
               [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
                 position + '%',
@@ -122,14 +175,22 @@ export const ProgressBar = forwardRef<
 type ProgressThumbProp = {
   size?: number
   color?: string
+  active?: boolean
 } & JSX.IntrinsicElements['span']
 
 export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
-  ({ size = 18, className, style, color, ...props }, ref) => (
+  ({ size = 18, active = false, className, style, color, ...props }, ref) => (
     <span
       // @ts-ignore
       style={{ '--color-primary': color, ...style }}
-      className={clsx(s['marker'], className)}
+      className={clsx(
+        s['marker'],
+        s['animated'],
+        {
+          [s['active']]: active
+        },
+        className
+      )}
       {...props}
       ref={ref}
     >

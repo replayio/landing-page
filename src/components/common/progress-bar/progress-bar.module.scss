@@ -72,12 +72,22 @@
 }
 
 .marker {
-  --color-primary: var(--color-pink-crayon);
+  --color-primary: #ffacbb;
   --translate-x: 0;
   --translate-y: 0;
 
   display: inline-block;
   font-size: 0;
+
+  &.active {
+    --color-primary: var(--color-pink-crayon);
+
+    .marker-thumb {
+      &::before {
+        animation-name: radar;
+      }
+    }
+  }
 
   .marker-thumb {
     --size: 18px;
@@ -88,6 +98,7 @@
     );
     position: relative;
     display: inline-block;
+    transition: background var(--duration-moderate) ease-in-out;
     background: var(--color-primary);
     width: var(--size);
     height: var(--size);
@@ -100,7 +111,7 @@
       height: var(--size);
       background: var(--color-primary);
       border-radius: var(--border-radius-full);
-      animation: 4s linear infinite radar;
+      animation: 4s linear infinite none;
     }
   }
 }

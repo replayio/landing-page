@@ -1,0 +1,7 @@
+.grid {
+  display: grid;
+}
+
+.grid > * {
+  grid-area: 1 / 1 / 1 / 1;
+}
