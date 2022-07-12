@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import { PlayIcon } from '~/components/common/play-icon'
+// import { PlayIcon } from '~/components/common/play-icon'
 import {
   ProgressBar,
   ProgressThumb,
@@ -9,8 +9,8 @@ import {
 } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
 
+// import { Button } from '~/components/primitives/button'
 import s from './software-tells-story.module.scss'
 
 const story = [

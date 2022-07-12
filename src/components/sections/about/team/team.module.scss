@@ -1,0 +1,19 @@
+.section {
+  margin-top: 112px;
+
+  .container {
+    .heading {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      place-content: center;
+      max-width: 620px;
+      margin: auto;
+      text-align: center;
+
+      p {
+        line-height: 138%;
+      }
+    }
+  }
+}

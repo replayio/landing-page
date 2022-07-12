@@ -16,7 +16,7 @@ const link = [
     label: 'Use Cases'
   },
   {
-    href: '/',
+    href: '/about',
     label: 'About'
   },
   {
