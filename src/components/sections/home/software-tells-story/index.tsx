@@ -89,12 +89,13 @@ export const SoftwareTellsStory: FC = () => {
           <div>
             <ProgressBar
               markers={[
-                { position: 0, size: 14 },
-                { position: 25, size: 14 },
-                { position: 50, size: 14 },
-                { position: 75, size: 14 },
-                { position: 100, size: 14 }
+                { position: 0 },
+                { position: 25 },
+                { position: 50 },
+                { position: 75 },
+                { position: 100 }
               ]}
+              markerSize={14}
               ref={progressMobileRef}
               direction="horizontal"
             />

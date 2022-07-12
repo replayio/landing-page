@@ -7,6 +7,20 @@
     text-align: center;
   }
 
+  &.disabled {
+    .heading-set__overtitle,
+    .heading-set__title,
+    .heading-set__description {
+      color: var(--color-gray-light);
+    }
+  }
+
+  .heading-set__overtitle,
+  .heading-set__title,
+  .heading-set__description {
+    transition: color var(--duration-moderate) linear;
+  }
+
   .heading-set__overtitle {
     color: var(--color-pink-crayon);
     letter-spacing: 0.1em;
