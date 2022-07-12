@@ -19,18 +19,24 @@ export const HeadingSet: FC<HeadingSetProps> = ({
   centered = false,
   disabled,
   className
-}) => (
-  <div
-    className={clsx(
-      s['heading-set'],
-      { [s['centered']]: centered, [s['disabled']]: disabled },
-      className
-    )}
-  >
-    {overtitle && <p className={s['heading-set__overtitle']}>{overtitle}</p>}
-    {title && <h3 className={s['heading-set__title']}>{title}</h3>}
-    {description && (
-      <div className={s['heading-set__description']}>{description}</div>
-    )}
-  </div>
-)
+}) => {
+  const DescriptionElm = typeof description === 'string' ? 'p' : 'div'
+
+  return (
+    <div
+      className={clsx(
+        s['heading-set'],
+        { [s['centered']]: centered, [s['disabled']]: disabled },
+        className
+      )}
+    >
+      {overtitle && <p className={s['heading-set__overtitle']}>{overtitle}</p>}
+      {title && <h3 className={s['heading-set__title']}>{title}</h3>}
+      {description && (
+        <DescriptionElm className={s['heading-set__description']}>
+          {description}
+        </DescriptionElm>
+      )}
+    </div>
+  )
+}

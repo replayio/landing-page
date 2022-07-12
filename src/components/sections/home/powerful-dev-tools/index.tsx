@@ -90,7 +90,7 @@ export const PowerfulDevTools: FC = () => {
         <SectionHeading
           title="Developer Tools"
           subtitle={
-            <div>
+            <p>
               Time travel debugging lets you replay the browser as it ran
               before, so that you can start debugging immediately and get into
               the flow state quickly.{' '}
@@ -98,9 +98,9 @@ export const PowerfulDevTools: FC = () => {
                 className={s['subtitle-link']}
                 href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
               >
-                How Replay works.
+                How&nbsp;Replay&nbsp;works.
               </a>
-            </div>
+            </p>
           }
           centered
         />
