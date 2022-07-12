@@ -1,5 +1,5 @@
 .section {
-  margin-top: 112px;
+  margin-top: 120px;
 
   .container {
     .heading {
@@ -9,10 +9,38 @@
       place-content: center;
       max-width: 620px;
       margin: auto;
+      margin-bottom: 112px;
       text-align: center;
 
       p {
         line-height: 138%;
+      }
+    }
+  }
+
+  .slider-container {
+    max-width: 1440px;
+    padding: 0;
+  }
+
+  .team {
+    .slider {
+      > div {
+        > div {
+          gap: 40px;
+
+          .slide {
+            margin: 0;
+
+            &:first-child {
+              margin-left: 80px;
+            }
+
+            &:last-child {
+              margin-right: 80px;
+            }
+          }
+        }
       }
     }
   }

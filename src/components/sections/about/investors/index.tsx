@@ -6,29 +6,28 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { useMedia } from '~/hooks/use-media'
 
-import { team } from './team'
-import s from './team.module.scss'
-import { UserCard } from './user-card'
+import s from '../team/team.module.scss'
+import { UserCard } from '../team/user-card'
+import { investors } from './investors'
 
-export const Team: FC = () => {
+export const Investors: FC = () => {
   const isMobile = useMedia('(max-width: 750px)')
   return (
     <Section className={s.section}>
       <Container className={s.container}>
         <div className={s.heading}>
           <Heading as="h2" size="lg">
-            Meet the team
+            Our investors
           </Heading>
           <p>
-            We're a distributed company, founded by people who have spent years
-            working on fully distributed teams at companies like Mozilla. We
-            work across the globe, so we focus less on hours and more on
-            building a great product. We build for the long term: it's a relay,
-            not a sprint.
+            We are grateful for the support and guidance we are receiving from
+            our institutional investors and angels. Their experience of leading
+            and advising companies such as GitHub, Figma, DataDog, Replit, and
+            Sourcegraph is helping us become even better.
           </p>
         </div>
       </Container>
-      <Container size="md" className={s['slider-container']}>
+      <Container size="lg" className={s['slider-container']}>
         <div className={s.team}>
           <Carousel
             className={s.slider}
@@ -38,7 +37,7 @@ export const Team: FC = () => {
             }}
             slideClassName={s['slide']}
           >
-            {team.map((member, i) => (
+            {investors.map((member, i) => (
               <UserCard key={i} member={member} />
             ))}
           </Carousel>

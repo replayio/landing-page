@@ -1,4 +1,4 @@
-import Image from 'next/future/image'
+import Image, { StaticImageData } from 'next/future/image'
 import { FC } from 'react'
 
 import { Link } from '~/components/primitives/link'
@@ -8,10 +8,11 @@ import twitterImg from '~/public/images/about/twitter.svg'
 import s from './usercard.module.scss'
 
 interface DataProps {
-  data: {
+  member: {
+    image: StaticImageData
     position: string
     name: string
-    bio: string
+    bio?: string
     socials: {
       twitter?: string
       linkedin?: string
@@ -19,23 +20,24 @@ interface DataProps {
   }
 }
 
-export const UserCard: FC<DataProps> = ({ data }) => {
+export const UserCard: FC<DataProps> = ({ member }) => {
   return (
     <div className={s.card}>
-      <span>{data.position}</span>
-      <span>{data.name}</span>
-      <p>{data.bio}</p>
+      <Image src={member.image} />
+      <span>{member.position}</span>
+      <span>{member.name}</span>
+      {member.bio && <p>{member.bio}</p>}
       <ul>
-        {data.socials.twitter && (
+        {member.socials.twitter && (
           <li>
-            <Link href={data.socials.twitter}>
+            <Link href={member.socials.twitter}>
               <Image src={twitterImg} alt="twitter" />
             </Link>
           </li>
         )}
-        {data.socials.linkedin && (
+        {member.socials.linkedin && (
           <li>
-            <Link href={data.socials.linkedin}>
+            <Link href={member.socials.linkedin}>
               <Image src={linkedinImg} alt="linkedin" />
             </Link>
           </li>
