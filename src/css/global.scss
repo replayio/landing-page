@@ -63,7 +63,7 @@ html {
   -moz-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  scroll-padding-top: 150px;
+  scroll-padding-top: calc(var(--header-height) + 30px);
 
   // tweak if site is light mode.
   background-color: var(--color-white);
