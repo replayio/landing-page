@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@radix-ui/react-tabs": "^0.1.5",
-    "@replayio/overboard": "^0.0.0",
+    "@replayio/overboard": "^0.1.1",
     "clsx": "1.1.1",
     "embla-carousel-react": "^7.0.0-rc03",
     "global": "^4.4.0",
