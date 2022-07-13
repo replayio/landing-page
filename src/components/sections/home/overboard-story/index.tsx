@@ -470,7 +470,7 @@ function OverboardStore() {
         },
         onUpdate: ({ progress }) => {
           if (hoverboardRef.current) {
-            hoverboardRef.current.rotate(
+            hoverboardRef.current?.rotate?.(
               gsap.utils.mapRange(0, 1, 0, 360, progress)
             )
           }
