@@ -1,7 +1,6 @@
 import { FC, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-// import { PlayIcon } from '~/components/common/play-icon'
 import {
   ProgressBar,
   ProgressThumb,
@@ -75,8 +74,8 @@ export const SoftwareTellsStory: FC = () => {
       <Container size="lg">
         <SectionHeading
           title="Replayable.dev"
-          centered
           subtitle="Replayable.dev is an experiment in what happens when you can share replays with others. Whether you want to ask a question, explain how something works, or share a debugging journey, we believe software is more understandable when you can replay it."
+          centered
         />
 
         <div className={s['main-mobile']}>

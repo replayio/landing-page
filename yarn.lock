@@ -382,10 +382,10 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@replayio/overboard@^0.0.0":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@replayio/overboard/-/overboard-0.0.0.tgz#1eeb61d99e829d67c17a03a2bd20c18a624e46fe"
-  integrity sha512-RCjBzt+hpAw1+8rX9wTRty/Fr/YjNYrF3D788ofpri2wFBQr7PyiuUv7eS42J0fDnDZE8OO7XOGRxrhZNZEUig==
+"@replayio/overboard@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@replayio/overboard/-/overboard-0.1.1.tgz#77b5f721704633200791260fe5808b8f92cc4baf"
+  integrity sha512-hjVX9evQE8InmRBvqmxXFuGDG5Jzmets4DVZW2Q015Vyj+jZCJIpkW7K9bPzKthBSbVP9QYMkJqx8MiZy2CdAg==
   dependencies:
     "@popmotion/popcorn" "^0.4.4"
     lottie-web "^5.9.6"
