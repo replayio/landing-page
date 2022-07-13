@@ -1,12 +1,14 @@
 import clsx from 'clsx'
+import { gsap } from 'lib/gsap'
 import Image from 'next/future/image'
-import { FC } from 'react'
+import { FC, memo, useEffect, useRef, useState } from 'react'
 
 import { PlayIcon } from '~/components/common/play-icon'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
+import { useGsapTime } from '~/hooks/use-gsap-time'
 
 import s from './testimonials.module.scss'
 
@@ -49,17 +51,95 @@ const testimonials = [
   }
 ]
 
+type CircularProgressBarProps = {
+  active: boolean
+  onComplete?: () => void
+  duration: number
+}
+
+const CircularProgressBar: FC<CircularProgressBarProps> = memo(
+  ({ active, duration, onComplete }) => {
+    const progressRef = useRef<SVGCircleElement>(null)
+    const maxDeg = 351.858
+
+    const time = useGsapTime({
+      duration,
+      loop: true,
+      onUpdate: (progress) => {
+        if (progressRef.current) {
+          gsap.set(progressRef.current, {
+            '--max-dash-array': maxDeg,
+            '--dash-array': `${maxDeg * progress.normalizedTime}`
+          })
+        }
+      },
+      onComplete
+    })
+
+    useEffect(() => {
+      time.start()
+
+      if (active) {
+        time.start()
+      } else {
+        time.pause()
+      }
+
+      return time.pause
+    }, [active, time])
+
+    return (
+      <svg className={s['progress-bar-root']} viewBox="0 0 120 120">
+        <circle
+          className={s['progress-bar']}
+          r="56"
+          cx="60"
+          cy="60"
+          strokeWidth="8"
+        />
+        <circle
+          className={s['progress']}
+          r="56"
+          cx="60"
+          cy="60"
+          strokeWidth="8"
+          // @ts-ignore
+          style={{ '--max-dash-array': maxDeg }}
+          ref={progressRef}
+        />
+      </svg>
+    )
+  }
+)
+
 export const Testimonials: FC = () => {
-  const activeIdx = 0
+  const [activeIdx, setActiveIdx] = useState(0)
+
+  const next = () => {
+    setActiveIdx((activeIdx + 1) % testimonials.length)
+  }
+
+  const QUOTE_DURATION = 10
 
   return (
     <Section className={s['section']}>
       <Container size="lg">
         <div className={s['testimonials']}>
           <div className={s['pictures']}>
-            {testimonials.map(({ picture, name }) => (
-              <button key={name}>
-                <div className={s['picture']}>
+            {testimonials.map(({ picture, name }, idx) => (
+              <button onClick={() => setActiveIdx(idx)} key={name}>
+                <div
+                  className={clsx(s['picture'], {
+                    [s['active']]: idx === activeIdx
+                  })}
+                >
+                  <div className={s['progress-bar-container']}>
+                    <CircularProgressBar
+                      duration={QUOTE_DURATION}
+                      active={idx === activeIdx}
+                      onComplete={next}
+                    />
+                  </div>
                   {/* @ts-ignore */}
                   <Image src={picture} width={64} height={64} layout="raw" />
                 </div>

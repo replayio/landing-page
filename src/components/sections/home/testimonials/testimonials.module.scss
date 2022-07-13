@@ -6,6 +6,26 @@
   background: var(--gradient-primary);
 }
 
+.progress-bar-root {
+  fill: none;
+  stroke-linecap: round;
+
+  --dash-array: 0;
+  --max-dash-array: 0;
+
+  .progress-bar {
+    opacity: 0.2;
+    stroke: var(--color-white);
+  }
+
+  .progress {
+    transform: rotate(-87.9537deg);
+    transform-origin: 50% 50%;
+    stroke: var(--color-white);
+    stroke-dasharray: var(--dash-array), var(--max-dash-array);
+  }
+}
+
 .testimonials {
   display: flex;
   flex-direction: column;
@@ -19,11 +39,31 @@
 
   .pictures {
     display: flex;
-    @include space-x(12px);
+    @include space-x(24px);
 
     .picture {
-      overflow: hidden;
+      &.active {
+        .progress-bar-container {
+          transform: scale(1.4);
+        }
+      }
+
+      .progress-bar-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: transform var(--duration-moderate) ease-out;
+        transform: scale(0.9);
+      }
+
+      position: relative;
       border-radius: var(--border-radius-full);
+
+      img {
+        position: relative;
+        border-radius: var(--border-radius-full);
+      }
     }
   }
 
