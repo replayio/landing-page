@@ -74,8 +74,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
       markerVisible = true,
       onMarkerUpdate,
       direction = 'horizontal',
-      animated = true,
-      debug = false
+      animated = true
     },
     ref
   ) => {
@@ -104,23 +103,12 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
         const gsapFunc =
           progress < prevProgress.current || !animated ? 'set' : 'to'
 
-        const firstCoincidence = orderedMarkers.find(
-          ({ position }) => position <= progress
-        )
-
-        if (debug) {
-          console.log({ firstCoincidence, progress })
-        }
-
         if (orderedMarkers?.some(({ position }) => position <= progress)) {
           const firstCoincidence = orderedMarkers.find(
             ({ position }) => position <= progress
           )
 
           if (firstCoincidence) {
-            if (debug) {
-              console.log('Here 1')
-            }
             setLastActiveMarker((prevValue) => {
               if (prevValue?.position !== firstCoincidence?.position) {
                 onMarkerUpdate?.(
@@ -138,9 +126,6 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
             })
           }
         } else {
-          if (debug) {
-            console.log('Here 2')
-          }
           setLastActiveMarker((prevValue) => {
             prevValue?.onInactive?.()
 
