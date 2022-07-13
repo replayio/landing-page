@@ -87,11 +87,16 @@
             grid-template-columns: 1fr 1fr;
             font-size: 16px;
             line-height: 138%;
-            padding: 24px 0;
-            border-bottom: 1px solid var(--color-gray-lighter);
+            padding-top: 24px;
+
+            &:not(:last-child) {
+              border-bottom: 1px solid var(--color-gray-lighter);
+              padding-bottom: 24px;
+            }
 
             span:first-child {
               font-weight: 600;
+              padding-right: 20px;
             }
 
             &:first-child {
@@ -136,6 +141,9 @@
 
 @media (max-width: $screen-sm) {
   .section {
+    padding: 48px 0;
+    margin-top: 112px;
+
     .container {
       > div:first-child {
         display: flex;
@@ -156,10 +164,16 @@
 
         .work-item {
           border-radius: var(--border-radius-lg);
+          padding: 24px;
+          min-height: unset;
 
           > span:nth-child(2) {
             font-size: 32px;
             line-height: 150%;
+          }
+
+          p {
+            margin-bottom: 24px;
           }
         }
       }
@@ -174,8 +188,9 @@
       }
 
       .work-item-jobs {
-        grid-template-columns: 1fr;
         border-radius: var(--border-radius-lg);
+        grid-template-columns: 1fr;
+        padding: 24px;
 
         div:first-child {
           padding: 0;
@@ -188,6 +203,10 @@
           > span:nth-child(2) {
             font-size: 32px;
             line-height: 150%;
+          }
+
+          p {
+            margin-bottom: 24px;
           }
         }
 

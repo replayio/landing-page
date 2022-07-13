@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 .card {
   display: flex;
   flex-direction: column;
@@ -47,6 +49,36 @@
   li {
     &:not(:first-child) {
       margin-left: 16px;
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .card {
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+
+    > img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 24px;
+    }
+
+    span {
+      &:nth-child(2) {
+        font-size: 12px;
+        line-height: 167%;
+        max-width: 140px;
+      }
+
+      &:nth-child(3) {
+        font-size: 27px;
+      }
+    }
+
+    ul {
+      display: flex;
+      margin-top: 24px;
     }
   }
 }

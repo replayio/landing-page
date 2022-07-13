@@ -1,5 +1,5 @@
 import { ScrollTrigger } from 'lib/gsap'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { HeadingSet } from '~/components/common/heading-set'
@@ -25,6 +25,21 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
 
   const progressRef = useRef<any>(null)
 
+  const markers = useMemo(
+    () => [
+      {
+        position: isMobile ? 8 : 25,
+        onInactive: () => onProgressUpdate(undefined),
+        onActive: () => onProgressUpdate(1)
+      },
+      {
+        position: isMobile ? 62 : 57,
+        onActive: () => onProgressUpdate(0)
+      }
+    ],
+    [onProgressUpdate, isMobile]
+  )
+
   useEffect(() => {
     const sectionRef = document.querySelector('#main-features-section')
 
@@ -34,8 +49,8 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
       trigger: sectionRef,
       markers: isDev,
       scrub: 1,
-      start: 'top 40%',
-      end: 'bottom 20%',
+      start: 'top 30%',
+      end: 'bottom 15%',
       onUpdate: (stState) => {
         if (progressRef.current) {
           progressRef.current.update(stState.progress * 100)
@@ -46,22 +61,12 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
     return () => {
       trigger.kill()
     }
-  }, [isMobile])
+  }, [])
 
   return (
     <ProgressBar
       ref={progressRef}
-      markers={[
-        {
-          position: 25,
-          onInactive: () => onProgressUpdate(undefined),
-          onActive: () => onProgressUpdate(1)
-        },
-        {
-          position: 57,
-          onActive: () => onProgressUpdate(0)
-        }
-      ]}
+      markers={markers}
       direction="vertical"
       animated={false}
     />
@@ -82,7 +87,7 @@ export const Hero: FC = () => {
           </Heading>
           <p>
             Learn where Replay is right now and where we are going next.
-            <br />
+            <br className={s['hide-mobile']} />
             Find out about our principles and values. Meet the team and discover
             opportunities to join us on our journey.
           </p>

@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 .section {
   margin-top: 120px;
 
@@ -29,9 +31,46 @@
 
             div {
               width: 27.6vw;
-              min-width: 360px;
+              min-width: 365px;
               max-width: 400px;
               height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .section {
+    margin-top: 112px;
+
+    .container {
+      .heading {
+        gap: 8px;
+        margin-bottom: 48px;
+      }
+    }
+
+    .slider-container {
+      padding: 0;
+    }
+
+    .team {
+      .slider {
+        > div {
+          > div {
+            gap: 16px;
+
+            .slide {
+              margin: 0;
+
+              div {
+                width: 80vw;
+                min-width: unset;
+                max-width: 380px;
+              }
             }
           }
         }

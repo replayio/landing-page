@@ -40,6 +40,10 @@
   bottom: 0;
 }
 
+.hide-mobile {
+  display: none;
+}
+
 @media (min-width: $screen-md) {
   .section {
     .main-features {
@@ -72,5 +76,9 @@
       #d9d9d9 60%,
       rgb(217 217 217 / 0) 98%
     );
+  }
+
+  .hide-mobile {
+    display: unset;
   }
 }
