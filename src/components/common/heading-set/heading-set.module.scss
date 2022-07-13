@@ -13,6 +13,10 @@
     .heading-set__description {
       color: var(--color-gray-light);
     }
+
+    img {
+      opacity: 20%;
+    }
   }
 
   .heading-set__overtitle,
@@ -39,6 +43,12 @@
   .heading-set__description {
     color: var(--colors-gray-darker);
     margin-top: 16px;
+  }
+
+  img {
+    border-radius: var(--border-radius-2xl);
+    margin-bottom: 64px;
+    transition: opacity var(--duration-moderate) linear;
   }
 
   div.heading-set__description p {

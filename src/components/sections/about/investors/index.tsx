@@ -27,7 +27,7 @@ export const Investors: FC = () => {
           </p>
         </div>
       </Container>
-      <Container size="lg" className={s['slider-container']}>
+      <Container size="md" className={s['slider-container']}>
         <div className={s.team}>
           <Carousel
             className={s.slider}

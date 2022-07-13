@@ -1,0 +1,76 @@
+@import 'css/variables';
+
+.section {
+  margin-top: 64px;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    place-items: center;
+    width: 100%;
+
+    p {
+      line-height: 138%;
+      max-width: 500px;
+      text-align: center;
+    }
+  }
+
+  .main-features {
+    position: relative;
+    padding-left: 40px;
+    margin-left: 16px;
+    margin-top: 170px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+
+    .feature:last-child {
+      margin-top: 25px;
+      margin-bottom: 200px;
+    }
+  }
+}
+
+.progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+@media (min-width: $screen-md) {
+  .section {
+    .main-features {
+      padding-left: 0;
+      margin-left: 0;
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+
+      .feature {
+        &:first-child {
+          margin-top: 580px;
+        }
+
+        &:last-child {
+          margin-top: 125px;
+          margin-bottom: unset;
+        }
+      }
+    }
+  }
+
+  .progress-bar {
+    padding: 0 36px;
+    position: static;
+    height: 100%;
+    mask-image: radial-gradient(
+      circle,
+      #d9d9d9 0%,
+      #d9d9d9 60%,
+      rgb(217 217 217 / 0) 98%
+    );
+  }
+}

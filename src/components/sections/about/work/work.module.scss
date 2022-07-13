@@ -1,5 +1,7 @@
+@import 'css/variables';
+
 .section {
-  padding-top: 120px;
+  padding: 120px 0;
   margin-top: 200px;
   background: linear-gradient(
     180deg,
@@ -80,6 +82,7 @@
           flex-direction: column;
 
           li {
+            position: relative;
             display: grid;
             grid-template-columns: 1fr 1fr;
             font-size: 16px;
@@ -100,6 +103,112 @@
               padding-bottom: 16px;
               text-transform: uppercase;
               border-bottom: 2px solid var(--color-gray-lighter);
+            }
+
+            img {
+              position: absolute;
+              right: 0;
+              bottom: 0;
+              top: 0;
+              margin: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .section {
+    .container {
+      > div:first-child {
+        display: flex;
+        flex-direction: column;
+
+        p {
+          max-width: 480px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .section {
+    .container {
+      > div:first-child {
+        display: flex;
+        flex-direction: column;
+
+        p {
+          max-width: unset;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        img {
+          width: 48px;
+          height: 48px;
+        }
+
+        .work-item {
+          border-radius: var(--border-radius-lg);
+
+          > span:nth-child(2) {
+            font-size: 32px;
+            line-height: 150%;
+          }
+        }
+      }
+
+      > div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .work-item-jobs {
+        grid-template-columns: 1fr;
+        border-radius: var(--border-radius-lg);
+
+        div:first-child {
+          padding: 0;
+
+          > img {
+            width: 48px;
+            height: 48px;
+          }
+
+          > span:nth-child(2) {
+            font-size: 32px;
+            line-height: 150%;
+          }
+        }
+
+        div:nth-child(2) {
+          width: 100%;
+
+          ul {
+            li {
+              grid-template-columns: 1fr;
+
+              > span:nth-child(2) {
+                margin-top: 8px;
+              }
+
+              &:first-child {
+                padding-top: 40px;
+
+                span:nth-child(2) {
+                  display: none;
+                }
+              }
             }
           }
         }

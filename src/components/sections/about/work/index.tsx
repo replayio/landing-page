@@ -5,6 +5,7 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
+import arrow from '~/public/images/about/arrow.svg'
 import codeImg from '~/public/images/about/code.svg'
 import journeyImg from '~/public/images/about/journey.svg'
 import valuesImg from '~/public/images/about/values.svg'
@@ -82,6 +83,7 @@ export const Work: FC = () => {
                 <li key={i}>
                   <span>{title}</span>
                   <span>{skills}</span>
+                  <Image src={arrow} />
                 </li>
               ))}
             </ul>
