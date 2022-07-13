@@ -1,11 +1,8 @@
 import Image from 'next/future/image'
-import { FC, useEffect, useRef } from 'react'
+import { FC } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
-import {
-  ProgressBar,
-  UPDATE_INTERVAL_MS
-} from '~/components/common/progress-bar'
+import { Timeline } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
@@ -25,20 +22,6 @@ const AssetChunk: FC<AssetChunkProps> = ({ title }) => {
 }
 
 const AssetPlayer = () => {
-  const progressRef = useRef<any>(null)
-  const currentProgress = useRef<number>(0)
-
-  const updateProgress = () => {
-    currentProgress.current = (currentProgress.current + 1) % 101
-    progressRef.current.update(currentProgress.current)
-  }
-
-  useEffect(() => {
-    const interval = setInterval(updateProgress, UPDATE_INTERVAL_MS)
-
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <div className={s['asset-player']}>
       <div className={s['progress-chunks']}>
@@ -68,7 +51,7 @@ const AssetPlayer = () => {
         />
       </div>
       <div className={s['progress']}>
-        <ProgressBar ref={progressRef} direction="horizontal" />
+        <Timeline duration={20} direction="horizontal" />
       </div>
       <div className={s['asset']}>
         <Image

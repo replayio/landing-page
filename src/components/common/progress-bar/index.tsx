@@ -9,6 +9,8 @@ import {
   useState
 } from 'react'
 
+import { INTERVAL_MS, useTime } from '~/hooks/use-time'
+
 import s from './progress-bar.module.scss'
 
 type Marker = {
@@ -32,13 +34,12 @@ type ProgressProps = {
   animated?: boolean
 }
 
-export const UPDATE_INTERVAL_MS = 200
-export const UPDATE_INTERVAL_SEC = UPDATE_INTERVAL_MS / 1000
+export type ProgressAPI = { update: (progress: number) => void }
 
-export const ProgressBar = forwardRef<
-  { update: (progress: number) => void },
-  ProgressProps
->(
+export const ANIMATION_UPDATE_INTERVAL_MS = INTERVAL_MS
+export const ANIMATION_UPDATE_INTERVAL_SEC = ANIMATION_UPDATE_INTERVAL_MS / 1000
+
+export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
   (
     {
       primaryColor,
@@ -67,7 +68,7 @@ export const ProgressBar = forwardRef<
 
     const update = useCallback(
       (progress) => {
-        const duration = UPDATE_INTERVAL_SEC
+        const duration = ANIMATION_UPDATE_INTERVAL_SEC
         const gsapFunc =
           progress < prevProgress.current || !animated ? 'set' : 'to'
 
@@ -202,3 +203,30 @@ export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
     </span>
   )
 )
+
+type TimelineProps = {
+  duration: number
+  loop?: boolean
+} & ProgressProps
+
+export const Timeline = ({ duration, loop = true, ...rest }: TimelineProps) => {
+  const progressRef = useRef<ProgressAPI>(null)
+
+  const { start, pause } = useTime({
+    duration,
+    onUpdate: (progress) => {
+      progressRef.current?.update(progress.percentage)
+    },
+    loop
+  })
+
+  useEffect(() => {
+    start()
+
+    return () => {
+      pause()
+    }
+  }, [start, pause])
+
+  return <ProgressBar {...rest} ref={progressRef} />
+}
