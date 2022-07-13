@@ -1,3 +1,4 @@
+import { gsap } from 'lib/gsap'
 import clamp from 'lodash/clamp'
 import { useMemo, useRef } from 'react'
 
@@ -10,15 +11,12 @@ type UseTimeArgs = {
   loop?: boolean
 }
 
-export const INTERVAL_MS = 1000
-
-export const useTime = ({
+export const useGsapTime = ({
   onUpdate,
   onComplete,
   loop = false,
   duration
 }: UseTimeArgs) => {
-  const intervalId = useRef<NodeJS.Timer | undefined>()
   const startTime = useRef<Date | undefined>()
 
   const api = useMemo(() => {
@@ -29,8 +27,6 @@ export const useTime = ({
 
       const timePassed = msToSecs(clampedTimeDiff)
       const percentage = (timePassed / duration) * 100
-
-      console.log({ timeDiff, clampedTimeDiff, timePassed, percentage })
 
       onUpdate?.({
         time: timePassed,
@@ -52,16 +48,13 @@ export const useTime = ({
 
         update()
 
-        intervalId.current = setInterval(update, INTERVAL_MS)
+        gsap.ticker.add(update)
       },
       pause: () => {
-        if (intervalId.current) {
-          clearInterval(intervalId.current)
-          intervalId.current = undefined
-        }
+        gsap.ticker.remove(update)
       },
       resume: () => {
-        intervalId.current = setInterval(update, INTERVAL_MS)
+        gsap.ticker.add(update)
       },
       restart: () => {
         api.pause()
