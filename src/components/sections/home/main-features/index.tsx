@@ -1,5 +1,5 @@
 import { ScrollTrigger } from 'lib/gsap'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
 import { ProgressBar } from '~/components/common/progress-bar'
@@ -18,6 +18,21 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
   onProgressUpdate
 }) => {
   const progressRef = useRef<any>(null)
+
+  const markers = useMemo(
+    () => [
+      {
+        position: 20,
+        onInactive: () => onProgressUpdate(undefined),
+        onActive: () => onProgressUpdate(0)
+      },
+      {
+        position: 80,
+        onActive: () => onProgressUpdate(1)
+      }
+    ],
+    [onProgressUpdate]
+  )
 
   useEffect(() => {
     const sectionRef = document.querySelector('#main-features-section')
@@ -45,17 +60,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
   return (
     <ProgressBar
       ref={progressRef}
-      markers={[
-        {
-          position: 20,
-          onInactive: () => onProgressUpdate(undefined),
-          onActive: () => onProgressUpdate(0)
-        },
-        {
-          position: 80,
-          onActive: () => onProgressUpdate(1)
-        }
-      ]}
+      markers={markers}
       direction="vertical"
       animated={false}
     />

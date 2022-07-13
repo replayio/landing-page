@@ -1,5 +1,6 @@
+import type { HoverboardControls } from '@replayio/overboard'
 import { Hoverboard, Logo } from '@replayio/overboard'
-import { gsap } from 'lib/gsap'
+import { gsap, ScrollTrigger } from 'lib/gsap'
 import { useRef, useState } from 'react'
 
 import { Logo as ReplayLogo } from '~/components/primitives/logo'
@@ -304,6 +305,7 @@ function DevTools() {
           start: '+=100vh',
           end: '+=400vh',
           scrub: true
+          // markers: true
         }
       })
       .fromTo(ref.current, { opacity: 0 }, { opacity: 1 })
@@ -423,6 +425,7 @@ function ReplayApplication() {
 
 function OverboardStore() {
   const ref = useRef<HTMLImageElement>(null)
+  const hoverboardRef = useRef<HoverboardControls>(null)
   const padding = 32
   const frameHeight = `calc(100vh - ${padding * 2}px)`
 
@@ -456,6 +459,23 @@ function OverboardStore() {
           y: '-6vh',
           scale: 0.6
         })
+
+      ScrollTrigger.create({
+        trigger: ref.current.closest('section'),
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true,
+        onLeaveBack: () => {
+          hoverboardRef.current?.reset()
+        },
+        onUpdate: ({ progress }) => {
+          if (hoverboardRef.current) {
+            hoverboardRef.current?.rotate?.(
+              gsap.utils.mapRange(0, 1, 0, 360, progress)
+            )
+          }
+        }
+      })
     }
   }, [])
 
@@ -475,7 +495,7 @@ function OverboardStore() {
     >
       <Logo />
       <div style={{ height: '30vh' }}>
-        <Hoverboard />
+        <Hoverboard ref={hoverboardRef} />
       </div>
     </div>
   )

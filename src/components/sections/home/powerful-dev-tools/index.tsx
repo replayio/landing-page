@@ -1,11 +1,9 @@
+import clsx from 'clsx'
 import Image from 'next/future/image'
-import { FC, useEffect, useRef } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
-import {
-  ProgressBar,
-  UPDATE_INTERVAL_MS
-} from '~/components/common/progress-bar'
+import { Timeline } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
@@ -14,61 +12,85 @@ import s from './powerful-dev-tools.module.scss'
 type AssetChunkProps = {
   title: string
   description: string
+  active?: boolean
 } & JSX.IntrinsicElements['div']
 
-const AssetChunk: FC<AssetChunkProps> = ({ title }) => {
+const AssetChunk: FC<AssetChunkProps> = ({ id, active, title }) => {
   return (
-    <div className={s['asset-chunk']}>
-      <HeadingSet centered overtitle={title} />
+    <div className={clsx(s['asset-chunk'], { [s['active']]: active })}>
+      <HeadingSet disabled={!active} centered overtitle={title} />
+      <span id={id} className={s['chunk-marker-anchor']} />
     </div>
   )
 }
 
-const AssetPlayer = () => {
-  const progressRef = useRef<any>(null)
-  const currentProgress = useRef<number>(0)
-
-  const updateProgress = () => {
-    currentProgress.current = (currentProgress.current + 1) % 101
-    progressRef.current.update(currentProgress.current)
+const assets = [
+  {
+    title: 'Print Statements',
+    description:
+      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+  },
+  {
+    title: 'Console',
+    description:
+      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+  },
+  {
+    title: 'Debugger',
+    description:
+      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+  },
+  {
+    title: 'React',
+    description:
+      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+  },
+  {
+    title: 'Elements',
+    description:
+      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+  },
+  {
+    title: 'Network',
+    description:
+      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
   }
+]
 
-  useEffect(() => {
-    const interval = setInterval(updateProgress, UPDATE_INTERVAL_MS)
+const AssetPlayer = () => {
+  const [activeIdx, setActiveIdx] = useState(0)
 
-    return () => clearInterval(interval)
-  }, [])
+  const markers = useMemo(
+    () =>
+      assets.map((asset, idx) => ({
+        position: `asset-chunk-${asset.title}-${idx}`,
+        onActive: () => setActiveIdx(idx)
+      })),
+    []
+  )
 
   return (
     <div className={s['asset-player']}>
       <div className={s['progress-chunks']}>
-        <AssetChunk
-          title="Print Statements"
-          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
-        />
-        <AssetChunk
-          title="Console"
-          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
-        />
-        <AssetChunk
-          title="Debugger"
-          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
-        />
-        <AssetChunk
-          title="React"
-          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
-        />
-        <AssetChunk
-          title="Elements"
-          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
-        />
-        <AssetChunk
-          title="Network"
-          description="Add replays to Bug Reports and Pull Requests and share them in Slack."
-        />
+        {assets.map((asset, idx) => (
+          <AssetChunk
+            key={idx}
+            active={idx <= activeIdx}
+            title={asset.title}
+            id={`asset-chunk-${asset.title}-${idx}`}
+            description={asset.description}
+          />
+        ))}
       </div>
       <div className={s['progress']}>
-        <ProgressBar ref={progressRef} direction="horizontal" />
+        <Timeline
+          markers={markers}
+          markerVisible={false}
+          markerSize={14}
+          duration={20}
+          direction="horizontal"
+          debug
+        />
       </div>
       <div className={s['asset']}>
         <Image

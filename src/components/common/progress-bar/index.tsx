@@ -2,17 +2,27 @@ import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import {
   forwardRef,
+  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState
 } from 'react'
 
+import { useGsapTime } from '~/hooks/use-gsap-time'
+import { isClient } from '~/lib/constants'
+import { msToSecs } from '~/lib/utils'
+
 import s from './progress-bar.module.scss'
 
 type Marker = {
-  position: number
+  /* 
+    If number it is the percentage position,
+    if string it is the id of the element to track
+  */
+  position: number | string
   onActive?: () => void
   onInactive?: () => void
 }
@@ -25,20 +35,35 @@ type ProgressProps = {
   onMarkerUpdate?: (last: Marker, all: Marker[]) => void
   markers?: Marker[]
   markerSize?: number
+  markerVisible?: boolean
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
   */
   animated?: boolean
+  debug?: boolean
 }
 
-export const UPDATE_INTERVAL_MS = 200
-export const UPDATE_INTERVAL_SEC = UPDATE_INTERVAL_MS / 1000
+export type ProgressAPI = { update: (progress: number) => void }
 
-export const ProgressBar = forwardRef<
-  { update: (progress: number) => void },
-  ProgressProps
->(
+export const ANIMATION_UPDATE_INTERVAL_MS = 1000
+export const ANIMATION_UPDATE_INTERVAL_SEC = msToSecs(
+  ANIMATION_UPDATE_INTERVAL_MS
+)
+
+const getElmXById = (id: string) => {
+  if (!isClient) return 0
+
+  const elm = document.getElementById(id)
+
+  if (!elm) {
+    throw new Error(`Element with id ${id} not found`)
+  }
+
+  return elm.getBoundingClientRect().left
+}
+
+export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
   (
     {
       primaryColor,
@@ -46,6 +71,7 @@ export const ProgressBar = forwardRef<
       progress,
       markers,
       markerSize,
+      markerVisible = true,
       onMarkerUpdate,
       direction = 'horizontal',
       animated = true
@@ -58,23 +84,27 @@ export const ProgressBar = forwardRef<
     const barRef = useRef<HTMLDivElement>(null)
     const progressRef = useRef<HTMLDivElement>(null)
     const prevProgress = useRef(progress || 0)
-    const orderedMarkers = useRef(
-      markers?.sort((a, b) => b.position - a.position)
-    )
     const timeline = useRef<GSAPTimeline | GSAP>(
-      animated ? gsap.timeline() : gsap
+      animated ? gsap.timeline({ autoRemoveChildren: true }) : gsap
+    )
+
+    const [internalMarkers, setInternalMarkers] = useState<
+      (Marker & { position: number })[]
+    >([])
+
+    const orderedMarkers = useMemo(
+      () => internalMarkers?.sort((a, b) => b.position - a.position),
+      [internalMarkers]
     )
 
     const update = useCallback(
       (progress) => {
-        const duration = UPDATE_INTERVAL_SEC
+        const duration = ANIMATION_UPDATE_INTERVAL_SEC
         const gsapFunc =
           progress < prevProgress.current || !animated ? 'set' : 'to'
 
-        if (
-          orderedMarkers.current?.some(({ position }) => position <= progress)
-        ) {
-          const firstCoincidence = orderedMarkers.current.find(
+        if (orderedMarkers?.some(({ position }) => position <= progress)) {
+          const firstCoincidence = orderedMarkers.find(
             ({ position }) => position <= progress
           )
 
@@ -83,7 +113,7 @@ export const ProgressBar = forwardRef<
               if (prevValue?.position !== firstCoincidence?.position) {
                 onMarkerUpdate?.(
                   firstCoincidence,
-                  orderedMarkers.current?.filter(
+                  orderedMarkers?.filter(
                     ({ position }) => position <= progress
                   ) || []
                 )
@@ -123,10 +153,28 @@ export const ProgressBar = forwardRef<
 
         prevProgress.current = progress
       },
-      [direction, onMarkerUpdate, animated]
+      [direction, onMarkerUpdate, animated, orderedMarkers]
     )
 
-    useImperativeHandle(ref, () => ({ update }))
+    useImperativeHandle(ref, () => ({ update }), [update])
+
+    useEffect(() => {
+      if (!barRef.current) return
+
+      const { left, width } = barRef.current!.getBoundingClientRect()
+
+      const newMarkers = markers?.map((marker) => {
+        return {
+          ...marker,
+          position:
+            typeof marker.position === 'string'
+              ? ((getElmXById(marker.position) - left) / width) * 100
+              : marker.position
+        }
+      })
+
+      setInternalMarkers(newMarkers || [])
+    }, [markers])
 
     useEffect(() => {
       update(progress)
@@ -148,25 +196,26 @@ export const ProgressBar = forwardRef<
         <div className={s['progress']} ref={progressRef}>
           <div className={s['progress-gradient']} />
         </div>
-        {markers?.map(({ position }) => (
-          <ProgressThumb
-            size={markerSize}
-            color={primaryColor}
-            active={
-              lastActiveMarker !== undefined &&
-              position <= lastActiveMarker.position
-            }
-            style={{
-              [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
-                position + '%',
-              //@ts-ignore
-              '--translate-y': '0.5',
-              '--translate-x': '0.5'
-            }}
-            className={s['marker']}
-            key={position}
-          />
-        ))}
+        {markerVisible &&
+          internalMarkers?.map(({ position }) => (
+            <ProgressThumb
+              size={markerSize}
+              color={primaryColor}
+              active={
+                lastActiveMarker !== undefined &&
+                position <= lastActiveMarker.position
+              }
+              style={{
+                [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
+                  position + '%',
+                //@ts-ignore
+                '--translate-y': '0.5',
+                '--translate-x': '0.5'
+              }}
+              className={s['marker']}
+              key={position}
+            />
+          ))}
       </div>
     )
   }
@@ -201,4 +250,31 @@ export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
       />
     </span>
   )
+)
+
+type TimelineProps = {
+  duration: number
+  loop?: boolean
+} & ProgressProps
+
+export const Timeline = memo(
+  ({ duration, loop = true, ...rest }: TimelineProps) => {
+    const progressRef = useRef<ProgressAPI>(null)
+
+    const { start, pause } = useGsapTime({
+      duration,
+      onUpdate: (progress) => {
+        progressRef.current?.update(progress.percentage)
+      },
+      loop
+    })
+
+    useEffect(() => {
+      start()
+
+      return pause
+    }, [start, pause])
+
+    return <ProgressBar animated={false} {...rest} ref={progressRef} />
+  }
 )
