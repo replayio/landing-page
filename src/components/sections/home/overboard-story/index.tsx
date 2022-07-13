@@ -88,6 +88,8 @@ function ReactDevTools() {
   return (
     <div
       style={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
         backgroundColor: 'white'
       }}
     >
@@ -101,13 +103,32 @@ function ReactDevTools() {
       >
         Search for component...
       </div>
+
       <div
         style={{
-          fontFamily: 'monospace',
-          padding: 10
+          display: 'flex',
+          fontFamily: 'monospace'
         }}
       >
-        {renderReactTree(reactTree)}
+        <div style={{ padding: 10 }}>{renderReactTree(reactTree)}</div>
+
+        <div
+          style={{
+            padding: 10,
+            fontVariantNumeric: 'tabular-nums',
+            borderLeft: '1px solid #DCDCDC'
+          }}
+        >
+          props:
+          <ul style={{ paddingLeft: 16 }}>
+            <li>
+              rotate:{' '}
+              <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
+                0
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   )
@@ -469,10 +490,14 @@ function OverboardStore() {
           hoverboardRef.current?.reset()
         },
         onUpdate: ({ progress }) => {
-          if (hoverboardRef.current) {
-            hoverboardRef.current?.rotate?.(
-              gsap.utils.mapRange(0, 1, 0, 360, progress)
-            )
+          const rotateValue = gsap.utils.mapRange(0, 1, 0, 360, progress)
+
+          hoverboardRef.current?.rotate?.(rotateValue)
+
+          const rotateText = document.getElementById('hoverboard-rotate')
+
+          if (rotateText) {
+            rotateText.innerText = rotateValue.toFixed(2)
           }
         }
       })
@@ -484,7 +509,6 @@ function OverboardStore() {
       ref={ref}
       style={{
         gridArea: '1 / 1 / 1 / 1',
-        // transformOrigin: 'top left',
         height: frameHeight,
         width: '100%',
         padding: 64,
@@ -499,23 +523,6 @@ function OverboardStore() {
       </div>
     </div>
   )
-
-  // return (
-  //   // <iframe
-  //   <img
-  //     ref={ref}
-  //     // src="https://overboard.dev"
-  //     src={overboardStore.src}
-  //     style={{
-  //       gridArea: '1 / 1 / 1 / 1',
-  //       // transformOrigin: 'top left',
-  //       height: frameHeight,
-  //       width: '100%',
-  //       objectFit: 'contain',
-  //       borderRadius: 20
-  //     }}
-  //   />
-  // )
 }
 
 export function OverboardStory() {
