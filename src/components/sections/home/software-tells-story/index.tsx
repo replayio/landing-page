@@ -2,9 +2,9 @@ import { FC, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
+  ANIMATION_UPDATE_INTERVAL_MS,
   ProgressBar,
-  ProgressThumb,
-  UPDATE_INTERVAL_MS
+  ProgressThumb
 } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -54,13 +54,13 @@ export const SoftwareTellsStory: FC = () => {
       () =>
         progressDesktopRef.current &&
         updateProgress(progressDesktopRef.current),
-      UPDATE_INTERVAL_MS
+      ANIMATION_UPDATE_INTERVAL_MS
     )
 
     const intervalMobile = setInterval(
       () =>
         progressMobileRef.current && updateProgress(progressMobileRef.current),
-      UPDATE_INTERVAL_MS
+      ANIMATION_UPDATE_INTERVAL_MS
     )
 
     return () => {

@@ -41,3 +41,7 @@ export const getSizes = (
 
   return sizes.join(', ')
 }
+
+export const msToSecs = (ms: number) => Math.floor(ms / 1000)
+
+export const secsToMs = (secs: number) => secs * 1000
