@@ -40,6 +40,20 @@
   }
 }
 
+@media (max-width: $screen-lg) {
+  .section {
+    .team {
+      .slider {
+        > div {
+          > div {
+            gap: 28px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $screen-sm) {
   .section {
     margin-top: 112px;
@@ -60,12 +74,15 @@
         > div {
           > div {
             gap: 16px;
+            height: 100%;
 
             .slide {
               margin: 0;
+              margin: auto;
 
               div {
                 width: 80vw;
+                height: unset;
                 min-width: unset;
                 max-width: 380px;
               }
