@@ -1,6 +1,4 @@
 import { Meta } from '~/components/common/meta'
-import { Footer } from '~/components/layout/footer'
-import { Header } from '~/components/layout/header'
 import { PageLayout } from '~/components/layout/page'
 import { Hero } from '~/components/sections/about/hero'
 import { Investors } from '~/components/sections/about/investors'
@@ -13,13 +11,10 @@ const About = () => {
   return (
     <PageLayout>
       <Meta />
-
-      <Header />
       <Hero />
       <Work />
       <Team />
       <Investors />
-      <Footer />
     </PageLayout>
   )
 }
