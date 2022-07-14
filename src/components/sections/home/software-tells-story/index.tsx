@@ -1,13 +1,12 @@
 import { FC, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import {
-  ANIMATION_UPDATE_INTERVAL_MS,
-  ProgressBar,
-  ProgressThumb
-} from '~/components/common/progress-bar'
+import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { useGsapTime } from '~/hooks/use-gsap-time'
+import { useMedia } from '~/hooks/use-media'
+import { breakpoints } from '~/lib/constants'
 
 import s from './software-tells-story.module.scss'
 
@@ -39,34 +38,27 @@ const story = [
 ]
 
 export const SoftwareTellsStory: FC = () => {
-  const progressDesktopRef = useRef<any>(null)
-  const progressMobileRef = useRef<any>(null)
-  const currentProgress = useRef<number>(0)
+  const mobileTimeline = useRef<ProgressAPI>(null)
+  const desktopTimeline = useRef<ProgressAPI>(null)
+  const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
 
-  const updateProgress = (progressComp: any) => {
-    currentProgress.current = (currentProgress.current + 1) % 101
-    progressComp.update(currentProgress.current)
-  }
+  const time = useGsapTime({
+    duration: 20,
+    loop: true,
+    onUpdate: (progress) => {
+      if (isDesktop) {
+        desktopTimeline.current?.update(progress.percentage)
+      } else {
+        mobileTimeline.current?.update(progress.percentage)
+      }
+    }
+  })
 
   useEffect(() => {
-    const intervalDesktop = setInterval(
-      () =>
-        progressDesktopRef.current &&
-        updateProgress(progressDesktopRef.current),
-      ANIMATION_UPDATE_INTERVAL_MS
-    )
+    time.start()
 
-    const intervalMobile = setInterval(
-      () =>
-        progressMobileRef.current && updateProgress(progressMobileRef.current),
-      ANIMATION_UPDATE_INTERVAL_MS
-    )
-
-    return () => {
-      clearInterval(intervalDesktop)
-      clearInterval(intervalMobile)
-    }
-  }, [])
+    return time.pause
+  }, [time])
 
   return (
     <Section className={s['section']}>
@@ -89,15 +81,12 @@ export const SoftwareTellsStory: FC = () => {
 
           <div>
             <ProgressBar
-              markers={[
-                { position: 0 },
-                { position: 25 },
-                { position: 50 },
-                { position: 75 },
-                { position: 100 }
-              ]}
+              markers={story.map((s, idx) => ({
+                position: idx === 0 ? 0 : `story-desktop-marker-${s.title}`
+              }))}
+              animated={false}
               markerSize={14}
-              ref={progressMobileRef}
+              ref={mobileTimeline}
               direction="horizontal"
             />
           </div>
@@ -106,7 +95,14 @@ export const SoftwareTellsStory: FC = () => {
         <div className={s['main-desktop']}>
           <div className={s['story']}>
             <div className={s['progress']}>
-              <ProgressBar ref={progressDesktopRef} direction="vertical" />
+              <ProgressBar
+                markers={story.map((s, idx) => ({
+                  position: idx === 0 ? 0 : `story-desktop-marker-${s.title}`
+                }))}
+                ref={desktopTimeline}
+                animated={false}
+                direction="vertical"
+              />
             </div>
             <div className={s['story-chunks']}>
               {story.map(({ title, subtitle }) => (
@@ -114,9 +110,10 @@ export const SoftwareTellsStory: FC = () => {
                   <div className={s['timeline']}></div>
                   <div className={s['content']}>
                     <p className={s['content-title']}>
-                      <span className={s['timeline-marker']}>
-                        <ProgressThumb size={14} />
-                      </span>
+                      <span
+                        id={`story-desktop-marker-${title}`}
+                        className={s['timeline-marker']}
+                      />
                       {title}
                     </p>
                     <p className={s['content-subtitle']}>{subtitle}</p>
