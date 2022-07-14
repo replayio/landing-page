@@ -44,7 +44,7 @@
   display: flex;
   list-style: none;
   justify-content: center;
-  margin-top: 48px;
+  margin-top: 32px;
 
   @include space-x(6px);
 }
@@ -76,8 +76,17 @@
   opacity: 1;
 }
 
+.arrows-container {
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center;
+  gap: 24px;
+  width: 100%;
+  margin-top: 40px;
+}
+
 @media (min-width: $screen-sm) {
   .embla__dots {
-    margin-top: 64px;
+    margin-top: 40px;
   }
 }

@@ -12,6 +12,7 @@ import { UserCard } from './user-card'
 
 export const Team: FC = () => {
   const isMobile = useMedia('(max-width: 750px)')
+
   return (
     <Section className={s.section}>
       <Container className={s.container}>
@@ -31,6 +32,8 @@ export const Team: FC = () => {
       <Container size="md" className={s['slider-container']}>
         <div className={s.team}>
           <Carousel
+            dots={isMobile}
+            arrows={!isMobile}
             className={s.slider}
             config={{
               align: isMobile ? 'center' : 'start',

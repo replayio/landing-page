@@ -135,6 +135,10 @@
           max-width: 480px;
         }
       }
+
+      .work-item {
+        min-height: unset;
+      }
     }
   }
 }
@@ -165,7 +169,6 @@
         .work-item {
           border-radius: var(--border-radius-lg);
           padding: 24px;
-          min-height: unset;
 
           > span:nth-child(2) {
             font-size: 32px;
