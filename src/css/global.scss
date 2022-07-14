@@ -1,3 +1,4 @@
+@import url('@replayio/overboard/index.css');
 @import './variables';
 @import './helpers';
 @import './reset.css';
@@ -84,6 +85,17 @@ body:not(.user-is-tabbing) input:focus,
 body:not(.user-is-tabbing) select:focus,
 body:not(.user-is-tabbing) textarea:focus {
   outline: none;
+}
+
+.screen-reader-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 // WARNING: if you don't want to use a fade in for the body, you can remove

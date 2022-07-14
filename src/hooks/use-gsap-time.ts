@@ -5,7 +5,11 @@ import { useMemo, useRef } from 'react'
 import { msToSecs, secsToMs } from '~/lib/utils'
 
 type UseTimeArgs = {
-  onUpdate?: (progress: { time: number; percentage: number }) => void
+  onUpdate?: (progress: {
+    time: number
+    percentage: number
+    normalizedTime: number
+  }) => void
   onComplete?: () => void
   duration: number
   loop?: boolean
@@ -30,7 +34,8 @@ export const useGsapTime = ({
 
       onUpdate?.({
         time: timePassed,
-        percentage
+        percentage,
+        normalizedTime: timePassed / duration
       })
 
       if (percentage === 100) {
