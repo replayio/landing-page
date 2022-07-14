@@ -60,7 +60,7 @@ export const Hero: FC = () => {
 
   return (
     <Section className={s.section}>
-      <Container className={s.container}>
+      <Container className={s.container} size="md">
         <div className={s['hero']}>
           <div className={s['heading']}>
             <Heading size="sm">Pricing</Heading>

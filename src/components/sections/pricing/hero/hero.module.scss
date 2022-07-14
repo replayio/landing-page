@@ -1,5 +1,12 @@
 @import 'css/variables';
 
+.section {
+  .container {
+    padding: 0;
+    max-width: 1208px;
+  }
+}
+
 .hero {
   padding-top: 44px;
 

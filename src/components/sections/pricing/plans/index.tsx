@@ -53,7 +53,7 @@ export const Plans: FC = () => {
         className={clsx(s['tabs-container'], { [s.stuck]: isStuck === true })}
         ref={tabsRef}
       >
-        <Container className={s['inner-container']} size="lg">
+        <Container className={s['inner-container']}>
           {isStuck && <span>Plans</span>}
           <div className={s.tabs}>
             {tabs.map((tab, i) => (
@@ -69,7 +69,7 @@ export const Plans: FC = () => {
           </div>
         </Container>
       </div>
-      <Container className={s.container} size="lg">
+      <Container className={s.container}>
         <div className={s['plan-container']}>
           {plans.map((plan, i) => (
             <div key={i} className={clsx(s.plan)} id={plan.type}>

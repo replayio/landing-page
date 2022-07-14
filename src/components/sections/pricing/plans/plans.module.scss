@@ -50,7 +50,7 @@
       display: flex;
       gap: 48px;
       color: var(--color-gray-light);
-      padding: 18px 32px;
+      padding: 24px 32px;
 
       a {
         letter-spacing: 0.1em;
@@ -179,6 +179,7 @@
       .tabs {
         display: flex;
         gap: 35px;
+        padding: 18px 32px;
       }
     }
 
