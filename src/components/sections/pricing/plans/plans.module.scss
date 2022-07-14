@@ -209,6 +209,20 @@
   }
 }
 
+@media (max-width: $screen-md) {
+  .section {
+    .tabs-container {
+      &.stuck {
+        .inner-container {
+          > span:first-child {
+            left: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $screen-sm) {
   .section {
     margin-top: 120px;
@@ -246,6 +260,14 @@
           &.active {
             padding-bottom: 30px;
             border-bottom: 2px solid var(--color-pink-crayon);
+          }
+        }
+      }
+
+      &.stuck {
+        .inner-container {
+          > span:first-child {
+            display: none;
           }
         }
       }
