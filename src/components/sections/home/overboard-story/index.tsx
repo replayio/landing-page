@@ -1,5 +1,5 @@
-import type { HoverboardControls } from '@replayio/overboard'
-import { Hoverboard, Logo } from '@replayio/overboard'
+import type { Colorway, HoverboardControls } from '@replayio/overboard'
+import { Color, Colors, colorways, Hoverboard, Logo } from '@replayio/overboard'
 import { gsap, ScrollTrigger } from 'lib/gsap'
 import { useRef, useState } from 'react'
 
@@ -375,7 +375,7 @@ function DevTools() {
 
 function ReplayApplication() {
   const applicationRef = useRef<HTMLDivElement>(null)
-  const padding = 32
+  const padding = 16
   const frameHeight = `calc(100vh - ${padding * 2}px)`
 
   useIsomorphicLayoutEffect(() => {
@@ -447,7 +447,8 @@ function ReplayApplication() {
 function OverboardStore() {
   const ref = useRef<HTMLImageElement>(null)
   const hoverboardRef = useRef<HoverboardControls>(null)
-  const padding = 32
+  const [color, setColor] = useState<Colorway>('red')
+  const padding = 16
   const frameHeight = `calc(100vh - ${padding * 2}px)`
 
   useIsomorphicLayoutEffect(() => {
@@ -519,14 +520,33 @@ function OverboardStore() {
     >
       <Logo />
       <div style={{ height: '30vh' }}>
-        <Hoverboard ref={hoverboardRef} />
+        <Hoverboard ref={hoverboardRef} color={color} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Colors
+          onColorChange={(color) => {
+            // TODO: need to fix type in overboard design system
+            // @ts-ignore
+            setColor(color)
+          }}
+        >
+          {Object.entries(colorways).map(([name, [start, end]]) => (
+            <Color
+              key={name}
+              label={name}
+              value={name.toLowerCase()}
+              startColor={start}
+              endColor={end}
+            />
+          ))}
+        </Colors>
       </div>
     </div>
   )
 }
 
 export function OverboardStory() {
-  const padding = 32
+  const padding = 16
   const frameCount = 4
 
   return (
