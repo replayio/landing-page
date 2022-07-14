@@ -21,8 +21,8 @@ export const investors = [
   },
   {
     image: jason,
-    position: 'Founder of codesandbox',
-    name: 'Ives Van Hoorne',
+    position: 'VP of design at GitHub',
+    name: 'Max Schoenning',
     socials: {
       twitter: 'https://twitter.com/',
       linkedin: 'https://www.linkedin.com/'
@@ -32,6 +32,51 @@ export const investors = [
     image: jason,
     position: 'Founder of codesandbox',
     name: 'Ives Van Hoorne',
+    socials: {
+      twitter: 'https://twitter.com/',
+      linkedin: 'https://www.linkedin.com/'
+    }
+  },
+  {
+    image: jason,
+    position: 'Tech advisor',
+    name: 'Desigan Chinniah',
+    socials: {
+      twitter: 'https://twitter.com/',
+      linkedin: 'https://www.linkedin.com/'
+    }
+  },
+  {
+    image: jason,
+    position: 'Developer of Products at Stripe',
+    name: 'Kenneth Auchenberg',
+    socials: {
+      twitter: 'https://twitter.com/',
+      linkedin: 'https://www.linkedin.com/'
+    }
+  },
+  {
+    image: jason,
+    position: 'Founder of Sourcegraph',
+    name: 'Beyang Liu',
+    socials: {
+      twitter: 'https://twitter.com/',
+      linkedin: 'https://www.linkedin.com/'
+    }
+  },
+  {
+    image: jason,
+    position: 'Founder at Replit',
+    name: 'Amjad Masad',
+    socials: {
+      twitter: 'https://twitter.com/',
+      linkedin: 'https://www.linkedin.com/'
+    }
+  },
+  {
+    image: jason,
+    position: 'Head of DX at Temporalio',
+    name: 'Shawn Wang',
     socials: {
       twitter: 'https://twitter.com/',
       linkedin: 'https://www.linkedin.com/'
