@@ -21,12 +21,14 @@ export const useGsapTime = ({
   loop = false,
   duration
 }: UseTimeArgs) => {
-  const startTime = useRef<Date | undefined>()
+  const startTime = useRef<number | undefined>()
 
   const api = useMemo(() => {
     const update = () => {
-      const currentTime = new Date()
-      const timeDiff = currentTime.getTime() - startTime.current!.getTime()
+      if (!startTime.current) return
+
+      const currentTime = new Date().getTime()
+      const timeDiff = currentTime - startTime.current
       const clampedTimeDiff = clamp(timeDiff, 0, secsToMs(duration))
 
       const timePassed = msToSecs(clampedTimeDiff)
@@ -43,13 +45,15 @@ export const useGsapTime = ({
 
         if (loop) {
           api.restart()
+        } else {
+          api.pause()
         }
       }
     }
 
     const api = {
       start: () => {
-        startTime.current = new Date()
+        startTime.current = new Date().getTime()
 
         update()
 
