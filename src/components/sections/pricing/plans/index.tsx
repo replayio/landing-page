@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import Image from 'next/future/image'
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
@@ -15,14 +15,46 @@ const tabs = ['Individual', 'Team', 'Organization', 'Enterprise']
 
 export const Plans: FC = () => {
   const [activeKey, setActiveKey] = useState(0)
+  const [isStuck, setIsStuck] = useState(false)
+
+  const tabsRef = useRef<HTMLDivElement>(null)
+
+  const [scrollPosition, setScrollPosition] = useState(0)
+
+  const handleScroll = () => {
+    const position = window.pageYOffset
+    setScrollPosition(position)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!tabsRef.current) return
+    const distanceTop = tabsRef.current.getBoundingClientRect().top
+    if (distanceTop < 77) {
+      setIsStuck(true)
+    } else {
+      setIsStuck(false)
+    }
+  }, [tabsRef, scrollPosition])
 
   return (
     <Section className={s.section}>
-      <Container className={s.container} size="lg">
-        <div className={s['heading']}>
-          <Heading size="sm">Plans</Heading>
-        </div>
-        <div className={s['tabs-container']}>
+      <div className={s['heading']}>
+        <Heading size="sm">Plans</Heading>
+      </div>
+      <div
+        className={clsx(s['tabs-container'], { [s.stuck]: isStuck === true })}
+        ref={tabsRef}
+      >
+        <Container className={s['inner-container']} size="lg">
+          {isStuck && <span>Plans</span>}
           <div className={s.tabs}>
             {tabs.map((tab, i) => (
               <Link
@@ -35,10 +67,12 @@ export const Plans: FC = () => {
               </Link>
             ))}
           </div>
-        </div>
+        </Container>
+      </div>
+      <Container className={s.container} size="lg">
         <div className={s['plan-container']}>
           {plans.map((plan, i) => (
-            <div key={i} className={s.plan} id={plan.type}>
+            <div key={i} className={clsx(s.plan)} id={plan.type}>
               <div>
                 <Image src={plan.icon} alt={plan.type} />
                 <span>{plan.type}</span>
