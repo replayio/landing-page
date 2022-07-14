@@ -64,7 +64,6 @@ const CircularProgressBar: FC<CircularProgressBarProps> = memo(
 
     const time = useGsapTime({
       duration,
-      loop: true,
       onUpdate: (progress) => {
         if (progressRef.current) {
           gsap.set(progressRef.current, {
@@ -77,8 +76,6 @@ const CircularProgressBar: FC<CircularProgressBarProps> = memo(
     })
 
     useEffect(() => {
-      time.start()
-
       if (active) {
         time.start()
       } else {
@@ -152,8 +149,14 @@ export const Testimonials: FC = () => {
                 {testimonials[activeIdx].quote}
               </p>
             }
-            {testimonials.map(({ quote, name }) => (
-              <h4 className={s['quote']} key={name}>
+            {testimonials.map(({ quote, name }, idx) => (
+              <h4
+                className={clsx(
+                  s['quote'],
+                  idx === activeIdx ? s['new'] : s['old']
+                )}
+                key={name}
+              >
                 {quote}
               </h4>
             ))}
@@ -181,8 +184,14 @@ export const Testimonials: FC = () => {
               </p>
             </div>
 
-            {testimonials.map(({ company, position, name }) => (
-              <div className={s['identity']} key={name}>
+            {testimonials.map(({ company, position, name }, idx) => (
+              <div
+                className={clsx(
+                  s['identity'],
+                  idx === activeIdx ? s['new'] : s['old']
+                )}
+                key={name}
+              >
                 <h5 className={s['identity-name']}>{name}</h5>
                 <p className={s['identity-position']}>
                   {position},{' '}

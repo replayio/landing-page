@@ -44,7 +44,7 @@
     .picture {
       &.active {
         .progress-bar-container {
-          transform: scale(1.4);
+          transform: scale(1.35);
         }
       }
 
@@ -79,6 +79,18 @@
       text-align: center;
       max-width: 840px;
 
+      &.old {
+        animation: fade-out var(--duration-moderate) ease-out forwards;
+      }
+
+      &.new {
+        animation: fade-in var(--duration-moderate) ease-out forwards;
+      }
+
+      &.placeholder {
+        visibility: hidden;
+      }
+
       &:not(.placeholder) {
         top: 0;
         opacity: 0;
@@ -95,6 +107,18 @@
     .identity {
       width: 100%;
       text-align: center;
+
+      &.old {
+        animation: fade-out var(--duration-moderate) ease-out forwards;
+      }
+
+      &.new {
+        animation: fade-in var(--duration-moderate) ease-out forwards;
+      }
+
+      &.placeholder {
+        visibility: hidden;
+      }
 
       &:not(.placeholder) {
         top: 0;
@@ -154,5 +178,30 @@
     .identities {
       margin-top: 48px;
     }
+  }
+}
+
+/* Animations */
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-30%) rotateX(-50deg);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30%) rotateX(50deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
