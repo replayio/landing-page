@@ -10,16 +10,27 @@ import { Container } from '~/components/layout/container'
 import s from './powerful-dev-tools.module.scss'
 
 type AssetChunkProps = {
-  title: string
-  description: string
-  active?: boolean
+  assets: {
+    id: string
+    title: string
+    description: string
+    active?: boolean
+  }[]
 } & JSX.IntrinsicElements['div']
 
-const AssetChunk: FC<AssetChunkProps> = ({ id, active, title }) => {
+const AssetChunks: FC<AssetChunkProps> = ({ assets }) => {
   return (
-    <div className={clsx(s['asset-chunk'], { [s['active']]: active })}>
-      <HeadingSet disabled={!active} centered overtitle={title} />
-      <span id={id} className={s['chunk-marker-anchor']} />
+    <div className={s['progress-chunks']}>
+      {assets.map((asset) => (
+        <div className={clsx(s['asset-chunk'])} key={asset.id}>
+          <HeadingSet
+            disabled={!asset.active}
+            overtitle={asset.title}
+            centered
+          />
+          <span id={asset.id} className={s['chunk-marker-anchor']} />
+        </div>
+      ))}
     </div>
   )
 }
@@ -71,36 +82,40 @@ const AssetPlayer = () => {
 
   return (
     <div className={s['asset-player']}>
-      <div className={s['progress-chunks']}>
-        {assets.map((asset, idx) => (
-          <AssetChunk
-            key={idx}
-            active={idx <= activeIdx}
-            title={asset.title}
-            id={`asset-chunk-${asset.title}-${idx}`}
-            description={asset.description}
+      <div className={s['head']}>
+        <Container className={s['container']} size="md">
+          <AssetChunks
+            assets={assets.map((asset, idx) => ({
+              active: idx <= activeIdx,
+              title: asset.title,
+              id: `asset-chunk-${asset.title}-${idx}`,
+              description: asset.description
+            }))}
           />
-        ))}
+
+          <div className={s['progress']}>
+            <Timeline
+              markers={markers}
+              markerVisible={false}
+              markerSize={14}
+              duration={20}
+              direction="horizontal"
+              debug
+            />
+          </div>
+        </Container>
       </div>
-      <div className={s['progress']}>
-        <Timeline
-          markers={markers}
-          markerVisible={false}
-          markerSize={14}
-          duration={20}
-          direction="horizontal"
-          debug
-        />
-      </div>
-      <div className={s['asset']}>
-        <Image
-          // @ts-ignore
-          layout="raw"
-          src="https://dummyimage.com/1286x712/000/fff"
-          width={1286}
-          height={712}
-        />
-      </div>
+      <Container size="md">
+        <div className={s['asset']}>
+          <Image
+            // @ts-ignore
+            layout="raw"
+            src="https://dummyimage.com/1286x712/000/fff"
+            width={1286}
+            height={712}
+          />
+        </div>
+      </Container>
     </div>
   )
 }
@@ -126,8 +141,8 @@ export const PowerfulDevTools: FC = () => {
           }
           centered
         />
-        <AssetPlayer />
       </Container>
+      <AssetPlayer />
     </Section>
   )
 }
