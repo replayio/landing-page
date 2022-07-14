@@ -20,7 +20,7 @@ const link = [
     label: 'About'
   },
   {
-    href: '/',
+    href: '/pricing',
     label: 'Pricing'
   },
   {
