@@ -175,6 +175,7 @@ export const Testimonials: FC = () => {
                       src={testimonials[activeIdx].company.logo}
                       width={16}
                       height={16}
+                      draggable={false}
                       // @ts-ignore
                       layout="raw"
                     />
