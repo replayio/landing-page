@@ -77,6 +77,7 @@
       border: 2px solid var(--color-gray-lighter);
       border-radius: var(--border-radius-2xl);
       padding: 80px 76px;
+      scroll-margin-top: 100px;
 
       &:not(:first-child) {
         margin-top: 40px;
@@ -194,6 +195,7 @@
         border-radius: var(--border-radius-2xl);
         max-width: 620px;
         padding: 55px 50px;
+        scroll-margin-top: 85px;
 
         > div {
           &:nth-child(2) {
