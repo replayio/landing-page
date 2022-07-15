@@ -81,9 +81,11 @@ export const Work: FC = () => {
               </li>
               {positions.map(({ title, skills }, i) => (
                 <li key={i}>
-                  <span>{title}</span>
-                  <span>{skills}</span>
-                  <Image src={arrow} />
+                  <Link unstyled href="/">
+                    <span>{title}</span>
+                    <span>{skills}</span>
+                    <Image src={arrow} />
+                  </Link>
                 </li>
               ))}
             </ul>

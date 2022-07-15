@@ -1,7 +1,10 @@
 @import 'css/variables';
 
 .section {
-  margin-top: 120px;
+  margin: auto;
+  margin-top: 200px;
+  overflow: hidden;
+  max-width: 2560px;
 
   .container {
     .heading {
@@ -20,9 +23,42 @@
     }
   }
 
+  > div:nth-child(2) {
+    position: relative;
+    width: 100%;
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+      width: 15%;
+      height: 100%;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to left,
+        var(--color-white) 30%,
+        transparent 100%
+      );
+      z-index: 1;
+    }
+
+    &::after {
+      right: unset;
+      left: 0;
+      background: linear-gradient(
+        to right,
+        var(--color-white) 30%,
+        transparent 100%
+      );
+    }
+  }
+
   .team {
     .slider {
       > div {
+        overflow: visible;
+
         > div {
           gap: 40px;
 
@@ -49,6 +85,19 @@
             gap: 28px;
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-md) {
+  .section {
+    > div:nth-child(2) {
+      width: 100%;
+
+      &::before,
+      &::after {
+        display: none;
       }
     }
   }

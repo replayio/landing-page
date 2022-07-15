@@ -1,8 +1,16 @@
-import jason from '~/public/images/about/team/jason.png'
+import amjad from '~/public/images/about/investors/amjad.png'
+import beyang from '~/public/images/about/investors/beyang.png'
+import desigan from '~/public/images/about/investors/desigan.jpg'
+import ives from '~/public/images/about/investors/ives.png'
+import kenneth from '~/public/images/about/investors/kenneth.png'
+import max from '~/public/images/about/investors/max.png'
+import preston from '~/public/images/about/investors/preston.png'
+import rasmus from '~/public/images/about/investors/rasmus.png'
+import shawn from '~/public/images/about/investors/shawn.png'
 
 export const investors = [
   {
-    image: jason,
+    image: rasmus,
     position: 'Designer/engineer at playbit',
     name: 'Rasmus Anderson',
     socials: {
@@ -11,7 +19,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: preston,
     position: 'Founder of github',
     name: 'Tom Preston-Werner',
     socials: {
@@ -20,7 +28,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: max,
     position: 'VP of design at GitHub',
     name: 'Max Schoenning',
     socials: {
@@ -29,7 +37,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: ives,
     position: 'Founder of codesandbox',
     name: 'Ives Van Hoorne',
     socials: {
@@ -38,7 +46,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: desigan,
     position: 'Tech advisor',
     name: 'Desigan Chinniah',
     socials: {
@@ -47,7 +55,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: kenneth,
     position: 'Developer of Products at Stripe',
     name: 'Kenneth Auchenberg',
     socials: {
@@ -56,7 +64,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: beyang,
     position: 'Founder of Sourcegraph',
     name: 'Beyang Liu',
     socials: {
@@ -65,7 +73,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: amjad,
     position: 'Founder at Replit',
     name: 'Amjad Masad',
     socials: {
@@ -74,7 +82,7 @@ export const investors = [
     }
   },
   {
-    image: jason,
+    image: shawn,
     position: 'Head of DX at Temporalio',
     name: 'Shawn Wang',
     socials: {

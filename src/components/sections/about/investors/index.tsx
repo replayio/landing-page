@@ -27,24 +27,25 @@ export const Investors: FC = () => {
           </p>
         </div>
       </Container>
-      <Container size="md" className={s['slider-container']}>
-        <div className={s.team}>
-          <Carousel
-            dots={isMobile}
-            arrows={!isMobile}
-            className={s.slider}
-            config={{
-              align: isMobile ? 'center' : 'start',
-              containScroll: !isMobile ? 'trimSnaps' : ''
-            }}
-            slideClassName={s['slide']}
-          >
-            {investors.map((member, i) => (
-              <UserCard key={i} member={member} />
-            ))}
-          </Carousel>
-        </div>
-      </Container>
+      <div>
+        <Container size="md" className={s['slider-container']}>
+          <div className={s.team}>
+            <Carousel
+              dots={isMobile}
+              arrows={!isMobile}
+              className={s.slider}
+              config={{
+                containScroll: !isMobile ? 'trimSnaps' : ''
+              }}
+              slideClassName={s['slide']}
+            >
+              {investors.map((member, i) => (
+                <UserCard key={i} member={member} />
+              ))}
+            </Carousel>
+          </div>
+        </Container>
+      </div>
     </Section>
   )
 }

@@ -49,8 +49,8 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
       trigger: sectionRef,
       markers: isDev,
       scrub: 1,
-      start: 'top 30%',
-      end: 'bottom 15%',
+      start: 'top 40%',
+      end: 'bottom 20%',
       onUpdate: (stState) => {
         if (progressRef.current) {
           progressRef.current.update(stState.progress * 100)
