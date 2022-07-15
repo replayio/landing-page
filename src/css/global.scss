@@ -36,6 +36,7 @@
   --duration-moderate: 0.25s;
 
   /* Border Radius */
+  --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 16px;
   --border-radius-xl: 24px;
@@ -62,6 +63,8 @@ html {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: var(--header-height);
+  scroll-behavior: smooth;
 
   // tweak if site is light mode.
   background-color: var(--color-white);

@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
+import { clamp } from 'lodash'
 import {
   forwardRef,
   memo,
@@ -51,7 +52,7 @@ export const ANIMATION_UPDATE_INTERVAL_SEC = msToSecs(
   ANIMATION_UPDATE_INTERVAL_MS
 )
 
-const getElmXById = (id: string) => {
+const getElmCoordById = (id: string, axes: 'x' | 'y') => {
   if (!isClient) return 0
 
   const elm = document.getElementById(id)
@@ -60,7 +61,9 @@ const getElmXById = (id: string) => {
     throw new Error(`Element with id ${id} not found`)
   }
 
-  return elm.getBoundingClientRect().left
+  const bounds = elm.getBoundingClientRect()
+
+  return bounds[axes === 'x' ? 'left' : 'top']
 }
 
 export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
@@ -89,7 +92,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
     )
 
     const [internalMarkers, setInternalMarkers] = useState<
-      (Marker & { position: number })[]
+      (Marker & { position: number; normalizedPosition: number })[]
     >([])
 
     const orderedMarkers = useMemo(
@@ -161,20 +164,35 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
     useEffect(() => {
       if (!barRef.current) return
 
-      const { left, width } = barRef.current!.getBoundingClientRect()
+      const { left, width, top, height } =
+        barRef.current.getBoundingClientRect()
 
       const newMarkers = markers?.map((marker) => {
+        let position
+
+        if (typeof marker.position === 'string') {
+          const barCoord = direction === 'horizontal' ? left : top
+          const barSize = direction === 'horizontal' ? width : height
+          const markerElmCoord = getElmCoordById(
+            marker.position,
+            direction === 'horizontal' ? 'x' : 'y'
+          )
+
+          position =
+            (clamp(markerElmCoord - barCoord, 0, barSize) / barSize) * 100
+        } else {
+          position = marker.position
+        }
+
         return {
           ...marker,
-          position:
-            typeof marker.position === 'string'
-              ? ((getElmXById(marker.position) - left) / width) * 100
-              : marker.position
+          normalizedPosition: position / 100,
+          position
         }
       })
 
       setInternalMarkers(newMarkers || [])
-    }, [markers])
+    }, [markers, direction])
 
     useEffect(() => {
       update(progress)
@@ -197,25 +215,35 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
           <div className={s['progress-gradient']} />
         </div>
         {markerVisible &&
-          internalMarkers?.map(({ position }) => (
-            <ProgressThumb
-              size={markerSize}
-              color={primaryColor}
-              active={
-                lastActiveMarker !== undefined &&
-                position <= lastActiveMarker.position
-              }
-              style={{
-                [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
-                  position + '%',
-                //@ts-ignore
-                '--translate-y': '0.5',
-                '--translate-x': '0.5'
-              }}
-              className={s['marker']}
-              key={position}
-            />
-          ))}
+          internalMarkers?.map(({ position, normalizedPosition }, idx) => {
+            const isOnEnds = position === 0 || position === 100
+
+            return (
+              <ProgressThumb
+                size={markerSize}
+                color={primaryColor}
+                active={
+                  lastActiveMarker !== undefined &&
+                  position <= lastActiveMarker.position
+                }
+                style={{
+                  [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
+                    position + '%',
+                  //@ts-ignore
+                  '--translate-y':
+                    direction === 'vertical' && isOnEnds
+                      ? normalizedPosition
+                      : '0.5',
+                  '--translate-x':
+                    direction === 'horizontal' && isOnEnds
+                      ? normalizedPosition
+                      : '0.5'
+                }}
+                className={s['marker']}
+                key={`${position}-${idx}`}
+              />
+            )
+          })}
       </div>
     )
   }
