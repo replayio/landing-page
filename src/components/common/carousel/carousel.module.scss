@@ -82,9 +82,37 @@
   display: grid;
   grid-auto-flow: column;
   place-content: center;
-  gap: 24px;
+  gap: 19px;
   width: 100%;
-  margin-top: 40px;
+  margin-top: 35px;
+
+  button {
+    padding: 5px;
+
+    &:hover {
+      svg {
+        path {
+          &:first-child {
+            fill: var(--color-pink-crayon);
+          }
+
+          &:nth-child(2) {
+            stroke: var(--color-pink-crayon);
+          }
+        }
+      }
+    }
+
+    svg {
+      path:first-child {
+        fill: var(--color-gray-dark);
+      }
+
+      path:nth-child(2) {
+        stroke: var(--color-gray-dark);
+      }
+    }
+  }
 }
 
 @media (min-width: $screen-sm) {

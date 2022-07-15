@@ -38,6 +38,32 @@
   left: 0;
   top: 0;
   bottom: 0;
+
+  &::after,
+  &::before {
+    position: absolute;
+    content: '';
+    height: 5%;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      var(--color-white) 0%,
+      transparent 100%
+    );
+  }
+
+  &::before {
+    height: 15%;
+    top: unset;
+    bottom: 0;
+    background: linear-gradient(
+      to top,
+      var(--color-white) 0%,
+      transparent 100%
+    );
+  }
 }
 
 .hide-mobile {
@@ -76,6 +102,11 @@
       #d9d9d9 60%,
       rgb(217 217 217 / 0) 98%
     );
+
+    &::after,
+    &::before {
+      display: none;
+    }
   }
 
   .hide-mobile {

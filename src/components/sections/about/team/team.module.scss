@@ -31,7 +31,7 @@
     &::after {
       position: absolute;
       content: '';
-      width: 15%;
+      width: 10%;
       height: 100%;
       right: 0;
       bottom: 0;
@@ -71,6 +71,32 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-2xl) {
+  .section {
+    > div:nth-child(2) {
+      &::before,
+      &::after {
+        width: 5%;
+        background: linear-gradient(
+          to left,
+          var(--color-white) 5%,
+          transparent 100%
+        );
+      }
+
+      &::after {
+        right: unset;
+        left: 0;
+        background: linear-gradient(
+          to right,
+          var(--color-white) 5%,
+          transparent 100%
+        );
       }
     }
   }

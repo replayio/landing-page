@@ -1,10 +1,6 @@
 import clsx from 'clsx'
 import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
-import Image from 'next/future/image'
 import { FC, useCallback, useEffect, useState } from 'react'
-
-import arrowNext from '~/public/images/about/arrow-next.svg'
-import arrowPrev from '~/public/images/about/arrow-prev.svg'
 
 import s from './carousel.module.scss'
 
@@ -88,14 +84,42 @@ export const Carousel: FC<CarouselProps> = ({
             onClick={() => scrollPrev()}
             className="embla__button embla__button--prev"
           >
-            <Image src={arrowPrev} />
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M20.25 12.75H21V11.25H20.25V12.75ZM3.75 11.25C3.33579 11.25 3 11.5858 3 12C3 12.4142 3.33579 12.75 3.75 12.75V11.25ZM20.25 11.25H3.75V12.75H20.25V11.25Z" />
+              <path
+                d="M10.5 5.25L3.75 12L10.5 18.75"
+                strokeWidth="1.5"
+                strokeLinecap="square"
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
 
           <button
             onClick={() => scrollNext()}
             className="embla__button embla__button--next"
           >
-            <Image src={arrowNext} />
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M3.75 11.25H3V12.75H3.75V11.25ZM20.25 12.75C20.6642 12.75 21 12.4142 21 12C21 11.5858 20.6642 11.25 20.25 11.25V12.75ZM3.75 12.75H20.25V11.25H3.75V12.75Z" />
+              <path
+                d="M13.5 5.25L20.25 12L13.5 18.75"
+                strokeWidth="1.5"
+                strokeLinecap="square"
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
         </div>
       )}
