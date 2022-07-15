@@ -11,7 +11,8 @@ import s from './team.module.scss'
 import { UserCard } from './user-card'
 
 export const Team: FC = () => {
-  const isMobile = useMedia('(max-width: 750px)')
+  const isMobile = useMedia('(max-width: 768px)')
+  const isDesktop = useMedia('(min-width: 1024px)')
 
   return (
     <Section className={s.section}>
@@ -38,7 +39,7 @@ export const Team: FC = () => {
               className={s.slider}
               config={{
                 align: 'center',
-                containScroll: !isMobile ? 'trimSnaps' : ''
+                containScroll: isDesktop ? 'trimSnaps' : ''
               }}
               slideClassName={s['slide']}
             >

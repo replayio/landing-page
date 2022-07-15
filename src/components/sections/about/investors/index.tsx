@@ -11,7 +11,9 @@ import { UserCard } from '../team/user-card'
 import { investors } from './investors'
 
 export const Investors: FC = () => {
-  const isMobile = useMedia('(max-width: 750px)')
+  const isMobile = useMedia('(max-width: 768px)')
+  const isDesktop = useMedia('(min-width: 1024px)')
+
   return (
     <Section className={s.section}>
       <Container className={s.container}>
@@ -35,7 +37,7 @@ export const Investors: FC = () => {
               arrows={!isMobile}
               className={s.slider}
               config={{
-                containScroll: !isMobile ? 'trimSnaps' : ''
+                containScroll: isDesktop ? 'trimSnaps' : ''
               }}
               slideClassName={s['slide']}
             >
