@@ -2,6 +2,7 @@ import gsap from 'gsap'
 import { CSSRulePlugin } from 'gsap/dist/CSSRulePlugin'
 import { CustomEase } from 'gsap/dist/CustomEase'
 import { DrawSVGPlugin } from 'gsap/dist/DrawSVGPlugin'
+import { Flip } from 'gsap/dist/Flip'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { TextPlugin } from 'gsap/dist/TextPlugin'
 
@@ -21,7 +22,8 @@ gsap.registerPlugin(
   CustomEase,
   DrawSVGPlugin,
   ScrollTrigger,
-  TextPlugin
+  TextPlugin,
+  Flip
 )
 
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2
@@ -190,6 +192,7 @@ export {
   CSSRulePlugin,
   DrawSVGPlugin,
   DURATION,
+  Flip,
   GOLDEN_RATIO,
   gsap,
   GSDevTools,

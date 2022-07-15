@@ -45,3 +45,6 @@ export const getSizes = (
 export const msToSecs = (ms: number) => ms / 1000
 
 export const secsToMs = (secs: number) => secs * 1000
+
+export const padZeroesToNumber = (number: number, digits: number) =>
+  number.toString().padStart(digits, '0')

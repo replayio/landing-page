@@ -81,9 +81,14 @@ export const SoftwareTellsStory: FC = () => {
 
           <div>
             <ProgressBar
-              markers={story.map((s, idx) => ({
-                position: idx === 0 ? 0 : `story-desktop-marker-${s.title}`
-              }))}
+              markers={[
+                {
+                  position: 0
+                },
+                ...story.map((_, index) => ({
+                  position: (100 / story.length) * index
+                }))
+              ]}
               animated={false}
               markerSize={14}
               ref={mobileTimeline}
