@@ -1,0 +1,152 @@
+@import 'css/variables';
+
+.section {
+  .container {
+    padding: 0;
+    max-width: 1208px;
+  }
+}
+
+.hero {
+  padding-top: 44px;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    place-items: center;
+    width: 100%;
+
+    .annual {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 35px;
+      font-size: 14px;
+      line-height: 121%;
+
+      .switch {
+        all: unset;
+        cursor: pointer;
+        position: relative;
+        width: 48px;
+        height: 24px;
+        margin-right: 4px;
+        background-color: var(--color-gray-lighter);
+        border-radius: var(--border-radius-sm);
+        transition: background-color var(--duration-fast);
+
+        &[data-state='checked'] {
+          background-color: var(--color-gray-dark);
+        }
+
+        .thumb {
+          display: block;
+          position: relative;
+          left: 2px;
+          height: 20px;
+          width: 20px;
+          z-index: 20;
+          background-color: var(--color-white);
+          border-radius: 2px;
+          box-shadow: 0px 0px 2px rgb(0 0 0 / 0.15),
+            0px 1px 2px rgb(0 0 0 / 0.1);
+          transition: transform 100ms;
+
+          &[data-state='checked'] {
+            transform: translateX(24px);
+          }
+        }
+      }
+
+      span {
+        &:nth-child(2) {
+          font-weight: 600;
+        }
+
+        &:last-child {
+          color: var(--color-gray);
+        }
+      }
+    }
+  }
+
+  .plans {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 48px;
+
+    &__mobile {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $screen-xl) {
+  .container {
+    padding: 0;
+  }
+
+  .hero {
+    .plans {
+      display: none;
+
+      &__mobile {
+        display: unset;
+
+        .slider {
+          margin-top: 64px;
+          height: 100%;
+
+          .slide {
+            margin: 0 20px;
+
+            > div {
+              width: 35vw;
+              min-width: 410px;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .hero {
+    .heading {
+      .annual {
+        padding-top: 15px;
+      }
+    }
+
+    .plans {
+      &__mobile {
+        .slider {
+          margin-top: 64px;
+          height: 100%;
+
+          > div {
+            padding: 0 16px;
+
+            > div {
+              gap: 16px;
+            }
+          }
+
+          .slide {
+            margin: unset;
+
+            > div {
+              max-width: 380px;
+              width: 78vw;
+              min-width: unset;
+            }
+          }
+        }
+      }
+    }
+  }
+}

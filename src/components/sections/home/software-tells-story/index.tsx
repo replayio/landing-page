@@ -8,6 +8,7 @@ import { useGsapTime } from '~/hooks/use-gsap-time'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
 
+// import { Button } from '~/components/primitives/button'
 import s from './software-tells-story.module.scss'
 
 const story = [

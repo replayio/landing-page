@@ -1,3 +1,4 @@
+@import url('@jsxui/react/src/index.css');
 @import url('@replayio/overboard/index.css');
 @import './variables';
 @import './helpers';
@@ -21,6 +22,7 @@
   --color-gray-lighter: #dcdcdc;
   --color-gray-light: #bebebe;
   --color-gray: #505050;
+  --color-gray-dark: #464646;
   --color-gray-darker: #323232;
 
   /* Gradients */
@@ -62,6 +64,8 @@ html {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: var(--header-height);
+  scroll-behavior: smooth;
 
   // tweak if site is light mode.
   background-color: var(--color-white);
