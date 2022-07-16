@@ -15,15 +15,18 @@ import s from './work.module.scss'
 const positions = [
   {
     title: 'QA Manager',
-    skills: 'Management'
+    skills: 'Management',
+    href: 'https://google.com'
   },
   {
     title: 'Runtime Engineer',
-    skills: 'Engineering'
+    skills: 'Engineering',
+    href: 'https://google.com'
   },
   {
     title: 'Software Engineer',
-    skills: 'Backend'
+    skills: 'Backend',
+    href: 'https://google.com'
   }
 ]
 
@@ -79,9 +82,9 @@ export const Work: FC = () => {
                 <span>Job title</span>
                 <span>Skills & qualifications</span>
               </li>
-              {positions.map(({ title, skills }, i) => (
+              {positions.map(({ title, skills, href }, i) => (
                 <li key={i}>
-                  <Link unstyled href="/">
+                  <Link unstyled href={href}>
                     <span>{title}</span>
                     <span>{skills}</span>
                     <Image src={arrow} />
