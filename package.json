@@ -27,13 +27,14 @@
     "lodash": "^4.17.21",
     "mousetrap": "1.6.5",
     "next": "^12.1.3",
-    "react": "^18.0.0",
+    "react": "^18.2.0",
     "react-device-detect": "2.1.2",
-    "react-dom": "^18.0.0",
+    "react-dom": "^18.2.0",
     "react-merge-refs": "1.1.0",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@jsxui/react": "^0.1.6",
     "@next/bundle-analyzer": "^12.1.2",
     "@types/css-font-loading-module": "0.0.7",
     "@types/lodash": "^4.14.182",

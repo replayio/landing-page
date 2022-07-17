@@ -11,6 +11,7 @@ import avatarThree from '~/public/images/home/avatar-3.webp'
 
 // import overboardStore from '~/public/images/home/overboard-store.png'
 import styles from './overboard-story.module.scss'
+import { Story } from './story'
 
 const reactTree = {
   type: 'App',
@@ -336,15 +337,18 @@ function DevTools() {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'minmax(200px, 400px) 1fr',
+        gridTemplateRows: 'minmax(200px, 400px) 1fr',
         padding: 32,
         gap: 24,
         backgroundColor: '#F5F5F5'
       }}
     >
+      <OverboardStore />
+
       <div
         ref={ref}
         style={{
+          gridRow: 2,
           display: 'grid',
           gridTemplateRows: 'auto 1fr',
           width: '100%',
@@ -357,18 +361,6 @@ function DevTools() {
         <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
         <ActiveTabPanel />
       </div>
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr',
-          width: '100%',
-          height: '100%',
-          // border: '1px solid #DCDCDC',
-          borderRadius: 8,
-          overflow: 'hidden'
-        }}
-      />
     </div>
   )
 }
@@ -448,39 +440,39 @@ function OverboardStore() {
   const ref = useRef<HTMLImageElement>(null)
   const hoverboardRef = useRef<HoverboardControls>(null)
   const [color, setColor] = useState<Colorway>('red')
-  const padding = 16
-  const frameHeight = `calc(100vh - ${padding * 2}px)`
+  // const padding = 16
+  // const frameHeight = `calc(100vh - ${padding * 2}px)`
 
   useIsomorphicLayoutEffect(() => {
     if (ref.current) {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: ref.current.closest('section'),
-            start: 0,
-            end: '+=100vh',
-            scrub: true
-          }
-        })
-        .to(ref.current, {
-          y: '4vh',
-          scale: 0.85
-        })
+      // gsap
+      //   .timeline({
+      //     scrollTrigger: {
+      //       trigger: ref.current.closest('section'),
+      //       start: 0,
+      //       end: '+=100vh',
+      //       scrub: true
+      //     }
+      //   })
+      //   .to(ref.current, {
+      //     y: '4vh',
+      //     scale: 0.85
+      //   })
 
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: ref.current.closest('section'),
-            start: '+=100vh',
-            end: '+=200vh',
-            scrub: true
-          }
-        })
-        .to(ref.current, {
-          x: '26vh',
-          y: '-6vh',
-          scale: 0.6
-        })
+      // gsap
+      //   .timeline({
+      //     scrollTrigger: {
+      //       trigger: ref.current.closest('section'),
+      //       start: '+=100vh',
+      //       end: '+=200vh',
+      //       scrub: true
+      //     }
+      //   })
+      //   .to(ref.current, {
+      //     x: '26vh',
+      //     y: '-6vh',
+      //     scale: 0.6
+      //   })
 
       ScrollTrigger.create({
         trigger: ref.current.closest('section'),
@@ -509,19 +501,19 @@ function OverboardStore() {
     <div
       ref={ref}
       style={{
-        gridArea: '1 / 1 / 1 / 1',
-        height: frameHeight,
-        width: '100%',
+        display: 'grid',
+        gridTemplateRows: '12vw 24vw auto',
+        justifyItems: 'center',
+        // gridArea: '1 / 1 / 1 / 1',
+        // height: frameHeight,
+        // width: '100%',
         padding: 64,
-        objectFit: 'contain',
         borderRadius: 20,
         backgroundColor: '#1E076C'
       }}
     >
       <Logo />
-      <div style={{ height: '30vh' }}>
-        <Hoverboard ref={hoverboardRef} color={color} />
-      </div>
+      <Hoverboard ref={hoverboardRef} color={color} />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Colors
           onColorChange={(color) => {
@@ -549,6 +541,9 @@ export function OverboardStory() {
   const padding = 16
   const frameCount = 4
 
+  return <Story />
+  // return <ReplayApplication />
+
   return (
     <section
       id="overboard-story"
@@ -559,8 +554,6 @@ export function OverboardStory() {
     >
       <div style={{ position: 'sticky', top: padding }} className={styles.grid}>
         <ReplayApplication />
-
-        <OverboardStore />
       </div>
     </section>
   )
