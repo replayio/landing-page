@@ -1,0 +1,90 @@
+@import 'css/variables';
+
+.section {
+  .container {
+    .masonry {
+      display: flex;
+      gap: 40px;
+      width: auto;
+
+      &.faded {
+        mask-image: linear-gradient(
+          to bottom,
+          var(--color-white) 80%,
+          transparent
+        );
+      }
+
+      &__column {
+        width: 100%;
+
+        div {
+          height: fit-content;
+          margin-bottom: 40px;
+        }
+      }
+    }
+
+    button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 143%;
+
+      &:hover {
+        color: var(--color-pink-crayon);
+
+        svg > path {
+          &:first-child {
+            fill: var(--color-pink-crayon);
+          }
+
+          &:nth-child(2) {
+            stroke: var(--color-pink-crayon);
+          }
+        }
+      }
+
+      svg > path {
+        &:first-child {
+          fill: var(--color-gray-dark);
+        }
+
+        &:nth-child(2) {
+          stroke: var(--color-gray-dark);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-md) {
+  .section {
+    .container {
+      .masonry {
+        gap: unset;
+
+        &__column {
+          div {
+            margin-bottom: 48px;
+          }
+        }
+
+        &.faded {
+          mask-image: linear-gradient(
+            to bottom,
+            var(--color-white) 95%,
+            transparent
+          );
+        }
+      }
+
+      button {
+        margin-top: 50px;
+      }
+    }
+  }
+}

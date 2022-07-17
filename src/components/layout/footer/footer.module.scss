@@ -11,6 +11,12 @@
     overflow: visible;
   }
 
+  &.hidden {
+    .bg {
+      display: none;
+    }
+  }
+
   .bg {
     z-index: -1;
     position: absolute;
@@ -167,6 +173,10 @@
     background: none;
     padding-top: 336px;
     padding-bottom: 64px;
+
+    &.hidden {
+      padding-top: 120px;
+    }
   }
 
   .footer {

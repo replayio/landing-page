@@ -87,19 +87,28 @@ const social = {
 export const Footer: FC = () => {
   const router = useRouter()
   const [overflowed, setOverflowed] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
     if (!router) return
 
     if (router.pathname === '/about') {
       setOverflowed(true)
+    } else if (router.pathname === '/shoutouts') {
+      setHidden(true)
     } else {
       setOverflowed(false)
+      setHidden(false)
     }
   }, [router])
 
   return (
-    <footer className={clsx(s['section'], { [s.overflowed]: overflowed })}>
+    <footer
+      className={clsx(s['section'], {
+        [s.overflowed]: overflowed,
+        [s.hidden]: hidden
+      })}
+    >
       <div className={s['bg']}>
         <Image src={footerBgSvg} alt="footer background" />
       </div>

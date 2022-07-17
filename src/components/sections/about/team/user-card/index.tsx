@@ -10,9 +10,11 @@ import s from './usercard.module.scss'
 interface DataProps {
   member: {
     image: StaticImageData
-    position: string
+    position?: string
+    job?: string
     name: string
     bio?: string
+    shout?: string
     socials?: {
       twitter?: string
       linkedin?: string
@@ -24,9 +26,11 @@ export const UserCard: FC<DataProps> = ({ member }) => {
   return (
     <div className={s.card}>
       <Image src={member.image} />
-      <span>{member.position}</span>
-      <span>{member.name}</span>
-      {member.bio && <p>{member.bio}</p>}
+      {member.shout && <p className={s.shout}>{member.shout}</p>}
+      <span className={s.position}>{member.position}</span>
+      <span className={s.name}>{member.name}</span>
+      <span className={s.job}>{member.job}</span>
+      {member.bio && <p className={s.bio}>{member.bio}</p>}
       {member.socials && (
         <ul>
           {member.socials.twitter && (
