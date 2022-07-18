@@ -21,6 +21,8 @@ export const Shouts: FC = () => {
     shouts.slice(0, visibleShoutsLength)
   )
 
+  const remainingItemsLength = shouts?.length - visibleShoutsLength
+
   useEffect(() => {
     setVisibleShouts(shouts.slice(0, visibleShoutsLength))
   }, [visibleShoutsLength])
@@ -41,7 +43,11 @@ export const Shouts: FC = () => {
         </Masonry>
         {visibleShoutsLength < shouts.length && (
           <button
-            onClick={() => setVisibleShoutsLength(visibleShoutsLength + 9)}
+            onClick={() =>
+              setVisibleShoutsLength(
+                visibleShoutsLength + (remainingItemsLength > 14 ? 9 : 14)
+              )
+            }
           >
             Show more
             <ArrowDown />

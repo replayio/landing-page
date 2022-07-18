@@ -61,6 +61,38 @@
   }
 }
 
+@media (max-width: $screen-xl) {
+  .section {
+    .container {
+      .masonry {
+        &.faded {
+          mask-image: linear-gradient(
+            to bottom,
+            var(--color-white) 85%,
+            transparent
+          );
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .section {
+    .container {
+      .masonry {
+        &.faded {
+          mask-image: linear-gradient(
+            to bottom,
+            var(--color-white) 90%,
+            transparent
+          );
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $screen-md) {
   .section {
     .container {
