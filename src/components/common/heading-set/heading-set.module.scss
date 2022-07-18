@@ -46,7 +46,7 @@
   }
 
   img {
-    border-radius: var(--border-radius-2xl);
+    border-radius: var(--border-radius-lg);
     margin-bottom: 64px;
     transition: opacity var(--duration-moderate) linear;
   }
@@ -60,6 +60,10 @@
   .heading-set {
     .heading-set__title {
       font-size: 32px;
+    }
+
+    img {
+      border-radius: var(--border-radius-2xl);
     }
   }
 }
