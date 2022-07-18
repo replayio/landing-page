@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import Image from 'next/future/image'
-import { createRef, FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
@@ -18,7 +18,7 @@ export const Plans: FC = () => {
   const [isStuck, setIsStuck] = useState(false)
 
   const tabsRef = useRef<HTMLDivElement>(null)
-  const plansRefs = useRef<any>(plans.map(() => createRef()))
+  const plansRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const [scrollPosition, setScrollPosition] = useState(0)
 
@@ -35,12 +35,18 @@ export const Plans: FC = () => {
   }, [])
 
   useEffect(() => {
+    plansRefs.current = Array.from({ length: plans.length })
+  }, [])
+
+  useEffect(() => {
     if (!plansRefs.current) return
 
     const plans = plansRefs.current
 
     for (const plan of plans) {
-      if (plan.current.getBoundingClientRect().top < 400) {
+      if (!plan) return
+
+      if (plan?.getBoundingClientRect().top < 400) {
         setActiveKey(plans.indexOf(plan))
       }
     }
@@ -48,7 +54,9 @@ export const Plans: FC = () => {
 
   useEffect(() => {
     if (!tabsRef.current) return
+
     const distanceTop = tabsRef.current.getBoundingClientRect().top
+
     if (distanceTop < 77) {
       setIsStuck(true)
     } else {
@@ -85,7 +93,7 @@ export const Plans: FC = () => {
           {plans.map((plan, i) => (
             <div
               key={i}
-              ref={plansRefs.current[i]}
+              ref={(divElement) => (plansRefs.current[i] = divElement)}
               className={clsx(s.plan)}
               id={plan.type}
             >

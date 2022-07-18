@@ -254,7 +254,7 @@
       .tabs {
         overflow-x: auto;
         max-width: 100%;
-        padding: 0 25px;
+        padding: 0 16px;
         gap: 20px;
         display: grid;
         grid-auto-flow: column;
@@ -262,7 +262,7 @@
         mask-image: radial-gradient(
           circle,
           #d9d9d9 0%,
-          #d9d9d9 85%,
+          #d9d9d9 90%,
           rgb(217 217 217 / 0) 100%
         );
 
