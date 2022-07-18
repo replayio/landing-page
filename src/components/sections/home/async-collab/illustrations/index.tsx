@@ -88,6 +88,7 @@ const reports: Pick<BugItemProps, 'title' | 'color' | 'addon'>[] = [
 
 export const BugReports = () => {
   const bugGridRef = useRef<HTMLDivElement>(null)
+  const isHovering = useRef(false)
   const locked = useRef(false)
 
   const [infiniteReports, setInfiniteReports] = useState(() =>
@@ -162,7 +163,9 @@ export const BugReports = () => {
   })
 
   useEffect(() => {
-    time.pause()
+    if (!isHovering.current) {
+      time.start()
+    }
 
     return time.pause
   }, [time])
@@ -172,8 +175,14 @@ export const BugReports = () => {
       <div className={s['bottom-gradient']} />
 
       <div
-        onMouseEnter={() => time.pause()}
-        onMouseLeave={() => time.resume()}
+        onMouseEnter={() => {
+          isHovering.current = true
+          time.pause()
+        }}
+        onMouseLeave={() => {
+          isHovering.current = false
+          time.resume()
+        }}
         className={s['bug-grid']}
         ref={bugGridRef}
       >
