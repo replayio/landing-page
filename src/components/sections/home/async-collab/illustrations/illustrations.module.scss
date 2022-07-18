@@ -16,7 +16,6 @@
   border: 1px solid var(--color-gray-lighter);
   border-radius: var(--border-radius-lg);
   user-select: none;
-  min-height: 69px;
 
   &.active {
     box-shadow: 0px 6px 14px -6px rgb(0 0 0 / 0.12),
@@ -124,7 +123,7 @@
   position: relative;
   max-height: 364px;
   overflow: hidden;
-  height: 100%;
+  height: 320px;
 
   .bug-grid {
     height: 100%;
@@ -149,6 +148,10 @@
 }
 
 @media (min-width: $screen-md) {
+  .bug-reports {
+    height: 100%;
+  }
+
   .bug-item {
     padding: 20px 24px;
 

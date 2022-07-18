@@ -45,11 +45,11 @@
     width: 100%;
 
     &.spacing-sm {
-      margin-top: 32px;
+      margin-top: 40px;
     }
 
     &.spacing-lg {
-      margin-top: 56px;
+      margin-top: 40px;
     }
   }
 }
@@ -64,6 +64,16 @@
     .card-heading {
       .title {
         font-size: 40px;
+      }
+    }
+
+    .card-content {
+      &.spacing-sm {
+        margin-top: 32px;
+      }
+
+      &.spacing-lg {
+        margin-top: 56px;
       }
     }
   }
