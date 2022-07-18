@@ -12,7 +12,12 @@ const config = {
     formats: ['image/avif', 'image/webp'],
     domains: ['dummyimage.com']
   },
-  experimental: { images: { allowFutureImage: true } }
+  experimental: { images: { allowFutureImage: true } },
+  webpack: (config) => {
+    /** Fix yarn linked dependencies that use react */
+    config.resolve.alias.react = require('path').resolve('./node_modules/react')
+    return config
+  }
 }
 
 module.exports = withPlugins(

@@ -1,15 +1,15 @@
-import Document, {
-  DocumentContext,
-  Head,
-  Html,
-  Main,
-  NextScript
-} from 'next/document'
+import { getStyleElement } from '@jsxui/react'
+import type { DocumentContext, DocumentInitialProps } from 'next/document'
+import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+class Document extends NextDocument {
+  static async getInitialProps(context: DocumentContext) {
+    const initialProps = await NextDocument.getInitialProps(context)
+
+    return {
+      ...initialProps,
+      styles: getStyleElement()
+    } as DocumentInitialProps
   }
 
   render() {
@@ -25,4 +25,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument
+export default Document
