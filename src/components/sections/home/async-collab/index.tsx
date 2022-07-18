@@ -8,7 +8,7 @@ import { Button } from '~/components/primitives/button'
 
 import s from './async-collab.module.scss'
 import {
-  AutomatedTests,
+  EndToEndTests,
   BugReports,
   Feedback,
   PullRequests
@@ -59,7 +59,7 @@ export const AsyncCollab: FC = () => {
             title="End-to-End Tests"
             subtitle="Record your tests in CI and debug them after the fact. You’ll love how easy it is to see whether you broke the test or if it was simply flaky."
           >
-            <AutomatedTests />
+            <EndToEndTests />
           </Card>
           <Card
             contentSpacing="sm"
