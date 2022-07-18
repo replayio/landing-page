@@ -2,18 +2,112 @@ import {
   Column,
   Grid,
   Image,
-  LayoutContext,
+  // LayoutContext,
   Rectangle,
   Row,
   Space,
   Text
 } from '@jsxui/react'
-import { interpolate } from '@popmotion/popcorn'
-import { animate } from 'motion'
+// import { interpolate } from '@popmotion/popcorn'
+// import { animate } from 'motion'
 import * as React from 'react'
 
 import { Logo } from '~/components/primitives/logo'
+// import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import overboardStore from '~/public/images/home/overboard-store.png'
+
+// function ViewToggle() {
+//   const ref = React.useRef<HTMLDivElement>(null)
+
+//   useIsomorphicLayoutEffect(() => {
+//     //
+//   }, [])
+
+//   return (
+//     <div
+//       style={{
+//         position: 'relative',
+//         display: 'inline-grid',
+//         gridTemplateColumns: 'repeat(2, 1fr)',
+//         backgroundColor: '#F5F5F5',
+//         color: '#464646',
+//         padding: 4,
+//         borderRadius: 8,
+//         fontSize: 14,
+//         textAlign: 'center'
+//       }}
+//     >
+//       <div
+//         ref={ref}
+//         aria-hidden={true}
+//         style={{
+//           position: 'absolute',
+//           inset: 0,
+//           display: 'inline-grid',
+//           gridTemplateColumns: 'repeat(2, 1fr)',
+//           padding: 4,
+//           borderRadius: 8,
+//           backgroundColor: '#464646',
+//           color: '#FFFFFF',
+//           transition: 'clip-path 0.16s ease-out'
+//         }}
+//       >
+//         <span
+//           style={{
+//             gridArea: '1 / 1',
+//             padding: '4px 16px'
+//           }}
+//         >
+//           Viewer
+//         </span>
+//         <span
+//           style={{
+//             gridArea: '1 / 2',
+//             padding: '4px 16px'
+//           }}
+//         >
+//           DevTools
+//         </span>
+//       </div>
+
+//       <button
+//         onClick={() =>
+//           window.scrollTo({
+//             top: document.getElementById('overboard-story')?.offsetTop,
+//             behavior: 'smooth'
+//           })
+//         }
+//         style={{
+//           all: 'unset',
+//           gridColumn: 1,
+//           gridRow: 1,
+//           padding: '4px 16px'
+//         }}
+//       >
+//         Viewer
+//       </button>
+
+//       <button
+//         onClick={() =>
+//           window.scrollTo({
+//             top:
+//               (document.getElementById('overboard-story')?.offsetTop ?? 0) +
+//               window.innerHeight,
+//             behavior: 'smooth'
+//           })
+//         }
+//         style={{
+//           all: 'unset',
+//           gridColumn: 2,
+//           gridRow: 1,
+//           padding: '4px 16px'
+//         }}
+//       >
+//         DevTools
+//       </button>
+//     </div>
+//   )
+// }
 
 function SceneOne() {
   return (
@@ -46,7 +140,7 @@ function SceneTwo() {
             <Logo />
           </Text>
           <Space />
-          <Text width={4}>{/* <ViewToggle /> */}</Text>
+          <Text>{/* <ViewToggle /> */}</Text>
           <Space size={1} />
         </Row>
 
@@ -81,53 +175,53 @@ function SceneTwo() {
 
 function Sequence() {
   // @ts-ignore
-  const layoutStore = React.useContext(LayoutContext)
+  // const layoutStore = React.useContext(LayoutContext)
 
-  React.useEffect(() => {
-    if (layoutStore === null) {
-      return
-    }
+  // React.useEffect(() => {
+  //   if (layoutStore === null) {
+  //     return
+  //   }
 
-    const { getNodeFromId } = layoutStore.getState()
-    const node1 = getNodeFromId('image-1')
-    const node2 = getNodeFromId('image-2')
-    const node3 = getNodeFromId('image-3')
+  //   const { getNodeFromId } = layoutStore.getState()
+  //   const node1 = getNodeFromId('image-1')
+  //   const node2 = getNodeFromId('image-2')
+  //   const node3 = getNodeFromId('image-3')
 
-    // @ts-ignore
-    const controls = animate('#image-1', {
-      width: [node1?.offsets.width, node2?.offsets.width, node3?.offsets.width],
-      height: [
-        node1?.offsets.height,
-        node2?.offsets.height,
-        node3?.offsets.height
-      ],
-      transform: [
-        `translate(${node1?.offsets.column}, ${node1?.offsets.row})`,
-        `translate(${node2?.offsets.column}, ${node2?.offsets.row})`,
-        `translate(${node3?.offsets.column}, ${node3?.offsets.row})`
-      ]
-    })
+  //   // @ts-ignore
+  //   const controls = animate('#image-1', {
+  //     width: [node1?.offsets.width, node2?.offsets.width, node3?.offsets.width],
+  //     height: [
+  //       node1?.offsets.height,
+  //       node2?.offsets.height,
+  //       node3?.offsets.height
+  //     ],
+  //     transform: [
+  //       `translate(${node1?.offsets.column}, ${node1?.offsets.row})`,
+  //       `translate(${node2?.offsets.column}, ${node2?.offsets.row})`,
+  //       `translate(${node3?.offsets.column}, ${node3?.offsets.row})`
+  //     ]
+  //   })
 
-    controls.stop()
+  //   controls.stop()
 
-    document.addEventListener('pointermove', (event) => {
-      controls.currentTime = interpolate(
-        [0, window.innerWidth],
-        [0, controls.duration]
-      )(event.clientX) as number
-    })
-  }, [layoutStore])
+  //   document.addEventListener('pointermove', (event) => {
+  //     controls.currentTime = interpolate(
+  //       [0, window.innerWidth],
+  //       [0, controls.duration]
+  //     )(event.clientX) as number
+  //   })
+  // }, [layoutStore])
 
   return null
 }
 
 export function Story() {
-  const sceneColumns = 41
-  const sceneRows = 18
+  const sceneColumns = 80
+  const sceneRows = 40
 
   return (
-    <>
-      <Grid columns={sceneColumns} rows={sceneRows} space={8}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Grid columns={sceneColumns} rows={sceneRows} space={2}>
         <Column>
           <Space size={1} />
           <Grid>
@@ -155,6 +249,6 @@ export function Story() {
           </Grid>
         </Column>
       </Grid>
-    </>
+    </div>
   )
 }

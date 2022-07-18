@@ -159,10 +159,10 @@
   dependencies:
     tree-visit "^0.1.2"
 
-"@jsxui/react@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@jsxui/react/-/react-0.1.6.tgz#92a8363c320f38a1829251c534cdb591522304eb"
-  integrity sha512-zEqiJZStL9F7fTRqTY/WxBF0xbBmXh4Ep8unR1FT/ViQ+aJytwL00cx41GIDWI/kBxkwni/cGOSGUTQnv7Kt9g==
+"@jsxui/react@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@jsxui/react/-/react-0.1.7.tgz#e56dc56697067092e7847e30393fad2a42c53194"
+  integrity sha512-VEFAIeyN6/ry+huPksBNbYHzsy6prceVlrH8YWbAkwTTYAwt2UFEAi37kpqBuZsmSR5Yn3wzb0TPnjhZEgWQmQ==
   dependencies:
     "@capsizecss/core" "^3.0.0"
     "@capsizecss/metrics" "^0.3.0"
@@ -177,7 +177,7 @@
     sort-css-media-queries "^2.0.4"
     tree-visit "^0.1.2"
     use-constant "^1.1.0"
-    use-indexed-children "^0.3.0"
+    use-indexed-children "^0.4.4"
     use-isomorphic-layout-effect "^1.1.2"
     use-previous "^1.1.0"
     zustand "^4.0.0-rc.1"
@@ -4779,12 +4779,10 @@ use-indexed-children@0.2.0:
   dependencies:
     react-keyed-flatten-children "^1.3.0"
 
-use-indexed-children@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/use-indexed-children/-/use-indexed-children-0.3.0.tgz#f3fa350d758b54f559357da66fbe5be690f976d7"
-  integrity sha512-UQVmm91JzOfWV7bOub+p91rR1O3rSBu32lvw1YGwT0eeGDw7hmQwZTOu373OCEhnTjlryzDPDtHAfqXNNynoVg==
-  dependencies:
-    react-keyed-flatten-children "^1.3.0"
+use-indexed-children@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/use-indexed-children/-/use-indexed-children-0.4.4.tgz#711ff0c0fae11d5b1b88dc05b6a484ae366287d4"
+  integrity sha512-uznR4vg751tIMqqsFLxZLUkN3UuTtfJ4OMalXo8Tu8QlQCMp5PjGinAW50IPXKEAz7ESwRGhUCpDna9UxTvhQw==
 
 use-isomorphic-layout-effect@^1.1.0, use-isomorphic-layout-effect@^1.1.2:
   version "1.1.2"

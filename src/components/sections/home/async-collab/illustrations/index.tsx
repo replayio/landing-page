@@ -55,11 +55,7 @@ const BugItem: FC<BugItemProps> = ({
 const getId = (title: string, timebased = false) => {
   const slug = title.toLowerCase().replace(/[^a-z0-9]/g, '-')
 
-  return (
-    'bug-report-' +
-    slug +
-    (timebased ? `-${Math.floor(new Date().getTime() / 1000)}` : '')
-  )
+  return 'bug-report-' + slug + (timebased ? `-${new Date().getTime()}` : '')
 }
 
 const reports: Pick<BugItemProps, 'title' | 'color' | 'addon'>[] = [
@@ -166,7 +162,7 @@ export const BugReports = () => {
   })
 
   useEffect(() => {
-    time.start()
+    time.pause()
 
     return time.pause
   }, [time])
