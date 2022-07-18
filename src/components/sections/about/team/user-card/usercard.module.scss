@@ -18,6 +18,13 @@
     margin-bottom: 40px;
   }
 
+  button {
+    color: var(--color-pink-crayon);
+    text-decoration: underline;
+    display: inline-block;
+    width: fit-content;
+  }
+
   span {
     &:nth-child(2) {
       color: var(--color-pink-crayon);
