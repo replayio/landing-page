@@ -66,7 +66,7 @@ export const AsyncCollab: FC = () => {
           <Card
             contentSpacing="sm"
             title="Feedback"
-            subtitle="Share replays in Slack when you want to get others feedback. In context comments make it easy to discuss function calls and ui elements."
+            subtitle="Share replays in Slack when you want to get others feedback. In context comments make it easy to discuss function calls and ui elements."
           >
             <Feedback />
           </Card>
