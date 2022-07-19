@@ -7,12 +7,7 @@ import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
 
 import s from './async-collab.module.scss'
-import {
-  EndToEndTests,
-  BugReports,
-  Feedback,
-  PullRequests
-} from './illustrations'
+import { BugReports, EndToEndTests, Feedback, PullReq } from './illustrations'
 
 type CardProps = {
   title: string
@@ -66,7 +61,7 @@ export const AsyncCollab: FC = () => {
             title="Pull requests"
             subtitle="Include replays of the problem and the fix in the PR so that reviewers can see what was wrong and how it was fixed."
           >
-            <PullRequests />
+            <PullReq />
           </Card>
           <Card
             contentSpacing="sm"
