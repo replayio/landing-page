@@ -69,7 +69,17 @@ export const Carousel: FC<CarouselProps> = ({
           {scrollSnaps.map((_, index) => (
             <button
               className={clsx(s['embla__dot'], {
-                [s['is-selected']]: index === selectedIndex
+                [s['is-selected']]: index === selectedIndex,
+                [s['scaled-90']]:
+                  index === selectedIndex + 3 || index === selectedIndex - 3,
+                [s['scaled-80']]:
+                  index === selectedIndex + 4 || index === selectedIndex - 4,
+                [s['scaled-70']]:
+                  index === selectedIndex + 5 || index === selectedIndex - 5,
+                [s['scaled-60']]:
+                  index === selectedIndex + 6 || index === selectedIndex - 6,
+                [s['scaled-50']]:
+                  index >= selectedIndex + 7 || index <= selectedIndex - 7
               })}
               type="button"
               onClick={() => scrollTo(index)}

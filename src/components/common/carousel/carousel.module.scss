@@ -60,6 +60,26 @@
   height: 16px;
   display: flex;
   align-items: center;
+
+  &.scaled-90::after {
+    transform: scale(0.9);
+  }
+
+  &.scaled-80::after {
+    transform: scale(0.8);
+  }
+
+  &.scaled-70::after {
+    transform: scale(0.7);
+  }
+
+  &.scaled-60::after {
+    transform: scale(0.6);
+  }
+
+  &.scaled-50::after {
+    transform: scale(0.5);
+  }
 }
 
 .embla__dot::after {
