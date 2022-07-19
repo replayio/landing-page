@@ -1,6 +1,15 @@
 import clsx from 'clsx'
-import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
-import { FC, useCallback, useEffect, useState } from 'react'
+import useEmblaCarousel, {
+  EmblaCarouselType,
+  EmblaOptionsType
+} from 'embla-carousel-react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState
+} from 'react'
 
 import s from './carousel.module.scss'
 
@@ -10,13 +19,10 @@ type CarouselProps = {
   dots?: boolean
 } & JSX.IntrinsicElements['div']
 
-export const Carousel: FC<CarouselProps> = ({
-  children,
-  className,
-  slideClassName,
-  config,
-  dots = true
-}) => {
+export const Carousel = forwardRef<
+  EmblaCarouselType | undefined,
+  CarouselProps
+>(({ children, className, slideClassName, config, dots = true }, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
   const [viewportRef, embla] = useEmblaCarousel({
@@ -40,6 +46,8 @@ export const Carousel: FC<CarouselProps> = ({
     setScrollSnaps(embla.scrollSnapList())
     embla.on('select', onSelect)
   }, [embla, setScrollSnaps, onSelect])
+
+  useImperativeHandle(ref, () => embla, [embla])
 
   const slides = Array.isArray(children) ? children : [children]
 
@@ -75,4 +83,4 @@ export const Carousel: FC<CarouselProps> = ({
       )}
     </>
   )
-}
+})
