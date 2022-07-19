@@ -43,7 +43,7 @@ export const UserCard: FC<DataProps> = ({ member }) => {
           {member.socials.linkedin && (
             <li>
               <Link href={member.socials.linkedin}>
-                <Image src={linkedinImg} alt="linkedin" />
+                <Image placeholder="blur" src={linkedinImg} alt="linkedin" />
               </Link>
             </li>
           )}
