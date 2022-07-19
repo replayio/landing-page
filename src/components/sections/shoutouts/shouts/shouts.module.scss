@@ -1,7 +1,45 @@
 @import 'css/variables';
 
 .section {
+  position: relative;
+  overflow: hidden;
+
   .container {
+    .bg {
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      width: 3050px;
+      transform: translateY(-36%) translateX(-700px);
+      overflow: visible;
+      mask-image: linear-gradient(
+        to right,
+        rgb(255 255 255 / 0) 18%,
+        rgb(255 255 255 / 1) 20%
+      );
+    }
+
+    .heading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 112px;
+
+      h1 {
+        margin-bottom: 24px;
+      }
+
+      .highlighted {
+        color: var(--color-pink-crayon);
+      }
+
+      > span {
+        max-width: 620px;
+      }
+    }
+
     .masonry {
       display: flex;
       gap: 40px;
@@ -96,6 +134,10 @@
 @media (max-width: $screen-md) {
   .section {
     .container {
+      .bg {
+        display: none;
+      }
+
       .masonry {
         gap: unset;
 
@@ -118,5 +160,12 @@
         margin-top: 50px;
       }
     }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .heading {
+    margin-top: 32px;
+    margin-bottom: 64px;
   }
 }
