@@ -34,10 +34,10 @@ export const UserCard: FC<UserCardProps> = ({
       <span>{member.name}</span>
       {member.bio && (
         <p>
-          {member.bio.length > 235 && !modalIsOn
-            ? member.bio.slice(0, 235) + '... '
+          {member.bio.length > 195 && !modalIsOn
+            ? member.bio.slice(0, 195) + '... '
             : member.bio}
-          {member.bio.length > 235 && !modalIsOn && (
+          {member.bio.length > 195 && !modalIsOn && (
             <button onClick={() => handleModal && handleModal(member)}>
               See more
             </button>
