@@ -15,7 +15,6 @@
   left: 50%;
   bottom: 50%;
   width: 568px;
-  // height: fit-content;
   transform: translateX(-50%) translateY(50%);
   animation: fadein var(--duration-moderate) ease-in-out;
   outline: none;
@@ -24,7 +23,6 @@
 @media (max-width: $screen-sm) {
   .content {
     width: 90vw;
-    // height: fit-content;
   }
 }
 
