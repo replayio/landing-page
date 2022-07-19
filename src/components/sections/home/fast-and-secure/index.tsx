@@ -1,6 +1,7 @@
 import range from 'lodash/range'
 import Image, { ImageProps } from 'next/image'
 import { FC } from 'react'
+import { Badge } from '~/components/common/badge'
 
 import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
@@ -61,7 +62,7 @@ const Card: FC<CardProps> = ({ icon, title, badge }) => {
         <Image src={icon} alt={title} />
       </div>
       <p className={s['title']}>{title}</p>
-      <span className={s['badge']}>{badge}</span>
+      <Badge className={s['badge']} text={badge} />
     </div>
   )
 }
