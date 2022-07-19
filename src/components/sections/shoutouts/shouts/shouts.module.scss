@@ -164,8 +164,16 @@
 }
 
 @media (max-width: $screen-sm) {
-  .heading {
-    margin-top: 32px;
-    margin-bottom: 64px;
+  .section {
+    .container {
+      .heading {
+        margin-top: 32px;
+        margin-bottom: 64px;
+
+        h1 {
+          margin-bottom: 16px;
+        }
+      }
+    }
   }
 }

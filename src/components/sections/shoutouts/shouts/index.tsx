@@ -6,6 +6,7 @@ import Masonry from 'react-masonry-css'
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { useMedia } from '~/hooks/use-media'
 import bg from '~/public/images/shoutouts/bg.svg'
 
 import { UserCard } from '../../about/team/user-card'
@@ -19,6 +20,8 @@ const breakpoints = {
 }
 
 export const Shouts: FC = () => {
+  const isMobileSm = useMedia('(max-width: 450px)')
+
   const [visibleShoutsLength, setVisibleShoutsLength] = useState(9)
   const [visibleShouts, setVisibleShouts] = useState(
     shouts.slice(0, visibleShoutsLength)
@@ -35,7 +38,7 @@ export const Shouts: FC = () => {
       <Container size="md" className={s.container}>
         <div className={s['heading']}>
           <Heading as="h1" size="sm">
-            Everyone claims to be magical.
+            Everyone claims{isMobileSm && <br />} to be magical.
             <br />
             <span className={s.highlighted}> Replay is actually magical!</span>
           </Heading>
