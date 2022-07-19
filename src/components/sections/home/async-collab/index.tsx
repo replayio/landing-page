@@ -7,12 +7,7 @@ import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
 
 import s from './async-collab.module.scss'
-import {
-  AutomatedTests,
-  BugReports,
-  Feedback,
-  PullRequests
-} from './illustrations'
+import { BugReports, EndToEndTests, Feedback, PullReq } from './illustrations'
 
 type CardProps = {
   title: string
@@ -59,19 +54,19 @@ export const AsyncCollab: FC = () => {
             title="End-to-End Tests"
             subtitle="Record your tests in CI and debug them after the fact. You’ll love how easy it is to see whether you broke the test or if it was simply flaky."
           >
-            <AutomatedTests />
+            <EndToEndTests />
           </Card>
           <Card
             contentSpacing="sm"
             title="Pull requests"
             subtitle="Include replays of the problem and the fix in the PR so that reviewers can see what was wrong and how it was fixed."
           >
-            <PullRequests />
+            <PullReq />
           </Card>
           <Card
             contentSpacing="sm"
             title="Feedback"
-            subtitle="Share replays in Slack when you want to get others feedback. In context comments make it easy to discuss function calls and ui elements."
+            subtitle="Share replays in Slack when you want to get others feedback. In context comments make it easy to discuss function calls and ui elements."
           >
             <Feedback />
           </Card>
