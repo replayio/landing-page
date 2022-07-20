@@ -16,6 +16,7 @@
     "tsc": "tsc --pretty --noEmit"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-switch": "^0.1.5",
     "@radix-ui/react-tabs": "^0.1.5",
     "@replayio/overboard": "^0.2.0",

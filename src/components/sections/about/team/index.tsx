@@ -1,18 +1,28 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
 import { Heading } from '~/components/common/heading'
+import Modal from '~/components/common/modal'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { useMedia } from '~/hooks/use-media'
+import { useToggleState } from '~/hooks/use-toggle-state'
 
 import { team } from './team'
 import s from './team.module.scss'
-import { UserCard } from './user-card'
+import { UserCard, UserCardProps } from './user-card'
 
 export const Team: FC = () => {
   const isMobile = useMedia('(max-width: 768px)')
-  const isDesktop = useMedia('(min-width: 1024px)')
+  const isDesktop = useMedia('(min-width: 1200px)')
+
+  const { isOn: modalIsOn, handleToggle: handleToggleModal } = useToggleState()
+  const [shownMember, setShownMember] = useState<UserCardProps['member']>()
+
+  const handleModal = (member: UserCardProps['member']) => {
+    setShownMember(member)
+    handleToggleModal()
+  }
 
   return (
     <Section className={s.section}>
@@ -44,10 +54,15 @@ export const Team: FC = () => {
               slideClassName={s['slide']}
             >
               {team.map((member, i) => (
-                <UserCard key={i} member={member} />
+                <UserCard handleModal={handleModal} key={i} member={member} />
               ))}
             </Carousel>
           </div>
+          {modalIsOn && shownMember && (
+            <Modal isModalOpen={modalIsOn} onOpenChange={handleToggleModal}>
+              <UserCard modalIsOn={modalIsOn} member={shownMember} />
+            </Modal>
+          )}
         </Container>
       </div>
     </Section>

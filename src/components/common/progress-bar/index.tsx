@@ -13,6 +13,7 @@ import {
 } from 'react'
 
 import { useGsapTime } from '~/hooks/use-gsap-time'
+import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isClient } from '~/lib/constants'
 import { msToSecs } from '~/lib/utils'
 
@@ -90,6 +91,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
     const timeline = useRef<GSAPTimeline | GSAP>(
       animated ? gsap.timeline({ autoRemoveChildren: true }) : gsap
     )
+    const { width } = useViewportSize()
 
     const [internalMarkers, setInternalMarkers] = useState<
       (Marker & { position: number; normalizedPosition: number })[]
@@ -192,7 +194,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
       })
 
       setInternalMarkers(newMarkers || [])
-    }, [markers, direction])
+    }, [markers, direction, width])
 
     useEffect(() => {
       update(progress)

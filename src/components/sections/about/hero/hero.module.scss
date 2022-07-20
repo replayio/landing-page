@@ -93,7 +93,9 @@
   }
 
   .progress-bar {
-    padding: 0 36px;
+    display: flex;
+    place-content: center;
+    padding: 0 60px;
     position: static;
     height: 100%;
     mask-image: radial-gradient(
@@ -111,5 +113,13 @@
 
   .hide-mobile {
     display: unset;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .section {
+    .progress-bar {
+      padding: 0 130px;
+    }
   }
 }

@@ -1,0 +1,18 @@
+.badge {
+  font-size: 14px;
+  padding: 6px 8px;
+  border-radius: var(--border-radius-full);
+  letter-spacing: 0;
+  max-width: max-content;
+  line-height: 17px;
+
+  &.primary {
+    color: var(--color-white);
+    background-color: var(--color-pink-crayon);
+  }
+
+  &.secondary {
+    color: var(--color-pink-crayon);
+    background-color: #f41c521a;
+  }
+}

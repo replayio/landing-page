@@ -1,8 +1,7 @@
 @import 'css/helpers';
+@import 'css/variables';
 
 .cards {
-  padding: 16px;
-
   @include space-y(24px);
 }
 
@@ -14,7 +13,7 @@
   grid-gap: 16px;
   border: 1px solid var(--color-gray-lighter);
   border-radius: 16px;
-  padding: 24px;
+  padding: 14px;
   box-shadow: 0px 0px 0px -4px rgb(24 39 75 / 0);
   transition: box-shadow var(--duration-moderate) ease-out;
 
@@ -37,27 +36,29 @@
   }
 
   .title {
+    font-size: 14px;
+    line-height: 20px;
     display: flex;
     align-items: center;
-    line-height: 24px;
   }
 
   .addon {
+    font-size: 11px;
+    line-height: 20px;
     display: inline-block;
-    font-size: 14px;
     margin-top: 8px;
     padding: 4px 8px;
     font-weight: 500;
     color: #717171;
     background: var(--color-gray-lightest);
     border-radius: 4px;
-    line-height: 20px;
   }
 
   .image-container {
-    width: 50px;
-    height: 50px;
+    width: 32px;
+    height: 32px;
     position: relative;
+    align-self: flex-start;
 
     img {
       pointer-events: none;
@@ -69,10 +70,10 @@
       bottom: 0;
       right: 2px;
       border-radius: var(--border-radius-full);
-      border: 2.5px solid var(--color-white);
+      border: 1.5px solid var(--color-white);
       background: var(--color-pink-crayon);
-      width: 14px;
-      height: 14px;
+      width: 10px;
+      height: 10px;
 
       &::before {
         content: '';
@@ -102,5 +103,37 @@
   100% {
     opacity: 0;
     transform: scale(2.5);
+  }
+}
+
+@media (min-width: $screen-md) {
+  .cards {
+    padding: 16px;
+
+    .card {
+      padding: 24px;
+
+      .image-container {
+        width: 50px;
+        height: 50px;
+
+        .status {
+          width: 14px;
+          height: 14px;
+          border-width: 2.5px;
+        }
+      }
+
+      .title {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      .addon {
+        margin-left: 0;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
   }
 }

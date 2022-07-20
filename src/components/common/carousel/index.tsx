@@ -1,6 +1,15 @@
 import clsx from 'clsx'
-import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
-import { FC, useCallback, useEffect, useState } from 'react'
+import useEmblaCarousel, {
+  EmblaCarouselType,
+  EmblaOptionsType
+} from 'embla-carousel-react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState
+} from 'react'
 
 import s from './carousel.module.scss'
 
@@ -11,118 +20,138 @@ type CarouselProps = {
   arrows?: boolean
 } & JSX.IntrinsicElements['div']
 
-export const Carousel: FC<CarouselProps> = ({
-  children,
-  className,
-  slideClassName,
-  config,
-  dots = true,
-  arrows = false
-}) => {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
-  const [viewportRef, embla] = useEmblaCarousel({
-    align: 'center',
-    ...config
-  })
+export const Carousel = forwardRef<
+  EmblaCarouselType | undefined,
+  CarouselProps
+>(
+  (
+    {
+      children,
+      className,
+      slideClassName,
+      config,
+      dots = true,
+      arrows = false
+    },
+    ref
+  ) => {
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
+    const [viewportRef, embla] = useEmblaCarousel({
+      align: 'center',
+      ...config
+    })
 
-  const scrollTo = useCallback(
-    (index) => embla && embla.scrollTo(index),
-    [embla]
-  )
+    const scrollTo = useCallback(
+      (index) => embla && embla.scrollTo(index),
+      [embla]
+    )
 
-  const onSelect = useCallback(() => {
-    if (!embla) return
-    setSelectedIndex(embla.selectedScrollSnap())
-  }, [embla, setSelectedIndex])
+    const onSelect = useCallback(() => {
+      if (!embla) return
+      setSelectedIndex(embla.selectedScrollSnap())
+    }, [embla, setSelectedIndex])
 
-  const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla])
-  const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla])
+    const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla])
+    const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla])
 
-  useEffect(() => {
-    if (!embla) return
-    onSelect()
-    setScrollSnaps(embla.scrollSnapList())
-    embla.on('select', onSelect)
-  }, [embla, setScrollSnaps, onSelect])
+    useEffect(() => {
+      if (!embla) return
+      onSelect()
+      setScrollSnaps(embla.scrollSnapList())
+      embla.on('select', onSelect)
+    }, [embla, setScrollSnaps, onSelect])
 
-  const slides = Array.isArray(children) ? children : [children]
+    useImperativeHandle(ref, () => embla, [embla])
 
-  return (
-    <>
-      <div className={clsx(s['embla'], className)}>
-        <div className={s['embla__viewport']} ref={viewportRef}>
-          <div className={s['embla__container']}>
-            {slides.map((child, idx) => (
-              <div
-                className={clsx(s['embla__slide'], slideClassName)}
-                key={idx}
-              >
-                <div className={s['embla__slide__inner']}>{child}</div>
-              </div>
-            ))}
+    const slides = Array.isArray(children) ? children : [children]
+
+    return (
+      <>
+        <div className={clsx(s['embla'], className)}>
+          <div className={s['embla__viewport']} ref={viewportRef}>
+            <div className={s['embla__container']}>
+              {slides.map((child, idx) => (
+                <div
+                  className={clsx(s['embla__slide'], slideClassName)}
+                  key={idx}
+                >
+                  <div className={s['embla__slide__inner']}>{child}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      {dots && (
-        <div className={s['embla__dots']}>
-          {scrollSnaps.map((_, index) => (
+        {dots && (
+          <div className={s['embla__dots']}>
+            {scrollSnaps.map((_, index) => (
+              <button
+                className={clsx(s['embla__dot'], {
+                  [s['is-selected']]: index === selectedIndex,
+                  [s['scaled-90']]:
+                    index === selectedIndex + 3 || index === selectedIndex - 3,
+                  [s['scaled-80']]:
+                    index === selectedIndex + 4 || index === selectedIndex - 4,
+                  [s['scaled-70']]:
+                    index === selectedIndex + 5 || index === selectedIndex - 5,
+                  [s['scaled-60']]:
+                    index === selectedIndex + 6 || index === selectedIndex - 6,
+                  [s['scaled-50']]:
+                    index >= selectedIndex + 7 || index <= selectedIndex - 7
+                })}
+                type="button"
+                onClick={() => scrollTo(index)}
+                key={index}
+              />
+            ))}
+          </div>
+        )}
+        {arrows && (
+          <div className={s['arrows-container']}>
             <button
-              className={clsx(s['embla__dot'], {
-                [s['is-selected']]: index === selectedIndex
-              })}
-              type="button"
-              onClick={() => scrollTo(index)}
-              key={index}
-            />
-          ))}
-        </div>
-      )}
-      {arrows && (
-        <div className={s['arrows-container']}>
-          <button
-            onClick={() => scrollPrev()}
-            className="embla__button embla__button--prev"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              onClick={() => scrollPrev()}
+              className="embla__button embla__button--prev"
             >
-              <path d="M20.25 12.75H21V11.25H20.25V12.75ZM3.75 11.25C3.33579 11.25 3 11.5858 3 12C3 12.4142 3.33579 12.75 3.75 12.75V11.25ZM20.25 11.25H3.75V12.75H20.25V11.25Z" />
-              <path
-                d="M10.5 5.25L3.75 12L10.5 18.75"
-                strokeWidth="1.5"
-                strokeLinecap="square"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M20.25 12.75H21V11.25H20.25V12.75ZM3.75 11.25C3.33579 11.25 3 11.5858 3 12C3 12.4142 3.33579 12.75 3.75 12.75V11.25ZM20.25 11.25H3.75V12.75H20.25V11.25Z" />
+                <path
+                  d="M10.5 5.25L3.75 12L10.5 18.75"
+                  strokeWidth="1.5"
+                  strokeLinecap="square"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
 
-          <button
-            onClick={() => scrollNext()}
-            className="embla__button embla__button--next"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            <button
+              onClick={() => scrollNext()}
+              className="embla__button embla__button--next"
             >
-              <path d="M3.75 11.25H3V12.75H3.75V11.25ZM20.25 12.75C20.6642 12.75 21 12.4142 21 12C21 11.5858 20.6642 11.25 20.25 11.25V12.75ZM3.75 12.75H20.25V11.25H3.75V12.75Z" />
-              <path
-                d="M13.5 5.25L20.25 12L13.5 18.75"
-                strokeWidth="1.5"
-                strokeLinecap="square"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-      )}
-    </>
-  )
-}
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M3.75 11.25H3V12.75H3.75V11.25ZM20.25 12.75C20.6642 12.75 21 12.4142 21 12C21 11.5858 20.6642 11.25 20.25 11.25V12.75ZM3.75 12.75H20.25V11.25H3.75V12.75Z" />
+                <path
+                  d="M13.5 5.25L20.25 12L13.5 18.75"
+                  strokeWidth="1.5"
+                  strokeLinecap="square"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
+      </>
+    )
+  }
+)

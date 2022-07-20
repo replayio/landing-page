@@ -7,7 +7,9 @@ import twitterImg from '~/public/images/about/twitter.svg'
 
 import s from './usercard.module.scss'
 
-interface DataProps {
+export interface UserCardProps {
+  modalIsOn?: boolean
+  handleModal?: (member: UserCardProps['member']) => void
   member: {
     image: StaticImageData
     position?: string
@@ -22,15 +24,35 @@ interface DataProps {
   }
 }
 
-export const UserCard: FC<DataProps> = ({ member }) => {
+export const UserCard: FC<UserCardProps> = ({
+  member,
+  modalIsOn,
+  handleModal
+}) => {
   return (
     <div className={s.card}>
       <Image src={member.image} />
+      {/* {member.shout && <p className={s.shout}>{member.shout}</p>}
+      <span className={s.position}>{member.position}</span>
+      <span className={s.name}>{member.name}</span>
+      <span className={s.job}>{member.job}</span>
+      {member.bio && <p className={s.bio}>{member.bio}</p>} */}
       {member.shout && <p className={s.shout}>{member.shout}</p>}
       <span className={s.position}>{member.position}</span>
       <span className={s.name}>{member.name}</span>
       <span className={s.job}>{member.job}</span>
-      {member.bio && <p className={s.bio}>{member.bio}</p>}
+      {member.bio && (
+        <p className={s.bio}>
+          {member.bio.length > 195 && !modalIsOn
+            ? member.bio.slice(0, 195) + '... '
+            : member.bio}
+          {member.bio.length > 195 && !modalIsOn && (
+            <button onClick={() => handleModal && handleModal(member)}>
+              See more
+            </button>
+          )}
+        </p>
+      )}
       {member.socials && (
         <ul>
           {member.socials.twitter && (
@@ -43,7 +65,7 @@ export const UserCard: FC<DataProps> = ({ member }) => {
           {member.socials.linkedin && (
             <li>
               <Link href={member.socials.linkedin}>
-                <Image placeholder="blur" src={linkedinImg} alt="linkedin" />
+                <Image src={linkedinImg} alt="linkedin" />
               </Link>
             </li>
           )}
