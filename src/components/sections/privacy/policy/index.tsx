@@ -41,6 +41,40 @@ export const Policy: FC = () => {
         <Heading as="h2">Privacy Policy Table of Contents</Heading>
         <div className={s.content}>
           <p>
+            What this Privacy Policy covers
+            <br />
+            <br />
+            Personal Data
+            <ul>
+              <li>Categories of Personal Data We Collect</li>
+              <li>Categories of Sources of Personal Data</li>
+              <li>
+                Our Commercial or Business Purposes for Collecting Personal Data
+              </li>
+            </ul>
+            <br />
+            How We Share Your Personal Data
+            <br />
+            Tracking Tools and Opt-Out
+            <br />
+            Data Security and Retention
+            <br />
+            Personal Data of Children
+            <br />
+            California Resident Rights
+            <br />
+            Other State Law Privacy Rights
+            <br />
+            Transfers of Personal Data
+            <br />
+            Changes to this Privacy Policy
+            <br />
+            Contact Information
+          </p>
+        </div>
+        <Heading as="h2">What this Privacy Policy Covers</Heading>
+        <div className={s.content}>
+          <p>
             This Privacy Policy covers how we treat Personal Data that we gather
             when you access or use our Services. “Personal Data” means any
             information that identifies or relates to a particular individual
@@ -163,6 +197,39 @@ export const Policy: FC = () => {
             </tr>
           </tbody>
         </table>
+
+        <Heading as="h2">Categories of Sources of Personal Data</Heading>
+        <div className={s.content}>
+          <p>
+            We’re constantly trying to improve our Services, so we may need to
+            change this Privacy Policy from time to time, but we will alert you
+            to any such changes by placing a notice on the Replay website, by
+            sending you an email and/or by so me other means. Please note that
+            if you’ve opted not to receive legal notice emails from us (or you
+            haven’t provided us with your email address), those legal notices
+            will still govern your use of the Services, and you are still
+            responsible for reading and understanding them. If you use the
+            Services after any changes to the Privacy Policy have been posted,
+            that means you agree to all of the changes. Use of information we
+            collect is subject to the Privacy Policy in effect at the time such
+            information is collected.
+          </p>
+        </div>
+        <Heading as="h2">Contact Information</Heading>
+        <div className={s.content}>
+          <p>
+            If you have any questions or comments about this Privacy Policy, the
+            ways in which we collect and use your Personal Data or your choices
+            and rights regarding such collection and use, please do not hesitate
+            to contact us at:
+          </p>
+          <ul className={s.contact}>
+            <li>
+              <Link href="mailto:support@replay.io">support@replay.io</Link>
+            </li>
+            <li>1263 California Street, Mountain View, CA 94041</li>
+          </ul>
+        </div>
       </Container>
     </Section>
   )
