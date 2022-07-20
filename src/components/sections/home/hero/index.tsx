@@ -16,8 +16,10 @@ export const Hero: FC = () => {
   const ref = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
+    let tl: gsap.core.Timeline
+
     if (ref.current && isDesktop) {
-      gsap
+      tl = gsap
         .timeline({
           scrollTrigger: {
             start: 0,
@@ -31,7 +33,12 @@ export const Hero: FC = () => {
           y: -100
         })
     }
-  }, [])
+
+    return () => {
+      tl?.scrollTrigger?.kill()
+      tl?.kill()
+    }
+  }, [isDesktop])
 
   return (
     <Section className={s['section']} ref={ref}>
@@ -78,18 +85,8 @@ export const Hero: FC = () => {
               stroke="url(#g)"
               strokeDasharray="8 8"
             />
-            <circle
-              className={s['marker']}
-              r="24"
-              transform="matrix(-1 0 0 1 1085.31 327)"
-              fill="#F41C52"
-            />
-            <circle
-              className={s['marker-shadow']}
-              r="12"
-              transform="matrix(-1 0 0 1 1085.31 327)"
-              fill="#F41C52"
-            />
+            <circle className={s['marker']} r="12" fill="#F41C52" />
+            <circle className={s['marker-shadow']} r="12" fill="#F41C52" />
           </g>
           <defs>
             <linearGradient

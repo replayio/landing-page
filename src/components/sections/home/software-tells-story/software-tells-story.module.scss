@@ -45,6 +45,10 @@
     margin: 64px auto 0;
     max-width: 785px;
 
+    .progress-mobile {
+      padding-bottom: 10px;
+    }
+
     @include space-y(48px);
   }
 

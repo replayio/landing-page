@@ -80,7 +80,7 @@ export const SoftwareTellsStory: FC = () => {
             <AspectBox ratio={785 / 627} />
           </div>
 
-          <div>
+          <div className={s['progress-mobile']}>
             <ProgressBar
               markers={[
                 {

@@ -3,7 +3,6 @@
 
 .section {
   position: relative;
-  overflow: hidden;
 
   .illustration {
     position: absolute;
@@ -13,12 +12,18 @@
     min-width: 1440px;
     transform: translate(20%, 6%);
 
+    .marker,
+    .marker-shadow {
+      --x: 1085.31;
+      --y: 327;
+    }
+
     .marker {
-      r: 12;
+      transform: matrix(-1, 0, 0, 1, var(--x), var(--y));
     }
 
     .marker-shadow {
-      r: 24;
+      transform: matrix(-1, 0, 0, 1, var(--x), var(--y));
       animation: radar var(--duration-super-long) linear infinite;
     }
   }
@@ -80,8 +85,8 @@
 
 @keyframes radar {
   0% {
+    transform: matrix(1, 0, 0, 1, var(--x), var(--y));
     opacity: 0;
-    r: 12;
   }
 
   40% {
@@ -89,7 +94,9 @@
   }
 
   100% {
+    --scale: 2;
+
+    transform: matrix(2, 0, 0, 2, var(--x), var(--y));
     opacity: 0;
-    r: 24;
   }
 }

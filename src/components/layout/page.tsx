@@ -33,7 +33,7 @@ export const PageLayout = ({ children }: Props) => {
       />
       <Header />
 
-      <main>{children}</main>
+      <main style={{ overflow: 'hidden' }}>{children}</main>
       {/* TODO Footer */}
       {/* <Footer /> */}
       <Footer />
