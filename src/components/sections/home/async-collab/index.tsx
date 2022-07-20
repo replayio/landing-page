@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 
+import { Badge } from '~/components/common/badge'
 import { PlayIcon } from '~/components/common/play-icon'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -13,12 +14,24 @@ type CardProps = {
   title: string
   subtitle?: string
   contentSpacing: 'sm' | 'lg'
+  beta?: boolean
 }
 
-const Card: FC<CardProps> = ({ title, subtitle, children, contentSpacing }) => (
+const Card: FC<CardProps> = ({
+  title,
+  subtitle,
+  children,
+  contentSpacing,
+  beta = false
+}) => (
   <div className={s['card']}>
     <div className={s['card-heading']}>
-      <h4 className={s['title']}>{title}</h4>
+      <h4 className={s['title']}>
+        {title}{' '}
+        {beta && (
+          <Badge className={s['badge']} variant="secondary" text="Beta" />
+        )}
+      </h4>
       <p className={s['subtitle']}>{subtitle}</p>
     </div>
     <div className={clsx(s['card-content'], s[`spacing-${contentSpacing}`])}>
@@ -53,6 +66,7 @@ export const AsyncCollab: FC = () => {
             contentSpacing="lg"
             title="End-to-End Tests"
             subtitle="Record your tests in CI and debug them after the fact. You’ll love how easy it is to see whether you broke the test or if it was simply flaky."
+            beta
           >
             <EndToEndTests />
           </Card>

@@ -1,8 +1,7 @@
 @import 'css/helpers';
+@import 'css/variables';
 
 .cards {
-  padding: 16px;
-
   @include space-y(24px);
 }
 
@@ -14,7 +13,7 @@
   grid-gap: 16px;
   border: 1px solid var(--color-gray-lighter);
   border-radius: 16px;
-  padding: 24px;
+  padding: 14px;
   box-shadow: 0px 0px 0px -4px rgb(24 39 75 / 0);
   transition: box-shadow var(--duration-moderate) ease-out;
 
@@ -22,23 +21,34 @@
     box-shadow: 0px 10px 32px -4px rgb(24 39 75 / 0.1);
   }
 
+  &:nth-child(2) {
+    .image-container {
+      img {
+        animation-delay: 0.5s;
+      }
+    }
+  }
+
   .title {
+    font-size: 14px;
+    line-height: 20px;
     display: flex;
     align-items: center;
-    line-height: 24px;
 
     .logo {
       color: var(--color-pink-crayon);
       display: inline-block;
-      width: 20px;
-      margin-right: 8px;
+      width: 16px;
+      min-width: 16px;
+      margin-right: 10px;
     }
   }
 
   .recorded {
+    font-size: 11px;
+    margin-left: 26px;
+    margin-top: 10px;
     display: inline-block;
-    font-size: 14px;
-    margin-top: 16px;
     padding: 4px 8px;
     color: #717171;
     background: var(--color-gray-lightest);
@@ -52,8 +62,9 @@
   }
 
   .image-container {
-    width: 60px;
-    height: 60px;
+    align-self: flex-start;
+    width: 40px;
+    height: 40px;
     background: var(--color-gray-lightest);
     border-radius: var(--border-radius-md);
 
@@ -74,5 +85,36 @@
 
   100% {
     transform: translateY(3px);
+  }
+}
+
+@media (min-width: $screen-md) {
+  .cards {
+    padding: 16px;
+
+    .card {
+      padding: 24px;
+
+      .title {
+        font-size: 16px;
+        line-height: 24px;
+
+        .logo {
+          width: 20px;
+          min-width: 20px;
+        }
+      }
+
+      .recorded {
+        font-size: 14px;
+        margin-top: 16px;
+        margin-left: 0;
+      }
+
+      .image-container {
+        width: 60px;
+        height: 60px;
+      }
+    }
   }
 }

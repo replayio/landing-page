@@ -33,6 +33,12 @@
       letter-spacing: -0.04em;
       line-height: 1.2;
       font-family: var(--font-heading);
+      display: flex;
+      flex-direction: column-reverse;
+
+      .badge {
+        margin-bottom: 8px;
+      }
     }
 
     .subtitle {
@@ -64,6 +70,13 @@
     .card-heading {
       .title {
         font-size: 40px;
+        flex-direction: row;
+        align-items: center;
+
+        .badge {
+          margin-left: 16px;
+          margin-bottom: 0;
+        }
       }
     }
 

@@ -129,21 +129,23 @@ export const Header = () => {
 
           {isOn && (
             <div className={s['menu']}>
-              <ul>
-                {link.map(({ href, icon, label }) => (
-                  <li key={label}>
-                    <Link href={href}>
-                      <p className={s['nav-link']}>
-                        {icon && <span className={s['icon']}>{icon}</span>}
-                        {label}
-                      </p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Button size="md" variant="secondary">
-                Login
-              </Button>
+              <Container className={s['menu-inner']}>
+                <ul>
+                  {link.map(({ href, icon, label }) => (
+                    <li key={label}>
+                      <Link href={href}>
+                        <p className={s['nav-link']}>
+                          {icon && <span className={s['icon']}>{icon}</span>}
+                          {label}
+                        </p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Button size="md" variant="secondary">
+                  Login
+                </Button>
+              </Container>
             </div>
           )}
         </div>
