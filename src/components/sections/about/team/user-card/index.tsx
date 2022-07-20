@@ -32,15 +32,10 @@ export const UserCard: FC<UserCardProps> = ({
   return (
     <div className={s.card}>
       <Image src={member.image} />
-      {/* {member.shout && <p className={s.shout}>{member.shout}</p>}
-      <span className={s.position}>{member.position}</span>
-      <span className={s.name}>{member.name}</span>
-      <span className={s.job}>{member.job}</span>
-      {member.bio && <p className={s.bio}>{member.bio}</p>} */}
       {member.shout && <p className={s.shout}>{member.shout}</p>}
-      <span className={s.position}>{member.position}</span>
+      {member.position && <span className={s.position}>{member.position}</span>}
       <span className={s.name}>{member.name}</span>
-      <span className={s.job}>{member.job}</span>
+      {member.job && <span className={s.job}>{member.job}</span>}
       {member.bio && (
         <p className={s.bio}>
           {member.bio.length > 195 && !modalIsOn
