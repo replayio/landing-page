@@ -1,0 +1,110 @@
+@import 'css/variables';
+
+.section {
+  margin: auto;
+  margin-top: 200px;
+  overflow: hidden;
+  max-width: 1500px;
+
+  .container {
+    .heading {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      place-content: center;
+      max-width: 620px;
+      margin: auto;
+      margin-bottom: 112px;
+      text-align: center;
+
+      p {
+        line-height: 138%;
+      }
+    }
+  }
+
+  > div:nth-child(2) {
+    position: relative;
+    width: 100%;
+    mask-image: radial-gradient(
+      ellipse at center,
+      rgb(255 255 255 / 1) 60%,
+      rgb(255 255 255 / 0) 70%
+    );
+    mask-size: 100% 1000%;
+    mask-position: center;
+  }
+
+  .team {
+    .slider {
+      > div {
+        overflow: visible;
+
+        > div {
+          gap: 40px;
+
+          .slide {
+            margin: 0;
+
+            div {
+              width: 400px;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .section {
+    .team {
+      .slider {
+        > div {
+          > div {
+            gap: 28px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .section {
+    margin-top: 112px;
+
+    .container {
+      .heading {
+        gap: 8px;
+        margin-bottom: 48px;
+      }
+    }
+
+    .slider-container {
+      padding: 0;
+    }
+
+    .team {
+      .slider {
+        > div {
+          > div {
+            gap: 16px;
+            height: 100%;
+
+            .slide {
+              margin: 0;
+
+              div {
+                width: 82vw;
+                min-width: unset;
+                max-width: 380px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
