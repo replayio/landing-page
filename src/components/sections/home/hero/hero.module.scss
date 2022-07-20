@@ -2,11 +2,25 @@
 @import 'css/helpers';
 
 .section {
+  position: relative;
+  overflow: hidden;
+
   .illustration {
     position: absolute;
     right: 0;
     top: 0;
     width: 100%;
+    min-width: 1440px;
+    transform: translate(20%, 6%);
+
+    .marker {
+      r: 12;
+    }
+
+    .marker-shadow {
+      r: 24;
+      animation: radar var(--duration-super-long) linear infinite;
+    }
   }
 
   .hero {
@@ -15,7 +29,9 @@
     padding-bottom: 112px;
 
     .heading {
-      max-width: 810px;
+      .title {
+        max-width: 405px;
+      }
 
       .heading-highlight {
         color: var(--color-pink-crayon);
@@ -30,8 +46,50 @@
 
 @media (min-width: $screen-md) {
   .section {
+    .illustration {
+      transform: translate(20%, 0);
+    }
+
     .hero {
       padding-top: 60px;
+
+      .heading {
+        .title {
+          max-width: 710px;
+        }
+      }
     }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .section {
+    .illustration {
+      transform: translate(0, 0);
+    }
+
+    .hero {
+      .heading {
+        .title {
+          max-width: 810px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes radar {
+  0% {
+    opacity: 0;
+    r: 12;
+  }
+
+  40% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0;
+    r: 24;
   }
 }
