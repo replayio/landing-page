@@ -1,0 +1,37 @@
+@import 'css/variables';
+@import 'css/helpers';
+
+.section {
+  .illustration {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .hero {
+    position: relative;
+    padding-top: 32px;
+    padding-bottom: 112px;
+
+    .heading {
+      max-width: 810px;
+
+      .heading-highlight {
+        color: var(--color-pink-crayon);
+      }
+
+      .cta {
+        margin-top: 56px;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-md) {
+  .section {
+    .hero {
+      padding-top: 60px;
+    }
+  }
+}
