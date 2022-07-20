@@ -52,6 +52,8 @@ export const Team: FC = () => {
                 containScroll: isDesktop ? 'trimSnaps' : ''
               }}
               slideClassName={s['slide']}
+              viewportClassname={s['slider__viewport']}
+              containerClassname={s['slider-container']}
             >
               {team.map((member, i) => (
                 <UserCard handleModal={handleModal} key={i} member={member} />
