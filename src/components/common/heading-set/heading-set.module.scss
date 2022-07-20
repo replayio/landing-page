@@ -13,6 +13,10 @@
     .heading-set__description {
       color: var(--color-gray-light);
     }
+
+    img {
+      opacity: 20%;
+    }
   }
 
   .heading-set__overtitle,
@@ -41,6 +45,12 @@
     margin-top: 16px;
   }
 
+  img {
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 64px;
+    transition: opacity var(--duration-moderate) linear;
+  }
+
   div.heading-set__description p {
     margin-top: 1rem;
   }
@@ -51,6 +61,10 @@
     .heading-set__title {
       font-size: 32px;
       line-height: 38px;
+    }
+
+    img {
+      border-radius: var(--border-radius-2xl);
     }
   }
 }
