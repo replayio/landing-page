@@ -3,6 +3,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import { IsoLogo } from '~/components/primitives/logo'
 import { useGsapTime } from '~/hooks/use-gsap-time'
+import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { Flip, gsap } from '~/lib/gsap'
 import { padZeroesToNumber } from '~/lib/utils'
 
@@ -87,6 +88,7 @@ const reports: Pick<BugItemProps, 'title' | 'color' | 'addon'>[] = [
 ]
 
 export const BugReports = () => {
+  const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
   const bugGridRef = useRef<HTMLDivElement>(null)
   const isHovering = useRef(false)
   const locked = useRef(false)
@@ -163,15 +165,17 @@ export const BugReports = () => {
   })
 
   useEffect(() => {
-    if (!isHovering.current) {
+    if (!isHovering.current && inView) {
       time.start()
+    } else if (!inView) {
+      time.pause()
     }
 
     return time.pause
-  }, [time])
+  }, [time, inView])
 
   return (
-    <div className={s['bug-reports']}>
+    <div className={s['bug-reports']} ref={ref}>
       <div className={s['bottom-gradient']} />
 
       <div

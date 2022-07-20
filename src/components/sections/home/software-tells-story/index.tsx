@@ -5,10 +5,10 @@ import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { useGsapTime } from '~/hooks/use-gsap-time'
+import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
 
-// import { Button } from '~/components/primitives/button'
 import s from './software-tells-story.module.scss'
 
 const story = [
@@ -42,6 +42,7 @@ export const SoftwareTellsStory: FC = () => {
   const mobileTimeline = useRef<ProgressAPI>(null)
   const desktopTimeline = useRef<ProgressAPI>(null)
   const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
 
   const time = useGsapTime({
     duration: 20,
@@ -56,13 +57,17 @@ export const SoftwareTellsStory: FC = () => {
   })
 
   useEffect(() => {
-    time.start()
+    if (inView) {
+      time.start()
+    } else {
+      time.pause()
+    }
 
     return time.pause
-  }, [time])
+  }, [time, inView])
 
   return (
-    <Section className={s['section']}>
+    <Section className={s['section']} ref={ref}>
       <Container size="lg">
         <SectionHeading
           title="Replayable.dev"
