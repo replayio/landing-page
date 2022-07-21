@@ -15,15 +15,21 @@ export const Heading: FC<HeadingProps> = ({
   as = 'h2',
   centered = false,
   size = 'sm',
+  className,
   children
 }) => {
   const Comp = as
 
   return (
     <Comp
-      className={clsx(s['heading'], s[size], {
-        [s['centered']]: centered
-      })}
+      className={clsx(
+        s['heading'],
+        s[size],
+        {
+          [s['centered']]: centered
+        },
+        className
+      )}
     >
       {children}
     </Comp>

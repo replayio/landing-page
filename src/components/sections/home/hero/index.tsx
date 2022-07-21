@@ -6,15 +6,20 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
+import { useMedia } from '~/hooks/use-media'
+import { breakpoints } from '~/lib/constants'
 
 import s from './hero.module.scss'
 
 export const Hero: FC = () => {
+  const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const ref = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
-    if (ref.current) {
-      gsap
+    let tl: gsap.core.Timeline
+
+    if (ref.current && isDesktop) {
+      tl = gsap
         .timeline({
           scrollTrigger: {
             start: 0,
@@ -28,7 +33,12 @@ export const Hero: FC = () => {
           y: -100
         })
     }
-  }, [])
+
+    return () => {
+      tl?.scrollTrigger?.kill()
+      tl?.kill()
+    }
+  }, [isDesktop])
 
   return (
     <Section className={s['section']} ref={ref}>
@@ -75,17 +85,8 @@ export const Hero: FC = () => {
               stroke="url(#g)"
               strokeDasharray="8 8"
             />
-            <circle
-              opacity=".2"
-              r="24"
-              transform="matrix(-1 0 0 1 1085.31 327)"
-              fill="#F41C52"
-            />
-            <circle
-              r="12"
-              transform="matrix(-1 0 0 1 1085.31 327)"
-              fill="#F41C52"
-            />
+            <circle className={s['marker']} r="12" fill="#F41C52" />
+            <circle className={s['marker-shadow']} r="12" fill="#F41C52" />
           </g>
           <defs>
             <linearGradient
@@ -176,7 +177,7 @@ export const Hero: FC = () => {
       <Container>
         <div className={s['hero']}>
           <div className={s['heading']}>
-            <Heading size="lg">
+            <Heading className={s['title']} size="lg">
               <span className={s['heading-highlight']}>
                 Record, Share, and Debug
               </span>{' '}

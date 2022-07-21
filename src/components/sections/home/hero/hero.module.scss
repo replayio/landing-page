@@ -2,11 +2,30 @@
 @import 'css/helpers';
 
 .section {
+  position: relative;
+
   .illustration {
     position: absolute;
     right: 0;
     top: 0;
     width: 100%;
+    min-width: 1440px;
+    transform: translate(20%, 6%);
+
+    .marker,
+    .marker-shadow {
+      --x: 1085.31;
+      --y: 327;
+    }
+
+    .marker {
+      transform: matrix(-1, 0, 0, 1, var(--x), var(--y));
+    }
+
+    .marker-shadow {
+      transform: matrix(-1, 0, 0, 1, var(--x), var(--y));
+      animation: radar var(--duration-super-long) linear infinite;
+    }
   }
 
   .hero {
@@ -15,7 +34,9 @@
     padding-bottom: 112px;
 
     .heading {
-      max-width: 810px;
+      .title {
+        max-width: 405px;
+      }
 
       .heading-highlight {
         color: var(--color-pink-crayon);
@@ -30,8 +51,52 @@
 
 @media (min-width: $screen-md) {
   .section {
+    .illustration {
+      transform: translate(20%, 0);
+    }
+
     .hero {
       padding-top: 60px;
+
+      .heading {
+        .title {
+          max-width: 710px;
+        }
+      }
     }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .section {
+    .illustration {
+      transform: translate(0, 0);
+    }
+
+    .hero {
+      .heading {
+        .title {
+          max-width: 810px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes radar {
+  0% {
+    transform: matrix(1, 0, 0, 1, var(--x), var(--y));
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.4;
+  }
+
+  100% {
+    --scale: 2;
+
+    transform: matrix(2, 0, 0, 2, var(--x), var(--y));
+    opacity: 0;
   }
 }
