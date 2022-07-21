@@ -92,7 +92,7 @@ export const Footer: FC = () => {
   useEffect(() => {
     if (!router) return
 
-    if (router.pathname === '/about') {
+    if (router.pathname === '/about' || router.pathname === '/pricing') {
       setOverflowed(true)
     } else if (router.pathname === '/shoutouts') {
       setHidden(true)
