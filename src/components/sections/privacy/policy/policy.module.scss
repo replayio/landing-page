@@ -117,6 +117,28 @@
     .container {
       .table {
         font-size: 12px;
+
+        tr {
+          ul {
+            padding-left: 15px;
+          }
+
+          td {
+            &:first-child {
+              width: 20%;
+            }
+          }
+        }
+
+        .cell {
+          padding: 8px 10px;
+        }
+      }
+
+      .content {
+        ul {
+          padding-left: 18px;
+        }
       }
 
       .heading {
