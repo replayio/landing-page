@@ -12,10 +12,10 @@
 
   .illustration {
     position: absolute;
-    top: 230px;
+    top: 190px;
     right: 0;
-    transform: translateX(22%);
-    width: 380%;
+    transform: translateX(12%);
+    width: 300%;
   }
 
   .hero {
@@ -68,9 +68,26 @@
       left: unset;
       bottom: unset;
       top: 50%;
-      transform: translateY(-40%) translateX(16%);
-      width: 155%;
-      min-width: 1500px;
+      transform: translateY(-50%) translateX(2%);
+      width: 110%;
+      min-width: 1300px;
+    }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .section {
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 15%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgb(255 255 255 / 0) 0%,
+        rgb(255 255 255) 100%
+      );
     }
   }
 }
