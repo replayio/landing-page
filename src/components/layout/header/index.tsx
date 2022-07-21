@@ -122,7 +122,7 @@ export const Header = () => {
       gsap.to(menuRef.current, {
         '--shadow-opacity': 0.12,
         duration,
-        borderRadius: 'var(--border-radius-lg)',
+        borderRadius: 'var(--border-radius-lg)'
       })
       gsap.fromTo(
         menuInner,
@@ -132,6 +132,7 @@ export const Header = () => {
         },
         {
           margin: '24px 0',
+          force3d: true,
           duration,
           height: 'auto'
         }
@@ -140,7 +141,7 @@ export const Header = () => {
       gsap.to(menuInner, {
         duration,
         height: 0,
-        margin: 0,
+        margin: 0
       })
 
       gsap.to(menuRef.current, {

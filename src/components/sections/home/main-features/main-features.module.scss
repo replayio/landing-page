@@ -2,6 +2,8 @@
 
 .section {
   margin-top: 64px;
+  position: relative;
+  background: var(--color-white);
 
   .main-features {
     position: relative;

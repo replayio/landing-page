@@ -9,22 +9,18 @@
     right: 0;
     top: 0;
     width: 100%;
-    min-width: 1440px;
-    transform: translate(20%, 6%);
-
-    .marker,
-    .marker-shadow {
-      --x: 1085.31;
-      --y: 327;
-    }
+    transform: translate(500px, -25px);
 
     .marker {
-      transform: matrix(-1, 0, 0, 1, var(--x), var(--y));
+      position: absolute;
+      right: 815px;
+      top: 318px;
+      z-index: var(--z-index-10);
     }
 
-    .marker-shadow {
-      transform: matrix(-1, 0, 0, 1, var(--x), var(--y));
-      animation: radar var(--duration-super-long) linear infinite;
+    svg {
+      position: absolute;
+      right: 0;
     }
   }
 
@@ -94,8 +90,6 @@
   }
 
   100% {
-    --scale: 2;
-
     transform: matrix(2, 0, 0, 2, var(--x), var(--y));
     opacity: 0;
   }
