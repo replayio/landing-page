@@ -11,7 +11,7 @@ const desktopCols = [50, 60, 40, 30, 40, 70, 60, 30, 80]
 const mobileCols = [30, 55, 70, 40]
 
 export const EndToEndTests = () => {
-  const isDesktop = useMedia(`(min-width: ${breakpoints.screenSm}px)`)
+  const isTablet = useMedia(`(min-width: ${breakpoints.screenSm}px)`)
   const [cols, setCols] = useState<number[] | undefined>(undefined)
   const [ref, { inView }] = useIntersectionObserver({
     triggerOnce: true,
@@ -19,8 +19,8 @@ export const EndToEndTests = () => {
   })
 
   useEffect(() => {
-    setCols(isDesktop ? desktopCols : mobileCols)
-  }, [isDesktop])
+    setCols(isTablet ? desktopCols : mobileCols)
+  }, [isTablet])
 
   return cols ? (
     <div
