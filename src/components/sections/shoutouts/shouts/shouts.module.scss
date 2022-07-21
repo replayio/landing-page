@@ -43,7 +43,7 @@
     .masonry {
       display: flex;
       gap: 40px;
-      width: auto;
+      min-width: 100%;
 
       &.faded {
         mask-image: linear-gradient(
@@ -57,7 +57,6 @@
         width: 100%;
 
         div {
-          height: fit-content;
           margin-bottom: 40px;
         }
       }
