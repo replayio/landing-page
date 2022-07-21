@@ -1,5 +1,6 @@
 import { ScrollTrigger } from 'lib/gsap'
-import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 import { useViewportSize } from '~/hooks/use-viewport-size'
 
@@ -13,7 +14,20 @@ type Props = {
 }
 
 export const PageLayout = ({ children }: Props) => {
+  const router = useRouter()
   const viewport = useViewportSize()
+
+  const [is404, setIs404] = useState(false)
+
+  useEffect(() => {
+    if (!router.pathname) return
+
+    if (router.pathname === '/404') {
+      setIs404(true)
+    } else {
+      setIs404(false)
+    }
+  }, [router])
 
   useEffect(() => {
     ScrollTrigger.refresh()
@@ -36,7 +50,7 @@ export const PageLayout = ({ children }: Props) => {
       <main style={{ overflow: 'hidden' }}>{children}</main>
       {/* TODO Footer */}
       {/* <Footer /> */}
-      <Footer />
+      {!is404 && <Footer />}
     </>
   )
 }

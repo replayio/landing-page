@@ -1,37 +1,16 @@
-import { gsap } from 'lib/gsap'
-import { FC, useRef } from 'react'
+import Link from 'next/link'
+import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
-import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 
 import s from './hero.module.scss'
 
 export const Hero: FC = () => {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useIsomorphicLayoutEffect(() => {
-    if (ref.current) {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            start: 0,
-            end: 300,
-            scrub: true
-          }
-        })
-        .to(ref.current, {
-          opacity: 0,
-          scale: 0.97,
-          y: -100
-        })
-    }
-  }, [])
-
   return (
-    <Section className={s['section']} ref={ref}>
+    <Section className={s['section']}>
       <div className={s['illustration']}>
         <svg
           viewBox="0 0 1909 772"
@@ -176,12 +155,18 @@ export const Hero: FC = () => {
       <Container>
         <div className={s['hero']}>
           <div className={s['heading']}>
-            <Heading size="lg">Page Not Found</Heading>
+            <Heading as="h1" size="lg">
+              Page Not Found
+            </Heading>
             <span>
               The page you are looking for doesn't exist or has been moved.
             </span>
             <div className={s['cta']}>
-              <Button variant="primary">Download Replay</Button>
+              <Link passHref href="/">
+                <a>
+                  <Button variant="primary">Go Home</Button>
+                </a>
+              </Link>
             </div>
           </div>
         </div>

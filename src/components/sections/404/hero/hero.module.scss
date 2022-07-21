@@ -2,20 +2,37 @@
 @import 'css/helpers';
 
 .section {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(
+    100vh - var(--header-height) - var(--announcement-bar-height)
+  );
+  overflow: hidden;
+
   .illustration {
     position: absolute;
+    top: 230px;
     right: 0;
-    top: 0;
-    width: 100%;
+    transform: translateX(22%);
+    width: 380%;
   }
 
   .hero {
     position: relative;
-    padding-top: 32px;
-    padding-bottom: 112px;
+    margin-top: 32px;
 
     .heading {
       max-width: 810px;
+
+      h1 {
+        margin-bottom: 16px;
+      }
+
+      span {
+        display: block;
+        max-width: 250px;
+      }
 
       .heading-highlight {
         color: var(--color-pink-crayon);
@@ -30,8 +47,30 @@
 
 @media (min-width: $screen-md) {
   .section {
+    margin: auto;
+    align-items: center;
+    max-width: 1440px;
+
     .hero {
-      padding-top: 60px;
+      .heading {
+        h1 {
+          margin-bottom: 32px;
+        }
+
+        span {
+          max-width: unset;
+        }
+      }
+    }
+
+    .illustration {
+      right: 0;
+      left: unset;
+      bottom: unset;
+      top: 50%;
+      transform: translateY(-40%) translateX(16%);
+      width: 155%;
+      min-width: 1500px;
     }
   }
 }
