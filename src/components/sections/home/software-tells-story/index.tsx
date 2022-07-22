@@ -9,6 +9,8 @@ import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
 
+import { Github } from './illustrations'
+import { AnimationCompRef } from './illustrations/common'
 import s from './software-tells-story.module.scss'
 
 const story = [
@@ -39,6 +41,8 @@ const story = [
 ]
 
 export const SoftwareTellsStory: FC = () => {
+  const githubAnimationRef = useRef<AnimationCompRef>(null)
+
   const mobileTimeline = useRef<ProgressAPI>(null)
   const desktopTimeline = useRef<ProgressAPI>(null)
   const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
@@ -83,6 +87,9 @@ export const SoftwareTellsStory: FC = () => {
 
           <div className={s['asset']}>
             <AspectBox ratio={785 / 627} />
+            {/* <div className={s['animation-container']}>
+              <Github />
+            </div> */}
           </div>
 
           <div className={s['progress-mobile']}>
@@ -108,7 +115,25 @@ export const SoftwareTellsStory: FC = () => {
             <div className={s['progress']}>
               <ProgressBar
                 markers={story.map((s, idx) => ({
-                  position: idx === 0 ? 0 : `story-desktop-marker-${s.title}`
+                  position: idx === 0 ? 0 : `story-desktop-marker-${s.title}`,
+                  onActive:
+                    idx === 0
+                      ? () => {
+                          githubAnimationRef.current?.enter()
+                          console.log('Enter')
+                        }
+                      : () => {
+                          console.log('Has not start animation')
+                        },
+                  onInactive:
+                    idx === 0
+                      ? () => {
+                          githubAnimationRef.current?.exit()
+                          console.log('Exit')
+                        }
+                      : () => {
+                          console.log('Has not exit animation')
+                        }
                 }))}
                 ref={desktopTimeline}
                 animated={false}
@@ -136,6 +161,9 @@ export const SoftwareTellsStory: FC = () => {
 
           <div className={s['asset']}>
             <AspectBox ratio={785 / 627} />
+            <div className={s['animation-container']}>
+              <Github ref={githubAnimationRef} />
+            </div>
           </div>
         </div>
       </Container>
