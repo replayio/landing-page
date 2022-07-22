@@ -41,7 +41,8 @@
     }
 
     .masonry {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto auto auto;
       gap: 40px;
       min-width: 100%;
 
@@ -54,7 +55,7 @@
       }
 
       &__column {
-        width: 100%;
+        width: 100% !important;
 
         div {
           margin-bottom: 40px;
@@ -118,6 +119,8 @@
   .section {
     .container {
       .masonry {
+        grid-template-columns: auto auto;
+
         &.faded {
           mask-image: linear-gradient(
             to bottom,
@@ -138,8 +141,6 @@
       }
 
       .masonry {
-        gap: unset;
-
         &__column {
           div {
             margin-bottom: 48px;
@@ -165,6 +166,10 @@
 @media (max-width: $screen-sm) {
   .section {
     .container {
+      .masonry {
+        grid-template-columns: auto;
+      }
+
       .heading {
         margin-top: 32px;
         margin-bottom: 64px;

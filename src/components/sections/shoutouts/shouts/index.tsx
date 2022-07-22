@@ -13,12 +13,6 @@ import { UserCard } from '../../about/team/user-card'
 import { shouts } from './shouts'
 import s from './shouts.module.scss'
 
-const breakpoints = {
-  default: 3,
-  1100: 2,
-  768: 1
-}
-
 export const Shouts: FC = () => {
   const isMobileSm = useMedia('(max-width: 450px)')
 
@@ -48,7 +42,7 @@ export const Shouts: FC = () => {
           </span>
         </div>
         <Masonry
-          breakpointCols={breakpoints}
+          breakpointCols={3}
           className={clsx(s.masonry, {
             [s['faded']]: visibleShoutsLength < shouts.length
           })}
@@ -71,7 +65,7 @@ export const Shouts: FC = () => {
           </button>
         )}
         <div className={s['bg']}>
-          <Image src={bg} alt="" />
+          <Image priority src={bg} alt="" />
         </div>
       </Container>
     </Section>
