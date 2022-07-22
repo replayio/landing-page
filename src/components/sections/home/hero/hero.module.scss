@@ -2,7 +2,11 @@
 @import 'css/helpers';
 
 .section {
-  position: relative;
+  overflow: hidden;
+
+  .container {
+    position: relative;
+  }
 
   .illustration {
     position: absolute;
@@ -48,7 +52,7 @@
 @media (min-width: $screen-md) {
   .section {
     .illustration {
-      transform: translate(20%, 0);
+      transform: translate(440px, 0);
     }
 
     .hero {
@@ -66,7 +70,7 @@
 @media (min-width: $screen-lg) {
   .section {
     .illustration {
-      transform: translate(0, 0);
+      transform: translate(280px, 0);
     }
 
     .hero {
