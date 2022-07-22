@@ -169,7 +169,7 @@
 
 @media (min-width: $screen-lg) {
   .section {
-    margin-top: 40px;
+    margin-top: unset;
     background: none;
     padding-top: 336px;
     padding-bottom: 64px;
