@@ -7,6 +7,10 @@
   position: relative;
   background: var(--gradient-primary);
 
+  &.overflowed {
+    overflow: visible;
+  }
+
   .bg {
     z-index: -1;
     position: absolute;

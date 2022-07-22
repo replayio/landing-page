@@ -9,6 +9,7 @@ import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { useGsapTime } from '~/hooks/use-gsap-time'
+import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 
 import s from './testimonials.module.scss'
 
@@ -110,6 +111,8 @@ const CircularProgressBar: FC<CircularProgressBarProps> = memo(
 )
 
 export const Testimonials: FC = () => {
+  const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
+
   const [activeIdx, setActiveIdx] = useState(0)
 
   const next = () => {
@@ -119,7 +122,7 @@ export const Testimonials: FC = () => {
   const QUOTE_DURATION = 10
 
   return (
-    <Section className={s['section']}>
+    <Section className={s['section']} ref={ref}>
       <Container size="lg">
         <div className={s['testimonials']}>
           <div className={s['pictures']}>
@@ -127,13 +130,13 @@ export const Testimonials: FC = () => {
               <button onClick={() => setActiveIdx(idx)} key={name}>
                 <div
                   className={clsx(s['picture'], {
-                    [s['active']]: idx === activeIdx
+                    [s['active']]: idx === activeIdx && inView
                   })}
                 >
                   <div className={s['progress-bar-container']}>
                     <CircularProgressBar
                       duration={QUOTE_DURATION}
-                      active={idx === activeIdx}
+                      active={idx === activeIdx && inView}
                       onComplete={next}
                     />
                   </div>

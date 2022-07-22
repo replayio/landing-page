@@ -1,6 +1,7 @@
 import clsx from 'clsx'
+import { gsap } from 'lib/gsap'
 import throttle from 'lodash/throttle'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
@@ -16,7 +17,7 @@ const link = [
     label: 'Use Cases'
   },
   {
-    href: '/',
+    href: '/about',
     label: 'About'
   },
   {
@@ -91,6 +92,7 @@ const Burger = () => (
 )
 
 export const Header = () => {
+  const menuRef = useRef(null)
   const [hasScrolled, setHasScrolled] = useState(false)
   const { isOn, handleToggle } = useToggleState()
 
@@ -111,6 +113,44 @@ export const Header = () => {
     }
   }, [hasScrolled])
 
+  useEffect(() => {
+    const selector = gsap.utils.selector(menuRef.current)
+    const menuInner = selector(`.${s['menu-inner']}`)
+    const duration = 0.5
+
+    if (isOn) {
+      gsap.to(menuRef.current, {
+        '--shadow-opacity': 0.12,
+        duration,
+        borderRadius: 'var(--border-radius-lg)'
+      })
+      gsap.fromTo(
+        menuInner,
+        {
+          margin: 0,
+          height: 0
+        },
+        {
+          margin: '24px 0',
+          force3d: true,
+          duration,
+          height: 'auto'
+        }
+      )
+    } else {
+      gsap.to(menuInner, {
+        duration,
+        height: 0,
+        margin: 0
+      })
+
+      gsap.to(menuRef.current, {
+        duration,
+        '--shadow-opacity': 0
+      })
+    }
+  }, [isOn])
+
   return (
     <header className={clsx(s['header'], { [s['has-scrolled']]: hasScrolled })}>
       <Container size="md">
@@ -127,27 +167,25 @@ export const Header = () => {
             </div>
           </div>
 
-          {isOn && (
-            <div className={s['menu']}>
-              <Container className={s['menu-inner']}>
-                <ul>
-                  {link.map(({ href, icon, label }) => (
-                    <li key={label}>
-                      <Link href={href}>
-                        <p className={s['nav-link']}>
-                          {icon && <span className={s['icon']}>{icon}</span>}
-                          {label}
-                        </p>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <Button size="md" variant="secondary">
-                  Login
-                </Button>
-              </Container>
-            </div>
-          )}
+          <div className={s['menu']} ref={menuRef}>
+            <Container className={s['menu-inner']}>
+              <ul>
+                {link.map(({ href, icon, label }) => (
+                  <li key={label}>
+                    <Link href={href}>
+                      <p className={s['nav-link']}>
+                        {icon && <span className={s['icon']}>{icon}</span>}
+                        {label}
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Button size="md" variant="secondary">
+                Login
+              </Button>
+            </Container>
+          </div>
         </div>
 
         <div className={s['inner-desktop']}>

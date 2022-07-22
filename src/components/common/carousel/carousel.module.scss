@@ -44,7 +44,7 @@
   display: flex;
   list-style: none;
   justify-content: center;
-  margin-top: 48px;
+  margin-top: 32px;
 
   @include space-x(6px);
 }
@@ -56,10 +56,30 @@
   padding: 0;
   outline: 0;
   border: 0;
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
+
+  &.scaled-90::after {
+    transform: scale(0.9);
+  }
+
+  &.scaled-80::after {
+    transform: scale(0.8);
+  }
+
+  &.scaled-70::after {
+    transform: scale(0.7);
+  }
+
+  &.scaled-60::after {
+    transform: scale(0.6);
+  }
+
+  &.scaled-50::after {
+    transform: scale(0.5);
+  }
 }
 
 .embla__dot::after {
@@ -78,9 +98,46 @@
   opacity: 1;
 }
 
+.arrows-container {
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center;
+  gap: 19px;
+  width: 100%;
+  margin-top: 35px;
+
+  button {
+    padding: 5px;
+
+    &:hover {
+      svg {
+        path {
+          &:first-child {
+            fill: var(--color-pink-crayon);
+          }
+
+          &:nth-child(2) {
+            stroke: var(--color-pink-crayon);
+          }
+        }
+      }
+    }
+
+    svg {
+      path:first-child {
+        fill: var(--color-gray-dark);
+      }
+
+      path:nth-child(2) {
+        stroke: var(--color-gray-dark);
+      }
+    }
+  }
+}
+
 @media (min-width: $screen-sm) {
   .embla__dots {
-    margin-top: 64px;
+    margin-top: 40px;
   }
 
   .embla__dot {

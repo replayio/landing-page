@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Image, { StaticImageData } from 'next/future/image'
 import { FC } from 'react'
 
 import s from './heading-set.module.scss'
@@ -10,9 +11,11 @@ type HeadingSetProps = {
   centered?: boolean
   className?: string
   disabled?: boolean
+  image?: StaticImageData
 }
 
 export const HeadingSet: FC<HeadingSetProps> = ({
+  image,
   overtitle,
   title,
   description,
@@ -30,6 +33,7 @@ export const HeadingSet: FC<HeadingSetProps> = ({
         className
       )}
     >
+      {image && <Image src={image} alt="" />}
       {overtitle && <p className={s['heading-set__overtitle']}>{overtitle}</p>}
       {title && <h3 className={s['heading-set__title']}>{title}</h3>}
       {description && (

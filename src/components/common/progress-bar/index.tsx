@@ -13,6 +13,7 @@ import {
 } from 'react'
 
 import { useGsapTime } from '~/hooks/use-gsap-time'
+import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isClient } from '~/lib/constants'
 import { msToSecs } from '~/lib/utils'
@@ -161,7 +162,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
       [direction, onMarkerUpdate, animated, orderedMarkers]
     )
 
-    useImperativeHandle(ref, () => ({ update }), [update])
+    useImperativeHandle(ref, () => ({ update, elm: barRef.current }), [update])
 
     useEffect(() => {
       if (!barRef.current) return
@@ -289,9 +290,10 @@ type TimelineProps = {
 
 export const Timeline = memo(
   ({ duration, loop = true, ...rest }: TimelineProps) => {
+    const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
     const progressRef = useRef<ProgressAPI>(null)
 
-    const { start, pause } = useGsapTime({
+    const time = useGsapTime({
       duration,
       onUpdate: (progress) => {
         progressRef.current?.update(progress.percentage)
@@ -300,11 +302,19 @@ export const Timeline = memo(
     })
 
     useEffect(() => {
-      start()
+      if (inView) {
+        time.start()
+      } else {
+        time.pause()
+      }
 
-      return pause
-    }, [start, pause])
+      return time.pause
+    }, [time, inView])
 
-    return <ProgressBar animated={false} {...rest} ref={progressRef} />
+    return (
+      <div ref={ref}>
+        <ProgressBar animated={false} {...rest} ref={progressRef} />
+      </div>
+    )
   }
 )

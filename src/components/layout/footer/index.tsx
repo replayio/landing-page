@@ -1,5 +1,7 @@
+import clsx from 'clsx'
 import Image from 'next/future/image'
-import { FC } from 'react'
+import { useRouter } from 'next/router'
+import { FC, useEffect, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressBar } from '~/components/common/progress-bar'
@@ -83,8 +85,21 @@ const social = {
 }
 
 export const Footer: FC = () => {
+  const router = useRouter()
+  const [overflowed, setOverflowed] = useState(false)
+
+  useEffect(() => {
+    if (!router) return
+
+    if (router.pathname === '/about') {
+      setOverflowed(true)
+    } else {
+      setOverflowed(false)
+    }
+  }, [router])
+
   return (
-    <footer className={s['section']}>
+    <footer className={clsx(s['section'], { [s.overflowed]: overflowed })}>
       <div className={s['bg']}>
         <Image src={footerBgSvg} alt="footer background" />
       </div>

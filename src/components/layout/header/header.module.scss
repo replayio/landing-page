@@ -34,8 +34,10 @@
     }
 
     .menu {
-      padding: 24px 0;
-      padding-top: calc(24px + var(--header-height));
+      --shadow-opacity: 0.12;
+
+      overflow: hidden;
+      padding-top: var(--header-height);
       position: absolute;
       z-index: -1;
       left: 0;
@@ -44,10 +46,15 @@
       width: 100%;
       background: var(--color-white);
       border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
-      box-shadow: 0px 10px 14px -6px rgb(0 0 0 / 0.12),
-        0px 10px 32px -4px rgb(0 0 0 / 0.1);
+      box-shadow: 0px 10px 14px -6px rgb(0 0 0 / var(--shadow-opacity)),
+        0px 10px 32px -4px rgb(0 0 0 / var(--shadow-opacity));
+      will-change: height;
+      backface-visibility: hidden;
 
       .menu-inner {
+        margin: 24px 0;
+        will-change: height;
+        backface-visibility: hidden;
         @include space-y(28px);
       }
 
