@@ -41,8 +41,7 @@
     }
 
     .masonry {
-      display: grid;
-      grid-template-columns: auto auto auto;
+      display: flex;
       gap: 40px;
       min-width: 100%;
 
@@ -55,12 +54,16 @@
       }
 
       &__column {
-        width: 100% !important;
+        width: 100%;
 
         div {
           margin-bottom: 40px;
         }
       }
+    }
+
+    .mobile-list {
+      display: none;
     }
 
     button {
@@ -119,7 +122,15 @@
   .section {
     .container {
       .masonry {
-        grid-template-columns: auto auto;
+        display: none;
+      }
+
+      .mobile-list {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+        margin: auto;
+        max-width: 600px;
 
         &.faded {
           mask-image: linear-gradient(
@@ -140,22 +151,6 @@
         display: none;
       }
 
-      .masonry {
-        &__column {
-          div {
-            margin-bottom: 48px;
-          }
-        }
-
-        &.faded {
-          mask-image: linear-gradient(
-            to bottom,
-            var(--color-white) 95%,
-            transparent
-          );
-        }
-      }
-
       button {
         margin-top: 50px;
       }
@@ -166,10 +161,6 @@
 @media (max-width: $screen-sm) {
   .section {
     .container {
-      .masonry {
-        grid-template-columns: auto;
-      }
-
       .heading {
         margin-top: 32px;
         margin-bottom: 64px;

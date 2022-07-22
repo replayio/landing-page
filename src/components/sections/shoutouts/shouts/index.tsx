@@ -14,7 +14,7 @@ import { shouts } from './shouts'
 import s from './shouts.module.scss'
 
 export const Shouts: FC = () => {
-  const isMobileSm = useMedia('(max-width: 450px)')
+  const isMobileSm = useMedia('(max-width: 1100px)')
 
   const [visibleShoutsLength, setVisibleShoutsLength] = useState(9)
   const [visibleShouts, setVisibleShouts] = useState(
@@ -52,6 +52,15 @@ export const Shouts: FC = () => {
             <UserCard key={i} member={member} />
           ))}
         </Masonry>
+        <div
+          className={clsx(s['mobile-list'], {
+            [s['faded']]: visibleShoutsLength < shouts.length
+          })}
+        >
+          {visibleShouts.map((member, i) => (
+            <UserCard key={i} member={member} />
+          ))}
+        </div>
         {visibleShoutsLength < shouts.length && (
           <button
             onClick={() =>
