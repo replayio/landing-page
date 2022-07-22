@@ -1,66 +1,43 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react'
+import { FC, memo, useRef } from 'react'
 
 import {
   animateScale,
   animateUnscale,
   animateWaves,
-  AnimationFunction,
-  clearProps
+  useEnterExit
 } from './common'
 
-export const Github = forwardRef<
-  { enter: AnimationFunction; exit: AnimationFunction },
-  any
->((_, externalRef) => {
+export const Github: FC<{ active: boolean }> = memo(({ active }) => {
   const ref = useRef(null)
 
-  useImperativeHandle(
-    externalRef,
-    () => {
-      let entranceTimelines: gsap.core.Tween[]
-      let exitTimelines: gsap.core.Tween[]
-
-      const enter = () => {
+  useEnterExit(
+    ref,
+    {
+      enter: () => {
         if (ref.current) {
-          exitTimelines?.forEach((tl) => {
-            clearProps(tl.targets())
-            tl.kill()
-          })
-
-          entranceTimelines = [
-            animateScale(ref.current),
-            animateWaves(ref.current)
-          ]
-
-          return entranceTimelines
+          return [animateScale(ref.current), animateWaves(ref.current)]
         }
 
         return []
-      }
-
-      const exit = () => {
+      },
+      exit: () => {
         if (ref.current) {
-          entranceTimelines?.forEach((tl) => tl.kill())
-
-          exitTimelines = [animateUnscale(ref.current, '.container, .wave')]
-
-          return exitTimelines
+          return [animateUnscale(ref.current, '.container, .wave')]
         }
 
         return []
-      }
-
-      return {
-        enter,
-        exit
       }
     },
-    []
+    active
   )
 
   return (
     <svg
-      style={{ transform: 'translateY(6%)', overflow: 'visible' }}
+      style={{
+        transform: 'translateY(6%)',
+        overflow: 'visible',
+        opacity: 0
+      }}
       viewBox="0 0 492 527"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
