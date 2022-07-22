@@ -124,6 +124,7 @@ export const Header = () => {
         duration,
         borderRadius: 'var(--border-radius-lg)'
       })
+
       gsap.fromTo(
         menuInner,
         {
@@ -134,14 +135,16 @@ export const Header = () => {
           margin: '24px 0',
           force3d: true,
           duration,
-          height: 'auto'
+          height: 'auto',
+          opacity: 1
         }
       )
     } else {
       gsap.to(menuInner, {
         duration,
         height: 0,
-        margin: 0
+        margin: 0,
+        opacity: 0
       })
 
       gsap.to(menuRef.current, {

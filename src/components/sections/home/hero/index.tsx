@@ -43,8 +43,8 @@ export const Hero: FC = () => {
 
   return (
     <Section className={s['section']} ref={ref}>
-      <div className={s['illustration']}>
-        <div style={{ position: 'relative' }}>
+      <Container className={s['container']}>
+        <div className={s['illustration']}>
           <span className={s['marker']}>
             <ProgressThumb active />
           </span>
@@ -178,8 +178,7 @@ export const Hero: FC = () => {
             </defs>
           </svg>
         </div>
-      </div>
-      <Container>
+
         <div className={s['hero']}>
           <div className={s['heading']}>
             <Heading className={s['title']} size="lg">
