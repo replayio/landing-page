@@ -1,3 +1,5 @@
+import { MutableRefObject, useEffect, useRef } from 'react'
+
 import { DURATION, gsap } from '~/lib/gsap'
 
 export type AnimationFunction = () => gsap.core.Tween[]
@@ -72,4 +74,56 @@ export const clearProps = (elms: HTMLElement[]) => {
   return gsap.set(elms, {
     clearProps: 'all'
   })
+}
+
+export const useEnterExit = (
+  ref: MutableRefObject<HTMLElement | null>,
+  {
+    enter,
+    exit
+  }: {
+    enter: AnimationFunction
+    exit: AnimationFunction
+  },
+  active: boolean
+) => {
+  const entranceTimelines = useRef<gsap.core.Tween[]>()
+  const exitTimelines = useRef<gsap.core.Tween[]>()
+
+  useEffect(() => {
+    if (active) {
+      exitTimelines.current?.forEach((tl) => {
+        clearProps(tl.targets())
+        tl.kill()
+      })
+
+      gsap.set(ref.current, { opacity: 1 })
+
+      entranceTimelines.current = enter()
+    } else {
+      entranceTimelines.current?.forEach((tl) => {
+        tl.kill()
+      })
+
+      exitTimelines.current = exit()
+    }
+  }, [active])
+
+  useEffect(() => {
+    if (ref.current) {
+      gsap.set(ref.current, { opacity: 0 })
+    }
+
+    return () => {
+      entranceTimelines.current?.forEach((tl) => {
+        clearProps(tl.targets())
+        tl.kill()
+      })
+
+      exitTimelines.current?.forEach((tl) => {
+        clearProps(tl.targets())
+        tl.kill()
+      })
+    }
+  }, [])
 }
