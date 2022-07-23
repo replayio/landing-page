@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Image from 'next/future/image'
 import { useRouter } from 'next/router'
-import { FC, useEffect, useState } from 'react'
+import { FC, useLayoutEffect, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressBar } from '~/components/common/progress-bar'
@@ -89,7 +89,7 @@ export const Footer: FC = () => {
   const [overflowed, setOverflowed] = useState(false)
   const [hidden, setHidden] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!router) return
 
     if (router.pathname === '/about' || router.pathname === '/pricing') {

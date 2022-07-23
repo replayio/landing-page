@@ -14,7 +14,7 @@ import { shouts } from './shouts'
 import s from './shouts.module.scss'
 
 export const Shouts: FC = () => {
-  const isMobileSm = useMedia('(max-width: 1100px)')
+  const isMobileSm = useMedia('(max-width: 435px)')
 
   const [visibleShoutsLength, setVisibleShoutsLength] = useState(9)
   const [visibleShouts, setVisibleShouts] = useState(
