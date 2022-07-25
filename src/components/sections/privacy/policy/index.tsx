@@ -40,7 +40,7 @@ export const Policy: FC = () => {
         </div>
         <Heading as="h2">Privacy Policy Table of Contents</Heading>
         <div className={s.content}>
-          <p>
+          <div>
             What this Privacy Policy covers
             <br />
             <br />
@@ -70,7 +70,7 @@ export const Policy: FC = () => {
             Changes to this Privacy Policy
             <br />
             Contact Information
-          </p>
+          </div>
         </div>
         <Heading as="h2">What this Privacy Policy Covers</Heading>
         <div className={s.content}>
@@ -198,7 +198,7 @@ export const Policy: FC = () => {
           </tbody>
         </table>
 
-        <Heading as="h2">Categories of Sources of Personal Data</Heading>
+        <Heading as="h2">Changes to this Privacy Policy</Heading>
         <div className={s.content}>
           <p>
             We’re constantly trying to improve our Services, so we may need to
