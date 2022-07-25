@@ -121,8 +121,7 @@ export const Header = () => {
     if (isOn) {
       gsap.to(menuRef.current, {
         '--shadow-opacity': 0.12,
-        duration,
-        borderRadius: 'var(--border-radius-lg)'
+        duration
       })
 
       gsap.fromTo(

@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+import { gsap } from 'lib/gsap'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
@@ -9,8 +11,7 @@ import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
 
-import { Comunity, Github, Tutorials } from './illustrations'
-import Stories from './illustrations/stories'
+import { Comunity, Github, Stories, Tutorials } from './illustrations'
 import s from './software-tells-story.module.scss'
 
 const story = [
@@ -43,9 +44,10 @@ const story = [
 export const SoftwareTellsStory: FC = () => {
   const mobileTimeline = useRef<ProgressAPI>(null)
   const desktopTimeline = useRef<ProgressAPI>(null)
-  const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
   const [activeIdx, setActiveIdx] = useState<number | null>(null)
+  const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const storyContainerRef = useRef<HTMLDivElement>(null)
 
   const handleTimeUpdate = useCallback(
     (progress) => {
@@ -65,6 +67,24 @@ export const SoftwareTellsStory: FC = () => {
   })
 
   useEffect(() => {
+    if (!storyContainerRef.current) return
+
+    const storyContainerElm = storyContainerRef.current
+
+    const preventScroll = (e: WheelEvent) => {
+      e.preventDefault()
+    }
+
+    storyContainerElm?.addEventListener('wheel', preventScroll, {
+      passive: false
+    })
+
+    return () => {
+      storyContainerElm?.removeEventListener('wheel', preventScroll)
+    }
+  }, [])
+
+  useEffect(() => {
     if (inView) {
       time.start()
     } else {
@@ -73,6 +93,19 @@ export const SoftwareTellsStory: FC = () => {
 
     return time.pause
   }, [time, inView])
+
+  useEffect(() => {
+    if (!storyContainerRef.current || !isDesktop || activeIdx === null) return
+
+    const selector = gsap.utils.selector(storyContainerRef.current)
+    const [storyChunks] = selector(`[data-story-chunk-idx="${activeIdx}"]`)
+    const scrollIntoView = storyChunks
+
+    storyContainerRef.current.scrollTo({
+      top: scrollIntoView.offsetTop + scrollIntoView.clientHeight / 2,
+      behavior: 'smooth'
+    })
+  }, [activeIdx, isDesktop])
 
   const markers = useMemo(() => {
     return story.map((s, idx) => ({
@@ -98,8 +131,10 @@ export const SoftwareTellsStory: FC = () => {
 
         <div className={s['main-mobile']}>
           <div className={s['content']}>
-            <p className={s['content-title']}>{story[0].title}</p>
-            <p className={s['content-subtitle']}>{story[0].subtitle}</p>
+            <p className={s['content-title']}>{story[activeIdx || 0].title}</p>
+            <p className={s['content-subtitle']}>
+              {story[activeIdx || 0].subtitle}
+            </p>
           </div>
 
           <div className={s['asset']}>
@@ -123,31 +158,44 @@ export const SoftwareTellsStory: FC = () => {
         </div>
 
         <div className={s['main-desktop']}>
-          <div className={s['story']}>
-            <div className={s['progress']}>
-              <ProgressBar
-                markers={markers}
-                ref={desktopTimeline}
-                animated={false}
-                direction="vertical"
-              />
-            </div>
-            <div className={s['story-chunks']}>
-              {story.map(({ title, subtitle }) => (
-                <div className={s['story-chunk']} key={title}>
-                  <div className={s['timeline']}></div>
-                  <div className={s['content']}>
-                    <p className={s['content-title']}>
-                      <span
-                        id={`story-desktop-marker-${title}`}
-                        className={s['timeline-marker']}
-                      />
-                      {title}
-                    </p>
-                    <p className={s['content-subtitle']}>{subtitle}</p>
+          <div className={s['story']} ref={storyContainerRef}>
+            <div
+              style={{ position: 'relative', margin: '200px 0' }}
+              className={s['story-inner']}
+            >
+              <div className={s['progress']}>
+                <ProgressBar
+                  markers={markers}
+                  ref={desktopTimeline}
+                  animated={false}
+                  direction="vertical"
+                />
+              </div>
+              <div className={s['story-chunks']}>
+                {story.map(({ title, subtitle }, idx) => (
+                  <div
+                    data-story-chunk-idx={idx}
+                    className={s['story-chunk']}
+                    key={title}
+                  >
+                    <div className={s['timeline']} />
+                    <div
+                      className={clsx(s['content'], {
+                        [s['disabled']]: activeIdx !== idx
+                      })}
+                    >
+                      <p className={s['content-title']}>
+                        <span
+                          id={`story-desktop-marker-${title}`}
+                          className={s['timeline-marker']}
+                        />
+                        {title}
+                      </p>
+                      <p className={s['content-subtitle']}>{subtitle}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 

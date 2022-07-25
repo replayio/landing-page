@@ -13,6 +13,18 @@
   .content {
     max-width: 358px;
 
+    &.disabled {
+      .content-title,
+      .content-subtitle {
+        color: var(--color-gray-light);
+      }
+    }
+
+    .content-title,
+    .content-subtitle {
+      transition: color var(--duration-moderate) linear;
+    }
+
     .content-title {
       position: relative;
       color: var(--color-pink-crayon);
@@ -70,6 +82,23 @@
 
     .story {
       position: relative;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      height: 400px;
+      padding: 8px 0;
+      padding-left: 18px;
+      pointer-events: none;
+      mask-image: linear-gradient(
+        to bottom,
+        rgb(0 0 0 / 0) 0%,
+        rgb(0 0 0 / 1) 30%,
+        rgb(0 0 0 / 1) 70%,
+        rgb(0 0 0 / 0) 100%
+      );
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       .progress {
         top: 0;
