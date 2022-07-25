@@ -76,12 +76,16 @@ export const SoftwareTellsStory: FC = () => {
 
   const markers = useMemo(() => {
     return story.map((s, idx) => ({
-      position: idx === 0 ? 0 : `story-desktop-marker-${s.title}`,
+      position: isDesktop
+        ? idx === 0
+          ? 0
+          : `story-desktop-marker-${s.title}`
+        : (100 / story.length) * idx,
       onActive: () => {
         setActiveIdx(idx)
       }
     }))
-  }, [])
+  }, [isDesktop])
 
   return (
     <Section className={s['section']} ref={ref}>
@@ -100,21 +104,16 @@ export const SoftwareTellsStory: FC = () => {
 
           <div className={s['asset']}>
             <AspectBox ratio={785 / 627} />
-            {/* <div className={s['animation-container']}>
-              <Github />
-            </div> */}
+            {story.map(({ Comp }, idx) => (
+              <div className={s['animation-container']} key={idx}>
+                {Comp && !isDesktop && <Comp active={activeIdx === idx} />}
+              </div>
+            ))}
           </div>
 
           <div className={s['progress-mobile']}>
             <ProgressBar
-              markers={[
-                {
-                  position: 0
-                },
-                ...story.map((_, index) => ({
-                  position: (100 / story.length) * index
-                }))
-              ]}
+              markers={markers}
               animated={false}
               markerSize={14}
               ref={mobileTimeline}
@@ -156,7 +155,7 @@ export const SoftwareTellsStory: FC = () => {
             <AspectBox ratio={785 / 627} />
             {story.map(({ Comp }, idx) => (
               <div className={s['animation-container']} key={idx}>
-                {Comp && <Comp active={activeIdx === idx} />}
+                {Comp && isDesktop && <Comp active={activeIdx === idx} />}
               </div>
             ))}
           </div>
