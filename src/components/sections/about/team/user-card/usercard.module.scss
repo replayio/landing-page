@@ -14,7 +14,17 @@
     height: 72px;
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
+  }
+
+  .position,
+  .job {
+    color: var(--color-pink-crayon);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 143%;
+    text-transform: uppercase;
   }
 
   button {
@@ -43,27 +53,25 @@
     }
   }
 
-  span {
-    &:nth-child(2) {
-      color: var(--color-pink-crayon);
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      line-height: 143%;
-      text-transform: uppercase;
-    }
-
-    &:nth-child(3) {
-      font-family: var(--font-heading);
-      font-size: 32px;
-      line-height: 150%;
-      letter-spacing: -0.04em;
-      color: var(--color-gray-dark);
-    }
+  .job {
+    margin-top: 8px;
   }
 
-  p {
+  .name {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    line-height: 150%;
+    letter-spacing: -0.04em;
+    color: var(--color-gray-dark);
+  }
+
+  .bio {
     margin-top: 16px;
+    line-height: 150%;
+  }
+
+  .shout {
+    margin-bottom: 16px;
     line-height: 150%;
   }
 
@@ -90,16 +98,15 @@
       margin-bottom: 24px;
     }
 
-    span {
-      &:nth-child(2) {
-        font-size: 12px;
-        line-height: 167%;
-        max-width: 160px;
-      }
+    .position,
+    .job {
+      font-size: 12px;
+      line-height: 167%;
+      max-width: 160px;
+    }
 
-      &:nth-child(3) {
-        font-size: 27px;
-      }
+    .name {
+      font-size: 27px;
     }
 
     ul {

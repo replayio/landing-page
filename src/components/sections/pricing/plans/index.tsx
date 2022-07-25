@@ -18,6 +18,7 @@ export const Plans: FC = () => {
   const [isStuck, setIsStuck] = useState(false)
 
   const tabsRef = useRef<HTMLDivElement>(null)
+  const plansRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const [scrollPosition, setScrollPosition] = useState(0)
 
@@ -28,15 +29,34 @@ export const Plans: FC = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
-
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
   useEffect(() => {
+    plansRefs.current = Array.from({ length: plans.length })
+  }, [])
+
+  useEffect(() => {
+    if (!plansRefs.current) return
+
+    const plans = plansRefs.current
+
+    for (const plan of plans) {
+      if (!plan) return
+
+      if (plan?.getBoundingClientRect().top < 400) {
+        setActiveKey(plans.indexOf(plan))
+      }
+    }
+  }, [scrollPosition])
+
+  useEffect(() => {
     if (!tabsRef.current) return
+
     const distanceTop = tabsRef.current.getBoundingClientRect().top
+
     if (distanceTop < 77) {
       setIsStuck(true)
     } else {
@@ -59,7 +79,6 @@ export const Plans: FC = () => {
             {tabs.map((tab, i) => (
               <Link
                 href={`#${tab}`}
-                onClick={() => setActiveKey(i)}
                 className={clsx({ [s.active]: activeKey === i })}
                 key={i}
               >
@@ -72,7 +91,12 @@ export const Plans: FC = () => {
       <Container className={s.container}>
         <div className={s['plan-container']}>
           {plans.map((plan, i) => (
-            <div key={i} className={clsx(s.plan)} id={plan.type}>
+            <div
+              key={i}
+              ref={(divElement) => (plansRefs.current[i] = divElement)}
+              className={clsx(s.plan)}
+              id={plan.type}
+            >
               <div>
                 <Image src={plan.icon} alt={plan.type} />
                 <span>{plan.type}</span>

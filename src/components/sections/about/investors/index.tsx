@@ -40,6 +40,8 @@ export const Investors: FC = () => {
                 containScroll: isDesktop ? 'trimSnaps' : ''
               }}
               slideClassName={s['slide']}
+              viewportClassname={s['slider__viewport']}
+              containerClassname={s['slider-container']}
             >
               {investors.map((member, i) => (
                 <UserCard key={i} member={member} />
