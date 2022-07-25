@@ -140,7 +140,13 @@ export const Testimonials: FC = () => {
                     />
                   </div>
 
-                  <Image width={64} height={64} src={picture} quality={100} />
+                  <Image
+                    width={64}
+                    height={64}
+                    src={picture}
+                    quality={100}
+                    alt={`${name} picture`}
+                  />
                 </div>
               </button>
             ))}
