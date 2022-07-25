@@ -52,6 +52,17 @@ export const Shouts: FC = () => {
             <UserCard key={i} member={member} />
           ))}
         </Masonry>
+        <Masonry
+          breakpointCols={2}
+          className={clsx(s.masonry__md, {
+            [s['faded']]: visibleShoutsLength < shouts.length
+          })}
+          columnClassName={s.masonry__md__column}
+        >
+          {visibleShouts.map((member, i) => (
+            <UserCard key={i} member={member} />
+          ))}
+        </Masonry>
         <div
           className={clsx(s['mobile-list'], {
             [s['faded']]: visibleShoutsLength < shouts.length

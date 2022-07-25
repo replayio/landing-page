@@ -31,7 +31,7 @@ export const UserCard: FC<UserCardProps> = ({
 }) => {
   return (
     <div className={s.card}>
-      <Image src={member.image} />
+      <Image src={member.image} alt={member.name} />
       {member.shout && <p className={s.shout}>{member.shout}</p>}
       {member.position && <span className={s.position}>{member.position}</span>}
       <span className={s.name}>{member.name}</span>
