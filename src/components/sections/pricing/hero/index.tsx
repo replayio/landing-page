@@ -68,16 +68,19 @@ export const Hero: FC = () => {
               Individuals and open source communities
               <br /> will always be able to use Replay for free.
             </span>
-            <div className={s.annual}>
-              <Switch.Root
-                onCheckedChange={() => setAnnual(!annual)}
-                className={s.switch}
-              >
-                <Switch.Thumb className={s.thumb} />
-              </Switch.Root>
-              <span>Annual</span>
-              <span>Save 25%</span>
-            </div>
+            <button onClick={() => setAnnual(!annual)}>
+              <div className={s.annual}>
+                <Switch.Root
+                  checked={annual}
+                  onCheckedChange={() => setAnnual(!annual)}
+                  className={s.switch}
+                >
+                  <Switch.Thumb className={s.thumb} />
+                </Switch.Root>
+                <span>Annual</span>
+                <span>Save 25%</span>
+              </div>
+            </button>
           </div>
           <div className={s.plans}>
             {plansData.map((item, i) => (

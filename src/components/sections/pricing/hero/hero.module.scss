@@ -17,11 +17,14 @@
     place-items: center;
     width: 100%;
 
+    button {
+      margin-top: 35px;
+    }
+
     .annual {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding-top: 35px;
       font-size: 14px;
       line-height: 121%;
 
@@ -117,8 +120,8 @@
 @media (max-width: $screen-sm) {
   .hero {
     .heading {
-      .annual {
-        padding-top: 15px;
+      button {
+        margin-top: 15px;
       }
     }
 
