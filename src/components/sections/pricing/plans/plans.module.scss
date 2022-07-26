@@ -25,7 +25,7 @@
     }
 
     &.stuck {
-      border-bottom: 2px solid var(--color-gray-lighter);
+      border-bottom: 1px solid var(--color-gray-lighter);
       transition: border-bottom 150ms;
 
       .inner-container {
@@ -75,7 +75,7 @@
       display: grid;
       gap: 25px;
       grid-template-columns: 0.9fr 1fr;
-      border: 2px solid var(--color-gray-lighter);
+      border: 1px solid var(--color-gray-lighter);
       border-radius: var(--border-radius-2xl);
       padding: 80px 76px;
       scroll-margin-top: 100px;
@@ -272,7 +272,7 @@
           padding-bottom: 18px;
 
           &.active {
-            border-bottom: 2px solid var(--color-pink-crayon);
+            border-bottom: 1px solid var(--color-pink-crayon);
           }
         }
       }
