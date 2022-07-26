@@ -15,40 +15,39 @@ import s from './testimonials.module.scss'
 
 const testimonials = [
   {
-    picture: 'https://dummyimage.com/64/000/fff',
+    picture: '/images/home/rauch.jpg',
     name: 'Guillermo Rauch',
     company: {
       name: 'Vercel',
-      url: 'https://company.com',
-      logo: 'https://dummyimage.com/64/000/fff'
-    },
-    position: 'CEO',
-    quote:
-      '“Replay has a very good chance of creating a new category around collaborative debugging”'
-  },
-  {
-    picture: 'https://dummyimage.com/64/000/fff',
-    name: 'Dan Abramov',
-    company: {
-      name: 'Company Name',
       url: 'https://vercel.com',
       logo: 'https://dummyimage.com/64/000/fff'
     },
     position: 'CEO',
     quote:
-      '“I think Replay has a very good chance of creating a new category around collaborative debugging”'
+      "“It's a well known fact that engineers want high quality bug reports, with extensive details...”"
   },
   {
-    picture: 'https://dummyimage.com/64/000/fff',
-    name: 'Alexandr Wang',
+    picture: '/images/home/abramov.jpg',
+    name: 'Dan Abramov',
     company: {
-      name: 'Scale',
-      url: 'https://scale.com',
+      name: 'React',
+      url: 'https://es.reactjs.org/',
       logo: 'https://dummyimage.com/64/000/fff'
     },
-    position: 'CEO',
+    position: 'Mantainer',
+    quote: '“Replay.io is galaxy brain tooling. Real gamechanger.”'
+  },
+  {
+    picture: '/images/home/ghadyani.jpeg',
+    name: 'Kevin Ghadyani',
+    company: {
+      name: 'JavaScript',
+      url: '#',
+      logo: 'https://dummyimage.com/64/000/fff'
+    },
+    position: 'Engineer',
     quote:
-      '“I think Replay has a very good chance of creating a new category around collaborative debugging”'
+      '“I first saw Replay at ReactConf in 2019 and came away thinking "this is way cooler than anything I saw...”'
   }
 ]
 
@@ -140,8 +139,14 @@ export const Testimonials: FC = () => {
                       onComplete={next}
                     />
                   </div>
-                  {/* @ts-ignore */}
-                  <Image src={picture} width={64} height={64} layout="raw" />
+
+                  <Image
+                    width={64}
+                    height={64}
+                    src={picture}
+                    quality={100}
+                    alt={`${name} picture`}
+                  />
                 </div>
               </button>
             ))}
@@ -149,7 +154,7 @@ export const Testimonials: FC = () => {
           <div className={s['quotes']}>
             {
               <p className={clsx(s['quote'], s['placeholder'])}>
-                {testimonials[activeIdx].quote}
+                {testimonials[0].quote}
               </p>
             }
             {testimonials.map(({ quote, name }, idx) => (
@@ -179,8 +184,6 @@ export const Testimonials: FC = () => {
                       width={16}
                       height={16}
                       draggable={false}
-                      // @ts-ignore
-                      layout="raw"
                     />
                   </span>{' '}
                   {testimonials[activeIdx].company.name}
@@ -201,13 +204,7 @@ export const Testimonials: FC = () => {
                   {position},{' '}
                   <Link href={company.url}>
                     <span className={s['company-logo']}>
-                      <Image
-                        src={company.logo}
-                        width={16}
-                        height={16}
-                        // @ts-ignore
-                        layout="raw"
-                      />
+                      <Image src={company.logo} width={16} height={16} />
                     </span>{' '}
                     {company.name}
                   </Link>

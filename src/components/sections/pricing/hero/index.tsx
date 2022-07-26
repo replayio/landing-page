@@ -70,13 +70,16 @@ export const Hero: FC = () => {
             </span>
             <div className={s.annual}>
               <Switch.Root
+                checked={annual}
                 onCheckedChange={() => setAnnual(!annual)}
                 className={s.switch}
               >
                 <Switch.Thumb className={s.thumb} />
               </Switch.Root>
-              <span>Annual</span>
-              <span>Save 25%</span>
+              <button onClick={() => setAnnual(!annual)}>
+                <span>Annual</span>
+                <span>Save 25%</span>
+              </button>
             </div>
           </div>
           <div className={s.plans}>

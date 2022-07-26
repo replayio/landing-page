@@ -20,8 +20,8 @@
     .annual {
       display: flex;
       align-items: center;
+      margin-top: 32px;
       gap: 8px;
-      padding-top: 35px;
       font-size: 14px;
       line-height: 121%;
 
@@ -56,6 +56,12 @@
           &[data-state='checked'] {
             transform: translateX(24px);
           }
+        }
+      }
+
+      > button:last-child {
+        span:last-child {
+          margin-left: 8px;
         }
       }
 
@@ -118,7 +124,7 @@
   .hero {
     .heading {
       .annual {
-        padding-top: 15px;
+        margin-top: 16px;
       }
     }
 

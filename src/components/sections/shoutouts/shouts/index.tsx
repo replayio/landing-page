@@ -85,7 +85,7 @@ export const Shouts: FC = () => {
           </button>
         )}
         <div className={s['bg']}>
-          <Image priority src={bg} alt="" />
+          <Image priority src={bg} alt="section background" />
         </div>
       </Container>
     </Section>

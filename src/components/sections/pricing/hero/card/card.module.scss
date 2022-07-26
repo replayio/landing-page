@@ -77,6 +77,8 @@
   &.primary {
     color: var(--color-white);
     background: var(--gradient-primary);
+    border: unset;
+    padding: 50px 26px;
 
     ul {
       li {
@@ -92,6 +94,10 @@
   .card {
     width: 100%;
     padding: 60px 40px 65px;
+
+    &.primary {
+      padding: 62px 42px 67px;
+    }
   }
 }
 
@@ -100,5 +106,9 @@
     width: 100%;
     padding: 48px 24px;
     border-radius: var(--border-radius-lg);
+
+    &.primary {
+      padding: 50px 26px;
+    }
   }
 }

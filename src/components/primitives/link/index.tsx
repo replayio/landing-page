@@ -17,7 +17,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       href,
       // NextLink Props
       replace,
-      scroll = false,
+      scroll = true,
       shallow,
       prefetch,
       unstyled = false,
