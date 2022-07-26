@@ -141,7 +141,7 @@
     z-index: 1;
     background: linear-gradient(
       to bottom,
-      transparent 0%,
+      var(--color-transparent) 0%,
       var(--color-white) 100%
     );
     bottom: 0;

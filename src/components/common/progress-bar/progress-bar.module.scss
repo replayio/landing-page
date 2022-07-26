@@ -64,7 +64,7 @@
       transform: translate(var(--translate-x), var(--translate-y));
       background: linear-gradient(
         var(--gradient-direction),
-        transparent,
+        var(--color-transparent),
         var(--color-primary)
       );
     }
