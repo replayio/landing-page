@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import throttle from 'lodash/throttle'
+import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '~/components/primitives/button'
@@ -25,11 +26,11 @@ const link = [
     label: 'Pricing'
   },
   {
-    href: '/',
+    href: '/about#jobs',
     label: "We're hiring"
   },
   {
-    href: '/',
+    href: '#discord',
     icon: (
       <svg
         width="20"
@@ -95,6 +96,7 @@ export const Header = () => {
   const menuRef = useRef(null)
   const [hasScrolled, setHasScrolled] = useState(false)
   const { isOn, handleToggle } = useToggleState()
+  const { asPath } = useRouter()
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -132,7 +134,6 @@ export const Header = () => {
         },
         {
           margin: '24px 0',
-          force3d: true,
           duration,
           height: 'auto',
           opacity: 1
@@ -175,7 +176,11 @@ export const Header = () => {
                 {link.map(({ href, icon, label }) => (
                   <li key={label}>
                     <Link href={href}>
-                      <p className={s['nav-link']}>
+                      <p
+                        className={clsx(s['nav-link'], {
+                          [s['active']]: href === asPath
+                        })}
+                      >
                         {icon && <span className={s['icon']}>{icon}</span>}
                         {label}
                       </p>
@@ -200,7 +205,11 @@ export const Header = () => {
               {link.map(({ href, icon, label }) => (
                 <li key={label}>
                   <Link href={href}>
-                    <p className={s['nav-link']}>
+                    <p
+                      className={clsx(s['nav-link'], {
+                        [s['active']]: href === asPath
+                      })}
+                    >
                       {icon && <span className={s['icon']}>{icon}</span>}
                       {label}
                     </p>

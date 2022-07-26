@@ -70,7 +70,9 @@
         background: var(--color-transparent);
         transition: background var(--duration-fast) ease-in;
 
-        &:hover {
+        &:hover,
+        &:focus,
+        &.active {
           background: var(--color-gray-lightest);
         }
 
@@ -105,7 +107,9 @@
           background: var(--color-transparent);
           transition: background var(--duration-fast) ease-in;
 
-          &:hover {
+          &:hover,
+          &:focus,
+          &.active {
             background: var(--color-gray-lightest);
           }
 

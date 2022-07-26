@@ -61,7 +61,7 @@ export const Work: FC = () => {
             <Button variant="tertiary">Learn more</Button>
           </div>
         </div>
-        <div className={s['work-item-jobs']}>
+        <div id="jobs" className={s['work-item-jobs']}>
           <div>
             <Image src={journeyImg} alt="" />
             <span>Join our journey</span>

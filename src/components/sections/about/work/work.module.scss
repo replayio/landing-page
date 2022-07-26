@@ -47,6 +47,7 @@
 
     .work-item-jobs {
       display: grid;
+      scroll-margin-top: 32px;
       grid-template-columns: 1fr 1fr;
       border: 2px solid var(--color-gray-lighter);
       border-radius: var(--border-radius-2xl);

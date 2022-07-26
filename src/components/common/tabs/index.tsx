@@ -1,29 +1,3 @@
-/* import clsx from 'clsx'
-import { FC } from 'react'
-
-import s from './tabs.module.scss'
-
-type TabsProps = {
-  tabs: { title: string }[]
-} & JSX.IntrinsicElements['div']
-
-export const Tabs: FC<TabsProps> = ({ tabs, className }) => {
-  return (
-    <div className={s['wrapper']}>
-      <div className={s['tabs']}>
-        {tabs.map((tab, idx) => (
-          <button
-            className={clsx(s['tab'], { [s['active']]: idx === 0 }, className)}
-            key={tab.title}
-          >
-            <p className={s['title']}>{tab.title}</p>
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-} */
-
 import * as TabsPrimitives from '@radix-ui/react-tabs'
 import clsx from 'clsx'
 import { FC, forwardRef, HTMLAttributes, useRef } from 'react'
@@ -65,6 +39,7 @@ type TabsProps = {
   tabListProps?: TabListProps
   tabs: TabProps[]
   contents?: (BaseProps & TabsPrimitives.TabsContentProps)[]
+  contentClassName?: string
 } & TabsPrimitives.TabsProps
 
 export const Tabs: FC<TabsProps> = ({
@@ -72,6 +47,7 @@ export const Tabs: FC<TabsProps> = ({
   contents,
   tabListProps,
   value,
+  contentClassName,
   ...rest
 }) => {
   const tabListRef = useRef(null)
@@ -83,13 +59,16 @@ export const Tabs: FC<TabsProps> = ({
           <Tab {...tab} key={tab.value} />
         ))}
       </TabList>
-      {contents?.map((content) => (
-        <TabsPrimitives.Content
-          tabIndex={-1}
-          {...content}
-          key={content.value}
-        />
-      ))}
+      <div className={contentClassName}>
+        {contents?.map((content) => (
+          <TabsPrimitives.Content
+            tabIndex={-1}
+            {...content}
+            className={clsx(s['content'], content.className)}
+            key={content.value}
+          />
+        ))}
+      </div>
     </TabsPrimitives.Root>
   )
 }

@@ -21,8 +21,6 @@ export const PageLayout = ({ children }: Props) => {
 
   return (
     <>
-      {/* TODO Header */}
-      {/* <Header /> */}
       <AnnouncementBar
         text={
           <>
@@ -34,8 +32,6 @@ export const PageLayout = ({ children }: Props) => {
       <Header />
 
       <main>{children}</main>
-      {/* TODO Footer */}
-      {/* <Footer /> */}
       <Footer />
     </>
   )
