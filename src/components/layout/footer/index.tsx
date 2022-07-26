@@ -96,7 +96,7 @@ export const Footer: FC = () => {
       setOverflowed(true)
     } else if (
       router.pathname === '/shoutouts' ||
-      router.pathname === '/security-and-privacy'
+      router.pathname === '/privacy-policy'
     ) {
       setHidden(true)
     } else {
