@@ -295,6 +295,7 @@
       .plan {
         padding: 30px 24px;
         border-radius: var(--border-radius-lg);
+        gap: unset;
 
         &:not(:first-child) {
           margin-top: 64px;
