@@ -10,7 +10,7 @@ import { Work } from '~/components/sections/about/work'
 const About = () => {
   return (
     <PageLayout>
-      <Meta />
+      <Meta title="About | Replay" />
       <Hero />
       <Work />
       <Team />

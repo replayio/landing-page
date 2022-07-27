@@ -5,7 +5,7 @@ import { Shouts } from '~/components/sections/shoutouts/shouts'
 const ShoutOuts = () => {
   return (
     <PageLayout>
-      <Meta />
+      <Meta title="Shoutouts | Replay" />
       <Shouts />
     </PageLayout>
   )
