@@ -76,9 +76,16 @@
 
       ul {
         list-style: disc;
-        padding-left: 25px;
-        text-indent: -4px;
+        padding-left: 20px;
         margin-top: 24px;
+
+        &:not(:last-child) {
+          margin-bottom: 24px;
+        }
+
+        li:not(:last-child) {
+          margin-bottom: 5px;
+        }
       }
     }
 

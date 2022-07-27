@@ -1,14 +1,14 @@
 import { Meta } from '~/components/common/meta'
 import { PageLayout } from '~/components/layout/page'
-import { Policy } from '~/components/sections/legal/policy'
+import { TermsOfService } from '~/components/sections/legal/terms'
 
-const Privacy = () => {
+const Terms = () => {
   return (
     <PageLayout>
       <Meta />
-      <Policy />
+      <TermsOfService />
     </PageLayout>
   )
 }
 
-export default Privacy
+export default Terms

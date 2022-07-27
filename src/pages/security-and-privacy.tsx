@@ -1,12 +1,12 @@
 import { Meta } from '~/components/common/meta'
 import { PageLayout } from '~/components/layout/page'
-import { Policy } from '~/components/sections/legal/policy'
+import { Security } from '~/components/sections/legal/security'
 
 const Privacy = () => {
   return (
     <PageLayout>
       <Meta />
-      <Policy />
+      <Security />
     </PageLayout>
   )
 }
