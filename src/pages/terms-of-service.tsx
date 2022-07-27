@@ -5,7 +5,7 @@ import { TermsOfService } from '~/components/sections/legal/terms'
 const Terms = () => {
   return (
     <PageLayout>
-      <Meta />
+      <Meta title="Terms of Service | Replay" />
       <TermsOfService />
     </PageLayout>
   )

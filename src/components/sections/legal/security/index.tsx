@@ -13,7 +13,7 @@ export const Security: FC = () => {
       <Container size="sm" className={s.container}>
         <div className={s.heading}>
           <Heading as="h1" size="lg">
-            Security & Privacy
+            Security &amp; Privacy
           </Heading>
           <span>Efective date: 16 SEP 2021</span>
         </div>
@@ -28,7 +28,7 @@ export const Security: FC = () => {
             <li>Code reviews</li>
             <li>Source control access restrictions</li>
             <li>Source code dependency scanning</li>
-            <li>Comprehensive audit & deployment logging</li>
+            <li>Comprehensive audit &amp; deployment logging</li>
             <li>Separated testing and production environments</li>
           </ul>
         </div>

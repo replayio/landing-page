@@ -5,7 +5,7 @@ import { Policy } from '~/components/sections/legal/policy'
 const Privacy = () => {
   return (
     <PageLayout>
-      <Meta title="Privacy | Replay" />
+      <Meta title="Privacy Policy | Replay" />
       <Policy />
     </PageLayout>
   )
