@@ -6,7 +6,6 @@ import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
-import { Link } from '~/components/primitives/link'
 
 import { plans } from './plans'
 import s from './plans.module.scss'
@@ -64,6 +63,15 @@ export const Plans: FC = () => {
     }
   }, [tabsRef, scrollPosition])
 
+  const navigateToPlan = (key: number) => {
+    if (!plansRefs.current) return
+
+    const plans = plansRefs.current
+    if (!plans[key]) return
+
+    plans[key]?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <Section className={s.section}>
       <div className={s['heading']}>
@@ -77,13 +85,13 @@ export const Plans: FC = () => {
           {isStuck && <span>Plans</span>}
           <div className={s.tabs}>
             {tabs.map((tab, i) => (
-              <Link
-                href={`#${tab}`}
+              <button
+                onClick={() => navigateToPlan(i)}
                 className={clsx({ [s.active]: activeKey === i })}
                 key={i}
               >
                 {tab}
-              </Link>
+              </button>
             ))}
           </div>
         </Container>

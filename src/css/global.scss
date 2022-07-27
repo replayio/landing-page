@@ -108,3 +108,8 @@ body:not(.user-is-tabbing) textarea:focus {
     --header-height: 76px;
   }
 }
+
+::selection {
+  color: var(--color-white);
+  background: var(--color-pink-crayon);
+}

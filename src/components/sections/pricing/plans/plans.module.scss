@@ -53,7 +53,7 @@
       color: var(--color-gray-light);
       padding: 24px 32px;
 
-      a {
+      button {
         letter-spacing: 0.1em;
         line-height: 171%;
         text-transform: uppercase;
@@ -268,7 +268,7 @@
           rgb(217 217 217 / 0) 100%
         );
 
-        a {
+        button {
           padding-bottom: 18px;
 
           &.active {
