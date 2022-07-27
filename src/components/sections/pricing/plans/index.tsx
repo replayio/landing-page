@@ -5,7 +5,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
+import { ButtonLink } from '~/components/primitives/button'
 
 import { plans } from './plans'
 import s from './plans.module.scss'
@@ -109,11 +109,12 @@ export const Plans: FC = () => {
                 <Image src={plan.icon} alt={plan.type} />
                 <span>{plan.type}</span>
                 <span>{plan.description}</span>
-                <Button
+                <ButtonLink
+                  href={plan.link}
                   variant={plan.type === 'Enterprise' ? 'tertiary' : 'primary'}
                 >
                   {plan.cta}
-                </Button>
+                </ButtonLink>
               </div>
               <div>
                 {plan.content.map((item, i) => (

@@ -10,6 +10,7 @@ export const plans = [
     description:
       'Replay will always be free for local development, open source, and collaboration.',
     cta: 'Sign Up',
+    link: 'https://app.replay.io/',
     content: [
       {
         features: {
@@ -40,6 +41,7 @@ export const plans = [
     description:
       'Team workspaces make it easy to collaborate, manage recordings, and track conversations so that bugs get fixed faster.',
     cta: 'Create Team',
+    link: 'https://app.replay.io/team/new',
     content: [
       {
         title: 'Only pay for developers on your team',
@@ -66,6 +68,7 @@ export const plans = [
     description:
       'The organization plan offers additional controls around access to Replay and how replays are recorded.',
     cta: 'Create Organization',
+    link: 'https://app.replay.io/org/new',
     content: [
       {
         features: {
@@ -89,6 +92,7 @@ export const plans = [
     description:
       'The organization plan offers additional controls around access to Replay and how replays are recorded.',
     cta: 'Email Us',
+    link: 'mailto:sales@replay.io',
     content: [
       {
         title: 'Own your data',
