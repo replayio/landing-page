@@ -159,7 +159,7 @@ export const Header = () => {
       <Container size="md">
         <div className={s['inner-mobile']}>
           <div className={s['mobile-wrapper']}>
-            <Link href="/">
+            <Link href="/" aria-label="Go Home">
               <Logo width={80} className={s['logo']} />
             </Link>
 
@@ -196,7 +196,7 @@ export const Header = () => {
         </div>
 
         <div className={s['inner-desktop']}>
-          <Link href="/">
+          <Link href="/" aria-label="Go Home">
             <Logo width={94} className={s['logo']} />
           </Link>
 

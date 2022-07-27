@@ -111,6 +111,7 @@ export const TrustedBy: FC = () => {
                   <Button
                     className={s['next']}
                     onClick={() => carousel.current?.scrollNext()}
+                    aria-label="Next"
                     unstyled
                   >
                     <svg

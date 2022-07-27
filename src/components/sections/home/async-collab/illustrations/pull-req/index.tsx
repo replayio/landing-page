@@ -21,7 +21,12 @@ export const PullReq: FC = () => {
           </span>
         </div>
         <div className={s['image-container']}>
-          <Image src="/images/home/board-1.png" width={71} height={71} />
+          <Image
+            src="/images/home/board-1.png"
+            width={71}
+            height={71}
+            alt="floating hoverboard"
+          />
         </div>
       </div>
 
@@ -38,7 +43,12 @@ export const PullReq: FC = () => {
           </span>
         </div>
         <div className={s['image-container']}>
-          <Image src="/images/home/board-2.png" width={71} height={71} />
+          <Image
+            src="/images/home/board-2.png"
+            width={71}
+            height={71}
+            alt="floating hoverboard"
+          />
         </div>
       </div>
     </div>
