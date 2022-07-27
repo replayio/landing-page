@@ -6,7 +6,7 @@ import { FC, memo, useEffect, useRef, useState } from 'react'
 import { PlayIcon } from '~/components/common/play-icon'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
+import { ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { useGsapTime } from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
@@ -214,9 +214,13 @@ export const Testimonials: FC = () => {
           </div>
 
           <Container className={s['cta']} size="lg">
-            <Button className={s['button']} variant="tertiary">
+            <ButtonLink
+              href="/shoutouts"
+              className={s['button']}
+              variant="tertiary"
+            >
               See shoutouts <PlayIcon style={{ marginLeft: 8 }} />
-            </Button>
+            </ButtonLink>
           </Container>
         </div>
       </Container>

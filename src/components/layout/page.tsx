@@ -25,7 +25,9 @@ export const PageLayout = ({ children }: Props) => {
         text={
           <>
             Proudly backed by Andreessen Horowitz.{' '}
-            <Link href="/">Read&nbsp;More</Link>
+            <Link href="https://medium.com/replay-io/launching-replay-the-time-travel-debugger-for-the-web-f886f0897d38">
+              Read&nbsp;More
+            </Link>
           </>
         }
       />

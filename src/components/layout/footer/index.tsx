@@ -36,15 +36,15 @@ const links = {
   'get help': [
     {
       label: 'Docs',
-      href: '/docs'
+      href: 'https://docs.replay.io/'
     },
     {
       label: 'Github Issues',
-      href: '/github-issues'
+      href: 'https://github.com/replayio'
     },
     {
       label: 'Contact Us',
-      href: '/contact-us'
+      href: 'mailto:sales@replay.io'
     }
   ],
   legal: [
@@ -60,7 +60,7 @@ const links = {
   resources: [
     {
       label: 'Blog',
-      href: '/blog'
+      href: 'https://medium.com/replay-io'
     },
     {
       label: 'Security & Privacy',
@@ -72,15 +72,15 @@ const links = {
 const social = {
   discord: {
     icon: '/images/logos/discord.svg',
-    href: '/'
+    href: '/discord'
   },
   twitter: {
     icon: '/images/logos/twitter.svg',
-    href: '/'
+    href: 'https://twitter.com/replayio'
   },
   linkedIn: {
     icon: '/images/logos/linkedin.svg',
-    href: '/'
+    href: 'https://www.linkedin.com/company/replayio/'
   }
 }
 
@@ -126,7 +126,13 @@ export const Footer: FC = () => {
                 <Heading size="lg">Start Replaying now</Heading>
               </div>
               <div className={s['cta']}>
-                <Button size="sm" rounded variant="tertiary">
+                <Button
+                  className={s['play-button']}
+                  size="sm"
+                  noHover
+                  rounded
+                  variant="tertiary"
+                >
                   <svg
                     width="30"
                     height="31"

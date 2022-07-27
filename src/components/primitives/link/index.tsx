@@ -8,6 +8,7 @@ import s from './link.module.scss'
 export type LinkProps = {
   children?: React.ReactNode
   unstyled?: boolean
+  asChild?: boolean
 } & JSX.IntrinsicElements['a'] &
   Omit<NextLinkProps, 'as' | 'passHref'>
 
@@ -21,6 +22,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       shallow,
       prefetch,
       unstyled = false,
+      asChild,
       // Rest
       ...aProps
     } = restProps
@@ -36,20 +38,23 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         prefetch={prefetch}
         passHref
       >
-        <a
-          target={isExternal ? '_blank' : undefined}
-          rel={isExternal ? 'noopener' : undefined}
-          {...aProps}
-          ref={ref}
-          className={clsx(
-            s['link'],
-            s['link--rg'],
-            { [s['unstyled']]: unstyled },
-            className
-          )}
-        >
-          {unstyled ? <>{children}</> : <span>{children}</span>}
-        </a>
+        {!asChild ? (
+          <a
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener' : undefined}
+            {...aProps}
+            ref={ref}
+            className={clsx(
+              s['link'],
+              { [s['unstyled']]: unstyled },
+              className
+            )}
+          >
+            {children}
+          </a>
+        ) : (
+          children
+        )}
       </NextLink>
     )
   }

@@ -28,8 +28,13 @@
   /* Gradients */
   --gradient-primary: linear-gradient(
     116.04deg,
-    #f41c52 35.23%,
+    var(--color-pink-crayon) 35.23%,
     #ff537e 129.14%
+  );
+  --gradient-secondary: linear-gradient(
+    90deg,
+    var(--color-gray-lightest),
+    var(--color-gray-lightest)
   );
 
   /* Durations */
@@ -74,7 +79,6 @@ html {
 
 body {
   font-family: var(--font-body);
-  transition: opacity #{$duration / 3 + 's'} ease-in;
 }
 
 body.inspect * {

@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 
-import { Button } from '~/components/primitives/button'
+import { Button, ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { Logo } from '~/components/primitives/logo'
 import { useToggleState } from '~/hooks/use-toggle-state'
@@ -14,7 +14,7 @@ import s from './header.module.scss'
 
 const link = [
   {
-    href: '/',
+    href: 'https://docs.replay.io/docs/why-replay-12b64a4c3b5d461981f1b498fc055d56#6524a5fc96304bf286184e004d2ba55f',
     label: 'Use Cases'
   },
   {
@@ -30,7 +30,7 @@ const link = [
     label: "We're hiring"
   },
   {
-    href: '#discord',
+    href: '/discord',
     icon: (
       <svg
         width="20"
@@ -220,9 +220,13 @@ export const Header = () => {
           </div>
 
           <div>
-            <Button size="sm" variant="secondary">
+            <ButtonLink
+              href="https://app.replay.io/"
+              size="sm"
+              variant="secondary"
+            >
               Login
-            </Button>
+            </ButtonLink>
           </div>
         </div>
       </Container>
