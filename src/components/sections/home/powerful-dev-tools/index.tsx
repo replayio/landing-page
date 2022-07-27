@@ -113,6 +113,7 @@ const AssetPlayer = () => {
             src="https://dummyimage.com/1286x712/000/fff"
             width={1286}
             height={712}
+            alt="dummy image"
           />
         </div>
       </Container>

@@ -198,6 +198,7 @@ export const Footer: FC = () => {
                       width={32}
                       height={32}
                       src={link.icon}
+                      alt={key}
                     />
                   </Link>
                 </li>

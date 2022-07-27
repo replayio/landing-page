@@ -184,6 +184,7 @@ export const Testimonials: FC = () => {
                       width={16}
                       height={16}
                       draggable={false}
+                      alt={testimonials[activeIdx].company.name}
                     />
                   </span>{' '}
                   {testimonials[activeIdx].company.name}
@@ -204,7 +205,12 @@ export const Testimonials: FC = () => {
                   {position},{' '}
                   <Link href={company.url}>
                     <span className={s['company-logo']}>
-                      <Image src={company.logo} width={16} height={16} />
+                      <Image
+                        src={company.logo}
+                        width={16}
+                        height={16}
+                        alt={`${company.name} logo`}
+                      />
                     </span>{' '}
                     {company.name}
                   </Link>
