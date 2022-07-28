@@ -536,7 +536,8 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
               height: 16,
               background: '#E5E5E5',
               color: '#7D7D7D',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              fontVariantNumeric: 'tabular-nums'
             }}
           >
             {currentHit}/5

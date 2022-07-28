@@ -43,13 +43,18 @@
     display: flex;
     transition: transform var(--duration-fast) ease-out;
     transform-origin: center center;
-    // overflow: hidden;
 
     &:hover,
     &.active {
       transform: scale(1.2);
 
+      .toggle::after {
+        height: 2px;
+        width: 9px;
+      }
+
       .markers-container {
+        pointer-events: all;
         transform: translateX(0px);
         opacity: 1;
       }
@@ -57,11 +62,22 @@
 
     .toggle {
       position: relative;
-      border-radius: var(--border-radius-full);
       display: inline-block;
       height: 6px;
       width: 6px;
-      background: #d8d8d8;
+
+      &::after {
+        content: '';
+        border-radius: var(--border-radius-full);
+        position: absolute;
+        background: #d8d8d8;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all var(--duration-fast) ease-out;
+        height: 6px;
+        width: 6px;
+      }
     }
 
     .markers-container {
@@ -79,8 +95,7 @@
       position: absolute;
       display: flex;
       z-index: 0;
-
-      // width: 0;
+      pointer-events: none;
 
       .marker {
         margin-left: 8px;
