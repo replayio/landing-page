@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import Image from 'next/future/image'
 import { FC, useMemo, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
@@ -7,6 +6,7 @@ import { Timeline } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
+import { Code, DevTools } from '../overboard-story'
 import s from './powerful-dev-tools.module.scss'
 
 type AssetChunkProps = {
@@ -107,12 +107,8 @@ const AssetPlayer = () => {
       </div>
       <Container size="md">
         <div className={s['asset']}>
-          <Image
-            src="https://dummyimage.com/1286x712/000/fff"
-            width={1286}
-            height={712}
-            alt="dummy image"
-          />
+          <Code />
+          <DevTools />
         </div>
       </Container>
     </div>

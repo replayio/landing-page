@@ -5,3 +5,29 @@
 .grid > * {
   grid-area: 1 / 1 / 1 / 1;
 }
+
+.code {
+  color: #727272;
+
+  :global {
+    .reserved {
+      color: #dd00a9;
+    }
+
+    .declaration {
+      color: #000;
+    }
+
+    .variable {
+      color: #3172e0;
+    }
+
+    .function {
+      color: #8000d7;
+    }
+
+    .symbol {
+      color: #000;
+    }
+  }
+}
