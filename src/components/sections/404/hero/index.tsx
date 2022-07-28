@@ -1,10 +1,9 @@
-import Link from 'next/link'
 import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
+import { ButtonLink } from '~/components/primitives/button'
 
 import s from './hero.module.scss'
 
@@ -159,11 +158,9 @@ export const Hero: FC = () => {
               The page you are looking for doesn't exist or has been moved.
             </span>
             <div className={s['cta']}>
-              <Link passHref href="/">
-                <a>
-                  <Button variant="primary">Go Home</Button>
-                </a>
-              </Link>
+              <ButtonLink variant="primary" href="/">
+                Go Home
+              </ButtonLink>
             </div>
           </div>
         </div>
