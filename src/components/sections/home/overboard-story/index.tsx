@@ -353,7 +353,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
 
   const timelineProps = useMemo(
     () => ({
-      markers: [30, 37, 40, 55, 80].map((position, idx) => ({
+      markers: [30, 36, 40, 55, 80].map((position, idx) => ({
         position,
         onActive: () => handleHit(idx + 1)
       })),
