@@ -1,7 +1,7 @@
 import type { Colorway, HoverboardControls } from '@replayio/overboard'
 import { Color, Colors, colorways, Hoverboard, Logo } from '@replayio/overboard'
 import { gsap, ScrollTrigger } from 'lib/gsap'
-import React, { useRef, useState } from 'react'
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
 
 import { Timeline } from '~/components/common/progress-bar'
 import { Logo as ReplayLogo } from '~/components/primitives/logo'
@@ -177,8 +177,10 @@ const symbols = {
 }
 
 export const Console = ({
+  currentHit,
   logs
 }: {
+  currentHit: number
   logs: { symbol: keyof typeof symbols; prepend: string; content: any }[]
 }) => {
   const logContent = (content: any) => {
@@ -192,7 +194,7 @@ export const Console = ({
       return JSON.stringify(content)
     }
 
-    return ''
+    return content
   }
 
   return (
@@ -207,6 +209,7 @@ export const Console = ({
 
       <div
         style={{
+          position: 'relative',
           fontFamily: 'var(--font-mono)',
           fontSize: '14px',
           padding: '32px 0px'
@@ -214,9 +217,14 @@ export const Console = ({
       >
         {logs.map((log, i) => (
           <>
-            {i === 1 && (
+            {i === currentHit && (
               <hr
-                style={{ height: 1, background: 'var(--color-pink-crayon)' }}
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: 1,
+                  background: 'var(--color-pink-crayon)'
+                }}
               />
             )}
             <div
@@ -289,7 +297,9 @@ const CodeLine = ({
   )
 }
 
-export const Code = () => {
+export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
+  const [currentHit, setCurrentHit] = useState(0)
+
   const lines = [
     { print: 'disabled', content: <></> },
     { print: 'disabled', content: <></> },
@@ -332,6 +342,28 @@ export const Code = () => {
       )
     }
   ]
+
+  const handleHit = useCallback(
+    (idx: number) => {
+      setCurrentHit(idx)
+      onHit(idx)
+    },
+    [onHit]
+  )
+
+  const timelineProps = useMemo(
+    () => ({
+      markers: [30, 37, 40, 55, 80].map((position, idx) => ({
+        position,
+        onActive: () => handleHit(idx + 1)
+      })),
+      onComplete: () => {
+        handleHit(0)
+        setCurrentHit(0)
+      }
+    }),
+    [handleHit]
+  )
 
   return (
     <div
@@ -483,15 +515,10 @@ export const Code = () => {
             <Timeline
               primaryColor="#01ACFD"
               secondaryColor="#D5D5D5"
-              duration={10}
+              duration={6}
               markerSize={12}
-              markers={[
-                { position: 30 },
-                { position: 37 },
-                { position: 40 },
-                { position: 55 },
-                { position: 80 }
-              ]}
+              markers={timelineProps['markers']}
+              onComplete={timelineProps['onComplete']}
             />
           </div>
           <span
@@ -506,38 +533,19 @@ export const Code = () => {
               justifyContent: 'center'
             }}
           >
-            5
+            {currentHit}/5
           </span>
         </div>
       </div>
     </div>
   )
-}
+})
 
 const tabs = {
-  Console: () =>
-    Console({
-      logs: [
-        {
-          symbol: 'yellow',
-          prepend: 'Current position',
-          content: { left: 110, top: 25 }
-        },
-        {
-          symbol: 'yellow',
-          prepend: 'Current position',
-          content: { left: 110, top: 25 }
-        },
-        {
-          symbol: 'unicorn',
-          prepend: 'Start 360',
-          content: { left: 110, top: 25 }
-        }
-      ]
-    }),
-  Elements: () => null,
-  Network: () => null,
-  React: ReactDevTools
+  console: Console,
+  elements: () => null,
+  network: () => null,
+  react: ReactDevTools
 } as const
 
 export function TabNav({
@@ -568,7 +576,8 @@ export function TabNav({
             key={index}
             style={{
               padding: '8px 10px',
-              backgroundColor: isActive ? '#DCDCDC' : 'transparent'
+              backgroundColor: isActive ? '#DCDCDC' : 'transparent',
+              textTransform: 'capitalize'
             }}
           >
             <button
@@ -690,8 +699,16 @@ function ViewToggle() {
   )
 }
 
-export function DevTools() {
-  const [activePanel, setActivePanel] = useState<keyof typeof tabs>('Console')
+export function DevTools({
+  panelProps,
+  panel
+}: {
+  panelProps?: any
+  panel: keyof typeof tabs
+}) {
+  const [activePanel, setActivePanel] = useState<keyof typeof tabs>(
+    panel || 'console'
+  )
   const ActiveTabPanel = tabs[activePanel]
   const ref = useRef<HTMLDivElement>(null)
 
@@ -724,7 +741,7 @@ export function DevTools() {
       }}
     >
       <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
-      <ActiveTabPanel />
+      <ActiveTabPanel {...panelProps} />
     </div>
   )
 }
@@ -795,7 +812,7 @@ export function ReplayApplication() {
         <ViewToggle />
       </div>
 
-      <DevTools />
+      <DevTools panel="react" />
     </div>
   )
 }
