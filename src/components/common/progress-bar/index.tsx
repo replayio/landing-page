@@ -285,11 +285,12 @@ export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
 
 type TimelineProps = {
   duration: number
+  onComplete?: () => void
   loop?: boolean
 } & ProgressProps
 
 export const Timeline = memo(
-  ({ duration, loop = true, ...rest }: TimelineProps) => {
+  ({ duration, onComplete, loop = true, ...rest }: TimelineProps) => {
     const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
     const progressRef = useRef<ProgressAPI>(null)
 
@@ -298,6 +299,7 @@ export const Timeline = memo(
       onUpdate: (progress) => {
         progressRef.current?.update(progress.percentage)
       },
+      onComplete,
       loop
     })
 

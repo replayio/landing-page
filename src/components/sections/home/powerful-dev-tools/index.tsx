@@ -6,8 +6,8 @@ import { Timeline } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
-import { Code, DevTools } from '../overboard-story'
 import s from './powerful-dev-tools.module.scss'
+import { Scene1 } from './scenes'
 
 type AssetChunkProps = {
   assets: {
@@ -98,7 +98,7 @@ const AssetPlayer = () => {
               markers={markers}
               markerVisible={false}
               markerSize={14}
-              duration={20}
+              duration={200}
               direction="horizontal"
               debug
             />
@@ -107,8 +107,7 @@ const AssetPlayer = () => {
       </div>
       <Container size="md">
         <div className={s['asset']}>
-          <Code />
-          <DevTools />
+          <Scene1 />
         </div>
       </Container>
     </div>
