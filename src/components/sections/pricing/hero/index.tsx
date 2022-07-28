@@ -15,6 +15,7 @@ const plansData = [
     price: 'Free',
     mode: 'forever',
     cta: 'Sign Up',
+    link: 'https://app.replay.io/',
     features: ['100 recordings per month', 'Privacy controls', 'Google SSO']
   },
   {
@@ -22,6 +23,7 @@ const plansData = [
     price: 20,
     mode: 'per month / per developer',
     cta: 'Create Team',
+    link: 'https://app.replay.io/team/new',
     features: [
       '100 recordings per month',
       'Up to 10 users + developers',
@@ -34,6 +36,7 @@ const plansData = [
     price: 75,
     mode: 'per month / per developer',
     cta: 'Create Organization',
+    link: 'https://app.replay.io/org/new',
     features: [
       '100 recordings per month',
       'Up to 10 users + developers',
@@ -45,6 +48,7 @@ const plansData = [
   {
     type: 'Enterprise',
     cta: 'Email Us',
+    link: 'mailto:sales@replay.io',
     features: [
       'Unlimited recordings',
       'Ability to host your own storage',
@@ -70,13 +74,16 @@ export const Hero: FC = () => {
             </span>
             <div className={s.annual}>
               <Switch.Root
+                checked={annual}
                 onCheckedChange={() => setAnnual(!annual)}
                 className={s.switch}
               >
                 <Switch.Thumb className={s.thumb} />
               </Switch.Root>
-              <span>Annual</span>
-              <span>Save 25%</span>
+              <button onClick={() => setAnnual(!annual)}>
+                <span>Annual</span>
+                <span>Save 25%</span>
+              </button>
             </div>
           </div>
           <div className={s.plans}>

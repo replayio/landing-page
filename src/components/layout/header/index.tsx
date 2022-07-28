@@ -1,9 +1,10 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import throttle from 'lodash/throttle'
+import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 
-import { Button } from '~/components/primitives/button'
+import { Button, ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { Logo } from '~/components/primitives/logo'
 import { useToggleState } from '~/hooks/use-toggle-state'
@@ -13,7 +14,7 @@ import s from './header.module.scss'
 
 const link = [
   {
-    href: '/',
+    href: 'https://docs.replay.io/docs/why-replay-12b64a4c3b5d461981f1b498fc055d56#6524a5fc96304bf286184e004d2ba55f',
     label: 'Use Cases'
   },
   {
@@ -25,11 +26,11 @@ const link = [
     label: 'Pricing'
   },
   {
-    href: '/',
+    href: '/about#jobs',
     label: "We're hiring"
   },
   {
-    href: '/',
+    href: '/discord',
     icon: (
       <svg
         width="20"
@@ -95,6 +96,7 @@ export const Header = () => {
   const menuRef = useRef(null)
   const [hasScrolled, setHasScrolled] = useState(false)
   const { isOn, handleToggle } = useToggleState()
+  const { asPath } = useRouter()
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -121,9 +123,9 @@ export const Header = () => {
     if (isOn) {
       gsap.to(menuRef.current, {
         '--shadow-opacity': 0.12,
-        duration,
-        borderRadius: 'var(--border-radius-lg)'
+        duration
       })
+
       gsap.fromTo(
         menuInner,
         {
@@ -132,16 +134,17 @@ export const Header = () => {
         },
         {
           margin: '24px 0',
-          force3d: true,
           duration,
-          height: 'auto'
+          height: 'auto',
+          opacity: 1
         }
       )
     } else {
       gsap.to(menuInner, {
         duration,
         height: 0,
-        margin: 0
+        margin: 0,
+        opacity: 0
       })
 
       gsap.to(menuRef.current, {
@@ -156,7 +159,7 @@ export const Header = () => {
       <Container size="md">
         <div className={s['inner-mobile']}>
           <div className={s['mobile-wrapper']}>
-            <Link href="/">
+            <Link href="/" aria-label="Go Home">
               <Logo width={80} className={s['logo']} />
             </Link>
 
@@ -173,7 +176,11 @@ export const Header = () => {
                 {link.map(({ href, icon, label }) => (
                   <li key={label}>
                     <Link href={href}>
-                      <p className={s['nav-link']}>
+                      <p
+                        className={clsx(s['nav-link'], {
+                          [s['active']]: href === asPath
+                        })}
+                      >
                         {icon && <span className={s['icon']}>{icon}</span>}
                         {label}
                       </p>
@@ -189,7 +196,7 @@ export const Header = () => {
         </div>
 
         <div className={s['inner-desktop']}>
-          <Link href="/">
+          <Link href="/" aria-label="Go Home">
             <Logo width={94} className={s['logo']} />
           </Link>
 
@@ -198,7 +205,11 @@ export const Header = () => {
               {link.map(({ href, icon, label }) => (
                 <li key={label}>
                   <Link href={href}>
-                    <p className={s['nav-link']}>
+                    <p
+                      className={clsx(s['nav-link'], {
+                        [s['active']]: href === asPath
+                      })}
+                    >
                       {icon && <span className={s['icon']}>{icon}</span>}
                       {label}
                     </p>
@@ -209,9 +220,13 @@ export const Header = () => {
           </div>
 
           <div>
-            <Button size="sm" variant="secondary">
+            <ButtonLink
+              href="https://app.replay.io/"
+              size="sm"
+              variant="secondary"
+            >
               Login
-            </Button>
+            </ButtonLink>
           </div>
         </div>
       </Container>

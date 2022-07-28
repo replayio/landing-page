@@ -50,7 +50,7 @@
     background: linear-gradient(
       to bottom,
       var(--color-white) 0%,
-      transparent 100%
+      var(--color-transparent) 100%
     );
   }
 
@@ -61,7 +61,7 @@
     background: linear-gradient(
       to top,
       var(--color-white) 0%,
-      transparent 100%
+      var(--color-transparent) 100%
     );
   }
 }

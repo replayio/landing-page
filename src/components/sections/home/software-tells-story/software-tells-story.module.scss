@@ -13,6 +13,18 @@
   .content {
     max-width: 358px;
 
+    &.disabled {
+      .content-title,
+      .content-subtitle {
+        color: var(--color-gray-light);
+      }
+    }
+
+    .content-title,
+    .content-subtitle {
+      transition: color var(--duration-moderate) linear;
+    }
+
     .content-title {
       position: relative;
       color: var(--color-pink-crayon);
@@ -34,11 +46,20 @@
   }
 
   .asset {
+    position: relative;
     max-width: 785px;
     width: 100%;
     height: 100%;
     background: var(--color-pink-crayon);
     border-radius: var(--border-radius-lg);
+
+    .animation-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+    }
   }
 
   .main-mobile {
@@ -56,11 +77,28 @@
     display: none;
     align-items: center;
     justify-content: space-between;
-    margin-top: 132px;
+    margin-top: 112px;
     @include space-x(64px);
 
     .story {
       position: relative;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      height: 400px;
+      padding: 8px 0;
+      padding-left: 18px;
+      pointer-events: none;
+      mask-image: linear-gradient(
+        to bottom,
+        rgb(0 0 0 / 0) 0%,
+        rgb(0 0 0 / 1) 30%,
+        rgb(0 0 0 / 1) 70%,
+        rgb(0 0 0 / 0) 100%
+      );
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       .progress {
         top: 0;
@@ -85,6 +123,7 @@
 @media (min-width: $screen-lg) {
   .section {
     margin-top: 200px;
+    margin-bottom: 40px;
 
     .main-mobile {
       display: none;
@@ -96,6 +135,10 @@
 
     .asset {
       border-radius: var(--border-radius-2xl);
+
+      .animation-container {
+        width: 70%;
+      }
     }
   }
 }

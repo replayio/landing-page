@@ -16,6 +16,8 @@ import s from './carousel.module.scss'
 type CarouselProps = {
   config?: EmblaOptionsType
   slideClassName?: string
+  viewportClassname?: string
+  containerClassname?: string
   dots?: boolean
   arrows?: boolean
 } & JSX.IntrinsicElements['div']
@@ -29,6 +31,8 @@ export const Carousel = forwardRef<
       children,
       className,
       slideClassName,
+      viewportClassname,
+      containerClassname,
       config,
       dots = true,
       arrows = false
@@ -69,8 +73,11 @@ export const Carousel = forwardRef<
     return (
       <>
         <div className={clsx(s['embla'], className)}>
-          <div className={s['embla__viewport']} ref={viewportRef}>
-            <div className={s['embla__container']}>
+          <div
+            className={clsx(s['embla__viewport'], viewportClassname)}
+            ref={viewportRef}
+          >
+            <div className={clsx(s['embla__container'], containerClassname)}>
               {slides.map((child, idx) => (
                 <div
                   className={clsx(s['embla__slide'], slideClassName)}

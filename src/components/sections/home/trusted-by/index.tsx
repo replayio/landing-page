@@ -111,6 +111,7 @@ export const TrustedBy: FC = () => {
                   <Button
                     className={s['next']}
                     onClick={() => carousel.current?.scrollNext()}
+                    aria-label="Next"
                     unstyled
                   >
                     <svg
@@ -143,7 +144,7 @@ export const TrustedBy: FC = () => {
           <div className={s['logos-grid']}>
             {logos.flat().map(({ title, logo }) => (
               <div className={s['logo']} title={title} key={title}>
-                <Image src={logo} />
+                <Image src={logo} alt={`${title} logo`} />
               </div>
             ))}
           </div>
@@ -156,7 +157,7 @@ export const TrustedBy: FC = () => {
               <div className={s['logos-grid']}>
                 {logos.map(({ logo, title }) => (
                   <div className={s['logo']} title={title} key={title}>
-                    <Image src={logo} />
+                    <Image src={logo} alt={`${title} logo`} />
                   </div>
                 ))}
               </div>

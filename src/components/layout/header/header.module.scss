@@ -3,8 +3,8 @@
 
 .header {
   /* Temporary position */
-  position: relative;
-  // position: sticky;
+  // position: relative;
+  position: sticky;
   display: flex;
   align-items: center;
   width: 100%;
@@ -34,7 +34,7 @@
     }
 
     .menu {
-      --shadow-opacity: 0.12;
+      --shadow-opacity: 0;
 
       overflow: hidden;
       padding-top: var(--header-height);
@@ -42,7 +42,7 @@
       z-index: -1;
       left: 0;
       right: 0;
-      top: 0;
+      top: -1px;
       width: 100%;
       background: var(--color-white);
       border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
@@ -52,7 +52,9 @@
       backface-visibility: hidden;
 
       .menu-inner {
-        margin: 24px 0;
+        opacity: 0;
+        height: 0;
+        margin: 0;
         will-change: height;
         backface-visibility: hidden;
         @include space-y(28px);
@@ -68,7 +70,9 @@
         background: var(--color-transparent);
         transition: background var(--duration-fast) ease-in;
 
-        &:hover {
+        &:hover,
+        &:focus,
+        &.active {
           background: var(--color-gray-lightest);
         }
 
@@ -103,7 +107,9 @@
           background: var(--color-transparent);
           transition: background var(--duration-fast) ease-in;
 
-          &:hover {
+          &:hover,
+          &:focus,
+          &.active {
             background: var(--color-gray-lightest);
           }
 

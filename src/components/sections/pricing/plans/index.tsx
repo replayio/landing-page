@@ -5,8 +5,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
-import { Link } from '~/components/primitives/link'
+import { ButtonLink } from '~/components/primitives/button'
 
 import { plans } from './plans'
 import s from './plans.module.scss'
@@ -18,6 +17,7 @@ export const Plans: FC = () => {
   const [isStuck, setIsStuck] = useState(false)
 
   const tabsRef = useRef<HTMLDivElement>(null)
+  const plansRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const [scrollPosition, setScrollPosition] = useState(0)
 
@@ -28,21 +28,49 @@ export const Plans: FC = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
-
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
   useEffect(() => {
+    plansRefs.current = Array.from({ length: plans.length })
+  }, [])
+
+  useEffect(() => {
+    if (!plansRefs.current) return
+
+    const plans = plansRefs.current
+
+    for (const plan of plans) {
+      if (!plan) return
+
+      if (plan?.getBoundingClientRect().top < 400) {
+        setActiveKey(plans.indexOf(plan))
+      }
+    }
+  }, [scrollPosition])
+
+  useEffect(() => {
     if (!tabsRef.current) return
+
     const distanceTop = tabsRef.current.getBoundingClientRect().top
+
     if (distanceTop < 77) {
       setIsStuck(true)
     } else {
       setIsStuck(false)
     }
   }, [tabsRef, scrollPosition])
+
+  const navigateToPlan = (key: number) => {
+    if (!plansRefs.current) return
+
+    const plans = plansRefs.current
+    if (!plans[key]) return
+
+    plans[key]?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <Section className={s.section}>
@@ -57,14 +85,13 @@ export const Plans: FC = () => {
           {isStuck && <span>Plans</span>}
           <div className={s.tabs}>
             {tabs.map((tab, i) => (
-              <Link
-                href={`#${tab}`}
-                onClick={() => setActiveKey(i)}
+              <button
+                onClick={() => navigateToPlan(i)}
                 className={clsx({ [s.active]: activeKey === i })}
                 key={i}
               >
                 {tab}
-              </Link>
+              </button>
             ))}
           </div>
         </Container>
@@ -72,16 +99,22 @@ export const Plans: FC = () => {
       <Container className={s.container}>
         <div className={s['plan-container']}>
           {plans.map((plan, i) => (
-            <div key={i} className={clsx(s.plan)} id={plan.type}>
+            <div
+              key={i}
+              ref={(divElement) => (plansRefs.current[i] = divElement)}
+              className={clsx(s.plan)}
+              id={plan.type}
+            >
               <div>
                 <Image src={plan.icon} alt={plan.type} />
                 <span>{plan.type}</span>
                 <span>{plan.description}</span>
-                <Button
+                <ButtonLink
+                  href={plan.link}
                   variant={plan.type === 'Enterprise' ? 'tertiary' : 'primary'}
                 >
                   {plan.cta}
-                </Button>
+                </ButtonLink>
               </div>
               <div>
                 {plan.content.map((item, i) => (

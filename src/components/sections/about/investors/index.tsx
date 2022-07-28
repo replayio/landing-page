@@ -12,7 +12,7 @@ import { investors } from './investors'
 
 export const Investors: FC = () => {
   const isMobile = useMedia('(max-width: 768px)')
-  const isDesktop = useMedia('(min-width: 1200px)')
+  const isDesktop = useMedia('(min-width: 1361px)')
 
   return (
     <Section className={s.section}>
@@ -40,6 +40,8 @@ export const Investors: FC = () => {
                 containScroll: isDesktop ? 'trimSnaps' : ''
               }}
               slideClassName={s['slide']}
+              viewportClassname={s['slider__viewport']}
+              containerClassname={s['slider-container']}
             >
               {investors.map((member, i) => (
                 <UserCard key={i} member={member} />

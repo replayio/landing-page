@@ -1,16 +1,16 @@
 import type { Colorway, HoverboardControls } from '@replayio/overboard'
 import { Color, Colors, colorways, Hoverboard, Logo } from '@replayio/overboard'
 import { gsap, ScrollTrigger } from 'lib/gsap'
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
+import { Timeline } from '~/components/common/progress-bar'
 import { Logo as ReplayLogo } from '~/components/primitives/logo'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
 
-// import overboardStore from '~/public/images/home/overboard-store.png'
-import styles from './overboard-story.module.scss'
+import s from './overboard-story.module.scss'
 import { Story } from './story'
 
 const reactTree = {
@@ -85,7 +85,20 @@ function renderReactTree(node: { type: string; children?: any[] }, depth = 0) {
   )
 }
 
-function ReactDevTools() {
+const SearchBar = ({ children }: { children: React.ReactNode }) => (
+  <div
+    style={{
+      fontSize: 12,
+      padding: '6px 10px',
+      borderBottom: '1px solid #DCDCDC',
+      color: '#a5a3a3'
+    }}
+  >
+    {children}
+  </div>
+)
+
+export function ReactDevTools() {
   return (
     <div
       style={{
@@ -94,16 +107,7 @@ function ReactDevTools() {
         backgroundColor: 'white'
       }}
     >
-      <div
-        style={{
-          fontSize: 12,
-          padding: '6px 10px',
-          borderBottom: '1px solid #DCDCDC',
-          color: '#a5a3a3'
-        }}
-      >
-        Search for component...
-      </div>
+      <SearchBar>Search for component...</SearchBar>
 
       <div
         style={{
@@ -135,7 +139,7 @@ function ReactDevTools() {
   )
 }
 
-function ElementSelectorIcon() {
+export function ElementSelectorIcon() {
   return (
     <svg
       width="12"
@@ -157,14 +161,386 @@ function ElementSelectorIcon() {
   )
 }
 
+const symbols = {
+  unicorn: () => '🦄',
+  yellow: () => (
+    <span
+      style={{
+        display: 'inline-block',
+        borderRadius: '50%',
+        width: 5,
+        height: 5,
+        background: '#FF9640'
+      }}
+    />
+  )
+}
+
+export const Console = ({
+  logs
+}: {
+  logs: { symbol: keyof typeof symbols; prepend: string; content: any }[]
+}) => {
+  const logContent = (content: any) => {
+    const kind = typeof content
+
+    if (kind === 'string') {
+      return content
+    }
+
+    if (kind === 'object') {
+      return JSON.stringify(content)
+    }
+
+    return ''
+  }
+
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
+        backgroundColor: 'white'
+      }}
+    >
+      <SearchBar>Search for logs...</SearchBar>
+
+      <div
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '14px',
+          padding: '32px 0px'
+        }}
+      >
+        {logs.map((log, i) => (
+          <>
+            {i === 1 && (
+              <hr
+                style={{ height: 1, background: 'var(--color-pink-crayon)' }}
+              />
+            )}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '4px 24px'
+              }}
+              key={i}
+            >
+              <span
+                style={{
+                  width: 14,
+                  marginRight: 15,
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                {symbols[log.symbol]()}
+              </span>
+              <div style={{ color: '#01ACFD' }}>
+                {log.prepend}, {logContent(log.content)}
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+
+      <div
+        style={{ borderTop: '1px solid #EAEAEA', padding: '8px 8px 20px 8px' }}
+      >
+        <svg
+          width="13"
+          height="10"
+          viewBox="0 0 13 10"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0.923717 0.432994C1.24513 0.142127 1.74868 0.142127 2.05938 0.432994L6.50563 4.45666C6.6561 4.593 6.74062 4.77782 6.74062 4.97052C6.74062 5.16322 6.6561 5.34804 6.50563 5.48439L2.05938 9.50805C1.98582 9.57949 1.89711 9.6368 1.79854 9.67654C1.69998 9.71628 1.59357 9.73765 1.48568 9.73938C1.37779 9.7411 1.27062 9.72314 1.17057 9.68657C1.07051 9.64999 0.979622 9.59556 0.90332 9.52651C0.827017 9.45746 0.766865 9.37521 0.726451 9.28466C0.686037 9.19412 0.66619 9.09713 0.668094 8.99949C0.669997 8.90186 0.693613 8.80557 0.737531 8.71637C0.781449 8.62717 0.84477 8.54689 0.923717 8.48032L4.80213 4.97052L0.923717 1.46072C0.773241 1.32438 0.68872 1.13956 0.68872 0.946859C0.68872 0.754159 0.773241 0.569338 0.923717 0.432994ZM6.28064 0.432994C6.60205 0.142127 7.1056 0.142127 7.4163 0.432994L11.8625 4.45666C12.013 4.593 12.0975 4.77782 12.0975 4.97052C12.0975 5.16322 12.013 5.34804 11.8625 5.48439L7.4163 9.50805C7.34274 9.57949 7.25403 9.6368 7.15546 9.67654C7.0569 9.71628 6.95049 9.73765 6.8426 9.73938C6.73471 9.7411 6.62754 9.72314 6.52749 9.68657C6.42743 9.64999 6.33654 9.59556 6.26024 9.52651C6.18394 9.45746 6.12378 9.37521 6.08337 9.28466C6.04296 9.19412 6.02311 9.09713 6.02501 8.99949C6.02692 8.90186 6.05053 8.80557 6.09445 8.71637C6.13837 8.62717 6.20169 8.54689 6.28064 8.48032L10.159 4.97052L6.28064 1.46072C6.13016 1.32438 6.04564 1.13956 6.04564 0.946859C6.04564 0.754159 6.13016 0.569338 6.28064 0.432994Z"
+            fill="#C7C7C7"
+          />
+        </svg>
+      </div>
+    </div>
+  )
+}
+
+const CodeLine = ({
+  children
+}: {
+  number: number
+  children: React.ReactNode
+}) => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        lineHeight: '15px',
+        fontSize: '14px',
+        fontFamily: 'var(--font-mono)'
+      }}
+    >
+      <div style={{ paddingLeft: '6px' }} className={s['code']}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export const Code = () => {
+  const lines = [
+    { print: 'disabled', content: <></> },
+    { print: 'disabled', content: <></> },
+    {
+      print: 'not-available',
+      content: (
+        <>
+          <span className="reserved">export function</span>{' '}
+          <span className="declaration">HoverBoard</span>() {'{'}
+        </>
+      )
+    },
+    {
+      print: 'available',
+      content: (
+        <>
+          &nbsp;&nbsp;
+          <span className="reserved">const</span>{' '}
+          <span className="symbol">[</span>
+          <span className="variable">pos</span>,{' '}
+          <span className="variable">setPos</span>
+          <span className="symbol">]</span> <span className="symbol">=</span>{' '}
+          <span className="function">useState</span>({'{'}
+          left: 0, right: 0{'}'})
+        </>
+      )
+    },
+    {
+      print: 'available',
+      content: (
+        <>
+          &nbsp;&nbsp;
+          <span className="reserved">const</span>{' '}
+          <span className="symbol">[</span>
+          <span className="variable">angle</span>,{' '}
+          <span className="variable">setAngle</span>
+          <span className="symbol">]</span> <span className="symbol">=</span>{' '}
+          <span className="function">useState</span>(0)
+        </>
+      )
+    }
+  ]
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'white',
+        borderRadius: 12,
+        overflow: 'hidden',
+        border: '1px solid var(--color-gray-lighter)'
+      }}
+    >
+      <div
+        style={{
+          height: 35,
+          background: 'var(--color-gray-lightest)',
+          borderBottom: '1px solid var(--color-gray-lighter)'
+        }}
+      />
+      <div
+        className={s['code']}
+        style={{
+          position: 'relative',
+          display: 'grid',
+          gridTemplateColumns: '25px 4px auto',
+          alignContent: 'flex-start',
+          lineHeight: '15px',
+          fontSize: '14px',
+          height: '100%',
+          fontFamily: 'var(--font-mono)',
+          paddingTop: '18px'
+        }}
+      >
+        <div />
+        <div>
+          <div
+            style={{
+              position: 'absolute',
+              zIndex: 0,
+              height: '100%',
+              width: 4,
+              top: 0,
+              bottom: 0,
+              background: '#F1F1F1'
+            }}
+          />
+        </div>
+        <div />
+
+        {lines.map((line, idx) => (
+          <>
+            <span
+              style={{
+                display: 'inline-block',
+                color: '#666666',
+                textAlign: 'right',
+                paddingRight: '3px',
+                fontVariantNumeric: 'tabular-nums'
+              }}
+            >
+              {idx + 1}
+            </span>
+            <span
+              style={{
+                position: 'relative',
+                display: 'inline-block',
+                background:
+                  (line.print === 'disabled' && 'transparent') ||
+                  (line.print === 'not-available' && '#BBEAFA') ||
+                  (line.print === 'available' && '#69A5FF') ||
+                  undefined,
+                width: 4,
+                height: 15
+              }}
+            />
+            <CodeLine number={idx + 1}>{line.content}</CodeLine>
+          </>
+        ))}
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          left: 29,
+          bottom: 0,
+          right: 0,
+          padding: '10px',
+          background: '#FAFAFA'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span>
+            <svg
+              width="17"
+              height="16"
+              viewBox="0 0 17 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="8.24471"
+                cy="7.91268"
+                r="7.85294"
+                transform="rotate(180 8.24471 7.91268)"
+                fill="#F0F0F0"
+              />
+              <circle
+                r="2.61765"
+                transform="matrix(1 0 0 -1 8.24655 7.9136)"
+                fill="#D8D8D8"
+              />
+            </svg>
+          </span>
+          <p
+            style={{
+              fontFamily: 'var(--font-mono)',
+              color: '#8000D7',
+              marginLeft: 8
+            }}
+          >
+            "rotate", angle
+          </p>
+        </div>
+        <div style={{ display: 'flex', marginTop: 12, alignItems: 'center' }}>
+          <svg
+            width="38"
+            height="16"
+            viewBox="0 0 38 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              r="7.85294"
+              transform="matrix(-1 0 0 1 8.24472 7.85294)"
+              fill="#DBDBDB"
+            />
+            <path
+              d="M4.68231 7.17859L7.22809 5.60423L9.7739 4.02988C9.88432 3.96166 10.0095 3.92576 10.137 3.92578C10.2645 3.92581 10.3897 3.96176 10.5001 4.03002C10.6105 4.09829 10.7021 4.19646 10.7659 4.31469C10.8296 4.43291 10.8632 4.56702 10.8633 4.70355V11.0009C10.8632 11.1375 10.8297 11.2716 10.7659 11.3898C10.7022 11.508 10.6105 11.6062 10.5001 11.6745C10.3897 11.7427 10.2645 11.7787 10.137 11.7787C10.0095 11.7787 9.88432 11.7428 9.7739 11.6746L7.22809 10.1003L4.68231 8.52595C4.5719 8.45767 4.48021 8.35948 4.41647 8.24122C4.35272 8.12296 4.31916 7.98882 4.31916 7.85227C4.31916 7.71572 4.35272 7.58157 4.41647 7.46332C4.48021 7.34506 4.5719 7.24686 4.68231 7.17859Z"
+              fill="white"
+            />
+            <circle cx="29.185" cy="7.85294" r="7.85294" fill="#DBDBDB" />
+            <path
+              d="M32.7474 7.17859L30.2016 5.60423L27.6558 4.02988C27.5454 3.96166 27.4201 3.92576 27.2927 3.92578C27.1652 3.92581 27.04 3.96176 26.9296 4.03002C26.8192 4.09829 26.7275 4.19646 26.6638 4.31469C26.6 4.43291 26.5665 4.56702 26.5664 4.70355V11.0009C26.5664 11.1375 26.6 11.2716 26.6638 11.3898C26.7275 11.508 26.8192 11.6062 26.9296 11.6745C27.04 11.7427 27.1652 11.7787 27.2927 11.7787C27.4201 11.7787 27.5454 11.7428 27.6558 11.6746L30.2016 10.1003L32.7474 8.52595C32.8578 8.45767 32.9495 8.35948 33.0132 8.24122C33.077 8.12296 33.1105 7.98882 33.1105 7.85227C33.1105 7.71572 33.077 7.58157 33.0132 7.46332C32.9495 7.34506 32.8578 7.24686 32.7474 7.17859Z"
+              fill="white"
+            />
+          </svg>
+          <div style={{ flex: 1, padding: '0 10px' }}>
+            <Timeline
+              primaryColor="#01ACFD"
+              secondaryColor="#D5D5D5"
+              duration={10}
+              markerSize={12}
+              markers={[
+                { position: 30 },
+                { position: 37 },
+                { position: 40 },
+                { position: 55 },
+                { position: 80 }
+              ]}
+            />
+          </div>
+          <span
+            style={{
+              borderRadius: 'var(--border-radius-full)',
+              fontSize: 10,
+              display: 'inline-flex',
+              width: 44,
+              height: 16,
+              background: '#E5E5E5',
+              color: '#7D7D7D',
+              justifyContent: 'center'
+            }}
+          >
+            5
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const tabs = {
-  Console: () => null,
+  Console: () =>
+    Console({
+      logs: [
+        {
+          symbol: 'yellow',
+          prepend: 'Current position',
+          content: { left: 110, top: 25 }
+        },
+        {
+          symbol: 'yellow',
+          prepend: 'Current position',
+          content: { left: 110, top: 25 }
+        },
+        {
+          symbol: 'unicorn',
+          prepend: 'Start 360',
+          content: { left: 110, top: 25 }
+        }
+      ]
+    }),
   Elements: () => null,
   Network: () => null,
   React: ReactDevTools
 } as const
 
-function TabNav({
+export function TabNav({
   activePanel,
   setActivePanel
 }: {
@@ -314,58 +690,46 @@ function ViewToggle() {
   )
 }
 
-function DevTools() {
-  const [activePanel, setActivePanel] = useState<keyof typeof tabs>('React')
+export function DevTools() {
+  const [activePanel, setActivePanel] = useState<keyof typeof tabs>('Console')
   const ActiveTabPanel = tabs[activePanel]
   const ref = useRef<HTMLDivElement>(null)
 
-  useIsomorphicLayoutEffect(() => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ref.current?.closest('section'),
-          start: '+=100vh',
-          end: '+=400vh',
-          scrub: true
-          // markers: true
-        }
-      })
-      .fromTo(ref.current, { opacity: 0 }, { opacity: 1 })
-  }, [])
+  // useIsomorphicLayoutEffect(() => {
+  //   gsap
+  //     .timeline({
+  //       scrollTrigger: {
+  //         trigger: ref.current?.closest('section'),
+  //         start: '+=100vh',
+  //         end: '+=400vh',
+  //         scrub: true
+  //         // markers: true
+  //       }
+  //     })
+  //     .fromTo(ref.current, { opacity: 0 }, { opacity: 1 })
+  // }, [])
 
   return (
     <div
+      ref={ref}
       style={{
+        // gridRow: 2,
         display: 'grid',
-        gridTemplateRows: 'minmax(200px, 400px) 1fr',
-        padding: 32,
-        gap: 24,
-        backgroundColor: '#F5F5F5'
+        gridTemplateRows: 'auto 1fr',
+        width: '100%',
+        // height: '100%',
+        border: '1px solid #DCDCDC',
+        borderRadius: 12,
+        overflow: 'hidden'
       }}
     >
-      <OverboardStore />
-
-      <div
-        ref={ref}
-        style={{
-          gridRow: 2,
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr',
-          width: '100%',
-          height: '100%',
-          border: '1px solid #DCDCDC',
-          borderRadius: 8,
-          overflow: 'hidden'
-        }}
-      >
-        <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
-        <ActiveTabPanel />
-      </div>
+      <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
+      <ActiveTabPanel />
     </div>
   )
 }
 
-function ReplayApplication() {
+export function ReplayApplication() {
   const applicationRef = useRef<HTMLDivElement>(null)
   const padding = 16
   const frameHeight = `calc(100vh - ${padding * 2}px)`
@@ -436,7 +800,7 @@ function ReplayApplication() {
   )
 }
 
-function OverboardStore() {
+export function OverboardStore() {
   const ref = useRef<HTMLImageElement>(null)
   const hoverboardRef = useRef<HoverboardControls>(null)
   const [color, setColor] = useState<Colorway>('red')
@@ -552,7 +916,7 @@ export function OverboardStory() {
         padding: 80
       }}
     >
-      <div style={{ position: 'sticky', top: padding }} className={styles.grid}>
+      <div style={{ position: 'sticky', top: padding }} className={s.grid}>
         <ReplayApplication />
       </div>
     </section>

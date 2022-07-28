@@ -6,7 +6,7 @@ import { Plans } from '~/components/sections/pricing/plans'
 const Pricing = () => {
   return (
     <PageLayout>
-      <Meta />
+      <Meta title="Pricing | Replay" />
 
       <Hero />
       <Plans />

@@ -14,7 +14,7 @@ import { UserCard, UserCardProps } from './user-card'
 
 export const Team: FC = () => {
   const isMobile = useMedia('(max-width: 768px)')
-  const isDesktop = useMedia('(min-width: 1200px)')
+  const isDesktop = useMedia('(min-width: 1361px)')
 
   const { isOn: modalIsOn, handleToggle: handleToggleModal } = useToggleState()
   const [shownMember, setShownMember] = useState<UserCardProps['member']>()
@@ -52,6 +52,8 @@ export const Team: FC = () => {
                 containScroll: isDesktop ? 'trimSnaps' : ''
               }}
               slideClassName={s['slide']}
+              viewportClassname={s['slider__viewport']}
+              containerClassname={s['slider-container']}
             >
               {team.map((member, i) => (
                 <UserCard handleModal={handleModal} key={i} member={member} />

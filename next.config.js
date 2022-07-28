@@ -12,6 +12,15 @@ const config = {
     formats: ['image/avif', 'image/webp'],
     domains: ['dummyimage.com']
   },
+  redirects() {
+    return [
+      {
+        source: '/discord',
+        destination: 'https://discord.com/invite/PFjtU3uv7M',
+        permanent: true
+      }
+    ]
+  },
   experimental: { images: { allowFutureImage: true } },
   webpack: (config) => {
     /** Fix yarn linked dependencies that use react */

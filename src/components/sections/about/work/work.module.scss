@@ -20,7 +20,7 @@
     .work-item {
       display: flex;
       flex-direction: column;
-      border: 2px solid var(--color-gray-lighter);
+      border: 1px solid var(--color-gray-lighter);
       border-radius: var(--border-radius-2xl);
       background-color: var(--color-white);
       padding: 54px 40px;
@@ -39,7 +39,7 @@
         margin-bottom: 40px;
       }
 
-      button {
+      a {
         margin-top: auto;
         width: fit-content;
       }
@@ -47,8 +47,9 @@
 
     .work-item-jobs {
       display: grid;
+      scroll-margin-top: 32px;
       grid-template-columns: 1fr 1fr;
-      border: 2px solid var(--color-gray-lighter);
+      border: 1px solid var(--color-gray-lighter);
       border-radius: var(--border-radius-2xl);
       background-color: var(--color-white);
       margin-top: 40px;
@@ -180,7 +181,7 @@
           max-width: unset;
         }
 
-        button {
+        a {
           width: 100%;
         }
 

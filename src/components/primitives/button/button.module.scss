@@ -12,9 +12,36 @@
   font-size: 14px;
   line-height: 20px;
   min-width: 94px;
+  position: relative;
+  transition-property: color, border;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: linear;
 
   &.rounded {
     border-radius: var(--border-radius-full);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    opacity: 0;
+    transition: opacity var(--duration-fast) linear;
+    border-radius: inherit;
+  }
+
+  &:not(.no-hover):hover {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  .content {
+    position: relative;
+    display: inline-flex;
   }
 
   /* Sizes */
@@ -30,21 +57,53 @@
   /* Variants */
 
   &.primary {
-    background-color: var(--color-pink-crayon);
+    background: var(--gradient-primary);
+
+    &:hover {
+      color: var(--color-gray-dark);
+    }
+
+    &::before {
+      background: var(--color-gray-lightest);
+    }
   }
 
   &.secondary {
     background: var(--color-gray-darker);
+
+    &:hover {
+      color: var(--color-white);
+    }
+
+    &::before {
+      background: var(--gradient-primary);
+    }
   }
 
   &.tertiary {
     color: var(--color-gray-darker);
     background: var(--color-gray-lightest);
+
+    &:hover {
+      color: var(--color-white);
+    }
+
+    &::before {
+      background: var(--gradient-primary);
+    }
   }
 
   &.tertiary-inverted {
     color: var(--color-gray-darker);
     background: var(--color-white);
+
+    &:hover {
+      color: var(--color-white);
+    }
+
+    &::before {
+      background: var(--gradient-primary);
+    }
   }
 }
 

@@ -37,10 +37,10 @@
 
   .team {
     .slider {
-      > div {
+      &__viewport {
         overflow: visible;
 
-        > div {
+        .slider-container {
           gap: 40px;
 
           .slide {
@@ -61,8 +61,8 @@
   .section {
     .team {
       .slider {
-        > div {
-          > div {
+        &__viewport {
+          .slider-container {
             gap: 28px;
           }
         }
@@ -88,8 +88,8 @@
 
     .team {
       .slider {
-        > div {
-          > div {
+        &__viewport {
+          .slider-container {
             gap: 16px;
             height: 100%;
 

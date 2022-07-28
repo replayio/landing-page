@@ -11,12 +11,18 @@
     overflow: visible;
   }
 
+  &.hidden {
+    .bg {
+      display: none;
+    }
+  }
+
   .bg {
     z-index: -1;
     position: absolute;
     width: 100%;
     overflow: visible;
-    transform: translateY(-60%);
+    transform: translateY(-50%);
   }
 }
 
@@ -46,6 +52,22 @@
       .cta {
         margin-top: 40px;
         width: 100%;
+
+        .play-button {
+          --shadow-opacity: 0;
+
+          transition-property: box-shadow, transform;
+          transition-duration: var(--duration-fast);
+          transition-timing-function: linear;
+          box-shadow: 0px 6px 12px -6px rgb(24 39 75 / var(--shadow-opacity)),
+            0px 8px 24px -4px rgb(24 39 75 / var(--shadow-opacity));
+
+          &:hover {
+            --shadow-opacity: 0.12;
+
+            transform: scale(1.025);
+          }
+        }
       }
     }
 
@@ -163,10 +185,14 @@
 
 @media (min-width: $screen-lg) {
   .section {
-    margin-top: 40px;
+    margin-top: unset;
     background: none;
-    padding-top: 336px;
+    padding-top: 200px;
     padding-bottom: 64px;
+
+    &.hidden {
+      padding-top: 120px;
+    }
   }
 
   .footer {

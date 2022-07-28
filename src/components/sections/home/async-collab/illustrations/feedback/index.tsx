@@ -8,7 +8,12 @@ export const Feedback: FC = () => {
     <div className={s['cards']}>
       <div className={s['card']}>
         <div className={s['image-container']}>
-          <Image src="/images/home/avatar-1.webp" width={71} height={71} />
+          <Image
+            src="/images/home/avatar-1.webp"
+            width={71}
+            height={71}
+            alt="avatar 1"
+          />
           <span className={s['status']} />
         </div>
         <div>
@@ -21,7 +26,12 @@ export const Feedback: FC = () => {
 
       <div className={s['card']}>
         <div className={s['image-container']}>
-          <Image src="/images/home/avatar-2.webp" width={71} height={71} />
+          <Image
+            src="/images/home/avatar-2.webp"
+            width={71}
+            height={71}
+            alt="avatar 2"
+          />
           <span className={s['status']} />
         </div>
         <div>

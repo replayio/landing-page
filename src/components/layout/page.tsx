@@ -35,21 +35,19 @@ export const PageLayout = ({ children }: Props) => {
 
   return (
     <>
-      {/* TODO Header */}
-      {/* <Header /> */}
       <AnnouncementBar
         text={
           <>
             Proudly backed by Andreessen Horowitz.{' '}
-            <Link href="/">Read&nbsp;More</Link>
+            <Link href="https://medium.com/replay-io/launching-replay-the-time-travel-debugger-for-the-web-f886f0897d38">
+              Read&nbsp;More
+            </Link>
           </>
         }
       />
       <Header />
 
-      <main style={{ overflow: 'hidden' }}>{children}</main>
-      {/* TODO Footer */}
-      {/* <Footer /> */}
+      <main>{children}</main>
       {!is404 && <Footer />}
     </>
   )

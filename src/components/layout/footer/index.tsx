@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Image from 'next/future/image'
 import { useRouter } from 'next/router'
-import { FC, useEffect, useState } from 'react'
+import { FC, useLayoutEffect, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressBar } from '~/components/common/progress-bar'
@@ -26,25 +26,25 @@ const links = {
     },
     {
       label: "We're Hiring",
-      href: '/we-are-hiring'
+      href: '/about#jobs'
     },
     {
       label: 'Values',
-      href: '/values'
+      href: '/about#values'
     }
   ],
   'get help': [
     {
       label: 'Docs',
-      href: '/docs'
+      href: 'https://docs.replay.io/'
     },
     {
       label: 'Github Issues',
-      href: '/github-issues'
+      href: 'https://github.com/replayio'
     },
     {
       label: 'Contact Us',
-      href: '/contact-us'
+      href: 'mailto:sales@replay.io'
     }
   ],
   legal: [
@@ -60,7 +60,7 @@ const links = {
   resources: [
     {
       label: 'Blog',
-      href: '/blog'
+      href: 'https://medium.com/replay-io'
     },
     {
       label: 'Security & Privacy',
@@ -72,34 +72,48 @@ const links = {
 const social = {
   discord: {
     icon: '/images/logos/discord.svg',
-    href: '/'
+    href: '/discord'
   },
   twitter: {
     icon: '/images/logos/twitter.svg',
-    href: '/'
+    href: 'https://twitter.com/replayio'
   },
   linkedIn: {
     icon: '/images/logos/linkedin.svg',
-    href: '/'
+    href: 'https://www.linkedin.com/company/replayio/'
   }
 }
 
 export const Footer: FC = () => {
   const router = useRouter()
   const [overflowed, setOverflowed] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!router) return
 
-    if (router.pathname === '/about') {
+    if (router.pathname === '/about' || router.pathname === '/pricing') {
       setOverflowed(true)
+    } else if (
+      router.pathname === '/shoutouts' ||
+      router.pathname === '/privacy-policy' ||
+      router.pathname === '/security-and-privacy' ||
+      router.pathname === '/terms-of-service'
+    ) {
+      setHidden(true)
     } else {
       setOverflowed(false)
+      setHidden(false)
     }
   }, [router])
 
   return (
-    <footer className={clsx(s['section'], { [s.overflowed]: overflowed })}>
+    <footer
+      className={clsx(s['section'], {
+        [s.overflowed]: overflowed,
+        [s.hidden]: hidden
+      })}
+    >
       <div className={s['bg']}>
         <Image src={footerBgSvg} alt="footer background" />
       </div>
@@ -114,7 +128,13 @@ export const Footer: FC = () => {
                 <Heading size="lg">Start Replaying now</Heading>
               </div>
               <div className={s['cta']}>
-                <Button size="sm" rounded variant="tertiary">
+                <Button
+                  className={s['play-button']}
+                  size="sm"
+                  noHover
+                  rounded
+                  variant="tertiary"
+                >
                   <svg
                     width="30"
                     height="31"
@@ -180,6 +200,7 @@ export const Footer: FC = () => {
                       width={32}
                       height={32}
                       src={link.icon}
+                      alt={key}
                     />
                   </Link>
                 </li>

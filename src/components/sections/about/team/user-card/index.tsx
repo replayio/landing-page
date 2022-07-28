@@ -12,9 +12,11 @@ export interface UserCardProps {
   handleModal?: (member: UserCardProps['member']) => void
   member: {
     image: StaticImageData
-    position: string
+    position?: string
+    job?: string
     name: string
     bio?: string
+    shout?: string
     socials?: {
       twitter?: string
       linkedin?: string
@@ -29,11 +31,13 @@ export const UserCard: FC<UserCardProps> = ({
 }) => {
   return (
     <div className={s.card}>
-      <Image src={member.image} />
-      <span>{member.position}</span>
-      <span>{member.name}</span>
+      <Image src={member.image} alt={member.name} />
+      {member.shout && <p className={s.shout}>{member.shout}</p>}
+      {member.position && <span className={s.position}>{member.position}</span>}
+      <span className={s.name}>{member.name}</span>
+      {member.job && <span className={s.job}>{member.job}</span>}
       {member.bio && (
-        <p>
+        <p className={s.bio}>
           {member.bio.length > 195 && !modalIsOn
             ? member.bio.slice(0, 195) + '... '
             : member.bio}
