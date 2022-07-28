@@ -7,32 +7,32 @@ export const Scene1 = () => {
 
   const fullLogs = [
     {
-      symbol: 'yellow',
+      marker: 'yellow',
       prepend: 'rotate',
       content: 60
     },
     {
-      symbol: 'yellow',
+      marker: 'yellow',
       prepend: 'rotate',
       content: 60
     },
     {
-      symbol: 'yellow',
+      marker: 'yellow',
       prepend: 'rotate',
       content: 60
     },
     {
-      symbol: 'yellow',
+      marker: 'yellow',
       prepend: 'rotate',
       content: 60
     },
     {
-      symbol: 'yellow',
+      marker: 'yellow',
       prepend: 'rotate',
       content: 60
     },
     {
-      symbol: 'unicorn',
+      marker: 'unicorn',
       prepend: 'Start 360',
       content: { left: 110, top: 25 }
     }

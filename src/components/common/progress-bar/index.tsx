@@ -287,10 +287,17 @@ type TimelineProps = {
   duration: number
   onComplete?: () => void
   loop?: boolean
+  paused?: boolean
 } & ProgressProps
 
 export const Timeline = memo(
-  ({ duration, onComplete, loop = true, ...rest }: TimelineProps) => {
+  ({
+    paused = false,
+    duration,
+    onComplete,
+    loop = true,
+    ...rest
+  }: TimelineProps) => {
     const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
     const progressRef = useRef<ProgressAPI>(null)
 
@@ -304,14 +311,14 @@ export const Timeline = memo(
     })
 
     useEffect(() => {
-      if (inView) {
+      if (inView && !paused) {
         time.start()
       } else {
         time.pause()
       }
 
       return time.pause
-    }, [time, inView])
+    }, [time, inView, paused])
 
     return (
       <div ref={ref}>

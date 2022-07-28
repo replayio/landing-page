@@ -1,5 +1,6 @@
 import type { Colorway, HoverboardControls } from '@replayio/overboard'
 import { Color, Colors, colorways, Hoverboard, Logo } from '@replayio/overboard'
+import clsx from 'clsx'
 import { gsap, ScrollTrigger } from 'lib/gsap'
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
 
@@ -181,7 +182,7 @@ export const Console = ({
   logs
 }: {
   currentHit: number
-  logs: { symbol: keyof typeof symbols; prepend: string; content: any }[]
+  logs: { marker: keyof typeof symbols; prepend: string; content: any }[]
 }) => {
   const logContent = (content: any) => {
     const kind = typeof content
@@ -231,21 +232,16 @@ export const Console = ({
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                padding: '4px 24px'
+                padding: '4px 12px'
               }}
               key={i}
             >
               <span
+                className={clsx(s['marker'], s[log.marker])}
                 style={{
-                  width: 14,
-                  marginRight: 15,
-                  display: 'inline-flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
+                  marginRight: 15
                 }}
-              >
-                {symbols[log.symbol]()}
-              </span>
+              />
               <div style={{ color: '#01ACFD' }}>
                 {log.prepend}, {logContent(log.content)}
               </div>
@@ -367,6 +363,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
 
   return (
     <div
+      className={s['code-panel']}
       style={{
         position: 'relative',
         display: 'flex',
@@ -428,6 +425,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
               {idx + 1}
             </span>
             <span
+              data-line={idx + 1}
               style={{
                 position: 'relative',
                 display: 'inline-block',
@@ -439,7 +437,27 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
                 width: 4,
                 height: 15
               }}
-            />
+            >
+              <span
+                style={{
+                  opacity: idx === 4 ? 1 : 0,
+                  borderRadius: 6,
+                  background: '#05ACFD',
+                  position: 'absolute',
+                  display: 'flex',
+                  placeContent: 'center',
+                  height: 18,
+                  width: 18,
+                  color: 'white',
+                  top: '50%',
+                  left: '8px',
+                  transform: 'translateY(-50%)',
+                  lineHeight: '17px'
+                }}
+              >
+                +
+              </span>
+            </span>
             <CodeLine number={idx + 1}>{line.content}</CodeLine>
           </>
         ))}
@@ -456,28 +474,16 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span>
-            <svg
-              width="17"
-              height="16"
-              viewBox="0 0 17 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="8.24471"
-                cy="7.91268"
-                r="7.85294"
-                transform="rotate(180 8.24471 7.91268)"
-                fill="#F0F0F0"
-              />
-              <circle
-                r="2.61765"
-                transform="matrix(1 0 0 -1 8.24655 7.9136)"
-                fill="#D8D8D8"
-              />
-            </svg>
-          </span>
+          <div className={s['markers']}>
+            <div className={s['markers-container']}>
+              <span className={clsx(s['marker'], s['unicorn'])} />
+              <span className={clsx(s['marker'], s['green'])} />
+              <span className={clsx(s['marker'], s['red'])} />
+              <span className={clsx(s['marker'], s['yellow'])} />
+              <span className={clsx(s['marker'], s['purple'])} />
+            </div>
+            <span className={s['toggle']} />
+          </div>
           <p
             style={{
               fontFamily: 'var(--font-mono)',
@@ -515,7 +521,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
             <Timeline
               primaryColor="#01ACFD"
               secondaryColor="#D5D5D5"
-              duration={6}
+              duration={4}
               markerSize={12}
               markers={timelineProps['markers']}
               onComplete={timelineProps['onComplete']}

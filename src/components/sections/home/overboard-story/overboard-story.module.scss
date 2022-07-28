@@ -1,3 +1,5 @@
+@import 'css/helpers';
+
 .grid {
   display: grid;
 }
@@ -6,28 +8,136 @@
   grid-area: 1 / 1 / 1 / 1;
 }
 
-.code {
-  color: #727272;
+.code-panel {
+  .code {
+    color: #727272;
 
-  :global {
-    .reserved {
-      color: #dd00a9;
+    :global {
+      .reserved {
+        color: #dd00a9;
+      }
+
+      .declaration {
+        color: #000;
+      }
+
+      .variable {
+        color: #3172e0;
+      }
+
+      .function {
+        color: #8000d7;
+      }
+
+      .symbol {
+        color: #000;
+      }
+    }
+  }
+
+  .markers {
+    position: relative;
+    border-radius: var(--border-radius-full);
+    background: #f0f0f0;
+    padding: 6px;
+    display: flex;
+    transition: transform var(--duration-fast) ease-out;
+    transform-origin: center center;
+    // overflow: hidden;
+
+    &:hover,
+    &.active {
+      transform: scale(1.2);
+
+      .markers-container {
+        transform: translateX(0px);
+        opacity: 1;
+      }
     }
 
-    .declaration {
-      color: #000;
+    .toggle {
+      position: relative;
+      border-radius: var(--border-radius-full);
+      display: inline-block;
+      height: 6px;
+      width: 6px;
+      background: #d8d8d8;
     }
 
-    .variable {
-      color: #3172e0;
-    }
+    .markers-container {
+      transition-property: opacity, transform;
+      transition-duration: var(--duration-fast);
+      transition-timing-function: ease-out;
+      transform: translateX(-10px);
+      border-radius: 0 var(--border-radius-full) var(--border-radius-full) 0;
+      top: 0;
+      padding: 6px;
+      padding-left: 0;
+      margin-left: 6px;
+      opacity: 0;
+      background: #f0f0f0;
+      position: absolute;
+      display: flex;
+      z-index: 0;
 
-    .function {
-      color: #8000d7;
-    }
+      // width: 0;
 
-    .symbol {
-      color: #000;
+      .marker {
+        margin-left: 8px;
+      }
     }
+  }
+}
+
+.marker {
+  --color: #d8d8d8;
+
+  position: relative;
+  display: block;
+  height: 6px;
+  width: 6px;
+
+  &::after {
+    display: block;
+    position: absolute;
+    font-size: 12px;
+    content: '';
+    border-radius: var(--border-radius-full);
+    background: var(--color);
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.yellow {
+    --color: #ff9a19;
+  }
+
+  &.purple {
+    --color: #cc81ff;
+  }
+
+  &.green {
+    --color: #69e261;
+  }
+
+  &.red {
+    --color: #f41b52;
+  }
+
+  &.unicorn {
+    --color: transparent;
+
+    &::after {
+      top: -0.15em;
+      left: 0;
+      content: '🦄';
+    }
+  }
+
+  &.transparent {
+    --color: transparent;
   }
 }
