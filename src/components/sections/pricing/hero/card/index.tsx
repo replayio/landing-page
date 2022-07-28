@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { FC, useEffect, useState } from 'react'
 
-import { Button } from '~/components/primitives/button'
+import { ButtonLink } from '~/components/primitives/button'
 
 import s from './card.module.scss'
 
@@ -10,6 +10,7 @@ interface Props {
     type: string
     price?: string | number
     mode?: string
+    link: string
     cta: string
     features: string[]
   }
@@ -45,9 +46,12 @@ export const Card: FC<Props> = ({ data, annual, variant = 'default' }) => {
           <span>Let's chat</span>
         )}
       </div>
-      <Button variant={data.type === 'Organization' ? 'tertiary' : 'primary'}>
+      <ButtonLink
+        href={data.link}
+        variant={data.type === 'Organization' ? 'tertiary' : 'primary'}
+      >
         {data.cta}
-      </Button>
+      </ButtonLink>
       <ul>
         {data.features.map((feature: string, i: number) => (
           <li key={i}>{feature}</li>

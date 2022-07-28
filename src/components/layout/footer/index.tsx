@@ -26,11 +26,11 @@ const links = {
     },
     {
       label: "We're Hiring",
-      href: '/we-are-hiring'
+      href: '/about#jobs'
     },
     {
       label: 'Values',
-      href: '/values'
+      href: '/about#values'
     }
   ],
   'get help': [

@@ -41,7 +41,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
   )
 
   useEffect(() => {
-    const sectionRef = document.querySelector('#main-features-section')
+    const sectionRef = document.querySelector('#values')
 
     if (!sectionRef) return
 
@@ -79,7 +79,7 @@ export const Hero: FC = () => {
   )
 
   return (
-    <Section id="main-features-section" className={s['section']}>
+    <Section id="values" className={s['section']}>
       <Container size="sm">
         <div className={s.heading}>
           <Heading as="h1" size="lg">

@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
+import { ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import arrow from '~/public/images/about/arrow.svg'
 import codeImg from '~/public/images/about/code.svg'
@@ -16,17 +16,17 @@ const positions = [
   {
     title: 'QA Manager',
     skills: 'Management',
-    href: 'https://google.com'
+    href: 'https://replayio.notion.site/Quality-Assurance-Manager-8f5936e6a79a44beb6c4de9ecdbb3344'
   },
   {
     title: 'Runtime Engineer',
     skills: 'Engineering',
-    href: 'https://google.com'
+    href: 'https://replayio.notion.site/replayio/Runtime-Engineer-47b715e382264dd5bc32d3ab1de14753'
   },
   {
     title: 'Software Engineer',
     skills: 'Backend',
-    href: 'https://google.com'
+    href: 'https://replayio.notion.site/Software-Engineer-Backend-76a11fe78732431fb606c036e3a216d4'
   }
 ]
 
@@ -44,7 +44,12 @@ export const Work: FC = () => {
               or decision we make. They ensure that we remain true to our course
               and true to ourselves.
             </p>
-            <Button variant="tertiary">Learn more</Button>
+            <ButtonLink
+              href="https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#4af5092d36214ce4a780e9c144014e58"
+              variant="tertiary"
+            >
+              Learn more
+            </ButtonLink>
           </div>
           <div className={s['work-item']}>
             <Image src={valuesImg} alt="" />
@@ -58,7 +63,12 @@ export const Work: FC = () => {
               where everyone is technically literate, a world where we are
               better equipped to overcome the greatest of challenges.
             </p>
-            <Button variant="tertiary">Learn more</Button>
+            <ButtonLink
+              href="https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#4af5092d36214ce4a780e9c144014e58"
+              variant="tertiary"
+            >
+              Learn more
+            </ButtonLink>
           </div>
         </div>
         <div id="jobs" className={s['work-item-jobs']}>
@@ -72,9 +82,9 @@ export const Work: FC = () => {
               <br />
               Check out our open roles.
             </p>
-            <Link href="mailto:hiring@replay.io">
-              <Button variant="tertiary">hiring@replay.io</Button>
-            </Link>
+            <ButtonLink href="mailto:hiring@replay.io" variant="tertiary">
+              hiring@replay.io
+            </ButtonLink>
           </div>
           <div>
             <ul>
