@@ -14,7 +14,7 @@ import { UserCard, UserCardProps } from './user-card'
 
 export const Team: FC = () => {
   const isMobile = useMedia('(max-width: 768px)')
-  const isDesktop = useMedia('(min-width: 1200px)')
+  const isDesktop = useMedia('(min-width: 1361px)')
 
   const { isOn: modalIsOn, handleToggle: handleToggleModal } = useToggleState()
   const [shownMember, setShownMember] = useState<UserCardProps['member']>()
