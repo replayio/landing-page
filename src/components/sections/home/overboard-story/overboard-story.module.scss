@@ -45,7 +45,7 @@
     transform-origin: center center;
 
     &:hover,
-    &.active {
+    &:global(.active) {
       transform: scale(1.2);
 
       .toggle::after {
@@ -118,6 +118,7 @@
     font-size: 12px;
     content: '';
     border-radius: var(--border-radius-full);
+    transition: background var(--duration-fast) linear;
     background: var(--color);
     top: 50%;
     left: 50%;

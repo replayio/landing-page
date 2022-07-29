@@ -10,12 +10,14 @@ type UseTimeArgs = {
     percentage: number
     normalizedTime: number
   }) => void
+  onStart?: () => void
   onComplete?: () => void
   duration: number
   loop?: boolean
 }
 
 export const useGsapTime = ({
+  onStart,
   onUpdate,
   onComplete,
   loop = false,
@@ -55,6 +57,7 @@ export const useGsapTime = ({
       start: () => {
         startTime.current = new Date().getTime()
 
+        onStart?.()
         update()
 
         gsap.ticker.add(update)
@@ -72,7 +75,7 @@ export const useGsapTime = ({
     }
 
     return api
-  }, [duration, loop, onComplete, onUpdate])
+  }, [duration, loop, onComplete, onUpdate, onStart])
 
   return api
 }

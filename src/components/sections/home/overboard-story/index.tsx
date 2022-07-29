@@ -2,7 +2,14 @@ import type { Colorway, HoverboardControls } from '@replayio/overboard'
 import { Color, Colors, colorways, Hoverboard, Logo } from '@replayio/overboard'
 import clsx from 'clsx'
 import { gsap, ScrollTrigger } from 'lib/gsap'
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 
 import { Timeline } from '~/components/common/progress-bar'
 import { Logo as ReplayLogo } from '~/components/primitives/logo'
@@ -177,13 +184,13 @@ const symbols = {
   )
 }
 
-export const Console = ({
-  currentHit,
-  logs
-}: {
-  currentHit: number
-  logs: { marker: keyof typeof symbols; prepend: string; content: any }[]
-}) => {
+export const Console = forwardRef<
+  HTMLDivElement,
+  {
+    currentHit: number
+    logs: { marker: keyof typeof symbols; prepend: string; content: any }[]
+  }
+>(({ currentHit, logs }, ref) => {
   const logContent = (content: any) => {
     const kind = typeof content
 
@@ -205,6 +212,7 @@ export const Console = ({
         gridTemplateRows: 'auto 1fr',
         backgroundColor: 'white'
       }}
+      ref={ref}
     >
       <SearchBar>Search for logs...</SearchBar>
 
@@ -237,7 +245,7 @@ export const Console = ({
               key={i}
             >
               <span
-                className={clsx(s['marker'], s[log.marker])}
+                className={clsx('marker', s['marker'], s[log.marker])}
                 style={{
                   marginRight: 15
                 }}
@@ -268,7 +276,7 @@ export const Console = ({
       </div>
     </div>
   )
-}
+})
 
 const CodeLine = ({
   children
@@ -293,7 +301,15 @@ const CodeLine = ({
   )
 }
 
-export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
+export const Code = forwardRef<
+  {
+    elm: HTMLDivElement | null
+    timeline: { pause: () => void; resume: () => void }
+  },
+  { onHit: (idx: number) => void }
+>(({ onHit }, ref) => {
+  const elmRef = useRef<HTMLDivElement>(null)
+  const [timelinePlaying, setTimelinePlaying] = useState(false)
   const [currentHit, setCurrentHit] = useState(0)
 
   const lines = [
@@ -353,7 +369,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
         position,
         onActive: () => handleHit(idx + 1)
       })),
-      onComplete: () => {
+      onStart: () => {
         handleHit(0)
         setCurrentHit(0)
       }
@@ -361,8 +377,27 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
     [handleHit]
   )
 
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        elm: elmRef.current,
+        timeline: {
+          resume: () => {
+            setTimelinePlaying(true)
+          },
+          pause: () => {
+            setTimelinePlaying(false)
+          }
+        }
+      }
+    },
+    []
+  )
+
   return (
     <div
+      id="dev-tools-code-panel"
       className={s['code-panel']}
       style={{
         position: 'relative',
@@ -373,6 +408,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
         overflow: 'hidden',
         border: '1px solid var(--color-gray-lighter)'
       }}
+      ref={elmRef}
     >
       <div
         style={{
@@ -439,6 +475,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
               }}
             >
               <span
+                id={idx === 4 ? 'dev-tools-add-print' : undefined}
                 style={{
                   opacity: idx === 4 ? 1 : 0,
                   borderRadius: 6,
@@ -464,6 +501,7 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
       </div>
 
       <div
+        id="dev-tools-print-panel"
         style={{
           position: 'absolute',
           left: 29,
@@ -474,13 +512,25 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div className={s['markers']}>
+          <div id="dev-tools-console-markers" className={s['markers']}>
             <div className={s['markers-container']}>
-              <span className={clsx(s['marker'], s['unicorn'])} />
-              <span className={clsx(s['marker'], s['green'])} />
-              <span className={clsx(s['marker'], s['red'])} />
-              <span className={clsx(s['marker'], s['yellow'])} />
-              <span className={clsx(s['marker'], s['purple'])} />
+              <span
+                data-marker="unicorn"
+                className={clsx(s['marker'], s['unicorn'])}
+              />
+              <span
+                data-marker="green"
+                className={clsx(s['marker'], s['green'])}
+              />
+              <span data-marker="red" className={clsx(s['marker'], s['red'])} />
+              <span
+                data-marker="yellow"
+                className={clsx(s['marker'], s['yellow'])}
+              />
+              <span
+                data-marker="purple"
+                className={clsx(s['marker'], s['purple'])}
+              />
             </div>
             <span className={s['toggle']} />
           </div>
@@ -519,12 +569,14 @@ export const Code = memo(({ onHit }: { onHit: (idx: number) => void }) => {
           </svg>
           <div style={{ flex: 1, padding: '0 10px' }}>
             <Timeline
+              paused={!timelinePlaying}
+              loop={false}
               primaryColor="#01ACFD"
               secondaryColor="#D5D5D5"
               duration={4}
               markerSize={12}
               markers={timelineProps['markers']}
-              onComplete={timelineProps['onComplete']}
+              onStart={timelineProps['onStart']}
             />
           </div>
           <span

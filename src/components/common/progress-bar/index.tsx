@@ -285,6 +285,7 @@ export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
 
 type TimelineProps = {
   duration: number
+  onStart?: () => void
   onComplete?: () => void
   loop?: boolean
   paused?: boolean
@@ -294,6 +295,7 @@ export const Timeline = memo(
   ({
     paused = false,
     duration,
+    onStart,
     onComplete,
     loop = true,
     ...rest
@@ -306,6 +308,7 @@ export const Timeline = memo(
       onUpdate: (progress) => {
         progressRef.current?.update(progress.percentage)
       },
+      onStart,
       onComplete,
       loop
     })
