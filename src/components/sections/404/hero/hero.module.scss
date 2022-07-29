@@ -85,11 +85,10 @@
     }
 
     .illustration {
-      right: 0;
-      left: unset;
+      left: -120px;
       bottom: unset;
       top: 50%;
-      transform: translateY(-50%) translateX(2%);
+      transform: translateY(-52.5%) translateX(-6%);
       width: 110%;
       min-width: 1580px;
 
@@ -113,6 +112,10 @@
         rgb(255 255 255 / 0) 0%,
         rgb(255 255 255) 100%
       );
+    }
+
+    .illustration {
+      transform: translateY(-52.5%) translateX(2%);
     }
 
     .hero {
