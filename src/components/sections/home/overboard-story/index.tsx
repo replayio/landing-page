@@ -221,8 +221,6 @@ export const Console = forwardRef<
     )
     .flat()
 
-  console.log({ fullLogs })
-
   return (
     <div
       style={{
