@@ -144,6 +144,11 @@
   display: block;
   height: 6px;
   width: 6px;
+  transition: transform var(--duration-fast) linear;
+
+  &.hoverable:hover {
+    transform: scale(1.25);
+  }
 
   &::after {
     display: block;

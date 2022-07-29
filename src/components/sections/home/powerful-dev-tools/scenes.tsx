@@ -6,6 +6,7 @@ import { Code, DevTools } from '../overboard-story'
 
 export const Scene1 = () => {
   const [markersType, setMarkersType] = useState('transparent')
+  const [showPrints, setShowPrints] = useState(false)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
   const consoleRef = useRef()
   const timeline = useRef(
@@ -19,14 +20,47 @@ export const Scene1 = () => {
       hits: 5,
       marker: markersType,
       prepend: 'rotate',
-      content: [60, 68, 80, 90, 120]
+      content: [60, 68, 80, 90, 120],
+      hide: !showPrints
     },
     {
+      hits: 1,
       marker: 'unicorn',
       prepend: 'Start 360',
       content: [{ left: 110, top: 25 }]
     }
   ]
+
+  const updateMarkers = useCallback((marker, paused = false) => {
+    if (!consoleRef.current) return
+
+    const timeline = gsap.timeline({ paused, autoRemoveChildren: true })
+
+    const consoleSelector = gsap.utils.selector(consoleRef.current)
+    const allConsoleMarkers = consoleSelector('.marker[data-line="5"]')
+
+    timeline.call(() => {
+      setMarkersType(marker)
+    }, undefined)
+
+    timeline.to(allConsoleMarkers, {
+      scale: 1.25,
+      stagger: 0.05,
+      duration: DURATION / 3
+    })
+
+    timeline.to(
+      allConsoleMarkers,
+      {
+        scale: 1,
+        stagger: 0.05,
+        duration: DURATION / 3
+      },
+      '>-50%'
+    )
+
+    return timeline
+  }, [])
 
   useEffect(() => {
     if (!codeRef.current || !consoleRef.current) return
@@ -34,9 +68,7 @@ export const Scene1 = () => {
     const _timeline = timeline.current
 
     const codeSelector = gsap.utils.selector(codeRef.current.elm)
-    const consoleSelector = gsap.utils.selector(consoleRef.current)
 
-    const allConsoleMarkers = consoleSelector('.marker[data-line="5"]')
     const addPrintButton = codeSelector('#dev-tools-add-print')
     const printPanel = codeSelector('#dev-tools-print-panel')
     const consoleMarkers = codeSelector('#dev-tools-console-markers')
@@ -72,6 +104,7 @@ export const Scene1 = () => {
     _timeline.call(
       () => {
         addPrintButton[0].classList.add('active')
+        setShowPrints(true)
       },
       undefined,
       '>-50%'
@@ -108,28 +141,13 @@ export const Scene1 = () => {
 
     _timeline.to(yellowMarker, {
       scale: 1,
-      duration: DURATION / 3
+      duration: DURATION / 3,
+      clearProps: 'all'
     })
 
-    _timeline.call(() => {
-      setMarkersType('yellow')
-    }, undefined)
+    const updateMarkersTimeline = updateMarkers('yellow')
 
-    _timeline.to(allConsoleMarkers, {
-      scale: 1.25,
-      stagger: 0.05,
-      duration: DURATION / 3
-    })
-
-    _timeline.to(
-      allConsoleMarkers,
-      {
-        scale: 1,
-        stagger: 0.05,
-        duration: DURATION / 3
-      },
-      '>-50%'
-    )
+    updateMarkersTimeline && _timeline.add(updateMarkersTimeline)
 
     _timeline.call(
       () => {
@@ -156,7 +174,7 @@ export const Scene1 = () => {
 
   return (
     <>
-      <Code onHit={handleHit} ref={codeRef} />
+      <Code onChangeMarker={updateMarkers} onHit={handleHit} ref={codeRef} />
       <DevTools
         panel="console"
         panelProps={{
