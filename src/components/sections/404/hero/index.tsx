@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
+import { ProgressThumb } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
@@ -11,6 +12,9 @@ export const Hero: FC = () => {
   return (
     <Section className={s['section']}>
       <div className={s['illustration']}>
+        <span className={s['marker']}>
+          <ProgressThumb active />
+        </span>
         <svg
           viewBox="0 0 1440 772"
           fill="none"
@@ -52,17 +56,6 @@ export const Hero: FC = () => {
               d="M1220.31 1352L1220.31 -582"
               stroke="url(#g)"
               strokeDasharray="8 8"
-            />
-            <circle
-              opacity="0.2"
-              r="24"
-              transform="matrix(-1 0 0 1 865.313 419)"
-              fill="#F41C52"
-            />
-            <circle
-              r="12"
-              transform="matrix(-1 0 0 1 865.313 419)"
-              fill="#F41C52"
             />
           </g>
           <defs>
@@ -148,7 +141,7 @@ export const Hero: FC = () => {
           </defs>
         </svg>
       </div>
-      <Container>
+      <Container className={s.container}>
         <div className={s['hero']}>
           <div className={s['heading']}>
             <Heading as="h1" size="lg">
