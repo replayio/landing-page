@@ -2,6 +2,7 @@ import type { Colorway, HoverboardControls } from '@replayio/overboard'
 import { Color, Colors, colorways, Hoverboard, Logo } from '@replayio/overboard'
 import clsx from 'clsx'
 import { gsap, ScrollTrigger } from 'lib/gsap'
+import { range } from 'lodash'
 import React, {
   forwardRef,
   useCallback,
@@ -188,7 +189,13 @@ export const Console = forwardRef<
   HTMLDivElement,
   {
     currentHit: number
-    logs: { marker: keyof typeof symbols; prepend: string; content: any }[]
+    logs: {
+      marker: keyof typeof symbols
+      prepend: string
+      content: any[]
+      hits: number
+      line: number
+    }[]
   }
 >(({ currentHit, logs }, ref) => {
   const logContent = (content: any) => {
@@ -204,6 +211,17 @@ export const Console = forwardRef<
 
     return content
   }
+
+  const fullLogs = logs
+    .map(({ hits, content, ...rest }) =>
+      range(hits || 1).map((i) => ({
+        content: content[i],
+        ...rest
+      }))
+    )
+    .flat()
+
+  console.log({ fullLogs })
 
   return (
     <div
@@ -224,7 +242,7 @@ export const Console = forwardRef<
           padding: '32px 0px'
         }}
       >
-        {logs.map((log, i) => (
+        {fullLogs.map((log, i) => (
           <>
             {i === currentHit && (
               <hr
@@ -245,12 +263,14 @@ export const Console = forwardRef<
               key={i}
             >
               <span
+                data-marker={log.marker}
+                data-line={log.line}
                 className={clsx('marker', s['marker'], s[log.marker])}
                 style={{
                   marginRight: 15
                 }}
               />
-              <div style={{ color: '#01ACFD' }}>
+              <div style={{ color: '#01ACFD' }} key={i}>
                 {log.prepend}, {logContent(log.content)}
               </div>
             </div>

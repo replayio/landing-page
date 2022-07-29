@@ -15,34 +15,16 @@ export const Scene1 = () => {
 
   const fullLogs = [
     {
+      line: 5,
+      hits: 5,
       marker: markersType,
       prepend: 'rotate',
-      content: 60
-    },
-    {
-      marker: markersType,
-      prepend: 'rotate',
-      content: 60
-    },
-    {
-      marker: markersType,
-      prepend: 'rotate',
-      content: 60
-    },
-    {
-      marker: markersType,
-      prepend: 'rotate',
-      content: 60
-    },
-    {
-      marker: markersType,
-      prepend: 'rotate',
-      content: 60
+      content: [60, 68, 80, 90, 120]
     },
     {
       marker: 'unicorn',
       prepend: 'Start 360',
-      content: { left: 110, top: 25 }
+      content: [{ left: 110, top: 25 }]
     }
   ]
 
@@ -54,7 +36,7 @@ export const Scene1 = () => {
     const codeSelector = gsap.utils.selector(codeRef.current.elm)
     const consoleSelector = gsap.utils.selector(consoleRef.current)
 
-    const allConsoleMarkers = consoleSelector('.marker')
+    const allConsoleMarkers = consoleSelector('.marker[data-line="5"]')
     const addPrintButton = codeSelector('#dev-tools-add-print')
     const printPanel = codeSelector('#dev-tools-print-panel')
     const consoleMarkers = codeSelector('#dev-tools-console-markers')
