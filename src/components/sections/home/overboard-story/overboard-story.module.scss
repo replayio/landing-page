@@ -102,6 +102,39 @@
       }
     }
   }
+
+  .add-print {
+    opacity: 0;
+    border-radius: 6px;
+    background: #05acfd;
+    position: absolute;
+    display: flex;
+    place-content: center;
+    height: 18px;
+    width: 18px;
+    color: white;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    line-height: 17px;
+    font-weight: 600;
+
+    &::after {
+      content: '+';
+      position: absolute;
+      background: #05acfd;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all var(--duration-fast) ease-out;
+    }
+
+    &:global(.active) {
+      &::after {
+        content: '-';
+      }
+    }
+  }
 }
 
 .marker {

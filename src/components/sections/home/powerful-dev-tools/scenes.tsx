@@ -69,6 +69,14 @@ export const Scene1 = () => {
       duration: DURATION / 3
     })
 
+    _timeline.call(
+      () => {
+        addPrintButton[0].classList.add('active')
+      },
+      undefined,
+      '>-50%'
+    )
+
     _timeline.fromTo(
       printPanel,
       {
@@ -79,14 +87,6 @@ export const Scene1 = () => {
         opacity: 1,
         y: 0
       }
-    )
-
-    _timeline.call(
-      () => {
-        codeRef.current?.timeline.resume()
-      },
-      undefined,
-      '+=0.5'
     )
 
     _timeline.call(
@@ -136,12 +136,20 @@ export const Scene1 = () => {
         consoleMarkers[0].classList.remove('active')
       },
       undefined,
-      '+=2'
+      '+=0.5'
     )
 
-    // return () => {
-    //   _timeline.kill()
-    // }
+    _timeline.call(
+      () => {
+        codeRef.current?.timeline.resume()
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    return () => {
+      _timeline.kill()
+    }
   }, [])
 
   const handleHit = useCallback((hit: number) => setCurrentHit(hit), [])

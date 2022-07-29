@@ -346,7 +346,7 @@ export const Code = forwardRef<
       print: 'available',
       content: (
         <>
-          &nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;
           <span className="reserved">const</span>{' '}
           <span className="symbol">[</span>
           <span className="variable">pos</span>,{' '}
@@ -361,7 +361,7 @@ export const Code = forwardRef<
       print: 'available',
       content: (
         <>
-          &nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;
           <span className="reserved">const</span>{' '}
           <span className="symbol">[</span>
           <span className="variable">angle</span>,{' '}
@@ -494,24 +494,8 @@ export const Code = forwardRef<
             >
               <span
                 id={idx === 4 ? 'dev-tools-add-print' : undefined}
-                style={{
-                  opacity: idx === 4 ? 1 : 0,
-                  borderRadius: 6,
-                  background: '#05ACFD',
-                  position: 'absolute',
-                  display: 'flex',
-                  placeContent: 'center',
-                  height: 18,
-                  width: 18,
-                  color: 'white',
-                  top: '50%',
-                  left: '8px',
-                  transform: 'translateY(-50%)',
-                  lineHeight: '17px'
-                }}
-              >
-                +
-              </span>
+                className={clsx(s['add-print'])}
+              />
             </span>
             <CodeLine number={idx + 1}>{line.content}</CodeLine>
           </>
