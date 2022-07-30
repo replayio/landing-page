@@ -135,6 +135,65 @@
       }
     }
   }
+
+  .print-panel {
+    width: 100%;
+    position: absolute;
+    opacity: 0;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+
+    .hit-counter {
+      --color-dark: var(--color-gray);
+      --color-light: var(--color-white);
+
+      background: #e5e5e5;
+      transition: background var(--duration-fast) linear;
+      border-radius: var(--border-radius-full);
+      font-size: 10px;
+      display: inline-flex;
+      width: 44px;
+      height: 16px;
+      color: #7d7d7d;
+      justify-content: center;
+      font-variant-numeric: tabular-num;
+
+      &.yellow {
+        background: #ff9a19;
+        color: var(--color-light);
+      }
+
+      &.purple {
+        background: #cc81ff;
+        color: var(--color-light);
+      }
+
+      &.green {
+        background: #69e261;
+        color: var(--color-dark);
+      }
+
+      &.red {
+        background: #f41b52;
+        color: var(--color-light);
+      }
+
+      &.unicorn {
+        background: #e110b3;
+        color: var(--color-light);
+      }
+    }
+  }
+}
+
+.console-panel {
+  .log-line {
+    .marker {
+      margin-right: 15px;
+    }
+  }
 }
 
 .marker {

@@ -1,6 +1,6 @@
 import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react'
 
-import { DURATION, gsap } from '~/lib/gsap'
+import { clearProps, DURATION, gsap } from '~/lib/gsap'
 
 import { Code, DevTools } from '../overboard-story'
 
@@ -9,9 +9,7 @@ export const Scene1 = () => {
   const [showPrints, setShowPrints] = useState(false)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
   const consoleRef = useRef()
-  const timeline = useRef(
-    gsap.timeline({ repeat: -1, delay: 2, autoRemoveChildren: true })
-  )
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
   const [currentHit, setCurrentHit] = useState(0)
 
   const fullLogs = [
@@ -31,10 +29,12 @@ export const Scene1 = () => {
     }
   ]
 
-  const updateMarkers = useCallback((marker, paused = false) => {
+  const updateMarkers = useCallback((marker, asChildTimeline = false) => {
     if (!consoleRef.current) return
 
-    const timeline = gsap.timeline({ paused, autoRemoveChildren: true })
+    const timeline = gsap.timeline({
+      autoRemoveChildren: !asChildTimeline
+    })
 
     const consoleSelector = gsap.utils.selector(consoleRef.current)
     const allConsoleMarkers = consoleSelector('.marker[data-line="5"]')
@@ -61,6 +61,41 @@ export const Scene1 = () => {
 
     return timeline
   }, [])
+
+  const resetAnimation = useCallback((killAndClear = false) => {
+    if (!codeRef.current || !consoleRef.current) return
+
+    const _timeline = timeline.current
+
+    const codeSelector = gsap.utils.selector(codeRef.current.elm)
+    const addPrintButton = codeSelector('#dev-tools-add-print')
+
+    const tlChildren = _timeline.getChildren()
+
+    tlChildren.forEach((child) => {
+      const elms = child?.targets?.()
+      clearProps(elms)
+    })
+
+    if (killAndClear) {
+      _timeline.clear()
+      _timeline.kill()
+    }
+
+    addPrintButton[0].classList.remove('active')
+
+    setCurrentHit(0)
+    setMarkersType('transparent')
+    setShowPrints(false)
+  }, [])
+
+  const handleComplete = useCallback(() => {
+    gsap.delayedCall(3, () => {
+      resetAnimation()
+      codeRef.current?.timeline?.reset()
+      timeline.current.restart()
+    })
+  }, [resetAnimation])
 
   useEffect(() => {
     if (!codeRef.current || !consoleRef.current) return
@@ -145,7 +180,7 @@ export const Scene1 = () => {
       clearProps: 'all'
     })
 
-    const updateMarkersTimeline = updateMarkers('yellow')
+    const updateMarkersTimeline = updateMarkers('yellow', true)
 
     updateMarkersTimeline && _timeline.add(updateMarkersTimeline)
 
@@ -159,22 +194,27 @@ export const Scene1 = () => {
 
     _timeline.call(
       () => {
-        codeRef.current?.timeline.resume()
+        codeRef.current?.timeline?.start?.()
       },
       undefined,
       '+=0.5'
     )
 
     return () => {
-      _timeline.kill()
+      resetAnimation(true)
     }
-  }, [])
-
-  const handleHit = useCallback((hit: number) => setCurrentHit(hit), [])
+  }, [updateMarkers, resetAnimation])
 
   return (
     <>
-      <Code onChangeMarker={updateMarkers} onHit={handleHit} ref={codeRef} />
+      <Code
+        currentHit={currentHit}
+        currentMarker={markersType}
+        onChangeMarker={updateMarkers}
+        onComplete={handleComplete}
+        onHit={setCurrentHit}
+        ref={codeRef}
+      />
       <DevTools
         panel="console"
         panelProps={{

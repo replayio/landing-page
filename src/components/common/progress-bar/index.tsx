@@ -1,9 +1,8 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import { clamp } from 'lodash'
+import clamp from 'lodash/clamp'
 import {
   forwardRef,
-  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -12,7 +11,11 @@ import {
   useState
 } from 'react'
 
-import { useGsapTime } from '~/hooks/use-gsap-time'
+import {
+  useGsapTime,
+  UseGsapTimeAPI,
+  UseGsapTimeArgs
+} from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isClient } from '~/lib/constants'
@@ -288,43 +291,57 @@ type TimelineProps = {
   onStart?: () => void
   onComplete?: () => void
   loop?: boolean
-  paused?: boolean
+  viewportReactive?: boolean
 } & ProgressProps
 
-export const Timeline = memo(
-  ({
-    paused = false,
-    duration,
-    onStart,
-    onComplete,
-    loop = true,
-    ...rest
-  }: TimelineProps) => {
-    const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
+export const Timeline = forwardRef<UseGsapTimeAPI, TimelineProps>(
+  (
+    {
+      viewportReactive = true,
+      duration,
+      onStart,
+      onComplete,
+      loop = true,
+      ...rest
+    },
+    ref
+  ) => {
     const progressRef = useRef<ProgressAPI>(null)
+    const [viewRef, { inView }] = useIntersectionObserver({
+      triggerOnce: false
+    })
+
+    const handleUpdate = useCallback<NonNullable<UseGsapTimeArgs['onUpdate']>>(
+      (progress) => {
+        progressRef.current?.update(progress.percentage)
+      },
+      []
+    )
 
     const time = useGsapTime({
       duration,
-      onUpdate: (progress) => {
-        progressRef.current?.update(progress.percentage)
-      },
+      onUpdate: handleUpdate,
       onStart,
       onComplete,
       loop
     })
 
-    useEffect(() => {
-      if (inView && !paused) {
-        time.start()
-      } else {
-        time.pause()
-      }
+    useImperativeHandle(ref, () => time, [time])
 
-      return time.pause
-    }, [time, inView, paused])
+    useEffect(() => {
+      if (viewportReactive) {
+        if (inView) {
+          time.start()
+        } else {
+          time.pause()
+        }
+
+        return time.pause
+      }
+    }, [time, inView, viewportReactive])
 
     return (
-      <div ref={ref}>
+      <div ref={viewRef}>
         <ProgressBar animated={false} {...rest} ref={progressRef} />
       </div>
     )

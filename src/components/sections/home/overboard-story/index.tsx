@@ -2,7 +2,7 @@ import type { Colorway, HoverboardControls } from '@replayio/overboard'
 import { Color, Colors, colorways, Hoverboard, Logo } from '@replayio/overboard'
 import clsx from 'clsx'
 import { gsap, ScrollTrigger } from 'lib/gsap'
-import { range } from 'lodash'
+import range from 'lodash/range'
 import React, {
   forwardRef,
   useCallback,
@@ -14,6 +14,7 @@ import React, {
 
 import { Timeline } from '~/components/common/progress-bar'
 import { Logo as ReplayLogo } from '~/components/primitives/logo'
+import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
@@ -228,6 +229,7 @@ export const Console = forwardRef<
 
   return (
     <div
+      className={s['console-panel']}
       style={{
         display: 'grid',
         gridTemplateRows: 'auto 1fr',
@@ -258,6 +260,7 @@ export const Console = forwardRef<
               />
             )}
             <div
+              className={s['log-line']}
               style={{
                 display: log.hide ? 'none' : 'flex',
                 alignItems: 'center',
@@ -269,9 +272,6 @@ export const Console = forwardRef<
                 data-marker={log.marker}
                 data-line={log.line}
                 className={clsx('marker', s['marker'], s[log.marker])}
-                style={{
-                  marginRight: 15
-                }}
               />
               <div style={{ color: '#01ACFD' }} key={i}>
                 {log.prepend}, {logContent(log.content)}
@@ -328,19 +328,21 @@ const CodeLine = ({
 export const Code = forwardRef<
   {
     elm: HTMLDivElement | null
-    timeline: { pause: () => void; resume: () => void }
+    timeline: UseGsapTimeAPI | null
   },
   {
+    currentHit: number
+    currentMarker: string
+    onComplete: () => void
     onChangeMarker: (
       marker: string,
       paused?: boolean
     ) => GSAPTimeline | undefined
     onHit: (idx: number) => void
   }
->(({ onHit, onChangeMarker }, ref) => {
+>(({ onHit, onChangeMarker, onComplete, currentHit, currentMarker }, ref) => {
   const elmRef = useRef<HTMLDivElement>(null)
-  const [timelinePlaying, setTimelinePlaying] = useState(false)
-  const [currentHit, setCurrentHit] = useState(0)
+  const timelineRef = useRef<UseGsapTimeAPI>(null)
 
   const lines = [
     { print: 'disabled', content: <></> },
@@ -395,7 +397,6 @@ export const Code = forwardRef<
 
   const handleHit = useCallback(
     (idx: number) => {
-      setCurrentHit(idx)
       onHit(idx)
     },
     [onHit]
@@ -409,27 +410,23 @@ export const Code = forwardRef<
       })),
       onStart: () => {
         handleHit(0)
-        setCurrentHit(0)
-      }
+      },
+      onComplete
     }),
-    [handleHit]
+    [handleHit, onComplete]
   )
 
   useImperativeHandle(
     ref,
-    () => {
-      return {
-        elm: elmRef.current,
-        timeline: {
-          resume: () => {
-            setTimelinePlaying(true)
-          },
-          pause: () => {
-            setTimelinePlaying(false)
-          }
+    () => ({
+      elm: elmRef.current,
+      timeline: timelineRef.current && {
+        ...timelineRef.current,
+        reset: () => {
+          timelineRef.current?.reset()
         }
       }
-    },
+    }),
     []
   )
 
@@ -525,17 +522,7 @@ export const Code = forwardRef<
               <CodeLine number={idx + 1}>
                 {line.content}
                 {isTargetLine && (
-                  <div
-                    style={{
-                      width: '100%',
-                      position: 'absolute',
-                      zIndex: 1,
-                      left: 0,
-                      right: 0,
-                      bottom: -8
-                    }}
-                    id="dev-tools-print-panel"
-                  >
+                  <div className={s['print-panel']} id="dev-tools-print-panel">
                     <div
                       style={{
                         width: '100%',
@@ -644,30 +631,20 @@ export const Code = forwardRef<
                         </svg>
                         <div style={{ flex: 1, padding: '0 10px' }}>
                           <Timeline
-                            paused={!timelinePlaying}
                             loop={false}
                             primaryColor="#01ACFD"
                             secondaryColor="#D5D5D5"
                             duration={4}
                             markerSize={12}
-                            markers={timelineProps['markers']}
-                            onStart={timelineProps['onStart']}
+                            viewportReactive={false}
+                            {...timelineProps}
+                            ref={timelineRef}
                           />
                         </div>
                         <span
-                          style={{
-                            borderRadius: 'var(--border-radius-full)',
-                            fontSize: 10,
-                            display: 'inline-flex',
-                            width: 44,
-                            height: 16,
-                            background: '#E5E5E5',
-                            color: '#7D7D7D',
-                            justifyContent: 'center',
-                            fontVariantNumeric: 'tabular-nums'
-                          }}
+                          className={clsx(s['hit-counter'], s[currentMarker])}
                         >
-                          {currentHit}/5
+                          {currentHit}/{timelineProps['markers'].length}
                         </span>
                       </div>
                     </div>
