@@ -35,74 +35,6 @@
     }
   }
 
-  .markers {
-    position: relative;
-    border-radius: var(--border-radius-full);
-    background: #f0f0f0;
-    padding: 6px;
-    display: flex;
-    transition: transform var(--duration-fast) ease-out;
-    transform-origin: center center;
-
-    &:hover,
-    &:global(.active) {
-      transform: scale(1.2);
-
-      .toggle::after {
-        height: 2px;
-        width: 9px;
-      }
-
-      .markers-container {
-        pointer-events: all;
-        transform: translateX(0px);
-        opacity: 1;
-      }
-    }
-
-    .toggle {
-      position: relative;
-      display: inline-block;
-      height: 6px;
-      width: 6px;
-
-      &::after {
-        content: '';
-        border-radius: var(--border-radius-full);
-        position: absolute;
-        background: #d8d8d8;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        transition: all var(--duration-fast) ease-out;
-        height: 6px;
-        width: 6px;
-      }
-    }
-
-    .markers-container {
-      transition-property: opacity, transform;
-      transition-duration: var(--duration-fast);
-      transition-timing-function: ease-out;
-      transform: translateX(-10px);
-      border-radius: 0 var(--border-radius-full) var(--border-radius-full) 0;
-      top: 0;
-      padding: 6px;
-      padding-left: 0;
-      margin-left: 6px;
-      opacity: 0;
-      background: #f0f0f0;
-      position: absolute;
-      display: flex;
-      z-index: 0;
-      pointer-events: none;
-
-      .marker {
-        margin-left: 8px;
-      }
-    }
-  }
-
   .add-print {
     opacity: 0;
     border-radius: 6px;
@@ -145,44 +77,122 @@
     right: 0;
     bottom: -8px;
 
-    .hit-counter {
-      --color-dark: var(--color-gray);
-      --color-light: var(--color-white);
+    .markers {
+      position: relative;
+      border-radius: var(--border-radius-full);
+      background: #f0f0f0;
+      padding: 6px;
+      display: flex;
+      transition: transform var(--duration-fast) ease-out;
+      transform-origin: center center;
 
-      background: #e5e5e5;
+      &:hover,
+      &:global(.active) {
+        transform: scale(1.2);
+
+        .toggle::after {
+          --background: #d8d8d8;
+
+          height: 2px;
+          width: 9px;
+        }
+
+        .markers-container {
+          pointer-events: all;
+          transform: translateX(0px);
+          opacity: 1;
+        }
+      }
+
+      .toggle {
+        --background: #d8d8d8;
+
+        position: relative;
+        display: inline-block;
+        height: 6px;
+        width: 6px;
+
+        &::after {
+          content: '';
+          border-radius: var(--border-radius-full);
+          position: absolute;
+          background: var(--background);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: all var(--duration-fast) ease-out;
+          height: 6px;
+          width: 6px;
+        }
+      }
+
+      .markers-container {
+        transition-property: opacity, transform;
+        transition-duration: var(--duration-fast);
+        transition-timing-function: ease-out;
+        transform: translateX(-10px);
+        border-radius: 0 var(--border-radius-full) var(--border-radius-full) 0;
+        top: 0;
+        padding: 6px;
+        padding-left: 0;
+        margin-left: 6px;
+        opacity: 0;
+        background: #f0f0f0;
+        position: absolute;
+        display: flex;
+        z-index: 0;
+        pointer-events: none;
+
+        .marker {
+          margin-left: 8px;
+        }
+      }
+    }
+
+    .hit-counter {
+      --background: #e5e5e5;
+      --color: var(--color-gray);
+
       transition: background var(--duration-fast) linear;
+      background: var(--background);
       border-radius: var(--border-radius-full);
       font-size: 10px;
       display: inline-flex;
       width: 44px;
       height: 16px;
-      color: #7d7d7d;
+      color: var(--color);
       justify-content: center;
       font-variant-numeric: tabular-num;
+    }
+
+    .markers .toggle,
+    .hit-counter {
+      --color-dark: var(--color-gray);
+      --color-light: var(--color-white);
 
       &.yellow {
-        background: #ff9a19;
-        color: var(--color-light);
+        --background: #ff9a19;
+        --color: var(--color-light);
       }
 
       &.purple {
-        background: #cc81ff;
-        color: var(--color-light);
+        --background: #cc81ff;
+        --color: var(--color-light);
       }
 
       &.green {
-        background: #69e261;
-        color: var(--color-dark);
+        --background: #69e261;
+        --color: var(--color-dark);
       }
 
       &.red {
-        background: #f41b52;
-        color: var(--color-light);
+        --background: #f41b52;
+        --color: var(--color-light);
       }
 
       &.unicorn {
-        background: #e110b3;
-        color: var(--color-light);
+        --background: #e110b3;
+        --color: var(--color-light);
       }
     }
   }

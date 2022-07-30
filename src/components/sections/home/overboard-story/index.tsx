@@ -583,7 +583,9 @@ export const Code = forwardRef<
                               )}
                             />
                           </div>
-                          <span className={s['toggle']} />
+                          <span
+                            className={clsx(s['toggle'], s[currentMarker])}
+                          />
                         </div>
                         <p
                           style={{
