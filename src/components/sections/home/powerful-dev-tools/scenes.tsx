@@ -235,8 +235,7 @@ const START_OF_ROTATION = 65
 const END_OF_ROTATION = 340
 
 const variables = {
-  rotate: [0, 45, 90, 120, 160, 360],
-  position: [{ left: 110, top: 25 }]
+  rotate: [0, 45, 90, 120, 160, 360]
 }
 
 export const Scene2 = () => {
