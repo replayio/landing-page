@@ -1,8 +1,9 @@
+import { HoverboardControls } from '@replayio/overboard'
 import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react'
 
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
 
-import { Code, DevTools } from '../overboard-story'
+import { Code, DevTools, NewOverboardStore } from '../overboard-story'
 
 export const Scene1 = () => {
   const [markersType, setMarkersType] = useState('transparent')
@@ -215,14 +216,78 @@ export const Scene1 = () => {
         onHit={setCurrentHit}
         ref={codeRef}
       />
+
       <DevTools
         panel="console"
         panelProps={{
+          disableTravel: true,
           currentHit,
           logs: fullLogs,
           ref: consoleRef
         }}
       />
+    </>
+  )
+}
+
+const START_OF_ROTATION = 65
+const END_OF_ROTATION = 340
+
+const rangeMap = (
+  input: number,
+  inputStart: number,
+  inputEnd: number,
+  outputStart: number,
+  outputEnd: number
+) =>
+  ((input - inputStart) / (inputEnd - inputStart)) * (outputEnd - outputStart) +
+  outputStart
+
+const variables = {
+  rotate: [0, 45, 90, 120, 160, 360],
+  position: [{ left: 110, top: 25 }]
+}
+
+export const Scene2 = () => {
+  const hoverboardRef = useRef<HoverboardControls>(null)
+  const [currentHit, setCurrentHit] = useState(0)
+  const hoverboardState = useRef({
+    _rotate: 0,
+    set rotate(v: number) {
+      this._rotate = v
+      hoverboardRef.current?.rotate(
+        rangeMap(v, 0, 360, START_OF_ROTATION, END_OF_ROTATION)
+      )
+    },
+    get rotate() {
+      return this._rotate
+    }
+  })
+
+  useEffect(() => {
+    gsap.to(hoverboardState.current, {
+      rotate: variables.rotate[currentHit],
+      ease: 'linear'
+    })
+  }, [currentHit])
+
+  const logs = [
+    {
+      hits: variables.rotate.length,
+      marker: 'unicorn',
+      prepend: 'rotate',
+      content: variables.rotate
+    }
+  ]
+
+  return (
+    <>
+      <DevTools
+        panel="console"
+        panelProps={{ currentHit, onCurrentHitChange: setCurrentHit, logs }}
+      />
+
+      <NewOverboardStore mode="just-overboard" ref={hoverboardRef} />
     </>
   )
 }

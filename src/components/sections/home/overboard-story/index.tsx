@@ -11,6 +11,7 @@ import avatarThree from '~/public/images/home/avatar-3.webp'
 
 import { Code } from './code'
 import { DevTools } from './devtools'
+import { OverboardStore as NewOverboardStore } from './overboard-store'
 import s from './overboard-story.module.scss'
 import { Story } from './story'
 
@@ -314,4 +315,4 @@ export function OverboardStory() {
   )
 }
 
-export { Code, DevTools }
+export { Code, DevTools, NewOverboardStore }
