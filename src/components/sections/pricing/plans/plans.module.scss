@@ -2,7 +2,6 @@
 
 .section {
   margin-top: 200px;
-  padding-bottom: 40px;
 
   .heading {
     display: flex;
@@ -14,7 +13,6 @@
   .tabs-container {
     position: sticky;
     width: 100%;
-    margin-bottom: 68px;
     background-color: var(--color-white);
     top: var(--header-height);
     z-index: var(--z-index-10);
@@ -85,8 +83,8 @@
         margin-top: 40px;
       }
 
-      &:last-child {
-        margin-bottom: -40px;
+      &:first-child {
+        margin-top: 68px;
       }
 
       > div {
