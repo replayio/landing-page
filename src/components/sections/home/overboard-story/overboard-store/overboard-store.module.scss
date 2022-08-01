@@ -7,6 +7,7 @@
   border-radius: 20px;
   background-color: #1e076c;
   overflow: hidden;
+  // -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 
   &.mode-just-overboard {
     .color-picker {
