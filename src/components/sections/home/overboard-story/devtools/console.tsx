@@ -3,7 +3,7 @@ import range from 'lodash/range'
 import { forwardRef } from 'react'
 
 import commonS from '../overboard-story.module.scss'
-import { SearchBar } from './common'
+import { logContent, SearchBar } from './common'
 import s from './devtools.module.scss'
 
 const symbols = {
@@ -75,24 +75,6 @@ export const Console = forwardRef<
     { currentHit = 0, disableTravel = false, logs, onCurrentHitChange },
     ref
   ) => {
-    const logContent = (content: any) => {
-      const kind = typeof content
-
-      if (kind === 'number') {
-        return <span style={{ color: '#FF63E4' }}>{content}</span>
-      }
-
-      if (kind === 'string') {
-        return <>{content}</>
-      }
-
-      if (kind === 'object') {
-        return JSON.stringify(content)
-      }
-
-      return content
-    }
-
     const fullLogs = logs
       .map(({ hits, content, ...rest }) =>
         range(hits).map((i) => ({

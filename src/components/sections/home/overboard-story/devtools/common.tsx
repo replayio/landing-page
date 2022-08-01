@@ -10,3 +10,21 @@ export const SearchBar = ({ children }: { children: React.ReactNode }) => (
     {children}
   </div>
 )
+
+export const logContent = (content: any) => {
+  const kind = typeof content
+
+  if (kind === 'number') {
+    return <span style={{ color: '#FF63E4' }}>{content}</span>
+  }
+
+  if (kind === 'string') {
+    return <>"{content}"</>
+  }
+
+  if (kind === 'object') {
+    return JSON.stringify(content)
+  }
+
+  return content
+}

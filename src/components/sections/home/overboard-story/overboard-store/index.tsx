@@ -1,17 +1,20 @@
 import {
   Color,
   Colors,
-  Colorway,
   colorways,
   Hoverboard,
   HoverboardControls
 } from '@replayio/overboard'
 import clsx from 'clsx'
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 
 import s from './overboard-store.module.scss'
 
+export type OverboardColors = 'red' | 'green' | 'blue'
+
 type OverboardStoreProps = {
+  overboardColor?: OverboardColors
+  onOverboardColorChange?: (color: OverboardColors) => void
   mode: 'just-overboard' | 'color-picker'
 }
 
@@ -40,9 +43,7 @@ const AnimatedGrid = () => {
 export const OverboardStore = forwardRef<
   HoverboardControls,
   OverboardStoreProps
->(({ mode }, ref) => {
-  const [color, setColor] = useState<Colorway>('red')
-
+>(({ mode, overboardColor, onOverboardColorChange }, ref) => {
   return (
     <div className={clsx(s['overboard-store'], s['mode-' + mode])}>
       <div
@@ -58,18 +59,21 @@ export const OverboardStore = forwardRef<
       </div>
 
       <div className={s['store-inner']}>
-        <Hoverboard ref={ref} color={color} />
+        <div data-box-id="hoverboard" className={s['overboard-wrapper']}>
+          <Hoverboard ref={ref} color={overboardColor} />
+        </div>
 
-        <div className={s['color-picker']}>
+        <div data-box-id="colors" className={s['color-picker']}>
           <Colors
             onColorChange={(color) => {
               // TODO: need to fix type in overboard design system
               // @ts-ignore
-              setColor(color)
+              onOverboardColorChange(color)
             }}
           >
             {Object.entries(colorways).map(([name, [start, end]]) => (
               <Color
+                defaultChecked={name === overboardColor}
                 key={name}
                 label={name}
                 value={name.toLowerCase()}

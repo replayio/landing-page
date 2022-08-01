@@ -1,10 +1,23 @@
 import { HoverboardControls } from '@replayio/overboard'
-import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react'
+import get from 'lodash/get'
+import {
+  ComponentRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
 import { rangeMap } from '~/lib/utils'
 
 import { Code, DevTools, NewOverboardStore } from '../overboard-story'
+import {
+  IdentifiedNode,
+  identifyNodes
+} from '../overboard-story/devtools/react'
+import { OverboardColors } from '../overboard-story/overboard-store'
 
 export const Scene1 = () => {
   const [markersType, setMarkersType] = useState('transparent')
@@ -278,6 +291,91 @@ export const Scene2 = () => {
       />
 
       <NewOverboardStore mode="just-overboard" ref={hoverboardRef} />
+    </>
+  )
+}
+
+export const Scene3 = () => {
+  const [activeNode, setActiveNode] = useState<IdentifiedNode | null>(null)
+  const devToolsRef = useRef(null)
+  const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
+
+  const tree = useMemo<IdentifiedNode>(() => {
+    const tree = {
+      type: 'App',
+      children: [
+        { type: 'Hero' },
+        {
+          type: 'Hoverboard',
+          props: {
+            rotation: 0,
+            isAnimated: true,
+            velocity: 20,
+            color: overboardColor
+          }
+        },
+        {
+          type: 'PurchaseForm',
+          children: [
+            {
+              type: 'Colors',
+              props: {
+                colors: ['red', 'green', 'blue']
+              },
+              children: [
+                {
+                  type: 'Color',
+                  props: {
+                    key: 'red'
+                  }
+                },
+                {
+                  type: 'Color',
+                  props: {
+                    key: 'green'
+                  }
+                },
+                {
+                  type: 'Color',
+                  props: {
+                    key: 'blue'
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+
+    const identifiedTree = identifyNodes(tree)
+
+    setActiveNode((prev) =>
+      prev?.path ? get(identifiedTree, prev?.path) : prev
+    )
+
+    return identifiedTree
+  }, [overboardColor])
+
+  
+
+  return (
+    <>
+      <DevTools
+        panel="react"
+        panelProps={{
+          tree,
+          activeNode,
+          setActiveNode,
+          ref: devToolsRef
+        }}
+      />
+
+      <NewOverboardStore
+        overboardColor={overboardColor}
+        onOverboardColorChange={setOverboardColor}
+        mode="color-picker"
+      />
     </>
   )
 }
