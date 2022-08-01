@@ -32,7 +32,7 @@
       background: var(--color-gray-lightest);
       display: grid;
       grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
-      align-content: center;
+      align-items: center;
       justify-content: center;
       gap: 48px;
       min-height: 480px;

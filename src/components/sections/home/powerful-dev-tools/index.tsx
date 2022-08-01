@@ -7,7 +7,7 @@ import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
 import s from './powerful-dev-tools.module.scss'
-import { Scene1 } from './scenes'
+import { Scene2 } from './scenes'
 
 type AssetChunkProps = {
   assets: {
@@ -107,7 +107,7 @@ const AssetPlayer = () => {
       </div>
       <Container size="md">
         <div className={s['asset']}>
-          <Scene1 />
+          <Scene2 />
         </div>
       </Container>
     </div>

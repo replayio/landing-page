@@ -4,23 +4,33 @@ import { useMemo, useRef } from 'react'
 
 import { msToSecs, secsToMs } from '~/lib/utils'
 
-type UseTimeArgs = {
+export type UseGsapTimeArgs = {
   onUpdate?: (progress: {
     time: number
     percentage: number
     normalizedTime: number
   }) => void
+  onStart?: () => void
   onComplete?: () => void
   duration: number
   loop?: boolean
 }
 
+export type UseGsapTimeAPI = {
+  start: () => void
+  pause: () => void
+  resume: () => void
+  restart: () => void
+  reset: () => void
+}
+
 export const useGsapTime = ({
+  onStart,
   onUpdate,
   onComplete,
   loop = false,
   duration
-}: UseTimeArgs) => {
+}: UseGsapTimeArgs): UseGsapTimeAPI => {
   const startTime = useRef<number | undefined>()
 
   const api = useMemo(() => {
@@ -55,6 +65,7 @@ export const useGsapTime = ({
       start: () => {
         startTime.current = new Date().getTime()
 
+        onStart?.()
         update()
 
         gsap.ticker.add(update)
@@ -68,11 +79,16 @@ export const useGsapTime = ({
       restart: () => {
         api.pause()
         api.start()
+      },
+      reset: () => {
+        api.pause()
+        startTime.current = new Date().getTime()
+        update()
       }
     }
 
     return api
-  }, [duration, loop, onComplete, onUpdate])
+  }, [duration, loop, onComplete, onUpdate, onStart])
 
   return api
 }

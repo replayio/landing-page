@@ -37,7 +37,8 @@ export const Investors: FC = () => {
               arrows={!isMobile}
               className={s.slider}
               config={{
-                containScroll: isDesktop ? 'trimSnaps' : ''
+                containScroll: isDesktop ? 'trimSnaps' : '',
+                skipSnaps: true
               }}
               slideClassName={s['slide']}
               viewportClassname={s['slider__viewport']}

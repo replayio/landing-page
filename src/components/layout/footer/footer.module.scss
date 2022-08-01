@@ -9,6 +9,10 @@
 
   &.overflowed {
     overflow: visible;
+
+    .bg {
+      transform: translateY(-56%);
+    }
   }
 
   &.hidden {

@@ -5,6 +5,7 @@ import { DrawSVGPlugin } from 'gsap/dist/DrawSVGPlugin'
 import { Flip } from 'gsap/dist/Flip'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { TextPlugin } from 'gsap/dist/TextPlugin'
+import isElement from 'lodash/isElement'
 
 // ScrollTrigger.normalizeScroll(true)
 
@@ -188,7 +189,24 @@ gsap.registerEffect({
   extendTimeline: true
 })
 
+const isLegible = (target: gsap.TweenTarget) => isElement(target)
+
+const clearProps = (target: gsap.TweenTarget) => {
+  let filteredTargets
+
+  if (Array.isArray(target)) {
+    filteredTargets = target.filter(isLegible)
+  } else {
+    filteredTargets = target
+  }
+
+  return gsap.set(filteredTargets, {
+    clearProps: 'all'
+  })
+}
+
 export {
+  clearProps,
   CSSRulePlugin,
   DrawSVGPlugin,
   DURATION,

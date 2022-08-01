@@ -1,3 +1,5 @@
+@import 'css/helpers';
+
 .grid {
   display: grid;
 }
@@ -6,28 +8,61 @@
   grid-area: 1 / 1 / 1 / 1;
 }
 
-.code {
-  color: #727272;
+.marker {
+  --color: #d8d8d8;
 
-  :global {
-    .reserved {
-      color: #dd00a9;
-    }
+  position: relative;
+  display: block;
+  height: 6px;
+  width: 6px;
+  transition: transform var(--duration-fast) linear;
 
-    .declaration {
-      color: #000;
-    }
+  &.hoverable:hover {
+    transform: scale(1.25);
+  }
 
-    .variable {
-      color: #3172e0;
-    }
+  &::after {
+    display: block;
+    position: absolute;
+    font-size: 12px;
+    content: '';
+    border-radius: var(--border-radius-full);
+    transition: background var(--duration-fast) linear;
+    background: var(--color);
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+  }
 
-    .function {
-      color: #8000d7;
-    }
+  &.yellow {
+    --color: #ff9a19;
+  }
 
-    .symbol {
-      color: #000;
+  &.purple {
+    --color: #cc81ff;
+  }
+
+  &.green {
+    --color: #69e261;
+  }
+
+  &.red {
+    --color: #f41b52;
+  }
+
+  &.unicorn {
+    --color: transparent;
+
+    &::after {
+      top: -0.15em;
+      left: 0;
+      content: '🦄';
     }
+  }
+
+  &.transparent {
+    --color: transparent;
   }
 }

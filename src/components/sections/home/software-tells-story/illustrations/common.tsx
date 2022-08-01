@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef } from 'react'
 
-import { DURATION, gsap } from '~/lib/gsap'
+import { clearProps, DURATION, gsap } from '~/lib/gsap'
 
 export type AnimationFunction = () => gsap.core.Tween[]
 
@@ -70,12 +70,6 @@ export const animateUnscale = (
   })
 }
 
-export const clearProps = (elms: HTMLElement[]) => {
-  return gsap.set(elms, {
-    clearProps: 'all'
-  })
-}
-
 export const useEnterExit = (
   ref: MutableRefObject<HTMLElement | null>,
   {
@@ -107,6 +101,7 @@ export const useEnterExit = (
 
       exitTimelines.current = exit()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active])
 
   useEffect(() => {
