@@ -49,7 +49,8 @@ export const Team: FC = () => {
               className={s.slider}
               config={{
                 align: 'center',
-                containScroll: isDesktop ? 'trimSnaps' : ''
+                containScroll: isDesktop ? 'trimSnaps' : '',
+                skipSnaps: true
               }}
               slideClassName={s['slide']}
               viewportClassname={s['slider__viewport']}
