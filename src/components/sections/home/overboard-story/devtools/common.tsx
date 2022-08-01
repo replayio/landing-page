@@ -22,6 +22,10 @@ export const logContent = (content: any) => {
     return <>"{content}"</>
   }
 
+  if (kind === 'boolean') {
+    return <>{content ? 'true' : 'false'}</>
+  }
+
   if (kind === 'object') {
     return JSON.stringify(content)
   }

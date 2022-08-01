@@ -1,4 +1,5 @@
 import { HoverboardControls } from '@replayio/overboard'
+import clamp from 'lodash/clamp'
 import get from 'lodash/get'
 import {
   ComponentRef,
@@ -295,10 +296,15 @@ export const Scene2 = () => {
   )
 }
 
+let overboardProgress = 0
+
 export const Scene3 = () => {
-  const [activeNode, setActiveNode] = useState<IdentifiedNode | null>(null)
   const devToolsRef = useRef(null)
+  const storeRef = useRef(null)
+  const overboardRef = useRef<HoverboardControls>(null)
+  const [activeNode, setActiveNode] = useState<IdentifiedNode | null>(null)
   const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
+  const [rotation, setRotation] = useState(0)
 
   const tree = useMemo<IdentifiedNode>(() => {
     const tree = {
@@ -308,7 +314,7 @@ export const Scene3 = () => {
         {
           type: 'Hoverboard',
           props: {
-            rotation: 0,
+            rotation: rotation,
             isAnimated: true,
             velocity: 20,
             color: overboardColor
@@ -355,9 +361,32 @@ export const Scene3 = () => {
     )
 
     return identifiedTree
-  }, [overboardColor])
+  }, [overboardColor, rotation])
 
-  
+  const updateOverboard = useCallback(() => {
+    overboardProgress += 1
+    const loopedValue = overboardProgress % 360
+    const a = rangeMap(
+      clamp(loopedValue, START_OF_ROTATION, END_OF_ROTATION),
+      START_OF_ROTATION,
+      END_OF_ROTATION,
+      0,
+      360
+    )
+
+    setRotation(Number(a.toFixed(0)))
+    overboardRef.current?.rotate(loopedValue)
+  }, [])
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      updateOverboard()
+    }, 1)
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [updateOverboard])
 
   return (
     <>
@@ -371,11 +400,14 @@ export const Scene3 = () => {
         }}
       />
 
-      <NewOverboardStore
-        overboardColor={overboardColor}
-        onOverboardColorChange={setOverboardColor}
-        mode="color-picker"
-      />
+      <div ref={storeRef}>
+        <NewOverboardStore
+          overboardColor={overboardColor}
+          onOverboardColorChange={setOverboardColor}
+          mode="color-picker"
+          ref={overboardRef}
+        />
+      </div>
     </>
   )
 }
