@@ -2,6 +2,7 @@ import { HoverboardControls } from '@replayio/overboard'
 import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react'
 
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
+import { rangeMap } from '~/lib/utils'
 
 import { Code, DevTools, NewOverboardStore } from '../overboard-story'
 
@@ -232,16 +233,6 @@ export const Scene1 = () => {
 
 const START_OF_ROTATION = 65
 const END_OF_ROTATION = 340
-
-const rangeMap = (
-  input: number,
-  inputStart: number,
-  inputEnd: number,
-  outputStart: number,
-  outputEnd: number
-) =>
-  ((input - inputStart) / (inputEnd - inputStart)) * (outputEnd - outputStart) +
-  outputStart
 
 const variables = {
   rotate: [0, 45, 90, 120, 160, 360],
