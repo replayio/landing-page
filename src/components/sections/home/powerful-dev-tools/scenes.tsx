@@ -239,8 +239,12 @@ const variables = {
 }
 
 export const Scene2 = () => {
+  const consoleRef = useRef<any>(null)
   const hoverboardRef = useRef<HoverboardControls>(null)
   const [currentHit, setCurrentHit] = useState(0)
+
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
   const hoverboardState = useRef({
     _rotate: 0,
     set rotate(v: number) {
@@ -270,11 +274,133 @@ export const Scene2 = () => {
     }
   ]
 
+  // const resetAnimation = useCallback((killAndClear = false) => {
+  //   if (!hoverboardRef.current || !consoleRef.current) return
+
+  //   const _timeline = timeline.current
+
+  //   const tlChildren = _timeline.getChildren()
+
+  //   tlChildren.forEach((child) => {
+  //     const elms = child?.targets?.()
+  //     clearProps(elms)
+  //   })
+
+  //   if (killAndClear) {
+  //     _timeline.clear()
+  //     _timeline.kill()
+  //   }
+
+  //   setCurrentHit(0)
+  // }, [])
+
+  useEffect(() => {
+    if (!hoverboardRef.current || !consoleRef.current) return
+
+    const _timeline = timeline.current
+
+    const consoleSelector = gsap.utils.selector(consoleRef.current)
+
+    const buttons = consoleSelector('#icon')
+    const logLines = consoleSelector('#log-line')
+
+    _timeline.call(() => {
+      logLines[2].classList.add('active')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        buttons[1].classList.add('active')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        buttons[1].classList.remove('active')
+        logLines[2].classList.remove('active')
+        setCurrentHit(2)
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        logLines[5].classList.add('active')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        buttons[4].classList.add('active')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        buttons[4].classList.remove('active')
+        logLines[5].classList.remove('active')
+        setCurrentHit(5)
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        logLines[1].classList.add('active')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        buttons[0].classList.add('active')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        buttons[0].classList.remove('active')
+        logLines[1].classList.remove('active')
+        setCurrentHit(1)
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        _timeline.restart()
+      },
+      undefined,
+      '+=1.5'
+    )
+
+    // return () => {
+    //   resetAnimation(true)
+    // }
+  }, [])
+
   return (
     <>
       <DevTools
         panel="console"
-        panelProps={{ currentHit, onCurrentHitChange: setCurrentHit, logs }}
+        panelProps={{
+          currentHit,
+          onCurrentHitChange: setCurrentHit,
+          ref: consoleRef,
+          logs
+        }}
       />
 
       <NewOverboardStore mode="just-overboard" ref={hoverboardRef} />

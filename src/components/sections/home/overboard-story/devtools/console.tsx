@@ -136,6 +136,7 @@ export const Console = forwardRef<
               )}
               <div
                 className={s['log-line']}
+                id="log-line"
                 style={{
                   display: log.hide ? 'none' : 'flex',
                   alignItems: 'center',
@@ -148,6 +149,7 @@ export const Console = forwardRef<
                     onClick={() => onCurrentHitChange(i)}
                     tabIndex={-1}
                     className={s['travel']}
+                    id="icon"
                   >
                     <span className={s['icon']}>
                       {i > currentHit ? forward : rewind}

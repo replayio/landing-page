@@ -5,7 +5,7 @@
     position: relative;
 
     &:hover,
-    &.active {
+    &:global(.active) {
       .travel {
         --translate-x: 0;
 
@@ -36,7 +36,7 @@
       z-index: 1;
 
       &:hover,
-      &.active {
+      &:global(.active) {
         --translate-x: 4px;
       }
 
