@@ -47,11 +47,6 @@ const assets = [
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
   },
   {
-    title: 'Debugger',
-    description:
-      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
-  },
-  {
     title: 'React',
     description:
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
@@ -63,6 +58,11 @@ const assets = [
   },
   {
     title: 'Network',
+    description:
+      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+  },
+  {
+    title: 'Debugger',
     description:
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
   }
