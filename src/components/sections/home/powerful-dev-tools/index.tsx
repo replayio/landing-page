@@ -7,7 +7,7 @@ import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 
 import s from './powerful-dev-tools.module.scss'
-import { Scene3 } from './scenes'
+import { Scene1, Scene2, Scene3 } from './scenes'
 
 type AssetChunkProps = {
   assets: {
@@ -68,6 +68,12 @@ const assets = [
   }
 ]
 
+const scenes = [
+  <Scene1 key="scene-1" />,
+  <Scene2 key="scene-2" />,
+  <Scene3 key="scene-3" />
+]
+
 const AssetPlayer = () => {
   const [activeIdx, setActiveIdx] = useState(0)
 
@@ -98,7 +104,7 @@ const AssetPlayer = () => {
               markers={markers}
               markerVisible={false}
               markerSize={14}
-              duration={200}
+              duration={60}
               direction="horizontal"
               debug
             />
@@ -106,9 +112,7 @@ const AssetPlayer = () => {
         </Container>
       </div>
       <Container size="md">
-        <div className={s['asset']}>
-          <Scene3 />
-        </div>
+        <div className={s['asset']}>{scenes[activeIdx]}</div>
       </Container>
     </div>
   )

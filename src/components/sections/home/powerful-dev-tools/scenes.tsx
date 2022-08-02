@@ -25,7 +25,7 @@ export const Scene1 = () => {
   const [showPrints, setShowPrints] = useState(false)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
   const consoleRef = useRef()
-  const timeline = useRef(gsap.timeline({ delay: 2 }))
+  const timeline = useRef(gsap.timeline())
   const [currentHit, setCurrentHit] = useState(0)
 
   const fullLogs = [
@@ -178,7 +178,7 @@ export const Scene1 = () => {
         consoleMarkers[0].classList.add('active')
       },
       undefined,
-      '+=2'
+      '+=0.5'
     )
 
     _timeline.to(
@@ -187,7 +187,7 @@ export const Scene1 = () => {
         scale: 1.5,
         duration: DURATION / 3
       },
-      '+=1'
+      '+=0.5'
     )
 
     _timeline.to(yellowMarker, {
@@ -441,4 +441,8 @@ export const Scene3 = () => {
       </div>
     </>
   )
+}
+
+export const Scene4 = () => {
+  return <></>
 }
