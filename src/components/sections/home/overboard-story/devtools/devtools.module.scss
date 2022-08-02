@@ -4,7 +4,7 @@
   .log-line {
     position: relative;
 
-    &:hover,
+    &:not(.active):hover,
     &:global(.active) {
       .travel {
         --translate-x: 0;

@@ -117,7 +117,9 @@ export const Console = forwardRef<
                 />
               )}
               <div
-                className={s['log-line']}
+                className={clsx(s['log-line'], {
+                  [s['active']]: i === currentHit
+                })}
                 id="log-line"
                 style={{
                   display: log.hide ? 'none' : 'flex',
@@ -126,11 +128,12 @@ export const Console = forwardRef<
                 }}
                 key={i}
               >
-                {i != currentHit && !disableTravel && (
+                {!disableTravel && (
                   <button
                     onClick={() => onCurrentHitChange(i)}
                     tabIndex={-1}
                     className={s['travel']}
+                    disabled={i === currentHit}
                     id="icon"
                   >
                     <span className={s['icon']}>
