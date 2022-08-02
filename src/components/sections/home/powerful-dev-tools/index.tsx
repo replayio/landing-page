@@ -1,13 +1,14 @@
 import clsx from 'clsx'
-import { FC, useMemo, useState } from 'react'
+import { FC, useMemo, useRef, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
 import { Timeline } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 
 import s from './powerful-dev-tools.module.scss'
-import { Scene1, Scene2, Scene3 } from './scenes'
+import { Scene1, Scene2, Scene3, Scene4 } from './scenes'
 
 type AssetChunkProps = {
   assets: {
@@ -71,10 +72,12 @@ const assets = [
 const scenes = [
   <Scene1 key="scene-1" />,
   <Scene2 key="scene-2" />,
-  <Scene3 key="scene-3" />
+  <Scene3 key="scene-3" />,
+  <Scene4 key="scene-4" />
 ]
 
 const AssetPlayer = () => {
+  const timelineRef = useRef<UseGsapTimeAPI>(null)
   const [activeIdx, setActiveIdx] = useState(0)
 
   const markers = useMemo(
@@ -106,13 +109,13 @@ const AssetPlayer = () => {
               markerSize={14}
               duration={60}
               direction="horizontal"
-              debug
+              ref={timelineRef}
             />
           </div>
         </Container>
       </div>
       <Container size="md">
-        <div className={s['asset']}>{scenes[activeIdx]}</div>
+        <div className={s['asset']}>{scenes[3]}</div>
       </Container>
     </div>
   )

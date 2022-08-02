@@ -1,27 +1,8 @@
 import clsx from 'clsx'
 import { forwardRef } from 'react'
 
-import { logContent, SearchBar } from './common'
+import { IdentifiedNode, identifyNodes, logContent, SearchBar } from './common'
 import s from './devtools.module.scss'
-
-export const identifyNodes = (
-  node: Node,
-  path?: string,
-  key?: string | number
-): IdentifiedNode => {
-  return {
-    ...node,
-    path,
-    uuid: node.type + (key != undefined ? `-${key}` : ''),
-    children: node.children?.map((child, idx) =>
-      identifyNodes(
-        child,
-        (path != undefined ? `${path}.` : '') + `children.${idx}`,
-        (key != undefined ? `${key}-` : '') + idx
-      )
-    )
-  }
-}
 
 const reactTree = {
   type: 'App',
@@ -90,7 +71,7 @@ function renderReactTree({
             onActiveComponentChange(node)
           }}
           onMouseEnter={() => {
-            node.blockId && onHoverComponent(node.blockId)
+            node.inspectBlockId && onHoverComponent(node.inspectBlockId)
           }}
           style={{ display: 'flex', gap: 4, padding: 4 }}
         >
@@ -128,25 +109,10 @@ function renderReactTree({
   )
 }
 
-export type Node = {
-  type: string
-  children?: Node[]
-  blockId?: string
-  props?: {
-    [key: string]: any
-  }
-}
-
-export type IdentifiedNode = Omit<Node, 'children'> & {
-  uuid: string
-  path?: string
-  children?: IdentifiedNode[]
-}
-
 type ReactDevToolsProps = {
   activeComponent: IdentifiedNode | null
   onActiveComponentChange: (node: IdentifiedNode | null) => void
-  onHoverComponent: (blockId: string | null) => void
+  onHoverComponent: (inspectBlockId: string | null) => void
   tree: IdentifiedNode
 }
 
@@ -160,7 +126,8 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
     },
     ref
   ) => {
-    const activeCompHasProps = Object.keys(activeComponent?.props || {}).length
+    const activeCompHasProps =
+      Object.keys(activeComponent?.props || {}).length > 0
 
     return (
       <div className={s['react-dev-tools']} ref={ref}>
@@ -184,7 +151,7 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
             })}
           </div>
 
-          {activeCompHasProps > 0 && (
+          {activeCompHasProps && (
             <div
               style={{
                 padding: 10,

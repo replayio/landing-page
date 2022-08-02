@@ -18,6 +18,7 @@ type OverboardStoreProps = {
   overboardColor?: OverboardColors
   onOverboardColorChange?: (color: OverboardColors) => void
   mode: 'just-overboard' | 'color-picker'
+  inspectMode: 'html' | 'react'
 }
 
 const AnimatedGrid = () => {
@@ -45,9 +46,30 @@ const AnimatedGrid = () => {
 export const OverboardStore = forwardRef<
   HoverboardControls,
   OverboardStoreProps
->(({ mode, overboardColor, onOverboardColorChange }, ref) => {
+>(({ mode, overboardColor, onOverboardColorChange, inspectMode }, ref) => {
+  const inspectNames = {
+    html: {
+      main: 'main',
+      app: 'body',
+      hoverboard: 'svg',
+      colors: 'div',
+      color: 'input',
+      'hoverboard-container': 'div',
+      'purchase-form': 'form'
+    },
+    react: {
+      main: '-',
+      app: 'App',
+      hoverboard: 'Hoverboard',
+      colors: 'Colors',
+      color: 'Color',
+      'hoverboard-container': '-',
+      'purchase-form': 'PurchaseForm'
+    }
+  }
+
   return (
-    <InspectBox name="App" boxId="app">
+    <InspectBox name={inspectNames[inspectMode]['app']} boxId="app">
       <div className={clsx(s['overboard-store'], s['mode-' + mode])}>
         <div
           style={{
@@ -61,46 +83,63 @@ export const OverboardStore = forwardRef<
           <AnimatedGrid />
         </div>
 
-        <div className={s['store-inner']}>
-          <InspectBox
-            name="Hoverboard"
-            boxId="hoverboard"
-            className={s['overboard-wrapper']}
-          >
-            <Hoverboard ref={ref} color={overboardColor} />
-          </InspectBox>
-
-          <InspectBox
-            name="PurchaseForm"
-            boxId="purchase-form"
-            className={s['purchase-form']}
-          >
+        <InspectBox
+          name={inspectNames[inspectMode]['main']}
+          boxId="main"
+          // className={}
+        >
+          <div className={s['store-inner']}>
             <InspectBox
-              boxId="colors"
-              name="Colors"
-              className={s['color-picker']}
+              name={inspectNames[inspectMode]['hoverboard-container']}
+              boxId="hoverboard-container"
+              style={{ height: '100%' }}
             >
-              <Colors
-                onColorChange={(color) => {
-                  // TODO: need to fix type in overboard design system
-                  // @ts-ignore
-                  onOverboardColorChange(color)
-                }}
+              <InspectBox
+                name={inspectNames[inspectMode]['hoverboard']}
+                boxId="hoverboard"
+                className={s['overboard-wrapper']}
               >
-                {Object.entries(colorways).map(([name, [start, end]]) => (
-                  <Color
-                    defaultChecked={name === overboardColor}
-                    key={name}
-                    label={name}
-                    value={name.toLowerCase()}
-                    startColor={start}
-                    endColor={end}
-                  />
-                ))}
-              </Colors>
+                <Hoverboard ref={ref} color={overboardColor} />
+              </InspectBox>
             </InspectBox>
-          </InspectBox>
-        </div>
+
+            <InspectBox
+              name={inspectNames[inspectMode]['purchase-form']}
+              boxId="purchase-form"
+              className={s['purchase-form']}
+            >
+              <InspectBox
+                name={inspectNames[inspectMode]['colors']}
+                boxId="colors"
+                className={s['color-picker']}
+              >
+                <Colors
+                  onColorChange={(color) => {
+                    // TODO: need to fix type in overboard design system
+                    // @ts-ignore
+                    onOverboardColorChange(color)
+                  }}
+                >
+                  {Object.entries(colorways).map(([name, [start, end]]) => (
+                    <InspectBox
+                      name={inspectNames[inspectMode]['color']}
+                      boxId={`color-${name}`}
+                      key={name}
+                    >
+                      <Color
+                        checked={overboardColor === name}
+                        label={name}
+                        value={name.toLowerCase()}
+                        startColor={start}
+                        endColor={end}
+                      />
+                    </InspectBox>
+                  ))}
+                </Colors>
+              </InspectBox>
+            </InspectBox>
+          </div>
+        </InspectBox>
       </div>
     </InspectBox>
   )

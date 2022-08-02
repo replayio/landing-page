@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 
 import { Console } from './console'
+import { Elements } from './elements'
 import { ReactDevTools } from './react'
 
 function ElementSelectorIcon() {
@@ -27,7 +28,7 @@ function ElementSelectorIcon() {
 
 const tabs = {
   console: Console,
-  elements: () => null,
+  elements: Elements,
   network: () => null,
   react: ReactDevTools
 } as const

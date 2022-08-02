@@ -57,7 +57,30 @@
   display: grid;
   grid-template-rows: auto 1fr;
   background: var(--color-white);
+}
 
+.elements-panel {
+  background: var(--color-white);
+
+  .tabs {
+    border-bottom: 1px solid var(--color-gray-light);
+    font-family: var(--font-body);
+    font-size: 12px;
+    display: flex;
+
+    & > * {
+      color: #c0c0c0;
+      padding: 8px 13px;
+
+      &:nth-child(1) {
+        color: inherit;
+      }
+    }
+  }
+}
+
+.react-dev-tools,
+.elements-panel {
   .node-line {
     cursor: pointer;
     border-radius: 4px;

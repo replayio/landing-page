@@ -15,9 +15,11 @@ import { rangeMap } from '~/lib/utils'
 
 import { Code, DevTools, NewOverboardStore } from '../overboard-story'
 import {
+  HTMLNode,
   IdentifiedNode,
-  identifyNodes
-} from '../overboard-story/devtools/react'
+  identifyNodes,
+  ReactNode
+} from '../overboard-story/devtools/common'
 import { OverboardColors } from '../overboard-story/overboard-store'
 
 export const Scene1 = () => {
@@ -291,7 +293,11 @@ export const Scene2 = () => {
         panelProps={{ currentHit, onCurrentHitChange: setCurrentHit, logs }}
       />
 
-      <NewOverboardStore mode="just-overboard" ref={hoverboardRef} />
+      <NewOverboardStore
+        inspectMode="html"
+        mode="just-overboard"
+        ref={hoverboardRef}
+      />
     </>
   )
 }
@@ -303,21 +309,21 @@ export const Scene3 = () => {
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
   const [activeComponent, setActiveComponent] =
-    useState<IdentifiedNode | null>()
+    useState<IdentifiedNode<ReactNode> | null>()
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
   >(null)
   const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
   const [rotation, setRotation] = useState(0)
 
-  const tree = useMemo<IdentifiedNode>(() => {
+  const tree = useMemo<IdentifiedNode<ReactNode>>(() => {
     const tree = {
       type: 'App',
-      blockId: 'app',
+      inspectBlockId: 'app',
       children: [
         {
           type: 'Hoverboard',
-          blockId: 'hoverboard',
+          inspectBlockId: 'hoverboard',
           props: {
             rotation: rotation,
             isAnimated: true,
@@ -327,32 +333,32 @@ export const Scene3 = () => {
         },
         {
           type: 'PurchaseForm',
-          blockId: 'purchase-form',
+          inspectBlockId: 'purchase-form',
           children: [
             {
               type: 'Colors',
-              blockId: 'colors',
+              inspectBlockId: 'colors',
               props: {
                 colors: ['red', 'green', 'blue']
               },
               children: [
                 {
                   type: 'Color',
-                  blockId: 'color-red',
+                  inspectBlockId: 'color-red',
                   props: {
                     key: 'red'
                   }
                 },
                 {
                   type: 'Color',
-                  blockId: 'color-green',
+                  inspectBlockId: 'color-green',
                   props: {
                     key: 'green'
                   }
                 },
                 {
                   type: 'Color',
-                  blockId: 'color-blue',
+                  inspectBlockId: 'color-blue',
                   props: {
                     key: 'blue'
                   }
@@ -433,6 +439,7 @@ export const Scene3 = () => {
 
       <div ref={storeRef}>
         <NewOverboardStore
+          inspectMode="react"
           overboardColor={overboardColor}
           onOverboardColorChange={setOverboardColor}
           mode="color-picker"
@@ -444,5 +451,129 @@ export const Scene3 = () => {
 }
 
 export const Scene4 = () => {
-  return <></>
+  const devToolsRef = useRef(null)
+  const storeRef = useRef(null)
+  const overboardRef = useRef<HoverboardControls>(null)
+  const [activeElement, setActiveElement] =
+    useState<IdentifiedNode<HTMLNode> | null>()
+  const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
+  const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
+    string | null
+  >(null)
+
+  const tree = useMemo<IdentifiedNode<HTMLNode>>(() => {
+    const tree: HTMLNode = {
+      type: 'body',
+      inspectBlockId: 'app',
+      overrideStyles: {
+        width: '100vw',
+        height: '100vh'
+      },
+      children: [
+        {
+          type: 'main',
+          inspectBlockId: 'main',
+
+          children: [
+            {
+              type: 'div',
+              inspectBlockId: 'hoverboard-container',
+              overrideStyles: {
+                width: '100%',
+                height: '100%'
+              },
+              attributes: {
+                class: 'hoverboard-container'
+              },
+              children: [
+                {
+                  type: 'svg',
+                  inspectBlockId: 'hoverboard',
+                  overrideStyles: {
+                    '--elevation': 0,
+                    width: '100%',
+                    height: '100%'
+                  },
+                  attributes: {
+                    class: 'hoverboard'
+                  }
+                }
+              ]
+            },
+            {
+              type: 'form',
+              inspectBlockId: 'purchase-form',
+              inspectInnerTarget: ':scope > div',
+              stylesWhitelist: ['position'],
+              attributes: {
+                class: 'purchase-form'
+              },
+              children: ['red', 'green', 'blue'].map((name) => ({
+                type: 'input',
+                inspectBlockId: `color-${name}`,
+                inspectInnerTarget: 'input',
+                stylesWhitelist: ['--stop-1', '--stop-2', 'background-image'],
+                attributes: {
+                  type: 'radio'
+                }
+              }))
+            }
+          ]
+        }
+      ]
+    }
+
+    const identifiedTree = identifyNodes(tree)
+
+    setActiveElement((prev) =>
+      prev?.path ? get(identifiedTree, prev?.path) : prev
+    )
+
+    return identifiedTree
+  }, [])
+
+  useEffect(() => {
+    if (!storeRef.current) return
+
+    const storeSelector = gsap.utils.selector(storeRef.current)
+
+    const targetInspect = storeSelector(
+      `*[data-box-id='${hoveredComponentBlockId}']`
+    )
+
+    gsap.set(targetInspect, {
+      '--inspect': 1
+    })
+
+    return () => {
+      gsap.set(targetInspect, {
+        '--inspect': 0
+      })
+    }
+  }, [hoveredComponentBlockId])
+
+  return (
+    <>
+      <DevTools
+        panel="elements"
+        panelProps={{
+          tree,
+          activeElement,
+          onHoverElement: setHoveredComponentBlockId,
+          onActiveElementChange: setActiveElement,
+          ref: devToolsRef
+        }}
+      />
+
+      <div ref={storeRef}>
+        <NewOverboardStore
+          inspectMode="html"
+          overboardColor={overboardColor}
+          onOverboardColorChange={setOverboardColor}
+          mode="color-picker"
+          ref={overboardRef}
+        />
+      </div>
+    </>
+  )
 }
