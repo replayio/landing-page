@@ -77,13 +77,13 @@ export function TabNav({
   )
 }
 
-export function DevTools({
+export const DevTools = ({
   panelProps,
   panel
 }: {
   panelProps?: any
   panel: keyof typeof tabs
-}) {
+}) => {
   const [activePanel, setActivePanel] = useState<keyof typeof tabs>(
     panel || 'console'
   )
@@ -108,11 +108,9 @@ export function DevTools({
     <div
       ref={ref}
       style={{
-        // gridRow: 2,
         display: 'grid',
         gridTemplateRows: 'auto 1fr',
         width: '100%',
-        // height: '100%',
         border: '1px solid #DCDCDC',
         borderRadius: 12,
         overflow: 'hidden'

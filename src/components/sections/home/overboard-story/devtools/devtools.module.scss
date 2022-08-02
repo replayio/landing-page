@@ -52,3 +52,19 @@
     }
   }
 }
+
+.react-dev-tools {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--color-white);
+
+  .node-line {
+    cursor: pointer;
+    border-radius: 4px;
+
+    // &:hover,
+    &.active {
+      background: var(--color-gray-lightest);
+    }
+  }
+}

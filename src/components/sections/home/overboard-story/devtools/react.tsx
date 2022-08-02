@@ -1,10 +1,36 @@
-import { SearchBar } from './common'
+import clsx from 'clsx'
+import { forwardRef } from 'react'
+
+import { logContent, SearchBar } from './common'
+import s from './devtools.module.scss'
+
+export const identifyNodes = (
+  node: Node,
+  path?: string,
+  key?: string | number
+): IdentifiedNode => {
+  return {
+    ...node,
+    path,
+    uuid: node.type + (key != undefined ? `-${key}` : ''),
+    children: node.children?.map((child, idx) =>
+      identifyNodes(
+        child,
+        (path != undefined ? `${path}.` : '') + `children.${idx}`,
+        (key != undefined ? `${key}-` : '') + idx
+      )
+    )
+  }
+}
 
 const reactTree = {
   type: 'App',
   children: [
     { type: 'Hero' },
-    { type: 'Hoverboard' },
+    {
+      type: 'Hoverboard',
+      props: { rotation: 0, isAnimated: true, velocity: 23, color: 'pink' }
+    },
     {
       type: 'PurchaseForm',
       children: [
@@ -13,18 +39,21 @@ const reactTree = {
           children: [
             {
               type: 'Color',
-              key: 'red',
-              value: 'red'
+              props: {
+                key: 'red'
+              }
             },
             {
               type: 'Color',
-              key: 'green',
-              value: 'green'
+              props: {
+                key: 'green'
+              }
             },
             {
               type: 'Color',
-              key: 'blue',
-              value: 'blue'
+              props: {
+                key: 'blue'
+              }
             }
           ]
         },
@@ -34,36 +63,49 @@ const reactTree = {
   ]
 }
 
-function renderReactTree(node: { type: string; children?: any[] }, depth = 0) {
+function renderReactTree(
+  node: IdentifiedNode,
+  activeNode: ReactDevToolsProps['activeNode'],
+  setActiveNode: ReactDevToolsProps['setActiveNode']
+) {
   return (
-    <ul
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        paddingLeft: depth > 0 ? 16 : 0
-      }}
-    >
+    <ul className={s['node-tree']}>
       {node.children
         ? node.children.map((node, index) => {
             return (
-              <li key={index} style={{ padding: 4 }}>
+              <li
+                className={clsx(s['node-line'], {
+                  [s['active']]: activeNode?.uuid === node.uuid
+                })}
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveNode(node)
+                }}
+                style={{ padding: 4 }}
+              >
                 <div style={{ display: 'flex', gap: 4 }}>
                   <span
                     style={{
                       display: 'inline-block',
-                      transform: 'rotate(180deg)'
+                      transform: 'rotate(180deg)',
+                      visibility: node.children?.length ? 'visible' : 'hidden'
                     }}
                   >
                     ▴
                   </span>
                   <span style={{ color: '#8434D3' }}>{node.type}</span>
-                  {node.key && (
+                  {node.props?.key && (
                     <span style={{ color: '#FF9640' }}>
-                      key="<span style={{ color: '#3734D3' }}>{node.key}</span>"
+                      key="
+                      <span style={{ color: '#3734D3' }}>
+                        {node.props?.key}
+                      </span>
+                      "
                     </span>
                   )}
                 </div>
-                {renderReactTree(node, depth + 1)}
+                {renderReactTree(node, activeNode, setActiveNode)}
               </li>
             )
           })
@@ -72,43 +114,63 @@ function renderReactTree(node: { type: string; children?: any[] }, depth = 0) {
   )
 }
 
-export function ReactDevTools() {
-  return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateRows: 'auto 1fr',
-        backgroundColor: 'white'
-      }}
-    >
-      <SearchBar>Search for component...</SearchBar>
+export type Node = {
+  type: string
+  children?: Node[]
+  props?: {
+    [key: string]: any
+  }
+}
 
-      <div
-        style={{
-          display: 'flex',
-          fontFamily: 'monospace'
-        }}
-      >
-        <div style={{ padding: 10 }}>{renderReactTree(reactTree)}</div>
+export type IdentifiedNode = Omit<Node, 'children'> & {
+  uuid: string
+  path?: string
+  children?: IdentifiedNode[]
+}
+
+type ReactDevToolsProps = {
+  activeNode: IdentifiedNode | null
+  setActiveNode: (node: IdentifiedNode | null) => void
+  tree: IdentifiedNode
+}
+
+export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
+  ({ activeNode, setActiveNode, tree = identifyNodes(reactTree) }, ref) => {
+    return (
+      <div className={s['react-dev-tools']} ref={ref}>
+        <SearchBar>Search for component...</SearchBar>
 
         <div
           style={{
-            padding: 10,
-            fontVariantNumeric: 'tabular-nums',
-            borderLeft: '1px solid #DCDCDC'
+            display: 'flex',
+            fontFamily: 'monospace'
           }}
         >
-          props:
-          <ul style={{ paddingLeft: 16 }}>
-            <li>
-              rotate:{' '}
-              <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
-                0
-              </span>
-            </li>
-          </ul>
+          <div style={{ padding: 10 }}>
+            {renderReactTree(tree, activeNode, setActiveNode)}
+          </div>
+
+          <div
+            style={{
+              padding: 10,
+              fontVariantNumeric: 'tabular-nums',
+              borderLeft: '1px solid #DCDCDC'
+            }}
+          >
+            props:
+            <ul style={{ paddingLeft: 16 }}>
+              {Object.entries(activeNode?.props || {}).map(([key, value]) => (
+                <li key={key}>
+                  {key}:{' '}
+                  <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
+                    {logContent(value)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
+)

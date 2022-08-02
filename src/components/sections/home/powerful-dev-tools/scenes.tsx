@@ -1,10 +1,24 @@
 import { HoverboardControls } from '@replayio/overboard'
-import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react'
+import clamp from 'lodash/clamp'
+import get from 'lodash/get'
+import {
+  ComponentRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
 import { rangeMap } from '~/lib/utils'
 
 import { Code, DevTools, NewOverboardStore } from '../overboard-story'
+import {
+  IdentifiedNode,
+  identifyNodes
+} from '../overboard-story/devtools/react'
+import { OverboardColors } from '../overboard-story/overboard-store'
 
 export const Scene1 = () => {
   const [markersType, setMarkersType] = useState('transparent')
@@ -404,6 +418,122 @@ export const Scene2 = () => {
       />
 
       <NewOverboardStore mode="just-overboard" ref={hoverboardRef} />
+    </>
+  )
+}
+
+let overboardProgress = 0
+
+export const Scene3 = () => {
+  const devToolsRef = useRef(null)
+  const storeRef = useRef(null)
+  const overboardRef = useRef<HoverboardControls>(null)
+  const [activeNode, setActiveNode] = useState<IdentifiedNode | null>(null)
+  const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
+  const [rotation, setRotation] = useState(0)
+
+  const tree = useMemo<IdentifiedNode>(() => {
+    const tree = {
+      type: 'App',
+      children: [
+        { type: 'Hero' },
+        {
+          type: 'Hoverboard',
+          props: {
+            rotation: rotation,
+            isAnimated: true,
+            velocity: 20,
+            color: overboardColor
+          }
+        },
+        {
+          type: 'PurchaseForm',
+          children: [
+            {
+              type: 'Colors',
+              props: {
+                colors: ['red', 'green', 'blue']
+              },
+              children: [
+                {
+                  type: 'Color',
+                  props: {
+                    key: 'red'
+                  }
+                },
+                {
+                  type: 'Color',
+                  props: {
+                    key: 'green'
+                  }
+                },
+                {
+                  type: 'Color',
+                  props: {
+                    key: 'blue'
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+
+    const identifiedTree = identifyNodes(tree)
+
+    setActiveNode((prev) =>
+      prev?.path ? get(identifiedTree, prev?.path) : prev
+    )
+
+    return identifiedTree
+  }, [overboardColor, rotation])
+
+  const updateOverboard = useCallback(() => {
+    overboardProgress += 1
+    const loopedValue = overboardProgress % 360
+    const a = rangeMap(
+      clamp(loopedValue, START_OF_ROTATION, END_OF_ROTATION),
+      START_OF_ROTATION,
+      END_OF_ROTATION,
+      0,
+      360
+    )
+
+    setRotation(Number(a.toFixed(0)))
+    overboardRef.current?.rotate(loopedValue)
+  }, [])
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      updateOverboard()
+    }, 1)
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [updateOverboard])
+
+  return (
+    <>
+      <DevTools
+        panel="react"
+        panelProps={{
+          tree,
+          activeNode,
+          setActiveNode,
+          ref: devToolsRef
+        }}
+      />
+
+      <div ref={storeRef}>
+        <NewOverboardStore
+          overboardColor={overboardColor}
+          onOverboardColorChange={setOverboardColor}
+          mode="color-picker"
+          ref={overboardRef}
+        />
+      </div>
     </>
   )
 }
