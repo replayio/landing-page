@@ -1,0 +1,39 @@
+.inspect-box {
+  --inspect: 0;
+
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(71 194 255 / 0.5);
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1;
+    opacity: var(--inspect);
+    pointer-events: none;
+  }
+
+  span {
+    display: flex;
+    padding: 4px;
+    opacity: var(--inspect);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    pointer-events: none;
+    background-color: var(--color-gray-darker);
+    z-index: var(--z-index-40);
+  }
+}

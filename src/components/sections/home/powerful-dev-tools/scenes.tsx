@@ -302,17 +302,22 @@ export const Scene3 = () => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
-  const [activeNode, setActiveNode] = useState<IdentifiedNode | null>(null)
+  const [activeComponent, setActiveComponent] =
+    useState<IdentifiedNode | null>()
+  const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
+    string | null
+  >(null)
   const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
   const [rotation, setRotation] = useState(0)
 
   const tree = useMemo<IdentifiedNode>(() => {
     const tree = {
       type: 'App',
+      blockId: 'app',
       children: [
-        { type: 'Hero' },
         {
           type: 'Hoverboard',
+          blockId: 'hoverboard',
           props: {
             rotation: rotation,
             isAnimated: true,
@@ -322,27 +327,32 @@ export const Scene3 = () => {
         },
         {
           type: 'PurchaseForm',
+          blockId: 'purchase-form',
           children: [
             {
               type: 'Colors',
+              blockId: 'colors',
               props: {
                 colors: ['red', 'green', 'blue']
               },
               children: [
                 {
                   type: 'Color',
+                  blockId: 'color-red',
                   props: {
                     key: 'red'
                   }
                 },
                 {
                   type: 'Color',
+                  blockId: 'color-green',
                   props: {
                     key: 'green'
                   }
                 },
                 {
                   type: 'Color',
+                  blockId: 'color-blue',
                   props: {
                     key: 'blue'
                   }
@@ -356,7 +366,7 @@ export const Scene3 = () => {
 
     const identifiedTree = identifyNodes(tree)
 
-    setActiveNode((prev) =>
+    setActiveComponent((prev) =>
       prev?.path ? get(identifiedTree, prev?.path) : prev
     )
 
@@ -388,14 +398,35 @@ export const Scene3 = () => {
     }
   }, [updateOverboard])
 
+  useEffect(() => {
+    if (!storeRef.current) return
+
+    const storeSelector = gsap.utils.selector(storeRef.current)
+
+    const targetInspect = storeSelector(
+      `*[data-box-id='${hoveredComponentBlockId}']`
+    )
+
+    gsap.set(targetInspect, {
+      '--inspect': 1
+    })
+
+    return () => {
+      gsap.set(targetInspect, {
+        '--inspect': 0
+      })
+    }
+  }, [hoveredComponentBlockId])
+
   return (
     <>
       <DevTools
         panel="react"
         panelProps={{
           tree,
-          activeNode,
-          setActiveNode,
+          activeComponent,
+          onHoverComponent: setHoveredComponentBlockId,
+          onActiveComponentChange: setActiveComponent,
           ref: devToolsRef
         }}
       />
