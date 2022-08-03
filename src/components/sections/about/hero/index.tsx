@@ -87,9 +87,9 @@ export const Hero: FC = () => {
           </Heading>
           <p>
             Learn where Replay is right now and where we are going next.
-            <br className={s['hide-mobile']} />
-            Find out about our principles and values. Meet the team and discover
-            opportunities to join us on our journey.
+            <br className={s['hide-mobile']} /> Find out about our principles
+            and values. Meet the team and discover opportunities to join us on
+            our journey.
           </p>
         </div>
         <div className={s['main-features']}>

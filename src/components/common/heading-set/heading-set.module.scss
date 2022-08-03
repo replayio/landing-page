@@ -47,7 +47,7 @@
 
   img {
     border-radius: var(--border-radius-lg);
-    margin-bottom: 64px;
+    margin-bottom: 40px;
     transition: opacity var(--duration-moderate) linear;
   }
 
@@ -64,6 +64,7 @@
     }
 
     img {
+      margin-bottom: 64px;
       border-radius: var(--border-radius-2xl);
     }
   }
