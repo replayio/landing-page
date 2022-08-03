@@ -37,7 +37,6 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
-    "@jsxui/react": "^0.1.7",
     "@next/bundle-analyzer": "^12.1.2",
     "@types/css-font-loading-module": "0.0.7",
     "@types/lodash": "^4.14.182",
