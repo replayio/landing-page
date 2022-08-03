@@ -13,6 +13,7 @@
     .store-inner {
       .button-wrapper {
         opacity: 1;
+        pointer-events: all;
       }
 
       .overboard-wrapper {
@@ -64,6 +65,7 @@
       left: 50%;
       margin: 0 auto;
       transform: translate(-50%, -50%);
+      pointer-events: none;
 
       .purchase {
         display: block;
