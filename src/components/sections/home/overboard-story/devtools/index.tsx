@@ -110,8 +110,6 @@ export const DevTools = ({
     <div
       ref={ref}
       style={{
-        display: 'grid',
-        gridTemplateRows: 'auto 1fr',
         width: '100%',
         border: '1px solid #DCDCDC',
         borderRadius: 12,
