@@ -731,6 +731,93 @@ export const Scene4 = () => {
     }
   }, [hoveredComponentBlockId])
 
+  console.log(tree)
+
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  useEffect(() => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    _timeline.call(() => {
+      setActiveElement(null)
+      setHoveredComponentBlockId('app')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('hoverboard')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveElement(get(tree, 'children.0'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('colors')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveElement(get(tree, 'children.0.children.1'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('color-red')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('color-green')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('color-blue')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveElement(get(tree, 'children.0.children.1.children.2'))
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        _timeline?.restart()
+      },
+      undefined,
+      '+=1.5'
+    )
+  }, [tree])
+
   return (
     <>
       <DevTools
