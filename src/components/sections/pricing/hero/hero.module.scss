@@ -122,6 +122,9 @@
 
 @media (max-width: $screen-sm) {
   .hero {
+    padding-top: unset;
+    margin-top: 32px;
+
     .heading {
       .annual {
         margin-top: 16px;
