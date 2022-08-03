@@ -527,6 +527,91 @@ export const Scene3 = () => {
     }
   }, [hoveredComponentBlockId])
 
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  useEffect(() => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+
+    const nodeLine = toolsSelector('#node-line')
+    // const logLines = consoleSelector('#log-line')
+
+    _timeline.call(() => {
+      nodeLine[3].classList.remove('active')
+      setHoveredComponentBlockId('app')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('hoverboard')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[1].classList.add('active')
+        // setActiveComponent(get(identifiedTree, 'hoverboard'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('colors')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[1].classList.remove('active')
+        nodeLine[3].classList.add('active')
+        // setActiveComponent(get(identifiedTree, 'hoverboard'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('color-red')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('color-green')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        setHoveredComponentBlockId('color-blue')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        _timeline?.restart()
+      },
+      undefined,
+      '+=1.5'
+    )
+  }, [tree])
+
   return (
     <>
       <DevTools
