@@ -17,7 +17,7 @@ export type OverboardColors = 'red' | 'green' | 'blue'
 type OverboardStoreProps = {
   overboardColor?: OverboardColors
   onOverboardColorChange?: (color: OverboardColors) => void
-  mode: 'just-overboard' | 'color-picker'
+  mode: 'just-overboard' | 'color-picker' | 'purchase'
   inspectMode: 'html' | 'react'
 }
 
@@ -69,78 +69,80 @@ export const OverboardStore = forwardRef<
   }
 
   return (
-    <InspectBox name={inspectNames[inspectMode]['app']} boxId="app">
-      <div className={clsx(s['overboard-store'], s['mode-' + mode])}>
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'bottom',
-            zIndex: 0
-          }}
-        >
-          <AnimatedGrid />
-        </div>
-
-        <InspectBox
-          name={inspectNames[inspectMode]['main']}
-          boxId="main"
-          // className={}
-        >
-          <div className={s['store-inner']}>
-            <InspectBox
-              name={inspectNames[inspectMode]['hoverboard-container']}
-              boxId="hoverboard-container"
-              style={{ height: '100%' }}
-            >
-              <InspectBox
-                name={inspectNames[inspectMode]['hoverboard']}
-                boxId="hoverboard"
-                className={s['overboard-wrapper']}
-              >
-                <Hoverboard ref={ref} color={overboardColor} />
-              </InspectBox>
-            </InspectBox>
-
-            <InspectBox
-              name={inspectNames[inspectMode]['purchase-form']}
-              boxId="purchase-form"
-              className={s['purchase-form']}
-            >
-              <InspectBox
-                name={inspectNames[inspectMode]['colors']}
-                boxId="colors"
-                className={s['color-picker']}
-              >
-                <Colors
-                  onColorChange={(color) => {
-                    // TODO: need to fix type in overboard design system
-                    // @ts-ignore
-                    onOverboardColorChange(color)
-                  }}
-                >
-                  {Object.entries(colorways).map(([name, [start, end]]) => (
-                    <InspectBox
-                      name={inspectNames[inspectMode]['color']}
-                      boxId={`color-${name}`}
-                      key={name}
-                    >
-                      <Color
-                        checked={overboardColor === name}
-                        label={name}
-                        value={name.toLowerCase()}
-                        startColor={start}
-                        endColor={end}
-                      />
-                    </InspectBox>
-                  ))}
-                </Colors>
-              </InspectBox>
-            </InspectBox>
+    <>
+      <InspectBox name={inspectNames[inspectMode]['app']} boxId="app">
+        <div className={clsx(s['overboard-store'], s['mode-' + mode])}>
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'bottom',
+              zIndex: 0
+            }}
+          >
+            <AnimatedGrid />
           </div>
-        </InspectBox>
-      </div>
-    </InspectBox>
+
+          <InspectBox name={inspectNames[inspectMode]['main']} boxId="main">
+            <div className={s['store-inner']}>
+              <InspectBox
+                name={inspectNames[inspectMode]['hoverboard-container']}
+                boxId="hoverboard-container"
+                style={{ height: '100%' }}
+              >
+                <InspectBox
+                  name={inspectNames[inspectMode]['hoverboard']}
+                  boxId="hoverboard"
+                  className={s['overboard-wrapper']}
+                >
+                  <Hoverboard ref={ref} color={overboardColor} />
+                </InspectBox>
+              </InspectBox>
+
+              <InspectBox
+                name={inspectNames[inspectMode]['purchase-form']}
+                boxId="purchase-form"
+                className={s['purchase-form']}
+              >
+                <InspectBox
+                  name={inspectNames[inspectMode]['colors']}
+                  boxId="colors"
+                  className={s['color-picker']}
+                >
+                  <Colors
+                    onColorChange={(color) => {
+                      // TODO: need to fix type in overboard design system
+                      // @ts-ignore
+                      onOverboardColorChange(color)
+                    }}
+                  >
+                    {Object.entries(colorways).map(([name, [start, end]]) => (
+                      <InspectBox
+                        name={inspectNames[inspectMode]['color']}
+                        boxId={`color-${name}`}
+                        key={name}
+                      >
+                        <Color
+                          checked={overboardColor === name}
+                          label={name}
+                          value={name.toLowerCase()}
+                          startColor={start}
+                          endColor={end}
+                        />
+                      </InspectBox>
+                    ))}
+                  </Colors>
+                </InspectBox>
+              </InspectBox>
+
+              <div className={s['button-wrapper']}>
+                <button className={s['purchase']}>Purchase</button>
+              </div>
+            </div>
+          </InspectBox>
+        </div>
+      </InspectBox>
+    </>
   )
 })

@@ -20,6 +20,7 @@ import {
   identifyNodes,
   ReactNode
 } from '../overboard-story/devtools/common'
+import { NetworkCall } from '../overboard-story/devtools/network'
 import { OverboardColors } from '../overboard-story/overboard-store'
 
 export const Scene1 = () => {
@@ -571,6 +572,66 @@ export const Scene4 = () => {
           overboardColor={overboardColor}
           onOverboardColorChange={setOverboardColor}
           mode="color-picker"
+          ref={overboardRef}
+        />
+      </div>
+    </>
+  )
+}
+
+export const Scene5 = () => {
+  const devToolsRef = useRef(null)
+  const storeRef = useRef(null)
+  const overboardRef = useRef<HoverboardControls>(null)
+  const [activeReqIdx, setActiveReqIdx] = useState<number>()
+
+  const calls: NetworkCall[] = [
+    {
+      status: 200,
+      caller: 'fetchVariants',
+      method: 'GET',
+      url: 'overboard.replay.io/api/variants',
+      headers: {},
+      request: {},
+      response: {}
+    },
+    {
+      status: 200,
+      caller: 'addToCart',
+      method: 'POST',
+      url: 'overboard.replay.io/api/addToCart',
+      headers: {},
+      request: {},
+      response: {}
+    },
+    {
+      status: 200,
+      caller: 'purchase',
+      method: 'POST',
+      url: 'overboard.replay.io/api/purchase',
+      headers: {},
+      request: {},
+      response: {}
+    }
+  ]
+
+  return (
+    <>
+      <DevTools
+        panel="network"
+        panelProps={{
+          calls,
+          activeReqIdx,
+          onActiveReqChange: setActiveReqIdx,
+          ref: devToolsRef
+        }}
+      />
+
+      <div ref={storeRef}>
+        <NewOverboardStore
+          inspectMode="html"
+          overboardColor="red"
+          mode="purchase"
           ref={overboardRef}
         />
       </div>

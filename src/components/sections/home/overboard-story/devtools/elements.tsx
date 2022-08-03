@@ -157,46 +157,39 @@ export const Elements: FC<ElementProps> = forwardRef<
   return (
     <div className={s['elements-panel']} ref={ref}>
       <div
+        onMouseLeave={() => onHoverElement(null)}
+        style={{ padding: 10, width: '60%' }}
+      >
+        {renderHtmlTree({
+          node: tree,
+          activeElement,
+          onActiveElementChange,
+          onHoverElement
+        })}
+      </div>
+
+      <div
         style={{
-          display: 'flex',
-          fontFamily: 'monospace'
+          fontVariantNumeric: 'tabular-nums',
+          borderLeft: '1px solid #DCDCDC',
+          width: '40%'
         }}
       >
-        <div
-          onMouseLeave={() => onHoverElement(null)}
-          style={{ padding: 10, width: '60%' }}
-        >
-          {renderHtmlTree({
-            node: tree,
-            activeElement,
-            onActiveElementChange,
-            onHoverElement
-          })}
+        <div className={s['tabs']}>
+          <span>Styles</span>
+          <span>Layout</span>
+          <span>Computed</span>
         </div>
-
-        <div
-          style={{
-            fontVariantNumeric: 'tabular-nums',
-            borderLeft: '1px solid #DCDCDC',
-            width: '40%'
-          }}
-        >
-          <div className={s['tabs']}>
-            <span>Styles</span>
-            <span>Layout</span>
-            <span>Computed</span>
-          </div>
-          <ul style={{ padding: 15 }}>
-            {Object.entries(activeStyles || {}).map(([key, value]) => (
-              <li key={key}>
-                {key}:{' '}
-                <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
-                  {logStyleContent(key, value)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul style={{ padding: 15 }}>
+          {Object.entries(activeStyles || {}).map(([key, value]) => (
+            <li key={key}>
+              {key}:{' '}
+              <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
+                {logStyleContent(key, value)}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )

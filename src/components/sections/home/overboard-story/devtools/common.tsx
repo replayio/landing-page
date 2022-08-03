@@ -1,11 +1,22 @@
-export const SearchBar = ({ children }: { children: React.ReactNode }) => (
+import { FC } from 'react'
+
+export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({
+  children,
+  style,
+  ...rest
+}) => (
   <div
     style={{
+      display: 'flex',
+      alignItems: 'center',
       fontSize: 12,
       padding: '6px 10px',
       borderBottom: '1px solid #DCDCDC',
-      color: '#a5a3a3'
+      color: '#a5a3a3',
+      minHeight: 35,
+      ...style
     }}
+    {...rest}
   >
     {children}
   </div>

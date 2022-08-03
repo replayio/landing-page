@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 
 import { Console } from './console'
 import { Elements } from './elements'
+import { Network } from './network'
 import { ReactDevTools } from './react'
 
 function ElementSelectorIcon() {
@@ -29,7 +30,7 @@ function ElementSelectorIcon() {
 const tabs = {
   console: Console,
   elements: Elements,
-  network: () => null,
+  network: Network,
   react: ReactDevTools
 } as const
 

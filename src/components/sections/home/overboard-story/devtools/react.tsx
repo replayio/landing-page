@@ -141,7 +141,11 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
         >
           <div
             onMouseLeave={() => onHoverComponent(null)}
-            style={{ padding: 10, flex: activeCompHasProps ? 0 : 1 }}
+            style={{
+              padding: 10,
+              width: '60%',
+              flex: !activeCompHasProps ? 1 : undefined
+            }}
           >
             {renderReactTree({
               node: tree,
@@ -157,7 +161,7 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
                 padding: 10,
                 fontVariantNumeric: 'tabular-nums',
                 borderLeft: '1px solid #DCDCDC',
-                flex: activeCompHasProps ? 1 : 0
+                width: '40%'
               }}
             >
               props:

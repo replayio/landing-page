@@ -8,7 +8,7 @@ import { Container } from '~/components/layout/container'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 
 import s from './powerful-dev-tools.module.scss'
-import { Scene1, Scene2, Scene3, Scene4 } from './scenes'
+import { Scene1, Scene2, Scene3, Scene4, Scene5 } from './scenes'
 
 type AssetChunkProps = {
   assets: {
@@ -73,7 +73,8 @@ const scenes = [
   <Scene1 key="scene-1" />,
   <Scene2 key="scene-2" />,
   <Scene3 key="scene-3" />,
-  <Scene4 key="scene-4" />
+  <Scene4 key="scene-4" />,
+  <Scene5 key="scene-5" />
 ]
 
 const AssetPlayer = () => {
@@ -115,7 +116,7 @@ const AssetPlayer = () => {
         </Container>
       </div>
       <Container size="md">
-        <div className={s['asset']}>{scenes[3]}</div>
+        <div className={s['asset']}>{scenes[4]}</div>
       </Container>
     </div>
   )
