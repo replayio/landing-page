@@ -12,8 +12,6 @@ import avatarThree from '~/public/images/home/avatar-3.webp'
 import { Code } from './code'
 import { DevTools } from './devtools'
 import { OverboardStore as NewOverboardStore } from './overboard-store'
-import s from './overboard-story.module.scss'
-import { Story } from './story'
 
 function ViewToggle() {
   const ref = useRef<HTMLDivElement>(null)
@@ -187,7 +185,7 @@ export function ReplayApplication() {
         <ViewToggle />
       </div>
 
-      <DevTools panel="react" />
+      {/* <DevTools panel="react" /> */}
     </div>
   )
 }
@@ -294,25 +292,7 @@ export function OverboardStore() {
 }
 
 export function OverboardStory() {
-  const padding = 16
-  const frameCount = 4
-
-  return <Story />
-  // return <ReplayApplication />
-
-  return (
-    <section
-      id="overboard-story"
-      style={{
-        height: `max(calc(${frameCount * 100}vh - ${padding}px), 600px)`,
-        padding: 80
-      }}
-    >
-      <div style={{ position: 'sticky', top: padding }} className={s.grid}>
-        <ReplayApplication />
-      </div>
-    </section>
-  )
+  return <ReplayApplication />
 }
 
 export { Code, DevTools, NewOverboardStore }
