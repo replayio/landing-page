@@ -71,7 +71,7 @@
     cursor: pointer;
     border-radius: 4px;
 
-    &:global(.active) {
+    &.active {
       background: var(--color-gray-lightest);
     }
   }

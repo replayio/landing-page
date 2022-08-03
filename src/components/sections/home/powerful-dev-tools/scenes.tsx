@@ -534,13 +534,7 @@ export const Scene3 = () => {
 
     const _timeline = timeline.current
 
-    const toolsSelector = gsap.utils.selector(devToolsRef.current)
-
-    const nodeLine = toolsSelector('#node-line')
-    // const logLines = consoleSelector('#log-line')
-
     _timeline.call(() => {
-      nodeLine[3].classList.remove('active')
       setHoveredComponentBlockId('app')
     }, undefined)
 
@@ -554,8 +548,7 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
-        nodeLine[1].classList.add('active')
-        // setActiveComponent(get(identifiedTree, 'hoverboard'))
+        setActiveComponent(get(tree, 'children.0'))
       },
       undefined,
       '+=1'
@@ -571,9 +564,7 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
-        nodeLine[1].classList.remove('active')
-        nodeLine[3].classList.add('active')
-        // setActiveComponent(get(identifiedTree, 'hoverboard'))
+        setActiveComponent(get(tree, 'children.1.children.0'))
       },
       undefined,
       '+=1'
