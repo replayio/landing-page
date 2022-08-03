@@ -19,7 +19,7 @@
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-switch": "^0.1.5",
     "@radix-ui/react-tabs": "^1.0.0",
-    "@replayio/overboard": "^0.2.0",
+    "@replayio/overboard": "^0.2.1",
     "clsx": "1.1.1",
     "embla-carousel-react": "^7.0.0-rc03",
     "global": "^4.4.0",
@@ -37,7 +37,6 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
-    "@jsxui/react": "^0.1.7",
     "@next/bundle-analyzer": "^12.1.2",
     "@types/css-font-loading-module": "0.0.7",
     "@types/lodash": "^4.14.182",

@@ -57,13 +57,89 @@
   display: grid;
   grid-template-rows: auto 1fr;
   background: var(--color-white);
+}
 
+.elements-panel {
+  display: flex;
+  font-family: monospace;
+  background: var(--color-white);
+}
+
+.react-dev-tools,
+.elements-panel {
   .node-line {
     cursor: pointer;
     border-radius: 4px;
 
     &.active {
       background: var(--color-gray-lightest);
+    }
+  }
+}
+
+.tabs {
+  border-bottom: 1px solid var(--color-gray-lighter);
+  font-family: var(--font-body);
+  font-size: 12px;
+  display: flex;
+  min-height: 35px;
+
+  & > * {
+    color: #c0c0c0;
+    padding: 8px 13px;
+
+    &:nth-child(1) {
+      color: inherit;
+    }
+  }
+}
+
+.network-panel {
+  display: flex;
+  font-family: monospace;
+  background: var(--color-white);
+  min-height: 240px;
+
+  .calls {
+    .call-line {
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 4px 8px;
+
+      &:hover,
+      &.active {
+        background: var(--color-gray-lightest);
+      }
+
+      @include space-x(8px);
+
+      .method {
+        color: var(--color-white);
+        padding: 2px 4px;
+        background: var(--color-gray-light);
+        border-radius: var(--border-radius-sm);
+        font-size: 9px;
+        text-transform: uppercase;
+        font-weight: 600;
+        min-width: 30px;
+        text-align: center;
+      }
+
+      .caller {
+        color: #8434d3;
+        margin-right: 20px;
+      }
+
+      .url {
+        color: var(--color-gray-light);
+        text-align: right;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: auto;
+        direction: rtl;
+      }
     }
   }
 }

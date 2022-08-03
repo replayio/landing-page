@@ -1,11 +1,22 @@
-export const SearchBar = ({ children }: { children: React.ReactNode }) => (
+import { FC } from 'react'
+
+export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({
+  children,
+  style,
+  ...rest
+}) => (
   <div
     style={{
+      display: 'flex',
+      alignItems: 'center',
       fontSize: 12,
       padding: '6px 10px',
       borderBottom: '1px solid #DCDCDC',
-      color: '#a5a3a3'
+      color: '#a5a3a3',
+      minHeight: 35,
+      ...style
     }}
+    {...rest}
   >
     {children}
   </div>
@@ -31,4 +42,63 @@ export const logContent = (content: any) => {
   }
 
   return content
+}
+
+export type ReactNode = {
+  type: string
+  children?: ReactNode[]
+  inspectBlockId?: string
+  props?: {
+    [key: string]: any
+  }
+}
+
+export type HTMLNode = {
+  type: string
+  children?: HTMLNode[]
+  inspectBlockId?: string
+  inspectInnerTarget?: string
+  attributes?: {
+    [key: string]: any
+  }
+  stylesWhitelist?: string[]
+  overrideStyles?: {
+    [key: string]: any
+  }
+}
+
+export type IdentifiedNode<T = ReactNode> = Omit<T, 'children'> & {
+  uuid: string
+  path?: string
+  children?: IdentifiedNode<T>[]
+}
+
+export const identifyNodes = (
+  node: ReactNode | HTMLNode,
+  path?: string,
+  key?: string | number
+): IdentifiedNode => {
+  return {
+    ...node,
+    path,
+    uuid: node.type + (key != undefined ? `-${key}` : ''),
+    children: node.children?.map((child, idx) =>
+      identifyNodes(
+        child,
+        (path != undefined ? `${path}.` : '') + `children.${idx}`,
+        (key != undefined ? `${key}-` : '') + idx
+      )
+    )
+  }
+}
+
+export const getStyles = function (elm: Element, stylesProps: string[]) {
+  const styles = window.getComputedStyle(elm)
+
+  const stylesObj = stylesProps.reduce((acc, v) => {
+    acc[v] = styles.getPropertyValue(v)
+    return acc
+  }, {} as { [x: string]: string })
+
+  return stylesObj
 }
