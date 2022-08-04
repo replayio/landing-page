@@ -383,7 +383,7 @@ export const Scene2 = () => {
         _timeline?.restart()
       },
       undefined,
-      '+=1.5'
+      '+=3'
     )
   }, [])
 
@@ -532,6 +532,23 @@ export const Scene3 = () => {
 
   const timeline = useRef(gsap.timeline({ delay: 2 }))
 
+  const resetAnimation = () => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
+
+    nodeLine[6].classList.remove('active')
+
+    setActiveComponent(null)
+    setHoveredComponentBlockId(null)
+
+    _timeline.clear()
+    _timeline.kill()
+  }
+
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
 
@@ -541,8 +558,6 @@ export const Scene3 = () => {
     const nodeLine = toolsSelector('#node-line')
 
     _timeline.call(() => {
-      nodeLine[6].classList.remove('hovered')
-      setActiveComponent(null)
       nodeLine[0].classList.add('hovered')
       setHoveredComponentBlockId('app')
     }, undefined)
@@ -624,6 +639,7 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
+        resetAnimation()
         _timeline?.restart()
       },
       undefined,
@@ -761,6 +777,23 @@ export const Scene4 = () => {
 
   const timeline = useRef(gsap.timeline({ delay: 2 }))
 
+  const resetAnimation = () => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
+
+    nodeLine[7].classList.remove('active')
+
+    setHoveredComponentBlockId(null)
+    setActiveElement(null)
+
+    // _timeline.clear()
+    _timeline.kill()
+  }
+
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
 
@@ -769,8 +802,6 @@ export const Scene4 = () => {
     const nodeLine = toolsSelector('#node-line')
 
     _timeline.call(() => {
-      setActiveElement(null)
-
       nodeLine[0].classList.add('hovered')
       setHoveredComponentBlockId('app')
     }, undefined)
@@ -851,6 +882,7 @@ export const Scene4 = () => {
 
     _timeline.call(
       () => {
+        resetAnimation()
         _timeline?.restart()
       },
       undefined,
@@ -961,16 +993,29 @@ export const Scene5 = () => {
 
   const timeline = useRef(gsap.timeline({ delay: 2 }))
 
+  const resetAnimation = () => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const callLine = toolsSelector('#call-line')
+
+    callLine[2].classList.remove('active')
+
+    setStoreState('idle')
+    setCalls(initialCalls)
+
+    _timeline.clear()
+    _timeline.kill()
+  }
+
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
 
     const _timeline = timeline.current
-    // const toolsSelector = gsap.utils.selector(devToolsRef.current)
-    // const callLine = toolsSelector('#call-line')
 
     _timeline.call(() => {
-      setStoreState('idle')
-      setCalls(initialCalls)
       setActiveCallIdx(0)
     }, undefined)
 
@@ -992,6 +1037,7 @@ export const Scene5 = () => {
 
     _timeline.call(
       () => {
+        resetAnimation()
         _timeline?.restart()
       },
       undefined,
