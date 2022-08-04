@@ -572,7 +572,7 @@ export const Scene3 = () => {
         setHoveredComponentBlockId('colors')
       },
       undefined,
-      '+=1'
+      '+=1.5'
     )
 
     _timeline.call(
@@ -615,10 +615,19 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[6].classList.remove('hovered')
+        setActiveComponent(get(tree, 'children.1.children.0.children.2'))
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
         _timeline?.restart()
       },
       undefined,
-      '+=1.5'
+      '+=3'
     )
   }, [tree])
 
@@ -845,7 +854,7 @@ export const Scene4 = () => {
         _timeline?.restart()
       },
       undefined,
-      '+=1.5'
+      '+=3'
     )
   }, [tree])
 
@@ -986,7 +995,7 @@ export const Scene5 = () => {
         _timeline?.restart()
       },
       undefined,
-      '+=2'
+      '+=3'
     )
   })
 
