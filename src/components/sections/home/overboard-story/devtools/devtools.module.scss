@@ -92,16 +92,25 @@
       color: inherit;
     }
   }
+
+  &:not(:first-child) {
+    border-top: 1px solid var(--color-gray-lighter);
+  }
 }
 
 .network-panel {
   display: flex;
   font-family: monospace;
   background: var(--color-white);
-  min-height: 240px;
 
   .calls {
+    width: 100%;
+    min-height: 240px;
+    max-height: 240px;
+    overflow-y: auto;
+
     .call-line {
+      width: 100%;
       max-width: 100%;
       display: flex;
       align-items: center;
@@ -110,6 +119,10 @@
       &:hover,
       &.active {
         background: var(--color-gray-lightest);
+      }
+
+      &.pending {
+        opacity: 0.5;
       }
 
       @include space-x(8px);
@@ -140,6 +153,13 @@
         margin-left: auto;
         direction: rtl;
       }
+    }
+  }
+
+  .call-info {
+    .call-info-section {
+      padding: 10px;
+      @include space-y(2px);
     }
   }
 }

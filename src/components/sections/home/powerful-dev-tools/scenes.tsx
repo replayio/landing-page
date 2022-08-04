@@ -21,7 +21,10 @@ import {
   ReactNode
 } from '../overboard-story/devtools/common'
 import { NetworkCall } from '../overboard-story/devtools/network'
-import { OverboardColors } from '../overboard-story/overboard-store'
+import {
+  OverboardColors,
+  OverboardStoreProps
+} from '../overboard-story/overboard-store'
 
 export const Scene1 = () => {
   const [markersType, setMarkersType] = useState('transparent')
@@ -848,37 +851,73 @@ export const Scene5 = () => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
-  const [activeReqIdx, setActiveReqIdx] = useState<number>()
-
-  const calls: NetworkCall[] = [
+  const [activeCallIdx, setActiveCallIdx] = useState<number>()
+  const [storeState, setStoreState] =
+    useState<OverboardStoreProps['state']>('idle')
+  const [calls, setCalls] = useState<NetworkCall[]>([
     {
+      pending: false,
       status: 200,
       caller: 'fetchVariants',
       method: 'GET',
       url: 'overboard.replay.io/api/variants',
-      headers: {},
-      request: {},
-      response: {}
+      response: {
+        variants: ['red', 'green', 'blue']
+      }
     },
     {
+      pending: false,
       status: 200,
       caller: 'addToCart',
       method: 'POST',
       url: 'overboard.replay.io/api/addToCart',
-      headers: {},
-      request: {},
-      response: {}
-    },
-    {
-      status: 200,
-      caller: 'purchase',
-      method: 'POST',
-      url: 'overboard.replay.io/api/purchase',
-      headers: {},
-      request: {},
-      response: {}
+      request: {
+        variant: 'red',
+        quantity: 1
+      },
+      response: {
+        cartId: 'c9811cbd64b8'
+      }
     }
-  ]
+  ])
+
+  const handlePurchase = useCallback(() => {
+    setStoreState('loading')
+
+    let currCallIdx: number
+
+    setCalls((prev) => {
+      currCallIdx = prev.length
+
+      return [
+        ...prev,
+        {
+          pending: true,
+          status: 500,
+          caller: 'purchase',
+          method: 'POST',
+          url: 'overboard.replay.io/api/purchase',
+          request: {
+            cartId: 'c9811cbd64b8'
+          },
+          response: {
+            message: 'Something went wrong'
+          }
+        }
+      ]
+    })
+
+    gsap.delayedCall(1, () => {
+      setCalls((prev) => {
+        prev[currCallIdx].pending = false
+        return prev
+      })
+
+      setActiveCallIdx(currCallIdx)
+
+      setStoreState('error')
+    })
+  }, [])
 
   return (
     <>
@@ -886,14 +925,16 @@ export const Scene5 = () => {
         panel="network"
         panelProps={{
           calls,
-          activeReqIdx,
-          onActiveReqChange: setActiveReqIdx,
+          activeCallIdx,
+          onActiveCallChange: setActiveCallIdx,
           ref: devToolsRef
         }}
       />
 
       <div ref={storeRef}>
         <NewOverboardStore
+          onPurchase={handlePurchase}
+          state={storeState}
           inspectMode="html"
           overboardColor="red"
           mode="purchase"
