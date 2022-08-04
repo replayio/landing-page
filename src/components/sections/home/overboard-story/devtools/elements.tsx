@@ -35,6 +35,7 @@ function renderHtmlTree({
         className={clsx(s['node-line'], {
           [s['active']]: activeElement?.uuid === node.uuid
         })}
+        id="node-line"
         style={{ marginLeft: isNested ? 8 : 0 }}
       >
         <div

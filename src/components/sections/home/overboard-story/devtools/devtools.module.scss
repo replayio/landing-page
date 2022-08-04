@@ -74,6 +74,10 @@
     &.active {
       background: var(--color-gray-lightest);
     }
+
+    &:global(.hovered) {
+      background: #ecf1ff;
+    }
   }
 }
 

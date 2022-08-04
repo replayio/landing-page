@@ -537,12 +537,20 @@ export const Scene3 = () => {
 
     const _timeline = timeline.current
 
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
+
     _timeline.call(() => {
+      nodeLine[6].classList.remove('hovered')
+      setActiveComponent(null)
+      nodeLine[0].classList.add('hovered')
       setHoveredComponentBlockId('app')
     }, undefined)
 
     _timeline.call(
       () => {
+        nodeLine[0].classList.remove('hovered')
+        nodeLine[1].classList.add('hovered')
         setHoveredComponentBlockId('hoverboard')
       },
       undefined,
@@ -559,6 +567,8 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[1].classList.remove('hovered')
+        nodeLine[3].classList.add('hovered')
         setHoveredComponentBlockId('colors')
       },
       undefined,
@@ -575,6 +585,8 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[3].classList.remove('hovered')
+        nodeLine[4].classList.add('hovered')
         setHoveredComponentBlockId('color-red')
       },
       undefined,
@@ -583,6 +595,8 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[4].classList.remove('hovered')
+        nodeLine[5].classList.add('hovered')
         setHoveredComponentBlockId('color-green')
       },
       undefined,
@@ -591,6 +605,8 @@ export const Scene3 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[5].classList.remove('hovered')
+        nodeLine[6].classList.add('hovered')
         setHoveredComponentBlockId('color-blue')
       },
       undefined,
@@ -734,23 +750,27 @@ export const Scene4 = () => {
     }
   }, [hoveredComponentBlockId])
 
-  console.log(tree)
-
   const timeline = useRef(gsap.timeline({ delay: 2 }))
 
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
 
     const _timeline = timeline.current
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
 
     _timeline.call(() => {
       setActiveElement(null)
+
+      nodeLine[0].classList.add('hovered')
       setHoveredComponentBlockId('app')
     }, undefined)
 
     _timeline.call(
       () => {
-        setHoveredComponentBlockId('hoverboard')
+        nodeLine[0].classList.remove('hovered')
+        nodeLine[2].classList.add('hovered')
+        setHoveredComponentBlockId('hoverboard-container')
       },
       undefined,
       '+=1'
@@ -758,7 +778,7 @@ export const Scene4 = () => {
 
     _timeline.call(
       () => {
-        setActiveElement(get(tree, 'children.0'))
+        setActiveElement(get(tree, 'children.0.children.0'))
       },
       undefined,
       '+=1'
@@ -766,6 +786,8 @@ export const Scene4 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[2].classList.remove('hovered')
+        nodeLine[4].classList.add('hovered')
         setHoveredComponentBlockId('colors')
       },
       undefined,
@@ -782,6 +804,8 @@ export const Scene4 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[4].classList.remove('hovered')
+        nodeLine[5].classList.add('hovered')
         setHoveredComponentBlockId('color-red')
       },
       undefined,
@@ -790,6 +814,8 @@ export const Scene4 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[5].classList.remove('hovered')
+        nodeLine[6].classList.add('hovered')
         setHoveredComponentBlockId('color-green')
       },
       undefined,
@@ -798,6 +824,8 @@ export const Scene4 = () => {
 
     _timeline.call(
       () => {
+        nodeLine[6].classList.remove('hovered')
+        nodeLine[7].classList.add('hovered')
         setHoveredComponentBlockId('color-blue')
       },
       undefined,
@@ -854,7 +882,8 @@ export const Scene5 = () => {
   const [activeCallIdx, setActiveCallIdx] = useState<number>()
   const [storeState, setStoreState] =
     useState<OverboardStoreProps['state']>('idle')
-  const [calls, setCalls] = useState<NetworkCall[]>([
+
+  const initialCalls: NetworkCall[] = [
     {
       pending: false,
       status: 200,
@@ -879,7 +908,9 @@ export const Scene5 = () => {
         cartId: 'c9811cbd64b8'
       }
     }
-  ])
+  ]
+
+  const [calls, setCalls] = useState(initialCalls)
 
   const handlePurchase = useCallback(() => {
     setStoreState('loading')
@@ -918,6 +949,46 @@ export const Scene5 = () => {
       setStoreState('error')
     })
   }, [])
+
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  useEffect(() => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+    // const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    // const callLine = toolsSelector('#call-line')
+
+    _timeline.call(() => {
+      setStoreState('idle')
+      setCalls(initialCalls)
+      setActiveCallIdx(0)
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        setActiveCallIdx(1)
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        handlePurchase()
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        _timeline?.restart()
+      },
+      undefined,
+      '+=2'
+    )
+  })
 
   return (
     <>
