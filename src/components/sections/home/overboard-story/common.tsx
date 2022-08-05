@@ -59,6 +59,7 @@ export type ReactNode = {
 
 export type HTMLNode = {
   type: string
+  uuid?: string
   children?: HTMLNode[]
   inspectBlockId?: string
   inspectInnerTarget?: string
