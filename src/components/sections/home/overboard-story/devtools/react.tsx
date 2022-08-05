@@ -1,7 +1,13 @@
 import clsx from 'clsx'
 import { forwardRef } from 'react'
 
-import { IdentifiedNode, identifyNodes, logContent, SearchBar } from './common'
+import {
+  IdentifiedNode,
+  identifyNodes,
+  logContent,
+  ReactNode,
+  SearchBar
+} from '../common'
 import s from './devtools.module.scss'
 
 const reactTree = {
@@ -51,7 +57,7 @@ function renderReactTree({
   onHoverComponent,
   isNested = false
 }: {
-  node: IdentifiedNode
+  node: IdentifiedNode<ReactNode>
   activeComponent: ReactDevToolsProps['activeComponent']
   onActiveComponentChange: ReactDevToolsProps['onActiveComponentChange']
   onHoverComponent: ReactDevToolsProps['onHoverComponent']
@@ -61,7 +67,7 @@ function renderReactTree({
     <ul className={s['node-tree']}>
       <li
         className={clsx(s['node-line'], {
-          [s['active']]: activeComponent?.uuid === node.uuid
+          [s['active']]: activeComponent?.uuid === node?.uuid
         })}
         style={{ marginLeft: isNested ? 8 : 0 }}
       >
@@ -110,10 +116,10 @@ function renderReactTree({
 }
 
 type ReactDevToolsProps = {
-  activeComponent: IdentifiedNode | null
-  onActiveComponentChange: (node: IdentifiedNode | null) => void
+  activeComponent: IdentifiedNode<ReactNode> | null
+  onActiveComponentChange: (node: IdentifiedNode<ReactNode> | null) => void
   onHoverComponent: (inspectBlockId: string | null) => void
-  tree: IdentifiedNode
+  tree: IdentifiedNode<ReactNode>
 }
 
 export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(

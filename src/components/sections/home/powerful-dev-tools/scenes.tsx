@@ -13,13 +13,15 @@ import {
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
 import { rangeMap } from '~/lib/utils'
 
-import { Code, DevTools, NewOverboardStore } from '../overboard-story'
+import { Code, Debugger, DevTools, NewOverboardStore } from '../overboard-story'
+import { CodeLine } from '../overboard-story/code'
 import {
   HTMLNode,
   IdentifiedNode,
   identifyNodes,
   ReactNode
-} from '../overboard-story/devtools/common'
+} from '../overboard-story/common'
+import { Snapshot } from '../overboard-story/debugger'
 import { NetworkCall } from '../overboard-story/devtools/network'
 import {
   OverboardColors,
@@ -308,6 +310,16 @@ export const Scene2 = () => {
 
 let overboardProgress = 0
 
+export function buildUuids(node: ReactNode, key?: string | number): ReactNode {
+  return {
+    ...node,
+    uuid: node.type + (key != undefined ? `-${key}` : ''),
+    children: node?.children?.map((child, idx) =>
+      buildUuids(child, (key != undefined ? `${key}-` : '') + idx)
+    )
+  }
+}
+
 export const Scene3 = () => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
@@ -374,7 +386,8 @@ export const Scene3 = () => {
       ]
     }
 
-    const identifiedTree = identifyNodes(tree)
+    const uuidsTree = buildUuids(tree)
+    const identifiedTree = identifyNodes(uuidsTree)
 
     setActiveComponent((prev) =>
       prev?.path ? get(identifiedTree, prev?.path) : prev
@@ -382,6 +395,8 @@ export const Scene3 = () => {
 
     return identifiedTree
   }, [overboardColor, rotation])
+
+  console.log(tree)
 
   const updateOverboard = useCallback(() => {
     overboardProgress += 1
@@ -676,6 +691,262 @@ export const Scene5 = () => {
           ref={overboardRef}
         />
       </div>
+    </>
+  )
+}
+
+const buildScope = (
+  snapshot: Snapshot,
+  upperScope?: Snapshot['scope'],
+  fallbackScope?: Snapshot['scope']
+): Snapshot => {
+  const currScope = {
+    name: `${upperScope?.name ? `${upperScope?.name}>` : ''}${
+      snapshot.scope?.name || fallbackScope?.name
+    }`,
+    type: snapshot.scope?.type || fallbackScope?.type
+  }
+
+  return {
+    ...snapshot,
+    scope: currScope,
+    children: snapshot?.children?.map((child) =>
+      buildScope(child, currScope, snapshot?.children?.[0].scope)
+    )
+  }
+}
+
+export const Scene6 = () => {
+  const [activeDebugLine, setActiveDebugLine] = useState()
+  const [activeSnapshotPath, setActiveSnapshotPath] = useState<string>('0')
+
+  const code: CodeLine[] = useMemo(
+    () => [
+      { content: <></> },
+      { content: <></> },
+      {
+        print: 'not-available',
+        content: (
+          <>
+            <span className="reserved">export</span>{' '}
+            <span className="reserved">function</span>{' '}
+            <span className="declaration">calculateBoardAngle</span>(
+            <span className="variable">board</span>) {'{'}
+          </>
+        )
+      },
+      {
+        print: 'available',
+        content: (
+          <>
+            &nbsp;&nbsp;
+            <span className="reserved">const </span>
+            {'{ '}
+            <span className="variable">angle</span>
+            {' } = '}
+            <span className="variable">board</span>;
+          </>
+        )
+      },
+      {
+        print: 'available',
+        content: (
+          <>
+            &nbsp;&nbsp;
+            <span className="reserved">return </span>
+            <span className="string">`${'{'}</span>
+            <span className="variable">angle</span>
+            <span className="string">{'}'}`</span>;
+          </>
+        )
+      },
+      {
+        print: 'not-available',
+        content: <>{'}'}</>
+      },
+      { content: <></> },
+      { content: <></> },
+      {
+        print: 'not-available',
+        content: (
+          <>
+            <span className="reserved">export</span>{' '}
+            <span className="reserved">function</span>{' '}
+            <span className="declaration">Board</span>({'{ '}
+            <span className="variable">board</span>
+            {' }'}) {'{'}
+          </>
+        )
+      },
+      {
+        print: 'available',
+        content: (
+          <>
+            &nbsp;&nbsp;
+            <span className="reserved">const </span>
+            <span className="variable">angle</span>
+            {' = '}
+            <span className="declaration">calculateBoardAngle</span>(
+            <span className="variable">board</span>);
+          </>
+        )
+      },
+      {
+        print: 'available',
+        content: (
+          <>
+            &nbsp;&nbsp;
+            <span className="reserved">return</span>
+            {' <'}
+            <span className="variable">Svg</span>
+            <span className="declaration"> type</span>=
+            <span className="string">"board"</span>
+            <span className="declaration"> angle</span>={'{'}
+            <span className="variable">angle</span>
+            {'} />'}
+          </>
+        )
+      },
+      {
+        print: 'not-available',
+        content: <>{'}'}</>
+      },
+      { content: <></> },
+      { content: <></> }
+    ],
+    []
+  )
+
+  const snapshotTree = useMemo(() => {
+    // ^ means prev most recent value
+    const tree: Snapshot[] = [
+      {
+        line: 10,
+        variables: {
+          angle: '23deg',
+          board: { pos: { left: 12, top: 23 }, angle: 23 }
+        },
+        scope: {
+          name: 'Board',
+          type: 'component'
+        },
+        children: [
+          {
+            line: 4,
+            scope: {
+              name: 'calculateBoardAngle',
+              type: 'function'
+            },
+            variables: {
+              angle: 23,
+              board: '^'
+            }
+          },
+          {
+            line: 5,
+            variables: {
+              angle: '^'
+            }
+          }
+        ]
+      },
+      {
+        line: 11,
+        variables: {
+          angle: '^'
+        }
+      },
+      {
+        line: 10,
+        variables: {
+          angle: '45deg',
+          board: { pos: { left: 15, top: 19 }, angle: 45 }
+        },
+        children: [
+          {
+            line: 4,
+            scope: {
+              name: 'calculateBoardAngle',
+              type: 'function'
+            },
+            variables: {
+              angle: 23,
+              board: '^'
+            }
+          },
+          {
+            line: 5,
+            variables: {
+              angle: '^'
+            }
+          }
+        ]
+      },
+      {
+        line: 11,
+        variables: {
+          angle: '^'
+        }
+      },
+      {
+        line: 10,
+        variables: {
+          angle: '60deg',
+          board: { pos: { left: 20, top: 14 }, angle: 60 }
+        },
+        children: [
+          {
+            line: 4,
+            scope: {
+              name: 'calculateBoardAngle',
+              type: 'function'
+            },
+            variables: {
+              angle: 23,
+              board: '^'
+            }
+          },
+          {
+            line: 5,
+            variables: {
+              angle: '^'
+            }
+          }
+        ]
+      },
+      {
+        line: 11,
+        variables: {
+          angle: '^'
+        }
+      }
+    ]
+
+    const scopedTree = tree.map((snapshot) =>
+      buildScope(snapshot, { name: 'React' }, tree[0].scope)
+    )
+
+    const identifiedTree = scopedTree.map((child, idx) =>
+      identifyNodes(child, idx.toString())
+    )
+
+    return identifiedTree
+  }, [])
+
+  useEffect(() => {
+    const currentSnapshot = get(snapshotTree, activeSnapshotPath)
+
+    setActiveDebugLine(currentSnapshot?.line)
+  }, [activeSnapshotPath, snapshotTree])
+
+  return (
+    <>
+      <Debugger
+        snapshotTree={snapshotTree}
+        currentSnapshotPath={activeSnapshotPath}
+        onCurrentSnapshotPathChange={setActiveSnapshotPath}
+      />
+      <Code debugLine={activeDebugLine} code={code} />
     </>
   )
 }

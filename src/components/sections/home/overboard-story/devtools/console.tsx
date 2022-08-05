@@ -3,7 +3,7 @@ import range from 'lodash/range'
 import { forwardRef } from 'react'
 
 import commonS from '../overboard-story.module.scss'
-import { logContent, SearchBar } from './common'
+import { logContent, SearchBar } from '../common'
 import s from './devtools.module.scss'
 
 const symbols = {
