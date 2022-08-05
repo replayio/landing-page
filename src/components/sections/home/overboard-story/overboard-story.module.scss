@@ -66,3 +66,10 @@
     --color: transparent;
   }
 }
+
+.panel-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-gray-lighter);
+}

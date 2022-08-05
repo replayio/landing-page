@@ -22,6 +22,7 @@ export type UseGsapTimeAPI = {
   resume: () => void
   restart: () => void
   reset: () => void
+  seek: (percentage: number) => void
 }
 
 export const useGsapTime = ({
@@ -61,7 +62,7 @@ export const useGsapTime = ({
       }
     }
 
-    const api = {
+    const api: UseGsapTimeAPI = {
       start: () => {
         startTime.current = new Date().getTime()
 
@@ -84,6 +85,18 @@ export const useGsapTime = ({
         api.pause()
         startTime.current = new Date().getTime()
         update()
+      },
+      seek: (percentage) => {
+        if (!startTime.current) return
+
+        const nextDuration = secsToMs((percentage / 100) * duration)
+
+        const currentTime = new Date().getTime()
+        const currentTimeDiff = currentTime - startTime.current
+
+        const nextDiff = nextDuration - currentTimeDiff
+
+        startTime.current = startTime.current - nextDiff
       }
     }
 

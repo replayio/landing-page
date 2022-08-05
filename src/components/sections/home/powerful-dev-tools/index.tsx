@@ -8,7 +8,7 @@ import { Container } from '~/components/layout/container'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 
 import s from './powerful-dev-tools.module.scss'
-import { Scene1, Scene2, Scene3, Scene4, Scene5 } from './scenes'
+import { Scene1, Scene2, Scene3, Scene4, Scene5, Scene6 } from './scenes'
 
 type AssetChunkProps = {
   assets: {
@@ -16,6 +16,7 @@ type AssetChunkProps = {
     title: string
     description: string
     active?: boolean
+    onClick?: () => void
   }[]
 } & JSX.IntrinsicElements['div']
 
@@ -23,14 +24,18 @@ const AssetChunks: FC<AssetChunkProps> = ({ assets }) => {
   return (
     <div className={s['progress-chunks']}>
       {assets.map((asset) => (
-        <div className={clsx(s['asset-chunk'])} key={asset.id}>
+        <button
+          onClick={asset.onClick}
+          className={clsx(s['asset-chunk'])}
+          key={asset.id}
+        >
           <HeadingSet
             disabled={!asset.active}
             overtitle={asset.title}
             centered
           />
           <span id={asset.id} className={s['chunk-marker-anchor']} />
-        </div>
+        </button>
       ))}
     </div>
   )
@@ -74,7 +79,8 @@ const scenes = [
   <Scene2 key="scene-2" />,
   <Scene3 key="scene-3" />,
   <Scene4 key="scene-4" />,
-  <Scene5 key="scene-5" />
+  <Scene5 key="scene-5" />,
+  <Scene6 key="scene-6" />
 ]
 
 const AssetPlayer = () => {
@@ -95,12 +101,18 @@ const AssetPlayer = () => {
       <div className={s['head']}>
         <Container className={s['container']} size="md">
           <AssetChunks
-            assets={assets.map((asset, idx) => ({
-              active: idx <= activeIdx,
-              title: asset.title,
-              id: `asset-chunk-${asset.title}-${idx}`,
-              description: asset.description
-            }))}
+            assets={assets.map((asset, idx) => {
+              const id = `asset-chunk-${asset.title}-${idx}`
+
+              return {
+                id,
+                active: idx <= activeIdx,
+                title: asset.title,
+                description: asset.description,
+                // @ts-ignore
+                onClick: () => timelineRef.current?.seek(id)
+              }
+            })}
           />
 
           <div className={s['progress']}>
@@ -110,13 +122,14 @@ const AssetPlayer = () => {
               markerSize={14}
               duration={60}
               direction="horizontal"
+              debug
               ref={timelineRef}
             />
           </div>
         </Container>
       </div>
       <Container size="md">
-        <div className={s['asset']}>{scenes[4]}</div>
+        <div className={s['asset']}>{scenes[activeIdx]}</div>
       </Container>
     </div>
   )

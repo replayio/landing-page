@@ -4,7 +4,7 @@ import React, { FC, forwardRef, useMemo } from 'react'
 
 import { isClient } from '~/lib/constants'
 
-import { getStyles, HTMLNode, IdentifiedNode } from './common'
+import { getStyles, HTMLNode, IdentifiedNode } from '../common'
 import s from './devtools.module.scss'
 
 type ElementProps = {

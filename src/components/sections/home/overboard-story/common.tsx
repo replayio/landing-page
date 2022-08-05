@@ -1,4 +1,7 @@
-import { FC } from 'react'
+import clsx from 'clsx'
+import { FC, forwardRef } from 'react'
+
+import s from './overboard-story.module.scss'
 
 export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({
   children,
@@ -46,6 +49,7 @@ export const logContent = (content: any) => {
 
 export type ReactNode = {
   type: string
+  uuid?: string
   children?: ReactNode[]
   inspectBlockId?: string
   props?: {
@@ -55,6 +59,7 @@ export type ReactNode = {
 
 export type HTMLNode = {
   type: string
+  uuid?: string
   children?: HTMLNode[]
   inspectBlockId?: string
   inspectInnerTarget?: string
@@ -67,22 +72,21 @@ export type HTMLNode = {
   }
 }
 
-export type IdentifiedNode<T = ReactNode> = Omit<T, 'children'> & {
-  uuid: string
+export type IdentifiedNode<T> = T & {
   path?: string
   children?: IdentifiedNode<T>[]
 }
 
-export const identifyNodes = (
-  node: ReactNode | HTMLNode,
+export function identifyNodes<T>(
+  node: T,
   path?: string,
   key?: string | number
-): IdentifiedNode => {
+): IdentifiedNode<T> {
   return {
     ...node,
     path,
-    uuid: node.type + (key != undefined ? `-${key}` : ''),
-    children: node.children?.map((child, idx) =>
+    // @ts-ignore
+    children: node?.children?.map((child, idx) =>
       identifyNodes(
         child,
         (path != undefined ? `${path}.` : '') + `children.${idx}`,
@@ -102,3 +106,32 @@ export const getStyles = function (elm: Element, stylesProps: string[]) {
 
   return stylesObj
 }
+
+export const Header: FC<JSX.IntrinsicElements['div']> = ({
+  children,
+  style,
+  ...rest
+}) => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      height: 35,
+      background: 'var(--color-gray-lightest)',
+      borderBottom: '1px solid var(--color-gray-lighter)',
+      ...style
+    }}
+    {...rest}
+  >
+    {children}
+  </div>
+)
+
+export const PanelContainer = forwardRef<
+  HTMLDivElement,
+  JSX.IntrinsicElements['div']
+>(({ children, className, ...rest }, ref) => (
+  <div className={clsx(s['panel-container'], className)} {...rest} ref={ref}>
+    {children}
+  </div>
+))

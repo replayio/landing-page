@@ -50,7 +50,10 @@ type ProgressProps = {
   debug?: boolean
 }
 
-export type ProgressAPI = { update: (progress: number) => void }
+export type ProgressAPI = {
+  getPercentageById: (id: string) => number | undefined
+  update: (progress: number) => void
+}
 
 export const ANIMATION_UPDATE_INTERVAL_MS = 1000
 export const ANIMATION_UPDATE_INTERVAL_SEC = msToSecs(
@@ -165,7 +168,30 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
       [direction, onMarkerUpdate, animated, orderedMarkers]
     )
 
-    useImperativeHandle(ref, () => ({ update, elm: barRef.current }), [update])
+    const getPercentageById = useCallback(
+      (id: string) => {
+        if (!barRef.current) return
+
+        const { left, top, height, width } =
+          barRef.current?.getBoundingClientRect()
+
+        const barCoord = direction === 'horizontal' ? left : top
+        const barSize = direction === 'horizontal' ? width : height
+        const markerElmCoord = getElmCoordById(
+          id,
+          direction === 'horizontal' ? 'x' : 'y'
+        )
+
+        return (clamp(markerElmCoord - barCoord, 0, barSize) / barSize) * 100
+      },
+      [direction]
+    )
+
+    useImperativeHandle(
+      ref,
+      () => ({ update, getPercentageById, elm: barRef.current }),
+      [update, getPercentageById]
+    )
 
     useEffect(() => {
       if (!barRef.current) return
@@ -326,7 +352,33 @@ export const Timeline = forwardRef<UseGsapTimeAPI, TimelineProps>(
       loop
     })
 
-    useImperativeHandle(ref, () => time, [time])
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          ...time,
+          seek: (progressOrId: string | number) => {
+            let progress: number
+
+            if (typeof progressOrId === 'string') {
+              if (!progressRef.current) return
+
+              const elmProgress =
+                progressRef.current.getPercentageById(progressOrId)
+
+              if (elmProgress === undefined) return
+
+              progress = elmProgress
+            } else {
+              progress = progressOrId
+            }
+
+            time.seek(progress)
+          }
+        }
+      },
+      [time]
+    )
 
     useEffect(() => {
       if (viewportReactive) {

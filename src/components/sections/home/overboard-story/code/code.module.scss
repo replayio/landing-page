@@ -1,4 +1,9 @@
 .code-panel {
+  height: max-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
   .code {
     color: #727272;
 
@@ -21,6 +26,10 @@
 
       .symbol {
         color: #000;
+      }
+
+      .string {
+        color: #5ca939;
       }
     }
   }
