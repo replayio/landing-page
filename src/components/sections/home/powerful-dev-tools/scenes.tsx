@@ -396,8 +396,6 @@ export const Scene3 = () => {
     return identifiedTree
   }, [overboardColor, rotation])
 
-  console.log(tree)
-
   const updateOverboard = useCallback(() => {
     overboardProgress += 1
     const loopedValue = overboardProgress % 360
@@ -542,7 +540,8 @@ export const Scene4 = () => {
       ]
     }
 
-    const identifiedTree = identifyNodes(tree)
+    const uuidsTree = buildUuids(tree)
+    const identifiedTree = identifyNodes(uuidsTree)
 
     setActiveElement((prev) =>
       prev?.path ? get(identifiedTree, prev?.path) : prev

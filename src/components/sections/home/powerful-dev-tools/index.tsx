@@ -117,7 +117,7 @@ const AssetPlayer = () => {
         </Container>
       </div>
       <Container size="md">
-        <div className={s['asset']}>{scenes[5]}</div>
+        <div className={s['asset']}>{scenes[activeIdx]}</div>
       </Container>
     </div>
   )

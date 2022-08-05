@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC } from 'react'
+import { FC, forwardRef } from 'react'
 
 import s from './overboard-story.module.scss'
 
@@ -126,12 +126,11 @@ export const Header: FC<JSX.IntrinsicElements['div']> = ({
   </div>
 )
 
-export const PanelContainer: FC<JSX.IntrinsicElements['div']> = ({
-  children,
-  className,
-  ...rest
-}) => (
-  <div className={clsx(s['panel-container'], className)} {...rest}>
+export const PanelContainer = forwardRef<
+  HTMLDivElement,
+  JSX.IntrinsicElements['div']
+>(({ children, className, ...rest }, ref) => (
+  <div className={clsx(s['panel-container'], className)} {...rest} ref={ref}>
     {children}
   </div>
-)
+))
