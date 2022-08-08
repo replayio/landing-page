@@ -125,7 +125,9 @@ export const Footer: FC = () => {
                 <span className={s['iso']}>
                   <IsoLogo />
                 </span>
-                <Heading size="lg">Start Replaying now</Heading>
+                <Heading className={s.heading} size="lg">
+                  Start Replaying now
+                </Heading>
               </div>
               <div className={s['cta']}>
                 <Button

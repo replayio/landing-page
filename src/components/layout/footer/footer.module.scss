@@ -42,6 +42,10 @@
       align-items: center;
       justify-content: space-between;
 
+      .heading {
+        color: var(--color-white);
+      }
+
       .logo {
         display: flex;
         align-items: center;

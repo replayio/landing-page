@@ -10,6 +10,7 @@ import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
 
 import { Code } from './code'
+import { Debugger } from './debugger'
 import { DevTools } from './devtools'
 import { OverboardStore as NewOverboardStore } from './overboard-store'
 
@@ -295,4 +296,4 @@ export function OverboardStory() {
   return <ReplayApplication />
 }
 
-export { Code, DevTools, NewOverboardStore }
+export { Code, Debugger, DevTools, NewOverboardStore }

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { FC, forwardRef, useEffect, useRef } from 'react'
 
-import { logContent, SearchBar } from './common'
+import { logContent, SearchBar } from '../common'
 import s from './devtools.module.scss'
 
 export type NetworkCall = {
