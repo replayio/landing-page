@@ -74,18 +74,13 @@ const assets = [
   }
 ]
 
-const scenes = [
-  <Scene1 key="scene-1" />,
-  <Scene2 key="scene-2" />,
-  <Scene3 key="scene-3" />,
-  <Scene4 key="scene-4" />,
-  <Scene5 key="scene-5" />,
-  <Scene6 key="scene-6" />
-]
+const scenes = [Scene1, Scene2, Scene3, Scene4, Scene5, Scene6]
 
 const AssetPlayer = () => {
-  const timelineRef = useRef<UseGsapTimeAPI>(null)
   const [activeIdx, setActiveIdx] = useState(0)
+  const timelineRef = useRef<
+    UseGsapTimeAPI & { seek: (percentage: string | number) => void }
+  >(null)
 
   const markers = useMemo(
     () =>
@@ -95,6 +90,8 @@ const AssetPlayer = () => {
       })),
     []
   )
+
+  const ActiveScene = scenes[5]
 
   return (
     <div className={s['asset-player']}>
@@ -109,7 +106,6 @@ const AssetPlayer = () => {
                 active: idx <= activeIdx,
                 title: asset.title,
                 description: asset.description,
-                // @ts-ignore
                 onClick: () => timelineRef.current?.seek(id)
               }
             })}
@@ -129,7 +125,12 @@ const AssetPlayer = () => {
         </Container>
       </div>
       <Container size="md">
-        <div className={s['asset']}>{scenes[activeIdx]}</div>
+        <div className={s['asset']}>
+          <ActiveScene
+            pauseTimeline={timelineRef.current?.pause}
+            resumeTimeline={timelineRef.current?.resume}
+          />
+        </div>
       </Container>
     </div>
   )

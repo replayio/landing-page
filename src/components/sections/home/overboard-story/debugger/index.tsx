@@ -18,29 +18,50 @@ export type Snapshot = {
 }
 
 type DebuggerProps = {
+  breakpoints: number[]
   snapshotTree: IdentifiedNode<Snapshot>[]
   currentSnapshotPath: string
   onCurrentSnapshotPathChange: (path: string) => void
-}
+} & JSX.IntrinsicElements['div']
 
-const process = (path: string, snapshotTree: IdentifiedNode<Snapshot>[]) => {
+const process = (
+  path: string,
+  snapshotTree: IdentifiedNode<Snapshot>[],
+  breakpoints?: number[]
+) => {
   const parsedPath = path.split('.').map((path) => {
     const maybeNumber = Number(path[path.length - 1])
 
     return isNaN(maybeNumber) ? path : maybeNumber
   })
 
-  const lastIdx = parsedPath[parsedPath.length - 1]
-  let prevPath: string | null = parsedPath
+  const lastIdx = parsedPath[parsedPath.length - 1] as number
+  let prevPath: string | undefined = parsedPath
     .slice(0, parsedPath.length - 2)
     .join('.')
+  const currentScope = prevPath
+    ? (get(snapshotTree, prevPath + '.children') as IdentifiedNode<Snapshot>[])
+    : snapshotTree
 
-  let prev = undefined
+  let prev: IdentifiedNode<Snapshot> | undefined,
+    prevBreakpoint: IdentifiedNode<Snapshot> | undefined,
+    nextBreakpoint: IdentifiedNode<Snapshot> | undefined
 
   if (prevPath.length > 0) {
     prev = get(snapshotTree, prevPath)
   } else {
-    prevPath = null
+    prev = undefined
+    prevPath = undefined
+  }
+
+  if (breakpoints) {
+    prevBreakpoint = currentScope
+      .slice(0, lastIdx)
+      .reverse()
+      .find((e) => breakpoints.includes(e.line))
+    nextBreakpoint = currentScope
+      .slice(lastIdx + 1, currentScope.length)
+      .find((e) => breakpoints.includes(e.line))
   }
 
   return {
@@ -49,6 +70,8 @@ const process = (path: string, snapshotTree: IdentifiedNode<Snapshot>[]) => {
     lastIdx,
     prevPath,
     hasChilds: !!get(snapshotTree, [path, 'children']),
+    prevBreakpoint: prevBreakpoint,
+    nextBreakpoint: nextBreakpoint,
     next:
       get(
         snapshotTree,
@@ -90,45 +113,59 @@ const DebuggerSection: FC<{
 }
 
 export const Debugger: FC<DebuggerProps> = ({
+  breakpoints,
   snapshotTree,
   currentSnapshotPath,
-  onCurrentSnapshotPathChange
+  onCurrentSnapshotPathChange,
+  ...rest
 }) => {
   const pathInfo = useMemo(() => {
-    return process(currentSnapshotPath, snapshotTree)
-  }, [currentSnapshotPath, snapshotTree])
+    return process(currentSnapshotPath, snapshotTree, breakpoints)
+  }, [currentSnapshotPath, snapshotTree, breakpoints])
 
   const functions = useMemo(() => {
     return {
+      prevBreakpoint: () => {
+        if (pathInfo?.prevBreakpoint?.path) {
+          onCurrentSnapshotPathChange(pathInfo?.prevBreakpoint?.path)
+        }
+      },
+      nextBreakpoint: () => {
+        if (pathInfo?.nextBreakpoint?.path) {
+          onCurrentSnapshotPathChange(pathInfo?.nextBreakpoint?.path)
+        }
+      },
       next: () => {
-        if (pathInfo.next?.path) {
+        if (pathInfo?.next?.path) {
           onCurrentSnapshotPathChange(pathInfo.next?.path)
-        } else if (pathInfo.prevPath) {
-          onCurrentSnapshotPathChange(pathInfo.prevPath)
+        } else if (pathInfo?.prevPath) {
+          onCurrentSnapshotPathChange(pathInfo?.prevPath)
         }
       },
       previous: () => {
-        if (pathInfo.prev?.path) {
-          onCurrentSnapshotPathChange(pathInfo.prev?.path)
+        if (pathInfo?.prev?.path) {
+          onCurrentSnapshotPathChange(pathInfo?.prev?.path)
         }
       },
       enter: () => {
-        if (pathInfo.hasChilds) {
-          onCurrentSnapshotPathChange(pathInfo.currentPath + '.children.0')
+        if (pathInfo?.hasChilds) {
+          onCurrentSnapshotPathChange(pathInfo?.currentPath + '.children.0')
         }
       },
       exit: () => {
-        if (pathInfo.prevPath) {
-          const prevPathInfo = process(pathInfo.prevPath, snapshotTree)
+        if (pathInfo?.prevPath) {
+          const prevPathInfo = process(pathInfo?.prevPath, snapshotTree)
 
           const nextIdx =
-            (prevPathInfo.parsedPath[
-              prevPathInfo.parsedPath.length - 1
+            (prevPathInfo?.parsedPath[
+              prevPathInfo?.parsedPath.length - 1
             ] as number) + 1
 
-          const _prevPath: string = prevPathInfo.parsedPath
-            .slice(0, prevPathInfo.parsedPath.length - 2)
+          const _prevPath = prevPathInfo?.parsedPath
+            .slice(0, prevPathInfo?.parsedPath.length - 2)
             .join('.')
+
+          console.log(prevPathInfo)
 
           onCurrentSnapshotPathChange(
             _prevPath ? _prevPath + '.' : '' + nextIdx
@@ -143,7 +180,7 @@ export const Debugger: FC<DebuggerProps> = ({
 
     Object.entries(snapshot.variables).map(([key, value]) => {
       if (value === '^') {
-        snapshot.variables[key] = pathInfo.prev.variables[key]
+        snapshot.variables[key] = pathInfo?.prev.variables[key]
       }
     })
 
@@ -153,13 +190,14 @@ export const Debugger: FC<DebuggerProps> = ({
   const scopeArray = currentSnapshot.scope?.name?.split('>').reverse()
 
   return (
-    <PanelContainer className={s['debugger']}>
+    // @ts-ignore
+    <PanelContainer className={s['debugger']} {...rest}>
       <Header className={s['header']}>
         <div className={s['button-group']}>
           <button
             className={s['button']}
-            onClick={functions['previous']}
-            disabled={pathInfo.prev === undefined}
+            onClick={functions['prevBreakpoint']}
+            disabled={pathInfo?.prevBreakpoint === undefined}
           >
             <svg
               width="13"
@@ -176,8 +214,8 @@ export const Debugger: FC<DebuggerProps> = ({
           </button>
           <button
             className={s['button']}
-            onClick={functions['next']}
-            disabled={pathInfo.next === undefined}
+            onClick={functions['nextBreakpoint']}
+            disabled={pathInfo?.nextBreakpoint === undefined}
           >
             <svg
               width="13"
@@ -194,7 +232,11 @@ export const Debugger: FC<DebuggerProps> = ({
           </button>
         </div>
         <div className={s['button-group']}>
-          <button className={s['button']}>
+          <button
+            className={s['button']}
+            onClick={functions['previous']}
+            disabled={pathInfo?.prev === undefined}
+          >
             <svg
               width="19"
               height="13"
@@ -224,7 +266,11 @@ export const Debugger: FC<DebuggerProps> = ({
               />
             </svg>
           </button>
-          <button className={s['button']}>
+          <button
+            className={s['button']}
+            onClick={functions['next']}
+            disabled={pathInfo?.next === undefined}
+          >
             <svg
               width="19"
               height="13"
@@ -259,7 +305,7 @@ export const Debugger: FC<DebuggerProps> = ({
           <button
             className={s['button']}
             onClick={functions['exit']}
-            disabled={pathInfo.prevPath == null}
+            disabled={pathInfo?.prevPath === undefined}
           >
             <svg
               width="15"

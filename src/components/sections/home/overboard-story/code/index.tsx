@@ -47,23 +47,27 @@ export type CodeLine = {
   content: ReactNode
 }
 
+type CodeProps = {
+  breakpoints?: number[]
+  debugLine?: number
+  currentHit?: number
+  currentMarker?: string
+  onComplete?: () => void
+  onChangeMarker?: (
+    marker: string,
+    paused?: boolean
+  ) => GSAPTimeline | undefined
+  onHit?: (idx: number) => void
+  code?: CodeLine[]
+  debugger?: boolean
+} & JSX.IntrinsicElements['div']
+
 export const Code = forwardRef<
   {
     elm: HTMLDivElement | null
     timeline: UseGsapTimeAPI | null
   },
-  {
-    debugLine?: number
-    currentHit?: number
-    currentMarker?: string
-    onComplete?: () => void
-    onChangeMarker?: (
-      marker: string,
-      paused?: boolean
-    ) => GSAPTimeline | undefined
-    onHit?: (idx: number) => void
-    code?: CodeLine[]
-  }
+  CodeProps
 >(
   (
     {
@@ -73,7 +77,9 @@ export const Code = forwardRef<
       onComplete,
       currentHit,
       currentMarker,
-      code
+      code,
+      breakpoints,
+      ...rest
     },
     ref
   ) => {
@@ -170,6 +176,7 @@ export const Code = forwardRef<
       <PanelContainer
         id="dev-tools-code-panel"
         className={s['code-panel']}
+        {...rest}
         ref={elmRef}
       >
         <Header />
@@ -206,16 +213,18 @@ export const Code = forwardRef<
           {(code || lines).map((line, idx) => {
             const codeLine = idx + 1
             const isTargetLine = codeLine === 5
+            const hasBreakpoint = breakpoints?.includes(codeLine)
 
             return (
               <>
                 <span
                   style={{
                     display: 'inline-block',
-                    color: '#666666',
+                    color: hasBreakpoint ? 'var(--color-white)' : '#666666',
                     textAlign: 'right',
                     paddingRight: '3px',
-                    fontVariantNumeric: 'tabular-nums'
+                    fontVariantNumeric: 'tabular-nums',
+                    background: hasBreakpoint ? '#69A5FF' : undefined
                   }}
                 >
                   {idx + 1}
