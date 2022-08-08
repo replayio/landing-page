@@ -21,6 +21,10 @@ export const PageLayout = ({ children }: Props) => {
 
   useEffect(() => {
     if (!router.pathname) return
+    
+    ScrollTrigger.normalizeScroll(true)
+    ScrollTrigger.sort()
+    ScrollTrigger.refresh()
 
     if (router.pathname === '/404') {
       setIs404(true)
