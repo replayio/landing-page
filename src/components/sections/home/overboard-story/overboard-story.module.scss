@@ -56,9 +56,15 @@
     --color: transparent;
 
     &::after {
-      top: -0.15em;
-      left: 0;
-      content: '🦄';
+      display: block;
+      top: 0.1em;
+      left: 0.5em;
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-image: url('/images/home/unicorn.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
     }
   }
 
