@@ -32,6 +32,7 @@ export const useGsapTime = ({
   loop = false,
   duration
 }: UseGsapTimeArgs): UseGsapTimeAPI => {
+  const currentPauseTime = useRef<number | undefined>()
   const startTime = useRef<number | undefined>()
 
   const api = useMemo(() => {
@@ -62,9 +63,21 @@ export const useGsapTime = ({
       }
     }
 
+    const shiftStartTime = (targetTime: number) => {
+      if (!startTime.current) return
+
+      const currentTime = new Date().getTime()
+      const currentTimeDiff = currentTime - startTime.current
+
+      const nextDiff = targetTime - currentTimeDiff
+
+      startTime.current = startTime.current - nextDiff
+    }
+
     const api: UseGsapTimeAPI = {
       start: () => {
         startTime.current = new Date().getTime()
+        currentPauseTime.current = undefined
 
         onStart?.()
         update()
@@ -72,9 +85,18 @@ export const useGsapTime = ({
         gsap.ticker.add(update)
       },
       pause: () => {
+        if (!currentPauseTime.current) {
+          currentPauseTime.current = new Date().getTime()
+        }
+
         gsap.ticker.remove(update)
       },
       resume: () => {
+        if (currentPauseTime.current && startTime.current) {
+          shiftStartTime(currentPauseTime.current - startTime.current)
+          currentPauseTime.current = undefined
+        }
+
         gsap.ticker.add(update)
       },
       restart: () => {
@@ -83,7 +105,10 @@ export const useGsapTime = ({
       },
       reset: () => {
         api.pause()
+
+        currentPauseTime.current = undefined
         startTime.current = new Date().getTime()
+
         update()
       },
       seek: (percentage) => {
@@ -91,12 +116,8 @@ export const useGsapTime = ({
 
         const nextDuration = secsToMs((percentage / 100) * duration)
 
-        const currentTime = new Date().getTime()
-        const currentTimeDiff = currentTime - startTime.current
-
-        const nextDiff = nextDuration - currentTimeDiff
-
-        startTime.current = startTime.current - nextDiff
+        shiftStartTime(nextDuration)
+        update()
       }
     }
 

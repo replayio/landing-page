@@ -3,6 +3,7 @@ import clamp from 'lodash/clamp'
 import get from 'lodash/get'
 import {
   ComponentRef,
+  FC,
   useCallback,
   useEffect,
   useMemo,
@@ -28,7 +29,12 @@ import {
   OverboardStoreProps
 } from '../overboard-story/overboard-store'
 
-export const Scene1 = () => {
+type SceneProps = {
+  pauseTimeline?: () => void
+  resumeTimeline?: () => void
+}
+
+export const Scene1: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   const [markersType, setMarkersType] = useState('transparent')
   const [showPrints, setShowPrints] = useState(false)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
@@ -232,6 +238,8 @@ export const Scene1 = () => {
   return (
     <>
       <Code
+        onMouseEnter={pauseTimeline}
+        onMouseLeave={resumeTimeline}
         currentHit={currentHit}
         currentMarker={markersType}
         onChangeMarker={updateMarkers}
@@ -260,7 +268,7 @@ const variables = {
   rotate: [0, 45, 90, 120, 160, 360]
 }
 
-export const Scene2 = () => {
+export const Scene2: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   const consoleRef = useRef<any>(null)
   const hoverboardRef = useRef<HoverboardControls>(null)
   const [currentHit, setCurrentHit] = useState(0)
@@ -392,6 +400,8 @@ export const Scene2 = () => {
   return (
     <>
       <DevTools
+        onMouseEnter={pauseTimeline}
+        onMouseLeave={resumeTimeline}
         panel="console"
         panelProps={{
           currentHit,
@@ -422,7 +432,7 @@ export function buildUuids(node: ReactNode, key?: string | number): ReactNode {
   }
 }
 
-export const Scene3 = () => {
+export const Scene3: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
@@ -664,6 +674,8 @@ export const Scene3 = () => {
     <>
       <DevTools
         panel="react"
+        onMouseEnter={pauseTimeline}
+        onMouseLeave={resumeTimeline}
         panelProps={{
           tree,
           activeComponent,
@@ -686,7 +698,7 @@ export const Scene3 = () => {
   )
 }
 
-export const Scene4 = () => {
+export const Scene4: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
@@ -908,6 +920,8 @@ export const Scene4 = () => {
     <>
       <DevTools
         panel="elements"
+        onMouseEnter={pauseTimeline}
+        onMouseLeave={resumeTimeline}
         panelProps={{
           tree,
           activeElement,
@@ -930,7 +944,7 @@ export const Scene4 = () => {
   )
 }
 
-export const Scene5 = () => {
+export const Scene5: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
@@ -1062,6 +1076,8 @@ export const Scene5 = () => {
   return (
     <>
       <DevTools
+        onMouseEnter={pauseTimeline}
+        onMouseLeave={resumeTimeline}
         panel="network"
         panelProps={{
           calls,
@@ -1106,7 +1122,7 @@ const buildScope = (
   }
 }
 
-export const Scene6 = () => {
+export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   const [activeDebugLine, setActiveDebugLine] = useState()
   const [activeSnapshotPath, setActiveSnapshotPath] = useState<string>('0')
 
@@ -1323,6 +1339,8 @@ export const Scene6 = () => {
     return identifiedTree
   }, [])
 
+  const breakpoints = useMemo(() => [10], [])
+
   useEffect(() => {
     const currentSnapshot = get(snapshotTree, activeSnapshotPath)
 
@@ -1332,11 +1350,14 @@ export const Scene6 = () => {
   return (
     <>
       <Debugger
+        onMouseEnter={pauseTimeline}
+        onMouseLeave={resumeTimeline}
+        breakpoints={breakpoints}
         snapshotTree={snapshotTree}
         currentSnapshotPath={activeSnapshotPath}
         onCurrentSnapshotPathChange={setActiveSnapshotPath}
       />
-      <Code debugLine={activeDebugLine} code={code} />
+      <Code debugLine={activeDebugLine} breakpoints={breakpoints} code={code} />
     </>
   )
 }

@@ -81,8 +81,10 @@ export function TabNav({
 
 export const DevTools = ({
   panelProps,
-  panel
-}: {
+  panel,
+  style,
+  ...rest
+}: JSX.IntrinsicElements['div'] & {
   panelProps?: any
   panel: keyof typeof tabs
 }) => {
@@ -92,20 +94,6 @@ export const DevTools = ({
   const ActiveTabPanel = tabs[activePanel]
   const ref = useRef<HTMLDivElement>(null)
 
-  // useIsomorphicLayoutEffect(() => {
-  //   gsap
-  //     .timeline({
-  //       scrollTrigger: {
-  //         trigger: ref.current?.closest('section'),
-  //         start: '+=100vh',
-  //         end: '+=400vh',
-  //         scrub: true
-  //         // markers: true
-  //       }
-  //     })
-  //     .fromTo(ref.current, { opacity: 0 }, { opacity: 1 })
-  // }, [])
-
   return (
     <div
       ref={ref}
@@ -113,8 +101,10 @@ export const DevTools = ({
         width: '100%',
         border: '1px solid #DCDCDC',
         borderRadius: 12,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        ...style
       }}
+      {...rest}
     >
       <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
       <ActiveTabPanel {...panelProps} />
