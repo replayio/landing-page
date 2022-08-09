@@ -129,7 +129,7 @@ export const Header = () => {
     if (isOn) {
       gsap.set('body, html', { overflowY: 'hidden' })
     } else {
-      gsap.set('body, html', { overflowY: 'auto' })
+      gsap.set('body, html', { overflowY: 'unset' })
     }
   }, [isOn])
 
