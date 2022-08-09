@@ -64,7 +64,6 @@ const link = [
 
 export const Header = () => {
   const menuRef = useRef(null)
-  const headerRef = useRef<HTMLDivElement>(null)
   const headerMobileRef = useRef<HTMLDivElement>(null)
   const [hasScrolled, setHasScrolled] = useState(false)
   const { isOn, handleToggle } = useToggleState()
@@ -135,11 +134,7 @@ export const Header = () => {
   }, [isOn])
 
   return (
-    <header
-      ref={headerRef}
-      id="header"
-      className={clsx(s['header'], { [s['has-scrolled']]: hasScrolled })}
-    >
+    <header className={clsx(s['header'], { [s['has-scrolled']]: hasScrolled })}>
       <Container size="md">
         <div className={s['inner-mobile']} ref={headerMobileRef}>
           <div className={s['mobile-wrapper']}>
