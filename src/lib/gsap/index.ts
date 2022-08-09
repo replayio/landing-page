@@ -7,8 +7,6 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { TextPlugin } from 'gsap/dist/TextPlugin'
 import isElement from 'lodash/isElement'
 
-// ScrollTrigger.normalizeScroll(true)
-
 let GSDevTools
 
 if (process.env.NODE_ENV === 'development') {
