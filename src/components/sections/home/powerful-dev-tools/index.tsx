@@ -91,7 +91,7 @@ const AssetPlayer = () => {
     []
   )
 
-  const ActiveScene = scenes[0]
+  const ActiveScene = scenes[activeIdx]
 
   return (
     <div className={s['asset-player']}>

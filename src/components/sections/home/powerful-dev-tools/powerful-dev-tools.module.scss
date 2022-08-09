@@ -26,15 +26,15 @@
     }
 
     .asset {
+      padding: 18px;
       margin-top: 72px;
       overflow: hidden;
       border-radius: var(--border-radius-xl);
       background: var(--color-gray-lightest);
       display: grid;
-      grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
       align-items: center;
       justify-content: center;
-      gap: 48px;
+      gap: 32px;
       min-height: 480px;
     }
   }
@@ -67,6 +67,17 @@
   .section {
     .asset-player {
       margin-top: 80px;
+    }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .section {
+    .asset-player {
+      .asset {
+        grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
+        gap: 48px;
+      }
     }
   }
 }
