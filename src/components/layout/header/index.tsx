@@ -8,7 +8,6 @@ import Burger from '~/components/icons/burger'
 import { Button, ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { Logo } from '~/components/primitives/logo'
-import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useToggleState } from '~/hooks/use-toggle-state'
 
 import { Container } from '../container'
@@ -122,14 +121,6 @@ export const Header = () => {
         duration,
         '--shadow-opacity': 0
       })
-    }
-  }, [isOn])
-
-  useIsomorphicLayoutEffect(() => {
-    if (isOn) {
-      gsap.set('body, html', { overflowY: 'hidden' })
-    } else {
-      gsap.set('body, html', { overflowY: 'unset' })
     }
   }, [isOn])
 
