@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { FC } from 'react'
 
 import { Console } from './console'
 import { Elements } from './elements'
@@ -39,7 +39,7 @@ export function TabNav({
   setActivePanel
 }: {
   activePanel: keyof typeof tabs
-  setActivePanel: (panel: keyof typeof tabs) => void
+  setActivePanel?: (panel: keyof typeof tabs) => void
 }) {
   return (
     <ul
@@ -61,14 +61,13 @@ export function TabNav({
           <li
             key={index}
             style={{
-              padding: '8px 10px',
               backgroundColor: isActive ? '#DCDCDC' : 'transparent',
               textTransform: 'capitalize'
             }}
           >
             <button
-              style={{ all: 'unset' }}
-              onClick={() => setActivePanel(key as keyof typeof tabs)}
+              style={{ all: 'unset', cursor: 'pointer', padding: '8px 10px' }}
+              onClick={() => setActivePanel?.(key as keyof typeof tabs)}
             >
               {key}
             </button>
@@ -79,24 +78,25 @@ export function TabNav({
   )
 }
 
-export const DevTools = ({
+export type DevToolsProps = {
+  panelProps?: any
+  panel: keyof typeof tabs
+  onPanelTabChange?: (panel: keyof typeof tabs) => void
+  panelWrapperProps?: JSX.IntrinsicElements['div']
+} & JSX.IntrinsicElements['div']
+
+export const DevTools: FC<DevToolsProps> = ({
   panelProps,
   panel,
   style,
+  onPanelTabChange,
+  panelWrapperProps,
   ...rest
-}: JSX.IntrinsicElements['div'] & {
-  panelProps?: any
-  panel: keyof typeof tabs
 }) => {
-  const [activePanel, setActivePanel] = useState<keyof typeof tabs>(
-    panel || 'console'
-  )
-  const ActiveTabPanel = tabs[activePanel]
-  const ref = useRef<HTMLDivElement>(null)
+  const ActiveTabPanel = tabs[panel]
 
   return (
     <div
-      ref={ref}
       style={{
         width: '100%',
         border: '1px solid #DCDCDC',
@@ -106,8 +106,10 @@ export const DevTools = ({
       }}
       {...rest}
     >
-      <TabNav activePanel={activePanel} setActivePanel={setActivePanel} />
-      <ActiveTabPanel {...panelProps} />
+      <TabNav activePanel={panel} setActivePanel={onPanelTabChange} />
+      <div {...panelWrapperProps}>
+        <ActiveTabPanel {...panelProps} />
+      </div>
     </div>
   )
 }

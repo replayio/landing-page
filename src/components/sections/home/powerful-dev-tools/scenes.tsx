@@ -23,6 +23,7 @@ import {
   ReactNode
 } from '../overboard-story/common'
 import { Snapshot } from '../overboard-story/debugger'
+import { DevToolsProps } from '../overboard-story/devtools'
 import { NetworkCall } from '../overboard-story/devtools/network'
 import {
   OverboardColors,
@@ -32,9 +33,14 @@ import {
 type SceneProps = {
   pauseTimeline?: () => void
   resumeTimeline?: () => void
+  devtoolsProps?: Partial<DevToolsProps>
 }
 
-export const Scene1: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+export const Scene1: FC<SceneProps> = ({
+  pauseTimeline,
+  resumeTimeline,
+  devtoolsProps
+}) => {
   const [markersType, setMarkersType] = useState('transparent')
   const [showPrints, setShowPrints] = useState(false)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
@@ -249,6 +255,7 @@ export const Scene1: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
       />
 
       <DevTools
+        {...devtoolsProps}
         panel="console"
         panelProps={{
           disableTravel: true,
@@ -268,7 +275,11 @@ const variables = {
   rotate: [0, 45, 90, 120, 160, 360]
 }
 
-export const Scene2: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+export const Scene2: FC<SceneProps> = ({
+  pauseTimeline,
+  resumeTimeline,
+  devtoolsProps
+}) => {
   const hoverboardRef = useRef<HoverboardControls>(null)
   const [currentHit, setCurrentHit] = useState(0)
   const hoverboardState = useRef({
@@ -303,6 +314,7 @@ export const Scene2: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   return (
     <>
       <DevTools
+        {...devtoolsProps}
         onMouseEnter={pauseTimeline}
         onMouseLeave={resumeTimeline}
         panel="console"
@@ -330,7 +342,7 @@ export function buildUuids(node: ReactNode, key?: string | number): ReactNode {
   }
 }
 
-export const Scene3: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
@@ -454,9 +466,8 @@ export const Scene3: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   return (
     <>
       <DevTools
+        {...devtoolsProps}
         panel="react"
-        onMouseEnter={pauseTimeline}
-        onMouseLeave={resumeTimeline}
         panelProps={{
           tree,
           activeComponent,
@@ -479,7 +490,7 @@ export const Scene3: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   )
 }
 
-export const Scene4: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
@@ -585,9 +596,8 @@ export const Scene4: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   return (
     <>
       <DevTools
+        {...devtoolsProps}
         panel="elements"
-        onMouseEnter={pauseTimeline}
-        onMouseLeave={resumeTimeline}
         panelProps={{
           tree,
           activeElement,
@@ -610,7 +620,7 @@ export const Scene4: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   )
 }
 
-export const Scene5: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
@@ -685,8 +695,7 @@ export const Scene5: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   return (
     <>
       <DevTools
-        onMouseEnter={pauseTimeline}
-        onMouseLeave={resumeTimeline}
+        {...devtoolsProps}
         panel="network"
         panelProps={{
           calls,
