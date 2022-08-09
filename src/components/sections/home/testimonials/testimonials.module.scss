@@ -74,6 +74,11 @@
     position: relative;
     margin-top: 32px;
 
+    ::selection {
+      color: var(--color-pink-crayon);
+      background: var(--color-white);
+    }
+
     .quote {
       font-size: 32px;
       font-family: var(--font-heading);
@@ -109,6 +114,11 @@
     position: relative;
     margin-top: 40px;
     width: 100%;
+
+    ::selection {
+      color: var(--color-pink-crayon);
+      background: var(--color-white);
+    }
 
     .identity {
       width: 100%;
