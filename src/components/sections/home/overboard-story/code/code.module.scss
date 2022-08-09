@@ -100,6 +100,14 @@
           pointer-events: all;
           transform: translateX(0px);
           opacity: 1;
+
+          [data-marker='unicorn'] {
+            &::after {
+              width: 14px;
+              left: 3px;
+              top: 4px;
+            }
+          }
         }
       }
 
