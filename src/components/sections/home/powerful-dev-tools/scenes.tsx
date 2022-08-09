@@ -1365,8 +1365,24 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
 
     _timeline.call(() => {
       nextBPButton[0].classList.add('hovered')
-      setActiveSnapshotPath('2')
     }, undefined)
+
+    _timeline.call(
+      () => {
+        nextBPButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('2')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        nextBPButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.5'
+    )
 
     _timeline.call(
       () => {
@@ -1380,10 +1396,26 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
     _timeline.call(
       () => {
         prevBPButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.3'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.remove('hovered')
         setActiveSnapshotPath('2')
       },
       undefined,
-      '+=0.5'
+      '+=0.3'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.3'
     )
 
     _timeline.call(
@@ -1392,13 +1424,12 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('0')
       },
       undefined,
-      '+=0.5'
+      '+=0.3'
     )
 
     _timeline.call(
       () => {
         nextFuncButton[0].classList.add('hovered')
-        setActiveSnapshotPath('1')
       },
       undefined,
       '+=1'
@@ -1406,6 +1437,24 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
 
     _timeline.call(
       () => {
+        nextFuncButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('1')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.3'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.remove('hovered')
         setActiveSnapshotPath('2')
       },
       undefined,
@@ -1414,11 +1463,10 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
 
     _timeline.call(
       () => {
-        nextFuncButton[0].classList.remove('hovered')
         enterButton[0].classList.add('hovered')
       },
       undefined,
-      '+=0.5'
+      '+=1'
     )
 
     _timeline.call(
@@ -1427,7 +1475,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2.children.0')
       },
       undefined,
-      '+=1'
+      '+=0.5'
     )
 
     _timeline.call(
