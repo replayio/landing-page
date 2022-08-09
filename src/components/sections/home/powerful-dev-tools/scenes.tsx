@@ -1351,6 +1351,16 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
 
   const timeline = useRef(gsap.timeline({ delay: 2 }))
 
+  const resetAnimation = () => {
+    if (!debuggerRef.current) return
+
+    setActiveSnapshotPath('0')
+
+    const _timeline = timeline.current
+
+    _timeline.kill()
+  }
+
   useEffect(() => {
     if (!debuggerRef.current) return
     const _timeline = timeline.current
@@ -1373,7 +1383,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2')
       },
       undefined,
-      '+=0.5'
+      '+=0.4'
     )
 
     _timeline.call(
@@ -1381,7 +1391,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         nextBPButton[0].classList.add('hovered')
       },
       undefined,
-      '+=0.5'
+      '+=0.4'
     )
 
     _timeline.call(
@@ -1390,7 +1400,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('4')
       },
       undefined,
-      '+=0.5'
+      '+=0.4'
     )
 
     _timeline.call(
@@ -1441,7 +1451,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('1')
       },
       undefined,
-      '+=0.5'
+      '+=0.4'
     )
 
     _timeline.call(
@@ -1458,7 +1468,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2')
       },
       undefined,
-      '+=0.5'
+      '+=0.4'
     )
 
     _timeline.call(
@@ -1466,7 +1476,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         enterButton[0].classList.add('hovered')
       },
       undefined,
-      '+=1'
+      '+=0.65'
     )
 
     _timeline.call(
@@ -1475,11 +1485,12 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2.children.0')
       },
       undefined,
-      '+=0.5'
+      '+=0.4'
     )
 
     _timeline.call(
       () => {
+        resetAnimation()
         _timeline?.restart()
       },
       undefined,
