@@ -240,7 +240,7 @@ export const Code = forwardRef<
                       (line.print === 'available' && '#69A5FF') ||
                       undefined,
                     width: 4,
-                    height: 15
+                    height: '100%'
                   }}
                 >
                   <span

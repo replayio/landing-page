@@ -8,12 +8,13 @@
   background-color: #1e076c;
   overflow: hidden;
   -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+  pointer-events: none;
 
   &.mode-purchase {
     .store-inner {
       .button-wrapper {
         opacity: 1;
-        pointer-events: all;
+        // pointer-events: all;
       }
 
       .overboard-wrapper {
@@ -25,7 +26,7 @@
   &.mode-color-picker {
     .store-inner {
       .color-picker {
-        pointer-events: all;
+        // pointer-events: all;
         opacity: 1;
       }
 
@@ -48,7 +49,7 @@
     }
 
     .color-picker {
-      pointer-events: none;
+      // pointer-events: none;
       opacity: 0;
       position: absolute;
       bottom: 0;
@@ -65,7 +66,7 @@
       left: 50%;
       margin: 0 auto;
       transform: translate(-50%, -50%);
-      pointer-events: none;
+      // pointer-events: none;
 
       .purchase {
         --glow: rgb(255 99 228 / 50%);
