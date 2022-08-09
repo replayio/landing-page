@@ -8,6 +8,7 @@ import Burger from '~/components/icons/burger'
 import { Button, ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { Logo } from '~/components/primitives/logo'
+import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useToggleState } from '~/hooks/use-toggle-state'
 
 import { Container } from '../container'
@@ -63,6 +64,7 @@ const link = [
 
 export const Header = () => {
   const menuRef = useRef(null)
+  const headerRef = useRef<HTMLDivElement>(null)
   const headerMobileRef = useRef<HTMLDivElement>(null)
   const [hasScrolled, setHasScrolled] = useState(false)
   const { isOn, handleToggle } = useToggleState()
@@ -124,8 +126,20 @@ export const Header = () => {
     }
   }, [isOn])
 
+  useIsomorphicLayoutEffect(() => {
+    if (isOn) {
+      gsap.set('body', { overflow: 'hidden' })
+    } else {
+      gsap.set('body', { overflow: 'unset' })
+    }
+  }, [isOn])
+
   return (
-    <header className={clsx(s['header'], { [s['has-scrolled']]: hasScrolled })}>
+    <header
+      ref={headerRef}
+      id="header"
+      className={clsx(s['header'], { [s['has-scrolled']]: hasScrolled })}
+    >
       <Container size="md">
         <div className={s['inner-mobile']} ref={headerMobileRef}>
           <div className={s['mobile-wrapper']}>
