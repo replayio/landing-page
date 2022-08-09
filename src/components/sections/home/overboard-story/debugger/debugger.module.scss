@@ -28,6 +28,11 @@
         background-color: var(--color-gray-light);
         color: var(--color-gray-lightest);
       }
+
+      &:global(.hovered) {
+        background-color: var(--color-gray-light);
+        color: var(--color-gray-lightest);
+      }
     }
 
     .button-group {

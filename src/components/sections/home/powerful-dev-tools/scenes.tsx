@@ -1123,6 +1123,8 @@ const buildScope = (
 }
 
 export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+  const debuggerRef = useRef(null)
+
   const [activeDebugLine, setActiveDebugLine] = useState()
   const [activeSnapshotPath, setActiveSnapshotPath] = useState<string>('0')
 
@@ -1347,9 +1349,100 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
     setActiveDebugLine(currentSnapshot?.line)
   }, [activeSnapshotPath, snapshotTree])
 
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  useEffect(() => {
+    if (!debuggerRef.current) return
+    const _timeline = timeline.current
+
+    const debuggerSelector = gsap.utils.selector(debuggerRef.current)
+    const prevBPButton = debuggerSelector('#prev-breakpoint')
+    const nextBPButton = debuggerSelector('#next-breakpoint')
+    // const prevFuncButton = debuggerSelector('#prev-function')
+    const nextFuncButton = debuggerSelector('#next-function')
+    // const exitButton = debuggerSelector('#exit-function')
+    const enterButton = debuggerSelector('#enter-function')
+
+    _timeline.call(() => {
+      nextBPButton[0].classList.add('hovered')
+      setActiveSnapshotPath('2')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        nextBPButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('4')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.add('hovered')
+        setActiveSnapshotPath('2')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('0')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.add('hovered')
+        setActiveSnapshotPath('1')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveSnapshotPath('2')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.remove('hovered')
+        enterButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        enterButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('2.children.0')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        _timeline?.restart()
+      },
+      undefined,
+      '+=3'
+    )
+  }, [])
+
   return (
     <>
       <Debugger
+        ref={debuggerRef}
         onMouseEnter={pauseTimeline}
         onMouseLeave={resumeTimeline}
         breakpoints={breakpoints}
