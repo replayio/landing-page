@@ -48,10 +48,6 @@ gsap.defaults({
   duration: DURATION
 })
 
-ScrollTrigger.config({
-  ignoreMobileResize: true
-})
-
 gsap.registerEffect({
   name: 'fadeIn',
   extendTimeline: true,
