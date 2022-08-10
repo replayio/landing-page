@@ -105,6 +105,11 @@
       background: var(--gradient-primary);
     }
   }
+
+  &:focus {
+    outline: 1px solid var(--color-pink-crayon);
+    outline-offset: 4px;
+  }
 }
 
 @media (min-width: $screen-md) {
