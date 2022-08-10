@@ -6,21 +6,6 @@ import { logContent, SearchBar } from '../common'
 import commonS from '../overboard-story.module.scss'
 import s from './devtools.module.scss'
 
-const symbols = {
-  unicorn: () => '🦄',
-  yellow: () => (
-    <span
-      style={{
-        display: 'inline-block',
-        borderRadius: '50%',
-        width: 5,
-        height: 5,
-        background: '#FF9640'
-      }}
-    />
-  )
-}
-
 const rewind = (
   <svg viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect
@@ -55,17 +40,25 @@ const forward = (
   </svg>
 )
 
+export type Marker =
+  | 'yellow'
+  | 'purple'
+  | 'green'
+  | 'red'
+  | 'unicorn'
+  | 'transparent'
+
 export type ConsoleProps = {
-  disableTravel: boolean
+  disableTravel?: boolean
   currentHit: number
   onCurrentHitChange: (hit: number) => void
   logs: {
     hide?: boolean
-    marker: keyof typeof symbols
+    marker: Marker
     prepend: string
     content: any[]
     hits: number
-    line: number
+    line?: number
   }[]
 }
 
@@ -139,12 +132,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                 <span
                   data-marker={log.marker}
                   data-line={log.line}
-                  className={clsx(
-                    'marker',
-                    commonS['marker'],
-                    commonS[log.marker],
-                    s['marker']
-                  )}
+                  className={clsx('marker', commonS['marker'], s['marker'])}
                 />
                 <div style={{ color: '#01ACFD' }} key={i}>
                   {log.prepend}, {logContent(log.content)}

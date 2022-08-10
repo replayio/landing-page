@@ -17,7 +17,7 @@ export type NetworkCall = {
 export type NetworkProps = {
   calls: NetworkCall[]
   onActiveCallChange: (idx: number) => void
-  activeCallIdx: number
+  activeCallIdx?: number
 }
 
 const CallInfoSection: FC<{

@@ -24,6 +24,7 @@ import {
 } from '../overboard-story/common'
 import { Snapshot } from '../overboard-story/debugger'
 import { DevToolsProps } from '../overboard-story/devtools'
+import { ConsoleProps, Marker } from '../overboard-story/devtools/console'
 import { NetworkCall } from '../overboard-story/devtools/network'
 import {
   OverboardColors,
@@ -41,14 +42,14 @@ export const Scene1: FC<SceneProps> = ({
   resumeTimeline,
   devtoolsProps
 }) => {
-  const [markersType, setMarkersType] = useState('transparent')
+  const [markersType, setMarkersType] = useState<Marker>('transparent')
   const [showPrints, setShowPrints] = useState(false)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
   const consoleRef = useRef()
   const timeline = useRef(gsap.timeline())
   const [currentHit, setCurrentHit] = useState(0)
 
-  const fullLogs = [
+  const fullLogs: ConsoleProps['logs'] = [
     {
       line: 5,
       hits: 5,
@@ -261,6 +262,7 @@ export const Scene1: FC<SceneProps> = ({
           disableTravel: true,
           currentHit,
           logs: fullLogs,
+          // @ts-ignore
           ref: consoleRef
         }}
       />
@@ -302,7 +304,7 @@ export const Scene2: FC<SceneProps> = ({
     })
   }, [currentHit])
 
-  const logs = [
+  const logs: ConsoleProps['logs'] = [
     {
       hits: variables.rotate.length,
       marker: 'unicorn',
@@ -473,6 +475,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
           activeComponent,
           onHoverComponent: setHoveredComponentBlockId,
           onActiveComponentChange: setActiveComponent,
+          // @ts-ignore
           ref: devToolsRef
         }}
       />
@@ -495,7 +498,7 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
   const storeRef = useRef(null)
   const overboardRef = useRef<HoverboardControls>(null)
   const [activeElement, setActiveElement] =
-    useState<IdentifiedNode<HTMLNode> | null>()
+    useState<IdentifiedNode<HTMLNode> | null>(null)
   const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
@@ -603,6 +606,7 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
           activeElement,
           onHoverElement: setHoveredComponentBlockId,
           onActiveElementChange: setActiveElement,
+          // @ts-ignore
           ref: devToolsRef
         }}
       />
@@ -701,6 +705,7 @@ export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
           calls,
           activeCallIdx,
           onActiveCallChange: setActiveCallIdx,
+          // @ts-ignore
           ref: devToolsRef
         }}
       />
