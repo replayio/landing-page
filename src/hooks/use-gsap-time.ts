@@ -114,6 +114,8 @@ export const useGsapTime = ({
       seek: (percentage) => {
         if (!startTime.current) return
 
+        currentPauseTime.current = undefined
+
         const nextDuration = secsToMs((percentage / 100) * duration)
 
         shiftStartTime(nextDuration)

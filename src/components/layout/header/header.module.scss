@@ -1,6 +1,12 @@
 @import 'css/variables';
 @import 'css/helpers';
 
+:global(.hide-header) {
+  .header {
+    opacity: 0;
+  }
+}
+
 .header {
   /* Temporary position */
   // position: relative;
@@ -12,7 +18,9 @@
   z-index: var(--z-index-50);
   height: var(--header-height);
   border-bottom: 1px solid transparent;
-  transition: border-color var(--duration-moderate) linear;
+  transition-property: border-color, opacity;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: linear;
   top: 0;
 
   &.has-scrolled {

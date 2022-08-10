@@ -79,6 +79,7 @@ export const Code = forwardRef<
       currentMarker,
       code,
       breakpoints,
+      className,
       ...rest
     },
     ref
@@ -175,7 +176,7 @@ export const Code = forwardRef<
     return (
       <PanelContainer
         id="dev-tools-code-panel"
-        className={s['code-panel']}
+        className={clsx(s['code-panel'], className)}
         {...rest}
         ref={elmRef}
       >
@@ -240,7 +241,7 @@ export const Code = forwardRef<
                       (line.print === 'available' && '#69A5FF') ||
                       undefined,
                     width: 4,
-                    height: 15
+                    height: '100%'
                   }}
                 >
                   <span

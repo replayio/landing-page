@@ -114,3 +114,10 @@ body:not(.user-is-tabbing) textarea:focus {
   color: var(--color-white);
   background: var(--color-pink-crayon);
 }
+
+.inverted-selection {
+  ::selection {
+    color: var(--color-pink-crayon);
+    background: var(--color-white);
+  }
+}

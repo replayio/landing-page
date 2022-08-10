@@ -21,7 +21,7 @@ export type OverboardStoreProps = {
   mode: 'just-overboard' | 'color-picker' | 'purchase'
   inspectMode: 'html' | 'react'
   state?: 'idle' | 'loading' | 'error'
-}
+} & JSX.IntrinsicElements['div']
 
 const AnimatedGrid = () => {
   return (
@@ -56,7 +56,9 @@ export const OverboardStore = forwardRef<
       overboardColor,
       onOverboardColorChange,
       inspectMode,
-      onPurchase
+      onPurchase,
+      className,
+      ...rest
     },
     ref
   ) => {
@@ -83,7 +85,12 @@ export const OverboardStore = forwardRef<
 
     return (
       <>
-        <InspectBox name={inspectNames[inspectMode]['app']} boxId="app">
+        <InspectBox
+          name={inspectNames[inspectMode]['app']}
+          boxId="app"
+          className={className}
+          {...rest}
+        >
           <div className={clsx(s['overboard-store'], s['mode-' + mode])}>
             <div
               style={{

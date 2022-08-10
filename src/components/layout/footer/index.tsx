@@ -1,14 +1,16 @@
 import clsx from 'clsx'
+import { ScrollTrigger } from 'lib/gsap'
 import Image from 'next/future/image'
 import { useRouter } from 'next/router'
-import { FC, useLayoutEffect, useState } from 'react'
+import { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { Heading } from '~/components/common/heading'
-import { ProgressBar } from '~/components/common/progress-bar'
+import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Button } from '~/components/primitives/button'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
+import { isDev } from '~/lib/constants'
 import footerBgSvg from '~/public/images/home/footer-bg.svg'
 
 import { Container } from '../container'
@@ -88,6 +90,29 @@ export const Footer: FC = () => {
   const router = useRouter()
   const [overflowed, setOverflowed] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const progressRef = useRef<ProgressAPI>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!sectionRef.current || !progressRef.current) return
+
+    const trigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      markers: isDev,
+      scrub: 1,
+      start: 'top bottom',
+      end: 'bottom bottom',
+      onUpdate: (stState) => {
+        if (progressRef.current) {
+          progressRef.current.update(stState.progress * 70)
+        }
+      }
+    })
+
+    return () => {
+      trigger.kill()
+    }
+  }, [])
 
   useLayoutEffect(() => {
     if (!router) return
@@ -109,7 +134,7 @@ export const Footer: FC = () => {
 
   return (
     <footer
-      className={clsx(s['section'], {
+      className={clsx(s['section'], 'inverted-selection', {
         [s.overflowed]: overflowed,
         [s.hidden]: hidden
       })}
@@ -118,7 +143,7 @@ export const Footer: FC = () => {
         <Image src={footerBgSvg} alt="footer background" />
       </div>
       <Container size="lg">
-        <div className={s['footer']}>
+        <div className={s['footer']} ref={sectionRef}>
           <div className={s['top']}>
             <div className={s['head']}>
               <div className={s['logo']}>
@@ -154,12 +179,13 @@ export const Footer: FC = () => {
             </div>
             <div className={s['timeline']}>
               <ProgressBar
-                markers={[{ position: 50 }]}
+                markers={[{ position: 70 }]}
                 primaryColor="#FFF"
                 secondaryColor="#FFFFFF4D"
-                progress={50}
+                progress={70}
                 direction="horizontal"
                 animated={false}
+                ref={progressRef}
               />
             </div>
           </div>

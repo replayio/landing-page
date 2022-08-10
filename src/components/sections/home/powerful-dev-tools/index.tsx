@@ -48,21 +48,25 @@ const assets = [
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
   },
   {
+    devtoolsTab: 'console',
     title: 'Console',
     description:
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
   },
   {
+    devtoolsTab: 'react',
     title: 'React',
     description:
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
   },
   {
+    devtoolsTab: 'elements',
     title: 'Elements',
     description:
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
   },
   {
+    devtoolsTab: 'network',
     title: 'Network',
     description:
       'Add replays to Bug Reports and Pull Requests and share them in Slack.'
@@ -76,6 +80,9 @@ const assets = [
 
 const scenes = [Scene1, Scene2, Scene3, Scene4, Scene5, Scene6]
 
+const buildAssetId = (asset: typeof assets[number], idx: number) =>
+  `asset-chunk-${asset.title}-${idx}`
+
 const AssetPlayer = () => {
   const [activeIdx, setActiveIdx] = useState(0)
   const timelineRef = useRef<
@@ -85,13 +92,22 @@ const AssetPlayer = () => {
   const markers = useMemo(
     () =>
       assets.map((asset, idx) => ({
-        position: `asset-chunk-${asset.title}-${idx}`,
+        position: buildAssetId(asset, idx),
         onActive: () => setActiveIdx(idx)
       })),
     []
   )
 
-  const ActiveScene = scenes[5]
+  const handleDevtoolsTabChange = (panel: string) => {
+    const foundIdx = assets.findIndex((asset) => asset.devtoolsTab === panel)
+
+    if (foundIdx != -1) {
+      const targetId = buildAssetId(assets[foundIdx], foundIdx)
+      timelineRef.current?.seek(targetId)
+    }
+  }
+
+  const ActiveScene = scenes[activeIdx]
 
   return (
     <div className={s['asset-player']}>
@@ -99,7 +115,7 @@ const AssetPlayer = () => {
         <Container className={s['container']} size="md">
           <AssetChunks
             assets={assets.map((asset, idx) => {
-              const id = `asset-chunk-${asset.title}-${idx}`
+              const id = buildAssetId(asset, idx)
 
               return {
                 id,
@@ -129,6 +145,13 @@ const AssetPlayer = () => {
           <ActiveScene
             pauseTimeline={timelineRef.current?.pause}
             resumeTimeline={timelineRef.current?.resume}
+            devtoolsProps={{
+              onPanelTabChange: handleDevtoolsTabChange,
+              panelWrapperProps: {
+                onMouseEnter: timelineRef.current?.pause,
+                onMouseLeave: timelineRef.current?.resume
+              }
+            }}
           />
         </div>
       </Container>
