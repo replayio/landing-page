@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import React, { FC, forwardRef, useMemo } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 
 import { isClient } from '~/lib/constants'
 
 import { getStyles, HTMLNode, IdentifiedNode } from '../common'
 import s from './devtools.module.scss'
 
-type ElementProps = {
+export type ElementsProps = {
   activeElement: IdentifiedNode<HTMLNode> | null
   onActiveElementChange: (node: IdentifiedNode<HTMLNode> | null) => void
   onHoverElement: (inspectBlockId: string | null) => void
@@ -22,9 +22,9 @@ function renderHtmlTree({
   isNested = false
 }: {
   node: IdentifiedNode<HTMLNode>
-  activeElement: ElementProps['activeElement']
-  onActiveElementChange: ElementProps['onActiveElementChange']
-  onHoverElement: ElementProps['onHoverElement']
+  activeElement: ElementsProps['activeElement']
+  onActiveElementChange: ElementsProps['onActiveElementChange']
+  onHoverElement: ElementsProps['onHoverElement']
   isNested?: boolean
 }) {
   const hasChildren = (node.children || [])?.length > 0
@@ -127,70 +127,69 @@ export const logStyleContent = (_: string, content: any) => {
   return <>{content};</>
 }
 
-export const Elements: FC<ElementProps> = forwardRef<
-  HTMLDivElement,
-  ElementProps
->(({ activeElement, onActiveElementChange, onHoverElement, tree }, ref) => {
-  const activeStyles = useMemo(() => {
-    if (!isClient || !activeElement) return {}
+export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
+  ({ activeElement, onActiveElementChange, onHoverElement, tree }, ref) => {
+    const activeStyles = useMemo(() => {
+      if (!isClient || !activeElement) return {}
 
-    const elm = document.querySelector(
-      `*[data-box-id="${activeElement.inspectBlockId}"]`
-    )
+      const elm = document.querySelector(
+        `*[data-box-id="${activeElement.inspectBlockId}"]`
+      )
 
-    if (!elm) return {}
+      if (!elm) return {}
 
-    const elmSelector = gsap.utils.selector(elm)
+      const elmSelector = gsap.utils.selector(elm)
 
-    let target = elm
+      let target = elm
 
-    if (activeElement.inspectInnerTarget) {
-      target = elmSelector(activeElement.inspectInnerTarget)[0]
-    }
+      if (activeElement.inspectInnerTarget) {
+        target = elmSelector(activeElement.inspectInnerTarget)[0]
+      }
 
-    return {
-      ...getStyles(target, activeElement.stylesWhitelist || []),
-      ...activeElement.overrideStyles
-    }
-  }, [activeElement])
+      return {
+        ...getStyles(target, activeElement.stylesWhitelist || []),
+        ...activeElement.overrideStyles
+      }
+    }, [activeElement])
 
-  return (
-    <div className={s['elements-panel']} ref={ref}>
-      <div
-        onMouseLeave={() => onHoverElement(null)}
-        style={{ padding: 10, width: '60%' }}
-      >
-        {renderHtmlTree({
-          node: tree,
-          activeElement,
-          onActiveElementChange,
-          onHoverElement
-        })}
-      </div>
-
-      <div
-        style={{
-          fontVariantNumeric: 'tabular-nums',
-          borderLeft: '1px solid #DCDCDC',
-          width: '40%'
-        }}
-      >
-        <div className={s['tabs']}>
-          <span>Styles</span>
-          <span>Layout</span>
-          <span>Computed</span>
+    return (
+      <div className={s['elements-panel']} ref={ref}>
+        <div
+          onMouseLeave={() => onHoverElement(null)}
+          style={{ padding: 10, width: '60%' }}
+        >
+          {renderHtmlTree({
+            node: tree,
+            activeElement,
+            onActiveElementChange,
+            onHoverElement
+          })}
         </div>
-        <ul style={{ padding: 15 }}>
-          {Object.entries(activeStyles || {}).map(([key, value]) => (
-            <li key={key}>
-              {key}:{' '}
-              <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
-                {logStyleContent(key, value)}
-              </span>
-            </li>
-          ))}
-        </ul>
+
+        <div
+          style={{
+            fontVariantNumeric: 'tabular-nums',
+            borderLeft: '1px solid #DCDCDC',
+            width: '40%'
+          }}
+        >
+          <div className={s['tabs']}>
+            <span>Styles</span>
+            <span>Layout</span>
+            <span>Computed</span>
+          </div>
+          <ul style={{ padding: 15 }}>
+            {Object.entries(activeStyles || {}).map(([key, value]) => (
+              <li key={key}>
+                {key}:{' '}
+                <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
+                  {logStyleContent(key, value)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-  )
-})
+    )
+  }
+)

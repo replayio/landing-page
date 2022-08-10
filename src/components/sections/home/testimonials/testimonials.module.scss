@@ -182,7 +182,7 @@
   }
 
   .testimonials {
-    padding: 112px 32px;
+    padding: 80px 32px;
 
     .pictures {
       @include space-x(28px);
@@ -194,6 +194,23 @@
         }
       }
     }
+
+    .quotes {
+      .quote {
+        font-size: 42px;
+        line-height: 48px;
+      }
+    }
+
+    .identities {
+      margin-top: 32px;
+    }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .testimonials {
+    padding: 112px 32px;
 
     .quotes {
       .quote {

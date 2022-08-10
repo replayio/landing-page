@@ -14,7 +14,7 @@ export type NetworkCall = {
   response: { [key: string]: any }
 }
 
-type NetworkProps = {
+export type NetworkProps = {
   calls: NetworkCall[]
   onActiveCallChange: (idx: number) => void
   activeCallIdx: number

@@ -67,6 +67,11 @@
   .section {
     .asset-player {
       margin-top: 80px;
+
+      .asset {
+        grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
+        gap: 24px;
+      }
     }
   }
 }

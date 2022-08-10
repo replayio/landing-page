@@ -55,22 +55,21 @@ const forward = (
   </svg>
 )
 
-export const Console = forwardRef<
-  HTMLDivElement,
-  {
-    disableTravel: boolean
-    currentHit: number
-    onCurrentHitChange: (hit: number) => void
-    logs: {
-      hide?: boolean
-      marker: keyof typeof symbols
-      prepend: string
-      content: any[]
-      hits: number
-      line: number
-    }[]
-  }
->(
+export type ConsoleProps = {
+  disableTravel: boolean
+  currentHit: number
+  onCurrentHitChange: (hit: number) => void
+  logs: {
+    hide?: boolean
+    marker: keyof typeof symbols
+    prepend: string
+    content: any[]
+    hits: number
+    line: number
+  }[]
+}
+
+export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
   (
     { currentHit = 0, disableTravel = false, logs, onCurrentHitChange },
     ref
@@ -101,7 +100,7 @@ export const Console = forwardRef<
             position: 'relative',
             fontFamily: 'var(--font-mono)',
             fontSize: '14px',
-            padding: '32px 0px'
+            padding: '12px 0px'
           }}
         >
           {fullLogs.map((log, i) => (

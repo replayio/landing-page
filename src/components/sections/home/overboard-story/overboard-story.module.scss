@@ -1,11 +1,24 @@
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
 @import 'css/helpers';
 
-.grid {
-  display: grid;
+.toolbar {
+  padding: 20px 26px;
 }
 
-.grid > * {
-  grid-area: 1 / 1 / 1 / 1;
+.grid {
+  padding: 42px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 20% 26% 8% 26% 20%;
+  grid-template-rows: 47% 47%;
+  align-content: space-between;
+  grid-template-areas:
+    'code code none store store'
+    'code code none devtools devtools';
+}
+
+.code {
+  height: 100%;
 }
 
 .marker {

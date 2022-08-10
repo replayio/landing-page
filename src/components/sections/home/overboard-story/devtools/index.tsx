@@ -1,9 +1,7 @@
-import { FC } from 'react'
-
-import { Console } from './console'
-import { Elements } from './elements'
-import { Network } from './network'
-import { ReactDevTools } from './react'
+import { Console, ConsoleProps } from './console'
+import { Elements, ElementsProps } from './elements'
+import { Network, NetworkProps } from './network'
+import { ReactDevTools, ReactDevToolsProps } from './react'
 
 function ElementSelectorIcon() {
   return (
@@ -27,7 +25,7 @@ function ElementSelectorIcon() {
   )
 }
 
-const tabs = {
+export const tabs = {
   console: Console,
   elements: Elements,
   network: Network,
@@ -78,21 +76,26 @@ export function TabNav({
   )
 }
 
-export type DevToolsProps = {
-  panelProps?: any
-  panel: keyof typeof tabs
+export type DevToolsProps<T extends keyof typeof tabs> = {
+  panelProps: {
+    console: ConsoleProps
+    elements: ElementsProps
+    network: NetworkProps
+    react: ReactDevToolsProps
+  }[T]
+  panel: T
   onPanelTabChange?: (panel: keyof typeof tabs) => void
   panelWrapperProps?: JSX.IntrinsicElements['div']
 } & JSX.IntrinsicElements['div']
 
-export const DevTools: FC<DevToolsProps> = ({
+export function DevTools<T extends keyof typeof tabs>({
   panelProps,
   panel,
   style,
   onPanelTabChange,
   panelWrapperProps,
   ...rest
-}) => {
+}: DevToolsProps<T>) {
   const ActiveTabPanel = tabs[panel]
 
   return (
@@ -108,6 +111,7 @@ export const DevTools: FC<DevToolsProps> = ({
     >
       <TabNav activePanel={panel} setActivePanel={onPanelTabChange} />
       <div {...panelWrapperProps}>
+        {/* @ts-ignore */}
         <ActiveTabPanel {...panelProps} />
       </div>
     </div>

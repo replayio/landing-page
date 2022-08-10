@@ -74,10 +74,10 @@ function renderReactTree({
         <div
           onClick={(e) => {
             e.stopPropagation()
-            onActiveComponentChange(node)
+            onActiveComponentChange?.(node)
           }}
           onMouseEnter={() => {
-            node.inspectBlockId && onHoverComponent(node.inspectBlockId)
+            node.inspectBlockId && onHoverComponent?.(node.inspectBlockId)
           }}
           style={{ display: 'flex', gap: 4, padding: 4 }}
         >
@@ -115,11 +115,11 @@ function renderReactTree({
   )
 }
 
-type ReactDevToolsProps = {
-  activeComponent: IdentifiedNode<ReactNode> | null
-  onActiveComponentChange: (node: IdentifiedNode<ReactNode> | null) => void
-  onHoverComponent: (inspectBlockId: string | null) => void
-  tree: IdentifiedNode<ReactNode>
+export type ReactDevToolsProps = {
+  activeComponent?: IdentifiedNode<ReactNode> | null
+  onActiveComponentChange?: (node: IdentifiedNode<ReactNode> | null) => void
+  onHoverComponent?: (inspectBlockId: string | null) => void
+  tree?: IdentifiedNode<ReactNode>
 }
 
 export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
@@ -146,7 +146,7 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
           }}
         >
           <div
-            onMouseLeave={() => onHoverComponent(null)}
+            onMouseLeave={() => onHoverComponent?.(null)}
             style={{
               padding: 10,
               width: '60%',

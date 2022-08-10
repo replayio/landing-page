@@ -79,6 +79,7 @@ export const Code = forwardRef<
       currentMarker,
       code,
       breakpoints,
+      className,
       ...rest
     },
     ref
@@ -175,7 +176,7 @@ export const Code = forwardRef<
     return (
       <PanelContainer
         id="dev-tools-code-panel"
-        className={s['code-panel']}
+        className={clsx(s['code-panel'], className)}
         {...rest}
         ref={elmRef}
       >
