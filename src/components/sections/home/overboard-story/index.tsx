@@ -7,6 +7,7 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { IsoLogo } from '~/components/primitives/logo'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
+import { isDev } from '~/lib/constants'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
@@ -137,7 +138,7 @@ export function ReplayApplication() {
       scrollTrigger: {
         trigger: targetStoreRef.current,
         endTrigger: sectionRef.current,
-        markers: true,
+        markers: isDev,
         id: 'overboard-story',
         scrub: true,
         pin: sectionRef.current,
