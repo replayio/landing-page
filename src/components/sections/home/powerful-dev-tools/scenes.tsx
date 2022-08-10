@@ -1398,7 +1398,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2')
       },
       undefined,
-      '+=0.4'
+      '+=0.2'
     )
 
     _timeline.call(
@@ -1406,7 +1406,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         nextBPButton[0].classList.add('hovered')
       },
       undefined,
-      '+=0.4'
+      '+=0.3'
     )
 
     _timeline.call(
@@ -1415,7 +1415,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('4')
       },
       undefined,
-      '+=0.4'
+      '+=0.2'
     )
 
     _timeline.call(
@@ -1432,7 +1432,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2')
       },
       undefined,
-      '+=0.3'
+      '+=0.2'
     )
 
     _timeline.call(
@@ -1449,7 +1449,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('0')
       },
       undefined,
-      '+=0.3'
+      '+=0.2'
     )
 
     _timeline.call(
@@ -1466,7 +1466,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('1')
       },
       undefined,
-      '+=0.4'
+      '+=0.2'
     )
 
     _timeline.call(
@@ -1483,7 +1483,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2')
       },
       undefined,
-      '+=0.4'
+      '+=0.2'
     )
 
     _timeline.call(
@@ -1500,7 +1500,7 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         setActiveSnapshotPath('2.children.0')
       },
       undefined,
-      '+=0.4'
+      '+=0.2'
     )
 
     _timeline.call(
