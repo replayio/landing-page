@@ -76,7 +76,7 @@ export function TabNav({
   )
 }
 
-export type DevToolsProps<T extends keyof typeof tabs> = {
+export type DevToolsProps<T extends keyof typeof tabs = keyof typeof tabs> = {
   panelProps: {
     console: ConsoleProps
     elements: ElementsProps
