@@ -1,54 +1,73 @@
 @import 'css/helpers';
 
+.dev-tools {
+  width: 100%;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .console-panel {
-  .log-line {
+  height: 100%;
+
+  .logs {
     position: relative;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 12px 0px;
+    height: 100%;
 
-    &:hover,
-    &.active {
-      .travel {
-        --translate-x: 0;
-
-        opacity: 1;
-      }
-    }
-
-    .travel {
-      --translate-x: -20px;
-
-      padding: 0 12px 0 10px;
-      display: inline-flex;
-      align-items: center;
-      border-radius: 0 var(--border-radius-full) var(--border-radius-full) 0;
-      position: absolute;
-      top: 50%;
-      height: 24px;
-      left: -4px;
-      background: #03a2fd;
-      color: white;
-      font-size: 12px;
-      font-weight: 600;
-      transform: translate(var(--translate-x), -50%);
-      transition-property: transform, opacity;
-      transition-duration: var(--duration-fast);
-      transition-timing-function: ease-out;
-      opacity: 0;
-      z-index: 1;
+    .log-line {
+      position: relative;
 
       &:hover,
       &.active {
-        --translate-x: 4px;
+        .travel {
+          --translate-x: 0;
+
+          opacity: 1;
+        }
       }
 
-      .icon {
-        display: inline-block;
-        width: 12px;
-        margin-right: 4px;
-      }
-    }
+      .travel {
+        --translate-x: -20px;
 
-    .marker {
-      margin-right: 15px;
+        padding: 0 12px 0 10px;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 0 var(--border-radius-full) var(--border-radius-full) 0;
+        position: absolute;
+        top: 50%;
+        height: 24px;
+        left: -4px;
+        background: #03a2fd;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        transform: translate(var(--translate-x), -50%);
+        transition-property: transform, opacity;
+        transition-duration: var(--duration-fast);
+        transition-timing-function: ease-out;
+        opacity: 0;
+        z-index: 1;
+
+        &:hover,
+        &.active {
+          --translate-x: 4px;
+        }
+
+        .icon {
+          display: inline-block;
+          width: 12px;
+          margin-right: 4px;
+        }
+      }
+
+      .marker {
+        margin-right: 15px;
+      }
     }
   }
 }
@@ -57,6 +76,7 @@
   display: grid;
   grid-template-rows: auto 1fr;
   background: var(--color-white);
+  height: 100%;
 }
 
 .elements-panel {

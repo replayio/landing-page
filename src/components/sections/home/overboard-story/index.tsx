@@ -12,7 +12,7 @@ import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
 
-import { Code } from './code'
+import { Code, CodeRef } from './code'
 import { Debugger } from './debugger'
 import { DevTools, DevToolsProps, tabs } from './devtools'
 import {
@@ -115,7 +115,7 @@ const timelineHeight = 90
 export function ReplayApplication() {
   const progressBarRef = useRef<ProgressAPI>(null)
   const [activeDevtoolTab, setActiveDevtoolTab] =
-    useState<DevToolsProps<keyof typeof tabs>['panel']>('console')
+    useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
 
   const applicationRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -123,6 +123,11 @@ export function ReplayApplication() {
   const smallCenteredStoreRef = useRef<HTMLDivElement>(null)
   const smallRightStoreRef = useRef<HTMLDivElement>(null)
   const viewToggleRef = useRef<HTMLDivElement>(null)
+  const codeAreaRef = useRef<HTMLDivElement>(null)
+  const codeRef = useRef<CodeRef>(null)
+  const devtoolsRef = useRef<HTMLDivElement>(null)
+  const devtoolsAreaRef = useRef<HTMLDivElement>(null)
+  const smallRightCenteredStoreRef = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
     if (
@@ -131,7 +136,10 @@ export function ReplayApplication() {
       !sectionRef.current ||
       !targetStoreRef.current ||
       !smallRightStoreRef.current ||
-      !viewToggleRef.current
+      !viewToggleRef.current ||
+      !devtoolsRef.current ||
+      !devtoolsAreaRef.current ||
+      !codeRef.current?.elm
     ) {
       return
     }
@@ -172,7 +180,25 @@ export function ReplayApplication() {
 
     const flipTimeline2 = Flip.fit(
       targetStoreRef.current,
+      smallRightCenteredStoreRef.current,
+      {
+        simple: false,
+        duration: 2
+      }
+    )
+
+    const flipTimeline3 = Flip.fit(
+      targetStoreRef.current,
       smallRightStoreRef.current,
+      {
+        simple: false,
+        duration: 2
+      }
+    )
+
+    const flipTimeline4 = Flip.fit(
+      devtoolsRef.current,
+      devtoolsAreaRef.current,
       {
         simple: false,
         duration: 2
@@ -204,6 +230,16 @@ export function ReplayApplication() {
         { clipPath: 'inset(4px 4px 4px 50% round 4px)' }
       )
       .add(flipTimeline2 as GSAPTimeline, '+=2')
+      .add(flipTimeline3 as GSAPTimeline, '+=2')
+      .add(flipTimeline4 as GSAPTimeline, '<')
+      .to(
+        codeRef.current.elm,
+        {
+          opacity: 1,
+          duration: 2
+        },
+        '<'
+      )
       .to(timelineProgress, {
         progress: 100,
         duration: 4,
@@ -290,6 +326,7 @@ export function ReplayApplication() {
 
         <div
           style={{
+            position: 'relative',
             display: 'flex',
             height: `calc(100vh - ${
               padding * 2
@@ -379,6 +416,17 @@ export function ReplayApplication() {
             </svg>
           </div>
           <div className={s['grid']}>
+            <div
+              style={{
+                position: 'absolute',
+                right: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '46%',
+                height: '75%'
+              }}
+              ref={smallRightCenteredStoreRef}
+            />
             <AspectBox
               ratio={1920 / 1080}
               style={{
@@ -387,7 +435,10 @@ export function ReplayApplication() {
               }}
               ref={smallCenteredStoreRef}
             />
-            <div style={{ gridArea: 'code' }}>
+            <div
+              style={{ gridArea: 'code', position: 'relative' }}
+              ref={codeAreaRef}
+            >
               <Code
                 className={s['code']}
                 printIndicators={{
@@ -462,7 +513,45 @@ export function ReplayApplication() {
     </Column>
   )
 }`}
+                ref={codeRef}
               />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  right: 0
+                }}
+                ref={devtoolsRef}
+              >
+                <DevTools
+                  panelWrapperProps={{ style: { flex: 1 } }}
+                  style={{ height: '100%' }}
+                  panel={activeDevtoolTab}
+                  onPanelTabChange={(tab) => setActiveDevtoolTab(tab)}
+                  panelProps={{
+                    currentHit: 0,
+                    logs: [
+                      {
+                        hits: 1,
+                        marker: 'transparent',
+                        content: [
+                          {
+                            body: { locked: false },
+                            ok: false,
+                            status: 400,
+                            statusText: 'Bad Request',
+                            url: 'https://overboard-react.vercel.app/api/purchase'
+                          }
+                        ]
+                      }
+                    ],
+                    disableTravel: true,
+                    onCurrentHitChange: () => undefined
+                  }}
+                />
+              </div>
             </div>
             <div
               style={{
@@ -470,32 +559,7 @@ export function ReplayApplication() {
               }}
               ref={smallRightStoreRef}
             />
-            <div style={{ gridArea: 'devtools' }}>
-              <DevTools
-                panel={activeDevtoolTab}
-                onPanelTabChange={(tab) => setActiveDevtoolTab(tab)}
-                panelProps={{
-                  currentHit: 0,
-                  logs: [
-                    {
-                      hits: 1,
-                      marker: 'transparent',
-                      content: [
-                        {
-                          body: { locked: false },
-                          ok: false,
-                          status: 400,
-                          statusText: 'Bad Request',
-                          url: 'https://overboard-react.vercel.app/api/purchase'
-                        }
-                      ]
-                    }
-                  ],
-                  disableTravel: true,
-                  onCurrentHitChange: () => undefined
-                }}
-              />
-            </div>
+            <div style={{ gridArea: 'devtools' }} ref={devtoolsAreaRef} />
           </div>
         </div>
 

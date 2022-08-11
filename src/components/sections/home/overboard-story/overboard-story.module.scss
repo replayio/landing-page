@@ -6,7 +6,8 @@
 }
 
 .grid {
-  padding: 42px;
+  position: relative;
+  margin: 42px;
   display: grid;
   width: 100%;
   grid-template-columns: 20% 26% 8% 26% 20%;
@@ -19,6 +20,7 @@
 
 .code {
   height: 100%;
+  opacity: 0;
 }
 
 .marker {

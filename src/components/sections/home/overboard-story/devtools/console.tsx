@@ -88,14 +88,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
       >
         <SearchBar>Search for logs...</SearchBar>
 
-        <div
-          style={{
-            position: 'relative',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '14px',
-            padding: '12px 0px'
-          }}
-        >
+        <div className={s['logs']}>
           {fullLogs.map((log, i) => (
             <>
               {i === currentHit && (
