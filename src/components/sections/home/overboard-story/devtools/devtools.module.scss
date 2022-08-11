@@ -22,8 +22,8 @@
     .log-line {
       position: relative;
 
-      &:hover,
-      &.active {
+      &:not(.active):hover,
+      &:global(.active) {
         .travel {
           --translate-x: 0;
 
@@ -93,6 +93,10 @@
 
     &.active {
       background: var(--color-gray-lightest);
+    }
+
+    &:global(.hovered) {
+      background: #ecf1ff;
     }
   }
 }

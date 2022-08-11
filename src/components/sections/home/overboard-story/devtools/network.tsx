@@ -90,6 +90,7 @@ export const Network = forwardRef<HTMLDivElement, NetworkProps>(
                     [s['error']]: call.status >= 400
                   })}
                   key={idx}
+                  id="call-line"
                 >
                   <span className={s['method']}>{call.method}</span>{' '}
                   <span className={s['caller']}>{call.caller}</span>{' '}
