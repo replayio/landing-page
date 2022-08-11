@@ -16,6 +16,7 @@ import { rangeMap } from '~/lib/utils'
 
 import { Code, Debugger, DevTools, NewOverboardStore } from '../overboard-story'
 import {
+  buildUuids,
   HTMLNode,
   IdentifiedNode,
   identifyNodes,
@@ -453,16 +454,6 @@ export const Scene2: FC<SceneProps> = ({
 
 let overboardProgress = 0
 
-export function buildUuids(node: ReactNode, key?: string | number): ReactNode {
-  return {
-    ...node,
-    uuid: node.type + (key != undefined ? `-${key}` : ''),
-    children: node?.children?.map((child, idx) =>
-      buildUuids(child, (key != undefined ? `${key}-` : '') + idx)
-    )
-  }
-}
-
 export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
@@ -565,7 +556,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
   }, [updateOverboard])
 
   useEffect(() => {
-    if (!storeRef.current) return
+    if (!storeRef.current || hoveredComponentBlockId) return
 
     const storeSelector = gsap.utils.selector(storeRef.current)
 
