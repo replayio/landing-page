@@ -1,12 +1,20 @@
+// eslint-disable-next-line simple-import-sort/imports
+import 'prismjs/themes/prism.css'
+
 import clsx from 'clsx'
+import Prism from 'prismjs'
 import {
   forwardRef,
-  ReactNode,
   useCallback,
   useImperativeHandle,
   useMemo,
   useRef
 } from 'react'
+
+import 'prismjs/components/prism-jsx'
+
+// eslint-disable-next-line import/no-named-as-default-member
+Prism.manual = true
 
 import { Timeline } from '~/components/common/progress-bar'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
@@ -17,10 +25,12 @@ import s from './code.module.scss'
 
 const CodeLine = ({
   children,
-  debug
+  debug,
+  code
 }: {
   number: number
   debug?: boolean
+  code: string
   children: React.ReactNode
 }) => {
   return (
@@ -32,23 +42,30 @@ const CodeLine = ({
         lineHeight: '15px',
         fontSize: '14px',
         fontFamily: 'var(--font-mono)',
-        background: debug ? '#BBEAFA' : 'transparent'
+        background: debug ? '#BBEAFA' : 'transparent',
+        minHeight: 21
       }}
     >
-      <div style={{ paddingLeft: '6px' }} className={s['code']}>
-        {children}
-      </div>
+      <pre style={{ paddingLeft: '6px' }} className={s['code']}>
+        <code
+          className="language-jsx"
+          style={{ whiteSpace: 'pre-wrap' }}
+          dangerouslySetInnerHTML={{
+            __html: code
+          }}
+        />
+      </pre>
+
+      {children}
     </div>
   )
 }
 
-export type CodeLine = {
-  print?: 'disabled' | 'not-available' | 'available'
-  content: ReactNode
-}
-
 type CodeProps = {
   breakpoints?: number[]
+  printIndicators?: {
+    [key: number]: 'disabled' | 'not-available' | 'available'
+  }
   debugLine?: number
   currentHit?: number
   currentMarker?: string
@@ -58,7 +75,7 @@ type CodeProps = {
     paused?: boolean
   ) => GSAPTimeline | undefined
   onHit?: (idx: number) => void
-  code?: CodeLine[]
+  code?: string
   debugger?: boolean
 } & JSX.IntrinsicElements['div']
 
@@ -80,63 +97,13 @@ export const Code = forwardRef<
       code,
       breakpoints,
       className,
+      printIndicators,
       ...rest
     },
     ref
   ) => {
     const elmRef = useRef<HTMLDivElement>(null)
     const timelineRef = useRef<UseGsapTimeAPI>(null)
-
-    const lines: CodeLine[] = [
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> },
-      {
-        print: 'not-available',
-        content: (
-          <>
-            <span className="reserved">export function</span>{' '}
-            <span className="declaration">HoverBoard</span>() {'{'}
-          </>
-        )
-      },
-      {
-        print: 'available',
-        content: (
-          <>
-            &nbsp;&nbsp;&nbsp;
-            <span className="reserved">const</span>{' '}
-            <span className="symbol">[</span>
-            <span className="variable">pos</span>,{' '}
-            <span className="variable">setPos</span>
-            <span className="symbol">]</span> <span className="symbol">=</span>{' '}
-            <span className="function">useState</span>({'{'}
-            left: 0, right: 0{'}'})
-          </>
-        )
-      },
-      {
-        print: 'available',
-        content: (
-          <>
-            &nbsp;&nbsp;&nbsp;
-            <span className="reserved">const</span>{' '}
-            <span className="symbol">[</span>
-            <span className="variable">angle</span>,{' '}
-            <span className="variable">setAngle</span>
-            <span className="symbol">]</span> <span className="symbol">=</span>{' '}
-            <span className="function">useState</span>(0)
-          </>
-        )
-      },
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> },
-      { print: 'disabled', content: <></> }
-    ]
 
     const handleHit = useCallback(
       (idx: number) => {
@@ -158,6 +125,16 @@ export const Code = forwardRef<
       }),
       [handleHit, onComplete]
     )
+
+    const { parsedCode, tokens } = useMemo(() => {
+      if (!code) return { parsedCode: '', tokens: undefined }
+      return {
+        parsedCode: Prism.highlight(code, Prism?.languages?.jsx, 'jsx'),
+        tokens: Prism.tokenize(code, Prism?.languages?.jsx)
+      }
+    }, [code])
+
+    console.log(tokens)
 
     useImperativeHandle(
       ref,
@@ -181,6 +158,7 @@ export const Code = forwardRef<
         ref={elmRef}
       >
         <Header />
+
         <div
           className={s['code']}
           style={{
@@ -190,9 +168,10 @@ export const Code = forwardRef<
             alignContent: 'flex-start',
             lineHeight: '15px',
             fontSize: '14px',
-            height: '100%',
+            height: 'calc(100% - 35px)',
             fontFamily: 'var(--font-mono)',
-            paddingTop: '18px'
+            paddingTop: '18px',
+            overflowY: 'auto'
           }}
         >
           <div />
@@ -211,7 +190,7 @@ export const Code = forwardRef<
           </div>
           <div />
 
-          {(code || lines).map((line, idx) => {
+          {parsedCode?.split(/\n/g).map((line, idx) => {
             const codeLine = idx + 1
             const isTargetLine = codeLine === 5
             const hasBreakpoint = breakpoints?.includes(codeLine)
@@ -236,10 +215,11 @@ export const Code = forwardRef<
                     position: 'relative',
                     display: 'inline-block',
                     background:
-                      (line.print === 'disabled' && 'transparent') ||
-                      (line.print === 'not-available' && '#BBEAFA') ||
-                      (line.print === 'available' && '#69A5FF') ||
-                      undefined,
+                      (printIndicators?.[codeLine] === 'not-available' &&
+                        '#BBEAFA') ||
+                      (printIndicators?.[codeLine] === 'available' &&
+                        '#69A5FF') ||
+                      '#F1F1F1',
                     width: 4,
                     height: '100%'
                   }}
@@ -253,8 +233,8 @@ export const Code = forwardRef<
                 <CodeLine
                   debug={debugLine != undefined && codeLine === debugLine}
                   number={codeLine}
+                  code={line}
                 >
-                  {line.content}
                   {isTargetLine && (
                     <div
                       className={s['print-panel']}

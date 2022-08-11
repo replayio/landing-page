@@ -55,7 +55,7 @@ export type ConsoleProps = {
   logs: {
     hide?: boolean
     marker: Marker
-    prepend: string
+    prepend?: string
     content: any[]
     hits: number
     line?: number
@@ -132,10 +132,16 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                 <span
                   data-marker={log.marker}
                   data-line={log.line}
-                  className={clsx('marker', commonS['marker'], s['marker'])}
+                  className={clsx(
+                    'marker',
+                    commonS['marker'],
+                    commonS[log.marker],
+                    s['marker']
+                  )}
                 />
                 <div style={{ color: '#01ACFD' }} key={i}>
-                  {log.prepend}, {logContent(log.content)}
+                  {log.prepend ? `${log.prepend}, ` : ''}
+                  {logContent(log.content)}
                 </div>
               </div>
             </>

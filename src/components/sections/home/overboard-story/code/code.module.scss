@@ -6,6 +6,10 @@
   .code {
     color: #727272;
 
+    code {
+      font-family: var(--font-mono) !important;
+    }
+
     :global {
       .reserved {
         color: #dd00a9;

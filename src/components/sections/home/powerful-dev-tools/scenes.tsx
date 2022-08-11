@@ -15,7 +15,6 @@ import { clearProps, DURATION, gsap } from '~/lib/gsap'
 import { rangeMap } from '~/lib/utils'
 
 import { Code, Debugger, DevTools, NewOverboardStore } from '../overboard-story'
-import { CodeLine } from '../overboard-story/code'
 import {
   HTMLNode,
   IdentifiedNode,
@@ -119,7 +118,7 @@ export const Scene1: FC<SceneProps> = ({
       _timeline.kill()
     }
 
-    addPrintButton[0].classList.remove('active')
+    addPrintButton[0]?.classList?.remove?.('active')
 
     setCurrentHit(0)
     setMarkersType('transparent')
@@ -175,7 +174,7 @@ export const Scene1: FC<SceneProps> = ({
 
     _timeline.call(
       () => {
-        addPrintButton[0].classList.add('active')
+        addPrintButton[0]?.classList?.add?.('active')
         setShowPrints(true)
       },
       undefined,
@@ -196,7 +195,7 @@ export const Scene1: FC<SceneProps> = ({
 
     _timeline.call(
       () => {
-        consoleMarkers[0].classList.add('active')
+        consoleMarkers[0]?.classList?.add?.('active')
       },
       undefined,
       '+=0.5'
@@ -223,7 +222,7 @@ export const Scene1: FC<SceneProps> = ({
 
     _timeline.call(
       () => {
-        consoleMarkers[0].classList.remove('active')
+        consoleMarkers[0]?.classList?.remove?.('active')
       },
       undefined,
       '+=0.5'
@@ -252,6 +251,23 @@ export const Scene1: FC<SceneProps> = ({
         onChangeMarker={updateMarkers}
         onComplete={handleComplete}
         onHit={setCurrentHit}
+        printIndicators={{
+          3: 'not-available',
+          4: 'available',
+          5: 'available'
+        }}
+        code={`
+
+export function HoverBoard() {
+  const [pos, setPos] = useState({left: 0, right: 0})
+  const [angle, setAngle] = useState(0)
+}
+
+
+
+
+
+`}
         ref={codeRef}
       />
 
@@ -749,103 +765,6 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
   const [activeDebugLine, setActiveDebugLine] = useState()
   const [activeSnapshotPath, setActiveSnapshotPath] = useState<string>('0')
 
-  const code: CodeLine[] = useMemo(
-    () => [
-      { content: <></> },
-      { content: <></> },
-      {
-        print: 'not-available',
-        content: (
-          <>
-            <span className="reserved">export</span>{' '}
-            <span className="reserved">function</span>{' '}
-            <span className="declaration">calculateBoardAngle</span>(
-            <span className="variable">board</span>) {'{'}
-          </>
-        )
-      },
-      {
-        print: 'available',
-        content: (
-          <>
-            &nbsp;&nbsp;
-            <span className="reserved">const </span>
-            {'{ '}
-            <span className="variable">angle</span>
-            {' } = '}
-            <span className="variable">board</span>;
-          </>
-        )
-      },
-      {
-        print: 'available',
-        content: (
-          <>
-            &nbsp;&nbsp;
-            <span className="reserved">return </span>
-            <span className="string">`${'{'}</span>
-            <span className="variable">angle</span>
-            <span className="string">{'}'}`</span>;
-          </>
-        )
-      },
-      {
-        print: 'not-available',
-        content: <>{'}'}</>
-      },
-      { content: <></> },
-      { content: <></> },
-      {
-        print: 'not-available',
-        content: (
-          <>
-            <span className="reserved">export</span>{' '}
-            <span className="reserved">function</span>{' '}
-            <span className="declaration">Board</span>({'{ '}
-            <span className="variable">board</span>
-            {' }'}) {'{'}
-          </>
-        )
-      },
-      {
-        print: 'available',
-        content: (
-          <>
-            &nbsp;&nbsp;
-            <span className="reserved">const </span>
-            <span className="variable">angle</span>
-            {' = '}
-            <span className="declaration">calculateBoardAngle</span>(
-            <span className="variable">board</span>);
-          </>
-        )
-      },
-      {
-        print: 'available',
-        content: (
-          <>
-            &nbsp;&nbsp;
-            <span className="reserved">return</span>
-            {' <'}
-            <span className="variable">Svg</span>
-            <span className="declaration"> type</span>=
-            <span className="string">"board"</span>
-            <span className="declaration"> angle</span>={'{'}
-            <span className="variable">angle</span>
-            {'} />'}
-          </>
-        )
-      },
-      {
-        print: 'not-available',
-        content: <>{'}'}</>
-      },
-      { content: <></> },
-      { content: <></> }
-    ],
-    []
-  )
-
   const snapshotTree = useMemo(() => {
     // ^ means prev most recent value
     const tree: Snapshot[] = [
@@ -980,7 +899,32 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
         currentSnapshotPath={activeSnapshotPath}
         onCurrentSnapshotPathChange={setActiveSnapshotPath}
       />
-      <Code debugLine={activeDebugLine} breakpoints={breakpoints} code={code} />
+      <Code
+        debugLine={activeDebugLine}
+        breakpoints={breakpoints}
+        printIndicators={{
+          3: 'not-available',
+          4: 'available',
+          5: 'available',
+          9: 'not-available',
+          10: 'available',
+          11: 'available'
+        }}
+        code={`
+
+export function calculateBoardAngle(board) {
+  const { angle } = board;
+  return \`\${angle}deg\`
+}
+
+
+export function Board({ board }) {
+  const angle = calcuateBoardAngle(board)
+  return <Svg type=”board” angle={angle} />
+}
+
+`}
+      />
     </>
   )
 }

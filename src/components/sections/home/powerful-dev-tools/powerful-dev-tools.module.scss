@@ -78,6 +78,8 @@
 
 @media (min-width: $screen-lg) {
   .section {
+    margin-top: 200px;
+
     .asset-player {
       .asset {
         grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);

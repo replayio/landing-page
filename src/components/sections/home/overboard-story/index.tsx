@@ -108,9 +108,11 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   )
 })
 
+const padding = 16
+const headerHeight = 70
+const timelineHeight = 90
+
 export function ReplayApplication() {
-  const padding = 16
-  const frameHeight = `calc(100vh - ${padding * 2}px)`
   const progressBarRef = useRef<ProgressAPI>(null)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('console')
@@ -163,7 +165,7 @@ export function ReplayApplication() {
       targetStoreRef.current,
       smallCenteredStoreRef.current,
       {
-        simple: true,
+        simple: false,
         duration: 2
       }
     )
@@ -172,7 +174,7 @@ export function ReplayApplication() {
       targetStoreRef.current,
       smallRightStoreRef.current,
       {
-        simple: true,
+        simple: false,
         duration: 2
       }
     )
@@ -204,7 +206,7 @@ export function ReplayApplication() {
       .add(flipTimeline2 as GSAPTimeline, '+=2')
       .to(timelineProgress, {
         progress: 100,
-        duration: 10,
+        duration: 4,
         onUpdate: () => {
           progressBarRef.current?.update(timelineProgress.progress)
         }
@@ -217,7 +219,14 @@ export function ReplayApplication() {
   }, [])
 
   return (
-    <Section style={{ position: 'relative' }} ref={sectionRef}>
+    <Section
+      style={{
+        position: 'relative',
+        padding: `${padding}px 0px`,
+        margin: `-${padding}px 0px`
+      }}
+      ref={sectionRef}
+    >
       <AspectBox
         ratio={1920 / 1080}
         style={{
@@ -240,7 +249,7 @@ export function ReplayApplication() {
           margin: `${padding}px 0`,
           display: 'grid',
           gridTemplateRows: 'auto 1fr',
-          height: frameHeight,
+          height: `calc(100vh - ${padding * 2}px)`,
           opacity: 0,
           overflow: 'hidden',
           borderRadius: 16,
@@ -253,8 +262,9 @@ export function ReplayApplication() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '16px 32px',
+            padding: '0 32px',
             backgroundColor: 'white',
+            height: headerHeight,
             borderBottom: '1px solid #DCDCDC'
           }}
         >
@@ -278,7 +288,14 @@ export function ReplayApplication() {
           <ViewToggle ref={viewToggleRef} />
         </div>
 
-        <div style={{ display: 'flex' }}>
+        <div
+          style={{
+            display: 'flex',
+            height: `calc(100vh - ${
+              padding * 2
+            }px - ${headerHeight}px - ${timelineHeight}px)`
+          }}
+        >
           <div className={s['toolbar']}>
             <svg
               width="24"
@@ -371,7 +388,81 @@ export function ReplayApplication() {
               ref={smallCenteredStoreRef}
             />
             <div style={{ gridArea: 'code' }}>
-              <Code className={s['code']} />
+              <Code
+                className={s['code']}
+                printIndicators={{
+                  3: 'not-available',
+                  4: 'available',
+                  5: 'available',
+                  8: 'available',
+                  9: 'available',
+                  10: 'available',
+                  11: 'available',
+                  12: 'available',
+                  13: 'available',
+                  16: 'available',
+                  17: 'available',
+                  19: 'available',
+                  28: 'available',
+                  35: 'available',
+                  37: 'available',
+                  38: 'available',
+                  39: 'available',
+                  40: 'available',
+                  41: 'available',
+                  47: 'available'
+                }}
+                code={`export function PurchaseForm() {
+  const [hasError, setHasError] = useState(false)
+  const handleSubmit = useCallback(async (event) => {
+    event.preventDefault()
+
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const formData = Object.fromEntries(data.entries())
+    const body = JSON.stringify(formData)
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body,
+    })
+
+    if (!response.ok) {
+      const errorMessage = await response.text()
+      setHasError(true)
+      throw new Error(errorMessage)
+    }
+  }, [])
+
+  return (
+    <Column
+      as="form"
+      action="/api/purchase"
+      method="post"
+      onSubmit={handleSubmit}
+      gap={5}
+    >
+      <Column gap={3}>
+        <h2>Color</h2>
+
+        <Colors>
+          {colors.map(([name, [start, end]]) => (
+            <Color
+              key={name}
+              label={name}
+              value={name.toLowerCase()}
+              startColor={start}
+              endColor={end}
+            />
+          ))}
+        </Colors>
+      </Column>
+
+      <PurchaseButton hasError={hasError} />
+    </Column>
+  )
+}`}
+              />
             </div>
             <div
               style={{
@@ -385,7 +476,21 @@ export function ReplayApplication() {
                 onPanelTabChange={(tab) => setActiveDevtoolTab(tab)}
                 panelProps={{
                   currentHit: 0,
-                  logs: [],
+                  logs: [
+                    {
+                      hits: 1,
+                      marker: 'transparent',
+                      content: [
+                        {
+                          body: { locked: false },
+                          ok: false,
+                          status: 400,
+                          statusText: 'Bad Request',
+                          url: 'https://overboard-react.vercel.app/api/purchase'
+                        }
+                      ]
+                    }
+                  ],
                   disableTravel: true,
                   onCurrentHitChange: () => undefined
                 }}
@@ -398,7 +503,8 @@ export function ReplayApplication() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            padding: 24
+            padding: 24,
+            height: timelineHeight
           }}
         >
           <svg
