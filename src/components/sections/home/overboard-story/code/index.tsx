@@ -35,21 +35,12 @@ const CodeLine = ({
 }) => {
   return (
     <div
-      style={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        lineHeight: '15px',
-        fontSize: '14px',
-        fontFamily: 'var(--font-mono)',
-        background: debug ? '#BBEAFA' : 'transparent',
-        minHeight: 21
-      }}
+      className={s['code-line']}
+      style={{ background: debug ? '#BBEAFA' : 'transparent' }}
     >
-      <pre style={{ paddingLeft: '6px' }} className={s['code']}>
+      <pre className={s['code']}>
         <code
           className="language-jsx"
-          style={{ whiteSpace: 'pre-wrap' }}
           dangerouslySetInnerHTML={{
             __html: code
           }}
@@ -126,15 +117,10 @@ export const Code = forwardRef<
       [handleHit, onComplete]
     )
 
-    const { parsedCode, tokens } = useMemo(() => {
-      if (!code) return { parsedCode: '', tokens: undefined }
-      return {
-        parsedCode: Prism.highlight(code, Prism?.languages?.jsx, 'jsx'),
-        tokens: Prism.tokenize(code, Prism?.languages?.jsx)
-      }
+    const parsedCode = useMemo(() => {
+      if (!code) return ''
+      return Prism.highlight(code, Prism?.languages?.jsx, 'jsx')
     }, [code])
-
-    console.log(tokens)
 
     useImperativeHandle(
       ref,

@@ -6,8 +6,22 @@
   .code {
     color: #727272;
 
-    code {
-      font-family: var(--font-mono) !important;
+    .code-line {
+      position: relative;
+      display: flex;
+      align-items: center;
+      line-height: 15px !important;
+      font-size: 14px !important;
+      font-family: var(--font-mono);
+      max-height: 17px;
+
+      pre {
+        padding-left: 6px;
+
+        code {
+          white-space: pre-wrap;
+        }
+      }
     }
 
     :global {
