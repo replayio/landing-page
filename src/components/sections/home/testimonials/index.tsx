@@ -20,7 +20,7 @@ const testimonials = [
     company: {
       name: 'Vercel',
       url: 'https://vercel.com',
-      logo: 'https://dummyimage.com/64/000/fff'
+      logo: '/images/home/vercel.svg'
     },
     position: 'CEO',
     quote:
@@ -32,7 +32,7 @@ const testimonials = [
     company: {
       name: 'React',
       url: 'https://es.reactjs.org/',
-      logo: 'https://dummyimage.com/64/000/fff'
+      logo: '/images/home/react.svg'
     },
     position: 'Mantainer',
     quote: '“Replay.io is galaxy brain tooling. Real gamechanger.”'
@@ -43,7 +43,7 @@ const testimonials = [
     company: {
       name: 'JavaScript',
       url: '#',
-      logo: 'https://dummyimage.com/64/000/fff'
+      logo: '/images/home/js.svg'
     },
     position: 'Engineer',
     quote:

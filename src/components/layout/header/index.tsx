@@ -4,9 +4,11 @@ import throttle from 'lodash/throttle'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 
+import Burger from '~/components/icons/burger'
 import { Button, ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { Logo } from '~/components/primitives/logo'
+import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useToggleState } from '~/hooks/use-toggle-state'
 
 import { Container } from '../container'
@@ -60,40 +62,9 @@ const link = [
   }
 ]
 
-const Burger = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M3 18H21"
-      stroke="#464646"
-      strokeWidth="2"
-      strokeLinecap="square"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M3 12H21"
-      stroke="#464646"
-      strokeWidth="2"
-      strokeLinecap="square"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M3 6H21"
-      stroke="#464646"
-      strokeWidth="2"
-      strokeLinecap="square"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
-
 export const Header = () => {
   const menuRef = useRef(null)
+  const headerMobileRef = useRef<HTMLDivElement>(null)
   const [hasScrolled, setHasScrolled] = useState(false)
   const { isOn, handleToggle } = useToggleState()
   const { asPath } = useRouter()
@@ -154,10 +125,18 @@ export const Header = () => {
     }
   }, [isOn])
 
+  useIsomorphicLayoutEffect(() => {
+    if (isOn) {
+      gsap.set('body', { overflow: 'hidden' })
+    } else {
+      gsap.set('body', { overflow: 'unset' })
+    }
+  }, [isOn])
+
   return (
     <header className={clsx(s['header'], { [s['has-scrolled']]: hasScrolled })}>
       <Container size="md">
-        <div className={s['inner-mobile']}>
+        <div className={s['inner-mobile']} ref={headerMobileRef}>
           <div className={s['mobile-wrapper']}>
             <Link href="/" aria-label="Go Home">
               <Logo width={80} className={s['logo']} />
@@ -165,7 +144,7 @@ export const Header = () => {
 
             <div className={s['burger']}>
               <Button onClick={handleToggle} unstyled>
-                <Burger />
+                <Burger isOpen={isOn} fill="#464646" />
               </Button>
             </div>
           </div>
