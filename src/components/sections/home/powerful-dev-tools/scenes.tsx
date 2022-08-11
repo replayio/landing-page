@@ -298,8 +298,12 @@ export const Scene2: FC<SceneProps> = ({
   resumeTimeline,
   devtoolsProps
 }) => {
+  const consoleRef = useRef<any>(null)
   const hoverboardRef = useRef<HoverboardControls>(null)
   const [currentHit, setCurrentHit] = useState(0)
+
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
   const hoverboardState = useRef({
     _rotate: 0,
     set rotate(v: number) {
@@ -329,6 +333,99 @@ export const Scene2: FC<SceneProps> = ({
     }
   ]
 
+  useEffect(() => {
+    if (!hoverboardRef.current || !consoleRef.current) return
+
+    const _timeline = timeline.current
+
+    const consoleSelector = gsap.utils.selector(consoleRef.current)
+
+    const buttons = consoleSelector('#icon')
+    const logLines = consoleSelector('#log-line')
+
+    const setNewMarkerHit = (i: number) => {
+      buttons[i].classList.remove('active')
+      logLines[i].classList.remove('active')
+      setCurrentHit(i)
+    }
+
+    _timeline.call(() => {
+      logLines[2].classList.add('active')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        buttons[2].classList.add('active')
+      },
+      undefined,
+      '+=0.6'
+    )
+
+    _timeline.call(
+      () => {
+        setNewMarkerHit(2)
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        logLines[5].classList.add('active')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        buttons[5].classList.add('active')
+      },
+      undefined,
+      '+=0.6'
+    )
+
+    _timeline.call(
+      () => {
+        setNewMarkerHit(5)
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        logLines[0].classList.add('active')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        buttons[0].classList.add('active')
+      },
+      undefined,
+      '+=0.6'
+    )
+
+    _timeline.call(
+      () => {
+        setNewMarkerHit(0)
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        _timeline?.restart()
+      },
+      undefined,
+      '+=3'
+    )
+  }, [])
+
   return (
     <>
       <DevTools
@@ -336,7 +433,13 @@ export const Scene2: FC<SceneProps> = ({
         onMouseEnter={pauseTimeline}
         onMouseLeave={resumeTimeline}
         panel="console"
-        panelProps={{ currentHit, onCurrentHitChange: setCurrentHit, logs }}
+        panelProps={{
+          currentHit,
+          onCurrentHitChange: setCurrentHit,
+          // @ts-ignore
+          ref: consoleRef,
+          logs
+        }}
       />
 
       <NewOverboardStore
@@ -481,6 +584,123 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
     }
   }, [hoveredComponentBlockId])
 
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  const resetAnimation = () => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
+
+    nodeLine[6].classList.remove('active')
+
+    setActiveComponent(null)
+    setHoveredComponentBlockId(null)
+
+    _timeline.clear()
+    _timeline.kill()
+  }
+
+  useEffect(() => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
+
+    _timeline.call(() => {
+      nodeLine[0].classList.add('hovered')
+      setHoveredComponentBlockId('app')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        nodeLine[0].classList.remove('hovered')
+        nodeLine[1].classList.add('hovered')
+        setHoveredComponentBlockId('hoverboard')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveComponent(get(tree, 'children.0'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[1].classList.remove('hovered')
+        nodeLine[3].classList.add('hovered')
+        setHoveredComponentBlockId('colors')
+      },
+      undefined,
+      '+=1.5'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveComponent(get(tree, 'children.1.children.0'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[3].classList.remove('hovered')
+        nodeLine[4].classList.add('hovered')
+        setHoveredComponentBlockId('color-red')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[4].classList.remove('hovered')
+        nodeLine[5].classList.add('hovered')
+        setHoveredComponentBlockId('color-green')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[5].classList.remove('hovered')
+        nodeLine[6].classList.add('hovered')
+        setHoveredComponentBlockId('color-blue')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[6].classList.remove('hovered')
+        setActiveComponent(get(tree, 'children.1.children.0.children.2'))
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        resetAnimation()
+        _timeline?.restart()
+      },
+      undefined,
+      '+=3'
+    )
+  }, [tree])
+
   return (
     <>
       <DevTools
@@ -612,6 +832,121 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
     }
   }, [hoveredComponentBlockId])
 
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  const resetAnimation = () => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
+
+    nodeLine[7].classList.remove('active')
+
+    setHoveredComponentBlockId(null)
+    setActiveElement(null)
+
+    // _timeline.clear()
+    _timeline.kill()
+  }
+
+  useEffect(() => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const nodeLine = toolsSelector('#node-line')
+
+    _timeline.call(() => {
+      nodeLine[0].classList.add('hovered')
+      setHoveredComponentBlockId('app')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        nodeLine[0].classList.remove('hovered')
+        nodeLine[2].classList.add('hovered')
+        setHoveredComponentBlockId('hoverboard-container')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveElement(get(tree, 'children.0.children.0'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[2].classList.remove('hovered')
+        nodeLine[4].classList.add('hovered')
+        setHoveredComponentBlockId('colors')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveElement(get(tree, 'children.0.children.1'))
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[4].classList.remove('hovered')
+        nodeLine[5].classList.add('hovered')
+        setHoveredComponentBlockId('color-red')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[5].classList.remove('hovered')
+        nodeLine[6].classList.add('hovered')
+        setHoveredComponentBlockId('color-green')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        nodeLine[6].classList.remove('hovered')
+        nodeLine[7].classList.add('hovered')
+        setHoveredComponentBlockId('color-blue')
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        setActiveElement(get(tree, 'children.0.children.1.children.2'))
+      },
+      undefined,
+      '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        resetAnimation()
+        _timeline?.restart()
+      },
+      undefined,
+      '+=3'
+    )
+  }, [tree])
+
   return (
     <>
       <DevTools
@@ -647,7 +982,8 @@ export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
   const [activeCallIdx, setActiveCallIdx] = useState<number>()
   const [storeState, setStoreState] =
     useState<OverboardStoreProps['state']>('idle')
-  const [calls, setCalls] = useState<NetworkCall[]>([
+
+  const initialCalls: NetworkCall[] = [
     {
       pending: false,
       status: 200,
@@ -672,7 +1008,9 @@ export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
         cartId: 'c9811cbd64b8'
       }
     }
-  ])
+  ]
+
+  const [calls, setCalls] = useState(initialCalls)
 
   const handlePurchase = useCallback(() => {
     setStoreState('loading')
@@ -711,6 +1049,60 @@ export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
       setStoreState('error')
     })
   }, [])
+
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  const resetAnimation = () => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const callLine = toolsSelector('#call-line')
+
+    callLine[2].classList.remove('active')
+
+    setStoreState('idle')
+    setCalls(initialCalls)
+
+    _timeline.clear()
+    _timeline.kill()
+  }
+
+  useEffect(() => {
+    if (!overboardRef.current || !devToolsRef.current) return
+
+    const _timeline = timeline.current
+
+    _timeline.call(() => {
+      setActiveCallIdx(0)
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        setActiveCallIdx(1)
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        handlePurchase()
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        resetAnimation()
+        _timeline?.restart()
+      },
+      undefined,
+      '+=3'
+    )
+  })
 
   return (
     <>
@@ -762,6 +1154,8 @@ const buildScope = (
 }
 
 export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+  const debuggerRef = useRef(null)
+
   const [activeDebugLine, setActiveDebugLine] = useState()
   const [activeSnapshotPath, setActiveSnapshotPath] = useState<string>('0')
 
@@ -889,9 +1283,159 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
     setActiveDebugLine(currentSnapshot?.line)
   }, [activeSnapshotPath, snapshotTree])
 
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
+
+  const resetAnimation = () => {
+    if (!debuggerRef.current) return
+
+    setActiveSnapshotPath('0')
+
+    const _timeline = timeline.current
+
+    _timeline.kill()
+  }
+
+  useEffect(() => {
+    if (!debuggerRef.current) return
+    const _timeline = timeline.current
+
+    const debuggerSelector = gsap.utils.selector(debuggerRef.current)
+    const prevBPButton = debuggerSelector('#prev-breakpoint')
+    const nextBPButton = debuggerSelector('#next-breakpoint')
+    // const prevFuncButton = debuggerSelector('#prev-function')
+    const nextFuncButton = debuggerSelector('#next-function')
+    // const exitButton = debuggerSelector('#exit-function')
+    const enterButton = debuggerSelector('#enter-function')
+
+    _timeline.call(() => {
+      nextBPButton[0].classList.add('hovered')
+    }, undefined)
+
+    _timeline.call(
+      () => {
+        nextBPButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('2')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        nextBPButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.3'
+    )
+
+    _timeline.call(
+      () => {
+        nextBPButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('4')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.3'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('2')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.3'
+    )
+
+    _timeline.call(
+      () => {
+        prevBPButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('0')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('1')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.3'
+    )
+
+    _timeline.call(
+      () => {
+        nextFuncButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('2')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        enterButton[0].classList.add('hovered')
+      },
+      undefined,
+      '+=0.65'
+    )
+
+    _timeline.call(
+      () => {
+        enterButton[0].classList.remove('hovered')
+        setActiveSnapshotPath('2.children.0')
+      },
+      undefined,
+      '+=0.2'
+    )
+
+    _timeline.call(
+      () => {
+        resetAnimation()
+        _timeline?.restart()
+      },
+      undefined,
+      '+=3'
+    )
+  }, [])
+
   return (
     <>
       <Debugger
+        ref={debuggerRef}
         onMouseEnter={pauseTimeline}
         onMouseLeave={resumeTimeline}
         breakpoints={breakpoints}

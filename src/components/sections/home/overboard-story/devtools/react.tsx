@@ -69,6 +69,7 @@ function renderReactTree({
         className={clsx(s['node-line'], {
           [s['active']]: activeComponent?.uuid === node?.uuid
         })}
+        id="node-line"
         style={{ marginLeft: isNested ? 8 : 0 }}
       >
         <div
@@ -146,6 +147,7 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
           }}
         >
           <div
+            id="react-tools"
             onMouseLeave={() => onHoverComponent?.(null)}
             style={{
               padding: 10,
