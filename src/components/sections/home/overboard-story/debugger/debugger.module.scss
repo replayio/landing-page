@@ -1,10 +1,11 @@
 @import 'css/helpers';
+@import 'css/variables';
 
 .debugger {
   width: 100%;
-  max-width: 380px;
   margin: 0 auto;
   color: #7c7c7c;
+  min-height: 480px;
 
   .header {
     padding: 0 4px;
@@ -74,5 +75,11 @@
     align-items: center;
 
     @include space-x(6px);
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .debugger {
+    min-height: unset;
   }
 }

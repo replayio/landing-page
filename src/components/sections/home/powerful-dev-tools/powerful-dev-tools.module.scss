@@ -48,6 +48,7 @@
 
   .asset-player {
     margin-top: 36px;
+    width: 100%;
 
     > div {
       position: relative;
@@ -60,6 +61,7 @@
     }
 
     .asset {
+      width: 100%;
       padding: 18px;
       margin-top: 57px;
       overflow: hidden;
@@ -67,7 +69,6 @@
       background: var(--color-gray-lightest);
       display: grid;
       align-items: center;
-      justify-content: center;
       gap: 32px;
       min-height: 480px;
 
@@ -137,6 +138,7 @@
       .asset {
         grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
         gap: 24px;
+        justify-content: center;
 
         .popup {
           display: unset;

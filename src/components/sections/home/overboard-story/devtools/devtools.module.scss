@@ -8,6 +8,12 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  min-height: 480px;
+
+  > div {
+    height: 100%;
+  }
 }
 
 .console-panel {
@@ -19,7 +25,6 @@
     font-size: 14px;
     padding: 12px 0px;
     height: 100%;
-    min-height: 480px;
 
     .log-line {
       position: relative;
@@ -79,14 +84,13 @@
   grid-template-rows: auto 1fr;
   background: var(--color-white);
   height: 100%;
-  min-height: 480px;
 }
 
 .elements-panel {
   display: flex;
   font-family: monospace;
   background: var(--color-white);
-  min-height: 480px;
+  height: 100%;
 }
 
 .react-dev-tools,
@@ -130,7 +134,7 @@
   display: flex;
   font-family: monospace;
   background: var(--color-white);
-  min-height: 480px;
+  height: 100%;
 
   .calls {
     width: 100%;
@@ -194,21 +198,12 @@
 }
 
 @media (min-width: $screen-md) {
-  .console-panel {
-    .logs {
-      min-height: unset;
+  .dev-tools {
+    height: unset;
+    min-height: unset;
+
+    > div {
+      height: unset;
     }
-  }
-
-  .react-dev-tools {
-    min-height: unset;
-  }
-
-  .elements-panel {
-    min-height: unset;
-  }
-
-  .network-panel {
-    min-height: unset;
   }
 }
