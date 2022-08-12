@@ -1,11 +1,14 @@
 import clsx from 'clsx'
+import Image from 'next/future/image'
 import { FC, useMemo, useRef, useState } from 'react'
 
+import { Bubble } from '~/components/common/bubble-popup'
 import { HeadingSet } from '~/components/common/heading-set'
 import { Timeline } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
+import pauseSVG from '~/public/images/home/pause.svg'
 
 import s from './powerful-dev-tools.module.scss'
 import { Scene1, Scene2, Scene3, Scene4, Scene5, Scene6 } from './scenes'
@@ -45,36 +48,35 @@ const assets = [
   {
     title: 'Print Statements',
     description:
-      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+      'When you add a print statement, Replay re and fast forward to the logs.'
   },
   {
     devtoolsTab: 'console',
     title: 'Console',
     description:
-      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+      'Fast forward to Console logs and evaluate expressions in the Terminal.'
   },
   {
     devtoolsTab: 'react',
     title: 'React',
-    description:
-      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+    description: 'Inspect React components and view their props and state.'
   },
   {
     devtoolsTab: 'elements',
     title: 'Elements',
     description:
-      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+      'Inspect a DOM element and view its styles, layout, and compute properties.'
   },
   {
     devtoolsTab: 'network',
     title: 'Network',
     description:
-      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+      'Inspect Network requests and view their headers, request and response bodies.'
   },
   {
     title: 'Debugger',
     description:
-      'Add replays to Bug Reports and Pull Requests and share them in Slack.'
+      'Fast forward to Console logs and evaluate expressions in the Terminal.'
   }
 ]
 
@@ -88,6 +90,7 @@ const AssetPlayer = () => {
   const timelineRef = useRef<
     UseGsapTimeAPI & { seek: (percentage: string | number) => void }
   >(null)
+  const [isPlaying, setIsPlaying] = useState(true)
 
   const markers = useMemo(
     () =>
@@ -105,6 +108,16 @@ const AssetPlayer = () => {
       const targetId = buildAssetId(assets[foundIdx], foundIdx)
       timelineRef.current?.seek(targetId)
     }
+  }
+
+  const pauseTimeline = () => {
+    timelineRef.current?.pause()
+    setIsPlaying(false)
+  }
+
+  const resumeTimeline = () => {
+    timelineRef.current?.resume()
+    setIsPlaying(true)
   }
 
   const ActiveScene = scenes[activeIdx]
@@ -141,15 +154,33 @@ const AssetPlayer = () => {
         </Container>
       </div>
       <Container size="md">
+        <div className={s['epigraph-container']}>
+          {
+            <span className={clsx(s['epigraph'], s['placeholder'])}>
+              {assets[4].description}
+            </span>
+          }
+          <span className={s['epigraph']}>{assets[activeIdx].description}</span>
+        </div>
         <div className={s['asset']}>
+          <Bubble
+            variant
+            className={clsx(s['popup'], { [s['open']]: !isPlaying })}
+          >
+            <div>
+              <Image src={pauseSVG} />
+              <p>Paused Timeline</p>
+            </div>
+            <p className={s['info']}>You can interact with windows now</p>
+          </Bubble>
           <ActiveScene
-            pauseTimeline={timelineRef.current?.pause}
-            resumeTimeline={timelineRef.current?.resume}
+            pauseTimeline={pauseTimeline}
+            resumeTimeline={resumeTimeline}
             devtoolsProps={{
               onPanelTabChange: handleDevtoolsTabChange,
               panelWrapperProps: {
-                onMouseEnter: timelineRef.current?.pause,
-                onMouseLeave: timelineRef.current?.resume
+                onMouseEnter: pauseTimeline,
+                onMouseLeave: resumeTimeline
               }
             }}
           />

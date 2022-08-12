@@ -1,6 +1,9 @@
 @import 'css/helpers';
+@import 'css/variables';
 
 .console-panel {
+  min-height: 480px;
+
   .log-line {
     position: relative;
 
@@ -57,12 +60,14 @@
   display: grid;
   grid-template-rows: auto 1fr;
   background: var(--color-white);
+  min-height: 480px;
 }
 
 .elements-panel {
   display: flex;
   font-family: monospace;
   background: var(--color-white);
+  min-height: 480px;
 }
 
 .react-dev-tools,
@@ -106,6 +111,7 @@
   display: flex;
   font-family: monospace;
   background: var(--color-white);
+  min-height: 480px;
 
   .calls {
     width: 100%;
@@ -165,5 +171,23 @@
       padding: 10px;
       @include space-y(2px);
     }
+  }
+}
+
+@media (min-width: $screen-md) {
+  .console-panel {
+    min-height: unset;
+  }
+
+  .react-dev-tools {
+    min-height: unset;
+  }
+
+  .elements-panel {
+    min-height: unset;
+  }
+
+  .network-panel {
+    min-height: unset;
   }
 }
