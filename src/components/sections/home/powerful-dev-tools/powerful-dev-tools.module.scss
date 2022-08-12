@@ -71,6 +71,7 @@
       align-items: center;
       gap: 32px;
       min-height: 480px;
+      pointer-events: none;
 
       .popup {
         display: none;
@@ -139,6 +140,7 @@
         grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
         gap: 24px;
         justify-content: center;
+        pointer-events: unset;
 
         .popup {
           display: unset;
