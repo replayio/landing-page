@@ -96,8 +96,8 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                   style={{
                     position: 'absolute',
                     width: '100%',
-                    height: 1,
-                    background: 'var(--color-pink-crayon)'
+                    borderColor: 'var(--color-pink-crayon)',
+                    borderTopWidth: '1px'
                   }}
                 />
               )}

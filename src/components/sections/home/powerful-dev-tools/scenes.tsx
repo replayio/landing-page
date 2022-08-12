@@ -11,6 +11,7 @@ import {
   useState
 } from 'react'
 
+import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
 import { rangeMap } from '~/lib/utils'
 
@@ -36,6 +37,8 @@ type SceneProps = {
   resumeTimeline?: () => void
   devtoolsProps?: Partial<DevToolsProps>
 }
+
+const printMarkers = [30, 36, 40, 55, 80]
 
 export const Scene1: FC<SceneProps> = ({
   pauseTimeline,
@@ -125,14 +128,6 @@ export const Scene1: FC<SceneProps> = ({
     setMarkersType('transparent')
     setShowPrints(false)
   }, [])
-
-  const handleComplete = useCallback(() => {
-    gsap.delayedCall(3, () => {
-      resetAnimation()
-      codeRef.current?.timeline?.reset()
-      timeline.current.restart()
-    })
-  }, [resetAnimation])
 
   useEffect(() => {
     if (!codeRef.current || !consoleRef.current) return
@@ -231,7 +226,7 @@ export const Scene1: FC<SceneProps> = ({
 
     _timeline.call(
       () => {
-        codeRef.current?.timeline?.start?.()
+        ;(codeRef.current?.timeline as UseGsapTimeAPI)?.start?.()
       },
       undefined,
       '+=0.5'
@@ -245,13 +240,17 @@ export const Scene1: FC<SceneProps> = ({
   return (
     <>
       <Code
+        printPanelConfig={{
+          markers: printMarkers,
+          currentHit: currentHit,
+          currentMarker: markersType,
+          onChangeMarker: updateMarkers,
+          onHit: setCurrentHit,
+          timelineType: 'timeBased',
+          printLineTarget: 5
+        }}
         onMouseEnter={pauseTimeline}
         onMouseLeave={resumeTimeline}
-        currentHit={currentHit}
-        currentMarker={markersType}
-        onChangeMarker={updateMarkers}
-        onComplete={handleComplete}
-        onHit={setCurrentHit}
         printIndicators={{
           3: 'not-available',
           4: 'available',

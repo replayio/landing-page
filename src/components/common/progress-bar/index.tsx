@@ -6,7 +6,6 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useRef,
   useState
 } from 'react'
@@ -31,6 +30,11 @@ type Marker = {
   position: number | string
   onActive?: () => void
   onInactive?: () => void
+}
+
+type InternalMarker = Marker & {
+  position: number
+  normalizedPosition: number
 }
 
 type ProgressProps = {
@@ -98,16 +102,10 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
     const timeline = useRef<GSAPTimeline | GSAP>(
       animated ? gsap.timeline({ autoRemoveChildren: true }) : gsap
     )
+    const orderedMarkers = useRef<InternalMarker[]>([])
     const { width } = useViewportSize()
 
-    const [internalMarkers, setInternalMarkers] = useState<
-      (Marker & { position: number; normalizedPosition: number })[]
-    >([])
-
-    const orderedMarkers = useMemo(
-      () => internalMarkers?.sort((a, b) => b.position - a.position),
-      [internalMarkers]
-    )
+    const [internalMarkers, setInternalMarkers] = useState<InternalMarker[]>([])
 
     const update = useCallback(
       (progress) => {
@@ -115,8 +113,10 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
         const gsapFunc =
           progress < prevProgress.current || !animated ? 'set' : 'to'
 
-        if (orderedMarkers?.some(({ position }) => position <= progress)) {
-          const firstCoincidence = orderedMarkers.find(
+        if (
+          orderedMarkers.current?.some(({ position }) => position <= progress)
+        ) {
+          const firstCoincidence = orderedMarkers.current.find(
             ({ position }) => position <= progress
           )
 
@@ -125,7 +125,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
               if (prevValue?.position !== firstCoincidence?.position) {
                 onMarkerUpdate?.(
                   firstCoincidence,
-                  orderedMarkers?.filter(
+                  orderedMarkers.current?.filter(
                     ({ position }) => position <= progress
                   ) || []
                 )
@@ -165,7 +165,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
 
         prevProgress.current = progress
       },
-      [direction, onMarkerUpdate, animated, orderedMarkers]
+      [direction, onMarkerUpdate, animated]
     )
 
     const getPercentageById = useCallback(
@@ -227,7 +227,15 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
     }, [markers, direction, width])
 
     useEffect(() => {
-      update(progress)
+      orderedMarkers.current = internalMarkers?.sort(
+        (a, b) => b.position - a.position
+      )
+    }, [internalMarkers])
+
+    useEffect(() => {
+      if (progress != undefined) {
+        update(progress)
+      }
     }, [update, progress])
 
     return (

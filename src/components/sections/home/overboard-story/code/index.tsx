@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import Prism from 'prismjs'
 import {
   forwardRef,
-  useCallback,
+  RefObject,
   useImperativeHandle,
   useMemo,
   useRef
@@ -16,10 +16,15 @@ import 'prismjs/components/prism-jsx'
 // eslint-disable-next-line import/no-named-as-default-member
 Prism.manual = true
 
-import { Timeline } from '~/components/common/progress-bar'
+import {
+  ProgressAPI,
+  ProgressBar,
+  Timeline
+} from '~/components/common/progress-bar'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 
 import { Header, PanelContainer } from '../common'
+import { Marker } from '../devtools/console'
 import commonS from '../overboard-story.module.scss'
 import s from './code.module.scss'
 
@@ -38,7 +43,7 @@ const CodeLine = ({
       className={s['code-line']}
       style={{ background: debug ? '#BBEAFA' : 'transparent' }}
     >
-      <pre className={s['code']}>
+      <pre>
         <code
           className="language-jsx"
           dangerouslySetInnerHTML={{
@@ -58,32 +63,33 @@ type CodeProps = {
     [key: number]: 'disabled' | 'not-available' | 'available'
   }
   debugLine?: number
-  currentHit?: number
-  currentMarker?: string
-  onComplete?: () => void
-  onChangeMarker?: (
-    marker: string,
-    paused?: boolean
-  ) => GSAPTimeline | undefined
-  onHit?: (idx: number) => void
   code?: string
   debugger?: boolean
+  printPanelConfig?: {
+    markers: number[]
+    currentMarker?: Marker
+    currentHit?: number
+    onComplete?: () => void
+    onChangeMarker?: (
+      marker: string,
+      paused?: boolean
+    ) => GSAPTimeline | undefined
+    onHit?: (idx: number) => void
+    printLineTarget: number
+    timelineType: 'justUi' | 'timeBased'
+  }
 } & JSX.IntrinsicElements['div']
 
-export type CodeRef = {
+export type CodeRef<> = {
   elm: HTMLDivElement | null
-  timeline: UseGsapTimeAPI | null
+  timeline: UseGsapTimeAPI | ProgressAPI | null
 }
 
 export const Code = forwardRef<CodeRef, CodeProps>(
   (
     {
-      onHit,
       debugLine,
-      onChangeMarker,
-      onComplete,
-      currentHit,
-      currentMarker,
+      printPanelConfig,
       code,
       breakpoints,
       className,
@@ -93,27 +99,22 @@ export const Code = forwardRef<CodeRef, CodeProps>(
     ref
   ) => {
     const elmRef = useRef<HTMLDivElement>(null)
-    const timelineRef = useRef<UseGsapTimeAPI>(null)
-
-    const handleHit = useCallback(
-      (idx: number) => {
-        onHit?.(idx)
-      },
-      [onHit]
-    )
+    const timelineRef = useRef<UseGsapTimeAPI | ProgressAPI>(null)
 
     const timelineProps = useMemo(
       () => ({
-        markers: [30, 36, 40, 55, 80].map((position, idx) => ({
+        markers: printPanelConfig?.markers?.map((position, idx) => ({
           position,
-          onActive: () => handleHit(idx + 1)
+          onActive: () => printPanelConfig?.onHit?.(idx + 1),
+          onInactive: () => printPanelConfig?.onHit?.(idx)
         })),
         onStart: () => {
-          handleHit(0)
+          printPanelConfig?.onHit?.(0)
         },
-        onComplete
+        onComplete: printPanelConfig?.onComplete
       }),
-      [handleHit, onComplete]
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [printPanelConfig?.onComplete, printPanelConfig?.onHit]
     )
 
     const parsedCode = useMemo(() => {
@@ -125,14 +126,17 @@ export const Code = forwardRef<CodeRef, CodeProps>(
       ref,
       () => ({
         elm: elmRef.current,
-        timeline: timelineRef.current && {
-          ...timelineRef.current,
-          reset: () => {
-            timelineRef.current?.reset()
-          }
-        }
+        timeline:
+          printPanelConfig?.timelineType === 'justUi'
+            ? (timelineRef.current as ProgressAPI)
+            : {
+                ...(timelineRef.current as UseGsapTimeAPI),
+                reset: () => {
+                  ;(timelineRef.current as UseGsapTimeAPI)?.reset()
+                }
+              }
       }),
-      []
+      [printPanelConfig?.timelineType]
     )
 
     return (
@@ -144,21 +148,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
       >
         <Header />
 
-        <div
-          className={s['code']}
-          style={{
-            position: 'relative',
-            display: 'grid',
-            gridTemplateColumns: '25px 4px auto',
-            alignContent: 'flex-start',
-            lineHeight: '15px',
-            fontSize: '14px',
-            height: 'calc(100% - 35px)',
-            fontFamily: 'var(--font-mono)',
-            paddingTop: '18px',
-            overflowY: 'auto'
-          }}
-        >
+        <div className={s['code']}>
           <div />
           <div>
             <div
@@ -177,7 +167,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
 
           {parsedCode?.split(/\n/g).map((line, idx) => {
             const codeLine = idx + 1
-            const isTargetLine = codeLine === 5
+            const isTargetLine = codeLine === printPanelConfig?.printLineTarget
             const hasBreakpoint = breakpoints?.includes(codeLine)
 
             return (
@@ -247,7 +237,9 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                                 'purple'
                               ].map((color) => (
                                 <button
-                                  onClick={() => onChangeMarker?.(color)}
+                                  onClick={() =>
+                                    printPanelConfig?.onChangeMarker?.(color)
+                                  }
                                   data-marker={color}
                                   className={clsx(
                                     commonS['marker'],
@@ -262,7 +254,8 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                             <span
                               className={clsx(
                                 s['toggle'],
-                                currentMarker && s[currentMarker]
+                                printPanelConfig.currentMarker &&
+                                  s[printPanelConfig.currentMarker]
                               )}
                             />
                           </div>
@@ -311,24 +304,38 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                             />
                           </svg>
                           <div style={{ flex: 1, padding: '0 10px' }}>
-                            <Timeline
-                              loop={false}
-                              primaryColor="#01ACFD"
-                              secondaryColor="#D5D5D5"
-                              duration={4}
-                              markerSize={12}
-                              viewportReactive={false}
-                              {...timelineProps}
-                              ref={timelineRef}
-                            />
+                            {printPanelConfig?.timelineType === 'justUi' ? (
+                              <ProgressBar
+                                primaryColor="#01ACFD"
+                                secondaryColor="#D5D5D5"
+                                markerSize={12}
+                                animated={false}
+                                {...timelineProps}
+                                debug
+                                ref={timelineRef as RefObject<ProgressAPI>}
+                              />
+                            ) : (
+                              <Timeline
+                                loop={false}
+                                primaryColor="#01ACFD"
+                                secondaryColor="#D5D5D5"
+                                duration={4}
+                                markerSize={12}
+                                viewportReactive={false}
+                                {...timelineProps}
+                                ref={timelineRef as RefObject<UseGsapTimeAPI>}
+                              />
+                            )}
                           </div>
                           <span
                             className={clsx(
                               s['hit-counter'],
-                              currentMarker && s[currentMarker]
+                              printPanelConfig.currentMarker &&
+                                s[printPanelConfig.currentMarker]
                             )}
                           >
-                            {currentHit}/{timelineProps['markers'].length}
+                            {printPanelConfig?.currentHit}/
+                            {timelineProps?.markers?.length}
                           </span>
                         </div>
                       </div>
