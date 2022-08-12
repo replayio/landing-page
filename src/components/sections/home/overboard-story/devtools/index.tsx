@@ -1,4 +1,7 @@
+import clsx from 'clsx'
+
 import { Console, ConsoleProps } from './console'
+import s from './devtools.module.scss'
 import { Elements, ElementsProps } from './elements'
 import { Network, NetworkProps } from './network'
 import { ReactDevTools, ReactDevToolsProps } from './react'
@@ -11,7 +14,7 @@ function ElementSelectorIcon() {
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ marginRight: 4 }}
+      style={{ marginRight: 10 }}
     >
       <path
         d="M3.21642 3.26886C2.93209 3.26886 2.65941 3.38961 2.45836 3.60455C2.25731 3.8195 2.14436 4.11103 2.14436 4.415V13.5842C2.14436 13.8882 2.25731 14.1797 2.45836 14.3946C2.65941 14.6096 2.93209 14.7303 3.21642 14.7303H6.00377C6.28809 14.7303 6.56077 14.8511 6.76182 15.066C6.96287 15.281 7.07582 15.5725 7.07582 15.8765C7.07582 16.1804 6.96287 16.472 6.76182 16.6869C6.56077 16.9019 6.28809 17.0226 6.00377 17.0226H3.21642C2.36343 17.0226 1.54539 16.6604 0.942239 16.0155C0.33909 15.3707 0.000244141 14.4961 0.000244141 13.5842L0.000244141 4.415C0.000244141 3.50307 0.33909 2.62849 0.942239 1.98366C1.54539 1.33883 2.36343 0.976563 3.21642 0.976562H13.937C14.79 0.976563 15.608 1.33883 16.2112 1.98366C16.8143 2.62849 17.1532 3.50307 17.1532 4.415V7.39498C17.1532 7.69896 17.0402 7.99049 16.8392 8.20543C16.6381 8.42038 16.3654 8.54113 16.0811 8.54113C15.7968 8.54113 15.5241 8.42038 15.323 8.20543C15.122 7.99049 15.009 7.69896 15.009 7.39498V4.415C15.009 4.11103 14.8961 3.8195 14.695 3.60455C14.494 3.38961 14.2213 3.26886 13.937 3.26886H3.21642Z"
@@ -89,9 +92,9 @@ export type DevToolsProps<T extends keyof typeof tabs = keyof typeof tabs> = {
 } & JSX.IntrinsicElements['div']
 
 export function DevTools<T extends keyof typeof tabs>({
+  className,
   panelProps,
   panel,
-  style,
   onPanelTabChange,
   panelWrapperProps,
   ...rest
@@ -99,16 +102,7 @@ export function DevTools<T extends keyof typeof tabs>({
   const ActiveTabPanel = tabs[panel]
 
   return (
-    <div
-      style={{
-        width: '100%',
-        border: '1px solid #DCDCDC',
-        borderRadius: 12,
-        overflow: 'hidden',
-        ...style
-      }}
-      {...rest}
-    >
+    <div className={clsx(s['dev-tools'], className)} {...rest}>
       <TabNav activePanel={panel} setActivePanel={onPanelTabChange} />
       <div {...panelWrapperProps}>
         {/* @ts-ignore */}

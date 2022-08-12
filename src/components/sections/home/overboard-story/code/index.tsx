@@ -70,13 +70,12 @@ type CodeProps = {
   debugger?: boolean
 } & JSX.IntrinsicElements['div']
 
-export const Code = forwardRef<
-  {
-    elm: HTMLDivElement | null
-    timeline: UseGsapTimeAPI | null
-  },
-  CodeProps
->(
+export type CodeRef = {
+  elm: HTMLDivElement | null
+  timeline: UseGsapTimeAPI | null
+}
+
+export const Code = forwardRef<CodeRef, CodeProps>(
   (
     {
       onHit,

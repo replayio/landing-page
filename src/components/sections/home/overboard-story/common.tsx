@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import { FC, forwardRef } from 'react'
+import { gsap } from 'lib/gsap'
+import { FC, forwardRef, useEffect } from 'react'
 
 import s from './overboard-story.module.scss'
 
@@ -96,6 +97,19 @@ export function identifyNodes<T>(
   }
 }
 
+export function buildUuids(
+  node: ReactNode | HTMLNode,
+  key?: string | number
+): ReactNode | HTMLNode {
+  return {
+    ...node,
+    uuid: node.type + (key != undefined ? `-${key}` : ''),
+    children: node?.children?.map((child, idx) =>
+      buildUuids(child, (key != undefined ? `${key}-` : '') + idx)
+    )
+  }
+}
+
 export const getStyles = function (elm: Element, stylesProps: string[]) {
   const styles = window.getComputedStyle(elm)
 
@@ -105,6 +119,33 @@ export const getStyles = function (elm: Element, stylesProps: string[]) {
   }, {} as { [x: string]: string })
 
   return stylesObj
+}
+
+export const useInspectElement = (
+  hoveredComponentBlockId: string | null,
+  scopedInspect?: HTMLElement | null
+) => {
+  useEffect(() => {
+    if (!scopedInspect) return
+
+    const storeSelector = gsap.utils.selector(
+      scopedInspect || document.documentElement
+    )
+
+    const targetInspect = storeSelector(
+      `*[data-box-id='${hoveredComponentBlockId}']`
+    )
+
+    gsap.set(targetInspect, {
+      '--inspect': 1
+    })
+
+    return () => {
+      gsap.set(targetInspect, {
+        '--inspect': 0
+      })
+    }
+  }, [hoveredComponentBlockId, scopedInspect])
 }
 
 export const Header: FC<JSX.IntrinsicElements['div']> = ({
