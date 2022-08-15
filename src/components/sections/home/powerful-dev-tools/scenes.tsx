@@ -614,7 +614,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
         setHoveredComponentBlockId('hoverboard')
       },
       undefined,
-      '+=1'
+      '+=0.6'
     )
 
     _timeline.call(
@@ -622,7 +622,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
         setActiveComponent(get(tree, 'children.0'))
       },
       undefined,
-      '+=1'
+      '+=0.6'
     )
 
     _timeline.call(
@@ -632,7 +632,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
         setHoveredComponentBlockId('colors')
       },
       undefined,
-      '+=1.5'
+      '+=0.8'
     )
 
     _timeline.call(
@@ -640,7 +640,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
         setActiveComponent(get(tree, 'children.1.children.0'))
       },
       undefined,
-      '+=1'
+      '+=0.6'
     )
 
     _timeline.call(
@@ -650,7 +650,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
         setHoveredComponentBlockId('color-red')
       },
       undefined,
-      '+=1'
+      '+=0.8'
     )
 
     _timeline.call(
@@ -687,7 +687,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
         setOverboardColor('green')
       },
       undefined,
-      '+=1'
+      '+=0.8'
     )
 
     _timeline.call(
