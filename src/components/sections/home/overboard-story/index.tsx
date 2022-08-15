@@ -336,7 +336,7 @@ export function ReplayApplication() {
           opacity: 0,
           yPercent: 20
         },
-        { opacity: 1, y: '0%', duration: 3 },
+        { opacity: 1, yPercent: -50, duration: 3 },
         '<'
       )
       .add(() => {
