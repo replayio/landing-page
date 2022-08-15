@@ -120,7 +120,7 @@ const AssetPlayer = () => {
     setIsPlaying(true)
   }
 
-  const ActiveScene = scenes[activeIdx]
+  const ActiveScene = scenes[2]
 
   return (
     <div className={s['asset-player']}>

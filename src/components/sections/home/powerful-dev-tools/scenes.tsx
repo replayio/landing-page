@@ -588,6 +588,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
 
     setActiveComponent(null)
     setHoveredComponentBlockId(null)
+    setOverboardColor('red')
 
     _timeline.clear()
     _timeline.kill()
@@ -679,6 +680,22 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
       },
       undefined,
       '+=0.5'
+    )
+
+    _timeline.call(
+      () => {
+        setOverboardColor('green')
+      },
+      undefined,
+      '+=1'
+    )
+
+    _timeline.call(
+      () => {
+        setOverboardColor('blue')
+      },
+      undefined,
+      '+=0.6'
     )
 
     _timeline.call(
