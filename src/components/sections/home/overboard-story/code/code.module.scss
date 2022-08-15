@@ -4,6 +4,16 @@
   flex-direction: column;
 
   .code {
+    position: relative;
+    display: grid;
+    grid-template-columns: 25px 4px auto;
+    align-content: flex-start;
+    line-height: 15px;
+    font-size: 14px;
+    height: calc(100% - 35px);
+    font-family: var(--font-mono);
+    padding-top: 18px;
+    overflow-y: auto;
     color: #727272;
 
     .code-line {
@@ -14,12 +24,16 @@
       font-size: 14px !important;
       font-family: var(--font-mono);
       max-height: 17px;
+      width: 100%;
 
       pre {
         padding-left: 6px;
+        // width: 100%;
 
         code {
           white-space: pre-wrap;
+          // min-width: max-content;
+          // width: 100%;
         }
       }
     }
@@ -91,7 +105,7 @@
     z-index: 1;
     left: 0;
     right: 0;
-    bottom: -8px;
+    bottom: -3px;
 
     .markers {
       position: relative;

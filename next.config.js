@@ -7,6 +7,7 @@ const withTM = require('next-transpile-modules')
  */
 const config = {
   reactStrictMode: false,
+  productionBrowserSourceMaps: true,
   swcMinify: true,
   images: {
     formats: ['image/avif', 'image/webp'],

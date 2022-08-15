@@ -147,7 +147,6 @@ const AssetPlayer = () => {
               markerSize={14}
               duration={60}
               direction="horizontal"
-              debug
               ref={timelineRef}
             />
           </div>

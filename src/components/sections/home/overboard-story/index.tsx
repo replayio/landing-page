@@ -1,4 +1,5 @@
-import { Flip, gsap } from 'lib/gsap'
+import { DURATION, Flip, gsap } from 'lib/gsap'
+import get from 'lodash/get'
 import React, { forwardRef, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
@@ -174,19 +175,28 @@ const reactTree = identifyNodes(
   })
 )
 
+const printMarkers = [50]
+
 export function ReplayApplication() {
   const progressBarRef = useRef<ProgressAPI>(null)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
 
   /* React */
-  // const devtoolsRef = useRef<HTMLDivElement>(null)
+  const devtoolsRef = useRef<HTMLDivElement>(null)
   const [activeComponent, setActiveComponent] =
     useState<IdentifiedNode<ReactNode> | null>()
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
   >(null)
 
+  /* Code */
+
+  /* Console */
+  const [showPrints, setShowPrints] = useState(false)
+  const [currentHit, setCurrentHit] = useState(0)
+
+  /* Refs */
   const applicationRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const targetStoreRef = useRef<HTMLDivElement>(null)
@@ -211,35 +221,18 @@ export function ReplayApplication() {
       !viewToggleRef.current ||
       !devtoolsPanelRef.current ||
       !devtoolsAreaRef.current ||
-      !codeRef.current?.elm
+      !codeRef.current?.elm ||
+      !devtoolsRef.current
     ) {
       return
     }
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: targetStoreRef.current,
-        endTrigger: sectionRef.current,
-        markers: isDev,
-        id: 'overboard-story',
-        scrub: true,
-        pin: sectionRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        onEnter: () => {
-          document.documentElement.classList.add('hide-header')
-        },
-        onEnterBack: () => {
-          document.documentElement.classList.add('hide-header')
-        },
-        onLeave: () => {
-          document.documentElement.classList.remove('hide-header')
-        },
-        onLeaveBack: () => {
-          document.documentElement.classList.remove('hide-header')
-        }
-      }
-    })
+    const codeSelector = gsap.utils.selector(codeRef.current.elm)
+    const toolsSelector = gsap.utils.selector(devtoolsRef.current)
+
+    const nodeLine = toolsSelector('#node-line')
+    const addPrintButton = codeSelector('#dev-tools-add-print')
+    const printPanel = codeSelector('#dev-tools-print-panel')
 
     const flipTimeline1 = Flip.fit(
       targetStoreRef.current,
@@ -277,7 +270,32 @@ export function ReplayApplication() {
       }
     )
 
-    const timelineProgress = { progress: 0 }
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: targetStoreRef.current,
+        endTrigger: sectionRef.current,
+        markers: isDev,
+        id: 'overboard-story',
+        scrub: true,
+        pin: sectionRef.current,
+        start: 'top top',
+        end: 'bottom+=300vh top',
+        onEnter: () => {
+          document.documentElement.classList.add('hide-header')
+        },
+        onEnterBack: () => {
+          document.documentElement.classList.add('hide-header')
+        },
+        onLeave: () => {
+          document.documentElement.classList.remove('hide-header')
+        },
+        onLeaveBack: () => {
+          document.documentElement.classList.remove('hide-header')
+        }
+      }
+    })
+
+    const printTimelineProgress = { progress: 0 }
 
     timeline
       .add(flipTimeline1 as GSAPTimeline)
@@ -302,13 +320,111 @@ export function ReplayApplication() {
         { clipPath: 'inset(4px 4px 4px 50% round 4px)' }
       )
       .add(flipTimeline2 as GSAPTimeline, '+=2')
+      .to(
+        devtoolsPanelRef.current,
+        {
+          opacity: 1,
+          duration: 2
+        },
+        '<'
+      )
+      .call(() => {
+        setHoveredComponentBlockId(null)
+        setActiveComponent(null)
+      }, undefined)
+      .call(
+        () => {
+          nodeLine[0].classList.toggle('hovered')
+          setHoveredComponentBlockId('app')
+        },
+        undefined,
+        '+=1'
+      )
+      .call(
+        () => {
+          nodeLine[0].classList.toggle('hovered')
+          nodeLine[1].classList.toggle('hovered')
+          setHoveredComponentBlockId('hoverboard')
+        },
+        undefined,
+        '+=1'
+      )
+      .call(
+        () => {
+          setActiveComponent(get(reactTree, 'children.0'))
+        },
+        undefined,
+        '+=1'
+      )
+      .call(
+        () => {
+          nodeLine[1].classList.toggle('hovered')
+          nodeLine[3].classList.toggle('hovered')
+          setHoveredComponentBlockId('colors')
+        },
+        undefined,
+        '+=1.5'
+      )
+      .call(
+        () => {
+          setActiveComponent(get(reactTree, 'children.1.children.0'))
+        },
+        undefined,
+        '+=1'
+      )
+      .call(
+        () => {
+          nodeLine[3].classList.toggle('hovered')
+          nodeLine[4].classList.toggle('hovered')
+          setHoveredComponentBlockId('color-red')
+        },
+        undefined,
+        '+=1'
+      )
+      .call(
+        () => {
+          nodeLine[4].classList.toggle('hovered')
+          nodeLine[5].classList.toggle('hovered')
+          setHoveredComponentBlockId('color-green')
+        },
+        undefined,
+        '+=0.5'
+      )
+      .call(
+        () => {
+          nodeLine[5].classList.toggle('hovered')
+          nodeLine[6].classList.toggle('hovered')
+          setHoveredComponentBlockId('color-blue')
+        },
+        undefined,
+        '+=0.5'
+      )
+      .call(
+        () => {
+          nodeLine[6].classList.toggle('hovered')
+          setActiveComponent(get(reactTree, 'children.1.children.0.children.2'))
+        },
+        undefined,
+        '+=0.5'
+      )
+      .call(
+        () => {
+          setHoveredComponentBlockId(null)
+        },
+        undefined,
+        '>'
+      )
       .add(flipTimeline3 as GSAPTimeline, '+=2')
+      // .to(timelineProgress, {
+      //   progress: 100,
+      //   duration: 10,
+      //   onUpdate: () => {
+      //     progressBarRef.current?.update(timelineProgress.progress)
+      //   }
+      // })
+
+      /* Code */
       .add(flipTimeline4 as GSAPTimeline, '<')
-      .add(() => {
-        setActiveDevtoolTab((activeTab) =>
-          activeTab === 'react' ? 'console' : 'react'
-        )
-      })
       .to(
         codeRef.current.elm,
         {
@@ -317,14 +433,92 @@ export function ReplayApplication() {
         },
         '<'
       )
-      .to(timelineProgress, {
+      .add(() => {
+        setActiveDevtoolTab((activeTab) =>
+          activeTab === 'react' ? 'console' : 'react'
+        )
+      })
+      //
+
+      .fromTo(
+        addPrintButton,
+        {
+          x: -5,
+          opacity: 0,
+          scale: 0.8
+        },
+        {
+          x: 0,
+          opacity: 1,
+          scale: 1
+        }
+      )
+      .to(addPrintButton, {
+        scale: 1.1,
+        delay: 0.5,
+        duration: DURATION / 3
+      })
+      .to(addPrintButton, {
+        scale: 1,
+        duration: DURATION / 3
+      })
+      .call(
+        () => {
+          addPrintButton[0]?.classList?.remove?.('active')
+          setShowPrints(false)
+        },
+        undefined,
+        '>-50%'
+      )
+      .call(
+        () => {
+          addPrintButton[0]?.classList?.add?.('active')
+          setShowPrints(true)
+        },
+        undefined,
+        '>-50%'
+      )
+      .fromTo(
+        printPanel,
+        {
+          opacity: 0,
+          y: 20
+        },
+        {
+          opacity: 1,
+          y: 0
+        }
+      )
+      .to(printTimelineProgress, {
         progress: 100,
-        duration: 4,
+        duration: 10,
         onUpdate: () => {
-          progressBarRef.current?.update(timelineProgress.progress)
+          ;(codeRef.current?.timeline as ProgressAPI)?.update(
+            printTimelineProgress.progress
+          )
         }
       })
 
+    // const updateMarkersTimeline = updateMarkers('yellow', true)
+
+    // updateMarkersTimeline && _timeline.add(updateMarkersTimeline)
+
+    // _timeline.call(
+    //   () => {
+    //     consoleMarkers[0]?.classList?.remove?.('active')
+    //   },
+    //   undefined,
+    //   '+=0.5'
+    // )
+
+    // _timeline.call(
+    //   () => {
+    //     codeRef.current?.timeline?.start?.()
+    //   },
+    //   undefined,
+    //   '+=0.5'
+    // )
+    console.log('timeline created!')
     return () => {
       timeline.scrollTrigger?.kill()
       timeline.kill()
@@ -333,13 +527,19 @@ export function ReplayApplication() {
 
   const devtoolProps = {
     console: {
+      currentHit,
       onCurrentHitChange: () => undefined,
       disableTravel: true,
-      currentHit: 0,
       logs: [
         {
           hits: 1,
           marker: 'transparent',
+          content: ['Hello World']
+        },
+        {
+          hits: 1,
+          marker: 'transparent',
+          prepend: 'response',
           content: [
             {
               body: { locked: false },
@@ -348,7 +548,8 @@ export function ReplayApplication() {
               statusText: 'Bad Request',
               url: 'https://overboard-react.vercel.app/api/purchase'
             }
-          ]
+          ],
+          hide: !showPrints
         }
       ]
     },
@@ -356,7 +557,8 @@ export function ReplayApplication() {
       tree: reactTree,
       activeComponent,
       onHoverComponent: setHoveredComponentBlockId,
-      onActiveComponentChange: setActiveComponent
+      onActiveComponentChange: setActiveComponent,
+      ref: devtoolsRef
     }
   }
 
@@ -381,7 +583,7 @@ export function ReplayApplication() {
         <OverboardStore
           style={{ height: '100%' }}
           mode="color-picker"
-          inspectMode="html"
+          inspectMode="react"
         />
       </AspectBox>
 
@@ -546,6 +748,14 @@ export function ReplayApplication() {
               ref={codeAreaRef}
             >
               <Code
+                printPanelConfig={{
+                  markers: printMarkers,
+                  printLineTarget: 16,
+                  timelineType: 'justUi',
+                  currentMarker: 'transparent',
+                  onHit: setCurrentHit,
+                  currentHit
+                }}
                 className={s['code']}
                 printIndicators={{
                   3: 'not-available',
@@ -627,7 +837,8 @@ export function ReplayApplication() {
                   top: 0,
                   left: 0,
                   bottom: 0,
-                  right: 0
+                  right: 0,
+                  opacity: 0
                 }}
                 ref={devtoolsPanelRef}
               >
