@@ -25,7 +25,8 @@ import { Debugger } from './debugger'
 import { DevTools, DevToolsProps, tabs } from './devtools'
 import {
   OverboardStore as NewOverboardStore,
-  OverboardStore
+  OverboardStore,
+  OverboardStoreProps
 } from './overboard-store'
 import s from './overboard-story.module.scss'
 
@@ -176,11 +177,18 @@ const reactTree = identifyNodes(
 )
 
 const printMarkers = [50]
+const storeId = 'hero'
 
 export function ReplayApplication() {
   const progressBarRef = useRef<ProgressAPI>(null)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
+
+  /* Store */
+  const [storeState, setStoreState] =
+    useState<OverboardStoreProps['state']>('idle')
+  const [overboardColor, setOverboardColor] =
+    useState<OverboardStoreProps['overboardColor']>('red')
 
   /* React */
   const devtoolsRef = useRef<HTMLDivElement>(null)
@@ -227,17 +235,23 @@ export function ReplayApplication() {
       return
     }
 
+    const storeSelector = gsap.utils.selector(targetStoreRef.current)
     const codeSelector = gsap.utils.selector(codeRef.current.elm)
     const toolsSelector = gsap.utils.selector(devtoolsRef.current)
 
     const nodeLine = toolsSelector('#node-line')
     const addPrintButton = codeSelector('#dev-tools-add-print')
     const printPanel = codeSelector('#dev-tools-print-panel')
+    const storeLogo = storeSelector(`#overboard-store-logo-${storeId}`)
+    const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
+    const storePurchase = storeSelector(`#overboard-store-purchase-${storeId}`)
+    const storeColors = storeSelector(`#overboard-store-colors-${storeId}`)
 
     const flipTimeline1 = Flip.fit(
       targetStoreRef.current,
       smallCenteredStoreRef.current,
       {
+        // scale: true,
         simple: false,
         duration: 2
       }
@@ -247,6 +261,7 @@ export function ReplayApplication() {
       targetStoreRef.current,
       smallRightCenteredStoreRef.current,
       {
+        // scale: true,
         simple: false,
         duration: 2
       }
@@ -256,6 +271,7 @@ export function ReplayApplication() {
       targetStoreRef.current,
       smallRightStoreRef.current,
       {
+        // scale: true,
         simple: false,
         duration: 2
       }
@@ -279,7 +295,7 @@ export function ReplayApplication() {
         scrub: true,
         pin: sectionRef.current,
         start: 'top top',
-        end: 'bottom+=300vh top',
+        end: 'bottom+=400vh top',
         onEnter: () => {
           document.documentElement.classList.add('hide-header')
         },
@@ -298,7 +314,40 @@ export function ReplayApplication() {
     const printTimelineProgress = { progress: 0 }
 
     timeline
-      .add(flipTimeline1 as GSAPTimeline)
+      .to({}, { duration: 4 })
+      .add(() => {
+        setOverboardColor('red')
+      })
+      .add(() => {
+        setOverboardColor('green')
+      })
+      .to(storeColors, {
+        opacity: 0,
+        duration: 3,
+        delay: 2,
+        yPercent: -20
+      })
+      .add(() => {
+        setStoreState('idle')
+      })
+      .fromTo(
+        storePurchase,
+        {
+          opacity: 0,
+          yPercent: 20
+        },
+        { opacity: 1, y: '0%', duration: 3 },
+        '<'
+      )
+      .add(() => {
+        setStoreState('loading')
+      })
+      .add(() => {
+        setStoreState('error')
+      }, '+=4')
+
+      /* Viewer */
+      .add(flipTimeline1 as GSAPTimeline, '+=4')
       .fromTo(
         applicationRef.current,
         {
@@ -314,12 +363,39 @@ export function ReplayApplication() {
         },
         '<'
       )
+      .to(
+        storeLogo,
+        {
+          opacity: 0,
+          yPercent: -40,
+          duration: 3
+        },
+        '<'
+      )
+      .to(
+        storePurchase,
+        {
+          yPercent: -50,
+          duration: 3
+        },
+        '<'
+      )
+      .to(
+        storeContent,
+        {
+          y: 0,
+          duration: 3
+        },
+        '<'
+      )
       .fromTo(
         viewToggleRef.current,
         { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
         { clipPath: 'inset(4px 4px 4px 50% round 4px)' }
       )
-      .add(flipTimeline2 as GSAPTimeline, '+=2')
+
+      /* Devtools */
+      .add(flipTimeline2 as GSAPTimeline)
       .to(
         devtoolsPanelRef.current,
         {
@@ -415,15 +491,11 @@ export function ReplayApplication() {
         '>'
       )
       .add(flipTimeline3 as GSAPTimeline, '+=2')
-      // .to(timelineProgress, {
-      //   progress: 100,
-      //   duration: 10,
-      //   onUpdate: () => {
-      //     progressBarRef.current?.update(timelineProgress.progress)
-      //   }
-      // })
 
       /* Code */
+      .add(() => {
+        setActiveDevtoolTab('react')
+      }, '<')
       .add(flipTimeline4 as GSAPTimeline, '<')
       .to(
         codeRef.current.elm,
@@ -434,12 +506,8 @@ export function ReplayApplication() {
         '<'
       )
       .add(() => {
-        setActiveDevtoolTab((activeTab) =>
-          activeTab === 'react' ? 'console' : 'react'
-        )
+        setActiveDevtoolTab('console')
       })
-      //
-
       .fromTo(
         addPrintButton,
         {
@@ -499,26 +567,8 @@ export function ReplayApplication() {
         }
       })
 
-    // const updateMarkersTimeline = updateMarkers('yellow', true)
-
-    // updateMarkersTimeline && _timeline.add(updateMarkersTimeline)
-
-    // _timeline.call(
-    //   () => {
-    //     consoleMarkers[0]?.classList?.remove?.('active')
-    //   },
-    //   undefined,
-    //   '+=0.5'
-    // )
-
-    // _timeline.call(
-    //   () => {
-    //     codeRef.current?.timeline?.start?.()
-    //   },
-    //   undefined,
-    //   '+=0.5'
-    // )
     console.log('timeline created!')
+
     return () => {
       timeline.scrollTrigger?.kill()
       timeline.kill()
@@ -581,8 +631,11 @@ export function ReplayApplication() {
         ref={targetStoreRef}
       >
         <OverboardStore
+          storeId={storeId}
+          state={storeState}
+          overboardColor={overboardColor}
           style={{ height: '100%' }}
-          mode="color-picker"
+          mode="full"
           inspectMode="react"
         />
       </AspectBox>
@@ -724,14 +777,14 @@ export function ReplayApplication() {
             </svg>
           </div>
           <div className={s['grid']}>
-            <div
+            <AspectBox
+              ratio={1920 / 1080}
               style={{
                 position: 'absolute',
                 right: 0,
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: '46%',
-                height: '75%'
+                width: '49%'
               }}
               ref={smallRightCenteredStoreRef}
             />

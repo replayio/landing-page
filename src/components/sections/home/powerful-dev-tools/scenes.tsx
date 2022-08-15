@@ -1,5 +1,5 @@
 import { HoverboardControls } from '@replayio/overboard'
-import clamp from 'lodash/clamp'
+// import clamp from 'lodash/clamp'
 import get from 'lodash/get'
 import {
   ComponentRef,
@@ -21,7 +21,8 @@ import {
   HTMLNode,
   IdentifiedNode,
   identifyNodes,
-  ReactNode
+  ReactNode,
+  useInspectElement
 } from '../overboard-story/common'
 import { Snapshot } from '../overboard-story/debugger'
 import { DevToolsProps } from '../overboard-story/devtools'
@@ -463,7 +464,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
     string | null
   >(null)
   const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
-  const [rotation, setRotation] = useState(0)
+  const [rotation /* , setRotation */] = useState(0)
 
   const tree = useMemo<IdentifiedNode<ReactNode>>(() => {
     const tree = {
@@ -532,47 +533,17 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
   const updateOverboard = useCallback(() => {
     overboardProgress += 1
     const loopedValue = overboardProgress % 360
-    const a = rangeMap(
-      clamp(loopedValue, START_OF_ROTATION, END_OF_ROTATION),
-      START_OF_ROTATION,
-      END_OF_ROTATION,
-      0,
-      360
-    )
+    // const a = rangeMap(
+    //   clamp(loopedValue, START_OF_ROTATION, END_OF_ROTATION),
+    //   START_OF_ROTATION,
+    //   END_OF_ROTATION,
+    //   0,
+    //   360
+    // )
 
-    setRotation(Number(a.toFixed(0)))
+    // setRotation(Number(a.toFixed(0)))
     overboardRef.current?.rotate(loopedValue)
   }, [])
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      updateOverboard()
-    }, 1)
-
-    return () => {
-      clearInterval(intervalId)
-    }
-  }, [updateOverboard])
-
-  useEffect(() => {
-    if (!storeRef.current || hoveredComponentBlockId) return
-
-    const storeSelector = gsap.utils.selector(storeRef.current)
-
-    const targetInspect = storeSelector(
-      `*[data-box-id='${hoveredComponentBlockId}']`
-    )
-
-    gsap.set(targetInspect, {
-      '--inspect': 1
-    })
-
-    return () => {
-      gsap.set(targetInspect, {
-        '--inspect': 0
-      })
-    }
-  }, [hoveredComponentBlockId])
 
   const timeline = useRef(gsap.timeline({ delay: 2 }))
 
@@ -592,6 +563,16 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
     _timeline.clear()
     _timeline.kill()
   }
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      updateOverboard()
+    }, 1)
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [updateOverboard])
 
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
@@ -691,6 +672,8 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
     )
   }, [tree])
 
+  useInspectElement(hoveredComponentBlockId, storeRef.current)
+
   return (
     <>
       <DevTools
@@ -729,6 +712,7 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
   >(null)
+  const timeline = useRef(gsap.timeline({ delay: 2 }))
 
   const tree = useMemo<IdentifiedNode<HTMLNode>>(() => {
     const tree: HTMLNode = {
@@ -801,28 +785,6 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
 
     return identifiedTree
   }, [])
-
-  useEffect(() => {
-    if (!storeRef.current) return
-
-    const storeSelector = gsap.utils.selector(storeRef.current)
-
-    const targetInspect = storeSelector(
-      `*[data-box-id='${hoveredComponentBlockId}']`
-    )
-
-    gsap.set(targetInspect, {
-      '--inspect': 1
-    })
-
-    return () => {
-      gsap.set(targetInspect, {
-        '--inspect': 0
-      })
-    }
-  }, [hoveredComponentBlockId])
-
-  const timeline = useRef(gsap.timeline({ delay: 2 }))
 
   const resetAnimation = () => {
     if (!overboardRef.current || !devToolsRef.current) return
@@ -936,6 +898,8 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
       '+=3'
     )
   }, [tree])
+
+  useInspectElement(hoveredComponentBlockId, storeRef.current)
 
   return (
     <>
