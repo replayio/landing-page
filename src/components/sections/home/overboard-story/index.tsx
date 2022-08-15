@@ -295,7 +295,7 @@ export function ReplayApplication() {
         scrub: true,
         pin: sectionRef.current,
         start: 'center center',
-        end: 'bottom+=400vh top',
+        end: 'bottom+=600vh top',
         onEnter: () => {
           document.documentElement.classList.add('hide-header')
         },
