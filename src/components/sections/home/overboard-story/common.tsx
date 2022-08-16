@@ -126,8 +126,6 @@ export const useInspectElement = (
   scopedInspect?: HTMLElement | null
 ) => {
   useEffect(() => {
-    if (!scopedInspect) return
-
     const storeSelector = gsap.utils.selector(
       scopedInspect || document.documentElement
     )

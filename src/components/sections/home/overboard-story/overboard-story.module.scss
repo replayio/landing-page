@@ -1,6 +1,10 @@
 /* stylelint-disable declaration-block-no-redundant-longhand-properties */
 @import 'css/helpers';
 
+.container {
+  position: relative;
+}
+
 .toolbar {
   padding: 20px 26px;
 }

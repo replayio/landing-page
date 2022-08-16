@@ -92,7 +92,7 @@
     border-radius: 4px;
 
     &.active {
-      background: var(--color-gray-lightest);
+      background: var(--color-gray-lightest) !important;
     }
 
     &:global(.hovered) {

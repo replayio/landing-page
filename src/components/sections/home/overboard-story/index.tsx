@@ -169,6 +169,13 @@ const reactTree = identifyNodes(
                 }
               }
             ]
+          },
+          {
+            type: 'SubmitButton',
+            inspectBlockId: 'submit',
+            props: {
+              state: 'error'
+            }
           }
         ]
       }
@@ -290,12 +297,13 @@ export function ReplayApplication() {
       scrollTrigger: {
         trigger: targetStoreRef.current,
         endTrigger: sectionRef.current,
+        anticipatePin: 1,
         markers: isDev,
         id: 'overboard-story',
-        scrub: true,
+        scrub: 0.2,
         pin: sectionRef.current,
         start: 'center center',
-        end: 'bottom+=600vh top',
+        end: 'bottom+=1000vh top',
         onEnter: () => {
           document.documentElement.classList.add('hide-header')
         },
@@ -452,40 +460,22 @@ export function ReplayApplication() {
       .call(
         () => {
           nodeLine[3].classList.toggle('hovered')
-          nodeLine[4].classList.toggle('hovered')
-          setHoveredComponentBlockId('color-red')
+          nodeLine[7].classList.toggle('hovered')
+          setHoveredComponentBlockId('submit')
+        },
+        undefined,
+        '+=1.5'
+      )
+      .call(
+        () => {
+          setActiveComponent(get(reactTree, 'children.1.children.1'))
         },
         undefined,
         '+=1'
       )
       .call(
         () => {
-          nodeLine[4].classList.toggle('hovered')
-          nodeLine[5].classList.toggle('hovered')
-          setHoveredComponentBlockId('color-green')
-        },
-        undefined,
-        '+=0.5'
-      )
-      .call(
-        () => {
-          nodeLine[5].classList.toggle('hovered')
-          nodeLine[6].classList.toggle('hovered')
-          setHoveredComponentBlockId('color-blue')
-        },
-        undefined,
-        '+=0.5'
-      )
-      .call(
-        () => {
-          nodeLine[6].classList.toggle('hovered')
-          setActiveComponent(get(reactTree, 'children.1.children.0.children.2'))
-        },
-        undefined,
-        '+=0.5'
-      )
-      .call(
-        () => {
+          nodeLine[7].classList.toggle('hovered')
           setHoveredComponentBlockId(null)
         },
         undefined,
@@ -567,8 +557,6 @@ export function ReplayApplication() {
           )
         }
       })
-
-    console.log('timeline created!')
 
     return () => {
       timeline.scrollTrigger?.kill()
@@ -815,6 +803,7 @@ export function ReplayApplication() {
               >
                 <Code
                   printPanelConfig={{
+                    print: '"response", response',
                     markers: printMarkers,
                     printLineTarget: 16,
                     timelineType: 'justUi',

@@ -50,7 +50,8 @@ export function TabNav({
         paddingLeft: 12,
         paddingRight: 12,
         fontSize: 12,
-        borderBottom: '1px solid #DCDCDC'
+        borderBottom: '1px solid #DCDCDC',
+        background: 'var(--color-gray-lightest)'
       }}
     >
       <ElementSelectorIcon />

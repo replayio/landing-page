@@ -242,6 +242,7 @@ export const Scene1: FC<SceneProps> = ({
     <>
       <Code
         printPanelConfig={{
+          print: '"rotation", angle',
           markers: printMarkers,
           currentHit: currentHit,
           currentMarker: markersType,

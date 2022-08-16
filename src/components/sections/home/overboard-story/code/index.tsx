@@ -66,6 +66,7 @@ type CodeProps = {
   code?: string
   debugger?: boolean
   printPanelConfig?: {
+    print: string
     markers: number[]
     currentMarker?: Marker
     currentHit?: number
@@ -266,7 +267,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                               marginLeft: 8
                             }}
                           >
-                            "rotate", angle
+                            {printPanelConfig?.print}
                           </p>
                         </div>
                         <div
