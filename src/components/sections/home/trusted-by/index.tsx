@@ -7,6 +7,7 @@ import { PlayIcon } from '~/components/common/play-icon'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
+import { Link } from '~/components/primitives/link'
 import circleCiSvg from '~/public/images/logos/circle-ci.svg'
 import codeSandboxSvg from '~/public/images/logos/code-sandbox.svg'
 import excalidrawSvg from '~/public/images/logos/excalidraw.svg'
@@ -39,37 +40,45 @@ const logos = [
   [
     {
       title: 'Circle Ci',
-      logo: circleCiSvg
+      logo: circleCiSvg,
+      url: 'https://circleci.com'
     },
     {
       title: 'Gitbook',
-      logo: gitbookSvg
+      logo: gitbookSvg,
+      url: 'https://gitbook.com'
     },
     {
       title: 'Code Sandbox',
-      logo: codeSandboxSvg
+      logo: codeSandboxSvg,
+      url: 'https://codesandbox.io'
     },
     {
       title: 'Repl.it',
-      logo: replItSvg
+      logo: replItSvg,
+      url: 'https://repl.it'
     }
   ],
   [
     {
       title: 'Excalidraw',
-      logo: excalidrawSvg
+      logo: excalidrawSvg,
+      url: 'https://excalidraw.com'
     },
     {
       title: 'Solid JS',
-      logo: solidJsSvg
+      logo: solidJsSvg,
+      url: 'https://www.solidjs.com/'
     },
     {
       title: 'XState',
-      logo: xStateSvg
+      logo: xStateSvg,
+      url: 'https://xstate.js.org'
     },
     {
       title: 'Glide',
-      logo: glideSvg
+      logo: glideSvg,
+      url: 'https://glide.com'
     }
   ]
 ]
@@ -142,10 +151,10 @@ export const TrustedBy: FC = () => {
 
         <div className={s['logos-desktop']}>
           <div className={s['logos-grid']}>
-            {logos.flat().map(({ title, logo }) => (
-              <div className={s['logo']} title={title} key={title}>
+            {logos.flat().map(({ title, logo, url }) => (
+              <Link href={url} className={s['logo']} title={title} key={title}>
                 <Image src={logo} alt={`${title} logo`} />
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -155,10 +164,15 @@ export const TrustedBy: FC = () => {
           {logos.map((logos, idx) => (
             <Container size="sm" key={idx}>
               <div className={s['logos-grid']}>
-                {logos.map(({ logo, title }) => (
-                  <div className={s['logo']} title={title} key={title}>
+                {logos.map(({ logo, title, url }) => (
+                  <Link
+                    href={url}
+                    className={s['logo']}
+                    title={title}
+                    key={title}
+                  >
                     <Image src={logo} alt={`${title} logo`} />
-                  </div>
+                  </Link>
                 ))}
               </div>
             </Container>
