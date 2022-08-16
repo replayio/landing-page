@@ -12,7 +12,7 @@ export const Security: FC = () => {
     <Section className={s.section}>
       <Container size="sm" className={s.container}>
         <div className={s.heading}>
-          <Heading as="h1" size="lg">
+          <Heading as="h1" size="sm">
             Security &amp; Privacy
           </Heading>
           <span>Efective date: 16 SEP 2021</span>

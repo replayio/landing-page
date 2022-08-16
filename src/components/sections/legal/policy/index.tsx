@@ -12,7 +12,7 @@ export const Policy: FC = () => {
     <Section className={s.section}>
       <Container size="sm" className={s.container}>
         <div className={s.heading}>
-          <Heading as="h1" size="lg">
+          <Heading as="h1" size="sm">
             Privacy Policy
           </Heading>
           <span>Efective date: 13 sep 2021</span>
