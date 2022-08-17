@@ -7,6 +7,7 @@ import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { IsoLogo } from '~/components/primitives/logo'
+import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { isDev } from '~/lib/constants'
 import avatarOne from '~/public/images/home/avatar-1.webp'
@@ -237,6 +238,7 @@ const printMarkers = [50]
 const storeId = 'hero'
 
 export function ReplayApplication() {
+  const { isDesktop } = useDeviceDetect()
   const progressBarRef = useRef<ProgressAPI>(null)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
@@ -280,6 +282,9 @@ export function ReplayApplication() {
 
   useIsomorphicLayoutEffect(() => {
     if (
+      /* Check device */
+      !isDesktop ||
+      /* Required refs */
       !applicationRef.current ||
       !smallCenteredStoreRef.current ||
       !sectionRef.current ||
@@ -675,7 +680,7 @@ export function ReplayApplication() {
       timeline.scrollTrigger?.kill()
       timeline.kill()
     }
-  }, [])
+  }, [isDesktop])
 
   const handleHit = useCallback((hit: number) => {
     setCurrentHit((prevValue) => {
