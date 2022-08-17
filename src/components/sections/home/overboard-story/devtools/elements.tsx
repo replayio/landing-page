@@ -157,7 +157,7 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
       <div className={s['elements-panel']} ref={ref}>
         <div
           onMouseLeave={() => onHoverElement(null)}
-          style={{ padding: 10, width: '60%' }}
+          style={{ padding: 10, width: '60%', overflowX: 'auto' }}
         >
           {renderHtmlTree({
             node: tree,
@@ -179,16 +179,23 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
             <span>Layout</span>
             <span>Computed</span>
           </div>
-          <ul style={{ padding: 15 }}>
-            {Object.entries(activeStyles || {}).map(([key, value]) => (
-              <li key={key}>
-                {key}:{' '}
-                <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
-                  {logStyleContent(key, value)}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div style={{ overflowX: 'auto', minWidth: 250 }}>
+            <ul
+              style={{
+                padding: 15,
+                maxHeight: '100%'
+              }}
+            >
+              {Object.entries(activeStyles || {}).map(([key, value]) => (
+                <li key={key}>
+                  {key}:{' '}
+                  <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
+                    {logStyleContent(key, value)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     )

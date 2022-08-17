@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 480px;
+  min-height: 390px;
 
   > div {
     height: 100%;
@@ -98,6 +98,8 @@
   .node-line {
     cursor: pointer;
     border-radius: 4px;
+    white-space: nowrap;
+    min-width: max-content;
 
     &.active {
       background: var(--color-gray-lightest) !important;
@@ -115,6 +117,7 @@
   font-size: 12px;
   display: flex;
   min-height: 35px;
+  overflow-x: auto;
 
   & > * {
     color: #c0c0c0;

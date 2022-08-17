@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import Image from 'next/future/image'
-import { FC, useMemo, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Bubble } from '~/components/common/bubble-popup'
 import { HeadingSet } from '~/components/common/heading-set'
@@ -87,6 +87,7 @@ const buildAssetId = (asset: typeof assets[number], idx: number) =>
 
 const AssetPlayer = () => {
   const [activeIdx, setActiveIdx] = useState(0)
+  const prevIdx = useRef(0)
   const timelineRef = useRef<
     UseGsapTimeAPI & { seek: (percentage: string | number) => void }
   >(null)
@@ -119,6 +120,10 @@ const AssetPlayer = () => {
     timelineRef.current?.resume()
     setIsPlaying(true)
   }
+
+  useEffect(() => {
+    prevIdx.current = activeIdx
+  }, [activeIdx])
 
   const ActiveScene = scenes[activeIdx]
 
