@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import { FC, useRef } from 'react'
 
@@ -189,11 +190,9 @@ export const Hero: FC = () => {
               </span>{' '}
               your application with DevTools.
             </Heading>
-            {isDesktop && (
-              <div className={s['cta']}>
-                <Button variant="primary">Download Replay</Button>
-              </div>
-            )}
+            <div className={clsx(s['cta'], { [s['hidden']]: !isDesktop })}>
+              <Button variant="primary">Download Replay</Button>
+            </div>
           </div>
         </div>
       </Container>
