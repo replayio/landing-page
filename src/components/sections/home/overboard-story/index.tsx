@@ -1,6 +1,6 @@
 import { DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
-import React, { forwardRef, useRef, useState } from 'react'
+import React, { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
@@ -24,9 +24,9 @@ import {
 import { Debugger } from './debugger'
 import { DevTools, DevToolsProps, tabs } from './devtools'
 import {
-  OverboardStore as NewOverboardStore,
   OverboardStore,
-  OverboardStoreProps
+  OverboardStoreProps,
+  StoreRef
 } from './overboard-store'
 import s from './overboard-story.module.scss'
 
@@ -120,6 +120,56 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
 const padding = 16
 const headerHeight = 70
 const timelineHeight = 90
+const codeBlock = `export function PurchaseForm() {
+  const [hasError, setHasError] = useState(false)
+  const handleSubmit = useCallback(async (event) => {
+    event.preventDefault()
+
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const formData = Object.fromEntries(data.entries())
+    const body = JSON.stringify(formData)
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body,
+    })
+
+    if (!response.ok) {
+      const errorMessage = await response.text()
+      setHasError(true)
+      throw new Error(errorMessage)
+    }
+  }, [])
+
+  return (
+    <Column
+      as="form"
+      action="/api/purchase"
+      method="post"
+      onSubmit={handleSubmit}
+      gap={5}
+    >
+      <Column gap={3}>
+        <h2>Color</h2>
+
+        <Colors>
+          {colors.map(([name, [start, end]]) => (
+            <Color
+              key={name}
+              label={name}
+              value={name.toLowerCase()}
+              startColor={start}
+              endColor={end}
+            />
+          ))}
+        </Colors>
+      </Column>
+
+      <PurchaseButton hasError={hasError} />
+    </Column>
+  )
+}`
 
 const reactTree = identifyNodes(
   buildUuids({
@@ -171,10 +221,10 @@ const reactTree = identifyNodes(
             ]
           },
           {
-            type: 'SubmitButton',
+            type: 'PurchaseButton',
             inspectBlockId: 'submit',
             props: {
-              state: 'error'
+              hasError: true
             }
           }
         ]
@@ -223,6 +273,8 @@ export function ReplayApplication() {
   const devtoolsPanelRef = useRef<HTMLDivElement>(null)
   const devtoolsAreaRef = useRef<HTMLDivElement>(null)
   const smallRightCenteredStoreRef = useRef<HTMLDivElement>(null)
+  const storeApiRef = useRef<StoreRef>(null)
+  const floorAndRotateTimeline = useRef<GSAPTimeline | null>(null)
 
   useInspectElement(hoveredComponentBlockId, targetStoreRef.current)
 
@@ -253,6 +305,32 @@ export function ReplayApplication() {
     const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
     const storePurchase = storeSelector(`#overboard-store-purchase-${storeId}`)
     const storeColors = storeSelector(`#overboard-store-colors-${storeId}`)
+
+    /* Board and floor movement */
+    const storeVariables = {
+      floorDisplacement: 0,
+      hoverboardRotation: 0,
+      hoverboardAnimationMaxArg: 100
+    }
+
+    const floorAndRotateTimelineDuration = 14
+    floorAndRotateTimeline.current = gsap
+      .timeline({ repeat: -1 })
+      .to(storeVariables, {
+        hoverboardRotation: storeVariables.hoverboardAnimationMaxArg * 14,
+        floorDisplacement: 1,
+        duration: floorAndRotateTimelineDuration,
+        ease: 'linear',
+        onUpdate: () => {
+          storeApiRef.current?.grid?.move(storeVariables.floorDisplacement)
+          storeApiRef.current?.hoverboard?.wave(
+            storeVariables.hoverboardRotation %
+              storeVariables.hoverboardAnimationMaxArg
+          )
+        }
+      })
+
+    /*  */
 
     const flipTimeline1 = Flip.fit(
       targetStoreRef.current,
@@ -396,6 +474,12 @@ export function ReplayApplication() {
         },
         '<'
       )
+      .add(() => {
+        floorAndRotateTimeline.current?.play()
+      })
+      .add(() => {
+        floorAndRotateTimeline.current?.pause()
+      })
       .fromTo(
         viewToggleRef.current,
         { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
@@ -498,6 +582,8 @@ export function ReplayApplication() {
       )
       .add(() => {
         setActiveDevtoolTab('console')
+        floorAndRotateTimeline.current?.seek(0, false)
+        setStoreState('idle')
       })
       .fromTo(
         addPrintButton,
@@ -551,7 +637,23 @@ export function ReplayApplication() {
       .to(printTimelineProgress, {
         progress: 100,
         duration: 10,
-        onUpdate: () => {
+        ease: 'linear',
+        onStart: () => {
+          setStoreState('idle')
+        },
+        onUpdate() {
+          const progress = this.progress()
+
+          if (progress > 0.25 && progress < 0.5) {
+            setStoreState('loading')
+          } else if (progress < 0.25) {
+            setStoreState('idle')
+          }
+
+          floorAndRotateTimeline.current?.seek(
+            (floorAndRotateTimelineDuration / 4) * this.progress(),
+            false
+          )
           ;(codeRef.current?.timeline as ProgressAPI)?.update(
             printTimelineProgress.progress
           )
@@ -559,9 +661,19 @@ export function ReplayApplication() {
       })
 
     return () => {
+      floorAndRotateTimeline.current?.kill()
       timeline.scrollTrigger?.kill()
       timeline.kill()
     }
+  }, [])
+
+  const handleHit = useCallback((hit: number) => {
+    setCurrentHit((prevValue) => {
+      if (prevValue < hit) {
+        setStoreState('error')
+      }
+      return hit
+    })
   }, [])
 
   const devtoolProps = {
@@ -626,6 +738,7 @@ export function ReplayApplication() {
           style={{ height: '100%' }}
           mode="full"
           inspectMode="react"
+          ref={storeApiRef}
         />
       </AspectBox>
 
@@ -808,7 +921,7 @@ export function ReplayApplication() {
                     printLineTarget: 16,
                     timelineType: 'justUi',
                     currentMarker: 'transparent',
-                    onHit: setCurrentHit,
+                    onHit: handleHit,
                     currentHit
                   }}
                   className={s['code']}
@@ -834,56 +947,7 @@ export function ReplayApplication() {
                     41: 'available',
                     47: 'available'
                   }}
-                  code={`export function PurchaseForm() {
-    const [hasError, setHasError] = useState(false)
-    const handleSubmit = useCallback(async (event) => {
-      event.preventDefault()
-
-      const form = event.currentTarget
-      const data = new FormData(form)
-      const formData = Object.fromEntries(data.entries())
-      const body = JSON.stringify(formData)
-      const response = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: body,
-      })
-
-      if (!response.ok) {
-        const errorMessage = await response.text()
-        setHasError(true)
-        throw new Error(errorMessage)
-      }
-    }, [])
-
-    return (
-      <Column
-        as="form"
-        action="/api/purchase"
-        method="post"
-        onSubmit={handleSubmit}
-        gap={5}
-      >
-        <Column gap={3}>
-          <h2>Color</h2>
-
-          <Colors>
-            {colors.map(([name, [start, end]]) => (
-              <Color
-                key={name}
-                label={name}
-                value={name.toLowerCase()}
-                startColor={start}
-                endColor={end}
-              />
-            ))}
-          </Colors>
-        </Column>
-
-        <PurchaseButton hasError={hasError} />
-      </Column>
-    )
-  }`}
+                  code={codeBlock}
                   ref={codeRef}
                 />
                 <div
@@ -979,4 +1043,4 @@ export function OverboardStory() {
   )
 }
 
-export { Code, Debugger, DevTools, NewOverboardStore }
+export { Code, Debugger, DevTools, OverboardStore }

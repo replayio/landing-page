@@ -6,7 +6,7 @@ import {
   HoverboardControls
 } from '@replayio/overboard'
 import clsx from 'clsx'
-import { FC, forwardRef } from 'react'
+import { FC, forwardRef, useImperativeHandle, useRef } from 'react'
 
 import { InspectBox } from '~/components/common/inspect-box'
 
@@ -24,7 +24,29 @@ export type OverboardStoreProps = {
   state?: 'idle' | 'loading' | 'error'
 } & JSX.IntrinsicElements['div']
 
-const AnimatedGrid = () => {
+type GridControls = {
+  move: (progress: number) => void
+}
+
+const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
+  const gridRef = useRef<HTMLDivElement>(null)
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        move: (progress: number) => {
+          if (gridRef.current) {
+            gridRef.current.style.transform = `rotateX(45deg) translateY(${
+              -47.8 * progress
+            }%)`
+          }
+        }
+      }
+    },
+    []
+  )
+
   return (
     <>
       <div
@@ -35,21 +57,23 @@ const AnimatedGrid = () => {
             'linear-gradient(180deg, #1E076C 0%, #A312B5 50%, transparent 100%)',
           zIndex: 3
         }}
-      ></div>
+      />
       <div className={s['animated-grid']}>
         <div className={s['grid']}>
-          <div className={s['grid-fade']}></div>
-          <div className={s['grid-lines']}></div>
+          <div className={s['grid-fade']} />
+          <div className={s['grid-lines']} ref={gridRef} />
         </div>
       </div>
     </>
   )
+})
+
+export type StoreRef = {
+  hoverboard: HoverboardControls | null
+  grid: GridControls | null
 }
 
-export const OverboardStore = forwardRef<
-  HoverboardControls,
-  OverboardStoreProps
->(
+export const OverboardStore = forwardRef<StoreRef, OverboardStoreProps>(
   (
     {
       storeId,
@@ -64,6 +88,9 @@ export const OverboardStore = forwardRef<
     },
     ref
   ) => {
+    const hoverboardRef = useRef<HoverboardControls>(null)
+    const gridRef = useRef<GridControls>(null)
+
     const inspectNames = {
       html: {
         main: 'main',
@@ -89,6 +116,15 @@ export const OverboardStore = forwardRef<
 
     const buildId = (id: string) => `${id}${id ? `-${storeId}` : ''}`
 
+    useImperativeHandle(
+      ref,
+      () => ({
+        hoverboard: hoverboardRef.current,
+        grid: gridRef.current
+      }),
+      []
+    )
+
     return (
       <InspectBox
         name={inspectNames[inspectMode]['app']}
@@ -106,7 +142,7 @@ export const OverboardStore = forwardRef<
               zIndex: 0
             }}
           >
-            <AnimatedGrid />
+            <AnimatedGrid ref={gridRef} />
           </div>
 
           <InspectBox name={inspectNames[inspectMode]['main']} boxId="main">
@@ -119,14 +155,13 @@ export const OverboardStore = forwardRef<
               <InspectBox
                 name={inspectNames[inspectMode]['hoverboard-container']}
                 boxId="hoverboard-container"
-                style={{ height: '100%' }}
               >
                 <InspectBox
                   name={inspectNames[inspectMode]['hoverboard']}
                   boxId="hoverboard"
                   className={s['overboard-wrapper']}
                 >
-                  <Hoverboard ref={ref} color={overboardColor} />
+                  <Hoverboard ref={hoverboardRef} color={overboardColor} />
                 </InspectBox>
               </InspectBox>
 

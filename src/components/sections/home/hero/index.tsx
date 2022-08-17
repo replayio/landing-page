@@ -6,6 +6,7 @@ import { ProgressThumb } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
+import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
@@ -13,13 +14,14 @@ import { breakpoints } from '~/lib/constants'
 import s from './hero.module.scss'
 
 export const Hero: FC = () => {
-  const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const ref = useRef<HTMLDivElement>(null)
+  const { isDesktop } = useDeviceDetect()
 
   useIsomorphicLayoutEffect(() => {
     let tl: gsap.core.Timeline
 
-    if (ref.current && isDesktop) {
+    if (ref.current && isDesktopSize) {
       tl = gsap
         .timeline({
           scrollTrigger: {
@@ -39,7 +41,7 @@ export const Hero: FC = () => {
       tl?.scrollTrigger?.kill()
       tl?.kill()
     }
-  }, [isDesktop])
+  }, [isDesktopSize])
 
   return (
     <Section className={s['section']} ref={ref}>
@@ -187,9 +189,11 @@ export const Hero: FC = () => {
               </span>{' '}
               your application with DevTools.
             </Heading>
-            <div className={s['cta']}>
-              <Button variant="primary">Download Replay</Button>
-            </div>
+            {isDesktop && (
+              <div className={s['cta']}>
+                <Button variant="primary">Download Replay</Button>
+              </div>
+            )}
           </div>
         </div>
       </Container>

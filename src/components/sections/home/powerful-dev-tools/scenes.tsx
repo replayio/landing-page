@@ -1,4 +1,3 @@
-import { HoverboardControls } from '@replayio/overboard'
 // import clamp from 'lodash/clamp'
 import get from 'lodash/get'
 import {
@@ -15,7 +14,7 @@ import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
 import { rangeMap } from '~/lib/utils'
 
-import { Code, Debugger, DevTools, NewOverboardStore } from '../overboard-story'
+import { Code, Debugger, DevTools, OverboardStore } from '../overboard-story'
 import {
   buildUuids,
   HTMLNode,
@@ -30,7 +29,8 @@ import { ConsoleProps, Marker } from '../overboard-story/devtools/console'
 import { NetworkCall } from '../overboard-story/devtools/network'
 import {
   OverboardColors,
-  OverboardStoreProps
+  OverboardStoreProps,
+  StoreRef
 } from '../overboard-story/overboard-store'
 
 type SceneProps = {
@@ -301,7 +301,7 @@ export const Scene2: FC<SceneProps> = ({
   devtoolsProps
 }) => {
   const consoleRef = useRef<any>(null)
-  const hoverboardRef = useRef<HoverboardControls>(null)
+  const hoverboardRef = useRef<StoreRef>(null)
   const [currentHit, setCurrentHit] = useState(0)
 
   const timeline = useRef(gsap.timeline({ delay: 2 }))
@@ -310,7 +310,7 @@ export const Scene2: FC<SceneProps> = ({
     _rotate: 0,
     set rotate(v: number) {
       this._rotate = v
-      hoverboardRef.current?.rotate(
+      hoverboardRef.current?.hoverboard?.flip(
         rangeMap(v, 0, 360, START_OF_ROTATION, END_OF_ROTATION)
       )
     },
@@ -444,7 +444,7 @@ export const Scene2: FC<SceneProps> = ({
         }}
       />
 
-      <NewOverboardStore
+      <OverboardStore
         inspectMode="html"
         mode="just-overboard"
         ref={hoverboardRef}
@@ -458,7 +458,7 @@ let overboardProgress = 0
 export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
-  const overboardRef = useRef<HoverboardControls>(null)
+  const overboardRef = useRef<StoreRef>(null)
   const [activeComponent, setActiveComponent] =
     useState<IdentifiedNode<ReactNode> | null>()
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
@@ -543,7 +543,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
     // )
 
     // setRotation(Number(a.toFixed(0)))
-    overboardRef.current?.rotate(loopedValue)
+    overboardRef.current?.hoverboard?.flip(loopedValue)
   }, [])
 
   const timeline = useRef(gsap.timeline({ delay: 2 }))
@@ -691,7 +691,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
       />
 
       <div ref={storeRef}>
-        <NewOverboardStore
+        <OverboardStore
           inspectMode="react"
           overboardColor={overboardColor}
           onOverboardColorChange={setOverboardColor}
@@ -706,7 +706,7 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
 export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
-  const overboardRef = useRef<HoverboardControls>(null)
+  const overboardRef = useRef<StoreRef>(null)
   const [activeElement, setActiveElement] =
     useState<IdentifiedNode<HTMLNode> | null>(null)
   const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
@@ -918,7 +918,7 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
       />
 
       <div ref={storeRef}>
-        <NewOverboardStore
+        <OverboardStore
           inspectMode="html"
           overboardColor={overboardColor}
           onOverboardColorChange={setOverboardColor}
@@ -933,7 +933,7 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
 export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
-  const overboardRef = useRef<HoverboardControls>(null)
+  const overboardRef = useRef<StoreRef>(null)
   const [activeCallIdx, setActiveCallIdx] = useState<number>()
   const [storeState, setStoreState] =
     useState<OverboardStoreProps['state']>('idle')
@@ -1074,7 +1074,7 @@ export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
       />
 
       <div ref={storeRef}>
-        <NewOverboardStore
+        <OverboardStore
           onPurchase={handlePurchase}
           state={storeState}
           inspectMode="html"
