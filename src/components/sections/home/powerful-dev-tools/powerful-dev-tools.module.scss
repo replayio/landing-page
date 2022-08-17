@@ -77,8 +77,8 @@
         display: none;
         opacity: 0;
         max-width: 295px;
-        right: 20px;
-        bottom: 450px;
+        left: 80px;
+        bottom: 455px;
         transition: opacity var(--duration-fast) ease-in-out;
 
         &.open {
