@@ -28,7 +28,13 @@ export const Hero: FC = () => {
           scrollTrigger: {
             start: 0,
             end: 300,
-            scrub: true
+            scrub: true,
+            onLeave: () => {
+              document.documentElement.classList.add('hide-header')
+            },
+            onEnterBack: () => {
+              document.documentElement.classList.remove('hide-header')
+            }
           }
         })
         .to(ref.current, {
