@@ -53,16 +53,6 @@
   --translate-y: 25px;
   --rotate: 45deg;
 
-  position: absolute;
-  width: 100vw;
-  max-width: min(280px, 55vw);
-  background-color: var(--color-white);
-  border: 1.5px solid var(--color-gray-lighter);
-  padding: 16px 24px;
-  font-size: 14px;
-  border-radius: var(--border-radius-lg);
-  font-weight: 500;
-  right: 0;
   transition-property: transform, opacity;
   transition-duration: var(--duration-moderate);
   transition-timing-function: ease-out;
@@ -71,7 +61,6 @@
   transform: rotateX(var(--rotate))
     translate(20px, calc(-100% - 20px + var(--translate-y)));
   transform-style: preserve-3d;
-  filter: drop-shadow(0px 4px 16px rgb(24 39 75 / 0.1));
 
   .info {
     color: #717171;
@@ -81,13 +70,6 @@
       color: var(--color-pink-crayon);
       font-weight: 600;
     }
-  }
-
-  .peak {
-    position: absolute;
-    bottom: 0;
-    transform: translate(25%, calc(100% - 0.5px));
-    right: 20px;
   }
 
   &.open {

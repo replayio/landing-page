@@ -1,6 +1,8 @@
 @import 'css/variables';
 
 .section {
+  margin-top: 60px;
+
   .container {
     padding: 0;
     max-width: 1208px;
@@ -8,8 +10,6 @@
 }
 
 .hero {
-  padding-top: 44px;
-
   .heading {
     display: flex;
     flex-direction: column;
@@ -121,9 +121,12 @@
 }
 
 @media (max-width: $screen-sm) {
+  .section {
+    margin-top: 32px;
+  }
+
   .hero {
     padding-top: unset;
-    margin-top: 32px;
 
     .heading {
       .annual {

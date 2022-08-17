@@ -82,7 +82,7 @@ export const Hero: FC = () => {
     <Section id="values" className={s['section']}>
       <Container size="sm">
         <div className={s.heading}>
-          <Heading as="h1" size="lg">
+          <Heading as="h1" size="sm">
             About Replay
           </Heading>
           <p>

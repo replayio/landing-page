@@ -12,7 +12,7 @@ export const TermsOfService: FC = () => {
     <Section className={s.section}>
       <Container size="sm" className={s.container}>
         <div className={s.heading}>
-          <Heading as="h1" size="lg">
+          <Heading as="h1" size="sm">
             Terms of Use
           </Heading>
           <span>Efective date: 14 JUL 2021</span>
