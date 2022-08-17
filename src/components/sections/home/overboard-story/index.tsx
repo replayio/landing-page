@@ -309,24 +309,27 @@ export function ReplayApplication() {
     /* Board and floor movement */
     const storeVariables = {
       floorDisplacement: 0,
-      hoverboardRotation: 0,
+      hoverboardWaveProgress: 0,
       hoverboardAnimationMaxArg: 100
     }
 
-    const floorAndRotateTimelineDuration = 14
+    const floorAndRotateTimelineDuration = 16
     floorAndRotateTimeline.current = gsap
       .timeline({ repeat: -1 })
       .to(storeVariables, {
-        hoverboardRotation: storeVariables.hoverboardAnimationMaxArg * 14,
+        hoverboardWaveProgress:
+          storeVariables.hoverboardAnimationMaxArg *
+          floorAndRotateTimelineDuration,
         floorDisplacement: 1,
         duration: floorAndRotateTimelineDuration,
         ease: 'linear',
         onUpdate: () => {
+          const nextProgress =
+            storeVariables.hoverboardWaveProgress %
+            storeVariables.hoverboardAnimationMaxArg
+
           storeApiRef.current?.grid?.move(storeVariables.floorDisplacement)
-          storeApiRef.current?.hoverboard?.wave(
-            storeVariables.hoverboardRotation %
-              storeVariables.hoverboardAnimationMaxArg
-          )
+          storeApiRef.current?.hoverboard?.wave(nextProgress)
         }
       })
 
