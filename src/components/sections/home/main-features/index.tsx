@@ -5,6 +5,7 @@ import { HeadingSet } from '~/components/common/heading-set'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { isDev } from '~/lib/constants'
 
 // import { isDev } from '~/lib/constants'
@@ -18,6 +19,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
   onProgressUpdate
 }) => {
   const progressRef = useRef<any>(null)
+  const { isDesktop } = useDeviceDetect()
 
   const markers = useMemo(
     () => [
@@ -45,6 +47,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
       scrub: 1,
       start: 'top 80%',
       end: 'bottom 50%',
+      id: 'main-features-section-scroll-trigger',
       onUpdate: (stState) => {
         if (progressRef.current) {
           progressRef.current.update(stState.progress * 100)
@@ -55,7 +58,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
     return () => {
       trigger.kill()
     }
-  }, [])
+  }, [isDesktop])
 
   return (
     <ProgressBar

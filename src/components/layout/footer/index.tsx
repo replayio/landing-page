@@ -10,6 +10,7 @@ import { Button } from '~/components/primitives/button'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
+import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { isDev } from '~/lib/constants'
 import footerBgSvg from '~/public/images/home/footer-bg.svg'
 
@@ -92,6 +93,7 @@ export const Footer: FC = () => {
   const [hidden, setHidden] = useState(false)
   const progressRef = useRef<ProgressAPI>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const { isDesktop } = useDeviceDetect()
 
   useEffect(() => {
     if (!sectionRef.current || !progressRef.current) return
@@ -112,7 +114,7 @@ export const Footer: FC = () => {
     return () => {
       trigger.kill()
     }
-  }, [])
+  }, [isDesktop])
 
   useLayoutEffect(() => {
     if (!router) return
