@@ -64,7 +64,6 @@
     "inquirer-directory": "^2.2.0",
     "inspx": "^0.0.1-alpha.6",
     "lint-staged": "^11.2.6",
-    "next-compose-plugins": "^2.2.1",
     "next-sitemap": "^2.5.14",
     "next-transpile-modules": "^9.0.0",
     "plop": "^3.1.1",
