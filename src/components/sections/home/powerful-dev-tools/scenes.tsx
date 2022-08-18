@@ -1,4 +1,5 @@
 // import clamp from 'lodash/clamp'
+import clsx from 'clsx'
 import get from 'lodash/get'
 import {
   ComponentRef,
@@ -21,6 +22,7 @@ import {
   IdentifiedNode,
   identifyNodes,
   ReactNode,
+  useAnimationHover,
   useInspectElement
 } from '../overboard-story/common'
 import { Snapshot } from '../overboard-story/debugger'
@@ -32,8 +34,10 @@ import {
   OverboardStoreProps,
   StoreRef
 } from '../overboard-story/overboard-store'
+import s from './powerful-dev-tools.module.scss'
 
 type SceneProps = {
+  active: boolean
   pauseTimeline?: () => void
   resumeTimeline?: () => void
   devtoolsProps?: Partial<DevToolsProps>
@@ -41,7 +45,27 @@ type SceneProps = {
 
 const printMarkers = [30, 36, 40, 55, 80]
 
+const AnimatedPanel = ({
+  active,
+  children
+}: {
+  active?: boolean
+  children: React.ReactChild
+}) => {
+  return (
+    <div
+      className={clsx(s['animated-panel'], {
+        [s['show']]: active,
+        [s['hide']]: !active
+      })}
+    >
+      {children}
+    </div>
+  )
+}
+
 export const Scene1: FC<SceneProps> = ({
+  active,
   pauseTimeline,
   resumeTimeline,
   devtoolsProps
@@ -238,27 +262,29 @@ export const Scene1: FC<SceneProps> = ({
     }
   }, [updateMarkers, resetAnimation])
 
+  const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
+
   return (
     <>
-      <Code
-        printPanelConfig={{
-          print: '"rotation", angle',
-          markers: printMarkers,
-          currentHit: currentHit,
-          currentMarker: markersType,
-          onChangeMarker: updateMarkers,
-          onHit: setCurrentHit,
-          timelineType: 'timeBased',
-          printLineTarget: 5
-        }}
-        onMouseEnter={pauseTimeline}
-        onMouseLeave={resumeTimeline}
-        printIndicators={{
-          3: 'not-available',
-          4: 'available',
-          5: 'available'
-        }}
-        code={`
+      <AnimatedPanel active={active}>
+        <Code
+          {...events}
+          printPanelConfig={{
+            print: '"rotation", angle',
+            markers: printMarkers,
+            currentHit: currentHit,
+            currentMarker: markersType,
+            onChangeMarker: updateMarkers,
+            onHit: setCurrentHit,
+            timelineType: 'timeBased',
+            printLineTarget: 5
+          }}
+          printIndicators={{
+            3: 'not-available',
+            4: 'available',
+            5: 'available'
+          }}
+          code={`
 
 export function HoverBoard() {
   const [pos, setPos] = useState({left: 0, right: 0})
@@ -270,20 +296,23 @@ export function HoverBoard() {
 
 
 `}
-        ref={codeRef}
-      />
+          ref={codeRef}
+        />
+      </AnimatedPanel>
 
-      <DevTools
-        {...devtoolsProps}
-        panel="console"
-        panelProps={{
-          disableTravel: true,
-          currentHit,
-          logs: fullLogs,
-          // @ts-ignore
-          ref: consoleRef
-        }}
-      />
+      <AnimatedPanel active={active}>
+        <DevTools
+          {...devtoolsProps}
+          panel="console"
+          panelProps={{
+            disableTravel: true,
+            currentHit,
+            logs: fullLogs,
+            // @ts-ignore
+            ref: consoleRef
+          }}
+        />
+      </AnimatedPanel>
     </>
   )
 }
@@ -296,6 +325,7 @@ const variables = {
 }
 
 export const Scene2: FC<SceneProps> = ({
+  active,
   pauseTimeline,
   resumeTimeline,
   devtoolsProps
@@ -428,34 +458,44 @@ export const Scene2: FC<SceneProps> = ({
     )
   }, [])
 
+  const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
+
   return (
     <>
-      <DevTools
-        {...devtoolsProps}
-        onMouseEnter={pauseTimeline}
-        onMouseLeave={resumeTimeline}
-        panel="console"
-        panelProps={{
-          currentHit,
-          onCurrentHitChange: setCurrentHit,
-          // @ts-ignore
-          ref: consoleRef,
-          logs
-        }}
-      />
+      <AnimatedPanel active={active}>
+        <DevTools
+          {...devtoolsProps}
+          {...events}
+          panel="console"
+          panelProps={{
+            currentHit,
+            onCurrentHitChange: setCurrentHit,
+            // @ts-ignore
+            ref: consoleRef,
+            logs
+          }}
+        />
+      </AnimatedPanel>
 
-      <OverboardStore
-        inspectMode="html"
-        mode="just-overboard"
-        ref={hoverboardRef}
-      />
+      <AnimatedPanel active={active}>
+        <OverboardStore
+          inspectMode="html"
+          mode="just-overboard"
+          ref={hoverboardRef}
+        />
+      </AnimatedPanel>
     </>
   )
 }
 
 let overboardProgress = 0
 
-export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
+export const Scene3: FC<SceneProps> = ({
+  active,
+  pauseTimeline,
+  resumeTimeline,
+  devtoolsProps
+}) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<StoreRef>(null)
@@ -692,35 +732,47 @@ export const Scene3: FC<SceneProps> = ({ devtoolsProps }) => {
 
   useInspectElement(hoveredComponentBlockId, storeRef.current)
 
+  const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
+
   return (
     <>
-      <DevTools
-        {...devtoolsProps}
-        panel="react"
-        panelProps={{
-          tree,
-          activeComponent,
-          onHoverComponent: setHoveredComponentBlockId,
-          onActiveComponentChange: setActiveComponent,
-          // @ts-ignore
-          ref: devToolsRef
-        }}
-      />
-
-      <div ref={storeRef}>
-        <OverboardStore
-          inspectMode="react"
-          overboardColor={overboardColor}
-          onOverboardColorChange={setOverboardColor}
-          mode="color-picker"
-          ref={overboardRef}
+      <AnimatedPanel active={active}>
+        <DevTools
+          {...devtoolsProps}
+          {...events}
+          panel="react"
+          panelProps={{
+            tree,
+            activeComponent,
+            onHoverComponent: setHoveredComponentBlockId,
+            onActiveComponentChange: setActiveComponent,
+            // @ts-ignore
+            ref: devToolsRef
+          }}
         />
-      </div>
+      </AnimatedPanel>
+
+      <AnimatedPanel active={active}>
+        <div ref={storeRef}>
+          <OverboardStore
+            inspectMode="react"
+            overboardColor={overboardColor}
+            onOverboardColorChange={setOverboardColor}
+            mode="color-picker"
+            ref={overboardRef}
+          />
+        </div>
+      </AnimatedPanel>
     </>
   )
 }
 
-export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
+export const Scene4: FC<SceneProps> = ({
+  active,
+  pauseTimeline,
+  resumeTimeline,
+  devtoolsProps
+}) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<StoreRef>(null)
@@ -918,36 +970,47 @@ export const Scene4: FC<SceneProps> = ({ devtoolsProps }) => {
   }, [tree])
 
   useInspectElement(hoveredComponentBlockId, storeRef.current)
+  const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
 
   return (
     <>
-      <DevTools
-        {...devtoolsProps}
-        panel="elements"
-        panelProps={{
-          tree,
-          activeElement,
-          onHoverElement: setHoveredComponentBlockId,
-          onActiveElementChange: setActiveElement,
-          // @ts-ignore
-          ref: devToolsRef
-        }}
-      />
-
-      <div ref={storeRef}>
-        <OverboardStore
-          inspectMode="html"
-          overboardColor={overboardColor}
-          onOverboardColorChange={setOverboardColor}
-          mode="color-picker"
-          ref={overboardRef}
+      <AnimatedPanel active={active}>
+        <DevTools
+          {...devtoolsProps}
+          {...events}
+          panel="elements"
+          panelProps={{
+            tree,
+            activeElement,
+            onHoverElement: setHoveredComponentBlockId,
+            onActiveElementChange: setActiveElement,
+            // @ts-ignore
+            ref: devToolsRef
+          }}
         />
-      </div>
+      </AnimatedPanel>
+
+      <AnimatedPanel active={active}>
+        <div ref={storeRef}>
+          <OverboardStore
+            inspectMode="html"
+            overboardColor={overboardColor}
+            onOverboardColorChange={setOverboardColor}
+            mode="color-picker"
+            ref={overboardRef}
+          />
+        </div>
+      </AnimatedPanel>
     </>
   )
 }
 
-export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
+export const Scene5: FC<SceneProps> = ({
+  active,
+  pauseTimeline,
+  resumeTimeline,
+  devtoolsProps
+}) => {
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<StoreRef>(null)
@@ -1076,30 +1139,37 @@ export const Scene5: FC<SceneProps> = ({ devtoolsProps }) => {
     )
   })
 
+  const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
+
   return (
     <>
-      <DevTools
-        {...devtoolsProps}
-        panel="network"
-        panelProps={{
-          calls,
-          activeCallIdx,
-          onActiveCallChange: setActiveCallIdx,
-          // @ts-ignore
-          ref: devToolsRef
-        }}
-      />
-
-      <div ref={storeRef}>
-        <OverboardStore
-          onPurchase={handlePurchase}
-          state={storeState}
-          inspectMode="html"
-          overboardColor="red"
-          mode="purchase"
-          ref={overboardRef}
+      <AnimatedPanel active={active}>
+        <DevTools
+          {...devtoolsProps}
+          {...events}
+          panel="network"
+          panelProps={{
+            calls,
+            activeCallIdx,
+            onActiveCallChange: setActiveCallIdx,
+            // @ts-ignore
+            ref: devToolsRef
+          }}
         />
-      </div>
+      </AnimatedPanel>
+
+      <AnimatedPanel active={active}>
+        <div ref={storeRef}>
+          <OverboardStore
+            onPurchase={handlePurchase}
+            state={storeState}
+            inspectMode="html"
+            overboardColor="red"
+            mode="purchase"
+            ref={overboardRef}
+          />
+        </div>
+      </AnimatedPanel>
     </>
   )
 }
@@ -1125,7 +1195,11 @@ const buildScope = (
   }
 }
 
-export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
+export const Scene6: FC<SceneProps> = ({
+  active,
+  pauseTimeline,
+  resumeTimeline
+}) => {
   const debuggerRef = useRef(null)
 
   const [activeDebugLine, setActiveDebugLine] = useState()
@@ -1404,29 +1478,34 @@ export const Scene6: FC<SceneProps> = ({ pauseTimeline, resumeTimeline }) => {
     )
   }, [])
 
+  const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
+
   return (
     <>
-      <Debugger
-        ref={debuggerRef}
-        onMouseEnter={pauseTimeline}
-        onMouseLeave={resumeTimeline}
-        breakpoints={breakpoints}
-        snapshotTree={snapshotTree}
-        currentSnapshotPath={activeSnapshotPath}
-        onCurrentSnapshotPathChange={setActiveSnapshotPath}
-      />
-      <Code
-        debugLine={activeDebugLine}
-        breakpoints={breakpoints}
-        printIndicators={{
-          3: 'not-available',
-          4: 'available',
-          5: 'available',
-          9: 'not-available',
-          10: 'available',
-          11: 'available'
-        }}
-        code={`
+      <AnimatedPanel active={active}>
+        <Debugger
+          {...events}
+          ref={debuggerRef}
+          breakpoints={breakpoints}
+          snapshotTree={snapshotTree}
+          currentSnapshotPath={activeSnapshotPath}
+          onCurrentSnapshotPathChange={setActiveSnapshotPath}
+        />
+      </AnimatedPanel>
+
+      <AnimatedPanel active={active}>
+        <Code
+          debugLine={activeDebugLine}
+          breakpoints={breakpoints}
+          printIndicators={{
+            3: 'not-available',
+            4: 'available',
+            5: 'available',
+            9: 'not-available',
+            10: 'available',
+            11: 'available'
+          }}
+          code={`
 
 export function calculateBoardAngle(board) {
   const { angle } = board;
@@ -1440,7 +1519,8 @@ export function Board({ board }) {
 }
 
 `}
-      />
+        />
+      </AnimatedPanel>
     </>
   )
 }
