@@ -56,7 +56,7 @@ export const Hero: FC = () => {
             height="772"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ transform: 'translate(-245px, -2px)' }}
+            className={s['svg']}
           >
             <mask
               id="b"
@@ -176,6 +176,7 @@ export const Hero: FC = () => {
               </linearGradient>
             </defs>
           </svg>
+          <div className={s['gradient']} />
         </div>
 
         <div className={s['hero']}>
@@ -184,7 +185,7 @@ export const Hero: FC = () => {
               <span className={s['heading-highlight']}>
                 Record, Share, and Debug
               </span>{' '}
-              your application with DevTools.
+              your application with&nbsp;DevTools.
             </Heading>
             <div className={clsx(s['cta'], { [s['hidden']]: !isDesktop })}>
               <Button variant="primary">Download Replay</Button>
