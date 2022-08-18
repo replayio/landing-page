@@ -1,7 +1,8 @@
-import Image, { ImageProps } from 'next/image'
-import { FC, ReactNode } from 'react'
+import { ResizeObserver } from '@juggle/resize-observer'
+import clsx from 'clsx'
+import { FC, useEffect, useState } from 'react'
+import useMeasure from 'react-use-measure'
 
-import { Badge } from '~/components/common/badge'
 import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Tabs } from '~/components/common/tabs'
@@ -9,6 +10,7 @@ import { Container } from '~/components/layout/container'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
 
+import { Card } from './card'
 import s from './fast-and-secure.module.scss'
 import {
   browsers,
@@ -18,12 +20,6 @@ import {
   security,
   testRunners
 } from './runtimes'
-
-type CardProps = {
-  icon: ImageProps['src']
-  title: string | ReactNode
-  badge: string
-}
 
 const categories = [
   {
@@ -53,20 +49,40 @@ const categories = [
   }
 ]
 
-const Card: FC<CardProps> = ({ icon, title, badge }) => {
-  return (
-    <div className={s['card']}>
-      <div className={s['icon']}>
-        <Image src={icon} width={80} height={80} alt="runtime logo" />
-      </div>
-      <p className={s['title']}>{title}</p>
-      <Badge className={s['badge']} text={badge} />
-    </div>
-  )
-}
-
 const CarouselSection: FC<{ cards: Runtime[] }> = ({ cards }) => {
   const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`, true)
+  const [ref, bounds] = useMeasure({ scroll: true, polyfill: ResizeObserver })
+
+  useEffect(() => {
+    const lanternContainer = document.querySelector<HTMLDivElement>(
+      '.cards-lantern-container'
+    )
+    if (!lanternContainer) return
+    ref(lanternContainer)
+  }, [ref])
+
+  useEffect(() => {
+    const lanternContainer = document.querySelector<HTMLDivElement>(
+      '.cards-lantern-container'
+    )
+    if (!lanternContainer) return
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = e.clientX - bounds.left
+      const y = e.clientY - bounds.top
+
+      lanternContainer.style.setProperty('--lantern-x', `${x}px`)
+      lanternContainer.style.setProperty('--lantern-y', `${y}px`)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [bounds.left, bounds.top])
+
+  const startIndex = Math.floor(cards.length / 2)
+  const [selectedIndex, setSelectedIndex] = useState(startIndex)
 
   return (
     <div className={s['carousel-container']}>
@@ -74,18 +90,30 @@ const CarouselSection: FC<{ cards: Runtime[] }> = ({ cards }) => {
       <div className={s['right-gradient']} />
 
       <Carousel
-        config={{ startIndex: Math.floor(cards.length / 2) }}
-        className={s['slider']}
+        config={{ startIndex }}
+        className={clsx(s['slider'], 'cards-lantern-container')}
         containerClassname={s['slider-container']}
         slideClassName={s['slide-wrapper']}
         dots={!isDesktopSize}
+        onSelectedIndexChange={setSelectedIndex}
       >
-        {cards.map(({ icon, title, description, badge }, idx) => (
-          <div className={s['slide']} key={idx}>
-            <Card key={idx} icon={icon} title={title} badge={badge} />
-            <p className={s['description']}>{description}</p>
-          </div>
-        ))}
+        {cards.map(({ icon, title, description, badge }, idx) => {
+          const diff = selectedIndex - 1
+          // todo check this
+          const lanternIndex = idx - diff
+          return (
+            <div className={s['slide']} key={idx}>
+              <Card
+                key={idx}
+                icon={icon}
+                title={title}
+                badge={badge}
+                lanternIndex={lanternIndex}
+              />
+              <p className={s['description']}>{description}</p>
+            </div>
+          )
+        })}
       </Carousel>
     </div>
   )

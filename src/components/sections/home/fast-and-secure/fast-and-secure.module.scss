@@ -33,30 +33,6 @@
   }
 }
 
-.card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 228px;
-  height: 256px;
-  border: 1px solid var(--color-gray-light);
-  border-radius: var(--border-radius-lg);
-  padding: 16px;
-
-  .title {
-    text-align: center;
-    font-family: var(--font-heading);
-    font-size: 18px;
-    margin-top: 24px;
-  }
-
-  .badge {
-    margin-top: 16px;
-    text-transform: capitalize;
-  }
-}
-
 .carousel-container {
   position: relative;
 
@@ -97,8 +73,10 @@
     justify-content: space-between;
     margin-top: 64px;
 
+    --slider-mx: 36px;
+
     .slider-container {
-      @include space-x(36px);
+      @include space-x(var(--slider-mx));
 
       max-width: max-content;
       margin: 0 auto;

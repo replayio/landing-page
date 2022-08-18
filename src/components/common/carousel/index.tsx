@@ -20,6 +20,7 @@ type CarouselProps = {
   containerClassname?: string
   dots?: boolean
   arrows?: boolean
+  onSelectedIndexChange?: (index: number) => void
 } & JSX.IntrinsicElements['div']
 
 export const Carousel = forwardRef<
@@ -35,7 +36,8 @@ export const Carousel = forwardRef<
       containerClassname,
       config,
       dots = true,
-      arrows = false
+      arrows = false,
+      onSelectedIndexChange
     },
     ref
   ) => {
@@ -53,8 +55,10 @@ export const Carousel = forwardRef<
 
     const onSelect = useCallback(() => {
       if (!embla) return
-      setSelectedIndex(embla.selectedScrollSnap())
-    }, [embla, setSelectedIndex])
+      const newIndex = embla.selectedScrollSnap()
+      setSelectedIndex(newIndex)
+      onSelectedIndexChange?.(newIndex)
+    }, [embla, onSelectedIndexChange])
 
     const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla])
     const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla])
@@ -64,6 +68,10 @@ export const Carousel = forwardRef<
       onSelect()
       setScrollSnaps(embla.scrollSnapList())
       embla.on('select', onSelect)
+
+      return () => {
+        embla.off('select', onSelect)
+      }
     }, [embla, setScrollSnaps, onSelect])
 
     useImperativeHandle(ref, () => embla, [embla])
