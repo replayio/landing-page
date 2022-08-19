@@ -73,14 +73,14 @@
       min-height: 480px;
       pointer-events: none;
 
-      & > *:nth-child(2n) {
+      & > *:nth-child(2n + 1) {
         grid-row: 1;
         grid-column: 1;
 
         --delay: 0s;
       }
 
-      & > *:nth-child(2n + 1) {
+      & > *:nth-child(2n) {
         grid-row: 2;
         grid-column: 1;
 
@@ -88,15 +88,22 @@
       }
 
       .popup {
+        position: absolute;
         display: none;
         opacity: 0;
-        max-width: 295px;
-        left: 80px;
-        bottom: 455px;
-        transition: opacity var(--duration-fast) ease-in-out;
+        max-width: 310px;
+        top: -16px;
+        left: 0px;
+        transition-property: opacity, transform;
+        transition-duration: var(--duration-moderate);
+        transition-timing-function: var(--ease-spring);
+        transform: translateY(-90%) scale(0.95);
+        z-index: 10;
+        pointer-events: none;
 
         &.open {
           opacity: 1;
+          transform: translateY(-100%) scale(1);
         }
 
         > div {
@@ -142,17 +149,21 @@
 }
 
 .animated-panel {
+  position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
 
+  &:nth-child(2n) {
+    align-items: center;
+  }
+
   &.show {
     opacity: 0;
     animation: fade-in var(--duration-moderate) ease-out forwards;
     animation-delay: var(--delay);
-    position: relative;
     z-index: 10;
   }
 
@@ -166,6 +177,7 @@
 
 @media (min-width: $screen-md) {
   .animated-panel {
+    overflow: visible;
     height: auto;
   }
 
@@ -178,17 +190,18 @@
       margin-top: 80px;
 
       .asset {
+        overflow: visible;
         grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
         gap: 24px;
         justify-content: center;
         pointer-events: unset;
 
-        & > *:nth-child(2n) {
+        & > *:nth-child(2n + 1) {
           grid-row: 1;
           grid-column: 1;
         }
 
-        & > *:nth-child(2n + 1) {
+        & > *:nth-child(2n) {
           grid-row: 1;
           grid-column: 2;
         }

@@ -175,6 +175,21 @@ export const PanelContainer = forwardRef<
   </div>
 ))
 
+export const useTimeline = (
+  active: boolean,
+  timeline: MutableRefObject<GSAPTimeline>,
+  reset?: () => void
+) => {
+  useEffect(() => {
+    if (active) {
+      reset?.()
+      timeline.current.restart(true)
+    } else {
+      timeline.current.pause()
+    }
+  }, [active, reset, timeline])
+}
+
 export const useAnimationHover = (
   pause: (() => void) | undefined,
   play: (() => void) | undefined,

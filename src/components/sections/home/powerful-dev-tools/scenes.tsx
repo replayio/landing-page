@@ -23,7 +23,8 @@ import {
   identifyNodes,
   ReactNode,
   useAnimationHover,
-  useInspectElement
+  useInspectElement,
+  useTimeline
 } from '../overboard-story/common'
 import { Snapshot } from '../overboard-story/debugger'
 import { DevToolsProps } from '../overboard-story/devtools'
@@ -40,18 +41,13 @@ type SceneProps = {
   active: boolean
   pauseTimeline?: () => void
   resumeTimeline?: () => void
+  hoverTooltipComponent: (text: string) => ReactNode
   devtoolsProps?: Partial<DevToolsProps>
 }
 
-const printMarkers = [30, 36, 40, 55, 80]
+const TIMELINE_PLAY_DELAY = 1.4
 
-const AnimatedPanel = ({
-  active,
-  children
-}: {
-  active?: boolean
-  children: React.ReactChild
-}) => {
+const AnimatedPanel: FC<{ active?: boolean }> = ({ active, children }) => {
   return (
     <div
       className={clsx(s['animated-panel'], {
@@ -64,17 +60,22 @@ const AnimatedPanel = ({
   )
 }
 
+const printMarkers = [30, 36, 40, 55, 80]
+
 export const Scene1: FC<SceneProps> = ({
   active,
   pauseTimeline,
   resumeTimeline,
-  devtoolsProps
+  devtoolsProps,
+  hoverTooltipComponent
 }) => {
+  const timeline = useRef(
+    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
+  )
   const [markersType, setMarkersType] = useState<Marker>('transparent')
   const [showPrints, setShowPrints] = useState(false)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
   const consoleRef = useRef()
-  const timeline = useRef(gsap.timeline())
   const [currentHit, setCurrentHit] = useState(0)
 
   const fullLogs: ConsoleProps['logs'] = [
@@ -262,11 +263,16 @@ export const Scene1: FC<SceneProps> = ({
     }
   }, [updateMarkers, resetAnimation])
 
+  useTimeline(active, timeline, resetAnimation)
+
   const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
 
   return (
     <>
       <AnimatedPanel active={active}>
+        {hoverTooltipComponent(
+          'You can interact with windows now. Try changing the log marker style.'
+        )}
         <Code
           {...events}
           printPanelConfig={{
@@ -328,13 +334,15 @@ export const Scene2: FC<SceneProps> = ({
   active,
   pauseTimeline,
   resumeTimeline,
-  devtoolsProps
+  devtoolsProps,
+  hoverTooltipComponent
 }) => {
+  const timeline = useRef(
+    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
+  )
   const consoleRef = useRef<any>(null)
   const hoverboardRef = useRef<StoreRef>(null)
   const [currentHit, setCurrentHit] = useState(0)
-
-  const timeline = useRef(gsap.timeline({ delay: 2 }))
 
   const hoverboardState = useRef({
     _rotate: 0,
@@ -449,20 +457,21 @@ export const Scene2: FC<SceneProps> = ({
       '+=0.5'
     )
 
-    _timeline.call(
-      () => {
-        _timeline?.restart()
-      },
-      undefined,
-      '+=3'
-    )
+    return () => {
+      _timeline.clear()
+      _timeline.kill()
+    }
   }, [])
 
+  useTimeline(active, timeline)
   const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
 
   return (
     <>
       <AnimatedPanel active={active}>
+        {hoverTooltipComponent(
+          'You can interact with windows now. Try time traveling to each log.'
+        )}
         <DevTools
           {...devtoolsProps}
           {...events}
@@ -494,8 +503,12 @@ export const Scene3: FC<SceneProps> = ({
   active,
   pauseTimeline,
   resumeTimeline,
-  devtoolsProps
+  devtoolsProps,
+  hoverTooltipComponent
 }) => {
+  const timeline = useRef(
+    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
+  )
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<StoreRef>(null)
@@ -586,25 +599,25 @@ export const Scene3: FC<SceneProps> = ({
     overboardRef.current?.hoverboard?.flip(loopedValue)
   }, [])
 
-  const timeline = useRef(gsap.timeline({ delay: 2 }))
-
-  const resetAnimation = () => {
-    if (!overboardRef.current || !devToolsRef.current) return
+  const resetAnimation = useCallback((killAndClear = false) => {
+    if (!devToolsRef.current) return
 
     const _timeline = timeline.current
 
     const toolsSelector = gsap.utils.selector(devToolsRef.current)
     const nodeLine = toolsSelector('#node-line')
 
-    nodeLine[6].classList.remove('active')
+    nodeLine.forEach((node) => node.classList.remove('hovered'))
 
     setActiveComponent(null)
     setHoveredComponentBlockId(null)
     setOverboardColor('red')
 
-    _timeline.clear()
-    _timeline.kill()
-  }
+    if (killAndClear) {
+      _timeline.kill()
+      _timeline.clear()
+    }
+  }, [])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -720,16 +733,12 @@ export const Scene3: FC<SceneProps> = ({
       '+=0.6'
     )
 
-    _timeline.call(
-      () => {
-        resetAnimation()
-        _timeline?.restart()
-      },
-      undefined,
-      '+=3'
-    )
-  }, [tree])
+    return () => {
+      resetAnimation(true)
+    }
+  }, [resetAnimation])
 
+  useTimeline(active, timeline, resetAnimation)
   useInspectElement(hoveredComponentBlockId, storeRef.current)
 
   const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
@@ -737,6 +746,9 @@ export const Scene3: FC<SceneProps> = ({
   return (
     <>
       <AnimatedPanel active={active}>
+        {hoverTooltipComponent(
+          'You can interact with windows now. Try inspecting any component.'
+        )}
         <DevTools
           {...devtoolsProps}
           {...events}
@@ -771,8 +783,12 @@ export const Scene4: FC<SceneProps> = ({
   active,
   pauseTimeline,
   resumeTimeline,
-  devtoolsProps
+  devtoolsProps,
+  hoverTooltipComponent
 }) => {
+  const timeline = useRef(
+    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
+  )
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<StoreRef>(null)
@@ -782,7 +798,6 @@ export const Scene4: FC<SceneProps> = ({
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
   >(null)
-  const timeline = useRef(gsap.timeline({ delay: 2 }))
 
   const tree = useMemo<IdentifiedNode<HTMLNode>>(() => {
     const tree: HTMLNode = {
@@ -856,22 +871,24 @@ export const Scene4: FC<SceneProps> = ({
     return identifiedTree
   }, [])
 
-  const resetAnimation = () => {
-    if (!overboardRef.current || !devToolsRef.current) return
+  const resetAnimation = useCallback((killAndClear = false) => {
+    if (!devToolsRef.current) return
 
     const _timeline = timeline.current
 
     const toolsSelector = gsap.utils.selector(devToolsRef.current)
     const nodeLine = toolsSelector('#node-line')
 
-    nodeLine[7].classList.remove('active')
+    nodeLine.forEach((node) => node.classList.remove('hovered'))
 
     setHoveredComponentBlockId(null)
     setActiveElement(null)
 
-    // _timeline.clear()
-    _timeline.kill()
-  }
+    if (killAndClear) {
+      _timeline.clear()
+      _timeline.kill()
+    }
+  }, [])
 
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
@@ -959,22 +976,22 @@ export const Scene4: FC<SceneProps> = ({
       '+=0.5'
     )
 
-    _timeline.call(
-      () => {
-        resetAnimation()
-        _timeline?.restart()
-      },
-      undefined,
-      '+=3'
-    )
-  }, [tree])
+    return () => {
+      resetAnimation(true)
+    }
+  }, [tree, resetAnimation])
 
+  useTimeline(active, timeline, resetAnimation)
   useInspectElement(hoveredComponentBlockId, storeRef.current)
+
   const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
 
   return (
     <>
       <AnimatedPanel active={active}>
+        {hoverTooltipComponent(
+          'You can interact with windows now. Try inspecting any element.'
+        )}
         <DevTools
           {...devtoolsProps}
           {...events}
@@ -1005,45 +1022,49 @@ export const Scene4: FC<SceneProps> = ({
   )
 }
 
+const initialCalls: NetworkCall[] = [
+  {
+    pending: false,
+    status: 200,
+    caller: 'fetchVariants',
+    method: 'GET',
+    url: 'overboard.replay.io/api/variants',
+    response: {
+      variants: ['red', 'green', 'blue']
+    }
+  },
+  {
+    pending: false,
+    status: 200,
+    caller: 'addToCart',
+    method: 'POST',
+    url: 'overboard.replay.io/api/addToCart',
+    request: {
+      variant: 'red',
+      quantity: 1
+    },
+    response: {
+      cartId: 'c9811cbd64b8'
+    }
+  }
+]
+
 export const Scene5: FC<SceneProps> = ({
   active,
   pauseTimeline,
   resumeTimeline,
-  devtoolsProps
+  devtoolsProps,
+  hoverTooltipComponent
 }) => {
+  const timeline = useRef(
+    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
+  )
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<StoreRef>(null)
   const [activeCallIdx, setActiveCallIdx] = useState<number>()
   const [storeState, setStoreState] =
     useState<OverboardStoreProps['state']>('idle')
-
-  const initialCalls: NetworkCall[] = [
-    {
-      pending: false,
-      status: 200,
-      caller: 'fetchVariants',
-      method: 'GET',
-      url: 'overboard.replay.io/api/variants',
-      response: {
-        variants: ['red', 'green', 'blue']
-      }
-    },
-    {
-      pending: false,
-      status: 200,
-      caller: 'addToCart',
-      method: 'POST',
-      url: 'overboard.replay.io/api/addToCart',
-      request: {
-        variant: 'red',
-        quantity: 1
-      },
-      response: {
-        cartId: 'c9811cbd64b8'
-      }
-    }
-  ]
 
   const [calls, setCalls] = useState(initialCalls)
 
@@ -1075,7 +1096,10 @@ export const Scene5: FC<SceneProps> = ({
 
     gsap.delayedCall(1, () => {
       setCalls((prev) => {
-        prev[currCallIdx].pending = false
+        if (prev[currCallIdx]) {
+          prev[currCallIdx].pending = false
+        }
+
         return prev
       })
 
@@ -1085,28 +1109,29 @@ export const Scene5: FC<SceneProps> = ({
     })
   }, [])
 
-  const timeline = useRef(gsap.timeline({ delay: 2 }))
+  const resetAnimation = useCallback(
+    (killAndClear = false) => {
+      if (!overboardRef.current || !devToolsRef.current) return
 
-  const resetAnimation = () => {
-    if (!overboardRef.current || !devToolsRef.current) return
+      const _timeline = timeline.current
 
-    const _timeline = timeline.current
+      const toolsSelector = gsap.utils.selector(devToolsRef.current)
+      const callLine = toolsSelector('#call-line')
 
-    const toolsSelector = gsap.utils.selector(devToolsRef.current)
-    const callLine = toolsSelector('#call-line')
+      callLine[2]?.classList?.remove('active')
 
-    callLine[2].classList.remove('active')
+      setStoreState('idle')
+      setCalls(initialCalls)
 
-    setStoreState('idle')
-    setCalls(initialCalls)
-
-    _timeline.clear()
-    _timeline.kill()
-  }
+      if (killAndClear) {
+        _timeline.clear()
+        _timeline.kill()
+      }
+    },
+    [initialCalls]
+  )
 
   useEffect(() => {
-    if (!overboardRef.current || !devToolsRef.current) return
-
     const _timeline = timeline.current
 
     _timeline.call(() => {
@@ -1129,21 +1154,20 @@ export const Scene5: FC<SceneProps> = ({
       '+=1'
     )
 
-    _timeline.call(
-      () => {
-        resetAnimation()
-        _timeline?.restart()
-      },
-      undefined,
-      '+=3'
-    )
-  })
+    return () => {
+      resetAnimation(true)
+    }
+  }, [handlePurchase, resetAnimation])
 
+  useTimeline(active, timeline, resetAnimation)
   const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
 
   return (
     <>
       <AnimatedPanel active={active}>
+        {hoverTooltipComponent(
+          'You can interact with windows now. Try inspecting any request.'
+        )}
         <DevTools
           {...devtoolsProps}
           {...events}
@@ -1198,10 +1222,13 @@ const buildScope = (
 export const Scene6: FC<SceneProps> = ({
   active,
   pauseTimeline,
-  resumeTimeline
+  resumeTimeline,
+  hoverTooltipComponent
 }) => {
+  const timeline = useRef(
+    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
+  )
   const debuggerRef = useRef(null)
-
   const [activeDebugLine, setActiveDebugLine] = useState()
   const [activeSnapshotPath, setActiveSnapshotPath] = useState<string>('0')
 
@@ -1329,28 +1356,26 @@ export const Scene6: FC<SceneProps> = ({
     setActiveDebugLine(currentSnapshot?.line)
   }, [activeSnapshotPath, snapshotTree])
 
-  const timeline = useRef(gsap.timeline({ delay: 2 }))
-
-  const resetAnimation = () => {
-    if (!debuggerRef.current) return
-
+  const resetAnimation = useCallback((killAndClear = false) => {
     setActiveSnapshotPath('0')
 
     const _timeline = timeline.current
 
-    _timeline.kill()
-  }
+    if (killAndClear) {
+      _timeline.clear()
+      _timeline.kill()
+    }
+  }, [])
 
   useEffect(() => {
     if (!debuggerRef.current) return
+
     const _timeline = timeline.current
 
     const debuggerSelector = gsap.utils.selector(debuggerRef.current)
     const prevBPButton = debuggerSelector('#prev-breakpoint')
     const nextBPButton = debuggerSelector('#next-breakpoint')
-    // const prevFuncButton = debuggerSelector('#prev-function')
     const nextFuncButton = debuggerSelector('#next-function')
-    // const exitButton = debuggerSelector('#exit-function')
     const enterButton = debuggerSelector('#enter-function')
 
     _timeline.call(() => {
@@ -1468,21 +1493,20 @@ export const Scene6: FC<SceneProps> = ({
       '+=0.2'
     )
 
-    _timeline.call(
-      () => {
-        resetAnimation()
-        _timeline?.restart()
-      },
-      undefined,
-      '+=3'
-    )
-  }, [])
+    return () => {
+      resetAnimation(true)
+    }
+  }, [resetAnimation])
 
+  useTimeline(active, timeline, resetAnimation)
   const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
 
   return (
     <>
       <AnimatedPanel active={active}>
+        {hoverTooltipComponent(
+          'You can interact with windows now. Try navigating the callstack.'
+        )}
         <Debugger
           {...events}
           ref={debuggerRef}
