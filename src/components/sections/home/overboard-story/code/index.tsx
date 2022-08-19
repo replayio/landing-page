@@ -58,6 +58,7 @@ const CodeLine = ({
 }
 
 type CodeProps = {
+  filename?: string
   breakpoints?: number[]
   printIndicators?: {
     [key: number]: 'disabled' | 'not-available' | 'available'
@@ -89,6 +90,7 @@ export type CodeRef<> = {
 export const Code = forwardRef<CodeRef, CodeProps>(
   (
     {
+      filename,
       debugLine,
       printPanelConfig,
       code,
@@ -147,7 +149,9 @@ export const Code = forwardRef<CodeRef, CodeProps>(
         {...rest}
         ref={elmRef}
       >
-        <Header />
+        <Header>
+          {filename && <div className={s['file-tab']}>{filename}</div>}
+        </Header>
 
         <div className={s['code']}>
           <div />
@@ -187,23 +191,33 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                 </span>
                 <span
                   data-line={idx + 1}
+                  className={s['print-indicator']}
                   style={{
-                    position: 'relative',
-                    display: 'inline-block',
                     background:
                       (printIndicators?.[codeLine] === 'not-available' &&
                         '#BBEAFA') ||
                       (printIndicators?.[codeLine] === 'available' &&
                         '#69A5FF') ||
-                      '#F1F1F1',
-                    width: 4,
-                    height: '100%'
+                      '#F1F1F1'
                   }}
                 >
-                  <span
-                    id={isTargetLine ? 'dev-tools-add-print' : undefined}
-                    className={clsx(s['add-print'])}
-                  />
+                  {isTargetLine && (
+                    <>
+                      <span
+                        id="dev-tools-add-print"
+                        className={clsx(s['add-print'])}
+                      />
+                      <div
+                        id="dev-tools-print-tutorial"
+                        className={s['tutorial-popup']}
+                      >
+                        <p className={s['text']}>
+                          Click to add a print statement
+                        </p>
+                        <span className={s['hits']}>1 hit</span>
+                      </div>
+                    </>
+                  )}
                 </span>
 
                 <CodeLine
@@ -307,6 +321,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                           <div style={{ flex: 1, padding: '0 10px' }}>
                             {printPanelConfig?.timelineType === 'justUi' ? (
                               <ProgressBar
+                                solid
                                 primaryColor="#01ACFD"
                                 secondaryColor="#D5D5D5"
                                 markerSize={12}

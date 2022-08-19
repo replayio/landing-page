@@ -20,6 +20,10 @@
       --gradient-direction: to bottom;
       --top: 0px;
       --left: 50%;
+
+      .solid {
+        --height: 100%;
+      }
     }
   }
 
@@ -35,6 +39,10 @@
       --gradient-direction: to right;
       --top: 50%;
       --left: 0px;
+
+      .solid {
+        --width: 100%;
+      }
     }
   }
 
@@ -67,6 +75,10 @@
         var(--color-transparent),
         var(--color-primary)
       );
+
+      &.solid {
+        background: var(--color-primary);
+      }
     }
   }
 }

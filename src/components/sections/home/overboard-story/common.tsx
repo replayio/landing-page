@@ -15,7 +15,7 @@ export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({
       alignItems: 'center',
       fontSize: 12,
       padding: '6px 10px',
-      borderBottom: '1px solid #DCDCDC',
+      borderBottom: '1px solid var(--color-gray-lighter)',
       color: '#a5a3a3',
       minHeight: 35,
       ...style

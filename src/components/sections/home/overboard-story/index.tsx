@@ -121,6 +121,10 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
 const padding = 16
 const headerHeight = 70
 const timelineHeight = 90
+const printMarkers = [50]
+const storeId = 'hero'
+const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
+
 const codeBlock = `export function PurchaseForm() {
   const [hasError, setHasError] = useState(false)
   const handleSubmit = useCallback(async (event) => {
@@ -234,9 +238,6 @@ const reactTree = identifyNodes(
   })
 )
 
-const printMarkers = [50]
-const storeId = 'hero'
-
 export function ReplayApplication() {
   const { isDesktop } = useDeviceDetect()
   const progressBarRef = useRef<ProgressAPI>(null)
@@ -305,6 +306,7 @@ export function ReplayApplication() {
 
     const nodeLine = toolsSelector('#node-line')
     const addPrintButton = codeSelector('#dev-tools-add-print')
+    const printTutorial = codeSelector('#dev-tools-print-tutorial')
     const printPanel = codeSelector('#dev-tools-print-panel')
     const storeLogo = storeSelector(`#overboard-store-logo-${storeId}`)
     const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
@@ -606,6 +608,20 @@ export function ReplayApplication() {
           scale: 1
         }
       )
+      .fromTo(
+        printTutorial,
+        {
+          xPercent: -10,
+          opacity: 0,
+          scale: 0.8
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          scale: 1
+        },
+        '<+=0.2'
+      )
       .to(addPrintButton, {
         scale: 1.1,
         delay: 0.5,
@@ -615,6 +631,15 @@ export function ReplayApplication() {
         scale: 1,
         duration: DURATION / 3
       })
+      .to(
+        printTutorial,
+        {
+          xPercent: -10,
+          opacity: 0,
+          scale: 0.8
+        },
+        '<+=0.5'
+      )
       .call(
         () => {
           addPrintButton[0]?.classList?.remove?.('active')
@@ -701,11 +726,9 @@ export function ReplayApplication() {
           prepend: 'response',
           content: [
             {
-              body: { locked: false },
               ok: false,
               status: 400,
-              statusText: 'Bad Request',
-              url: 'https://overboard-react.vercel.app/api/purchase'
+              statusText: 'Bad Request'
             }
           ],
           hide: !showPrints
@@ -770,7 +793,7 @@ export function ReplayApplication() {
             opacity: 0,
             overflow: 'hidden',
             borderRadius: 16,
-            border: '1px solid #DCDCDC',
+            border: '1px solid var(--color-gray-lighter)',
             background: '#F2F2F2',
             width: '100%',
             position: 'absolute'
@@ -784,7 +807,7 @@ export function ReplayApplication() {
               padding: '0 32px',
               backgroundColor: 'white',
               height: headerHeight,
-              borderBottom: '1px solid #DCDCDC'
+              borderBottom: '1px solid var(--color-gray-lighter)'
             }}
           >
             <div style={{ width: 25, color: 'var(--color-pink-crayon)' }}>
@@ -923,6 +946,7 @@ export function ReplayApplication() {
                 ref={codeAreaRef}
               >
                 <Code
+                  filename="PurchaseForm.tsx"
                   printPanelConfig={{
                     print: '"response", response',
                     markers: printMarkers,
@@ -970,6 +994,7 @@ export function ReplayApplication() {
                   ref={devtoolsPanelRef}
                 >
                   <DevTools
+                    onlyShow={devtoolsTabs}
                     panelWrapperProps={{ style: { flex: 1 } }}
                     style={{ height: '100%' }}
                     onPanelTabChange={(tab) => {

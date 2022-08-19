@@ -8,6 +8,7 @@ import { Timeline } from '~/components/common/progress-bar'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
+import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import pauseSVG from '~/public/images/home/pause.svg'
 
 import s from './powerful-dev-tools.module.scss'
@@ -92,6 +93,9 @@ const AssetPlayer = () => {
     UseGsapTimeAPI & { seek: (percentage: string | number) => void }
   >(null)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [ref, { inView }] = useIntersectionObserver<HTMLDivElement>({
+    triggerOnce: false
+  })
 
   const markers = useMemo(
     () =>
@@ -126,7 +130,7 @@ const AssetPlayer = () => {
   }, [activeIdx])
 
   return (
-    <div className={s['asset-player']}>
+    <div className={s['asset-player']} ref={ref}>
       <div className={s['head']}>
         <Container className={s['container']} size="md">
           <AssetChunks
@@ -145,6 +149,7 @@ const AssetPlayer = () => {
 
           <div className={s['progress']}>
             <Timeline
+              playing={inView}
               markers={markers}
               markerVisible={false}
               markerSize={14}
@@ -179,7 +184,7 @@ const AssetPlayer = () => {
                   <p className={s['info']}>{text}</p>
                 </Bubble>
               )}
-              active={idx === activeIdx}
+              active={inView && idx === activeIdx}
               pauseTimeline={pauseTimeline}
               resumeTimeline={resumeTimeline}
               devtoolsProps={{

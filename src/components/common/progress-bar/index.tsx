@@ -15,7 +15,6 @@ import {
   UseGsapTimeAPI,
   UseGsapTimeArgs
 } from '~/hooks/use-gsap-time'
-import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isClient } from '~/lib/constants'
 import { msToSecs } from '~/lib/utils'
@@ -38,6 +37,7 @@ type InternalMarker = Marker & {
 }
 
 type ProgressProps = {
+  solid?: boolean
   progress?: number
   direction?: 'horizontal' | 'vertical'
   primaryColor?: string
@@ -81,6 +81,7 @@ const getElmCoordById = (id: string, axes: 'x' | 'y') => {
 export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
   (
     {
+      solid = false,
       primaryColor,
       secondaryColor,
       progress,
@@ -252,7 +253,9 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
         ref={barRef}
       >
         <div className={s['progress']} ref={progressRef}>
-          <div className={s['progress-gradient']} />
+          <div
+            className={clsx(s['progress-gradient'], { [s['solid']]: solid })}
+          />
         </div>
         {markerVisible &&
           internalMarkers?.map(({ position, normalizedPosition }, idx) => {
@@ -325,25 +328,15 @@ type TimelineProps = {
   onStart?: () => void
   onComplete?: () => void
   loop?: boolean
-  viewportReactive?: boolean
+  playing?: boolean
 } & ProgressProps
 
 export const Timeline = forwardRef<UseGsapTimeAPI, TimelineProps>(
   (
-    {
-      viewportReactive = true,
-      duration,
-      onStart,
-      onComplete,
-      loop = true,
-      ...rest
-    },
+    { playing = false, duration, onStart, onComplete, loop = true, ...rest },
     ref
   ) => {
     const progressRef = useRef<ProgressAPI>(null)
-    const [viewRef, { inView }] = useIntersectionObserver({
-      triggerOnce: false
-    })
 
     const handleUpdate = useCallback<NonNullable<UseGsapTimeArgs['onUpdate']>>(
       (progress) => {
@@ -389,21 +382,15 @@ export const Timeline = forwardRef<UseGsapTimeAPI, TimelineProps>(
     )
 
     useEffect(() => {
-      if (viewportReactive) {
-        if (inView) {
-          time.start()
-        } else {
-          time.pause()
-        }
-
-        return time.pause
+      if (playing === true) {
+        time.start()
+      } else if (playing === false) {
+        time.pause()
       }
-    }, [time, inView, viewportReactive])
 
-    return (
-      <div ref={viewRef}>
-        <ProgressBar animated={false} {...rest} ref={progressRef} />
-      </div>
-    )
+      return time.pause
+    }, [time, playing])
+
+    return <ProgressBar animated={false} {...rest} ref={progressRef} />
   }
 )

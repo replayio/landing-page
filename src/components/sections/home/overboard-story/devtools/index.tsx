@@ -1,4 +1,6 @@
 import clsx from 'clsx'
+import clone from 'lodash/clone'
+import { useMemo } from 'react'
 
 import { Console, ConsoleProps } from './console'
 import s from './devtools.module.scss'
@@ -33,13 +35,15 @@ export const tabs = {
   elements: Elements,
   network: Network,
   react: ReactDevTools
-} as const
+}
 
 export function TabNav({
-  activePanel,
+  tabs: availableTabs,
+  activeTab,
   setActivePanel
 }: {
-  activePanel: keyof typeof tabs
+  tabs: Partial<typeof tabs>
+  activeTab: keyof typeof tabs
   setActivePanel?: (panel: keyof typeof tabs) => void
 }) {
   return (
@@ -50,20 +54,22 @@ export function TabNav({
         paddingLeft: 12,
         paddingRight: 12,
         fontSize: 12,
-        borderBottom: '1px solid #DCDCDC',
+        borderBottom: '1px solid var(--color-gray-lighter)',
         background: 'var(--color-gray-lightest)'
       }}
     >
       <ElementSelectorIcon />
 
-      {Object.keys(tabs).map((key, index) => {
-        const isActive = key === activePanel
+      {Object.keys(availableTabs).map((key, index) => {
+        const isActive = key === activeTab
 
         return (
           <li
             key={index}
             style={{
-              backgroundColor: isActive ? '#DCDCDC' : 'transparent',
+              backgroundColor: isActive
+                ? 'var(--color-gray-lighter)'
+                : 'transparent',
               textTransform: 'capitalize'
             }}
           >
@@ -88,6 +94,7 @@ export type DevToolsProps<T extends keyof typeof tabs = keyof typeof tabs> = {
     react: ReactDevToolsProps
   }[T]
   panel: T
+  onlyShow?: (keyof typeof tabs)[]
   onPanelTabChange?: (panel: keyof typeof tabs) => void
   panelWrapperProps?: JSX.IntrinsicElements['div']
 } & JSX.IntrinsicElements['div']
@@ -98,13 +105,32 @@ export function DevTools<T extends keyof typeof tabs>({
   panel,
   onPanelTabChange,
   panelWrapperProps,
+  onlyShow,
   ...rest
 }: DevToolsProps<T>) {
-  const ActiveTabPanel = tabs[panel]
+  const availableTabs = useMemo(() => {
+    if (!onlyShow) return tabs
+
+    const filteredTabs = clone(tabs)
+
+    Object.keys(filteredTabs).forEach((key) => {
+      if (!onlyShow.includes(key as keyof typeof tabs)) {
+        delete filteredTabs[key as keyof typeof tabs]
+      }
+    })
+
+    return filteredTabs
+  }, [onlyShow])
+
+  const ActiveTabPanel = availableTabs[panel]
 
   return (
     <div className={clsx(s['dev-tools'], className)} {...rest}>
-      <TabNav activePanel={panel} setActivePanel={onPanelTabChange} />
+      <TabNav
+        tabs={availableTabs}
+        activeTab={panel}
+        setActivePanel={onPanelTabChange}
+      />
       <div {...panelWrapperProps}>
         {/* @ts-ignore */}
         <ActiveTabPanel {...panelProps} />
