@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { ScrollTrigger } from 'lib/gsap'
 import Image from 'next/future/image'
 import { useRouter } from 'next/router'
-import { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
@@ -89,8 +89,6 @@ const social = {
 
 export const Footer: FC = () => {
   const router = useRouter()
-  const [overflowed, setOverflowed] = useState(false)
-  const [hidden, setHidden] = useState(false)
   const progressRef = useRef<ProgressAPI>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const { isDesktop } = useDeviceDetect()
@@ -116,23 +114,26 @@ export const Footer: FC = () => {
     }
   }, [isDesktop])
 
-  useLayoutEffect(() => {
-    if (!router) return
-
-    if (router.pathname === '/about' || router.pathname === '/pricing') {
-      setOverflowed(true)
-    } else if (
-      router.pathname === '/shoutouts' ||
-      router.pathname === '/privacy-policy' ||
-      router.pathname === '/security-and-privacy' ||
-      router.pathname === '/terms-of-service'
-    ) {
-      setHidden(true)
-    } else {
-      setOverflowed(false)
-      setHidden(false)
+  const { overflowed, hidden } = useMemo(() => {
+    let overflowed = false
+    let hidden = false
+    switch (router.pathname) {
+      case '/about':
+      case '/pricing':
+        overflowed = true
+        break
+      case '/shoutouts':
+      case '/privacy-policy':
+      case '/security-and-privacy':
+      case '/terms-of-service':
+        hidden = true
+        break
+      default:
+        break
     }
-  }, [router])
+
+    return { overflowed, hidden }
+  }, [router.pathname])
 
   return (
     <footer
