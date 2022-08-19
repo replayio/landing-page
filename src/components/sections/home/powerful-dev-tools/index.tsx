@@ -125,8 +125,6 @@ const AssetPlayer = () => {
     prevIdx.current = activeIdx
   }, [activeIdx])
 
-  const ActiveScene = scenes[activeIdx]
-
   return (
     <div className={s['asset-player']}>
       <div className={s['head']}>
@@ -167,27 +165,29 @@ const AssetPlayer = () => {
           <span className={s['epigraph']}>{assets[activeIdx].description}</span>
         </div>
         <div className={s['asset']}>
-          <Bubble
-            variant
-            className={clsx(s['popup'], { [s['open']]: !isPlaying })}
-          >
-            <div>
-              <Image src={pauseSVG} />
-              <p>Paused Timeline</p>
-            </div>
-            <p className={s['info']}>You can interact with windows now</p>
-          </Bubble>
-          <ActiveScene
-            pauseTimeline={pauseTimeline}
-            resumeTimeline={resumeTimeline}
-            devtoolsProps={{
-              onPanelTabChange: handleDevtoolsTabChange,
-              panelWrapperProps: {
-                onMouseEnter: pauseTimeline,
-                onMouseLeave: resumeTimeline
-              }
-            }}
-          />
+          {scenes.map((Scene, idx) => (
+            <Scene
+              hoverTooltipComponent={(text: string) => (
+                <Bubble
+                  className={clsx(s['popup'], { [s['open']]: !isPlaying })}
+                  variant
+                >
+                  <div>
+                    <Image src={pauseSVG} />
+                    <p>Paused Timeline</p>
+                  </div>
+                  <p className={s['info']}>{text}</p>
+                </Bubble>
+              )}
+              active={idx === activeIdx}
+              pauseTimeline={pauseTimeline}
+              resumeTimeline={resumeTimeline}
+              devtoolsProps={{
+                onPanelTabChange: handleDevtoolsTabChange
+              }}
+              key={idx}
+            />
+          ))}
         </div>
       </Container>
     </div>

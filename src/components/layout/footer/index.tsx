@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { ScrollTrigger } from 'lib/gsap'
 import Image from 'next/future/image'
 import { useRouter } from 'next/router'
-import { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
@@ -10,7 +10,9 @@ import { Button } from '~/components/primitives/button'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
-import { isDev } from '~/lib/constants'
+import { useDeviceDetect } from '~/hooks/use-device-detect'
+import { useMedia } from '~/hooks/use-media'
+import { breakpoints, isDev } from '~/lib/constants'
 import footerBgSvg from '~/public/images/home/footer-bg.svg'
 
 import { Container } from '../container'
@@ -88,10 +90,10 @@ const social = {
 
 export const Footer: FC = () => {
   const router = useRouter()
-  const [overflowed, setOverflowed] = useState(false)
-  const [hidden, setHidden] = useState(false)
   const progressRef = useRef<ProgressAPI>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const { isDesktop } = useDeviceDetect()
 
   useEffect(() => {
     if (!sectionRef.current || !progressRef.current) return
@@ -101,7 +103,7 @@ export const Footer: FC = () => {
       markers: isDev,
       scrub: 1,
       start: 'top bottom',
-      end: 'bottom bottom',
+      end: `${isDesktopSize ? 'bottom' : '+=600px'} bottom`,
       onUpdate: (stState) => {
         if (progressRef.current) {
           progressRef.current.update(stState.progress * 70)
@@ -112,25 +114,28 @@ export const Footer: FC = () => {
     return () => {
       trigger.kill()
     }
-  }, [])
+  }, [isDesktop, isDesktopSize])
 
-  useLayoutEffect(() => {
-    if (!router) return
-
-    if (router.pathname === '/about' || router.pathname === '/pricing') {
-      setOverflowed(true)
-    } else if (
-      router.pathname === '/shoutouts' ||
-      router.pathname === '/privacy-policy' ||
-      router.pathname === '/security-and-privacy' ||
-      router.pathname === '/terms-of-service'
-    ) {
-      setHidden(true)
-    } else {
-      setOverflowed(false)
-      setHidden(false)
+  const { overflowed, hidden } = useMemo(() => {
+    let overflowed = false
+    let hidden = false
+    switch (router.pathname) {
+      case '/about':
+      case '/pricing':
+        overflowed = true
+        break
+      case '/shoutouts':
+      case '/privacy-policy':
+      case '/security-and-privacy':
+      case '/terms-of-service':
+        hidden = true
+        break
+      default:
+        break
     }
-  }, [router])
+
+    return { overflowed, hidden }
+  }, [router.pathname])
 
   return (
     <footer

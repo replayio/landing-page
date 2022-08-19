@@ -61,6 +61,9 @@
   --z-index-30: 30;
   --z-index-40: 40;
   --z-index-50: 50;
+
+  /* Custom Eases */
+  --ease-spring: cubic-bezier(0, 0.37, 0.47, 1.5);
 }
 
 html {
