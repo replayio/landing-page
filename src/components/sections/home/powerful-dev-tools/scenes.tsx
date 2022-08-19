@@ -1,5 +1,5 @@
-// import clamp from 'lodash/clamp'
 import clsx from 'clsx'
+import clamp from 'lodash/clamp'
 import get from 'lodash/get'
 import {
   ComponentRef,
@@ -498,6 +498,8 @@ export const Scene2: FC<SceneProps> = ({
 }
 
 let overboardProgress = 0
+const initialColor = 'red'
+const initialRotation = 0
 
 export const Scene3: FC<SceneProps> = ({
   active,
@@ -517,8 +519,9 @@ export const Scene3: FC<SceneProps> = ({
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
   >(null)
-  const [overboardColor, setOverboardColor] = useState<OverboardColors>('red')
-  const [rotation /* , setRotation */] = useState(0)
+  const [overboardColor, setOverboardColor] =
+    useState<OverboardColors>(initialColor)
+  const [rotation, setRotation] = useState(initialRotation)
 
   const tree = useMemo<IdentifiedNode<ReactNode>>(() => {
     const tree = {
@@ -529,10 +532,10 @@ export const Scene3: FC<SceneProps> = ({
           type: 'Hoverboard',
           inspectBlockId: 'hoverboard',
           props: {
-            rotation: rotation,
+            rotation: initialRotation,
             isAnimated: true,
             velocity: 20,
-            color: overboardColor
+            color: initialColor
           }
         },
         {
@@ -577,25 +580,37 @@ export const Scene3: FC<SceneProps> = ({
     const uuidsTree = buildUuids(tree)
     const identifiedTree = identifyNodes(uuidsTree)
 
-    setActiveComponent((prev) =>
-      prev?.path ? get(identifiedTree, prev?.path) : prev
-    )
-
     return identifiedTree
-  }, [overboardColor, rotation])
+  }, [])
+
+  useEffect(() => {
+    setActiveComponent((prev) => {
+      const currentComp = prev?.path ? get(tree, prev?.path) : prev
+
+      if (currentComp?.type === 'Hoverboard') {
+        currentComp.props = {
+          ...currentComp.props,
+          rotation,
+          color: overboardColor
+        }
+      }
+
+      return currentComp
+    })
+  }, [tree, overboardColor, rotation])
 
   const updateOverboard = useCallback(() => {
-    overboardProgress += 1
+    overboardProgress += 1.75
     const loopedValue = overboardProgress % 360
-    // const a = rangeMap(
-    //   clamp(loopedValue, START_OF_ROTATION, END_OF_ROTATION),
-    //   START_OF_ROTATION,
-    //   END_OF_ROTATION,
-    //   0,
-    //   360
-    // )
+    const a = rangeMap(
+      clamp(loopedValue, START_OF_ROTATION, END_OF_ROTATION),
+      START_OF_ROTATION,
+      END_OF_ROTATION,
+      0,
+      360
+    )
 
-    // setRotation(Number(a.toFixed(0)))
+    setRotation(Number(a.toFixed(0)))
     overboardRef.current?.hoverboard?.flip(loopedValue)
   }, [])
 
@@ -620,14 +635,12 @@ export const Scene3: FC<SceneProps> = ({
   }, [])
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      updateOverboard()
-    }, 1)
-
-    return () => {
-      clearInterval(intervalId)
+    if (active) {
+      gsap.ticker.add(updateOverboard)
+    } else {
+      gsap.ticker.remove(updateOverboard)
     }
-  }, [updateOverboard])
+  }, [updateOverboard, active])
 
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
@@ -736,7 +749,7 @@ export const Scene3: FC<SceneProps> = ({
     return () => {
       resetAnimation(true)
     }
-  }, [resetAnimation])
+  }, [tree, resetAnimation])
 
   useTimeline(active, timeline, resetAnimation)
   useInspectElement(hoveredComponentBlockId, storeRef.current)
