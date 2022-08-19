@@ -7,7 +7,6 @@ import { PlayIcon } from '~/components/common/play-icon'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
-import { Link } from '~/components/primitives/link'
 import { useGsapTime } from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 
@@ -19,7 +18,6 @@ const testimonials = [
     name: 'Guillermo Rauch',
     company: {
       name: 'Vercel',
-      url: 'https://vercel.com',
       logo: '/images/home/vercel.svg'
     },
     position: 'CEO',
@@ -31,7 +29,6 @@ const testimonials = [
     name: 'Dan Abramov',
     company: {
       name: 'React',
-      url: 'https://es.reactjs.org/',
       logo: '/images/home/react.svg'
     },
     position: 'Mantainer',
@@ -42,7 +39,6 @@ const testimonials = [
     name: 'Kevin Ghadyani',
     company: {
       name: 'JavaScript',
-      url: '#',
       logo: '/images/home/js.svg'
     },
     position: 'Engineer',
@@ -177,18 +173,16 @@ export const Testimonials: FC = () => {
               </h5>
               <p className={s['identity-position']}>
                 {testimonials[activeIdx].position},{' '}
-                <Link href={testimonials[activeIdx].company.url}>
-                  <span className={s['company-logo']}>
-                    <Image
-                      src={testimonials[activeIdx].company.logo}
-                      width={16}
-                      height={16}
-                      draggable={false}
-                      alt={testimonials[activeIdx].company.name}
-                    />
-                  </span>{' '}
-                  {testimonials[activeIdx].company.name}
-                </Link>
+                <span className={s['company-logo']}>
+                  <Image
+                    src={testimonials[activeIdx].company.logo}
+                    width={16}
+                    height={16}
+                    draggable={false}
+                    alt={testimonials[activeIdx].company.name}
+                  />
+                </span>{' '}
+                {testimonials[activeIdx].company.name}
               </p>
             </div>
 
@@ -203,17 +197,15 @@ export const Testimonials: FC = () => {
                 <h5 className={s['identity-name']}>{name}</h5>
                 <p className={s['identity-position']}>
                   {position},{' '}
-                  <Link href={company.url}>
-                    <span className={s['company-logo']}>
-                      <Image
-                        src={company.logo}
-                        width={16}
-                        height={16}
-                        alt={`${company.name} logo`}
-                      />
-                    </span>{' '}
-                    {company.name}
-                  </Link>
+                  <span className={s['company-logo']}>
+                    <Image
+                      src={company.logo}
+                      width={16}
+                      height={16}
+                      alt={`${company.name} logo`}
+                    />
+                  </span>{' '}
+                  {company.name}
                 </p>
               </div>
             ))}

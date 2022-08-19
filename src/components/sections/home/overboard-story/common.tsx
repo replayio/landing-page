@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import { FC, forwardRef, useEffect } from 'react'
+import { FC, forwardRef, MutableRefObject, useEffect, useMemo } from 'react'
 
 import s from './overboard-story.module.scss'
 
@@ -174,3 +174,37 @@ export const PanelContainer = forwardRef<
     {children}
   </div>
 ))
+
+export const useTimeline = (
+  active: boolean,
+  timeline: MutableRefObject<GSAPTimeline>,
+  reset?: () => void
+) => {
+  useEffect(() => {
+    if (active) {
+      reset?.()
+      timeline.current.restart(true)
+    } else {
+      timeline.current.pause()
+    }
+  }, [active, reset, timeline])
+}
+
+export const useAnimationHover = (
+  pause: (() => void) | undefined,
+  play: (() => void) | undefined,
+  timelineRef: MutableRefObject<GSAPTimeline>
+) => {
+  return useMemo(() => {
+    return {
+      onMouseEnter: () => {
+        pause?.()
+        timelineRef.current?.pause()
+      },
+      onMouseLeave: () => {
+        play?.()
+        timelineRef.current?.play()
+      }
+    }
+  }, [pause, play, timelineRef])
+}
