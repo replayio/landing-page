@@ -98,7 +98,7 @@
         transition-duration: var(--duration-moderate);
         transition-timing-function: var(--ease-spring);
         transform: translateY(-90%) scale(0.95);
-        z-index: 10;
+        z-index: var(--z-index-10);
         pointer-events: none;
 
         &.open {
@@ -164,7 +164,7 @@
     opacity: 0;
     animation: fade-in var(--duration-moderate) ease-out forwards;
     animation-delay: var(--delay);
-    z-index: 10;
+    z-index: var(--z-index-10);
   }
 
   &.hide {
