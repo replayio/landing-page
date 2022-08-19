@@ -165,30 +165,29 @@ const AssetPlayer = () => {
           <span className={s['epigraph']}>{assets[activeIdx].description}</span>
         </div>
         <div className={s['asset']}>
-          <Bubble
-            variant
-            className={clsx(s['popup'], { [s['open']]: !isPlaying })}
-          >
-            <div>
-              <Image src={pauseSVG} />
-              <p>Paused Timeline</p>
-            </div>
-            <p className={s['info']}>You can interact with windows now</p>
-          </Bubble>
-
-          {scenes.map((Scene, idx) => {
-            return (
-              <Scene
-                active={idx === activeIdx}
-                pauseTimeline={pauseTimeline}
-                resumeTimeline={resumeTimeline}
-                devtoolsProps={{
-                  onPanelTabChange: handleDevtoolsTabChange
-                }}
-                key={idx}
-              />
-            )
-          })}
+          {scenes.map((Scene, idx) => (
+            <Scene
+              hoverTooltipComponent={(text: string) => (
+                <Bubble
+                  className={clsx(s['popup'], { [s['open']]: !isPlaying })}
+                  variant
+                >
+                  <div>
+                    <Image src={pauseSVG} />
+                    <p>Paused Timeline</p>
+                  </div>
+                  <p className={s['info']}>{text}</p>
+                </Bubble>
+              )}
+              active={idx === activeIdx}
+              pauseTimeline={pauseTimeline}
+              resumeTimeline={resumeTimeline}
+              devtoolsProps={{
+                onPanelTabChange: handleDevtoolsTabChange
+              }}
+              key={idx}
+            />
+          ))}
         </div>
       </Container>
     </div>

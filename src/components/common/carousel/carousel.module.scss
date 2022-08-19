@@ -8,14 +8,11 @@
 .embla__viewport {
   overflow: hidden;
   width: 100%;
-}
-
-.embla__viewport.is-draggable {
   cursor: grab;
-}
 
-.embla__viewport.is-dragging {
-  cursor: grabbing;
+  &:active {
+    cursor: grabbing;
+  }
 }
 
 .embla__container {

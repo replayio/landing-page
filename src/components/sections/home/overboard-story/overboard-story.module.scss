@@ -10,12 +10,19 @@
 }
 
 .grid {
+  --gap: 26px;
+
   position: relative;
-  margin: 42px;
+  margin: 26px 26px 8px 8px;
   display: grid;
   width: 100%;
-  grid-template-columns: 1% 45% 5% 48% 1%;
-  grid-template-rows: 47% 47%;
+  grid-template-columns:
+    var(--gap)
+    calc(50% - var(--gap) - (var(--gap) / 2))
+    auto
+    calc(50% - var(--gap) - (var(--gap) / 2))
+    var(--gap);
+  grid-template-rows: calc(50% - (var(--gap) / 2)) calc(50% - (var(--gap) / 2));
   align-content: space-between;
   grid-template-areas:
     'code code none store store'

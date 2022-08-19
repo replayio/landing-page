@@ -913,7 +913,7 @@ export function ReplayApplication() {
               <AspectBox
                 ratio={1920 / 1080}
                 style={{
-                  gridArea: '1 / 2 / 3 / 5',
+                  gridArea: '1 / 1 / 3 / 6',
                   alignSelf: 'center'
                 }}
                 ref={smallCenteredStoreRef}
