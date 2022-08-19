@@ -11,7 +11,8 @@ import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
-import { isDev } from '~/lib/constants'
+import { useMedia } from '~/hooks/use-media'
+import { breakpoints, isDev } from '~/lib/constants'
 import footerBgSvg from '~/public/images/home/footer-bg.svg'
 
 import { Container } from '../container'
@@ -91,6 +92,7 @@ export const Footer: FC = () => {
   const router = useRouter()
   const progressRef = useRef<ProgressAPI>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const { isDesktop } = useDeviceDetect()
 
   useEffect(() => {
@@ -101,7 +103,7 @@ export const Footer: FC = () => {
       markers: isDev,
       scrub: 1,
       start: 'top bottom',
-      end: 'bottom bottom',
+      end: `${isDesktopSize ? 'bottom' : '+=600px'} bottom`,
       onUpdate: (stState) => {
         if (progressRef.current) {
           progressRef.current.update(stState.progress * 70)
@@ -112,7 +114,7 @@ export const Footer: FC = () => {
     return () => {
       trigger.kill()
     }
-  }, [isDesktop])
+  }, [isDesktop, isDesktopSize])
 
   const { overflowed, hidden } = useMemo(() => {
     let overflowed = false
