@@ -97,7 +97,16 @@ export const FastAndSecure: FC = () => {
       <Container size="md">
         <SectionHeading
           title="Universal &amp; Secure"
-          subtitle="We’ve spent the past 7 years researching how to record and deterministically replay runtimes securely, performantly, and reliably."
+          subtitle={
+            <div>
+              <p>
+                We’ve spent the past 7 years researching how to record and
+                deterministically replay runtimes securely, performantly, and
+                reliably. The result is a recorder that is enterprise ready and
+                stress tested on the most ambitious applications.
+              </p>
+            </div>
+          }
           centered
         />
 
@@ -114,16 +123,6 @@ export const FastAndSecure: FC = () => {
             value: key
           }))}
         />
-
-        <div className={s['content']}>
-          <div className={s['line-container']}>
-            <span className={s['line']} />
-          </div>
-          <p className={s['description']}>
-            We believe software should be replayable regardless of where and how
-            it is run.
-          </p>
-        </div>
       </Container>
     </Section>
   )

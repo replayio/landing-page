@@ -726,9 +726,8 @@ export function ReplayApplication() {
           prepend: 'response',
           content: [
             {
-              ok: false,
               status: 400,
-              statusText: 'Bad Request'
+              url: 'api/purchase'
             }
           ],
           hide: !showPrints
