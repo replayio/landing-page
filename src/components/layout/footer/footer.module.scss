@@ -125,6 +125,14 @@
 
         .list {
           @include space-y(16px);
+
+          a {
+            transition: color var(--duration-fast);
+
+            &:hover {
+              color: var(--color-pink-lighter);
+            }
+          }
         }
       }
     }
@@ -148,6 +156,13 @@
       display: flex;
       align-items: center;
       @include space-x(16px);
+
+      img {
+        &:hover {
+          filter: brightness(0) saturate(100%) invert(79%) sepia(25%)
+            saturate(870%) hue-rotate(300deg) brightness(105%) contrast(105%);
+        }
+      }
     }
   }
 }

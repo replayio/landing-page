@@ -111,7 +111,11 @@ export const Plans: FC = () => {
                 <span>{plan.description}</span>
                 <ButtonLink
                   href={plan.link}
-                  variant={plan.type === 'Enterprise' ? 'tertiary' : 'primary'}
+                  variant={
+                    plan.type === 'Enterprise'
+                      ? 'tertiary-inverted-alt'
+                      : 'primary'
+                  }
                 >
                   {plan.cta}
                 </ButtonLink>

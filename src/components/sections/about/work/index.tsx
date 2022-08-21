@@ -46,7 +46,7 @@ export const Work: FC = () => {
             </p>
             <ButtonLink
               href="https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#4af5092d36214ce4a780e9c144014e58"
-              variant="tertiary"
+              variant="tertiary-inverted-alt"
             >
               Learn more
             </ButtonLink>
@@ -65,7 +65,7 @@ export const Work: FC = () => {
             </p>
             <ButtonLink
               href="https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#4af5092d36214ce4a780e9c144014e58"
-              variant="tertiary"
+              variant="tertiary-inverted-alt"
             >
               Learn more
             </ButtonLink>
@@ -82,7 +82,10 @@ export const Work: FC = () => {
               <br />
               Check out our open roles.
             </p>
-            <ButtonLink href="mailto:hiring@replay.io" variant="tertiary">
+            <ButtonLink
+              href="mailto:hiring@replay.io"
+              variant="tertiary-inverted-alt"
+            >
               hiring@replay.io
             </ButtonLink>
           </div>
