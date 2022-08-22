@@ -79,7 +79,7 @@
     "use-indexed-children": "0.2.0"
   },
   "engines": {
-    "node": ">=16.x",
+    "node": "16.x",
     "yarn": "1.x"
   },
   "browserslist": [

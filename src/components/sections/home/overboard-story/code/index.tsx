@@ -17,6 +17,7 @@ import 'prismjs/components/prism-jsx'
 Prism.manual = true
 
 import {
+  Marker as ProgressMarker,
   ProgressAPI,
   ProgressBar,
   Timeline
@@ -24,7 +25,7 @@ import {
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 
 import { Header, PanelContainer } from '../common'
-import { Marker } from '../devtools/console'
+import { Marker as ConsoleMarker } from '../devtools/console'
 import commonS from '../overboard-story.module.scss'
 import s from './code.module.scss'
 
@@ -58,6 +59,7 @@ const CodeLine = ({
 }
 
 type CodeProps = {
+  filename?: string
   breakpoints?: number[]
   printIndicators?: {
     [key: number]: 'disabled' | 'not-available' | 'available'
@@ -67,8 +69,8 @@ type CodeProps = {
   debugger?: boolean
   printPanelConfig?: {
     print: string
-    markers: number[]
-    currentMarker?: Marker
+    markers: ProgressMarker[]
+    currentMarker?: ConsoleMarker
     currentHit?: number
     onComplete?: () => void
     onChangeMarker?: (
@@ -89,6 +91,7 @@ export type CodeRef<> = {
 export const Code = forwardRef<CodeRef, CodeProps>(
   (
     {
+      filename,
       debugLine,
       printPanelConfig,
       code,
@@ -104,7 +107,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
 
     const timelineProps = useMemo(
       () => ({
-        markers: printPanelConfig?.markers?.map((position, idx) => ({
+        markers: printPanelConfig?.markers?.map(({ position }, idx) => ({
           position,
           onActive: () => printPanelConfig?.onHit?.(idx + 1),
           onInactive: () => printPanelConfig?.onHit?.(idx)
@@ -147,7 +150,9 @@ export const Code = forwardRef<CodeRef, CodeProps>(
         {...rest}
         ref={elmRef}
       >
-        <Header />
+        <Header>
+          {filename && <div className={s['file-tab']}>{filename}</div>}
+        </Header>
 
         <div className={s['code']}>
           <div />
@@ -187,23 +192,33 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                 </span>
                 <span
                   data-line={idx + 1}
+                  className={s['print-indicator']}
                   style={{
-                    position: 'relative',
-                    display: 'inline-block',
                     background:
                       (printIndicators?.[codeLine] === 'not-available' &&
                         '#BBEAFA') ||
                       (printIndicators?.[codeLine] === 'available' &&
                         '#69A5FF') ||
-                      '#F1F1F1',
-                    width: 4,
-                    height: '100%'
+                      '#F1F1F1'
                   }}
                 >
-                  <span
-                    id={isTargetLine ? 'dev-tools-add-print' : undefined}
-                    className={clsx(s['add-print'])}
-                  />
+                  {isTargetLine && (
+                    <>
+                      <span
+                        id="dev-tools-add-print"
+                        className={clsx(s['add-print'])}
+                      />
+                      <div
+                        id="dev-tools-print-tutorial"
+                        className={s['tutorial-popup']}
+                      >
+                        <p className={s['text']}>
+                          Click to add a print statement
+                        </p>
+                        <span className={s['hits']}>1 hit</span>
+                      </div>
+                    </>
+                  )}
                 </span>
 
                 <CodeLine
@@ -307,6 +322,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                           <div style={{ flex: 1, padding: '0 10px' }}>
                             {printPanelConfig?.timelineType === 'justUi' ? (
                               <ProgressBar
+                                solid
                                 primaryColor="#01ACFD"
                                 secondaryColor="#D5D5D5"
                                 markerSize={12}
@@ -322,7 +338,6 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                                 secondaryColor="#D5D5D5"
                                 duration={4}
                                 markerSize={12}
-                                viewportReactive={false}
                                 {...timelineProps}
                                 ref={timelineRef as RefObject<UseGsapTimeAPI>}
                               />

@@ -1,9 +1,12 @@
 import * as React from 'react'
 
-export const useIntersectionObserver = (
-  options: IntersectionObserverInit & { triggerOnce?: boolean }
-): [React.RefObject<HTMLDivElement>, { inView: boolean }] => {
-  const ref = React.useRef<HTMLDivElement>(null)
+export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
+  options: IntersectionObserverInit & {
+    triggerOnce?: boolean
+    target?: T
+  }
+): [React.MutableRefObject<T | null>, { inView: boolean }] {
+  const ref = React.useRef(options.target || null)
   const [inView, setInView] = React.useState(false)
 
   React.useEffect(() => {

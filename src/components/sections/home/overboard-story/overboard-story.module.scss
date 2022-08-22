@@ -1,37 +1,71 @@
 /* stylelint-disable declaration-block-no-redundant-longhand-properties */
 @import 'css/helpers';
 
-.container {
-  position: relative;
-}
-
-.toolbar {
-  padding: 20px 26px;
-}
-
-.grid {
-  --gap: 26px;
+.section {
+  --padding: 0px;
 
   position: relative;
-  margin: 26px 26px 8px 8px;
-  display: grid;
+  padding: var(--padding) 0px;
+  margin: calc(-1 * var(--padding)) 0px;
+}
+
+.store-container {
+  position: absolute;
   width: 100%;
-  grid-template-columns:
-    var(--gap)
-    calc(50% - var(--gap) - (var(--gap) / 2))
-    auto
-    calc(50% - var(--gap) - (var(--gap) / 2))
-    var(--gap);
-  grid-template-rows: calc(50% - (var(--gap) / 2)) calc(50% - (var(--gap) / 2));
-  align-content: space-between;
-  grid-template-areas:
-    'code code none store store'
-    'code code none devtools devtools';
+  z-index: 10;
 }
 
-.code {
-  height: 100%;
-  opacity: 0;
+.app-container {
+  position: relative;
+  display: flex;
+  justify-items: stretch;
+  width: 100%;
+  align-items: center;
+
+  .app {
+    --padding: 0px;
+
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid var(--color-gray-lighter);
+    background: #f2f2f2;
+    width: 100%;
+    position: absolute;
+
+    .toolbar {
+      padding: 20px 26px;
+    }
+
+    .grid {
+      --gap: 26px;
+
+      position: relative;
+      margin: 26px 26px 0px 0px;
+      display: grid;
+      width: 100%;
+      grid-template-columns:
+        var(--gap)
+        calc(50% - var(--gap) - (var(--gap) / 2))
+        auto
+        calc(50% - var(--gap) - (var(--gap) / 2))
+        var(--gap);
+      grid-template-rows: calc(50% - (var(--gap) / 2)) calc(
+          50% - (var(--gap) / 2)
+        );
+      align-content: space-between;
+      grid-template-areas:
+        'code code none store store'
+        'code code none devtools devtools';
+    }
+
+    .code {
+      height: 100%;
+      opacity: 0;
+    }
+  }
 }
 
 .marker {

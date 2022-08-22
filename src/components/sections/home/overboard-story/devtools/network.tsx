@@ -106,7 +106,7 @@ export const Network = forwardRef<HTMLDivElement, NetworkProps>(
             className={s['call-info']}
             style={{
               fontVariantNumeric: 'tabular-nums',
-              borderLeft: '1px solid #DCDCDC',
+              borderLeft: '1px solid var(--color-gray-lighter)',
               width: '45%'
             }}
           >
