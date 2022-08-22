@@ -25,10 +25,8 @@
   .app {
     --padding: 0px;
 
-    margin: var(--padding) 0;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    height: calc(100vh - var(--padding) * 2);
+    display: flex;
+    flex-direction: column;
     opacity: 0;
     overflow: hidden;
     border-radius: 16px;

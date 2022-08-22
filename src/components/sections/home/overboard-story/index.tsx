@@ -801,7 +801,8 @@ export function ReplayApplication() {
       </AspectBox>
 
       <AspectBox className={s['app-container']} ratio={1920 / 1080}>
-        <div
+        <AspectBox
+          ratio={1360 / 910}
           className={s['app']}
           /* @ts-ignore */
           style={{ '--padding': padding + 'px' }}
@@ -842,9 +843,10 @@ export function ReplayApplication() {
             style={{
               position: 'relative',
               display: 'flex',
-              height: `calc(100vh - ${
+              height: `calc(100% - ${
                 padding * 2
-              }px - ${headerHeight}px - ${timelineHeight}px)`
+              }px - ${headerHeight}px - ${timelineHeight}px)`,
+              flex: 1
             }}
           >
             <div className={s['toolbar']}>
@@ -1076,7 +1078,7 @@ export function ReplayApplication() {
               0:05 / 0:05
             </span>
           </div>
-        </div>
+        </AspectBox>
       </AspectBox>
     </Section>
   )
