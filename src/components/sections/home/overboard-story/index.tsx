@@ -1,14 +1,19 @@
-import { DURATION, Flip, gsap } from 'lib/gsap'
+import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
 import React, { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
+import {
+  Marker,
+  ProgressAPI,
+  ProgressBar
+} from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { IsoLogo } from '~/components/primitives/logo'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
+import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isDev } from '~/lib/constants'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
@@ -121,7 +126,7 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
 const padding = 16
 const headerHeight = 70
 const timelineHeight = 90
-const printMarkers = [50]
+const printMarkers: Marker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
@@ -239,10 +244,11 @@ const reactTree = identifyNodes(
 )
 
 export function ReplayApplication() {
-  const { isDesktop } = useDeviceDetect()
-  const progressBarRef = useRef<ProgressAPI>(null)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
+  const { isDesktop } = useDeviceDetect()
+  const progressBarRef = useRef<ProgressAPI>(null)
+  const { width } = useViewportSize()
 
   /* Store */
   const [storeState, setStoreState] =
@@ -251,7 +257,6 @@ export function ReplayApplication() {
     useState<OverboardStoreProps['overboardColor']>('red')
 
   /* React */
-  const devtoolsRef = useRef<HTMLDivElement>(null)
   const [activeComponent, setActiveComponent] =
     useState<IdentifiedNode<ReactNode> | null>()
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
@@ -269,7 +274,7 @@ export function ReplayApplication() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const targetStoreRef = useRef<HTMLDivElement>(null)
   const smallCenteredStoreRef = useRef<HTMLDivElement>(null)
-  const smallRightStoreRef = useRef<HTMLDivElement>(null)
+  const smallRightStoreAreaRef = useRef<HTMLDivElement>(null)
   const viewToggleRef = useRef<HTMLDivElement>(null)
   const codeAreaRef = useRef<HTMLDivElement>(null)
   const codeRef = useRef<CodeRef>(null)
@@ -290,21 +295,28 @@ export function ReplayApplication() {
       !smallCenteredStoreRef.current ||
       !sectionRef.current ||
       !targetStoreRef.current ||
-      !smallRightStoreRef.current ||
+      !smallRightStoreAreaRef.current ||
       !viewToggleRef.current ||
       !devtoolsPanelRef.current ||
       !devtoolsAreaRef.current ||
       !codeRef.current?.elm ||
-      !devtoolsRef.current
+      !progressBarRef.current
     ) {
       return
     }
 
+    const _applicationRef = applicationRef.current
+    const _targetStoreRef = targetStoreRef.current
+    const _devtoolsPanelRef = devtoolsPanelRef.current
     const storeSelector = gsap.utils.selector(targetStoreRef.current)
     const codeSelector = gsap.utils.selector(codeRef.current.elm)
-    const toolsSelector = gsap.utils.selector(devtoolsRef.current)
 
-    const nodeLine = toolsSelector('#node-line')
+    /* 
+      NodeLine is a function because when we change tabs we loose
+      reference to the panel we need to query the element again.
+    */
+    const nodeLine = () =>
+      gsap.utils.selector(devtoolsPanelRef.current)('#node-line')
     const addPrintButton = codeSelector('#dev-tools-add-print')
     const printTutorial = codeSelector('#dev-tools-print-tutorial')
     const printPanel = codeSelector('#dev-tools-print-panel')
@@ -364,7 +376,7 @@ export function ReplayApplication() {
 
     const flipTimeline3 = Flip.fit(
       targetStoreRef.current,
-      smallRightStoreRef.current,
+      smallRightStoreAreaRef.current,
       {
         // scale: true,
         simple: false,
@@ -440,6 +452,7 @@ export function ReplayApplication() {
       })
       .add(() => {
         setStoreState('error')
+        progressBarRef.current?.update(100)
       }, '+=4')
 
       /* Viewer */
@@ -513,7 +526,7 @@ export function ReplayApplication() {
       }, undefined)
       .call(
         () => {
-          nodeLine[0].classList.toggle('hovered')
+          nodeLine()?.[0]?.classList.toggle('hovered')
           setHoveredComponentBlockId('app')
         },
         undefined,
@@ -521,8 +534,8 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          nodeLine[0].classList.toggle('hovered')
-          nodeLine[1].classList.toggle('hovered')
+          nodeLine()?.[0]?.classList.toggle('hovered')
+          nodeLine()?.[1]?.classList.toggle('hovered')
           setHoveredComponentBlockId('hoverboard')
         },
         undefined,
@@ -537,8 +550,8 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          nodeLine[1].classList.toggle('hovered')
-          nodeLine[3].classList.toggle('hovered')
+          nodeLine()?.[1]?.classList.toggle('hovered')
+          nodeLine()?.[3]?.classList.toggle('hovered')
           setHoveredComponentBlockId('colors')
         },
         undefined,
@@ -553,8 +566,8 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          nodeLine[3].classList.toggle('hovered')
-          nodeLine[7].classList.toggle('hovered')
+          nodeLine()?.[3]?.classList.toggle('hovered')
+          nodeLine()?.[7]?.classList.toggle('hovered')
           setHoveredComponentBlockId('submit')
         },
         undefined,
@@ -569,7 +582,7 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          nodeLine[7].classList.toggle('hovered')
+          nodeLine()?.[7]?.classList.toggle('hovered')
           setHoveredComponentBlockId(null)
         },
         undefined,
@@ -594,6 +607,7 @@ export function ReplayApplication() {
         setActiveDevtoolTab('console')
         floorAndRotateTimeline.current?.seek(0, false)
         setStoreState('idle')
+        progressBarRef.current?.update(20)
       })
       .fromTo(
         addPrintButton,
@@ -667,38 +681,58 @@ export function ReplayApplication() {
           y: 0
         }
       )
-      .to(printTimelineProgress, {
-        progress: 100,
-        duration: 10,
-        ease: 'linear',
-        onStart: () => {
-          setStoreState('idle')
+      .fromTo(
+        printTimelineProgress,
+        {
+          progress: 20
         },
-        onUpdate() {
-          const progress = this.progress()
-
-          if (progress > 0.25 && progress < 0.5) {
-            setStoreState('loading')
-          } else if (progress < 0.25) {
+        {
+          progress: 100,
+          duration: 10,
+          ease: 'linear',
+          onStart: () => {
             setStoreState('idle')
-          }
+            progressBarRef.current?.update(20)
+          },
+          onUpdate() {
+            const progress = printTimelineProgress.progress
 
-          floorAndRotateTimeline.current?.seek(
-            (floorAndRotateTimelineDuration / 4) * this.progress(),
-            false
-          )
-          ;(codeRef.current?.timeline as ProgressAPI)?.update(
-            printTimelineProgress.progress
-          )
+            if (progress > 25 && progress < 50) {
+              setStoreState('loading')
+            } else if (progress < 25) {
+              setStoreState('idle')
+            }
+
+            floorAndRotateTimeline.current?.seek(
+              (floorAndRotateTimelineDuration / 4) * this.progress(),
+              false
+            )
+            ;(codeRef.current?.timeline as ProgressAPI)?.update(
+              printTimelineProgress.progress
+            )
+            progressBarRef.current?.update(printTimelineProgress.progress)
+          }
         }
-      })
+      )
 
     return () => {
+      /* ScrollTrigger Cleanup */
+      scrollTo(0, 0)
+
       floorAndRotateTimeline.current?.kill()
       timeline.scrollTrigger?.kill()
       timeline.kill()
+
+      document.documentElement.classList.remove('hide-header')
+
+      /* Flip Cleanup */
+      /* Just clearing transforms bc otherwise we remove some important variables */
+      const propsToClear = 'transform,width,height'
+      clearProps(_targetStoreRef, propsToClear)
+      clearProps(_devtoolsPanelRef, propsToClear)
+      clearProps(_applicationRef, propsToClear)
     }
-  }, [isDesktop])
+  }, [isDesktop, width])
 
   const handleHit = useCallback((hit: number) => {
     setCurrentHit((prevValue) => {
@@ -739,27 +773,20 @@ export function ReplayApplication() {
       tree: reactTree,
       activeComponent,
       onHoverComponent: setHoveredComponentBlockId,
-      onActiveComponentChange: setActiveComponent,
-      ref: devtoolsRef
+      onActiveComponentChange: setActiveComponent
     }
   }
 
   return (
     <Section
-      style={{
-        position: 'relative',
-        padding: `${padding}px 0px`,
-        margin: `-${padding}px 0px`
-      }}
+      className={s['section']}
+      /* @ts-ignore */
+      style={{ '--padding': padding + 'px' }}
       ref={sectionRef}
     >
       <AspectBox
         ratio={1920 / 1080}
-        style={{
-          position: 'absolute',
-          width: '100%',
-          zIndex: 10
-        }}
+        className={s['store-container']}
         ref={targetStoreRef}
       >
         <OverboardStore
@@ -773,31 +800,12 @@ export function ReplayApplication() {
         />
       </AspectBox>
 
-      <AspectBox
-        ratio={1920 / 1080}
-        style={{
-          position: 'relative',
-          display: 'flex',
-          justifyItems: 'stretch',
-          width: '100%',
-          alignItems: 'center'
-        }}
-      >
+      <AspectBox className={s['app-container']} ratio={1920 / 1080}>
         <div
+          className={s['app']}
+          /* @ts-ignore */
+          style={{ '--padding': padding + 'px' }}
           ref={applicationRef}
-          style={{
-            margin: `${padding}px 0`,
-            display: 'grid',
-            gridTemplateRows: 'auto 1fr',
-            height: `calc(100vh - ${padding * 2}px)`,
-            opacity: 0,
-            overflow: 'hidden',
-            borderRadius: 16,
-            border: '1px solid var(--color-gray-lighter)',
-            background: '#F2F2F2',
-            width: '100%',
-            position: 'absolute'
-          }}
         >
           <div
             style={{
@@ -942,7 +950,10 @@ export function ReplayApplication() {
                 ref={smallCenteredStoreRef}
               />
               <div
-                style={{ gridArea: 'code', position: 'relative' }}
+                style={{
+                  gridArea: 'code',
+                  position: 'relative'
+                }}
                 ref={codeAreaRef}
               >
                 <Code
@@ -1013,7 +1024,7 @@ export function ReplayApplication() {
                 style={{
                   gridArea: 'store'
                 }}
-                ref={smallRightStoreRef}
+                ref={smallRightStoreAreaRef}
               />
               <div style={{ gridArea: 'devtools' }} ref={devtoolsAreaRef} />
             </div>
@@ -1043,10 +1054,13 @@ export function ReplayApplication() {
 
             <div style={{ flex: 1, margin: '0 20px' }}>
               <ProgressBar
+                solid
                 animated={false}
                 progress={0}
                 primaryColor="#01ACFD"
                 secondaryColor="#D9D9D9"
+                markers={showPrints ? printMarkers : undefined}
+                markerSize={14}
                 ref={progressBarRef}
               />
             </div>

@@ -21,7 +21,7 @@ import { msToSecs } from '~/lib/utils'
 
 import s from './progress-bar.module.scss'
 
-type Marker = {
+export type Marker = {
   /* 
     If number it is the percentage position,
     if string it is the id of the element to track

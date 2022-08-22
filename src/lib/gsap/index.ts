@@ -189,7 +189,7 @@ gsap.registerEffect({
 
 const isLegible = (target: gsap.TweenTarget) => isElement(target)
 
-const clearProps = (target: gsap.TweenTarget) => {
+const clearProps = (target: gsap.TweenTarget, props = 'all') => {
   let filteredTargets
 
   if (Array.isArray(target)) {
@@ -199,7 +199,7 @@ const clearProps = (target: gsap.TweenTarget) => {
   }
 
   return gsap.set(filteredTargets, {
-    clearProps: 'all'
+    clearProps: props
   })
 }
 
