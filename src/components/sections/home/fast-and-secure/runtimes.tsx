@@ -3,7 +3,14 @@ import { ReactNode } from 'react'
 export type Runtime = {
   icon: any
   title: string | ReactNode
-  badge: 'beta' | 'today'
+  badge:
+    | 'Beta'
+    | 'Today'
+    | 'Coming Soon'
+    | 'Closed Beta'
+    | '2023'
+    | 'Community'
+    | ''
   description: string
 }
 
@@ -11,20 +18,20 @@ export const browsers: Runtime[] = [
   {
     icon: '/images/logos/firefox.svg',
     title: 'Firefox',
-    badge: 'beta',
-    description: ' '
+    badge: 'Today',
+    description: ''
   },
   {
     icon: '/images/logos/chrome.svg',
     title: 'Chrome',
-    badge: 'beta',
+    badge: 'Beta',
     description: ' '
   },
   {
     icon: '/images/logos/safari.svg',
     title: 'Safari',
-    badge: 'beta',
-    description: ' '
+    badge: 'Beta',
+    description: ''
   }
 ]
 
@@ -32,62 +39,56 @@ export const security: Runtime[] = [
   {
     icon: '/images/logos/encryption.svg',
     title: <>Encryption at Rest &amp;&nbsp;In-Transit</>,
-    badge: 'today',
+    badge: '',
     description: ' '
   },
   {
     icon: '/images/logos/multifactor.svg',
     title: 'Multi Factor authentication',
-    badge: 'beta',
+    badge: '',
     description: ' '
   },
   {
     icon: '/images/logos/monitoring.svg',
     title: 'Intelligent Threat Monitoring',
-    badge: 'beta',
+    badge: '',
     description: ' '
   },
   {
     icon: '/images/logos/access-control.svg',
     title: 'Least Privilege Access Control',
-    badge: 'beta',
+    badge: '',
     description: ' '
   },
   {
     icon: '/images/logos/SSO.svg',
     title: 'SAML / SSO Integration',
-    badge: 'beta',
+    badge: '',
     description: ' '
   }
 ]
 
 export const runtimes: Runtime[] = [
   {
-    badge: 'beta',
-    description: ' ',
-    icon: '/images/logos/node.svg',
-    title: 'Flight Recorder'
-  },
-  {
-    badge: 'today',
+    badge: 'Beta',
     description: ' ',
     icon: '/images/logos/node.svg',
     title: 'Node'
   },
   {
-    badge: 'beta',
+    badge: 'Community',
     description: ' ',
     icon: '/images/logos/ruby.svg',
     title: 'Ruby'
   },
   {
-    badge: 'beta',
+    badge: 'Community',
     description: ' ',
     icon: '/images/logos/java.svg',
     title: 'Java'
   },
   {
-    badge: 'beta',
+    badge: 'Community',
     description: ' ',
     icon: '/images/logos/python.svg',
     title: 'Python'
@@ -96,19 +97,25 @@ export const runtimes: Runtime[] = [
 
 export const platforms: Runtime[] = [
   {
-    badge: 'today',
+    badge: 'Today',
     description: ' ',
     icon: '/images/logos/apple.svg',
     title: 'Mac'
   },
   {
-    badge: 'today',
+    badge: 'Today',
     description: ' ',
     icon: '/images/logos/windows.svg',
     title: 'Windows'
   },
   {
-    badge: 'beta',
+    badge: 'Today',
+    description: ' ',
+    icon: '/images/logos/windows.svg',
+    title: 'Linux'
+  },
+  {
+    badge: '2023',
     description: ' ',
     icon: '/images/logos/android.svg',
     title: 'Android'
@@ -117,31 +124,31 @@ export const platforms: Runtime[] = [
 
 export const testRunners: Runtime[] = [
   {
-    badge: 'today',
+    badge: 'Closed Beta',
     description: ' ',
     icon: '/images/logos/playwright.svg',
     title: 'Playwright'
   },
   {
-    badge: 'beta',
+    badge: 'Closed Beta',
     description: ' ',
     icon: '/images/logos/cypress.svg',
     title: 'Cypress'
   },
   {
-    badge: 'beta',
+    badge: 'Closed Beta',
     description: ' ',
     icon: '/images/logos/pupeteer.svg',
     title: 'Puppeteer'
   },
   {
-    badge: 'beta',
+    badge: 'Closed Beta',
     description: ' ',
     icon: '/images/logos/jest.svg',
     title: 'Jest'
   },
   {
-    badge: 'beta',
+    badge: 'Closed Beta',
     description: ' ',
     icon: '/images/logos/selenium.svg',
     title: 'Selenium'
