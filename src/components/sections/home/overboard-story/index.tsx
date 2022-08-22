@@ -15,6 +15,7 @@ import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isDev } from '~/lib/constants'
+import { padZeroesToNumber } from '~/lib/utils'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
@@ -123,6 +124,7 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   )
 })
 
+const timelineDuration = 10
 const padding = 16
 const headerHeight = 70
 const timelineHeight = 90
@@ -201,36 +203,6 @@ const reactTree = identifyNodes(
         inspectBlockId: 'purchase-form',
         children: [
           {
-            type: 'Colors',
-            inspectBlockId: 'colors',
-            props: {
-              colors: ['red', 'green', 'blue']
-            },
-            children: [
-              {
-                type: 'Color',
-                inspectBlockId: 'color-red',
-                props: {
-                  key: 'red'
-                }
-              },
-              {
-                type: 'Color',
-                inspectBlockId: 'color-green',
-                props: {
-                  key: 'green'
-                }
-              },
-              {
-                type: 'Color',
-                inspectBlockId: 'color-blue',
-                props: {
-                  key: 'blue'
-                }
-              }
-            ]
-          },
-          {
             type: 'PurchaseButton',
             inspectBlockId: 'submit',
             props: {
@@ -246,6 +218,7 @@ const reactTree = identifyNodes(
 export function ReplayApplication() {
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
+  const [currentTime, setCurrentTime] = useState(0)
   const { isDesktop } = useDeviceDetect()
   const progressBarRef = useRef<ProgressAPI>(null)
   const { width } = useViewportSize()
@@ -262,8 +235,6 @@ export function ReplayApplication() {
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
   >(null)
-
-  /* Code */
 
   /* Console */
   const [showPrints, setShowPrints] = useState(false)
@@ -352,13 +323,10 @@ export function ReplayApplication() {
         }
       })
 
-    /*  */
-
     const flipTimeline1 = Flip.fit(
       targetStoreRef.current,
       smallCenteredStoreRef.current,
       {
-        // scale: true,
         simple: false,
         duration: 2
       }
@@ -368,7 +336,6 @@ export function ReplayApplication() {
       targetStoreRef.current,
       smallRightCenteredStoreRef.current,
       {
-        // scale: true,
         simple: false,
         duration: 2
       }
@@ -378,7 +345,6 @@ export function ReplayApplication() {
       targetStoreRef.current,
       smallRightStoreAreaRef.current,
       {
-        // scale: true,
         simple: false,
         duration: 2
       }
@@ -453,6 +419,7 @@ export function ReplayApplication() {
       .add(() => {
         setStoreState('error')
         progressBarRef.current?.update(100)
+        setCurrentTime(timelineDuration)
       }, '+=4')
 
       /* Viewer */
@@ -551,22 +518,6 @@ export function ReplayApplication() {
       .call(
         () => {
           nodeLine()?.[1]?.classList.toggle('hovered')
-          nodeLine()?.[3]?.classList.toggle('hovered')
-          setHoveredComponentBlockId('colors')
-        },
-        undefined,
-        '+=1.5'
-      )
-      .call(
-        () => {
-          setActiveComponent(get(reactTree, 'children.1.children.0'))
-        },
-        undefined,
-        '+=1'
-      )
-      .call(
-        () => {
-          nodeLine()?.[3]?.classList.toggle('hovered')
           nodeLine()?.[7]?.classList.toggle('hovered')
           setHoveredComponentBlockId('submit')
         },
@@ -575,7 +526,7 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          setActiveComponent(get(reactTree, 'children.1.children.1'))
+          setActiveComponent(get(reactTree, 'children.1.children.0'))
         },
         undefined,
         '+=1'
@@ -608,6 +559,7 @@ export function ReplayApplication() {
         floorAndRotateTimeline.current?.seek(0, false)
         setStoreState('idle')
         progressBarRef.current?.update(20)
+        setCurrentTime(timelineDuration * 0.2)
       })
       .fromTo(
         addPrintButton,
@@ -693,6 +645,7 @@ export function ReplayApplication() {
           onStart: () => {
             setStoreState('idle')
             progressBarRef.current?.update(20)
+            setCurrentTime(timelineDuration * 0.2)
           },
           onUpdate() {
             const progress = printTimelineProgress.progress
@@ -707,10 +660,9 @@ export function ReplayApplication() {
               (floorAndRotateTimelineDuration / 4) * this.progress(),
               false
             )
-            ;(codeRef.current?.timeline as ProgressAPI)?.update(
-              printTimelineProgress.progress
-            )
-            progressBarRef.current?.update(printTimelineProgress.progress)
+            ;(codeRef.current?.timeline as ProgressAPI)?.update(progress)
+            progressBarRef.current?.update(progress)
+            setCurrentTime(timelineDuration * (progress / 100))
           }
         }
       )
@@ -760,6 +712,7 @@ export function ReplayApplication() {
           prepend: 'response',
           content: [
             {
+              ok: false,
               status: 400,
               url: 'api/purchase'
             }
@@ -868,24 +821,6 @@ export function ReplayApplication() {
                     fill="#BCBCBC"
                   />
                 </g>
-                <g clipPath="url(#clip2_806_120)">
-                  <path
-                    d="M13.07 102.428C12.7375 102.096 12.2912 101.912 11.8275 101.912H5.55371C4.59121 101.912 3.80371 102.7 3.80371 103.662V117.662C3.80371 118.625 4.58246 119.412 5.54496 119.412H16.0537C17.0162 119.412 17.8037 118.625 17.8037 117.662V107.888C17.8037 107.425 17.62 106.978 17.2875 106.655L13.07 102.428ZM13.4287 115.912H8.17871C7.69746 115.912 7.30371 115.518 7.30371 115.037C7.30371 114.556 7.69746 114.162 8.17871 114.162H13.4287C13.91 114.162 14.3037 114.556 14.3037 115.037C14.3037 115.518 13.91 115.912 13.4287 115.912ZM13.4287 112.412H8.17871C7.69746 112.412 7.30371 112.018 7.30371 111.537C7.30371 111.056 7.69746 110.662 8.17871 110.662H13.4287C13.91 110.662 14.3037 111.056 14.3037 111.537C14.3037 112.018 13.91 112.412 13.4287 112.412ZM11.6787 107.162V103.225L16.4912 108.037H12.5537C12.0725 108.037 11.6787 107.643 11.6787 107.162Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
-                <g clipPath="url(#clip3_806_120)">
-                  <path
-                    d="M19.5537 158.656C19.5537 163.486 15.6337 167.406 10.8037 167.406C5.97371 167.406 2.05371 163.486 2.05371 158.656C2.05371 157.615 2.24621 156.626 2.57871 155.699L4.22371 156.294C3.95246 157.029 3.80371 157.825 3.80371 158.656C3.80371 162.515 6.94496 165.656 10.8037 165.656C14.6625 165.656 17.8037 162.515 17.8037 158.656C17.8037 154.798 14.6625 151.656 10.8037 151.656C9.97246 151.656 9.18496 151.805 8.44996 152.076L7.85496 150.423C8.78246 150.099 9.77121 149.906 10.8037 149.906C15.6337 149.906 19.5537 153.826 19.5537 158.656ZM5.11621 151.656C4.38996 151.656 3.80371 152.243 3.80371 152.969C3.80371 153.695 4.38996 154.281 5.11621 154.281C5.84246 154.281 6.42871 153.695 6.42871 152.969C6.42871 152.243 5.84246 151.656 5.11621 151.656ZM16.0537 158.656C16.0537 161.553 13.7 163.906 10.8037 163.906C7.90746 163.906 5.55371 161.553 5.55371 158.656C5.55371 155.76 7.90746 153.406 10.8037 153.406C13.7 153.406 16.0537 155.76 16.0537 158.656ZM9.92871 156.031H8.17871V161.281H9.92871V156.031ZM13.4287 156.031H11.6787V161.281H13.4287V156.031Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
-                <g clipPath="url(#clip4_806_120)">
-                  <path
-                    d="M13.8662 208.399H13.175L12.93 208.163C13.7875 207.166 14.3037 205.871 14.3037 204.462C14.3037 201.321 11.7575 198.774 8.61621 198.774C5.47496 198.774 2.92871 201.321 2.92871 204.462C2.92871 207.603 5.47496 210.149 8.61621 210.149C10.025 210.149 11.32 209.633 12.3175 208.776L12.5537 209.021V209.712L16.9287 214.078L18.2325 212.774L13.8662 208.399V208.399ZM8.61621 208.399C6.43746 208.399 4.67871 206.641 4.67871 204.462C4.67871 202.283 6.43746 200.524 8.61621 200.524C10.795 200.524 12.5537 202.283 12.5537 204.462C12.5537 206.641 10.795 208.399 8.61621 208.399Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
                 <defs>
                   <clipPath id="clip0_806_120">
                     <rect
@@ -901,30 +836,6 @@ export function ReplayApplication() {
                       height="22.8789"
                       fill="white"
                       transform="translate(0.303711 50.29)"
-                    />
-                  </clipPath>
-                  <clipPath id="clip2_806_120">
-                    <rect
-                      width="21"
-                      height="21"
-                      fill="white"
-                      transform="translate(0.303711 100.162)"
-                    />
-                  </clipPath>
-                  <clipPath id="clip3_806_120">
-                    <rect
-                      width="21"
-                      height="21"
-                      fill="white"
-                      transform="translate(0.303711 148.156)"
-                    />
-                  </clipPath>
-                  <clipPath id="clip4_806_120">
-                    <rect
-                      width="21"
-                      height="21"
-                      fill="white"
-                      transform="translate(0.303711 196.149)"
                     />
                   </clipPath>
                 </defs>
@@ -1041,7 +952,6 @@ export function ReplayApplication() {
           >
             <svg
               width="41"
-              height="41"
               viewBox="0 0 41 41"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -1074,7 +984,8 @@ export function ReplayApplication() {
                 fontSize: '12px'
               }}
             >
-              0:05 / 0:05
+              0:{padZeroesToNumber(Number(currentTime.toFixed(0)), 2)} / 0:
+              {padZeroesToNumber(timelineDuration, 2)}
             </span>
           </div>
         </AspectBox>
