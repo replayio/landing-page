@@ -1,14 +1,10 @@
-import { ResizeObserver } from '@juggle/resize-observer'
 import clsx from 'clsx'
-import { FC, useEffect, useState } from 'react'
-import useMeasure from 'react-use-measure'
+import { FC } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Tabs } from '~/components/common/tabs'
 import { Container } from '~/components/layout/container'
-import { useMedia } from '~/hooks/use-media'
-import { breakpoints } from '~/lib/constants'
 
 import { Card } from './card'
 import s from './fast-and-secure.module.scss'
@@ -50,72 +46,35 @@ const categories = [
 ]
 
 const CarouselSection: FC<{ cards: Runtime[] }> = ({ cards }) => {
-  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`, true)
-  const [ref, bounds] = useMeasure({ scroll: true, polyfill: ResizeObserver })
-
-  useEffect(() => {
-    const lanternContainer = document.querySelector<HTMLDivElement>(
-      '.cards-lantern-container'
-    )
-    if (!lanternContainer) return
-    ref(lanternContainer)
-  }, [ref])
-
-  useEffect(() => {
-    const lanternContainer = document.querySelector<HTMLDivElement>(
-      '.cards-lantern-container'
-    )
-    if (!lanternContainer) return
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = e.clientX - bounds.left
-      const y = e.clientY - bounds.top
-
-      lanternContainer.style.setProperty('--lantern-x', `${x}px`)
-      lanternContainer.style.setProperty('--lantern-y', `${y}px`)
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [bounds.left, bounds.top])
-
-  const startIndex = Math.floor(cards.length / 2)
-  const [selectedIndex, setSelectedIndex] = useState(startIndex)
-
   return (
-    <div className={s['carousel-container']}>
-      <div className={s['left-gradient']} />
-      <div className={s['right-gradient']} />
-
-      <Carousel
-        config={{ startIndex }}
-        className={clsx(s['slider'], 'cards-lantern-container')}
-        containerClassname={s['slider-container']}
-        slideClassName={s['slide-wrapper']}
-        dots={!isDesktopSize}
-        onSelectedIndexChange={setSelectedIndex}
-      >
-        {cards.map(({ icon, title, description, badge }, idx) => {
-          const diff = selectedIndex - 1
-          // todo check this
-          const lanternIndex = idx - diff
+    <>
+      {/* DESKTOP */}
+      <div className={s['grid-container']}>
+        {cards.map(({ icon, title, badge }, idx) => {
           return (
-            <div className={s['slide']} key={idx}>
-              <Card
-                key={idx}
-                icon={icon}
-                title={title}
-                badge={badge}
-                lanternIndex={lanternIndex}
-              />
-              <p className={s['description']}>{description}</p>
-            </div>
+            <Card key={idx} icon={icon} title={title} badge={badge} lantern />
           )
         })}
-      </Carousel>
-    </div>
+      </div>
+
+      {/* MOBILE */}
+      <div className={s['carousel-container']}>
+        <div className={s['left-gradient']} />
+        <div className={s['right-gradient']} />
+
+        <Carousel
+          config={{ startIndex: Math.floor(cards.length / 2) }}
+          className={clsx(s['slider'], 'cards-lantern-container')}
+          containerClassname={s['slider-container']}
+          slideClassName={s['slide-wrapper']}
+          dots
+        >
+          {cards.map(({ icon, title, badge }, idx) => {
+            return <Card key={idx} icon={icon} title={title} badge={badge} />
+          })}
+        </Carousel>
+      </div>
+    </>
   )
 }
 
