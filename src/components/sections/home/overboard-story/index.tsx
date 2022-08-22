@@ -132,55 +132,23 @@ const printMarkers: Marker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
-const codeBlock = `export function PurchaseForm() {
-  const [hasError, setHasError] = useState(false)
-  const handleSubmit = useCallback(async (event) => {
-    event.preventDefault()
+const codeBlock = `export function handleSubmit(event) {
+  event.preventDefault()
 
-    const form = event.currentTarget
-    const data = new FormData(form)
-    const formData = Object.fromEntries(data.entries())
-    const body = JSON.stringify(formData)
-    const response = await fetch(form.action, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: body,
-    })
+  const form = event.currentTarget
+  const data = new FormData(form)
+  const formData = Object.fromEntries(data.entries())
+  const body = JSON.stringify(formData)
+  const response = await fetch(form.action, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: body,
+  })
 
-    if (!response.ok) {
-      const errorMessage = await response.text()
-      setHasError(true)
-      throw new Error(errorMessage)
-    }
-  }, [])
-
-  return (
-    <Column
-      as="form"
-      action="/api/purchase"
-      method="post"
-      onSubmit={handleSubmit}
-      gap={5}
-    >
-      <Column gap={3}>
-        <h2>Color</h2>
-
-        <Colors>
-          {colors.map(([name, [start, end]]) => (
-            <Color
-              key={name}
-              label={name}
-              value={name.toLowerCase()}
-              startColor={start}
-              endColor={end}
-            />
-          ))}
-        </Colors>
-      </Column>
-
-      <PurchaseButton hasError={hasError} />
-    </Column>
-  )
+  if (!response.ok) {
+    const errorMessage = await response.text()
+    throw new Error(errorMessage)
+  }
 }`
 
 const reactTree = identifyNodes(
@@ -873,7 +841,7 @@ export function ReplayApplication() {
                   printPanelConfig={{
                     print: '"response", response',
                     markers: printMarkers,
-                    printLineTarget: 16,
+                    printLineTarget: 14,
                     timelineType: 'justUi',
                     currentMarker: 'transparent',
                     onHit: handleHit,
@@ -881,26 +849,18 @@ export function ReplayApplication() {
                   }}
                   className={s['code']}
                   printIndicators={{
-                    3: 'not-available',
+                    1: 'not-available',
+                    2: 'available',
                     4: 'available',
                     5: 'available',
+                    6: 'available',
+                    7: 'available',
                     8: 'available',
-                    9: 'available',
-                    10: 'available',
-                    11: 'available',
-                    12: 'available',
-                    13: 'available',
-                    16: 'available',
-                    17: 'available',
-                    19: 'available',
-                    28: 'available',
-                    35: 'available',
-                    37: 'available',
-                    38: 'available',
-                    39: 'available',
-                    40: 'available',
-                    41: 'available',
-                    47: 'available'
+                    9: 'not-available',
+                    10: 'not-available',
+                    11: 'not-available',
+                    15: 'available',
+                    16: 'available'
                   }}
                   code={codeBlock}
                   ref={codeRef}
