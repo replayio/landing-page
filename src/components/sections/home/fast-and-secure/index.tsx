@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC } from 'react'
+import { FC, MutableRefObject, useEffect, useRef } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
@@ -45,14 +45,24 @@ const categories = [
   }
 ]
 
-const CarouselSection: FC<{ cards: Runtime[] }> = ({ cards }) => {
+const CarouselSection: FC<{
+  cards: Runtime[]
+  mouseValuesRef: MutableRefObject<{ x: number; y: number } | undefined>
+}> = ({ cards, mouseValuesRef }) => {
   return (
     <>
       {/* DESKTOP */}
       <div className={s['grid-container']}>
         {cards.map(({ icon, title, badge }, idx) => {
           return (
-            <Card key={idx} icon={icon} title={title} badge={badge} lantern />
+            <Card
+              key={idx}
+              icon={icon}
+              title={title}
+              badge={badge}
+              mouseLanternValuesRef={mouseValuesRef}
+              lantern
+            />
           )
         })}
       </div>
@@ -79,6 +89,27 @@ const CarouselSection: FC<{ cards: Runtime[] }> = ({ cards }) => {
 }
 
 export const FastAndSecure: FC = () => {
+  const mouseValuesRef = useRef<{ x: number; y: number }>()
+
+  useEffect(() => {
+    const handleMouseMove = (e: { clientX: number; clientY: number }) => {
+      if (mouseValuesRef.current) {
+        mouseValuesRef.current.x = e.clientX
+        mouseValuesRef.current.y = e.clientY
+      } else {
+        mouseValuesRef.current = {
+          x: e.clientX,
+          y: e.clientY
+        }
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
+
   return (
     <Section className={s['section']}>
       <Container size="md">
@@ -106,7 +137,12 @@ export const FastAndSecure: FC = () => {
             value: key
           }))}
           contents={categories.map(({ content, key }) => ({
-            children: <CarouselSection cards={content} />,
+            children: (
+              <CarouselSection
+                cards={content}
+                mouseValuesRef={mouseValuesRef}
+              />
+            ),
             value: key
           }))}
         />
