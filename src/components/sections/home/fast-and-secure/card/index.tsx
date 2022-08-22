@@ -80,7 +80,14 @@ export const Card: FC<CardProps> = forwardRef<
       )}
       <div className={s['content']}>
         <div className={s['icon']}>
-          <Image src={icon} width={80} height={80} alt="runtime logo" />
+          <Image
+            src={icon}
+            width={80}
+            height={80}
+            alt="runtime logo"
+            loading="eager"
+            sizes="80px"
+          />
         </div>
         <p className={s['title']}>{title}</p>
         {badge ? <Badge className={s['badge']} text={badge} /> : null}

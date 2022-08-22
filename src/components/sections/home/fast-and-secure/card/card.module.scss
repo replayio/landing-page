@@ -3,9 +3,12 @@
 
 .container {
   position: relative;
-  border-radius: var(--border-radius-lg);
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid var(--color-gray-light);
+
+  --border-width: 2px;
+
+  border: var(--border-width) solid rgb(222 222 222);
   width: 228px;
   font-size: 18px;
   user-select: none;
@@ -18,6 +21,9 @@
 }
 
 .lantern {
+  background: rgb(222 222 222 / 0.4);
+  border: none;
+
   .border-bg {
     position: absolute;
     top: 0;
@@ -26,23 +32,24 @@
     bottom: 0;
     background-image: radial-gradient(
       800px circle at var(--lantern-x) var(--lantern-y),
-      rgb(123 9 9 / 0.652),
+      rgb(172 172 172 / 0.7),
       transparent 40%
     );
   }
 
   .bg {
+    border-radius: 14px;
     position: absolute;
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
+    top: var(--border-width);
+    left: var(--border-width);
+    right: var(--border-width);
+    bottom: var(--border-width);
     background-image: radial-gradient(
-      30px circle at var(--lantern-x) var(--lantern-y),
-      rgb(36 3 125 / 1),
+      400px circle at var(--lantern-x) var(--lantern-y),
+      rgb(222 222 222 / 0.3),
       transparent
     );
-    opacity: 0.5;
+    background-color: white;
   }
 }
 
