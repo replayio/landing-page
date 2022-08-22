@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Heading } from '~/components/common/heading'
-import { ProgressThumb } from '~/components/common/progress-bar'
+import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
@@ -13,7 +13,7 @@ export const Hero: FC = () => {
     <Section className={s['section']}>
       <div className={s['illustration']}>
         <span className={s['marker']}>
-          <ProgressThumb active />
+          <ProgressMarker active />
         </span>
         <svg
           viewBox="0 0 1440 772"

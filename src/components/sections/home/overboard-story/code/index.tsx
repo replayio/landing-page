@@ -112,6 +112,8 @@ export const Code = forwardRef<CodeRef, CodeProps>(
           onActive: () => printPanelConfig?.onHit?.(idx + 1),
           onInactive: () => printPanelConfig?.onHit?.(idx)
         })),
+        markerSize: 12,
+        markerActiveColor: 'var(--color-pink-crayon)',
         onStart: () => {
           printPanelConfig?.onHit?.(0)
         },
@@ -325,7 +327,6 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                                 solid
                                 primaryColor="#01ACFD"
                                 secondaryColor="#D5D5D5"
-                                markerSize={12}
                                 animated={false}
                                 {...timelineProps}
                                 debug
@@ -337,7 +338,6 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                                 primaryColor="#01ACFD"
                                 secondaryColor="#D5D5D5"
                                 duration={4}
-                                markerSize={12}
                                 {...timelineProps}
                                 ref={timelineRef as RefObject<UseGsapTimeAPI>}
                               />

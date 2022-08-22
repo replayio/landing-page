@@ -518,7 +518,7 @@ export function ReplayApplication() {
       .call(
         () => {
           nodeLine()?.[1]?.classList.toggle('hovered')
-          nodeLine()?.[7]?.classList.toggle('hovered')
+          nodeLine()?.[3]?.classList.toggle('hovered')
           setHoveredComponentBlockId('submit')
         },
         undefined,
@@ -972,6 +972,7 @@ export function ReplayApplication() {
                 secondaryColor="#D9D9D9"
                 markers={showPrints ? printMarkers : undefined}
                 markerSize={14}
+                markerActiveColor="var(--color-pink-crayon)"
                 ref={progressBarRef}
               />
             </div>
@@ -981,6 +982,7 @@ export function ReplayApplication() {
                 background: '#E6E6E6',
                 borderRadius: 'var(--border-radius-full)',
                 padding: '2px 12px',
+                fontVariantNumeric: 'tabular-nums',
                 fontSize: '12px'
               }}
             >

@@ -3,7 +3,7 @@ import { gsap } from 'lib/gsap'
 import { FC, useRef } from 'react'
 
 import { Heading } from '~/components/common/heading'
-import { ProgressThumb } from '~/components/common/progress-bar'
+import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
@@ -49,7 +49,7 @@ export const Hero: FC = () => {
       <Container className={s['container']}>
         <div className={s['illustration']}>
           <span className={s['marker']}>
-            <ProgressThumb active />
+            <ProgressMarker active />
           </span>
           <svg
             width="1920"
