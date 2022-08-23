@@ -246,6 +246,8 @@ export function ReplayApplication() {
       return
     }
 
+    gsap.set('#main-features-section', { marginTop: -220 })
+
     const _applicationRef = applicationRef.current
     const _targetStoreRef = targetStoreRef.current
     const _devtoolsPanelRef = devtoolsPanelRef.current
@@ -298,7 +300,7 @@ export function ReplayApplication() {
       smallCenteredStoreRef.current,
       {
         simple: false,
-        duration: 2
+        duration: 4
       }
     )
 
@@ -307,7 +309,7 @@ export function ReplayApplication() {
       smallRightCenteredStoreRef.current,
       {
         simple: false,
-        duration: 2
+        duration: 4
       }
     )
 
@@ -316,7 +318,7 @@ export function ReplayApplication() {
       smallRightStoreAreaRef.current,
       {
         simple: false,
-        duration: 2
+        duration: 4
       }
     )
 
@@ -325,31 +327,31 @@ export function ReplayApplication() {
       devtoolsAreaRef.current,
       {
         simple: false,
-        duration: 2
+        duration: 4
       }
     )
 
     const timeline = gsap.timeline({
+      smoothChildTiming: true,
+      defaults: {
+        ease: 'sine.inOut'
+      },
       scrollTrigger: {
-        trigger: targetStoreRef.current,
-        endTrigger: sectionRef.current,
         anticipatePin: 1,
-        markers: isDev,
+        end: 'bottom+=450% top',
+        endTrigger: sectionRef.current,
+        fastScrollEnd: true,
         id: 'overboard-story',
-        scrub: 0.2,
+        markers: isDev,
         pin: sectionRef.current,
-        start: 'center center',
-        end: 'bottom+=1000vh top',
-        onEnter: () => {
-          document.documentElement.classList.add('hide-header')
-        },
+        preventOverlaps: true,
+        scrub: true,
+        start: 'top top',
+        trigger: 'body',
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
         },
         onLeave: () => {
-          document.documentElement.classList.remove('hide-header')
-        },
-        onLeaveBack: () => {
           document.documentElement.classList.remove('hide-header')
         }
       }
@@ -357,8 +359,18 @@ export function ReplayApplication() {
 
     const printTimelineProgress = { progress: 0 }
 
+    // Calculate Distance (Percentaje) from the top of the screen to the top of the element
+    const target = sectionRef.current.getBoundingClientRect()
+    const distance =
+      window.pageYOffset + target.top - (window.innerHeight - target.height) / 2
+    const percentage = -(distance * 100) / target.height
+
     timeline
-      .to({}, { duration: 4 })
+      .to(sectionRef.current, {
+        yPercent: percentage,
+        duration: 7,
+        ease: 'power3.out'
+      })
       .add(() => {
         setOverboardColor('red')
       })
@@ -393,7 +405,7 @@ export function ReplayApplication() {
       }, '+=4')
 
       /* Viewer */
-      .add(flipTimeline1 as GSAPTimeline, '+=4')
+      .add(flipTimeline1 as GSAPTimeline, '+=2')
       .to({}, { duration: 10 }, '<')
       .fromTo(
         applicationRef.current,
@@ -510,7 +522,7 @@ export function ReplayApplication() {
         undefined,
         '>'
       )
-      .add(flipTimeline3 as GSAPTimeline, '+=2')
+      .add(flipTimeline3 as GSAPTimeline, '+=0.5')
 
       /* Code */
       .add(() => {
