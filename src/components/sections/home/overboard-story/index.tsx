@@ -244,6 +244,8 @@ export function ReplayApplication() {
       return
     }
 
+    gsap.set('#main-features-section', { marginTop: -220 })
+
     const _applicationRef = applicationRef.current
     const _targetStoreRef = targetStoreRef.current
     const _devtoolsPanelRef = devtoolsPanelRef.current

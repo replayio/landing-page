@@ -1,7 +1,7 @@
 @import 'css/variables';
 
 .section {
-  margin-top: -90px;
+  margin-top: 112px;
   position: relative;
   background: var(--color-white);
 
@@ -37,7 +37,7 @@
 
 @media (min-width: $screen-md) {
   .section {
-    margin-top: -220px;
+    margin-top: 200px;
 
     .main-features {
       padding-left: 0;
