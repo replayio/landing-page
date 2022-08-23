@@ -1,6 +1,6 @@
 import { ResizeObserver } from '@juggle/resize-observer'
 import clsx from 'clsx'
-import Image, { ImageProps } from 'next/image'
+import Image, { ImageProps } from 'next/future/image'
 import {
   FC,
   ForwardedRef,
