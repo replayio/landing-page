@@ -84,7 +84,7 @@
 }
 
 .marker {
-  --color-primary: #ffacbb;
+  --color: #ffacbb;
   --translate-x: 0;
   --translate-y: 0;
 
@@ -92,7 +92,7 @@
   font-size: 0;
 
   &.active {
-    --color-primary: var(--color-pink-crayon);
+    --color: var(--color-pink-crayon);
 
     .marker-thumb {
       &::before {
@@ -110,8 +110,8 @@
     );
     position: relative;
     display: inline-block;
-    transition: background var(--duration-moderate) ease-in-out;
-    background: var(--color-primary);
+    transition: background-color var(--duration-moderate) ease-in-out;
+    background-color: var(--color);
     width: var(--size);
     height: var(--size);
     border-radius: var(--border-radius-full);
@@ -121,7 +121,7 @@
       position: absolute;
       width: var(--size);
       height: var(--size);
-      background: var(--color-primary);
+      background: var(--color);
       border-radius: var(--border-radius-full);
       animation: 4s linear infinite none;
     }

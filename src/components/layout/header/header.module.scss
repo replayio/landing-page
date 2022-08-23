@@ -4,12 +4,11 @@
 :global(.hide-header) {
   .header {
     opacity: 0;
+    pointer-events: none;
   }
 }
 
 .header {
-  /* Temporary position */
-  // position: relative;
   position: sticky;
   display: flex;
   align-items: center;

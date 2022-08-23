@@ -23,7 +23,7 @@ const HomePage = () => {
       <Testimonials />
       <TrustedBy />
       <FastAndSecure />
-      <SoftwareTellsStory />
+      {false && <SoftwareTellsStory />}
     </PageLayout>
   )
 }

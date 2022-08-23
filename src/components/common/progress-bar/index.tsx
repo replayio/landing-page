@@ -21,7 +21,7 @@ import { msToSecs } from '~/lib/utils'
 
 import s from './progress-bar.module.scss'
 
-type Marker = {
+export type Marker = {
   /* 
     If number it is the percentage position,
     if string it is the id of the element to track
@@ -46,6 +46,7 @@ type ProgressProps = {
   markers?: Marker[]
   markerSize?: number
   markerVisible?: boolean
+  markerActiveColor?: string
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -88,6 +89,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
       markers,
       markerSize,
       markerVisible = true,
+      markerActiveColor,
       onMarkerUpdate,
       direction = 'horizontal',
       animated = true
@@ -262,9 +264,10 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
             const isOnEnds = position === 0 || position === 100
 
             return (
-              <ProgressThumb
+              <ProgressMarker
                 size={markerSize}
                 color={primaryColor}
+                activeColor={markerActiveColor}
                 active={
                   lastActiveMarker !== undefined &&
                   position <= lastActiveMarker.position
@@ -296,13 +299,25 @@ type ProgressThumbProp = {
   size?: number
   color?: string
   active?: boolean
+  activeColor?: string
 } & JSX.IntrinsicElements['span']
 
-export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
-  ({ size = 18, active = false, className, style, color, ...props }, ref) => (
+export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressThumbProp>(
+  (
+    {
+      size = 18,
+      active = false,
+      className,
+      style,
+      color,
+      activeColor,
+      ...props
+    },
+    ref
+  ) => (
     <span
       // @ts-ignore
-      style={{ '--color-primary': color, ...style }}
+      style={{ '--color': active ? activeColor || color : color, ...style }}
       className={clsx(
         s['marker'],
         s['animated'],

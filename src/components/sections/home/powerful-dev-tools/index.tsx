@@ -48,36 +48,35 @@ const AssetChunks: FC<AssetChunkProps> = ({ assets }) => {
 const assets = [
   {
     title: 'Print Statements',
-    description:
-      'When you add a print statement, Replay re and fast forward to the logs.'
+    description: 'Add a print statement and view the logs in the Console.'
   },
   {
     devtoolsTab: 'console',
     title: 'Console',
     description:
-      'Fast forward to Console logs and evaluate expressions in the Terminal.'
+      'Fast forward to a console log and evaluate expressions in the Terminal.'
   },
   {
     devtoolsTab: 'react',
     title: 'React',
-    description: 'Inspect React components and view their props and state.'
+    description:
+      'Inspect a React component and view its state, props, and hooks.'
   },
   {
     devtoolsTab: 'elements',
     title: 'Elements',
     description:
-      'Inspect a DOM element and view its styles, layout, and compute properties.'
+      'Inspect a DOM element and view its applied rules and computed properties.'
   },
   {
     devtoolsTab: 'network',
     title: 'Network',
     description:
-      'Inspect Network requests and view their headers, request and response bodies.'
+      'Inspect a Network request and view its headers, request and response bodies.'
   },
   {
     title: 'Debugger',
-    description:
-      'Fast forward to Console logs and evaluate expressions in the Terminal.'
+    description: 'Pause at a line of code and view the call stack and scopes.'
   }
 ]
 

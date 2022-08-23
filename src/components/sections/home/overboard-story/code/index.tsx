@@ -17,6 +17,7 @@ import 'prismjs/components/prism-jsx'
 Prism.manual = true
 
 import {
+  Marker as ProgressMarker,
   ProgressAPI,
   ProgressBar,
   Timeline
@@ -24,7 +25,7 @@ import {
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 
 import { Header, PanelContainer } from '../common'
-import { Marker } from '../devtools/console'
+import { Marker as ConsoleMarker } from '../devtools/console'
 import commonS from '../overboard-story.module.scss'
 import s from './code.module.scss'
 
@@ -68,8 +69,8 @@ type CodeProps = {
   debugger?: boolean
   printPanelConfig?: {
     print: string
-    markers: number[]
-    currentMarker?: Marker
+    markers: ProgressMarker[]
+    currentMarker?: ConsoleMarker
     currentHit?: number
     onComplete?: () => void
     onChangeMarker?: (
@@ -106,11 +107,13 @@ export const Code = forwardRef<CodeRef, CodeProps>(
 
     const timelineProps = useMemo(
       () => ({
-        markers: printPanelConfig?.markers?.map((position, idx) => ({
+        markers: printPanelConfig?.markers?.map(({ position }, idx) => ({
           position,
           onActive: () => printPanelConfig?.onHit?.(idx + 1),
           onInactive: () => printPanelConfig?.onHit?.(idx)
         })),
+        markerSize: 12,
+        markerActiveColor: 'var(--color-pink-crayon)',
         onStart: () => {
           printPanelConfig?.onHit?.(0)
         },
@@ -324,7 +327,6 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                                 solid
                                 primaryColor="#01ACFD"
                                 secondaryColor="#D5D5D5"
-                                markerSize={12}
                                 animated={false}
                                 {...timelineProps}
                                 debug
@@ -336,8 +338,6 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                                 primaryColor="#01ACFD"
                                 secondaryColor="#D5D5D5"
                                 duration={4}
-                                markerSize={12}
-                                viewportReactive={false}
                                 {...timelineProps}
                                 ref={timelineRef as RefObject<UseGsapTimeAPI>}
                               />

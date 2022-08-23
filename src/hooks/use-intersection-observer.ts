@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export function useIntersectionObserver<T extends HTMLElement = HTMLElement>(
+export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
   options: IntersectionObserverInit & {
     triggerOnce?: boolean
     target?: T

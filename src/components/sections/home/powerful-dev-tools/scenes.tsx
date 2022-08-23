@@ -60,7 +60,13 @@ const AnimatedPanel: FC<{ active?: boolean }> = ({ active, children }) => {
   )
 }
 
-const printMarkers = [30, 36, 40, 55, 80]
+const printMarkers = [
+  { position: 30 },
+  { position: 36 },
+  { position: 40 },
+  { position: 55 },
+  { position: 80 }
+]
 
 export const Scene1: FC<SceneProps> = ({
   active,
