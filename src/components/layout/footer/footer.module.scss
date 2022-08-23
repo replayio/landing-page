@@ -127,7 +127,7 @@
           @include space-y(16px);
 
           a {
-            transition: color var(--duration-fast);
+            transition: color var(--duration-fast) ease-out;
 
             &:hover {
               color: var(--color-pink-lighter);
@@ -160,7 +160,7 @@
       a {
         svg {
           fill: white;
-          transition: fill var(--duration-fast);
+          transition: fill var(--duration-fast) ease-out;
 
           &:hover {
             fill: var(--color-pink-lighter);

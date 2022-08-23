@@ -109,14 +109,7 @@ export const Plans: FC = () => {
                 <Image src={plan.icon} alt={plan.type} />
                 <span>{plan.type}</span>
                 <span>{plan.description}</span>
-                <ButtonLink
-                  href={plan.link}
-                  variant={
-                    plan.type === 'Enterprise'
-                      ? 'tertiary-inverted-alt'
-                      : 'primary'
-                  }
-                >
+                <ButtonLink href={plan.link} variant="tertiary-inverted-alt">
                   {plan.cta}
                 </ButtonLink>
               </div>
