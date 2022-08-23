@@ -1,16 +1,7 @@
 import { ResizeObserver } from '@juggle/resize-observer'
 import clsx from 'clsx'
 import Image, { ImageProps } from 'next/future/image'
-import {
-  FC,
-  ForwardedRef,
-  forwardRef,
-  MutableRefObject,
-  ReactNode,
-  useEffect,
-  useImperativeHandle,
-  useRef
-} from 'react'
+import { FC, MutableRefObject, ReactNode, useEffect, useRef } from 'react'
 import mergeRefs from 'react-merge-refs'
 import useMeasure from 'react-use-measure'
 
@@ -25,30 +16,21 @@ type CardProps = {
   icon: ImageProps['src']
   title: string | ReactNode
   badge: string
-  ref?: ForwardedRef<{ refresh: () => void }>
   lantern?: boolean
   mouseLanternValuesRef?: MutableRefObject<{ x: number; y: number } | undefined>
 }
 
-export const Card: FC<CardProps> = forwardRef<
-  { refresh: () => void },
-  CardProps
->(({ icon, title, badge, lantern, mouseLanternValuesRef }, refreshRef) => {
+export const Card: FC<CardProps> = ({
+  icon,
+  title,
+  badge,
+  lantern,
+  mouseLanternValuesRef
+}: CardProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [ref, bounds, refresh] = useMeasure({
+  const [ref, bounds] = useMeasure({
     scroll: true,
     polyfill: ResizeObserver
-  })
-
-  useImperativeHandle(refreshRef, () => {
-    return {
-      refresh: () => {
-        refresh()
-        const currentScrollY = window.scrollY
-        window.scrollTo(0, currentScrollY + 1)
-        window.scrollTo(0, currentScrollY)
-      }
-    }
   })
 
   useIsomorphicLayoutEffect(() => {
@@ -125,4 +107,4 @@ export const Card: FC<CardProps> = forwardRef<
       </div>
     </AspectBox>
   )
-})
+}

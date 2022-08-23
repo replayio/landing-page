@@ -52,22 +52,20 @@ const CarouselSection: FC<{
   return (
     <>
       {/* DESKTOP */}
-      <Container>
-        <div className={s['grid-container']}>
-          {cards.map(({ icon, title, badge }, idx) => {
-            return (
-              <Card
-                key={idx}
-                icon={icon}
-                title={title}
-                badge={badge}
-                mouseLanternValuesRef={mouseValuesRef}
-                lantern
-              />
-            )
-          })}
-        </div>
-      </Container>
+      <div className={clsx(s['grid-container'], 'container')}>
+        {cards.map(({ icon, title, badge }, idx) => {
+          return (
+            <Card
+              key={idx}
+              icon={icon}
+              title={title}
+              badge={badge}
+              mouseLanternValuesRef={mouseValuesRef}
+              lantern
+            />
+          )
+        })}
+      </div>
 
       {/* MOBILE */}
       <div className={s['carousel-container']}>
