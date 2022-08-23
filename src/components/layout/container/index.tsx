@@ -1,8 +1,6 @@
 import clsx from 'clsx'
 import { forwardRef } from 'react'
 
-import s from './container.module.scss'
-
 export type ContainerProps = {
   size?: 'sm' | 'md' | 'lg'
 } & JSX.IntrinsicElements['div']
@@ -12,7 +10,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     return (
       <div
         {...props}
-        className={clsx(s['container'], s[size], className)}
+        className={clsx('container', size, className)}
         ref={ref}
       />
     )
