@@ -18,6 +18,9 @@ type SectionHeadingProps = {
   subtitle?: string | ReactElement
   centered?: boolean
 }
+function sluggify(str: string) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+}
 
 export const SectionHeading: FC<SectionHeadingProps> = ({
   centered,
@@ -28,7 +31,9 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
 
   return (
     <div className={s['section-heading']}>
-      <Heading centered={centered}>{title}</Heading>
+      <Heading id={sluggify(title)} centered={centered}>
+        {title}
+      </Heading>
       {subtitle && (
         <DescriptionElm
           className={clsx(s['subtitle'], { [s['centered']]: centered })}

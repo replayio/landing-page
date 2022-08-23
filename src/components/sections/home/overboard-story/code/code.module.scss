@@ -4,6 +4,15 @@
   flex-direction: column;
   width: 100%;
 
+  .file-tab {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 24px;
+    font-size: 14px;
+    background: var(--color-gray-lighter);
+  }
+
   .code {
     position: relative;
     display: grid;
@@ -62,35 +71,66 @@
     }
   }
 
-  .add-print {
-    opacity: 0;
-    border-radius: 6px;
-    background: #05acfd;
-    position: absolute;
-    display: flex;
-    place-content: center;
-    height: 18px;
-    width: 18px;
-    color: white;
-    top: 50%;
-    left: 8px;
-    transform: translateY(-50%);
-    line-height: 17px;
-    font-weight: 600;
+  .print-indicator {
+    position: relative;
+    display: inline-block;
+    width: 4;
+    height: 100%;
 
-    &::after {
-      content: '+';
-      position: absolute;
+    .add-print {
+      opacity: 0;
+      border-radius: 6px;
       background: #05acfd;
+      position: absolute;
+      display: flex;
+      place-content: center;
+      height: 18px;
+      width: 18px;
+      color: white;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transition: all var(--duration-fast) ease-out;
+      left: 8px;
+      transform: translateY(-50%);
+      line-height: 17px;
+      font-weight: 600;
+
+      &::after {
+        content: '+';
+        position: absolute;
+        background: #05acfd;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all var(--duration-fast) ease-out;
+      }
+
+      &:global(.active) {
+        &::after {
+          content: '-';
+        }
+      }
     }
 
-    &:global(.active) {
-      &::after {
-        content: '-';
+    .tutorial-popup {
+      opacity: 0;
+      color: var(--color-white);
+      padding: 8px 14px;
+      border-radius: var(--border-radius-md);
+      position: absolute;
+      min-width: max-content;
+      background: #05acfd;
+      top: -16%;
+      left: 16px;
+      transform: translateY(-100%);
+
+      .text {
+        font-weight: 800;
+      }
+
+      .hits {
+        display: inline-block;
+        margin-top: 4px;
+        font-size: 14px;
+        font-weight: 600;
       }
     }
   }

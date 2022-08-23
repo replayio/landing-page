@@ -15,14 +15,13 @@ import {
   UseGsapTimeAPI,
   UseGsapTimeArgs
 } from '~/hooks/use-gsap-time'
-import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isClient } from '~/lib/constants'
 import { msToSecs } from '~/lib/utils'
 
 import s from './progress-bar.module.scss'
 
-type Marker = {
+export type Marker = {
   /* 
     If number it is the percentage position,
     if string it is the id of the element to track
@@ -38,6 +37,7 @@ type InternalMarker = Marker & {
 }
 
 type ProgressProps = {
+  solid?: boolean
   progress?: number
   direction?: 'horizontal' | 'vertical'
   primaryColor?: string
@@ -46,6 +46,7 @@ type ProgressProps = {
   markers?: Marker[]
   markerSize?: number
   markerVisible?: boolean
+  markerActiveColor?: string
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -81,12 +82,14 @@ const getElmCoordById = (id: string, axes: 'x' | 'y') => {
 export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
   (
     {
+      solid = false,
       primaryColor,
       secondaryColor,
       progress,
       markers,
       markerSize,
       markerVisible = true,
+      markerActiveColor,
       onMarkerUpdate,
       direction = 'horizontal',
       animated = true
@@ -252,16 +255,19 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
         ref={barRef}
       >
         <div className={s['progress']} ref={progressRef}>
-          <div className={s['progress-gradient']} />
+          <div
+            className={clsx(s['progress-gradient'], { [s['solid']]: solid })}
+          />
         </div>
         {markerVisible &&
           internalMarkers?.map(({ position, normalizedPosition }, idx) => {
             const isOnEnds = position === 0 || position === 100
 
             return (
-              <ProgressThumb
+              <ProgressMarker
                 size={markerSize}
                 color={primaryColor}
+                activeColor={markerActiveColor}
                 active={
                   lastActiveMarker !== undefined &&
                   position <= lastActiveMarker.position
@@ -293,13 +299,25 @@ type ProgressThumbProp = {
   size?: number
   color?: string
   active?: boolean
+  activeColor?: string
 } & JSX.IntrinsicElements['span']
 
-export const ProgressThumb = forwardRef<HTMLSpanElement, ProgressThumbProp>(
-  ({ size = 18, active = false, className, style, color, ...props }, ref) => (
+export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressThumbProp>(
+  (
+    {
+      size = 18,
+      active = false,
+      className,
+      style,
+      color,
+      activeColor,
+      ...props
+    },
+    ref
+  ) => (
     <span
       // @ts-ignore
-      style={{ '--color-primary': color, ...style }}
+      style={{ '--color': active ? activeColor || color : color, ...style }}
       className={clsx(
         s['marker'],
         s['animated'],
@@ -325,25 +343,15 @@ type TimelineProps = {
   onStart?: () => void
   onComplete?: () => void
   loop?: boolean
-  viewportReactive?: boolean
+  playing?: boolean
 } & ProgressProps
 
 export const Timeline = forwardRef<UseGsapTimeAPI, TimelineProps>(
   (
-    {
-      viewportReactive = true,
-      duration,
-      onStart,
-      onComplete,
-      loop = true,
-      ...rest
-    },
+    { playing = false, duration, onStart, onComplete, loop = true, ...rest },
     ref
   ) => {
     const progressRef = useRef<ProgressAPI>(null)
-    const [viewRef, { inView }] = useIntersectionObserver({
-      triggerOnce: false
-    })
 
     const handleUpdate = useCallback<NonNullable<UseGsapTimeArgs['onUpdate']>>(
       (progress) => {
@@ -389,21 +397,15 @@ export const Timeline = forwardRef<UseGsapTimeAPI, TimelineProps>(
     )
 
     useEffect(() => {
-      if (viewportReactive) {
-        if (inView) {
-          time.start()
-        } else {
-          time.pause()
-        }
-
-        return time.pause
+      if (playing === true) {
+        time.start()
+      } else if (playing === false) {
+        time.pause()
       }
-    }, [time, inView, viewportReactive])
 
-    return (
-      <div ref={viewRef}>
-        <ProgressBar animated={false} {...rest} ref={progressRef} />
-      </div>
-    )
+      return time.pause
+    }, [time, playing])
+
+    return <ProgressBar animated={false} {...rest} ref={progressRef} />
   }
 )

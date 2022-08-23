@@ -170,7 +170,7 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
         <div
           style={{
             fontVariantNumeric: 'tabular-nums',
-            borderLeft: '1px solid #DCDCDC',
+            borderLeft: '1px solid var(--color-gray-lighter)',
             width: '40%'
           }}
         >

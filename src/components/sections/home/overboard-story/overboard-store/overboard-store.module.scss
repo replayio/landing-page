@@ -2,7 +2,6 @@
   position: relative;
   display: grid;
   grid-template-rows: auto auto;
-  justify-items: center;
   align-content: center;
   padding: 64px;
   border-radius: 20px;
@@ -57,6 +56,8 @@
   }
 
   .logo {
+    display: block;
+    width: 100%;
     opacity: 0;
     position: absolute;
     top: 0;
@@ -64,16 +65,18 @@
   }
 
   .store-inner {
+    width: 100%;
     height: 100%;
     position: relative;
 
     .overboard-wrapper {
-      min-width: 180px;
+      max-width: max-content;
       display: block;
-      width: 57%;
+      // width: 57%;
       transition: transform var(--duration-fast) linear;
       z-index: 1;
-      margin: 0 auto;
+      width: 100%;
+      min-width: max(100%, 180px);
     }
 
     .color-picker {

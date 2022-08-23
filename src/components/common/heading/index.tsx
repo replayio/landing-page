@@ -9,12 +9,14 @@ type HeadingProps = {
   size?: 'sm' | 'lg'
   as?: HeadingElement
   centered?: boolean
+  id?: string
 } & JSX.IntrinsicElements[HeadingElement]
 
 export const Heading: FC<HeadingProps> = ({
   as = 'h2',
   centered = false,
   size = 'sm',
+  id = '',
   className,
   children
 }) => {
@@ -30,6 +32,7 @@ export const Heading: FC<HeadingProps> = ({
         },
         className
       )}
+      id={id}
     >
       {children}
     </Comp>

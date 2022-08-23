@@ -44,10 +44,12 @@ const story = [
 export const SoftwareTellsStory: FC = () => {
   const mobileTimeline = useRef<ProgressAPI>(null)
   const desktopTimeline = useRef<ProgressAPI>(null)
-  const [ref, { inView }] = useIntersectionObserver({ triggerOnce: false })
   const [activeIdx, setActiveIdx] = useState<number | null>(null)
   const isDesktop = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const storyContainerRef = useRef<HTMLDivElement>(null)
+  const [ref, { inView }] = useIntersectionObserver<HTMLDivElement>({
+    triggerOnce: false
+  })
 
   const handleTimeUpdate = useCallback(
     (progress) => {

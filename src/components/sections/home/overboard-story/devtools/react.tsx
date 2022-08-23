@@ -168,7 +168,7 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
               style={{
                 padding: 10,
                 fontVariantNumeric: 'tabular-nums',
-                borderLeft: '1px solid #DCDCDC',
+                borderLeft: '1px solid var(--color-gray-lighter)',
                 width: '40%'
               }}
             >

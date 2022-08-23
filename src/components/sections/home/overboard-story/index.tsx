@@ -1,15 +1,21 @@
-import { DURATION, Flip, gsap } from 'lib/gsap'
+import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
 import React, { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
+import {
+  Marker,
+  ProgressAPI,
+  ProgressBar
+} from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { IsoLogo } from '~/components/primitives/logo'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
+import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isDev } from '~/lib/constants'
+import { padZeroesToNumber } from '~/lib/utils'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
@@ -118,58 +124,31 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   )
 })
 
+const timelineDuration = 10
 const padding = 16
 const headerHeight = 70
 const timelineHeight = 90
-const codeBlock = `export function PurchaseForm() {
-  const [hasError, setHasError] = useState(false)
-  const handleSubmit = useCallback(async (event) => {
-    event.preventDefault()
+const printMarkers: Marker[] = [{ position: 50 }]
+const storeId = 'hero'
+const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
-    const form = event.currentTarget
-    const data = new FormData(form)
-    const formData = Object.fromEntries(data.entries())
-    const body = JSON.stringify(formData)
-    const response = await fetch(form.action, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: body,
-    })
+const codeBlock = `export function handleSubmit(event) {
+  event.preventDefault()
 
-    if (!response.ok) {
-      const errorMessage = await response.text()
-      setHasError(true)
-      throw new Error(errorMessage)
-    }
-  }, [])
+  const form = event.currentTarget
+  const data = new FormData(form)
+  const formData = Object.fromEntries(data.entries())
+  const body = JSON.stringify(formData)
+  const response = await fetch(form.action, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: body,
+  })
 
-  return (
-    <Column
-      as="form"
-      action="/api/purchase"
-      method="post"
-      onSubmit={handleSubmit}
-      gap={5}
-    >
-      <Column gap={3}>
-        <h2>Color</h2>
-
-        <Colors>
-          {colors.map(([name, [start, end]]) => (
-            <Color
-              key={name}
-              label={name}
-              value={name.toLowerCase()}
-              startColor={start}
-              endColor={end}
-            />
-          ))}
-        </Colors>
-      </Column>
-
-      <PurchaseButton hasError={hasError} />
-    </Column>
-  )
+  if (!response.ok) {
+    const errorMessage = await response.text()
+    throw new Error(errorMessage)
+  }
 }`
 
 const reactTree = identifyNodes(
@@ -192,36 +171,6 @@ const reactTree = identifyNodes(
         inspectBlockId: 'purchase-form',
         children: [
           {
-            type: 'Colors',
-            inspectBlockId: 'colors',
-            props: {
-              colors: ['red', 'green', 'blue']
-            },
-            children: [
-              {
-                type: 'Color',
-                inspectBlockId: 'color-red',
-                props: {
-                  key: 'red'
-                }
-              },
-              {
-                type: 'Color',
-                inspectBlockId: 'color-green',
-                props: {
-                  key: 'green'
-                }
-              },
-              {
-                type: 'Color',
-                inspectBlockId: 'color-blue',
-                props: {
-                  key: 'blue'
-                }
-              }
-            ]
-          },
-          {
             type: 'PurchaseButton',
             inspectBlockId: 'submit',
             props: {
@@ -234,14 +183,13 @@ const reactTree = identifyNodes(
   })
 )
 
-const printMarkers = [50]
-const storeId = 'hero'
-
 export function ReplayApplication() {
-  const { isDesktop } = useDeviceDetect()
-  const progressBarRef = useRef<ProgressAPI>(null)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
+  const [currentTime, setCurrentTime] = useState(0)
+  const { isDesktop } = useDeviceDetect()
+  const progressBarRef = useRef<ProgressAPI>(null)
+  const { width } = useViewportSize()
 
   /* Store */
   const [storeState, setStoreState] =
@@ -250,14 +198,11 @@ export function ReplayApplication() {
     useState<OverboardStoreProps['overboardColor']>('red')
 
   /* React */
-  const devtoolsRef = useRef<HTMLDivElement>(null)
   const [activeComponent, setActiveComponent] =
     useState<IdentifiedNode<ReactNode> | null>()
   const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
     string | null
   >(null)
-
-  /* Code */
 
   /* Console */
   const [showPrints, setShowPrints] = useState(false)
@@ -268,7 +213,7 @@ export function ReplayApplication() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const targetStoreRef = useRef<HTMLDivElement>(null)
   const smallCenteredStoreRef = useRef<HTMLDivElement>(null)
-  const smallRightStoreRef = useRef<HTMLDivElement>(null)
+  const smallRightStoreAreaRef = useRef<HTMLDivElement>(null)
   const viewToggleRef = useRef<HTMLDivElement>(null)
   const codeAreaRef = useRef<HTMLDivElement>(null)
   const codeRef = useRef<CodeRef>(null)
@@ -289,22 +234,30 @@ export function ReplayApplication() {
       !smallCenteredStoreRef.current ||
       !sectionRef.current ||
       !targetStoreRef.current ||
-      !smallRightStoreRef.current ||
+      !smallRightStoreAreaRef.current ||
       !viewToggleRef.current ||
       !devtoolsPanelRef.current ||
       !devtoolsAreaRef.current ||
       !codeRef.current?.elm ||
-      !devtoolsRef.current
+      !progressBarRef.current
     ) {
       return
     }
 
+    const _applicationRef = applicationRef.current
+    const _targetStoreRef = targetStoreRef.current
+    const _devtoolsPanelRef = devtoolsPanelRef.current
     const storeSelector = gsap.utils.selector(targetStoreRef.current)
     const codeSelector = gsap.utils.selector(codeRef.current.elm)
-    const toolsSelector = gsap.utils.selector(devtoolsRef.current)
 
-    const nodeLine = toolsSelector('#node-line')
+    /* 
+      NodeLine is a function because when we change tabs we loose
+      reference to the panel we need to query the element again.
+    */
+    const nodeLine = () =>
+      gsap.utils.selector(devtoolsPanelRef.current)('#node-line')
     const addPrintButton = codeSelector('#dev-tools-add-print')
+    const printTutorial = codeSelector('#dev-tools-print-tutorial')
     const printPanel = codeSelector('#dev-tools-print-panel')
     const storeLogo = storeSelector(`#overboard-store-logo-${storeId}`)
     const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
@@ -338,8 +291,6 @@ export function ReplayApplication() {
         }
       })
 
-    /*  */
-
     const flipTimeline1 = Flip.fit(
       targetStoreRef.current,
       smallCenteredStoreRef.current,
@@ -360,7 +311,7 @@ export function ReplayApplication() {
 
     const flipTimeline3 = Flip.fit(
       targetStoreRef.current,
-      smallRightStoreRef.current,
+      smallRightStoreAreaRef.current,
       {
         simple: false,
         duration: 4
@@ -445,6 +396,8 @@ export function ReplayApplication() {
       })
       .add(() => {
         setStoreState('error')
+        progressBarRef.current?.update(100)
+        setCurrentTime(timelineDuration)
       }, '+=4')
 
       /* Viewer */
@@ -518,7 +471,7 @@ export function ReplayApplication() {
       }, undefined)
       .call(
         () => {
-          nodeLine[0].classList.toggle('hovered')
+          nodeLine()?.[0]?.classList.toggle('hovered')
           setHoveredComponentBlockId('app')
         },
         undefined,
@@ -526,8 +479,8 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          nodeLine[0].classList.toggle('hovered')
-          nodeLine[1].classList.toggle('hovered')
+          nodeLine()?.[0]?.classList.toggle('hovered')
+          nodeLine()?.[1]?.classList.toggle('hovered')
           setHoveredComponentBlockId('hoverboard')
         },
         undefined,
@@ -542,9 +495,9 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          nodeLine[1].classList.toggle('hovered')
-          nodeLine[3].classList.toggle('hovered')
-          setHoveredComponentBlockId('colors')
+          nodeLine()?.[1]?.classList.toggle('hovered')
+          nodeLine()?.[3]?.classList.toggle('hovered')
+          setHoveredComponentBlockId('submit')
         },
         undefined,
         '+=1.5'
@@ -558,23 +511,7 @@ export function ReplayApplication() {
       )
       .call(
         () => {
-          nodeLine[3].classList.toggle('hovered')
-          nodeLine[7].classList.toggle('hovered')
-          setHoveredComponentBlockId('submit')
-        },
-        undefined,
-        '+=1.5'
-      )
-      .call(
-        () => {
-          setActiveComponent(get(reactTree, 'children.1.children.1'))
-        },
-        undefined,
-        '+=1'
-      )
-      .call(
-        () => {
-          nodeLine[7].classList.toggle('hovered')
+          nodeLine()?.[7]?.classList.toggle('hovered')
           setHoveredComponentBlockId(null)
         },
         undefined,
@@ -599,6 +536,8 @@ export function ReplayApplication() {
         setActiveDevtoolTab('console')
         floorAndRotateTimeline.current?.seek(0, false)
         setStoreState('idle')
+        progressBarRef.current?.update(20)
+        setCurrentTime(timelineDuration * 0.2)
       })
       .fromTo(
         addPrintButton,
@@ -613,6 +552,20 @@ export function ReplayApplication() {
           scale: 1
         }
       )
+      .fromTo(
+        printTutorial,
+        {
+          xPercent: -10,
+          opacity: 0,
+          scale: 0.8
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          scale: 1
+        },
+        '<+=0.2'
+      )
       .to(addPrintButton, {
         scale: 1.1,
         delay: 0.5,
@@ -622,6 +575,15 @@ export function ReplayApplication() {
         scale: 1,
         duration: DURATION / 3
       })
+      .to(
+        printTutorial,
+        {
+          xPercent: -10,
+          opacity: 0,
+          scale: 0.8
+        },
+        '<+=0.5'
+      )
       .call(
         () => {
           addPrintButton[0]?.classList?.remove?.('active')
@@ -649,38 +611,58 @@ export function ReplayApplication() {
           y: 0
         }
       )
-      .to(printTimelineProgress, {
-        progress: 100,
-        duration: 10,
-        ease: 'linear',
-        onStart: () => {
-          setStoreState('idle')
+      .fromTo(
+        printTimelineProgress,
+        {
+          progress: 20
         },
-        onUpdate() {
-          const progress = this.progress()
-
-          if (progress > 0.25 && progress < 0.5) {
-            setStoreState('loading')
-          } else if (progress < 0.25) {
+        {
+          progress: 100,
+          duration: 10,
+          ease: 'linear',
+          onStart: () => {
             setStoreState('idle')
-          }
+            progressBarRef.current?.update(20)
+            setCurrentTime(timelineDuration * 0.2)
+          },
+          onUpdate() {
+            const progress = printTimelineProgress.progress
 
-          floorAndRotateTimeline.current?.seek(
-            (floorAndRotateTimelineDuration / 4) * this.progress(),
-            false
-          )
-          ;(codeRef.current?.timeline as ProgressAPI)?.update(
-            printTimelineProgress.progress
-          )
+            if (progress > 25 && progress < 50) {
+              setStoreState('loading')
+            } else if (progress < 25) {
+              setStoreState('idle')
+            }
+
+            floorAndRotateTimeline.current?.seek(
+              (floorAndRotateTimelineDuration / 4) * this.progress(),
+              false
+            )
+            ;(codeRef.current?.timeline as ProgressAPI)?.update(progress)
+            progressBarRef.current?.update(progress)
+            setCurrentTime(timelineDuration * (progress / 100))
+          }
         }
-      })
+      )
 
     return () => {
+      /* ScrollTrigger Cleanup */
+      scrollTo(0, 0)
+
       floorAndRotateTimeline.current?.kill()
       timeline.scrollTrigger?.kill()
       timeline.kill()
+
+      document.documentElement.classList.remove('hide-header')
+
+      /* Flip Cleanup */
+      /* Just clearing transforms bc otherwise we remove some important variables */
+      const propsToClear = 'transform,width,height'
+      clearProps(_targetStoreRef, propsToClear)
+      clearProps(_devtoolsPanelRef, propsToClear)
+      clearProps(_applicationRef, propsToClear)
     }
-  }, [isDesktop])
+  }, [isDesktop, width])
 
   const handleHit = useCallback((hit: number) => {
     setCurrentHit((prevValue) => {
@@ -708,11 +690,9 @@ export function ReplayApplication() {
           prepend: 'response',
           content: [
             {
-              body: { locked: false },
               ok: false,
               status: 400,
-              statusText: 'Bad Request',
-              url: 'https://overboard-react.vercel.app/api/purchase'
+              url: 'api/purchase'
             }
           ],
           hide: !showPrints
@@ -723,27 +703,20 @@ export function ReplayApplication() {
       tree: reactTree,
       activeComponent,
       onHoverComponent: setHoveredComponentBlockId,
-      onActiveComponentChange: setActiveComponent,
-      ref: devtoolsRef
+      onActiveComponentChange: setActiveComponent
     }
   }
 
   return (
     <Section
-      style={{
-        position: 'relative',
-        padding: `${padding}px 0px`,
-        margin: `-${padding}px 0px`
-      }}
+      className={s['section']}
+      /* @ts-ignore */
+      style={{ '--padding': padding + 'px' }}
       ref={sectionRef}
     >
       <AspectBox
         ratio={1920 / 1080}
-        style={{
-          position: 'absolute',
-          width: '100%',
-          zIndex: 10
-        }}
+        className={s['store-container']}
         ref={targetStoreRef}
       >
         <OverboardStore
@@ -757,31 +730,13 @@ export function ReplayApplication() {
         />
       </AspectBox>
 
-      <AspectBox
-        ratio={1920 / 1080}
-        style={{
-          position: 'relative',
-          display: 'flex',
-          justifyItems: 'stretch',
-          width: '100%',
-          alignItems: 'center'
-        }}
-      >
-        <div
+      <AspectBox className={s['app-container']} ratio={1920 / 1080}>
+        <AspectBox
+          ratio={1360 / 910}
+          className={s['app']}
+          /* @ts-ignore */
+          style={{ '--padding': padding + 'px' }}
           ref={applicationRef}
-          style={{
-            margin: `${padding}px 0`,
-            display: 'grid',
-            gridTemplateRows: 'auto 1fr',
-            height: `calc(100vh - ${padding * 2}px)`,
-            opacity: 0,
-            overflow: 'hidden',
-            borderRadius: 16,
-            border: '1px solid #DCDCDC',
-            background: '#F2F2F2',
-            width: '100%',
-            position: 'absolute'
-          }}
         >
           <div
             style={{
@@ -791,7 +746,7 @@ export function ReplayApplication() {
               padding: '0 32px',
               backgroundColor: 'white',
               height: headerHeight,
-              borderBottom: '1px solid #DCDCDC'
+              borderBottom: '1px solid var(--color-gray-lighter)'
             }}
           >
             <div style={{ width: 25, color: 'var(--color-pink-crayon)' }}>
@@ -818,9 +773,10 @@ export function ReplayApplication() {
             style={{
               position: 'relative',
               display: 'flex',
-              height: `calc(100vh - ${
+              height: `calc(100% - ${
                 padding * 2
-              }px - ${headerHeight}px - ${timelineHeight}px)`
+              }px - ${headerHeight}px - ${timelineHeight}px)`,
+              flex: 1
             }}
           >
             <div className={s['toolbar']}>
@@ -843,24 +799,6 @@ export function ReplayApplication() {
                     fill="#BCBCBC"
                   />
                 </g>
-                <g clipPath="url(#clip2_806_120)">
-                  <path
-                    d="M13.07 102.428C12.7375 102.096 12.2912 101.912 11.8275 101.912H5.55371C4.59121 101.912 3.80371 102.7 3.80371 103.662V117.662C3.80371 118.625 4.58246 119.412 5.54496 119.412H16.0537C17.0162 119.412 17.8037 118.625 17.8037 117.662V107.888C17.8037 107.425 17.62 106.978 17.2875 106.655L13.07 102.428ZM13.4287 115.912H8.17871C7.69746 115.912 7.30371 115.518 7.30371 115.037C7.30371 114.556 7.69746 114.162 8.17871 114.162H13.4287C13.91 114.162 14.3037 114.556 14.3037 115.037C14.3037 115.518 13.91 115.912 13.4287 115.912ZM13.4287 112.412H8.17871C7.69746 112.412 7.30371 112.018 7.30371 111.537C7.30371 111.056 7.69746 110.662 8.17871 110.662H13.4287C13.91 110.662 14.3037 111.056 14.3037 111.537C14.3037 112.018 13.91 112.412 13.4287 112.412ZM11.6787 107.162V103.225L16.4912 108.037H12.5537C12.0725 108.037 11.6787 107.643 11.6787 107.162Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
-                <g clipPath="url(#clip3_806_120)">
-                  <path
-                    d="M19.5537 158.656C19.5537 163.486 15.6337 167.406 10.8037 167.406C5.97371 167.406 2.05371 163.486 2.05371 158.656C2.05371 157.615 2.24621 156.626 2.57871 155.699L4.22371 156.294C3.95246 157.029 3.80371 157.825 3.80371 158.656C3.80371 162.515 6.94496 165.656 10.8037 165.656C14.6625 165.656 17.8037 162.515 17.8037 158.656C17.8037 154.798 14.6625 151.656 10.8037 151.656C9.97246 151.656 9.18496 151.805 8.44996 152.076L7.85496 150.423C8.78246 150.099 9.77121 149.906 10.8037 149.906C15.6337 149.906 19.5537 153.826 19.5537 158.656ZM5.11621 151.656C4.38996 151.656 3.80371 152.243 3.80371 152.969C3.80371 153.695 4.38996 154.281 5.11621 154.281C5.84246 154.281 6.42871 153.695 6.42871 152.969C6.42871 152.243 5.84246 151.656 5.11621 151.656ZM16.0537 158.656C16.0537 161.553 13.7 163.906 10.8037 163.906C7.90746 163.906 5.55371 161.553 5.55371 158.656C5.55371 155.76 7.90746 153.406 10.8037 153.406C13.7 153.406 16.0537 155.76 16.0537 158.656ZM9.92871 156.031H8.17871V161.281H9.92871V156.031ZM13.4287 156.031H11.6787V161.281H13.4287V156.031Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
-                <g clipPath="url(#clip4_806_120)">
-                  <path
-                    d="M13.8662 208.399H13.175L12.93 208.163C13.7875 207.166 14.3037 205.871 14.3037 204.462C14.3037 201.321 11.7575 198.774 8.61621 198.774C5.47496 198.774 2.92871 201.321 2.92871 204.462C2.92871 207.603 5.47496 210.149 8.61621 210.149C10.025 210.149 11.32 209.633 12.3175 208.776L12.5537 209.021V209.712L16.9287 214.078L18.2325 212.774L13.8662 208.399V208.399ZM8.61621 208.399C6.43746 208.399 4.67871 206.641 4.67871 204.462C4.67871 202.283 6.43746 200.524 8.61621 200.524C10.795 200.524 12.5537 202.283 12.5537 204.462C12.5537 206.641 10.795 208.399 8.61621 208.399Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
                 <defs>
                   <clipPath id="clip0_806_120">
                     <rect
@@ -876,30 +814,6 @@ export function ReplayApplication() {
                       height="22.8789"
                       fill="white"
                       transform="translate(0.303711 50.29)"
-                    />
-                  </clipPath>
-                  <clipPath id="clip2_806_120">
-                    <rect
-                      width="21"
-                      height="21"
-                      fill="white"
-                      transform="translate(0.303711 100.162)"
-                    />
-                  </clipPath>
-                  <clipPath id="clip3_806_120">
-                    <rect
-                      width="21"
-                      height="21"
-                      fill="white"
-                      transform="translate(0.303711 148.156)"
-                    />
-                  </clipPath>
-                  <clipPath id="clip4_806_120">
-                    <rect
-                      width="21"
-                      height="21"
-                      fill="white"
-                      transform="translate(0.303711 196.149)"
                     />
                   </clipPath>
                 </defs>
@@ -926,14 +840,18 @@ export function ReplayApplication() {
                 ref={smallCenteredStoreRef}
               />
               <div
-                style={{ gridArea: 'code', position: 'relative' }}
+                style={{
+                  gridArea: 'code',
+                  position: 'relative'
+                }}
                 ref={codeAreaRef}
               >
                 <Code
+                  filename="PurchaseForm.tsx"
                   printPanelConfig={{
                     print: '"response", response',
                     markers: printMarkers,
-                    printLineTarget: 16,
+                    printLineTarget: 14,
                     timelineType: 'justUi',
                     currentMarker: 'transparent',
                     onHit: handleHit,
@@ -941,26 +859,18 @@ export function ReplayApplication() {
                   }}
                   className={s['code']}
                   printIndicators={{
-                    3: 'not-available',
+                    1: 'not-available',
+                    2: 'available',
                     4: 'available',
                     5: 'available',
+                    6: 'available',
+                    7: 'available',
                     8: 'available',
-                    9: 'available',
-                    10: 'available',
-                    11: 'available',
-                    12: 'available',
-                    13: 'available',
-                    16: 'available',
-                    17: 'available',
-                    19: 'available',
-                    28: 'available',
-                    35: 'available',
-                    37: 'available',
-                    38: 'available',
-                    39: 'available',
-                    40: 'available',
-                    41: 'available',
-                    47: 'available'
+                    9: 'not-available',
+                    10: 'not-available',
+                    11: 'not-available',
+                    15: 'available',
+                    16: 'available'
                   }}
                   code={codeBlock}
                   ref={codeRef}
@@ -977,6 +887,7 @@ export function ReplayApplication() {
                   ref={devtoolsPanelRef}
                 >
                   <DevTools
+                    onlyShow={devtoolsTabs}
                     panelWrapperProps={{ style: { flex: 1 } }}
                     style={{ height: '100%' }}
                     onPanelTabChange={(tab) => {
@@ -995,7 +906,7 @@ export function ReplayApplication() {
                 style={{
                   gridArea: 'store'
                 }}
-                ref={smallRightStoreRef}
+                ref={smallRightStoreAreaRef}
               />
               <div style={{ gridArea: 'devtools' }} ref={devtoolsAreaRef} />
             </div>
@@ -1011,7 +922,6 @@ export function ReplayApplication() {
           >
             <svg
               width="41"
-              height="41"
               viewBox="0 0 41 41"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -1025,10 +935,14 @@ export function ReplayApplication() {
 
             <div style={{ flex: 1, margin: '0 20px' }}>
               <ProgressBar
+                solid
                 animated={false}
                 progress={0}
                 primaryColor="#01ACFD"
                 secondaryColor="#D9D9D9"
+                markers={showPrints ? printMarkers : undefined}
+                markerSize={14}
+                markerActiveColor="var(--color-pink-crayon)"
                 ref={progressBarRef}
               />
             </div>
@@ -1038,13 +952,15 @@ export function ReplayApplication() {
                 background: '#E6E6E6',
                 borderRadius: 'var(--border-radius-full)',
                 padding: '2px 12px',
+                fontVariantNumeric: 'tabular-nums',
                 fontSize: '12px'
               }}
             >
-              0:05 / 0:05
+              0:{padZeroesToNumber(Number(currentTime.toFixed(0)), 2)} / 0:
+              {padZeroesToNumber(timelineDuration, 2)}
             </span>
           </div>
-        </div>
+        </AspectBox>
       </AspectBox>
     </Section>
   )

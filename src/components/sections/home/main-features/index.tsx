@@ -2,9 +2,11 @@ import { ScrollTrigger } from 'lib/gsap'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
+import { PlayIcon } from '~/components/common/play-icon'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { isDev } from '~/lib/constants'
 
@@ -82,18 +84,26 @@ export const MainFeatures: FC = () => {
           <HeadingSet
             disabled={activeHeading !== 0}
             className={s['feature']}
-            overtitle="Time Travel"
+            overtitle="Async Collaboration"
             title="Record and share replays with your team."
             description={
               <>
                 <p>
-                  Replays help your team debug the problem without reproducing
-                  it locally on their computer.
+                  Replay.io gives your team the ability to time travel. When you
+                  share a replay with your team, they can inspect the replay as
+                  if they were sitting next to you when you recorded it. This is
+                  because when they’re viewing the replay, we’re replaying a
+                  browser in our backend that thinks it’s interacting with you,
+                  your computer, and the internet.
                 </p>
-                <p>
-                  You’ll be amazed at how much faster issues are resolved when
-                  they include a replay.
-                </p>
+
+                <ButtonLink
+                  href="#async-collaboration"
+                  variant="tertiary"
+                  style={{ marginTop: '2rem' }}
+                >
+                  Replay for teams <PlayIcon style={{ marginLeft: 8 }} />
+                </ButtonLink>
               </>
             }
           />
@@ -105,17 +115,16 @@ export const MainFeatures: FC = () => {
           <HeadingSet
             disabled={activeHeading !== 1}
             className={s['feature']}
-            overtitle="Async Collaboration"
+            overtitle="Time Travel Debugging"
             title="Debug replays with developer tools."
             description={
               <>
                 <p>
-                  Travel back in time and debug the application as it initially
-                  ran with familiar developer tools.
-                </p>
-                <p>
-                  You’ll love how easy it is to test your assumptions and see
-                  what actually went wrong!
+                  Replay.io lets you travel back in time and debug the
+                  application as it initially ran with familiar developer tools.
+                  You can inspect a React component at any point in time or add
+                  a print statement and see the logs in the Console. Anything is
+                  possible when you can replay!
                 </p>
               </>
             }
