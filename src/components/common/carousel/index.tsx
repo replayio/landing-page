@@ -64,6 +64,10 @@ export const Carousel = forwardRef<
       onSelect()
       setScrollSnaps(embla.scrollSnapList())
       embla.on('select', onSelect)
+
+      return () => {
+        embla.off('select', onSelect)
+      }
     }, [embla, setScrollSnaps, onSelect])
 
     useImperativeHandle(ref, () => embla, [embla])

@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
 export type Runtime = {
-  icon: any
-  title: string | ReactNode
+  icon: string
+  title: ReactNode
   badge:
     | 'Beta'
     | 'Today'

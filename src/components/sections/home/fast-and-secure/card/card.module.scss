@@ -1,0 +1,91 @@
+@import 'css/variables';
+@import 'css/helpers';
+
+.container {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+
+  --border-width: 2px;
+
+  border: var(--border-width) solid rgb(222 222 222);
+  width: 228px;
+  font-size: 18px;
+  user-select: none;
+
+  &:hover {
+    .bg {
+      opacity: 1;
+    }
+  }
+}
+
+.lantern {
+  background: rgb(222 222 222 / 0.4);
+  border: none;
+
+  .border-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+      800px circle at var(--lantern-x) var(--lantern-y),
+      rgb(172 172 172 / 0.7),
+      transparent 40%
+    );
+  }
+
+  .bg {
+    border-radius: 14px;
+    position: absolute;
+    top: var(--border-width);
+    left: var(--border-width);
+    right: var(--border-width);
+    bottom: var(--border-width);
+    background-image: radial-gradient(
+      400px circle at var(--lantern-x) var(--lantern-y),
+      rgb(222 222 222 / 0.3),
+      transparent
+    );
+    background-color: white;
+  }
+}
+
+.content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: toem(10px, 14px);
+
+  .icon {
+    width: toem(64px, 14px);
+    height: toem(64px, 14px);
+  }
+
+  .title {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 1em;
+    margin-top: toem(18px, 14px);
+    line-height: 1.3;
+  }
+
+  .badge {
+    margin-top: toem(12px, 14px);
+    text-transform: capitalize;
+    font-size: 0.8em;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .container {
+    width: min(230.4px, tovw(172px, $screen-lg));
+    font-size: min(18px, tovw(14px, $screen-lg));
+  }
+}
