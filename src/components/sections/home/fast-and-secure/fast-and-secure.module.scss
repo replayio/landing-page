@@ -8,6 +8,12 @@
     margin-top: 48px;
   }
 
+  .tabs-list {
+    > button:last-child {
+      margin-right: var(--padding);
+    }
+  }
+
   .content {
     display: none;
 

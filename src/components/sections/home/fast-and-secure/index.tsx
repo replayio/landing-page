@@ -52,20 +52,22 @@ const CarouselSection: FC<{
   return (
     <>
       {/* DESKTOP */}
-      <div className={s['grid-container']}>
-        {cards.map(({ icon, title, badge }, idx) => {
-          return (
-            <Card
-              key={idx}
-              icon={icon}
-              title={title}
-              badge={badge}
-              mouseLanternValuesRef={mouseValuesRef}
-              lantern
-            />
-          )
-        })}
-      </div>
+      <Container>
+        <div className={s['grid-container']}>
+          {cards.map(({ icon, title, badge }, idx) => {
+            return (
+              <Card
+                key={idx}
+                icon={icon}
+                title={title}
+                badge={badge}
+                mouseLanternValuesRef={mouseValuesRef}
+                lantern
+              />
+            )
+          })}
+        </div>
+      </Container>
 
       {/* MOBILE */}
       <div className={s['carousel-container']}>
@@ -127,26 +129,24 @@ export const FastAndSecure: FC = () => {
           }
           centered
         />
-
-        <Tabs
-          className={s['tabs']}
-          contentClassName={s['tabs-content']}
-          defaultValue="browsers"
-          tabs={categories.map(({ title, key }) => ({
-            children: title,
-            value: key
-          }))}
-          contents={categories.map(({ content, key }) => ({
-            children: (
-              <CarouselSection
-                cards={content}
-                mouseValuesRef={mouseValuesRef}
-              />
-            ),
-            value: key
-          }))}
-        />
       </Container>
+
+      <Tabs
+        className={s['tabs']}
+        contentClassName={s['tabs-content']}
+        tabListProps={{ className: clsx(s['tabs-list'], 'container') }}
+        defaultValue="browsers"
+        tabs={categories.map(({ title, key }) => ({
+          children: title,
+          value: key
+        }))}
+        contents={categories.map(({ content, key }) => ({
+          children: (
+            <CarouselSection cards={content} mouseValuesRef={mouseValuesRef} />
+          ),
+          value: key
+        }))}
+      />
     </Section>
   )
 }
