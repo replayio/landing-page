@@ -59,12 +59,8 @@
   &.primary {
     background: var(--gradient-primary);
 
-    &:hover {
-      color: var(--color-gray-dark);
-    }
-
     &::before {
-      background: var(--color-gray-lightest);
+      background: var(--color-pink-light);
     }
   }
 
@@ -84,6 +80,15 @@
     color: var(--color-gray-darker);
     background: var(--color-gray-lightest);
 
+    &::before {
+      background: var(--color-white);
+    }
+  }
+
+  &.tertiary-inverted {
+    color: var(--color-gray-darker);
+    background: var(--color-white);
+
     &:hover {
       color: var(--color-white);
     }
@@ -93,9 +98,9 @@
     }
   }
 
-  &.tertiary-inverted {
+  &.tertiary-inverted-alt {
     color: var(--color-gray-darker);
-    background: var(--color-white);
+    background: var(--color-gray-lightest);
 
     &:hover {
       color: var(--color-white);

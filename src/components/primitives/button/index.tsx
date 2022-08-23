@@ -8,7 +8,12 @@ import s from './button.module.scss'
 
 type ButtonProps<C extends ElementType> = {
   size?: 'sm' | 'md'
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'tertiary-inverted'
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'tertiary-inverted'
+    | 'tertiary-inverted-alt'
   unstyled?: boolean
   rounded?: boolean
   noHover?: boolean

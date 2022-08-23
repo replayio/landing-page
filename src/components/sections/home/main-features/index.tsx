@@ -99,7 +99,7 @@ export const MainFeatures: FC = () => {
 
                 <ButtonLink
                   href="#async-collaboration"
-                  variant="tertiary"
+                  variant="tertiary-inverted-alt"
                   style={{ marginTop: '2rem' }}
                 >
                   Replay for teams <PlayIcon style={{ marginLeft: 8 }} />
