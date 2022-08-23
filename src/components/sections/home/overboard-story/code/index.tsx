@@ -74,19 +74,27 @@ type CodeProps = {
     currentHit?: number
     onComplete?: () => void
     onChangeMarker?: (
-      marker: string,
+      marker: ConsoleMarker,
       paused?: boolean
-    ) => GSAPTimeline | undefined
+    ) => GSAPTimeline | void
     onHit?: (idx: number) => void
     printLineTarget: number
     timelineType: 'justUi' | 'timeBased'
   }
 } & JSX.IntrinsicElements['div']
 
-export type CodeRef<> = {
+export type CodeRef = {
   elm: HTMLDivElement | null
   timeline: UseGsapTimeAPI | ProgressAPI | null
 }
+
+const availableMarkers: ConsoleMarker[] = [
+  'unicorn',
+  'green',
+  'red',
+  'yellow',
+  'purple'
+]
 
 export const Code = forwardRef<CodeRef, CodeProps>(
   (
@@ -247,13 +255,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                             className={s['markers']}
                           >
                             <div className={s['markers-container']}>
-                              {[
-                                'unicorn',
-                                'green',
-                                'red',
-                                'yellow',
-                                'purple'
-                              ].map((color) => (
+                              {availableMarkers.map((color) => (
                                 <button
                                   onClick={() =>
                                     printPanelConfig?.onChangeMarker?.(color)

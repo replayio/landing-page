@@ -1,3 +1,4 @@
+import { ResizeObserver } from '@juggle/resize-observer'
 import clsx from 'clsx'
 import { FC } from 'react'
 import useMeasure from 'react-use-measure'
@@ -16,7 +17,7 @@ export const InspectBox: FC<InspectBoxProps> = ({
   children,
   ...rest
 }) => {
-  const [ref, bounds] = useMeasure()
+  const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
 
   return (
     <div

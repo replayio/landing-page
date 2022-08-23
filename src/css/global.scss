@@ -126,3 +126,27 @@ body:not(.user-is-tabbing) textarea:focus {
     background: var(--color-white);
   }
 }
+
+.container {
+  --padding: 16px;
+
+  width: 100%;
+  padding: 0 var(--padding);
+  margin: 0 auto;
+  max-width: calc(1280px + var(--padding) * 2);
+
+  /* Sizes */
+  &.sm {
+    max-width: calc(1060px + var(--padding) * 2);
+  }
+
+  &.lg {
+    max-width: calc(1360px + var(--padding) * 2);
+  }
+}
+
+@media (min-width: $screen-md) {
+  .container {
+    --padding: 32px;
+  }
+}

@@ -1,14 +1,12 @@
-import Image, { ImageProps } from 'next/image'
-import { FC, ReactNode } from 'react'
+import clsx from 'clsx'
+import { FC, MutableRefObject, useEffect, useRef } from 'react'
 
-import { Badge } from '~/components/common/badge'
 import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Tabs } from '~/components/common/tabs'
 import { Container } from '~/components/layout/container'
-import { useMedia } from '~/hooks/use-media'
-import { breakpoints } from '~/lib/constants'
 
+import { Card } from './card'
 import s from './fast-and-secure.module.scss'
 import {
   browsers,
@@ -18,12 +16,6 @@ import {
   security,
   testRunners
 } from './runtimes'
-
-type CardProps = {
-  icon: ImageProps['src']
-  title: string | ReactNode
-  badge: string
-}
 
 const categories = [
   {
@@ -53,45 +45,71 @@ const categories = [
   }
 ]
 
-const Card: FC<CardProps> = ({ icon, title, badge }) => {
+const CarouselSection: FC<{
+  cards: Runtime[]
+  mouseValuesRef: MutableRefObject<{ x: number; y: number } | undefined>
+}> = ({ cards, mouseValuesRef }) => {
   return (
-    <div className={s['card']}>
-      <div className={s['icon']}>
-        <Image src={icon} width={80} height={80} alt="runtime logo" />
+    <>
+      {/* DESKTOP */}
+      <div className={clsx(s['grid-container'], 'container')}>
+        {cards.map(({ icon, title, badge }, idx) => {
+          return (
+            <Card
+              key={idx}
+              icon={icon}
+              title={title}
+              badge={badge}
+              mouseLanternValuesRef={mouseValuesRef}
+              lantern
+            />
+          )
+        })}
       </div>
-      <p className={s['title']}>{title}</p>
-      <Badge className={s['badge']} text={badge} />
-    </div>
-  )
-}
 
-const CarouselSection: FC<{ cards: Runtime[] }> = ({ cards }) => {
-  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`, true)
+      {/* MOBILE */}
+      <div className={s['carousel-container']}>
+        <div className={s['left-gradient']} />
+        <div className={s['right-gradient']} />
 
-  return (
-    <div className={s['carousel-container']}>
-      <div className={s['left-gradient']} />
-      <div className={s['right-gradient']} />
-
-      <Carousel
-        config={{ startIndex: Math.floor(cards.length / 2) }}
-        className={s['slider']}
-        containerClassname={s['slider-container']}
-        slideClassName={s['slide-wrapper']}
-        dots={!isDesktopSize}
-      >
-        {cards.map(({ icon, title, description, badge }, idx) => (
-          <div className={s['slide']} key={idx}>
-            <Card key={idx} icon={icon} title={title} badge={badge} />
-            <p className={s['description']}>{description}</p>
-          </div>
-        ))}
-      </Carousel>
-    </div>
+        <Carousel
+          config={{ startIndex: Math.floor(cards.length / 2) }}
+          className={clsx(s['slider'], 'cards-lantern-container')}
+          containerClassname={s['slider-container']}
+          slideClassName={s['slide-wrapper']}
+          dots
+        >
+          {cards.map(({ icon, title, badge }, idx) => {
+            return <Card key={idx} icon={icon} title={title} badge={badge} />
+          })}
+        </Carousel>
+      </div>
+    </>
   )
 }
 
 export const FastAndSecure: FC = () => {
+  const mouseValuesRef = useRef<{ x: number; y: number }>()
+
+  useEffect(() => {
+    const handleMouseMove = (e: { clientX: number; clientY: number }) => {
+      if (mouseValuesRef.current) {
+        mouseValuesRef.current.x = e.clientX
+        mouseValuesRef.current.y = e.clientY
+      } else {
+        mouseValuesRef.current = {
+          x: e.clientX,
+          y: e.clientY
+        }
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
+
   return (
     <Section className={s['section']}>
       <Container size="md">
@@ -109,21 +127,24 @@ export const FastAndSecure: FC = () => {
           }
           centered
         />
-
-        <Tabs
-          className={s['tabs']}
-          contentClassName={s['tabs-content']}
-          defaultValue="browsers"
-          tabs={categories.map(({ title, key }) => ({
-            children: title,
-            value: key
-          }))}
-          contents={categories.map(({ content, key }) => ({
-            children: <CarouselSection cards={content} />,
-            value: key
-          }))}
-        />
       </Container>
+
+      <Tabs
+        className={s['tabs']}
+        contentClassName={s['tabs-content']}
+        tabListProps={{ className: clsx(s['tabs-list'], 'container') }}
+        defaultValue="browsers"
+        tabs={categories.map(({ title, key }) => ({
+          children: title,
+          value: key
+        }))}
+        contents={categories.map(({ content, key }) => ({
+          children: (
+            <CarouselSection cards={content} mouseValuesRef={mouseValuesRef} />
+          ),
+          value: key
+        }))}
+      />
     </Section>
   )
 }

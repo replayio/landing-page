@@ -4,13 +4,14 @@ import React, { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
-  Marker,
+  Marker as ProgressMarker,
   ProgressAPI,
   ProgressBar
 } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { IsoLogo } from '~/components/primitives/logo'
+import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-story/devtools/console'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
@@ -128,7 +129,7 @@ const timelineDuration = 10
 const padding = 16
 const headerHeight = 70
 const timelineHeight = 90
-const printMarkers: Marker[] = [{ position: 50 }]
+const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
@@ -186,6 +187,7 @@ const reactTree = identifyNodes(
 export function ReplayApplication() {
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
+  const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
   const [currentTime, setCurrentTime] = useState(0)
   const { isDesktop } = useDeviceDetect()
   const progressBarRef = useRef<ProgressAPI>(null)
@@ -402,6 +404,7 @@ export function ReplayApplication() {
 
       /* Viewer */
       .add(flipTimeline1 as GSAPTimeline, '+=2')
+      .to({}, { duration: 10 }, '<')
       .fromTo(
         applicationRef.current,
         {
@@ -681,12 +684,12 @@ export function ReplayApplication() {
       logs: [
         {
           hits: 1,
-          marker: 'transparent',
+          marker: markersType,
           content: ['Hello World']
         },
         {
           hits: 1,
-          marker: 'transparent',
+          marker: markersType,
           prepend: 'response',
           content: [
             {
@@ -849,6 +852,7 @@ export function ReplayApplication() {
                 <Code
                   filename="PurchaseForm.tsx"
                   printPanelConfig={{
+                    onChangeMarker: (v) => setMarkersType(v),
                     print: '"response", response',
                     markers: printMarkers,
                     printLineTarget: 14,
