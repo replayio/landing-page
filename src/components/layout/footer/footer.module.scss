@@ -157,10 +157,14 @@
       align-items: center;
       @include space-x(16px);
 
-      img {
-        &:hover {
-          filter: brightness(0) saturate(100%) invert(79%) sepia(25%)
-            saturate(870%) hue-rotate(300deg) brightness(105%) contrast(105%);
+      a {
+        svg {
+          fill: white;
+          transition: fill var(--duration-fast);
+
+          &:hover {
+            fill: var(--color-pink-lighter);
+          }
         }
       }
     }

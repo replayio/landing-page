@@ -6,6 +6,7 @@ import { FC, useEffect, useMemo, useRef } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
+import { Discord, Linkedin, Twitter } from '~/components/icons/social'
 import { Button } from '~/components/primitives/button'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
@@ -75,15 +76,15 @@ const links = {
 
 const social = {
   discord: {
-    icon: '/images/logos/discord.svg',
+    icon: <Discord />,
     href: '/discord'
   },
   twitter: {
-    icon: '/images/logos/twitter.svg',
+    icon: <Twitter />,
     href: 'https://twitter.com/replayio'
   },
   linkedIn: {
-    icon: '/images/logos/linkedin.svg',
+    icon: <Linkedin />,
     href: 'https://www.linkedin.com/company/replayio/'
   }
 }
@@ -226,16 +227,7 @@ export const Footer: FC = () => {
             <ul className={s['social']}>
               {Object.entries(social).map(([key, link]) => (
                 <li key={key} title={key}>
-                  <Link href={link.href}>
-                    <Image
-                      // @ts-ignore
-                      layout="raw"
-                      width={32}
-                      height={32}
-                      src={link.icon}
-                      alt={key}
-                    />
-                  </Link>
+                  <Link href={link.href}>{link.icon}</Link>
                 </li>
               ))}
             </ul>
