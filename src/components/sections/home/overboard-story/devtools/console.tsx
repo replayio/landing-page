@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import range from 'lodash/range'
-import { forwardRef } from 'react'
+import { forwardRef, Fragment } from 'react'
 
 import { logContent, SearchBar } from '../common'
 import commonS from '../overboard-story.module.scss'
@@ -90,7 +90,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
 
         <div className={s['logs']}>
           {fullLogs.map((log, i) => (
-            <>
+            <Fragment key={i}>
               {i === currentHit && (
                 <hr
                   style={{
@@ -111,7 +111,6 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                   alignItems: 'center',
                   padding: '4px 12px'
                 }}
-                key={i}
               >
                 {!disableTravel && (
                   <button
@@ -142,7 +141,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                   {logContent(log.content)}
                 </div>
               </div>
-            </>
+            </Fragment>
           ))}
         </div>
 

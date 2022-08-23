@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import Prism from 'prismjs'
 import {
   forwardRef,
+  Fragment,
   RefObject,
   useImperativeHandle,
   useMemo,
@@ -187,7 +188,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
             const hasBreakpoint = breakpoints?.includes(codeLine)
 
             return (
-              <>
+              <Fragment key={idx}>
                 <span
                   style={{
                     display: 'inline-block',
@@ -360,7 +361,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                     </div>
                   )}
                 </CodeLine>
-              </>
+              </Fragment>
             )
           })}
         </div>

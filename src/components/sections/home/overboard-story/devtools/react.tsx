@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { forwardRef } from 'react'
+import { forwardRef, Fragment } from 'react'
 
 import {
   IdentifiedNode,
@@ -101,15 +101,17 @@ function renderReactTree({
         </div>
 
         {node.children
-          ? node.children.map((node) => {
-              return renderReactTree({
-                node,
-                activeComponent,
-                onActiveComponentChange,
-                onHoverComponent,
-                isNested: true
-              })
-            })
+          ? node.children.map((node, idx) => (
+              <Fragment key={idx}>
+                {renderReactTree({
+                  node,
+                  activeComponent,
+                  onActiveComponentChange,
+                  onHoverComponent,
+                  isNested: true
+                })}
+              </Fragment>
+            ))
           : null}
       </li>
     </ul>

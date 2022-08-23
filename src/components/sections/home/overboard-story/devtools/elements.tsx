@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import React, { forwardRef, useMemo } from 'react'
+import React, { forwardRef, Fragment, useMemo } from 'react'
 
 import { isClient } from '~/lib/constants'
 
@@ -74,15 +74,17 @@ function renderHtmlTree({
         </div>
 
         {hasChildren
-          ? node.children?.map((node) => {
-              return renderHtmlTree({
-                node,
-                activeElement,
-                onActiveElementChange,
-                onHoverElement,
-                isNested: true
-              })
-            })
+          ? node.children?.map((node, idx) => (
+              <Fragment key={idx}>
+                {renderHtmlTree({
+                  node,
+                  activeElement,
+                  onActiveElementChange,
+                  onHoverElement,
+                  isNested: true
+                })}
+              </Fragment>
+            ))
           : null}
 
         {hasChildren && (

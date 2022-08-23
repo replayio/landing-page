@@ -1,5 +1,11 @@
 import clsx from 'clsx'
-import React, { ElementType, FC, useMemo } from 'react'
+import React, {
+  ComponentPropsWithRef,
+  ElementType,
+  FC,
+  forwardRef,
+  useMemo
+} from 'react'
 
 import { checkIsExternal } from '~/lib/utils/router'
 
@@ -21,38 +27,46 @@ type ButtonProps<C extends ElementType> = {
   as?: C
 } & React.ComponentPropsWithoutRef<C>
 
-export const Button = <C extends ElementType>({
-  as,
-  children,
-  variant = 'secondary',
-  unstyled = false,
-  size = 'md',
-  rounded = false,
-  className,
-  noHover = false,
-  ...rest
-}: ButtonProps<C>) => {
-  const Comp = as || 'button'
+type PolymorphicRef<C extends ElementType> = ComponentPropsWithRef<C>['ref']
 
-  return (
-    <Comp
-      className={clsx(
-        s['button'],
-        {
-          [s['rounded']]: rounded,
-          [s['unstyled']]: unstyled,
-          [s['no-hover']]: noHover
-        },
-        s[variant],
-        s[size],
-        className
-      )}
-      {...rest}
-    >
-      <span className={s['content']}>{children}</span>
-    </Comp>
-  )
-}
+export const Button = forwardRef(
+  <C extends ElementType>(
+    {
+      as,
+      children,
+      variant = 'secondary',
+      unstyled = false,
+      size = 'md',
+      rounded = false,
+      className,
+      noHover = false,
+      ...rest
+    }: ButtonProps<C>,
+    ref: PolymorphicRef<C>
+  ) => {
+    const Comp = as || 'button'
+
+    return (
+      <Comp
+        className={clsx(
+          s['button'],
+          {
+            [s['rounded']]: rounded,
+            [s['unstyled']]: unstyled,
+            [s['no-hover']]: noHover
+          },
+          s[variant],
+          s[size],
+          className
+        )}
+        {...rest}
+        ref={ref}
+      >
+        <span className={s['content']}>{children}</span>
+      </Comp>
+    )
+  }
+)
 
 type NextLinkProps = Pick<
   LinkProps,

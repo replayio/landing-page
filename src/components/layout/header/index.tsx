@@ -167,9 +167,13 @@ export const Header = () => {
                   </li>
                 ))}
               </ul>
-              <Button size="md" variant="secondary">
+              <ButtonLink
+                href="https://app.replay.io/"
+                size="md"
+                variant="secondary"
+              >
                 Login
-              </Button>
+              </ButtonLink>
             </Container>
           </div>
         </div>
