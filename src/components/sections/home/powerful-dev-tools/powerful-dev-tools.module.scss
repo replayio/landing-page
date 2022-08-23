@@ -172,6 +172,7 @@
     animation: fade-out var(--duration-moderate) ease-out forwards;
     animation-delay: var(--delay);
     z-index: 0;
+    pointer-events: none;
   }
 }
 
