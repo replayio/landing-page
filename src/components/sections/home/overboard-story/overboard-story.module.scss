@@ -2,11 +2,7 @@
 @import 'css/helpers';
 
 .section {
-  --padding: 0px;
-
   position: relative;
-  padding: var(--padding) 0px;
-  margin: calc(-1 * var(--padding)) 0px;
 }
 
 .store-container {
