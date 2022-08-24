@@ -20,10 +20,10 @@ export const Hero: FC = () => {
   const { isDesktop } = useDeviceDetect()
 
   useIsomorphicLayoutEffect(() => {
-    let tl: gsap.core.Timeline
-
     if (ref.current && isDesktopSize) {
-      tl = gsap
+      // this class is used to change some styles for the Header and Hero.
+      // fade out hero section:
+      const tl = gsap
         .timeline({
           scrollTrigger: {
             start: 0,
@@ -37,16 +37,14 @@ export const Hero: FC = () => {
             }
           }
         })
-        .to(ref.current, {
-          opacity: 0,
-          scale: 0.97,
-          y: -100
+        .to([ref.current], {
+          opacity: 0
         })
-    }
 
-    return () => {
-      tl?.scrollTrigger?.kill()
-      tl?.kill()
+      return () => {
+        tl?.scrollTrigger?.kill()
+        tl?.kill()
+      }
     }
   }, [isDesktopSize])
 

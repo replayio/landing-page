@@ -1,6 +1,10 @@
 .announcement {
   padding: 8px 0;
   background: var(--color-pink-crayon);
+  min-height: var(--announcement-bar-min-height);
+  transition-property: opacity;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: linear;
 
   .text {
     color: var(--color-white);
@@ -12,5 +16,17 @@
     a {
       font-weight: 700;
     }
+  }
+}
+
+:global(.scrollytelling-enabled.scrollytelling-playing) .announcement {
+  position: sticky;
+  top: 0px;
+}
+
+:global(.hide-header) {
+  .announcement {
+    opacity: 0;
+    pointer-events: none;
   }
 }

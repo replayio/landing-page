@@ -8,6 +8,15 @@
   }
 }
 
+:global(.scrollytelling-enabled.scrollytelling-playing) .header {
+  border-color: transparent !important;
+}
+
+:global(.scrollytelling-enabled.has-announcement.scrollytelling-playing)
+  .header {
+  top: var(--announcement-bar-min-height);
+}
+
 .header {
   position: sticky;
   display: flex;
@@ -16,6 +25,7 @@
   background: var(--color-white);
   z-index: var(--z-index-50);
   height: var(--header-height);
+  box-sizing: border-box;
   border-bottom: 1px solid transparent;
   transition-property: border-color, opacity;
   transition-duration: var(--duration-fast);

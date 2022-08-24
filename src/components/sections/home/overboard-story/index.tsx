@@ -1,6 +1,6 @@
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
-import React, { forwardRef, useCallback, useRef, useState } from 'react'
+import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
@@ -331,6 +331,8 @@ export function ReplayApplication() {
       }
     )
 
+    document.documentElement.classList.add('scrollytelling-enabled')
+
     const timeline = gsap.timeline({
       smoothChildTiming: true,
       defaults: {
@@ -348,11 +350,16 @@ export function ReplayApplication() {
         scrub: true,
         start: 'top top',
         trigger: 'body',
+        onEnter: () => {
+          document.documentElement.classList.add('scrollytelling-playing')
+        },
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
+          document.documentElement.classList.add('scrollytelling-playing')
         },
         onLeave: () => {
           document.documentElement.classList.remove('hide-header')
+          document.documentElement.classList.remove('scrollytelling-playing')
         }
       }
     })
@@ -659,6 +666,8 @@ export function ReplayApplication() {
       timeline.kill()
 
       document.documentElement.classList.remove('hide-header')
+      document.documentElement.classList.remove('scrollytelling-enabled')
+      document.documentElement.classList.remove('scrollytelling-playing')
 
       /* Flip Cleanup */
       /* Just clearing transforms bc otherwise we remove some important variables */

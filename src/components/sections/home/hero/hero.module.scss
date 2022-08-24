@@ -71,6 +71,16 @@
   }
 }
 
+:global(.scrollytelling-enabled.scrollytelling-playing) .section {
+  position: sticky;
+  top: var(--header-height);
+}
+
+:global(.scrollytelling-enabled.has-announcement.scrollytelling-playing)
+  .section {
+  top: calc(var(--header-height) + var(--announcement-bar-min-height));
+}
+
 @media (max-width: $screen-md - 1px) {
   .hero .heading .title {
     font-size: min(42px, 8.75vw);

@@ -14,6 +14,7 @@
   --font-mono: 'Roboto Mono', var(--font-system);
   --inspect-color: #f00;
   --header-height: 56px;
+  --announcement-bar-min-height: 36px;
 
   /* Colors */
   --color-transparent: rgb(255 255 255 / 0);
@@ -113,7 +114,7 @@ body:not(.user-is-tabbing) textarea:focus {
 
 @media (min-width: $screen-lg) {
   :root {
-    --header-height: 76px;
+    --header-height: 77px;
   }
 }
 
