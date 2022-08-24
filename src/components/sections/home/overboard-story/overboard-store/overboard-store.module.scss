@@ -226,7 +226,18 @@
       linear-gradient(to bottom, var(--grid-color) 1px, transparent 0);
     background-size: 35.8px 15px;
     background-repeat: repeat;
-    transform-origin: 100% 0 0;
+    transform-origin: -100% 0 0;
+    transform: rotateX(45deg) translateY(0%);
+    animation: play 20s linear infinite;
+  }
+}
+
+@keyframes play {
+  0% {
+    transform: rotateX(45deg) translateY(0);
+  }
+
+  100% {
     transform: rotateX(45deg) translateY(-50%);
   }
 }
