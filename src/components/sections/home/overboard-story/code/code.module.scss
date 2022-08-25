@@ -111,6 +111,7 @@
     }
 
     .tutorial-popup {
+      display: flex;
       opacity: 0;
       color: var(--color-white);
       padding: 8px 14px;
@@ -121,6 +122,10 @@
       top: -16%;
       left: 16px;
       transform: translateY(-100%);
+
+      .sparkles {
+        margin-right: 10px;
+      }
 
       .text {
         font-weight: 800;

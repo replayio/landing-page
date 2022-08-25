@@ -332,8 +332,14 @@ export function HoverBoard() {
 const START_OF_ROTATION = 65
 const END_OF_ROTATION = 340
 
-const variables = {
-  rotate: [0, 45, 90, 120, 160, 360]
+const steps = {
+  rotation: [0, 45, 90, 120, 160, 360],
+  displacement: [0.0, 0.025, 0.05, 0.075, 0.1, 0.125]
+}
+
+const storeState = {
+  overboardRotation: steps.rotation[0],
+  floorDisplacement: steps.displacement[0]
 }
 
 export const Scene2: FC<SceneProps> = ({
@@ -350,32 +356,32 @@ export const Scene2: FC<SceneProps> = ({
   const hoverboardRef = useRef<StoreRef>(null)
   const [currentHit, setCurrentHit] = useState(0)
 
-  const hoverboardState = useRef({
-    _rotate: 0,
-    set rotate(v: number) {
-      this._rotate = v
-      hoverboardRef.current?.hoverboard?.flip(
-        rangeMap(v, 0, 360, START_OF_ROTATION, END_OF_ROTATION)
-      )
-    },
-    get rotate() {
-      return this._rotate
-    }
-  })
-
   useEffect(() => {
-    gsap.to(hoverboardState.current, {
-      rotate: variables.rotate[currentHit],
-      ease: 'linear'
+    gsap.to(storeState, {
+      overboardRotation: steps.rotation[currentHit],
+      floorDisplacement: steps.displacement[currentHit],
+      ease: 'linear',
+      onUpdate: () => {
+        hoverboardRef.current?.grid?.move(storeState.floorDisplacement)
+        hoverboardRef.current?.hoverboard?.flip(
+          rangeMap(
+            storeState.overboardRotation,
+            0,
+            360,
+            START_OF_ROTATION,
+            END_OF_ROTATION
+          )
+        )
+      }
     })
   }, [currentHit])
 
   const logs: ConsoleProps['logs'] = [
     {
-      hits: variables.rotate.length,
+      hits: steps.rotation.length,
       marker: 'unicorn',
       prepend: 'rotate',
-      content: variables.rotate
+      content: steps.rotation
     }
   ]
 
@@ -1128,27 +1134,24 @@ export const Scene5: FC<SceneProps> = ({
     })
   }, [])
 
-  const resetAnimation = useCallback(
-    (killAndClear = false) => {
-      if (!overboardRef.current || !devToolsRef.current) return
+  const resetAnimation = useCallback((killAndClear = false) => {
+    if (!overboardRef.current || !devToolsRef.current) return
 
-      const _timeline = timeline.current
+    const _timeline = timeline.current
 
-      const toolsSelector = gsap.utils.selector(devToolsRef.current)
-      const callLine = toolsSelector('#call-line')
+    const toolsSelector = gsap.utils.selector(devToolsRef.current)
+    const callLine = toolsSelector('#call-line')
 
-      callLine[2]?.classList?.remove('active')
+    callLine[2]?.classList?.remove('active')
 
-      setStoreState('idle')
-      setCalls(initialCalls)
+    setStoreState('idle')
+    setCalls(initialCalls)
 
-      if (killAndClear) {
-        _timeline.clear()
-        _timeline.kill()
-      }
-    },
-    [initialCalls]
-  )
+    if (killAndClear) {
+      _timeline.clear()
+      _timeline.kill()
+    }
+  }, [])
 
   useEffect(() => {
     const _timeline = timeline.current

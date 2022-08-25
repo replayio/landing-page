@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
 import { forwardRef, useCallback, useRef, useState } from 'react'
@@ -17,7 +18,6 @@ import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isDev } from '~/lib/constants'
 import { padZeroesToNumber } from '~/lib/utils'
-import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
 
@@ -133,6 +133,8 @@ const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
+const SCROLLYTELLING_PX_DURATION = 4000
+
 const codeBlock = `export function handleSubmit(event) {
   event.preventDefault()
 
@@ -246,13 +248,12 @@ export function ReplayApplication() {
       return
     }
 
-    gsap.set('#main-features-section', { marginTop: -220 })
-
     const _applicationRef = applicationRef.current
     const _targetStoreRef = targetStoreRef.current
     const _devtoolsPanelRef = devtoolsPanelRef.current
     const storeSelector = gsap.utils.selector(targetStoreRef.current)
     const codeSelector = gsap.utils.selector(codeRef.current.elm)
+    const appSelector = gsap.utils.selector(applicationRef.current)
 
     /* 
       NodeLine is a function because when we change tabs we loose
@@ -267,6 +268,9 @@ export function ReplayApplication() {
     const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
     const storePurchase = storeSelector(`#overboard-store-purchase-${storeId}`)
     const storeColors = storeSelector(`#overboard-store-colors-${storeId}`)
+    const devtoolsTools = appSelector('.toolbar .debugger,.search,.code')
+    const headerUsers = appSelector('.header .user')
+    const recordBadge = storeSelector('.record')
 
     /* Board and floor movement */
     const storeVariables = {
@@ -331,46 +335,57 @@ export function ReplayApplication() {
       }
     )
 
+    // Calculate Distance (Percentaje) from the top of the screen to the top of the element
+    const { height: pinTargetHeight, top: pinTargetSpaceTop } =
+      sectionRef.current.getBoundingClientRect()
+    const distance =
+      window.pageYOffset +
+      pinTargetSpaceTop -
+      (window.innerHeight - pinTargetHeight) / 2
+    const percentage = -(distance * 100) / pinTargetHeight
+    const applicationWindowSpaceBottom = Math.floor(
+      (window.innerHeight - applicationRef.current.clientHeight) / 2
+    )
+
+    /* Set the spacer height */
+    const pinSpacer = document.getElementById('scrollytelling-spacer')
+    gsap.set(pinSpacer, { height: SCROLLYTELLING_PX_DURATION })
+
     document.documentElement.classList.add('scrollytelling-enabled')
 
     const timeline = gsap.timeline({
       smoothChildTiming: true,
       defaults: {
-        ease: 'sine.inOut'
+        ease: 'sine.inOut',
+        duration: 2
       },
       scrollTrigger: {
         anticipatePin: 1,
-        end: 'bottom+=450% top',
-        endTrigger: sectionRef.current,
+        /* Adding 1px to trigger start to fix header disappearing bug */
+        start: 'top+=1px top',
+        end: `top+=${
+          SCROLLYTELLING_PX_DURATION + pinTargetSpaceTop
+        }px bottom-=${applicationWindowSpaceBottom}px`,
         fastScrollEnd: true,
         id: 'overboard-story',
         markers: isDev,
         pin: sectionRef.current,
+        /* We are making our own spacer */
+        pinSpacing: false,
         preventOverlaps: true,
         scrub: true,
-        start: 'top top',
         trigger: 'body',
-        onEnter: () => {
-          document.documentElement.classList.add('scrollytelling-playing')
-        },
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
           document.documentElement.classList.add('scrollytelling-playing')
         },
         onLeave: () => {
           document.documentElement.classList.remove('hide-header')
-          document.documentElement.classList.remove('scrollytelling-playing')
         }
       }
     })
 
     const printTimelineProgress = { progress: 0 }
-
-    // Calculate Distance (Percentaje) from the top of the screen to the top of the element
-    const target = sectionRef.current.getBoundingClientRect()
-    const distance =
-      window.pageYOffset + target.top - (window.innerHeight - target.height) / 2
-    const percentage = -(distance * 100) / target.height
 
     timeline
       .to(sectionRef.current, {
@@ -378,6 +393,14 @@ export function ReplayApplication() {
         duration: 7,
         ease: 'power3.out'
       })
+      .to(
+        recordBadge,
+        {
+          opacity: 1,
+          duration: 2
+        },
+        '<'
+      )
       .add(() => {
         setOverboardColor('red')
       })
@@ -413,7 +436,13 @@ export function ReplayApplication() {
 
       /* Viewer */
       .add(flipTimeline1 as GSAPTimeline, '+=2')
-      .to({}, { duration: 10 }, '<')
+      .to(
+        recordBadge,
+        {
+          opacity: 0
+        },
+        '<'
+      )
       .fromTo(
         applicationRef.current,
         {
@@ -454,16 +483,77 @@ export function ReplayApplication() {
         },
         '<'
       )
-      .add(() => {
-        floorAndRotateTimeline.current?.play()
-      })
+      .fromTo(
+        printTimelineProgress,
+        {
+          progress: 20
+        },
+        {
+          progress: 100,
+          duration: 10,
+          ease: 'linear',
+          onStart: () => {
+            setStoreState('idle')
+            progressBarRef.current?.update(20)
+            setCurrentTime(timelineDuration * 0.2)
+          },
+          onUpdate() {
+            const progress = printTimelineProgress.progress
+
+            if (progress > 25 && progress < 50) {
+              setStoreState('loading')
+            } else if (progress < 25) {
+              setStoreState('idle')
+            }
+
+            floorAndRotateTimeline.current?.seek(
+              (floorAndRotateTimelineDuration / 4) * this.progress(),
+              false
+            )
+            ;(codeRef.current?.timeline as ProgressAPI)?.update(progress)
+            progressBarRef.current?.update(progress)
+            setCurrentTime(timelineDuration * (progress / 100))
+          }
+        }
+      )
+
+      /* Comments */
+
+      /* Devtools */
       .add(() => {
         floorAndRotateTimeline.current?.pause()
-      })
+      }, '+=3')
       .fromTo(
         viewToggleRef.current,
         { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
         { clipPath: 'inset(4px 4px 4px 50% round 4px)' }
+      )
+      .fromTo(
+        devtoolsTools,
+        {
+          yPercent: -20,
+          opacity: 0
+        },
+        {
+          yPercent: 1,
+          opacity: 1,
+          duration: 2,
+          stagger: 0.3
+        },
+        '<'
+      )
+      .fromTo(
+        headerUsers[0],
+        {
+          xPercent: 20,
+          opacity: 0
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          duration: 2
+        },
+        '<'
       )
 
       /* Devtools */
@@ -722,262 +812,322 @@ export function ReplayApplication() {
   }
 
   return (
-    <Section
-      className={s['section']}
-      /* @ts-ignore */
-      style={{ '--padding': padding + 'px' }}
-      ref={sectionRef}
-    >
-      <AspectBox
-        ratio={1920 / 1080}
-        className={s['store-container']}
-        ref={targetStoreRef}
+    <div id="scrollytelling-spacer">
+      <Section
+        className={s['section']}
+        /* @ts-ignore */
+        ref={sectionRef}
       >
-        <OverboardStore
-          storeId={storeId}
-          state={storeState}
-          overboardColor={overboardColor}
-          style={{ height: '100%' }}
-          mode="full"
-          inspectMode="react"
-          ref={storeApiRef}
-        />
-      </AspectBox>
-
-      <AspectBox className={s['app-container']} ratio={1920 / 1080}>
         <AspectBox
-          ratio={1360 / 910}
-          className={s['app']}
-          /* @ts-ignore */
-          style={{ '--padding': padding + 'px' }}
-          ref={applicationRef}
+          ratio={1920 / 1080}
+          className={s['store-container']}
+          ref={targetStoreRef}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0 32px',
-              backgroundColor: 'white',
-              height: headerHeight,
-              borderBottom: '1px solid var(--color-gray-lighter)'
-            }}
+          <svg
+            width="86"
+            height="40"
+            viewBox="0 0 86 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={clsx('record', s['record'])}
           >
-            <div style={{ width: 25, color: 'var(--color-pink-crayon)' }}>
-              <IsoLogo />
+            <rect
+              className={s['bg']}
+              width="86"
+              height="40"
+              rx="8"
+              fill="#F41C52"
+            />
+            <path
+              d="M20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30Z"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              className={s['circle']}
+              d="M20 26C23.3137 26 26 23.3137 26 20C26 16.6863 23.3137 14 20 14C16.6863 14 14 16.6863 14 20C14 23.3137 16.6863 26 20 26Z"
+              fill="white"
+            />
+            <path
+              d="M39.7614 27V12.4545H44.6761C45.8125 12.4545 46.7453 12.6487 47.4744 13.0369C48.2036 13.4205 48.7434 13.9484 49.0938 14.6207C49.4441 15.2931 49.6193 16.0578 49.6193 16.9148C49.6193 17.7718 49.4441 18.5317 49.0938 19.1946C48.7434 19.8575 48.206 20.3783 47.4815 20.7571C46.7571 21.1312 45.8314 21.3182 44.7045 21.3182H40.7273V19.7273H44.6477C45.4242 19.7273 46.0492 19.6136 46.5227 19.3864C47.0009 19.1591 47.3466 18.8371 47.5597 18.4205C47.7775 17.9991 47.8864 17.4972 47.8864 16.9148C47.8864 16.3324 47.7775 15.8234 47.5597 15.3878C47.3419 14.9522 46.9938 14.616 46.5156 14.3793C46.0374 14.1378 45.4053 14.017 44.6193 14.017H41.5227V27H39.7614ZM46.608 20.4659L50.1875 27H48.142L44.6193 20.4659H46.608ZM52.5543 27V12.4545H61.3327V14.017H54.3157V18.9318H60.8782V20.4943H54.3157V25.4375H61.4464V27H52.5543ZM76.212 17H74.4506C74.3465 16.4934 74.1642 16.0483 73.9038 15.6648C73.6481 15.2812 73.3356 14.9593 72.9663 14.6989C72.6017 14.4337 72.1969 14.2348 71.7518 14.1023C71.3067 13.9697 70.8427 13.9034 70.3597 13.9034C69.479 13.9034 68.6812 14.1259 67.9663 14.571C67.256 15.0161 66.6902 15.6719 66.2688 16.5384C65.8522 17.4048 65.6438 18.4678 65.6438 19.7273C65.6438 20.9867 65.8522 22.0497 66.2688 22.9162C66.6902 23.7827 67.256 24.4384 67.9663 24.8835C68.6812 25.3286 69.479 25.5511 70.3597 25.5511C70.8427 25.5511 71.3067 25.4848 71.7518 25.3523C72.1969 25.2197 72.6017 25.0232 72.9663 24.7628C73.3356 24.4976 73.6481 24.1733 73.9038 23.7898C74.1642 23.4015 74.3465 22.9564 74.4506 22.4545H76.212C76.0794 23.1979 75.838 23.8632 75.4876 24.4503C75.1372 25.0374 74.7016 25.5369 74.1808 25.9489C73.6599 26.3561 73.0752 26.6662 72.4265 26.8793C71.7826 27.0923 71.0936 27.1989 70.3597 27.1989C69.1192 27.1989 68.016 26.8958 67.0501 26.2898C66.0842 25.6837 65.3242 24.822 64.7702 23.7045C64.2163 22.5871 63.9393 21.2614 63.9393 19.7273C63.9393 18.1932 64.2163 16.8674 64.7702 15.75C65.3242 14.6326 66.0842 13.7708 67.0501 13.1648C68.016 12.5587 69.1192 12.2557 70.3597 12.2557C71.0936 12.2557 71.7826 12.3622 72.4265 12.5753C73.0752 12.7884 73.6599 13.1009 74.1808 13.5128C74.7016 13.92 75.1372 14.4171 75.4876 15.0043C75.838 15.5866 76.0794 16.2519 76.212 17Z"
+              fill="white"
+            />
+          </svg>
+
+          <OverboardStore
+            storeId={storeId}
+            state={storeState}
+            overboardColor={overboardColor}
+            style={{ height: '100%' }}
+            mode="full"
+            inspectMode="react"
+            ref={storeApiRef}
+          />
+        </AspectBox>
+
+        <AspectBox className={s['app-container']} ratio={1920 / 1080}>
+          <AspectBox
+            ratio={1360 / 910}
+            className={s['app']}
+            /* @ts-ignore */
+            style={{ '--padding': padding + 'px' }}
+            ref={applicationRef}
+          >
+            <div
+              className={clsx('header', s['header'])}
+              // @ts-ignore
+              style={{ '--height': headerHeight + 'px' }}
+            >
+              <div className={s['logo']}>
+                <IsoLogo />
+              </div>
+              <div className={s['users']}>
+                <img className="user" src={avatarTwo.src} />
+                <img className="user" src={avatarThree.src} />
+              </div>
+              <ViewToggle ref={viewToggleRef} />
             </div>
+
             <div
               style={{
-                display: 'grid',
-                gridAutoFlow: 'column',
-                gridAutoColumns: 32,
-                gap: 8,
-                marginLeft: 'auto',
-                marginRight: 24
+                position: 'relative',
+                display: 'flex',
+                height: `calc(100% - ${
+                  padding * 2
+                }px - ${headerHeight}px - ${timelineHeight}px)`,
+                flex: 1
               }}
             >
-              <img src={avatarOne.src} style={{ borderRadius: '100%' }} />
-              <img src={avatarTwo.src} style={{ borderRadius: '100%' }} />
-              <img src={avatarThree.src} style={{ borderRadius: '100%' }} />
-            </div>
-            <ViewToggle ref={viewToggleRef} />
-          </div>
-
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              height: `calc(100% - ${
-                padding * 2
-              }px - ${headerHeight}px - ${timelineHeight}px)`,
-              flex: 1
-            }}
-          >
-            <div className={s['toolbar']}>
-              <svg
-                width="24"
-                height="218"
-                viewBox="0 0 24 218"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clipPath="url(#clip0_806_120)">
-                  <path
-                    d="M11.7419 2.32324C6.47972 2.32324 2.20898 6.59398 2.20898 11.8561C2.20898 17.1183 6.47972 21.389 11.7419 21.389C17.004 21.389 21.2748 17.1183 21.2748 11.8561C21.2748 6.59398 17.004 2.32324 11.7419 2.32324ZM12.6952 16.6226H10.7886V10.9029H12.6952V16.6226ZM12.6952 8.99627H10.7886V7.08969H12.6952V8.99627Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
-                <g clipPath="url(#clip1_806_120)">
-                  <path
-                    d="M19.3682 56.3394H18.4149V63.6723C18.4149 64.1765 17.9859 64.589 17.4616 64.589H6.02214V65.5056C6.02214 66.5139 6.8801 67.3388 7.92872 67.3388H17.4616L21.2748 71.0053V58.1726C21.2748 57.1643 20.4168 56.3394 19.3682 56.3394ZM16.5083 60.9225V54.5061C16.5083 53.4978 15.6504 52.6729 14.6018 52.6729H4.11556C3.06695 52.6729 2.20898 53.4978 2.20898 54.5061V66.4222L6.02214 62.7557H14.6018C15.6504 62.7557 16.5083 61.9308 16.5083 60.9225Z"
-                    fill="#BCBCBC"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_806_120">
-                    <rect
-                      width="22.8789"
-                      height="22.8789"
-                      fill="white"
-                      transform="translate(0.303711 0.416992)"
+              <div className={clsx('toolbar', s['toolbar'])}>
+                <svg
+                  width="24"
+                  height="218"
+                  viewBox="0 0 24 218"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clipPath="url(#clip0_806_120)" className="info">
+                    <path
+                      d="M11.7419 2.32324C6.47972 2.32324 2.20898 6.59398 2.20898 11.8561C2.20898 17.1183 6.47972 21.389 11.7419 21.389C17.004 21.389 21.2748 17.1183 21.2748 11.8561C21.2748 6.59398 17.004 2.32324 11.7419 2.32324ZM12.6952 16.6226H10.7886V10.9029H12.6952V16.6226ZM12.6952 8.99627H10.7886V7.08969H12.6952V8.99627Z"
+                      fill="#BCBCBC"
                     />
-                  </clipPath>
-                  <clipPath id="clip1_806_120">
-                    <rect
-                      width="22.8789"
-                      height="22.8789"
-                      fill="white"
-                      transform="translate(0.303711 50.29)"
+                  </g>
+                  <g clipPath="url(#clip1_806_120)" className="comments">
+                    <path
+                      d="M19.3682 56.3394H18.4149V63.6723C18.4149 64.1765 17.9859 64.589 17.4616 64.589H6.02214V65.5056C6.02214 66.5139 6.8801 67.3388 7.92872 67.3388H17.4616L21.2748 71.0053V58.1726C21.2748 57.1643 20.4168 56.3394 19.3682 56.3394ZM16.5083 60.9225V54.5061C16.5083 53.4978 15.6504 52.6729 14.6018 52.6729H4.11556C3.06695 52.6729 2.20898 53.4978 2.20898 54.5061V66.4222L6.02214 62.7557H14.6018C15.6504 62.7557 16.5083 61.9308 16.5083 60.9225Z"
+                      fill="#BCBCBC"
                     />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-            <div className={s['grid']}>
-              <AspectBox
-                ratio={1920 / 1080}
-                style={{
-                  position: 'absolute',
-                  right: 0,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  width: '49%'
-                }}
-                ref={smallRightCenteredStoreRef}
-              />
-              <AspectBox
-                ratio={1920 / 1080}
-                style={{
-                  gridArea: '1 / 1 / 3 / 6',
-                  alignSelf: 'center'
-                }}
-                ref={smallCenteredStoreRef}
-              />
-              <div
-                style={{
-                  gridArea: 'code',
-                  position: 'relative'
-                }}
-                ref={codeAreaRef}
-              >
-                <Code
-                  filename="PurchaseForm.tsx"
-                  printPanelConfig={{
-                    onChangeMarker: (v) => setMarkersType(v),
-                    print: '"response", response',
-                    markers: printMarkers,
-                    printLineTarget: 14,
-                    timelineType: 'justUi',
-                    currentMarker: 'transparent',
-                    onHit: handleHit,
-                    currentHit
+                  </g>
+                  <g clipPath="url(#clip2_806_120)" className="code">
+                    <path
+                      d="M13.07 102.428C12.7375 102.096 12.2912 101.912 11.8275 101.912H5.55371C4.59121 101.912 3.80371 102.7 3.80371 103.662V117.662C3.80371 118.625 4.58246 119.412 5.54496 119.412H16.0537C17.0162 119.412 17.8037 118.625 17.8037 117.662V107.888C17.8037 107.425 17.62 106.978 17.2875 106.655L13.07 102.428ZM13.4287 115.912H8.17871C7.69746 115.912 7.30371 115.518 7.30371 115.037C7.30371 114.556 7.69746 114.162 8.17871 114.162H13.4287C13.91 114.162 14.3037 114.556 14.3037 115.037C14.3037 115.518 13.91 115.912 13.4287 115.912ZM13.4287 112.412H8.17871C7.69746 112.412 7.30371 112.018 7.30371 111.537C7.30371 111.056 7.69746 110.662 8.17871 110.662H13.4287C13.91 110.662 14.3037 111.056 14.3037 111.537C14.3037 112.018 13.91 112.412 13.4287 112.412ZM11.6787 107.162V103.225L16.4912 108.037H12.5537C12.0725 108.037 11.6787 107.643 11.6787 107.162Z"
+                      fill="#BCBCBC"
+                    />
+                  </g>
+                  <g clipPath="url(#clip3_806_120)" className="debugger">
+                    <path
+                      d="M19.5537 158.656C19.5537 163.486 15.6337 167.406 10.8037 167.406C5.97371 167.406 2.05371 163.486 2.05371 158.656C2.05371 157.615 2.24621 156.626 2.57871 155.699L4.22371 156.294C3.95246 157.029 3.80371 157.825 3.80371 158.656C3.80371 162.515 6.94496 165.656 10.8037 165.656C14.6625 165.656 17.8037 162.515 17.8037 158.656C17.8037 154.798 14.6625 151.656 10.8037 151.656C9.97246 151.656 9.18496 151.805 8.44996 152.076L7.85496 150.423C8.78246 150.099 9.77121 149.906 10.8037 149.906C15.6337 149.906 19.5537 153.826 19.5537 158.656ZM5.11621 151.656C4.38996 151.656 3.80371 152.243 3.80371 152.969C3.80371 153.695 4.38996 154.281 5.11621 154.281C5.84246 154.281 6.42871 153.695 6.42871 152.969C6.42871 152.243 5.84246 151.656 5.11621 151.656ZM16.0537 158.656C16.0537 161.553 13.7 163.906 10.8037 163.906C7.90746 163.906 5.55371 161.553 5.55371 158.656C5.55371 155.76 7.90746 153.406 10.8037 153.406C13.7 153.406 16.0537 155.76 16.0537 158.656ZM9.92871 156.031H8.17871V161.281H9.92871V156.031ZM13.4287 156.031H11.6787V161.281H13.4287V156.031Z"
+                      fill="#BCBCBC"
+                    />
+                  </g>
+                  <g clipPath="url(#clip4_806_120)" className="search">
+                    <path
+                      d="M13.8662 208.399H13.175L12.93 208.163C13.7875 207.166 14.3037 205.871 14.3037 204.462C14.3037 201.321 11.7575 198.774 8.61621 198.774C5.47496 198.774 2.92871 201.321 2.92871 204.462C2.92871 207.603 5.47496 210.149 8.61621 210.149C10.025 210.149 11.32 209.633 12.3175 208.776L12.5537 209.021V209.712L16.9287 214.078L18.2325 212.774L13.8662 208.399V208.399ZM8.61621 208.399C6.43746 208.399 4.67871 206.641 4.67871 204.462C4.67871 202.283 6.43746 200.524 8.61621 200.524C10.795 200.524 12.5537 202.283 12.5537 204.462C12.5537 206.641 10.795 208.399 8.61621 208.399Z"
+                      fill="#BCBCBC"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_806_120">
+                      <rect
+                        width="22.8789"
+                        height="22.8789"
+                        fill="white"
+                        transform="translate(0.303711 0.416992)"
+                      />
+                    </clipPath>
+                    <clipPath id="clip1_806_120">
+                      <rect
+                        width="22.8789"
+                        height="22.8789"
+                        fill="white"
+                        transform="translate(0.303711 50.29)"
+                      />
+                    </clipPath>
+                    <clipPath id="clip2_806_120">
+                      <rect
+                        width="21"
+                        height="21"
+                        fill="white"
+                        transform="translate(0.303711 100.162)"
+                      />
+                    </clipPath>
+                    <clipPath id="clip3_806_120">
+                      <rect
+                        width="21"
+                        height="21"
+                        fill="white"
+                        transform="translate(0.303711 148.156)"
+                      />
+                    </clipPath>
+                    <clipPath id="clip4_806_120">
+                      <rect
+                        width="21"
+                        height="21"
+                        fill="white"
+                        transform="translate(0.303711 196.149)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+              <div className={s['grid']}>
+                <AspectBox
+                  ratio={1920 / 1080}
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '49%'
                   }}
-                  className={s['code']}
-                  printIndicators={{
-                    1: 'not-available',
-                    2: 'available',
-                    4: 'available',
-                    5: 'available',
-                    6: 'available',
-                    7: 'available',
-                    8: 'available',
-                    9: 'not-available',
-                    10: 'not-available',
-                    11: 'not-available',
-                    15: 'available',
-                    16: 'available'
+                  ref={smallRightCenteredStoreRef}
+                />
+                <AspectBox
+                  ratio={1920 / 1080}
+                  style={{
+                    gridArea: '1 / 1 / 3 / 6',
+                    alignSelf: 'center'
                   }}
-                  code={codeBlock}
-                  ref={codeRef}
+                  ref={smallCenteredStoreRef}
                 />
                 <div
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    opacity: 0
+                    gridArea: 'code',
+                    position: 'relative'
                   }}
-                  ref={devtoolsPanelRef}
+                  ref={codeAreaRef}
                 >
-                  <DevTools
-                    onlyShow={devtoolsTabs}
-                    panelWrapperProps={{ style: { flex: 1 } }}
-                    style={{ height: '100%' }}
-                    onPanelTabChange={(tab) => {
-                      // eslint-disable-next-line no-prototype-builtins
-                      if (devtoolProps.hasOwnProperty(tab)) {
-                        setActiveDevtoolTab(tab)
-                      }
+                  <Code
+                    filename="handle-submit.ts"
+                    printPanelConfig={{
+                      onChangeMarker: (v) => setMarkersType(v),
+                      print: '"response", response',
+                      markers: printMarkers,
+                      printLineTarget: 14,
+                      timelineType: 'justUi',
+                      currentMarker: 'transparent',
+                      onHit: handleHit,
+                      currentHit
                     }}
-                    panel={activeDevtoolTab}
-                    // @ts-ignore
-                    panelProps={devtoolProps[activeDevtoolTab]}
+                    className={s['code']}
+                    printIndicators={{
+                      1: 'not-available',
+                      2: 'available',
+                      4: 'available',
+                      5: 'available',
+                      6: 'available',
+                      7: 'available',
+                      8: 'available',
+                      9: 'not-available',
+                      10: 'not-available',
+                      11: 'not-available',
+                      15: 'available',
+                      16: 'available'
+                    }}
+                    code={codeBlock}
+                    ref={codeRef}
                   />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
+                      opacity: 0
+                    }}
+                    ref={devtoolsPanelRef}
+                  >
+                    <DevTools
+                      onlyShow={devtoolsTabs}
+                      panelWrapperProps={{ style: { flex: 1 } }}
+                      style={{ height: '100%' }}
+                      onPanelTabChange={(tab) => {
+                        // eslint-disable-next-line no-prototype-builtins
+                        if (devtoolProps.hasOwnProperty(tab)) {
+                          setActiveDevtoolTab(tab)
+                        }
+                      }}
+                      panel={activeDevtoolTab}
+                      // @ts-ignore
+                      panelProps={devtoolProps[activeDevtoolTab]}
+                    />
+                  </div>
                 </div>
+                <div
+                  style={{
+                    gridArea: 'store'
+                  }}
+                  ref={smallRightStoreAreaRef}
+                />
+                <div style={{ gridArea: 'devtools' }} ref={devtoolsAreaRef} />
               </div>
-              <div
-                style={{
-                  gridArea: 'store'
-                }}
-                ref={smallRightStoreAreaRef}
-              />
-              <div style={{ gridArea: 'devtools' }} ref={devtoolsAreaRef} />
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: 24,
-              height: timelineHeight
-            }}
-          >
-            <svg
-              width="41"
-              viewBox="0 0 41 41"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="20.3979" cy="20.5102" r="16.5141" fill="#01ACFD" />
-              <path
-                d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
-                fill="#F9F9FA"
-              />
-            </svg>
-
-            <div style={{ flex: 1, margin: '0 20px' }}>
-              <ProgressBar
-                solid
-                animated={false}
-                progress={0}
-                primaryColor="#01ACFD"
-                secondaryColor="#D9D9D9"
-                markers={showPrints ? printMarkers : undefined}
-                markerSize={14}
-                markerActiveColor="var(--color-pink-crayon)"
-                ref={progressBarRef}
-              />
             </div>
 
-            <span
+            <div
               style={{
-                background: '#E6E6E6',
-                borderRadius: 'var(--border-radius-full)',
-                padding: '2px 12px',
-                fontVariantNumeric: 'tabular-nums',
-                fontSize: '12px'
+                display: 'flex',
+                alignItems: 'center',
+                padding: 24,
+                height: timelineHeight
               }}
             >
-              0:{padZeroesToNumber(Number(currentTime.toFixed(0)), 2)} / 0:
-              {padZeroesToNumber(timelineDuration, 2)}
-            </span>
-          </div>
+              <svg
+                width="41"
+                viewBox="0 0 41 41"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="20.3979" cy="20.5102" r="16.5141" fill="#01ACFD" />
+                <path
+                  d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
+                  fill="#F9F9FA"
+                />
+              </svg>
+
+              <div style={{ flex: 1, margin: '0 20px' }}>
+                <ProgressBar
+                  solid
+                  animated={false}
+                  progress={0}
+                  primaryColor="#01ACFD"
+                  secondaryColor="#D9D9D9"
+                  markers={showPrints ? printMarkers : undefined}
+                  markerSize={14}
+                  markerActiveColor="var(--color-pink-crayon)"
+                  ref={progressBarRef}
+                />
+              </div>
+
+              <span
+                style={{
+                  background: '#E6E6E6',
+                  borderRadius: 'var(--border-radius-full)',
+                  padding: '2px 12px',
+                  fontVariantNumeric: 'tabular-nums',
+                  fontSize: '12px'
+                }}
+              >
+                0:{padZeroesToNumber(Number(currentTime.toFixed(0)), 2)} / 0:
+                {padZeroesToNumber(timelineDuration, 2)}
+              </span>
+            </div>
+          </AspectBox>
         </AspectBox>
-      </AspectBox>
-    </Section>
+      </Section>
+    </div>
   )
 }
 

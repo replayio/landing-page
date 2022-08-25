@@ -37,8 +37,6 @@
 
 @media (min-width: $screen-md) {
   .section {
-    margin-top: 200px;
-
     .main-features {
       padding-left: 0;
       margin-left: 0;
@@ -55,5 +53,11 @@
     margin: 0;
     position: static;
     height: 640px;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .section {
+    margin-top: 200px;
   }
 }
