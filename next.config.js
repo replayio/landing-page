@@ -1,4 +1,5 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')
+const withMDX = require('@next/mdx')
 const withTM = require('next-transpile-modules')
 
 /**
@@ -6,6 +7,7 @@ const withTM = require('next-transpile-modules')
  */
 const config = {
   reactStrictMode: false,
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   productionBrowserSourceMaps: true,
   swcMinify: true,
   images: {
@@ -32,6 +34,7 @@ const config = {
 module.exports = (_phase, { defaultConfig: _ }) => {
   const plugins = [
     withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
+    withMDX({ options: { providerImportSource: '@mdx-js/react' } }),
     withTM([]) // add modules you want to transpile here
   ]
   return plugins.reduce((acc, plugin) => plugin(acc), { ...config })
