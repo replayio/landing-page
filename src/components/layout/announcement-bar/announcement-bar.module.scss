@@ -19,7 +19,8 @@
   }
 }
 
-:global(.scrollytelling-enabled.scrollytelling-playing) .announcement {
+:global(.scrollytelling-enabled.scrollytelling-playing:not(.scrollytelling-ending))
+  .announcement {
   position: sticky;
   top: 0px;
 }

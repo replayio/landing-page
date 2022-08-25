@@ -17,7 +17,7 @@ export const AnnouncementBar: FC<AnnouncementBarProps> = ({ text }) => {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `
-          document.documentElement.classList.add('has-announcement')
+          document.documentElement.classList.add('has-announcement');
         `
           }}
         />

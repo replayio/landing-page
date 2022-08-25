@@ -7,20 +7,21 @@ import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
-import { useDeviceDetect } from '~/hooks/use-device-detect'
+import {
+  useDeviceDetect,
+  useHasScrollyTelling
+} from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
-import { useMedia } from '~/hooks/use-media'
-import { breakpoints } from '~/lib/constants'
 
 import s from './hero.module.scss'
 
 export const Hero: FC = () => {
-  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const hasDesktop = useHasScrollyTelling()
   const ref = useRef<HTMLDivElement>(null)
   const { isDesktop } = useDeviceDetect()
 
   useIsomorphicLayoutEffect(() => {
-    if (ref.current && isDesktopSize) {
+    if (ref.current && hasDesktop) {
       // this class is used to change some styles for the Header and Hero.
       // fade out hero section:
       const tl = gsap
@@ -28,13 +29,7 @@ export const Hero: FC = () => {
           scrollTrigger: {
             start: 0,
             end: 300,
-            scrub: true,
-            onLeave: () => {
-              document.documentElement.classList.add('hide-header')
-            },
-            onEnterBack: () => {
-              document.documentElement.classList.remove('hide-header')
-            }
+            scrub: true
           }
         })
         .to([ref.current], {
@@ -46,7 +41,7 @@ export const Hero: FC = () => {
         tl?.kill()
       }
     }
-  }, [isDesktopSize])
+  }, [hasDesktop])
 
   return (
     <Section className={s['section']} ref={ref}>

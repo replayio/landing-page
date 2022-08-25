@@ -58,3 +58,9 @@ export const useDeviceDetect = (): DD => {
 
   return dd
 }
+
+export const useHasScrollyTelling = () => useDeviceDetect().isDesktop
+
+export function hasScrollyTelling() {
+  return ReactDeviceDetect.isDesktop
+}

@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
+import Head from 'next/head'
 import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
@@ -13,7 +14,10 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { IsoLogo } from '~/components/primitives/logo'
 import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-story/devtools/console'
-import { useDeviceDetect } from '~/hooks/use-device-detect'
+import {
+  hasScrollyTelling,
+  useHasScrollyTelling
+} from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isDev } from '~/lib/constants'
@@ -191,7 +195,7 @@ export function ReplayApplication() {
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
   const [currentTime, setCurrentTime] = useState(0)
-  const { isDesktop } = useDeviceDetect()
+  const hasScrollyTelling = useHasScrollyTelling()
   const progressBarRef = useRef<ProgressAPI>(null)
   const { width } = useViewportSize()
 
@@ -232,7 +236,14 @@ export function ReplayApplication() {
   useIsomorphicLayoutEffect(() => {
     if (
       /* Check device */
-      !isDesktop ||
+      !hasScrollyTelling
+    ) {
+      // these classes were added by an eager js code. we remove it if it's not right once we hydrate.
+      document.documentElement.classList.remove('scrollytelling-enabled')
+      document.documentElement.classList.remove('scrollytelling-playing')
+      return
+    }
+    if (
       /* Required refs */
       !applicationRef.current ||
       !smallCenteredStoreRef.current ||
@@ -352,6 +363,7 @@ export function ReplayApplication() {
     gsap.set(pinSpacer, { height: SCROLLYTELLING_PX_DURATION })
 
     document.documentElement.classList.add('scrollytelling-enabled')
+    document.documentElement.classList.add('scrollytelling-playing')
 
     const timeline = gsap.timeline({
       smoothChildTiming: true,
@@ -381,6 +393,7 @@ export function ReplayApplication() {
         },
         onLeave: () => {
           document.documentElement.classList.remove('hide-header')
+          document.documentElement.classList.remove('scrollytelling-playing')
         }
       }
     })
@@ -393,6 +406,12 @@ export function ReplayApplication() {
         duration: 7,
         ease: 'power3.out'
       })
+      .add(() => {
+        document.documentElement.classList.remove('hide-header')
+      }, '-=3')
+      .add(() => {
+        document.documentElement.classList.add('hide-header')
+      }, '<')
       .to(
         recordBadge,
         {
@@ -483,6 +502,12 @@ export function ReplayApplication() {
         },
         '<'
       )
+      .add(() => {
+        document.documentElement.classList.remove('scrollytelling-ending')
+      })
+      .add(() => {
+        document.documentElement.classList.add('scrollytelling-ending')
+      })
       .fromTo(
         printTimelineProgress,
         {
@@ -766,7 +791,7 @@ export function ReplayApplication() {
       clearProps(_devtoolsPanelRef, propsToClear)
       clearProps(_applicationRef, propsToClear)
     }
-  }, [isDesktop, width])
+  }, [hasScrollyTelling, width])
 
   const handleHit = useCallback((hit: number) => {
     setCurrentHit((prevValue) => {
@@ -1133,9 +1158,24 @@ export function ReplayApplication() {
 
 export function OverboardStory() {
   return (
-    <Container size="lg">
-      <ReplayApplication />
-    </Container>
+    <>
+      <Head>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+            if (${hasScrollyTelling()}) {
+              document.documentElement.classList.add('scrollytelling-enabled');
+              document.documentElement.classList.add('scrollytelling-playing');
+            }
+        `
+          }}
+        />
+      </Head>
+      <Container size="lg">
+        <ReplayApplication />
+      </Container>
+    </>
   )
 }
 

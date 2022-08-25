@@ -58,3 +58,9 @@
     margin-top: $px;
   }
 }
+
+@mixin has-scrollytelling {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}

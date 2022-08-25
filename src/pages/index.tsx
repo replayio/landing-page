@@ -1,3 +1,6 @@
+import Head from 'next/head'
+import { isDesktop } from 'react-device-detect'
+
 import { Meta } from '~/components/common/meta'
 import { PageLayout } from '~/components/layout/page'
 import { AsyncCollab } from '~/components/sections/home/async-collab'
@@ -14,6 +17,17 @@ const HomePage = () => {
   return (
     <PageLayout>
       <Meta />
+
+      <Head>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+        console.log({isDesktop: ${isDesktop}});
+        `
+          }}
+        />
+      </Head>
 
       <Hero />
       <OverboardStory />
