@@ -1,8 +1,9 @@
 import clsx from 'clsx'
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
+import Image from 'next/future/image'
 import Head from 'next/head'
-import { forwardRef, useCallback, useRef, useState } from 'react'
+import { FC, forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
@@ -129,6 +130,84 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   )
 })
 
+const RecSvg = () => (
+  <svg
+    width="86"
+    height="40"
+    viewBox="0 0 86 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={clsx('record', s['record'])}
+  >
+    <rect className={s['bg']} width="86" height="40" rx="8" fill="#F41C52" />
+    <path
+      d="M20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30Z"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      className={s['circle']}
+      d="M20 26C23.3137 26 26 23.3137 26 20C26 16.6863 23.3137 14 20 14C16.6863 14 14 16.6863 14 20C14 23.3137 16.6863 26 20 26Z"
+      fill="white"
+    />
+    <path
+      d="M39.7614 27V12.4545H44.6761C45.8125 12.4545 46.7453 12.6487 47.4744 13.0369C48.2036 13.4205 48.7434 13.9484 49.0938 14.6207C49.4441 15.2931 49.6193 16.0578 49.6193 16.9148C49.6193 17.7718 49.4441 18.5317 49.0938 19.1946C48.7434 19.8575 48.206 20.3783 47.4815 20.7571C46.7571 21.1312 45.8314 21.3182 44.7045 21.3182H40.7273V19.7273H44.6477C45.4242 19.7273 46.0492 19.6136 46.5227 19.3864C47.0009 19.1591 47.3466 18.8371 47.5597 18.4205C47.7775 17.9991 47.8864 17.4972 47.8864 16.9148C47.8864 16.3324 47.7775 15.8234 47.5597 15.3878C47.3419 14.9522 46.9938 14.616 46.5156 14.3793C46.0374 14.1378 45.4053 14.017 44.6193 14.017H41.5227V27H39.7614ZM46.608 20.4659L50.1875 27H48.142L44.6193 20.4659H46.608ZM52.5543 27V12.4545H61.3327V14.017H54.3157V18.9318H60.8782V20.4943H54.3157V25.4375H61.4464V27H52.5543ZM76.212 17H74.4506C74.3465 16.4934 74.1642 16.0483 73.9038 15.6648C73.6481 15.2812 73.3356 14.9593 72.9663 14.6989C72.6017 14.4337 72.1969 14.2348 71.7518 14.1023C71.3067 13.9697 70.8427 13.9034 70.3597 13.9034C69.479 13.9034 68.6812 14.1259 67.9663 14.571C67.256 15.0161 66.6902 15.6719 66.2688 16.5384C65.8522 17.4048 65.6438 18.4678 65.6438 19.7273C65.6438 20.9867 65.8522 22.0497 66.2688 22.9162C66.6902 23.7827 67.256 24.4384 67.9663 24.8835C68.6812 25.3286 69.479 25.5511 70.3597 25.5511C70.8427 25.5511 71.3067 25.4848 71.7518 25.3523C72.1969 25.2197 72.6017 25.0232 72.9663 24.7628C73.3356 24.4976 73.6481 24.1733 73.9038 23.7898C74.1642 23.4015 74.3465 22.9564 74.4506 22.4545H76.212C76.0794 23.1979 75.838 23.8632 75.4876 24.4503C75.1372 25.0374 74.7016 25.5369 74.1808 25.9489C73.6599 26.3561 73.0752 26.6662 72.4265 26.8793C71.7826 27.0923 71.0936 27.1989 70.3597 27.1989C69.1192 27.1989 68.016 26.8958 67.0501 26.2898C66.0842 25.6837 65.3242 24.822 64.7702 23.7045C64.2163 22.5871 63.9393 21.2614 63.9393 19.7273C63.9393 18.1932 64.2163 16.8674 64.7702 15.75C65.3242 14.6326 66.0842 13.7708 67.0501 13.1648C68.016 12.5587 69.1192 12.2557 70.3597 12.2557C71.0936 12.2557 71.7826 12.3622 72.4265 12.5753C73.0752 12.7884 73.6599 13.1009 74.1808 13.5128C74.7016 13.92 75.1372 14.4171 75.4876 15.0043C75.838 15.5866 76.0794 16.2519 76.212 17Z"
+      fill="white"
+    />
+  </svg>
+)
+
+type CommentModuleProps = {
+  comment: string
+}
+
+const CommentModule: FC<CommentModuleProps> = ({ comment }) => {
+  return (
+    <>
+      <svg
+        className={clsx('comment-icon', s['comment-icon'])}
+        width="44"
+        height="44"
+        viewBox="0 0 44 44"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="22" cy="22" r="22" fill="#DD4261" />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M19.0054 32.4325C18.5546 32.8438 18.2567 33 17.8864 33C17.347 33 17.0251 32.6216 17.0251 32.0211V29.6599H16.8077C14.61 29.6599 13 28.1134 13 25.6125V19.0476C13 16.5466 14.5054 15 16.9606 15H27.0313C29.4945 15 31 16.5548 31 19.0476V25.6125C31 28.1052 29.4945 29.6684 27.0313 29.6599H22.0724L19.0054 32.4325ZM18 23C18.5523 23 19 22.5523 19 22C19 21.4477 18.5523 21 18 21C17.4477 21 17 21.4477 17 22C17 22.5523 17.4477 23 18 23ZM22 23C22.5523 23 23 22.5523 23 22C23 21.4477 22.5523 21 22 21C21.4477 21 21 21.4477 21 22C21 22.5523 21.4477 23 22 23ZM27 22C27 22.5523 26.5523 23 26 23C25.4477 23 25 22.5523 25 22C25 21.4477 25.4477 21 26 21C26.5523 21 27 21.4477 27 22Z"
+          fill="white"
+        />
+      </svg>
+
+      <div className={clsx('comment', s['comment'])}>
+        <div className={clsx('content', s['content'])}>
+          <div className={s['content-inner']}>
+            <div className={s['header']}>
+              <Image className={s['picture']} src={avatarThree} />
+              <div>
+                <p className={s['name']}>Tina</p>
+                <p className={s['date']}>4 mins ago</p>
+              </div>
+            </div>
+            <p className={s['text']}>{comment}</p>
+          </div>
+        </div>
+        <div
+          data-text={comment}
+          data-placeholder="Type a comment..."
+          className={clsx('input', s['input'])}
+        >
+          Type a comment...
+        </div>
+      </div>
+    </>
+  )
+}
+
 const timelineDuration = 10
 const padding = 16
 const headerHeight = 70
@@ -137,7 +216,7 @@ const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
-const SCROLLYTELLING_PX_DURATION = 4000
+const SCROLLYTELLING_PX_DURATION = 15000
 
 const codeBlock = `export function handleSubmit(event) {
   event.preventDefault()
@@ -282,6 +361,21 @@ export function ReplayApplication() {
     const devtoolsTools = appSelector('.toolbar .debugger,.search,.code')
     const headerUsers = appSelector('.header .user')
     const recordBadge = storeSelector('.record')
+
+    /* First Comment */
+    const firstComment = storeSelector('#scrollytelling-firstcomment')
+    const firstCommentIcon = storeSelector(
+      '#scrollytelling-firstcomment .comment-icon'
+    )
+    const firstCommentContent = storeSelector(
+      '#scrollytelling-firstcomment .content'
+    )
+    const firstCommentBox = storeSelector(
+      '#scrollytelling-firstcomment .comment'
+    )
+    const [firstCommentInput] = storeSelector(
+      '#scrollytelling-firstcomment .input'
+    )
 
     /* Board and floor movement */
     const storeVariables = {
@@ -487,7 +581,7 @@ export function ReplayApplication() {
         '<'
       )
       .to(
-        storePurchase,
+        [storePurchase, firstComment],
         {
           yPercent: -50,
           duration: 3
@@ -503,9 +597,11 @@ export function ReplayApplication() {
         '<'
       )
       .add(() => {
+        floorAndRotateTimeline.current?.play()
         document.documentElement.classList.remove('scrollytelling-ending')
       })
       .add(() => {
+        floorAndRotateTimeline.current?.pause()
         document.documentElement.classList.add('scrollytelling-ending')
       })
       .fromTo(
@@ -525,7 +621,9 @@ export function ReplayApplication() {
           onUpdate() {
             const progress = printTimelineProgress.progress
 
-            if (progress > 25 && progress < 50) {
+            if (progress >= 50) {
+              setStoreState('error')
+            } else if (progress > 25 && progress < 50) {
               setStoreState('loading')
             } else if (progress < 25) {
               setStoreState('idle')
@@ -535,7 +633,6 @@ export function ReplayApplication() {
               (floorAndRotateTimelineDuration / 4) * this.progress(),
               false
             )
-            ;(codeRef.current?.timeline as ProgressAPI)?.update(progress)
             progressBarRef.current?.update(progress)
             setCurrentTime(timelineDuration * (progress / 100))
           }
@@ -543,11 +640,89 @@ export function ReplayApplication() {
       )
 
       /* Comments */
+      .fromTo(
+        firstCommentIcon,
+        {
+          scale: 0,
+          opacity: 0
+        },
+        {
+          scale: 1,
+          opacity: 1
+        }
+      )
+      .to(
+        firstCommentIcon,
+        {
+          scale: 1.2,
+          duration: 1
+        },
+        '+=2'
+      )
+      .to(firstCommentIcon, {
+        scale: 1,
+        duration: 1
+      })
+      .fromTo(
+        firstCommentBox,
+        {
+          transformOrigin: 'left top',
+          y: -8,
+          scale: 0.8,
+          opacity: 0
+        },
+        {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          ease: 'elastic.out',
+          duration: 3
+        },
+        '<'
+      )
+      .set(firstCommentInput, {
+        color: 'inherit',
+        text: ''
+      })
+      .to(
+        firstCommentInput,
+        {
+          text: firstCommentInput.dataset['text']
+        },
+        '<'
+      )
+      .set(firstCommentInput, {
+        color: 'inherit'
+      })
+      .set(firstCommentInput, {
+        clearProps: 'color',
+        text: firstCommentInput.dataset['placeholder']
+      })
+      .fromTo(
+        firstCommentContent,
+        {
+          scale: 0.8,
+          opacity: 0,
+          height: 0
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          height: 'auto'
+        }
+      )
+      .to(
+        firstCommentBox,
+        {
+          y: -8,
+          scale: 0.8,
+          opacity: 0,
+          duration: 1.5
+        },
+        '>+=2'
+      )
 
       /* Devtools */
-      .add(() => {
-        floorAndRotateTimeline.current?.pause()
-      }, '+=3')
       .fromTo(
         viewToggleRef.current,
         { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
@@ -848,38 +1023,19 @@ export function ReplayApplication() {
           className={s['store-container']}
           ref={targetStoreRef}
         >
-          <svg
-            width="86"
-            height="40"
-            viewBox="0 0 86 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={clsx('record', s['record'])}
+          <RecSvg />
+
+          <div
+            id="scrollytelling-firstcomment"
+            style={{
+              position: 'absolute',
+              left: '38.5%',
+              top: '45%',
+              zIndex: 40
+            }}
           >
-            <rect
-              className={s['bg']}
-              width="86"
-              height="40"
-              rx="8"
-              fill="#F41C52"
-            />
-            <path
-              d="M20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30Z"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              className={s['circle']}
-              d="M20 26C23.3137 26 26 23.3137 26 20C26 16.6863 23.3137 14 20 14C16.6863 14 14 16.6863 14 20C14 23.3137 16.6863 26 20 26Z"
-              fill="white"
-            />
-            <path
-              d="M39.7614 27V12.4545H44.6761C45.8125 12.4545 46.7453 12.6487 47.4744 13.0369C48.2036 13.4205 48.7434 13.9484 49.0938 14.6207C49.4441 15.2931 49.6193 16.0578 49.6193 16.9148C49.6193 17.7718 49.4441 18.5317 49.0938 19.1946C48.7434 19.8575 48.206 20.3783 47.4815 20.7571C46.7571 21.1312 45.8314 21.3182 44.7045 21.3182H40.7273V19.7273H44.6477C45.4242 19.7273 46.0492 19.6136 46.5227 19.3864C47.0009 19.1591 47.3466 18.8371 47.5597 18.4205C47.7775 17.9991 47.8864 17.4972 47.8864 16.9148C47.8864 16.3324 47.7775 15.8234 47.5597 15.3878C47.3419 14.9522 46.9938 14.616 46.5156 14.3793C46.0374 14.1378 45.4053 14.017 44.6193 14.017H41.5227V27H39.7614ZM46.608 20.4659L50.1875 27H48.142L44.6193 20.4659H46.608ZM52.5543 27V12.4545H61.3327V14.017H54.3157V18.9318H60.8782V20.4943H54.3157V25.4375H61.4464V27H52.5543ZM76.212 17H74.4506C74.3465 16.4934 74.1642 16.0483 73.9038 15.6648C73.6481 15.2812 73.3356 14.9593 72.9663 14.6989C72.6017 14.4337 72.1969 14.2348 71.7518 14.1023C71.3067 13.9697 70.8427 13.9034 70.3597 13.9034C69.479 13.9034 68.6812 14.1259 67.9663 14.571C67.256 15.0161 66.6902 15.6719 66.2688 16.5384C65.8522 17.4048 65.6438 18.4678 65.6438 19.7273C65.6438 20.9867 65.8522 22.0497 66.2688 22.9162C66.6902 23.7827 67.256 24.4384 67.9663 24.8835C68.6812 25.3286 69.479 25.5511 70.3597 25.5511C70.8427 25.5511 71.3067 25.4848 71.7518 25.3523C72.1969 25.2197 72.6017 25.0232 72.9663 24.7628C73.3356 24.4976 73.6481 24.1733 73.9038 23.7898C74.1642 23.4015 74.3465 22.9564 74.4506 22.4545H76.212C76.0794 23.1979 75.838 23.8632 75.4876 24.4503C75.1372 25.0374 74.7016 25.5369 74.1808 25.9489C73.6599 26.3561 73.0752 26.6662 72.4265 26.8793C71.7826 27.0923 71.0936 27.1989 70.3597 27.1989C69.1192 27.1989 68.016 26.8958 67.0501 26.2898C66.0842 25.6837 65.3242 24.822 64.7702 23.7045C64.2163 22.5871 63.9393 21.2614 63.9393 19.7273C63.9393 18.1932 64.2163 16.8674 64.7702 15.75C65.3242 14.6326 66.0842 13.7708 67.0501 13.1648C68.016 12.5587 69.1192 12.2557 70.3597 12.2557C71.0936 12.2557 71.7826 12.3622 72.4265 12.5753C73.0752 12.7884 73.6599 13.1009 74.1808 13.5128C74.7016 13.92 75.1372 14.4171 75.4876 15.0043C75.838 15.5866 76.0794 16.2519 76.212 17Z"
-              fill="white"
-            />
-          </svg>
+            <CommentModule comment="This is throwing error." />
+          </div>
 
           <OverboardStore
             storeId={storeId}
@@ -1042,7 +1198,7 @@ export function ReplayApplication() {
                       markers: printMarkers,
                       printLineTarget: 14,
                       timelineType: 'justUi',
-                      currentMarker: 'transparent',
+                      currentMarker: markersType,
                       onHit: handleHit,
                       currentHit
                     }}
