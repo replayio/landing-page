@@ -182,6 +182,63 @@
   border: 1px solid var(--color-gray-lighter);
 }
 
+.comment-icon {
+  opacity: 0;
+}
+
+.comment {
+  overflow: hidden;
+  margin-top: 12px;
+  background: var(--color-white);
+  width: max-content;
+  min-width: 316px;
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--border-radius-lg);
+  opacity: 0;
+  font-size: 16px;
+  line-height: 1;
+
+  .content {
+    overflow: hidden;
+
+    .content-inner {
+      padding: 20px;
+
+      .header {
+        display: flex;
+        align-items: center;
+
+        @include space-x(12px);
+
+        .picture {
+          border-radius: var(--border-radius-full);
+          width: 44px;
+        }
+
+        .name {
+          font-weight: 600;
+        }
+
+        .date {
+          color: var(--color-gray-light);
+        }
+      }
+
+      .text {
+        margin-top: 12px;
+      }
+    }
+  }
+
+  .input {
+    box-sizing: content-box;
+    border-top: 1px solid var(--color-gray-light);
+    padding: 20px;
+    color: var(--color-gray-light);
+    height: 16px;
+  }
+}
+
 @keyframes record-bg {
   0% {
     opacity: 0.8;
