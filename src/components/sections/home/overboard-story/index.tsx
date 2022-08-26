@@ -1,8 +1,7 @@
 import clsx from 'clsx'
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
-import Image from 'next/future/image'
-import React, { FC, forwardRef, useCallback, useRef, useState } from 'react'
+import React, { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
@@ -23,6 +22,7 @@ import avatarTwo from '~/public/images/home/avatar-2.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
 
 import { Code, CodeRef } from './code'
+import { CommentModule } from './comment-module'
 import {
   buildUuids,
   IdentifiedNode,
@@ -154,55 +154,6 @@ const RecSvg = () => (
     />
   </svg>
 )
-
-type CommentModuleProps = {
-  comment: string
-}
-
-const CommentModule: FC<CommentModuleProps> = ({ comment }) => {
-  return (
-    <>
-      <svg
-        className={clsx('comment-icon', s['comment-icon'])}
-        width="44"
-        height="44"
-        viewBox="0 0 44 44"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="22" cy="22" r="22" fill="#DD4261" />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M19.0054 32.4325C18.5546 32.8438 18.2567 33 17.8864 33C17.347 33 17.0251 32.6216 17.0251 32.0211V29.6599H16.8077C14.61 29.6599 13 28.1134 13 25.6125V19.0476C13 16.5466 14.5054 15 16.9606 15H27.0313C29.4945 15 31 16.5548 31 19.0476V25.6125C31 28.1052 29.4945 29.6684 27.0313 29.6599H22.0724L19.0054 32.4325ZM18 23C18.5523 23 19 22.5523 19 22C19 21.4477 18.5523 21 18 21C17.4477 21 17 21.4477 17 22C17 22.5523 17.4477 23 18 23ZM22 23C22.5523 23 23 22.5523 23 22C23 21.4477 22.5523 21 22 21C21.4477 21 21 21.4477 21 22C21 22.5523 21.4477 23 22 23ZM27 22C27 22.5523 26.5523 23 26 23C25.4477 23 25 22.5523 25 22C25 21.4477 25.4477 21 26 21C26.5523 21 27 21.4477 27 22Z"
-          fill="white"
-        />
-      </svg>
-
-      <div className={clsx('comment', s['comment'])}>
-        <div className={clsx('content', s['content'])}>
-          <div className={s['content-inner']}>
-            <div className={s['header']}>
-              <Image className={s['picture']} src={avatarThree} />
-              <div>
-                <p className={s['name']}>Tina</p>
-                <p className={s['date']}>4 mins ago</p>
-              </div>
-            </div>
-            <p className={s['text']}>{comment}</p>
-          </div>
-        </div>
-        <div
-          data-text={comment}
-          data-placeholder="Type a comment..."
-          className={clsx('input', s['input'])}
-        >
-          Type a comment...
-        </div>
-      </div>
-    </>
-  )
-}
 
 const timelineDuration = 10
 const padding = 16
@@ -352,18 +303,32 @@ export function ReplayApplication() {
     const recordBadge = storeSelector('.record')
 
     /* First Comment */
-    const firstComment = storeSelector('#scrollytelling-firstcomment')
+    const firstComment = storeSelector('#scrollytelling-first-comment')
     const firstCommentIcon = storeSelector(
-      '#scrollytelling-firstcomment .comment-icon'
+      '#scrollytelling-first-comment .comment-icon'
     )
     const firstCommentContent = storeSelector(
-      '#scrollytelling-firstcomment .content'
+      '#scrollytelling-first-comment .content'
     )
     const firstCommentBox = storeSelector(
-      '#scrollytelling-firstcomment .comment'
+      '#scrollytelling-first-comment .comment'
     )
     const [firstCommentInput] = storeSelector(
-      '#scrollytelling-firstcomment .input'
+      '#scrollytelling-first-comment .input'
+    )
+
+    /* Second Comment */
+    const secondCommentIcon = appSelector(
+      '#scrollytelling-second-comment .comment-icon'
+    )
+    const secondCommentContent = appSelector(
+      '#scrollytelling-second-comment .content'
+    )
+    const secondCommentBox = appSelector(
+      '#scrollytelling-second-comment .comment'
+    )
+    const [secondCommentInput] = appSelector(
+      '#scrollytelling-second-comment .input'
     )
 
     /* Board and floor movement */
@@ -622,6 +587,7 @@ export function ReplayApplication() {
       )
 
       /* Comments */
+      .set(firstComment, { opacity: 1 })
       .fromTo(
         firstCommentIcon,
         {
@@ -669,7 +635,7 @@ export function ReplayApplication() {
       .to(
         firstCommentInput,
         {
-          text: firstCommentInput.dataset['text']
+          text: firstCommentInput?.dataset['text']
         },
         '<'
       )
@@ -678,7 +644,7 @@ export function ReplayApplication() {
       })
       .set(firstCommentInput, {
         clearProps: 'color',
-        text: firstCommentInput.dataset['placeholder']
+        text: firstCommentInput?.dataset['placeholder']
       })
       .fromTo(
         firstCommentContent,
@@ -928,6 +894,66 @@ export function ReplayApplication() {
           }
         }
       )
+      .to(
+        secondCommentIcon,
+        {
+          scale: 1.2,
+          duration: 1
+        },
+        '+=2'
+      )
+      .to(secondCommentIcon, {
+        scale: 1,
+        duration: 1
+      })
+      .fromTo(
+        secondCommentBox,
+        {
+          transformOrigin: 'right top',
+          y: -8,
+          scale: 0.8,
+          opacity: 0
+        },
+        {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          ease: 'elastic.out',
+          duration: 3
+        },
+        '<'
+      )
+      .set(secondCommentInput, {
+        color: 'inherit',
+        text: ''
+      })
+      .to(
+        secondCommentInput,
+        {
+          text: secondCommentInput?.dataset['text']
+        },
+        '<'
+      )
+      .set(secondCommentInput, {
+        color: 'inherit'
+      })
+      .set(secondCommentInput, {
+        clearProps: 'color',
+        text: secondCommentInput?.dataset['placeholder']
+      })
+      .fromTo(
+        secondCommentContent,
+        {
+          scale: 0.8,
+          opacity: 0,
+          height: 0
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          height: 'auto'
+        }
+      )
 
     return () => {
       /* ScrollTrigger Cleanup */
@@ -1006,15 +1032,20 @@ export function ReplayApplication() {
           <RecSvg />
 
           <div
-            id="scrollytelling-firstcomment"
+            id="scrollytelling-first-comment"
             style={{
+              opacity: 0,
+              width: 44,
               position: 'absolute',
               left: '38.5%',
-              top: '45%',
-              zIndex: 40
+              top: '38%',
+              zIndex: 'var(--z-index-20)'
             }}
           >
-            <CommentModule comment="This is throwing error." />
+            <CommentModule
+              avatar={avatarThree}
+              comment="This is throwing error."
+            />
           </div>
 
           <OverboardStore

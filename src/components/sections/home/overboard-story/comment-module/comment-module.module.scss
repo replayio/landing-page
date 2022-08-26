@@ -1,0 +1,66 @@
+@import 'css/helpers';
+
+.comment {
+  position: absolute;
+  font-family: var(--font-body);
+  overflow: hidden;
+  margin-top: 12px;
+  background: var(--color-white);
+  width: max-content;
+  min-width: 316px;
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--border-radius-lg);
+  opacity: 0;
+  font-size: 16px;
+  line-height: 1;
+  z-index: var(--z-index-20);
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+
+  .content {
+    overflow: hidden;
+
+    .content-inner {
+      border-bottom: 1px solid var(--color-gray-light);
+      padding: 20px;
+
+      .header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        @include space-x(12px);
+
+        .picture {
+          border-radius: var(--border-radius-full);
+          width: 44px;
+        }
+
+        .name {
+          font-weight: 600;
+        }
+
+        .date {
+          color: var(--color-gray-light);
+        }
+      }
+
+      .text {
+        margin-top: 12px;
+      }
+    }
+  }
+
+  .input {
+    box-sizing: content-box;
+    padding: 20px;
+    color: var(--color-gray-light);
+    height: 16px;
+  }
+}

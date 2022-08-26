@@ -13,6 +13,7 @@ import {
 } from 'react'
 
 import 'prismjs/components/prism-jsx'
+import avatarTwo from '~/public/images/home/avatar-2.webp'
 
 // eslint-disable-next-line import/no-named-as-default-member
 Prism.manual = true
@@ -25,6 +26,7 @@ import {
 } from '~/components/common/progress-bar'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 
+import { CommentModule } from '../comment-module'
 import { Header, PanelContainer } from '../common'
 import { Marker as ConsoleMarker } from '../devtools/console'
 import commonS from '../overboard-story.module.scss'
@@ -80,6 +82,7 @@ type CodeProps = {
     ) => GSAPTimeline | void
     onHit?: (idx: number) => void
     printLineTarget: number
+    comment?: string
     timelineType: 'justUi' | 'timeBased'
   }
 } & JSX.IntrinsicElements['div']
@@ -318,6 +321,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                           </div>
                           <p
                             style={{
+                              flex: 1,
                               fontFamily: 'var(--font-mono)',
                               color: '#8000D7',
                               marginLeft: 8
@@ -325,6 +329,16 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                           >
                             {printPanelConfig?.print}
                           </p>
+                          <div
+                            id="scrollytelling-second-comment"
+                            style={{ position: 'relative', width: 32 }}
+                          >
+                            <CommentModule
+                              side="right"
+                              avatar={avatarTwo}
+                              comment="Yep. Maybe parameters are bad."
+                            />
+                          </div>
                         </div>
                         <div
                           style={{
