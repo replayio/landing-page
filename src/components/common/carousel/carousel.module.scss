@@ -41,6 +41,7 @@
   list-style: none;
   justify-content: center;
   margin-top: 32px;
+  min-height: 16px;
 
   @include space-x(6px);
 }
@@ -134,6 +135,7 @@
 
 @media (min-width: $screen-sm) {
   .embla__dots {
+    min-height: 12px;
     margin-top: 40px;
   }
 
