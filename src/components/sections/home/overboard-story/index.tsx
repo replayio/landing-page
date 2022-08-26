@@ -212,7 +212,7 @@ const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
-const SCROLLYTELLING_PX_DURATION = 6000
+const SCROLLYTELLING_PX_DURATION = 15000
 
 const codeBlock = `export function handleSubmit(event) {
   event.preventDefault()
