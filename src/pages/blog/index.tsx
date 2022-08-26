@@ -19,12 +19,12 @@ const BlogPage = ({ posts }: { posts: Posts }) => {
         </Heading>
 
         {posts.map((post) => (
-          <div key={post.slug}>
+          <a key={post.slug} href={post.slug}>
             <Heading as="h2" size="sm">
               {post.title}
             </Heading>
             <p>{post.content}</p>
-          </div>
+          </a>
         ))}
       </Container>
     </PageLayout>
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async () => {
           return {
             content,
             title: data.title,
-            slug: filename.replace('.mdx', '')
+            slug: `/blog/${filename.replace('.mdx', '')}`
           }
         }) as Posts
     }

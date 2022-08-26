@@ -20,10 +20,11 @@
     "baseUrl": "./src",
     "paths": {
       "~/public/*": ["../public/*"],
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "contentlayer/generated": [".contentlayer/generated"]
     },
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", ".contentlayer/generated"]
 }

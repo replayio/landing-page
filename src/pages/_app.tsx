@@ -1,6 +1,5 @@
 import '~/css/global.scss'
 
-import { MDXProvider } from '@mdx-js/react'
 import { NextComponentType, NextPageContext } from 'next'
 import { AppProps } from 'next/app'
 import * as React from 'react'
@@ -20,20 +19,6 @@ if (isProd && isClient) {
   // eslint-disable-next-line no-console
   console.log(basementLog)
 }
-
-import { Heading } from '~/components/common/heading'
-import { Container } from '~/components/layout/container'
-import { PageLayout } from '~/components/layout/page'
-
-const mdxComponents = {
-  wrapper: ({ children, ...props }: any) => (
-    <PageLayout {...props}>
-      <Container>{children}</Container>
-    </PageLayout>
-  ),
-  h1: (props: any) => <Heading as="h1" size="lg" {...props} />,
-  h2: (props: any) => <Heading as="h2" size="sm" {...props} />
-} as const
 
 export type Page<P = Record<string, unknown>> = NextComponentType<
   NextPageContext,
@@ -116,9 +101,7 @@ const App = ({ Component, pageProps, ...rest }: AppProps) => {
   return (
     <>
       {gaTrackingId && <GAScripts />}
-      <MDXProvider components={mdxComponents}>
-        {getLayout({ Component, pageProps, ...rest })}
-      </MDXProvider>
+      {getLayout({ Component, pageProps, ...rest })}
     </>
   )
 }
