@@ -222,7 +222,6 @@ export function ReplayApplication() {
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
   const [currentTime, setCurrentTime] = useState(0)
   const { isDesktop } = useDeviceDetect()
-  const progressBarRef = useRef<ProgressAPI>(null)
   const { width } = useViewportSize()
 
   /* Store */
@@ -256,6 +255,8 @@ export function ReplayApplication() {
   const smallRightCenteredStoreRef = useRef<HTMLDivElement>(null)
   const storeApiRef = useRef<StoreRef>(null)
   const floorAndRotateTimeline = useRef<GSAPTimeline | null>(null)
+  const progressBarRef = useRef<ProgressAPI>(null)
+  const playPauseRef = useRef<SVGSVGElement>(null)
 
   useInspectElement(hoveredComponentBlockId, targetStoreRef.current)
 
@@ -432,16 +433,10 @@ export function ReplayApplication() {
         preventOverlaps: true,
         scrub: true,
         trigger: 'body',
-        onEnter: () => {
-          document.documentElement.classList.add('hide-header')
-        },
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
         },
         onLeave: () => {
-          document.documentElement.classList.remove('hide-header')
-        },
-        onLeaveBack: () => {
           document.documentElement.classList.remove('hide-header')
         }
       }
@@ -454,6 +449,12 @@ export function ReplayApplication() {
         yPercent: percentage,
         duration: 7,
         ease: 'power3.out'
+      })
+      .add(() => {
+        document.documentElement.classList.remove('hide-header')
+      })
+      .add(() => {
+        document.documentElement.classList.add('hide-header')
       })
       .to(
         recordBadge,
@@ -551,6 +552,10 @@ export function ReplayApplication() {
       .add(() => {
         floorAndRotateTimeline.current?.pause()
       })
+      .add(() => {
+        playPauseRef.current?.classList.remove('play')
+        playPauseRef.current?.classList.add('pause')
+      })
       .fromTo(
         printTimelineProgress,
         {
@@ -561,6 +566,8 @@ export function ReplayApplication() {
           duration: 10,
           ease: 'linear',
           onStart: () => {
+            playPauseRef.current?.classList.remove('pause')
+            playPauseRef.current?.classList.add('play')
             setStoreState('idle')
             progressBarRef.current?.update(20)
             setCurrentTime(timelineDuration * 0.2)
@@ -576,12 +583,19 @@ export function ReplayApplication() {
               setStoreState('idle')
             }
 
+            playPauseRef.current?.classList.remove('pause')
+            playPauseRef.current?.classList.add('play')
+
             floorAndRotateTimeline.current?.seek(
               (floorAndRotateTimelineDuration / 4) * this.progress(),
               false
             )
             progressBarRef.current?.update(progress)
             setCurrentTime(timelineDuration * (progress / 100))
+          },
+          onComplete: () => {
+            playPauseRef.current?.classList.remove('play')
+            playPauseRef.current?.classList.add('pause')
           }
         }
       )
@@ -861,6 +875,10 @@ export function ReplayApplication() {
           y: 0
         }
       )
+      .add(() => {
+        playPauseRef.current?.classList.remove('play')
+        playPauseRef.current?.classList.add('pause')
+      })
       .fromTo(
         printTimelineProgress,
         {
@@ -884,6 +902,9 @@ export function ReplayApplication() {
               setStoreState('idle')
             }
 
+            playPauseRef.current?.classList.remove('pause')
+            playPauseRef.current?.classList.add('play')
+
             floorAndRotateTimeline.current?.seek(
               (floorAndRotateTimelineDuration / 4) * this.progress(),
               false
@@ -891,6 +912,10 @@ export function ReplayApplication() {
             ;(codeRef.current?.timeline as ProgressAPI)?.update(progress)
             progressBarRef.current?.update(progress)
             setCurrentTime(timelineDuration * (progress / 100))
+          },
+          onComplete: () => {
+            playPauseRef.current?.classList.remove('play')
+            playPauseRef.current?.classList.add('pause')
           }
         }
       )
@@ -1043,6 +1068,8 @@ export function ReplayApplication() {
             }}
           >
             <CommentModule
+              name="Tina"
+              date="Now"
               avatar={avatarThree}
               comment="This is throwing error."
             />
@@ -1083,13 +1110,12 @@ export function ReplayApplication() {
             </div>
 
             <div
+              className={s['content']}
               style={{
-                position: 'relative',
-                display: 'flex',
-                height: `calc(100% - ${
+                // @ts-ignore
+                '--height': `calc(100% - ${
                   padding * 2
-                }px - ${headerHeight}px - ${timelineHeight}px)`,
-                flex: 1
+                }px - ${headerHeight}px - ${timelineHeight}px)`
               }}
             >
               <div className={clsx('toolbar', s['toolbar'])}>
@@ -1269,22 +1295,28 @@ export function ReplayApplication() {
             </div>
 
             <div
+              className={s['bottom']}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: 24,
-                height: timelineHeight
+                // @ts-ignore
+                '--height': timelineHeight
               }}
             >
               <svg
-                width="41"
-                viewBox="0 0 41 41"
+                className={clsx(s['play-pause'], 'pause')}
+                viewBox="0 0 40 40"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                ref={playPauseRef}
               >
-                <circle cx="20.3979" cy="20.5102" r="16.5141" fill="#01ACFD" />
+                <circle cx="20.5141" cy="20.5141" r="16.5141" fill="#01ACFD" />
                 <path
+                  className={s['play']}
                   d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
+                  fill="#F9F9FA"
+                />
+                <path
+                  className={s['pause']}
+                  d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
                   fill="#F9F9FA"
                 />
               </svg>
@@ -1303,15 +1335,7 @@ export function ReplayApplication() {
                 />
               </div>
 
-              <span
-                style={{
-                  background: '#E6E6E6',
-                  borderRadius: 'var(--border-radius-full)',
-                  padding: '2px 12px',
-                  fontVariantNumeric: 'tabular-nums',
-                  fontSize: '12px'
-                }}
-              >
+              <span className={s['current-time']}>
                 0:{padZeroesToNumber(Number(currentTime.toFixed(0)), 2)} / 0:
                 {padZeroesToNumber(timelineDuration, 2)}
               </span>

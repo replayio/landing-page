@@ -23,25 +23,20 @@ export const Hero: FC = () => {
     let tl: gsap.core.Timeline
 
     if (ref.current && isDesktopSize) {
-      tl = gsap
-        .timeline({
-          scrollTrigger: {
-            start: 0,
-            end: 300,
-            scrub: true,
-            onLeave: () => {
-              document.documentElement.classList.add('hide-header')
-            },
-            onEnterBack: () => {
-              document.documentElement.classList.remove('hide-header')
-            }
-          }
-        })
-        .to(ref.current, {
-          opacity: 0,
-          scale: 0.97,
-          y: -100
-        })
+      tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: 'body',
+          start: 0,
+          end: 300,
+          pin: ref.current,
+          pinSpacing: false,
+          scrub: true
+        }
+      })
+      tl.to(ref.current, {
+        opacity: 0,
+        scale: 0.97
+      })
     }
 
     return () => {

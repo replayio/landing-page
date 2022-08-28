@@ -77,35 +77,83 @@
       }
     }
 
-    .toolbar {
-      padding: 20px 26px;
-    }
-
-    .grid {
-      --gap: 26px;
-
+    .content {
+      height: var(--height);
       position: relative;
-      margin: 26px 26px 0px 0px;
-      display: grid;
-      width: 100%;
-      grid-template-columns:
-        var(--gap)
-        calc(50% - var(--gap) - (var(--gap) / 2))
-        auto
-        calc(50% - var(--gap) - (var(--gap) / 2))
-        var(--gap);
-      grid-template-rows: calc(50% - (var(--gap) / 2)) calc(
-          50% - (var(--gap) / 2)
-        );
-      align-content: space-between;
-      grid-template-areas:
-        'code code none store store'
-        'code code none devtools devtools';
+      display: flex;
+      flex: 1;
+
+      .toolbar {
+        padding: 20px 26px;
+      }
+
+      .grid {
+        --gap: 26px;
+
+        position: relative;
+        margin: 26px 26px 0px 0px;
+        display: grid;
+        width: 100%;
+        grid-template-columns:
+          var(--gap)
+          calc(50% - var(--gap) - (var(--gap) / 2))
+          auto
+          calc(50% - var(--gap) - (var(--gap) / 2))
+          var(--gap);
+        grid-template-rows: calc(50% - (var(--gap) / 2)) calc(
+            50% - (var(--gap) / 2)
+          );
+        align-content: space-between;
+        grid-template-areas:
+          'code code none store store'
+          'code code none devtools devtools';
+      }
+
+      .code {
+        height: 100%;
+        opacity: 0;
+      }
     }
 
-    .code {
-      height: 100%;
-      opacity: 0;
+    .bottom {
+      display: flex;
+      align-items: center;
+      padding: 24px;
+      height: var(--height);
+
+      .play-pause {
+        width: 40px;
+
+        .play,
+        .pause {
+          transform-origin: center center;
+          transition: transform var(--duration-moderate) ease-out;
+          opacity: 0;
+          transform: scale(0.5);
+        }
+
+        &:global(.play) {
+          .pause {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        &:global(.pause) {
+          .play {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      }
+
+      .current-time {
+        background: #e6e6e6;
+        border-radius: var(--border-radius-full);
+        padding: 2px 12px;
+        font-variant-numeric: tabular-nums;
+        font-size: 12px;
+      }
     }
   }
 }

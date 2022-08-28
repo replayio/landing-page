@@ -8,11 +8,15 @@ type CommentModuleProps = {
   side?: 'right' | 'left'
   avatar: ImageProps['src']
   comment: string
+  name: string
+  date: string
 }
 
 export const CommentModule: FC<CommentModuleProps> = ({
   comment,
   side = 'left',
+  name,
+  date,
   avatar
 }) => {
   return (
@@ -39,8 +43,8 @@ export const CommentModule: FC<CommentModuleProps> = ({
             <div className={s['header']}>
               <Image className={s['picture']} src={avatar} />
               <div>
-                <p className={s['name']}>Tina</p>
-                <p className={s['date']}>4 mins ago</p>
+                <p className={s['name']}>{name}</p>
+                <p className={s['date']}>{date}</p>
               </div>
             </div>
             <p className={s['text']}>{comment}</p>

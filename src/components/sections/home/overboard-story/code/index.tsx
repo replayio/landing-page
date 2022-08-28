@@ -334,6 +334,8 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                             style={{ position: 'relative', width: 32 }}
                           >
                             <CommentModule
+                              name="Travis"
+                              date="Now"
                               side="right"
                               avatar={avatarTwo}
                               comment="Yep. Maybe parameters are bad."
