@@ -3,12 +3,19 @@
 
 .section {
   position: relative;
+
+  --max-height: calc(100vh - var(--padding) * 2);
 }
 
 .store-container {
   position: absolute;
   width: 100%;
   z-index: 10;
+  max-width: calc(var(--max-height) * var(--raw-ratio));
+  height: auto !important;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   .record {
     opacity: 0;
@@ -46,6 +53,11 @@
     background: #f2f2f2;
     width: 100%;
     position: absolute;
+    max-width: calc(var(--max-height) * var(--raw-ratio));
+    height: auto !important;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     .header {
       --height: 70px;
