@@ -53,13 +53,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 32px;
-      background-color: white;
+      padding: 0 24px;
+      background-color: f2f2f2;
       height: var(--height);
-      border-bottom: 1px solid var(--color-gray-lighter);
+      // border-bottom: 1px solid var(--color-gray-lighter);
 
       .logo {
-        width: 25px;
+        width: 20px;
         color: var(--color-pink-crayon);
       }
 
