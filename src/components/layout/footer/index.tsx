@@ -7,7 +7,7 @@ import { FC, useEffect, useMemo, useRef } from 'react'
 import { Heading } from '~/components/common/heading'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Discord, Linkedin, Twitter } from '~/components/icons/social'
-import { Button } from '~/components/primitives/button'
+import { ButtonLink } from '~/components/primitives/button'
 import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
@@ -161,7 +161,8 @@ export const Footer: FC = () => {
                 </Heading>
               </div>
               <div className={s['cta']}>
-                <Button
+                <ButtonLink
+                  href="https://app.replay.io/"
                   className={s['play-button']}
                   size="sm"
                   noHover
@@ -180,7 +181,7 @@ export const Footer: FC = () => {
                       fill="#F41C52"
                     />
                   </svg>
-                </Button>
+                </ButtonLink>
               </div>
             </div>
             <div className={s['timeline']}>

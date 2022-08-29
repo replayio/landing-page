@@ -570,6 +570,7 @@ export function ReplayApplication() {
           duration: 10,
           ease: 'linear',
           onStart: () => {
+            playPauseRef.current?.classList.remove('replay')
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
             setStoreState('idle')
@@ -591,6 +592,7 @@ export function ReplayApplication() {
               '--rotate-z': `${360 * 4 * (progress / 100)}deg`
             })
 
+            playPauseRef.current?.classList.remove('replay')
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
 
@@ -603,7 +605,7 @@ export function ReplayApplication() {
           },
           onComplete: () => {
             playPauseRef.current?.classList.remove('play')
-            playPauseRef.current?.classList.add('pause')
+            playPauseRef.current?.classList.add('replay')
           }
         }
       )
@@ -914,6 +916,7 @@ export function ReplayApplication() {
               '--rotate-z': `${360 * 4 * (progress / 100)}deg`
             })
 
+            playPauseRef.current?.classList.remove('replay')
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
 
@@ -927,7 +930,7 @@ export function ReplayApplication() {
           },
           onComplete: () => {
             playPauseRef.current?.classList.remove('play')
-            playPauseRef.current?.classList.add('pause')
+            playPauseRef.current?.classList.add('replay')
           }
         }
       )
@@ -1329,6 +1332,11 @@ export function ReplayApplication() {
                 <path
                   className={s['pause']}
                   d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
+                  fill="#F9F9FA"
+                />
+                <path
+                  className={s['replay']}
+                  d="M25.2306 15.4557C23.961 14.1869 22.2187 13.3994 20.2837 13.3994C16.4138 13.3994 13.2881 16.5319 13.2881 20.3994C13.2881 24.2669 16.4138 27.3994 20.2837 27.3994C23.1348 27.3994 25.5722 25.6988 26.6637 23.2583C26.9069 22.7146 26.4712 22.1494 25.8756 22.1494C25.4891 22.1494 25.1516 22.3972 24.9792 22.7431C24.1203 24.4659 22.3403 25.6494 20.2837 25.6494C17.3856 25.6494 15.0304 23.2957 15.0304 20.3994C15.0304 17.5032 17.3856 15.1494 20.2837 15.1494C21.7371 15.1494 23.0329 15.7532 23.9785 16.7069L21.5009 19.1829C21.3749 19.3089 21.4641 19.5244 21.6423 19.5244H27.0881C27.1986 19.5244 27.2881 19.4349 27.2881 19.3244V13.882C27.2881 13.7039 27.0727 13.6146 26.9467 13.7406L25.2306 15.4557Z"
                   fill="#F9F9FA"
                 />
               </svg>
