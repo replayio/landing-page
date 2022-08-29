@@ -46,8 +46,8 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
         position: 'relative',
         display: 'inline-grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
-        backgroundColor: '#F5F5F5',
-        color: '#464646',
+        backgroundColor: '#d9d9d9',
+        color: '#00000080',
         padding: 4,
         borderRadius: 8,
         fontSize: 14,
@@ -64,8 +64,8 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
           gridTemplateColumns: 'repeat(2, 1fr)',
           padding: 4,
           borderRadius: 8,
-          backgroundColor: '#464646',
-          color: '#FFFFFF',
+          backgroundColor: 'white',
+          color: '#38383d',
           transition: 'clip-path 0.16s ease-out'
         }}
       >
@@ -157,7 +157,7 @@ const RecSvg = () => (
 
 const timelineDuration = 10
 const padding = 16
-const headerHeight = 70
+const headerHeight = 50
 const timelineHeight = 90
 const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
@@ -836,7 +836,7 @@ export function ReplayApplication() {
         {
           xPercent: 0,
           opacity: 1,
-          scale: 1
+          scale: 1.0
         },
         '<+=0.2'
       )
