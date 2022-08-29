@@ -18,7 +18,7 @@ import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { isDev } from '~/lib/constants'
 import { padZeroesToNumber } from '~/lib/utils'
-import avatarTwo from '~/public/images/home/avatar-2.webp'
+import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
 
 import { Code, CodeRef } from './code'
@@ -566,11 +566,10 @@ export function ReplayApplication() {
           progress: 20
         },
         {
-          progress: 100,
-          duration: 10,
+          progress: 50,
+          duration: 5,
           ease: 'linear',
           onStart: () => {
-            playPauseRef.current?.classList.remove('replay')
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
             setStoreState('idle')
@@ -592,7 +591,6 @@ export function ReplayApplication() {
               '--rotate-z': `${360 * 4 * (progress / 100)}deg`
             })
 
-            playPauseRef.current?.classList.remove('replay')
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
 
@@ -605,7 +603,7 @@ export function ReplayApplication() {
           },
           onComplete: () => {
             playPauseRef.current?.classList.remove('play')
-            playPauseRef.current?.classList.add('replay')
+            playPauseRef.current?.classList.add('pause')
           }
         }
       )
@@ -680,7 +678,8 @@ export function ReplayApplication() {
         {
           scale: 1,
           opacity: 1,
-          height: 'auto'
+          height: 'auto',
+          stagger: 3
         }
       )
       .to(
@@ -729,8 +728,14 @@ export function ReplayApplication() {
       )
 
       /* Devtools */
-      .to({}, { duration: 3 })
       .add(flipTimeline2 as GSAPTimeline)
+      .to(
+        firstComment,
+        {
+          opacity: 0
+        },
+        '<'
+      )
       .to(
         devtoolsPanelRef.current,
         {
@@ -895,8 +900,8 @@ export function ReplayApplication() {
           progress: 20
         },
         {
-          progress: 100,
-          duration: 10,
+          progress: 50,
+          duration: 5,
           ease: 'linear',
           onStart: () => {
             setStoreState('idle')
@@ -916,7 +921,6 @@ export function ReplayApplication() {
               '--rotate-z': `${360 * 4 * (progress / 100)}deg`
             })
 
-            playPauseRef.current?.classList.remove('replay')
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
 
@@ -930,7 +934,7 @@ export function ReplayApplication() {
           },
           onComplete: () => {
             playPauseRef.current?.classList.remove('play')
-            playPauseRef.current?.classList.add('replay')
+            playPauseRef.current?.classList.add('pause')
           }
         }
       )
@@ -991,7 +995,8 @@ export function ReplayApplication() {
         {
           scale: 1,
           opacity: 1,
-          height: 'auto'
+          height: 'auto',
+          stagger: 3
         }
       )
 
@@ -1083,10 +1088,21 @@ export function ReplayApplication() {
             }}
           >
             <CommentModule
-              name="Tina"
-              date="Now"
-              avatar={avatarThree}
-              comment="This is throwing error."
+              side="bottom-right"
+              comments={[
+                {
+                  name: 'Tina',
+                  date: 'Now',
+                  avatar: avatarThree,
+                  text: '@helen can you look into this critical checkout bug, please? Users cannot purchase hoverboards right now.'
+                },
+                {
+                  name: 'Helen',
+                  date: 'Now',
+                  avatar: avatarOne,
+                  text: 'Absolutely!'
+                }
+              ]}
             />
           </div>
 
@@ -1118,7 +1134,7 @@ export function ReplayApplication() {
                 <IsoLogo />
               </div>
               <div className={s['users']}>
-                <img className="user" src={avatarTwo.src} />
+                <img className="user" src={avatarOne.src} />
                 <img className="user" src={avatarThree.src} />
               </div>
               <ViewToggle ref={viewToggleRef} />
@@ -1250,6 +1266,20 @@ export function ReplayApplication() {
                       markers: printMarkers,
                       printLineTarget: 14,
                       timelineType: 'justUi',
+                      comments: [
+                        {
+                          name: 'Helen',
+                          date: 'Now',
+                          avatar: avatarOne,
+                          text: 'I inspected the API request at that time and it looks like we misspelled a parameter, fixed!'
+                        },
+                        {
+                          name: 'Tina',
+                          date: 'Now',
+                          avatar: avatarThree,
+                          text: 'Woohoo, thanks for fixing that so quickly! 🙌🏼'
+                        }
+                      ],
                       currentMarker: markersType,
                       onHit: handleHit,
                       currentHit

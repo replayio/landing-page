@@ -4,21 +4,22 @@ import { FC } from 'react'
 
 import s from './comment-module.module.scss'
 
-type CommentModuleProps = {
-  side?: 'right' | 'left'
-  avatar: ImageProps['src']
-  comment: string
-  name: string
-  date: string
+export type CommentModuleProps = {
+  side?: 'bottom-right' | 'side-left'
+  comments: {
+    text: string
+    avatar: ImageProps['src']
+    name: string
+    date: string
+  }[]
 }
 
 export const CommentModule: FC<CommentModuleProps> = ({
-  comment,
-  side = 'left',
-  name,
-  date,
-  avatar
+  comments,
+  side = 'left'
 }) => {
+  const mainComment = comments[0]
+
   return (
     <div className={s['container']}>
       <svg
@@ -38,20 +39,26 @@ export const CommentModule: FC<CommentModuleProps> = ({
       </svg>
 
       <div className={clsx('comment', s['comment'], s[side])}>
-        <div className={clsx('content', s['content'])}>
-          <div className={s['content-inner']}>
-            <div className={s['header']}>
-              <Image className={s['picture']} src={avatar} />
-              <div>
-                <p className={s['name']}>{name}</p>
-                <p className={s['date']}>{date}</p>
+        <div className={s['thread']}>
+          {comments.map((comment, idx) => (
+            <div className={clsx('content', s['content'])} key={idx}>
+              <div className={s['content-inner']}>
+                <div className={s['header']}>
+                  <Image className={s['picture']} src={comment.avatar} />
+                  <div>
+                    <p className={s['name']}>{comment.name}</p>
+                    <p className={s['date']}>{comment.date}</p>
+                  </div>
+                </div>
+                <p className={s['text']}>{comment.text}</p>
               </div>
+              <div className={s['divisor']} />
             </div>
-            <p className={s['text']}>{comment}</p>
-          </div>
+          ))}
         </div>
+
         <div
-          data-text={comment}
+          data-text={mainComment.text}
           data-placeholder="Type a comment..."
           className={clsx('input', s['input'])}
         >

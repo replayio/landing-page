@@ -1,34 +1,44 @@
 @import 'css/helpers';
 
 .comment {
+  --line-height: 1.4;
+  --margin: 12px;
+
   position: absolute;
   font-family: var(--font-body);
   overflow: hidden;
-  margin-top: 12px;
   background: var(--color-white);
   width: max-content;
-  min-width: 316px;
+  width: 330px;
   border: 1px solid var(--color-gray-light);
   border-radius: var(--border-radius-lg);
   opacity: 0;
   font-size: 16px;
-  line-height: 1;
+  line-height: var(--line-height);
   z-index: var(--z-index-20);
   color: var(--color-gray-darker);
 
-  &.left {
+  &.bottom-right {
+    margin-top: var(--margin);
     left: 0;
   }
 
-  &.right {
-    right: 0;
+  &.side-left {
+    margin-right: var(--margin);
+    right: 100%;
+    top: 0;
   }
 
   .content {
     overflow: hidden;
 
+    .divisor {
+      height: 1px;
+      width: 100%;
+      background: var(--color-gray-lighter);
+    }
+
     .content-inner {
-      border-bottom: 1px solid var(--color-gray-light);
       padding: 20px;
 
       .header {
@@ -48,7 +58,9 @@
         }
 
         .date {
-          margin-top: 8px;
+          line-height: 1;
+          margin-top: 4px;
+          font-size: 14px;
           color: var(--color-gray-light);
         }
       }
@@ -63,6 +75,6 @@
     box-sizing: content-box;
     padding: 20px;
     color: var(--color-gray-light);
-    height: 16px;
+    min-height: calc(16px * var(--line-height));
   }
 }
