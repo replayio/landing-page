@@ -298,6 +298,9 @@ export function ReplayApplication() {
     const storeLogo = storeSelector(`#overboard-store-logo-${storeId}`)
     const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
     const storePurchase = storeSelector(`#overboard-store-purchase-${storeId}`)
+    const [storePurchaseLoader] = storeSelector(
+      `#overboard-store-purchase-${storeId} .loader`
+    )
     const storeColors = storeSelector(`#overboard-store-colors-${storeId}`)
     const devtoolsTools = appSelector('.toolbar .debugger,.search,.code')
     const headerUsers = appSelector('.header .user')
@@ -556,6 +559,7 @@ export function ReplayApplication() {
         playPauseRef.current?.classList.remove('play')
         playPauseRef.current?.classList.add('pause')
       })
+      .set(storePurchaseLoader, { '--play-state': 'paused' })
       .fromTo(
         printTimelineProgress,
         {
@@ -582,6 +586,10 @@ export function ReplayApplication() {
             } else if (progress < 25) {
               setStoreState('idle')
             }
+
+            gsap.set(storePurchaseLoader, {
+              '--rotate-z': `${360 * 4 * (progress / 100)}deg`
+            })
 
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
@@ -901,6 +909,10 @@ export function ReplayApplication() {
             } else if (progress < 25) {
               setStoreState('idle')
             }
+
+            gsap.set(storePurchaseLoader, {
+              '--rotate-z': `${360 * 4 * (progress / 100)}deg`
+            })
 
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')

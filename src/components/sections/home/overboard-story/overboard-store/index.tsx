@@ -231,7 +231,10 @@ export const OverboardStore = memo(
                       })}
                       disabled={state === 'loading'}
                     >
-                      <span>{state === 'error' ? 'Error' : 'Purchase'}</span>
+                      <span className={s['content']}>
+                        {state === 'error' ? 'Error' : 'Purchase'}
+                      </span>
+                      <span className={clsx('loader', s['loader'])} />
                     </button>
                   </InspectBox>
                 </div>
