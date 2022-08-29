@@ -1,5 +1,5 @@
 // eslint-disable-next-line simple-import-sort/imports
-import 'prismjs/themes/prism.css'
+import 'prismjs/themes/prism-coy.css'
 
 import clsx from 'clsx'
 import Prism from 'prismjs'
