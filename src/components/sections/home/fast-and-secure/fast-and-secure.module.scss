@@ -10,9 +10,7 @@
   }
 
   .tabs-list {
-    > button:last-child {
-      margin-right: var(--padding);
-    }
+    min-width: min-content;
   }
 
   .content {
