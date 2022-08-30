@@ -20,16 +20,19 @@ class MyDocument extends Document {
             rel="preload"
             href="/fonts/inter/Inter-italic.var.woff2"
             as="font"
+            crossOrigin="anonymous"
           />
           <link
             rel="preload"
             href="/fonts/inter/Inter-roman.var.woff2"
             as="font"
+            crossOrigin="anonymous"
           />
           <link
             rel="preload"
             href="/fonts/roobert/Roobert-Regular.woff2"
             as="font"
+            crossOrigin="anonymous"
           />
         </Head>
         <body>
