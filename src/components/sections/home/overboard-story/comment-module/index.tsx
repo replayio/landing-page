@@ -50,7 +50,7 @@ export const CommentModule: FC<CommentModuleProps> = ({
                     <p className={s['date']}>{comment.date}</p>
                   </div>
                 </div>
-                <p className={s['text']}>{comment.text}</p>
+                <p className={clsx('text', s['text'])}>{comment.text}</p>
               </div>
               <div className={s['divisor']} />
             </div>

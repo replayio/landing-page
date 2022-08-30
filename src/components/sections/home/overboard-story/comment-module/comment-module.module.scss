@@ -2,7 +2,8 @@
 
 .comment {
   --line-height: 1.4;
-  --margin: 12px;
+  --margin-to-icon: 8px;
+  --padding: 16px;
 
   position: absolute;
   font-family: var(--font-body);
@@ -19,12 +20,12 @@
   color: var(--color-gray-darker);
 
   &.bottom-right {
-    margin-top: var(--margin);
+    margin-top: var(--margin-to-icon);
     left: 0;
   }
 
   &.side-left {
-    margin-right: var(--margin);
+    margin-right: var(--margin-to-icon);
     right: 100%;
     top: 0;
   }
@@ -39,7 +40,7 @@
     }
 
     .content-inner {
-      padding: 20px;
+      padding: var(--padding);
 
       .header {
         display: flex;
@@ -73,7 +74,7 @@
 
   .input {
     box-sizing: content-box;
-    padding: 20px;
+    padding: var(--padding);
     color: var(--color-gray-light);
     min-height: calc(16px * var(--line-height));
   }
