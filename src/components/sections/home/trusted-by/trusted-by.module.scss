@@ -73,16 +73,6 @@
     }
   }
 
-  .logos-mobile {
-    .slide {
-      min-width: 100%;
-    }
-  }
-
-  .logos-desktop {
-    display: none;
-  }
-
   .logos-grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -143,14 +133,6 @@
           }
         }
       }
-    }
-
-    .logos-mobile {
-      display: none;
-    }
-
-    .logos-desktop {
-      display: block;
     }
 
     .logos-grid {
