@@ -16,7 +16,7 @@ import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-st
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
-import { isDev } from '~/lib/constants'
+// import { isDev } from '~/lib/constants'
 import { padZeroesToNumber } from '~/lib/utils'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
@@ -307,6 +307,7 @@ export function ReplayApplication() {
     const devtoolsToolsCode = appSelector('.toolbar .code')
     const headerUsers = appSelector('.header .user')
     const recordBadge = storeSelector('.record')
+    const storeContainer = storeSelector('.store')
 
     /* First Comment */
     const firstComment = storeSelector('#scrollytelling-first-comment')
@@ -431,7 +432,7 @@ export function ReplayApplication() {
         }px bottom-=${applicationWindowSpaceBottom}px`,
         fastScrollEnd: true,
         id: 'overboard-story',
-        markers: isDev,
+        markers: false,
         pin: sectionRef.current,
         /* We are making our own spacer */
         pinSpacing: false,
@@ -504,6 +505,7 @@ export function ReplayApplication() {
 
       /* Viewer */
       .add(flipTimeline1 as GSAPTimeline, '+=2')
+      .to(storeContainer, { borderRadius: 12 }, '<')
       .to(
         recordBadge,
         {
@@ -1114,8 +1116,8 @@ export function ReplayApplication() {
               // @ts-ignore
               style={{ '--height': headerHeight + 'px' }}
             >
-              <div className={s['logo']}>
-                <IsoLogo />
+              <div className={s['left']}>
+                <IsoLogo className={s['logo']} />
               </div>
               <div className={s['users']}>
                 <img className="user" src={avatarOne.src} />
@@ -1335,32 +1337,39 @@ export function ReplayApplication() {
                 '--height': timelineHeight
               }}
             >
-              <svg
-                className={clsx(s['play-pause'], 'pause')}
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                ref={playPauseRef}
-              >
-                <circle cx="20.5141" cy="20.5141" r="16.5141" fill="#01ACFD" />
-                <path
-                  className={s['play']}
-                  d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
-                  fill="#F9F9FA"
-                />
-                <path
-                  className={s['pause']}
-                  d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
-                  fill="#F9F9FA"
-                />
-                <path
-                  className={s['replay']}
-                  d="M25.2306 15.4557C23.961 14.1869 22.2187 13.3994 20.2837 13.3994C16.4138 13.3994 13.2881 16.5319 13.2881 20.3994C13.2881 24.2669 16.4138 27.3994 20.2837 27.3994C23.1348 27.3994 25.5722 25.6988 26.6637 23.2583C26.9069 22.7146 26.4712 22.1494 25.8756 22.1494C25.4891 22.1494 25.1516 22.3972 24.9792 22.7431C24.1203 24.4659 22.3403 25.6494 20.2837 25.6494C17.3856 25.6494 15.0304 23.2957 15.0304 20.3994C15.0304 17.5032 17.3856 15.1494 20.2837 15.1494C21.7371 15.1494 23.0329 15.7532 23.9785 16.7069L21.5009 19.1829C21.3749 19.3089 21.4641 19.5244 21.6423 19.5244H27.0881C27.1986 19.5244 27.2881 19.4349 27.2881 19.3244V13.882C27.2881 13.7039 27.0727 13.6146 26.9467 13.7406L25.2306 15.4557Z"
-                  fill="#F9F9FA"
-                />
-              </svg>
+              <div className={s['left']}>
+                <svg
+                  className={clsx(s['play-pause'], 'pause')}
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ref={playPauseRef}
+                >
+                  <circle
+                    cx="20.5141"
+                    cy="20.5141"
+                    r="16.5141"
+                    fill="#01ACFD"
+                  />
+                  <path
+                    className={s['play']}
+                    d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
+                    fill="#F9F9FA"
+                  />
+                  <path
+                    className={s['pause']}
+                    d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
+                    fill="#F9F9FA"
+                  />
+                  <path
+                    className={s['replay']}
+                    d="M25.2306 15.4557C23.961 14.1869 22.2187 13.3994 20.2837 13.3994C16.4138 13.3994 13.2881 16.5319 13.2881 20.3994C13.2881 24.2669 16.4138 27.3994 20.2837 27.3994C23.1348 27.3994 25.5722 25.6988 26.6637 23.2583C26.9069 22.7146 26.4712 22.1494 25.8756 22.1494C25.4891 22.1494 25.1516 22.3972 24.9792 22.7431C24.1203 24.4659 22.3403 25.6494 20.2837 25.6494C17.3856 25.6494 15.0304 23.2957 15.0304 20.3994C15.0304 17.5032 17.3856 15.1494 20.2837 15.1494C21.7371 15.1494 23.0329 15.7532 23.9785 16.7069L21.5009 19.1829C21.3749 19.3089 21.4641 19.5244 21.6423 19.5244H27.0881C27.1986 19.5244 27.2881 19.4349 27.2881 19.3244V13.882C27.2881 13.7039 27.0727 13.6146 26.9467 13.7406L25.2306 15.4557Z"
+                    fill="#F9F9FA"
+                  />
+                </svg>
+              </div>
 
-              <div style={{ flex: 1, margin: '0 20px' }}>
+              <div className={s['timeline']}>
                 <ProgressBar
                   solid
                   animated={false}
@@ -1387,8 +1396,26 @@ export function ReplayApplication() {
 }
 
 export function OverboardStory() {
+  // useEffect(() => {
+  //   let int
+
+  //   gsap.delayedCall(3, () => {
+  //     int = setInterval(() => {
+  //       console.log('Hi')
+  //       window.scroll({ top: window.scrollY + 2.5 })
+  //     }, 1)
+  //   })
+
+  //   return () => {
+  //     if (int) {
+  //       clearInterval(int)
+  //     }
+  //   }
+  // }, [])
+
   return (
     <Container size="lg">
+      {/* <video src="/video/hero-video.mp4" /> */}
       <ReplayApplication />
     </Container>
   )

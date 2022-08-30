@@ -136,7 +136,9 @@ export const OverboardStore = memo(
           className={className}
           {...rest}
         >
-          <div className={clsx(s['overboard-store'], s['mode-' + mode])}>
+          <div
+            className={clsx('store', s['overboard-store'], s['mode-' + mode])}
+          >
             <div
               style={{
                 position: 'absolute',
