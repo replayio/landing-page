@@ -8,6 +8,8 @@ import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
+import { useMedia } from '~/hooks/use-media'
+import { breakpoints } from '~/lib/constants'
 import circleCiSvg from '~/public/images/logos/circle-ci.svg'
 import codeSandboxSvg from '~/public/images/logos/code-sandbox.svg'
 import excalidrawSvg from '~/public/images/logos/excalidraw.svg'
@@ -84,6 +86,7 @@ const logos = [
 ]
 
 export const TrustedBy: FC = () => {
+  const isTabletSize = useMedia(`(min-width: ${breakpoints.screenMd}px)`)
   const carousel = useRef<EmblaCarouselType>(null)
 
   return (
@@ -95,7 +98,7 @@ export const TrustedBy: FC = () => {
           className={s['carousel']}
           slideClassName={s['carousel-slide']}
           config={{ loop: true }}
-          dots={false}
+          dots={!isTabletSize}
           ref={carousel}
         >
           {highlightedLogos.map((logo, idx) => (
