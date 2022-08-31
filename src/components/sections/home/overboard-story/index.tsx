@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Elastic } from 'gsap'
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
 import React, { forwardRef, useCallback, useRef, useState } from 'react'
@@ -623,7 +624,7 @@ export function ReplayApplication() {
           y: 0,
           scale: 1,
           opacity: 1,
-          ease: 'elastic.out',
+          ease: Elastic.easeOut.config(1, 0.6),
           duration: 3
         },
         '<'
@@ -639,21 +640,6 @@ export function ReplayApplication() {
         },
         '<'
       )
-      .to(firstCommentContent[0], {
-        scale: 0.97,
-        opacity: 0.6
-      })
-      .to(firstCommentContent[0], {
-        opacity: 0.2,
-        repeat: 2,
-        duration: 1,
-        yoyo: true
-      })
-      .to(firstCommentContent[0], {
-        scale: 1,
-        opacity: 1,
-        ease: 'Elastic.easeOut'
-      })
       .fromTo(
         firstCommentDate,
         {
@@ -664,8 +650,7 @@ export function ReplayApplication() {
           opacity: 1,
           duration: 1,
           height: 'auto'
-        },
-        '<'
+        }
       )
       .set(firstCommentInput, {
         color: 'inherit'
@@ -978,7 +963,7 @@ export function ReplayApplication() {
           y: 0,
           scale: 1,
           opacity: 1,
-          ease: 'elastic.out',
+          ease: Elastic.easeOut.config(1, 0.6),
           duration: 3
         },
         '<'
@@ -994,21 +979,6 @@ export function ReplayApplication() {
         },
         '<'
       )
-      .to(secondCommentContent[0], {
-        scale: 0.97,
-        opacity: 0.6
-      })
-      .to(secondCommentContent[0], {
-        opacity: 0.2,
-        repeat: 2,
-        duration: 1,
-        yoyo: true
-      })
-      .to(secondCommentContent[0], {
-        scale: 1,
-        opacity: 1,
-        ease: 'Elastic.easeOut'
-      })
       .fromTo(
         secondCommentDate,
         {
@@ -1019,8 +989,7 @@ export function ReplayApplication() {
           opacity: 1,
           duration: 1,
           height: 'auto'
-        },
-        '<'
+        }
       )
       .set(secondCommentInput, {
         color: 'inherit'
