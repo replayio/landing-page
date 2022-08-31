@@ -529,7 +529,7 @@ export function ReplayApplication() {
         },
         {
           scale: 1,
-          yPercent: -0,
+          yPercent: 0,
           opacity: 1,
           duration: 2
         },
