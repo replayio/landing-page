@@ -317,6 +317,9 @@ export function ReplayApplication() {
     const firstCommentContent = storeSelector(
       '#scrollytelling-first-comment .content'
     )
+    const firstCommentDate = storeSelector(
+      '#scrollytelling-first-comment .content:nth-child(1) .date'
+    )
     const firstCommentBox = storeSelector(
       '#scrollytelling-first-comment .comment'
     )
@@ -330,6 +333,9 @@ export function ReplayApplication() {
     )
     const secondCommentContent = appSelector(
       '#scrollytelling-second-comment .content'
+    )
+    const secondCommentDate = appSelector(
+      '#scrollytelling-second-comment .content:nth-child(1) .date'
     )
     const secondCommentBox = appSelector(
       '#scrollytelling-second-comment .comment'
@@ -633,15 +639,39 @@ export function ReplayApplication() {
         },
         '<'
       )
+      .to(firstCommentContent[0], {
+        scale: 0.97,
+        opacity: 0.6
+      })
+      .to(firstCommentContent[0], {
+        opacity: 0.2,
+        repeat: 2,
+        duration: 1,
+        yoyo: true
+      })
+      .to(firstCommentContent[0], {
+        scale: 1,
+        opacity: 1,
+        ease: 'Elastic.easeOut'
+      })
+      .fromTo(
+        firstCommentDate,
+        {
+          opacity: 0,
+          height: 0
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          height: 'auto'
+        },
+        '<'
+      )
       .set(firstCommentInput, {
         color: 'inherit'
       })
-      .set(firstCommentInput, {
-        clearProps: 'color',
-        text: firstCommentInput?.dataset['placeholder']
-      })
       .fromTo(
-        firstCommentContent,
+        firstCommentContent[1],
         {
           scale: 0.8,
           opacity: 0,
@@ -650,9 +680,9 @@ export function ReplayApplication() {
         {
           scale: 1,
           opacity: 1,
-          height: 'auto',
-          stagger: 3
-        }
+          height: 'auto'
+        },
+        '>+=2'
       )
       .to(
         firstCommentBox,
@@ -964,15 +994,39 @@ export function ReplayApplication() {
         },
         '<'
       )
+      .to(secondCommentContent[0], {
+        scale: 0.97,
+        opacity: 0.6
+      })
+      .to(secondCommentContent[0], {
+        opacity: 0.2,
+        repeat: 2,
+        duration: 1,
+        yoyo: true
+      })
+      .to(secondCommentContent[0], {
+        scale: 1,
+        opacity: 1,
+        ease: 'Elastic.easeOut'
+      })
+      .fromTo(
+        secondCommentDate,
+        {
+          opacity: 0,
+          height: 0
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          height: 'auto'
+        },
+        '<'
+      )
       .set(secondCommentInput, {
         color: 'inherit'
       })
-      .set(secondCommentInput, {
-        clearProps: 'color',
-        text: secondCommentInput?.dataset['placeholder']
-      })
       .fromTo(
-        secondCommentContent,
+        secondCommentContent[1],
         {
           scale: 0.8,
           opacity: 0,
@@ -981,9 +1035,9 @@ export function ReplayApplication() {
         {
           scale: 1,
           opacity: 1,
-          height: 'auto',
-          stagger: 3
-        }
+          height: 'auto'
+        },
+        '>+=2'
       )
 
     return () => {
