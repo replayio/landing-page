@@ -1045,19 +1045,14 @@ export function ReplayApplication() {
         {
           hits: 1,
           marker: markersType,
-          content: ['Hello World']
+          content: [{ color: 'green' }],
+          hide: !showPrints
         },
         {
           hits: 1,
           marker: markersType,
-          prepend: 'response',
-          content: [
-            {
-              ok: false,
-              status: 400,
-              url: 'api/purchase'
-            }
-          ],
+          prepend: 'Error',
+          content: [{ message: 'Color not found, received: undefined' }],
           hide: !showPrints
         }
       ]
@@ -1102,7 +1097,7 @@ export function ReplayApplication() {
                   name: 'Tina',
                   date: 'Now',
                   avatar: avatarThree,
-                  text: '@helen can you look into this critical checkout bug, please? Users cannot purchase hoverboards right now.'
+                  text: `@helen can you look into this critical checkout bug, please? Customers can't purchase hoverboards right now.`
                 },
                 {
                   name: 'Helen',
@@ -1275,7 +1270,7 @@ export function ReplayApplication() {
                     filename="handle-submit.ts"
                     printPanelConfig={{
                       onChangeMarker: (v) => setMarkersType(v),
-                      print: '"response", response',
+                      print: '"handleSubmit", formData',
                       markers: printMarkers,
                       printLineTarget: 14,
                       timelineType: 'justUi',
@@ -1284,13 +1279,13 @@ export function ReplayApplication() {
                           name: 'Helen',
                           date: 'Now',
                           avatar: avatarOne,
-                          text: 'I inspected the API request at that time and it looks like we misspelled a parameter, fixed!'
+                          text: 'It looks like we were sending "color" instead of "colorId" to the API at that time. @tina all fixed!'
                         },
                         {
                           name: 'Tina',
                           date: 'Now',
                           avatar: avatarThree,
-                          text: 'Woohoo, thanks for fixing that so quickly! 🙌🏼'
+                          text: 'Thanks for fixing that so quickly! 🎉'
                         }
                       ],
                       currentMarker: markersType,
