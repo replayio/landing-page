@@ -14,9 +14,6 @@
   z-index: 10;
   max-width: calc(var(--max-height) * var(--raw-ratio));
   height: auto !important;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 
   .record {
     opacity: 0;
@@ -41,6 +38,7 @@
   justify-items: stretch;
   width: 100%;
   align-items: center;
+  justify-content: center;
 
   .app {
     --padding: 0px;
@@ -58,9 +56,6 @@
     position: absolute;
     max-width: calc(var(--max-height) * var(--raw-ratio));
     height: auto !important;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
 
     .left {
       display: flex;
