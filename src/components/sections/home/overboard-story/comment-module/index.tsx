@@ -1,24 +1,25 @@
 import clsx from 'clsx'
 import Image, { ImageProps } from 'next/future/image'
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
 import s from './comment-module.module.scss'
 
-type CommentModuleProps = {
-  side?: 'right' | 'left'
-  avatar: ImageProps['src']
-  comment: string
-  name: string
-  date: string
+export type CommentModuleProps = {
+  side?: 'bottom-right' | 'side-left'
+  comments: {
+    text: string
+    avatar: ImageProps['src']
+    name: string
+    date: string
+  }[]
 }
 
 export const CommentModule: FC<CommentModuleProps> = ({
-  comment,
-  side = 'left',
-  name,
-  date,
-  avatar
+  comments,
+  side = 'left'
 }) => {
+  const mainComment = comments[0]
+
   return (
     <div className={s['container']}>
       <svg
@@ -28,7 +29,7 @@ export const CommentModule: FC<CommentModuleProps> = ({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="22" cy="22" r="22" fill="#DD4261" />
+        <circle cx="22" cy="22" r="18" fill="var(--color-pink-crayon)" />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -38,24 +39,42 @@ export const CommentModule: FC<CommentModuleProps> = ({
       </svg>
 
       <div className={clsx('comment', s['comment'], s[side])}>
-        <div className={clsx('content', s['content'])}>
-          <div className={s['content-inner']}>
-            <div className={s['header']}>
-              <Image className={s['picture']} src={avatar} />
-              <div>
-                <p className={s['name']}>{name}</p>
-                <p className={s['date']}>{date}</p>
+        <div className={s['thread']}>
+          {comments.map((comment, idx) => (
+            <Fragment key={idx}>
+              <div className={clsx('content', s['content'])} key={idx}>
+                <div className={s['content-inner']}>
+                  <div className={s['header']}>
+                    <Image className={s['picture']} src={comment.avatar} />
+                    <div>
+                      <p className={s['name']}>{comment.name}</p>
+                      <div className="date">
+                        <p className={s['date']}>{comment.date}</p>
+                      </div>
+                    </div>
+                  </div>
+                  {idx === 0 ? (
+                    <div
+                      data-text={mainComment.text}
+                      data-placeholder="Type a comment..."
+                      className={clsx('input', s['input'])}
+                    >
+                      Type a comment...
+                    </div>
+                  ) : (
+                    <p
+                      data-text={mainComment.text}
+                      data-placeholder="Type a comment..."
+                      className={clsx('text', s['text'])}
+                    >
+                      {comment.text}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
-            <p className={s['text']}>{comment}</p>
-          </div>
-        </div>
-        <div
-          data-text={comment}
-          data-placeholder="Type a comment..."
-          className={clsx('input', s['input'])}
-        >
-          Type a comment...
+              {comments.length - 1 != idx && <div className={s['divisor']} />}
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>

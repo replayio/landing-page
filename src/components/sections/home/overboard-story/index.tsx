@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Elastic } from 'gsap'
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
 import { forwardRef, useCallback, useRef, useState } from 'react'
@@ -16,9 +17,9 @@ import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-st
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
-import { isDev } from '~/lib/constants'
+// import { isDev } from '~/lib/constants'
 import { padZeroesToNumber } from '~/lib/utils'
-import avatarTwo from '~/public/images/home/avatar-2.webp'
+import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
 
 import { Code, CodeRef } from './code'
@@ -46,8 +47,8 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
         position: 'relative',
         display: 'inline-grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
-        backgroundColor: '#F5F5F5',
-        color: '#464646',
+        backgroundColor: '#d9d9d9',
+        color: '#00000080',
         padding: 4,
         borderRadius: 8,
         fontSize: 14,
@@ -64,8 +65,8 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
           gridTemplateColumns: 'repeat(2, 1fr)',
           padding: 4,
           borderRadius: 8,
-          backgroundColor: '#464646',
-          color: '#FFFFFF',
+          backgroundColor: 'white',
+          color: '#38383d',
           transition: 'clip-path 0.16s ease-out'
         }}
       >
@@ -157,7 +158,7 @@ const RecSvg = () => (
 
 const timelineDuration = 10
 const padding = 16
-const headerHeight = 70
+const headerHeight = 50
 const timelineHeight = 90
 const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
@@ -303,8 +304,11 @@ export function ReplayApplication() {
     )
     const storeColors = storeSelector(`#overboard-store-colors-${storeId}`)
     const devtoolsTools = appSelector('.toolbar .debugger,.search,.code')
+    const devtoolsToolsComments = appSelector('.toolbar .comments')
+    const devtoolsToolsCode = appSelector('.toolbar .code')
     const headerUsers = appSelector('.header .user')
     const recordBadge = storeSelector('.record')
+    const storeContainer = storeSelector('.store')
 
     /* First Comment */
     const firstComment = storeSelector('#scrollytelling-first-comment')
@@ -313,6 +317,9 @@ export function ReplayApplication() {
     )
     const firstCommentContent = storeSelector(
       '#scrollytelling-first-comment .content'
+    )
+    const firstCommentDate = storeSelector(
+      '#scrollytelling-first-comment .content:nth-child(1) .date'
     )
     const firstCommentBox = storeSelector(
       '#scrollytelling-first-comment .comment'
@@ -327,6 +334,9 @@ export function ReplayApplication() {
     )
     const secondCommentContent = appSelector(
       '#scrollytelling-second-comment .content'
+    )
+    const secondCommentDate = appSelector(
+      '#scrollytelling-second-comment .content:nth-child(1) .date'
     )
     const secondCommentBox = appSelector(
       '#scrollytelling-second-comment .comment'
@@ -429,7 +439,7 @@ export function ReplayApplication() {
         }px bottom-=${applicationWindowSpaceBottom}px`,
         fastScrollEnd: true,
         id: 'overboard-story',
-        markers: isDev,
+        markers: false,
         pin: sectionRef.current,
         /* We are making our own spacer */
         pinSpacing: false,
@@ -502,6 +512,7 @@ export function ReplayApplication() {
 
       /* Viewer */
       .add(flipTimeline1 as GSAPTimeline, '+=2')
+      .to(storeContainer, { borderRadius: 12 }, '<')
       .to(
         recordBadge,
         {
@@ -551,67 +562,33 @@ export function ReplayApplication() {
       )
       .add(() => {
         floorAndRotateTimeline.current?.play()
-      })
+      }, '<')
       .add(() => {
         floorAndRotateTimeline.current?.pause()
-      })
+      }, '<')
       .add(() => {
         playPauseRef.current?.classList.remove('play')
         playPauseRef.current?.classList.add('pause')
-      })
-      .set(storePurchaseLoader, { '--play-state': 'paused' })
-      .fromTo(
-        printTimelineProgress,
-        {
-          progress: 20
-        },
-        {
-          progress: 100,
-          duration: 10,
-          ease: 'linear',
-          onStart: () => {
-            playPauseRef.current?.classList.remove('replay')
-            playPauseRef.current?.classList.remove('pause')
-            playPauseRef.current?.classList.add('play')
-            setStoreState('idle')
-            progressBarRef.current?.update(20)
-            setCurrentTime(timelineDuration * 0.2)
-          },
-          onUpdate() {
-            const progress = printTimelineProgress.progress
-
-            if (progress >= 50) {
-              setStoreState('error')
-            } else if (progress > 25 && progress < 50) {
-              setStoreState('loading')
-            } else if (progress < 25) {
-              setStoreState('idle')
-            }
-
-            gsap.set(storePurchaseLoader, {
-              '--rotate-z': `${360 * 4 * (progress / 100)}deg`
-            })
-
-            playPauseRef.current?.classList.remove('replay')
-            playPauseRef.current?.classList.remove('pause')
-            playPauseRef.current?.classList.add('play')
-
-            floorAndRotateTimeline.current?.seek(
-              (floorAndRotateTimelineDuration / 4) * this.progress(),
-              false
-            )
-            progressBarRef.current?.update(progress)
-            setCurrentTime(timelineDuration * (progress / 100))
-          },
-          onComplete: () => {
-            playPauseRef.current?.classList.remove('play')
-            playPauseRef.current?.classList.add('replay')
-          }
-        }
-      )
+        progressBarRef.current?.update(50)
+        setCurrentTime(timelineDuration * 0.5)
+      }, '<')
 
       /* Comments */
       .set(firstComment, { opacity: 1 })
+      .to(
+        devtoolsToolsComments,
+        {
+          fill: '#05ACFD'
+        },
+        '<'
+      )
+      .to(
+        devtoolsToolsCode,
+        {
+          fill: '#BCBCBC'
+        },
+        '<'
+      )
       .fromTo(
         firstCommentIcon,
         {
@@ -647,7 +624,7 @@ export function ReplayApplication() {
           y: 0,
           scale: 1,
           opacity: 1,
-          ease: 'elastic.out',
+          ease: Elastic.easeOut.config(1, 0.6),
           duration: 3
         },
         '<'
@@ -663,15 +640,23 @@ export function ReplayApplication() {
         },
         '<'
       )
+      .fromTo(
+        firstCommentDate,
+        {
+          opacity: 0,
+          height: 0
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          height: 'auto'
+        }
+      )
       .set(firstCommentInput, {
         color: 'inherit'
       })
-      .set(firstCommentInput, {
-        clearProps: 'color',
-        text: firstCommentInput?.dataset['placeholder']
-      })
       .fromTo(
-        firstCommentContent,
+        firstCommentContent[1],
         {
           scale: 0.8,
           opacity: 0,
@@ -681,7 +666,8 @@ export function ReplayApplication() {
           scale: 1,
           opacity: 1,
           height: 'auto'
-        }
+        },
+        '>+=2'
       )
       .to(
         firstCommentBox,
@@ -729,8 +715,28 @@ export function ReplayApplication() {
       )
 
       /* Devtools */
-      .to({}, { duration: 3 })
       .add(flipTimeline2 as GSAPTimeline)
+      .to(
+        devtoolsToolsComments,
+        {
+          fill: '#BCBCBC'
+        },
+        '<'
+      )
+      .to(
+        devtoolsToolsCode,
+        {
+          fill: '#05ACFD'
+        },
+        '<'
+      )
+      .to(
+        firstComment,
+        {
+          opacity: 0
+        },
+        '<'
+      )
       .to(
         devtoolsPanelRef.current,
         {
@@ -836,7 +842,7 @@ export function ReplayApplication() {
         {
           xPercent: 0,
           opacity: 1,
-          scale: 1
+          scale: 1.0
         },
         '<+=0.2'
       )
@@ -895,8 +901,8 @@ export function ReplayApplication() {
           progress: 20
         },
         {
-          progress: 100,
-          duration: 10,
+          progress: 50,
+          duration: 5,
           ease: 'linear',
           onStart: () => {
             setStoreState('idle')
@@ -916,7 +922,6 @@ export function ReplayApplication() {
               '--rotate-z': `${360 * 4 * (progress / 100)}deg`
             })
 
-            playPauseRef.current?.classList.remove('replay')
             playPauseRef.current?.classList.remove('pause')
             playPauseRef.current?.classList.add('play')
 
@@ -930,7 +935,7 @@ export function ReplayApplication() {
           },
           onComplete: () => {
             playPauseRef.current?.classList.remove('play')
-            playPauseRef.current?.classList.add('replay')
+            playPauseRef.current?.classList.add('pause')
           }
         }
       )
@@ -958,7 +963,7 @@ export function ReplayApplication() {
           y: 0,
           scale: 1,
           opacity: 1,
-          ease: 'elastic.out',
+          ease: Elastic.easeOut.config(1, 0.6),
           duration: 3
         },
         '<'
@@ -974,15 +979,23 @@ export function ReplayApplication() {
         },
         '<'
       )
+      .fromTo(
+        secondCommentDate,
+        {
+          opacity: 0,
+          height: 0
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          height: 'auto'
+        }
+      )
       .set(secondCommentInput, {
         color: 'inherit'
       })
-      .set(secondCommentInput, {
-        clearProps: 'color',
-        text: secondCommentInput?.dataset['placeholder']
-      })
       .fromTo(
-        secondCommentContent,
+        secondCommentContent[1],
         {
           scale: 0.8,
           opacity: 0,
@@ -992,7 +1005,8 @@ export function ReplayApplication() {
           scale: 1,
           opacity: 1,
           height: 'auto'
-        }
+        },
+        '>+=2'
       )
 
     return () => {
@@ -1083,10 +1097,21 @@ export function ReplayApplication() {
             }}
           >
             <CommentModule
-              name="Tina"
-              date="Now"
-              avatar={avatarThree}
-              comment="This is throwing error."
+              side="bottom-right"
+              comments={[
+                {
+                  name: 'Tina',
+                  date: 'Now',
+                  avatar: avatarThree,
+                  text: '@helen can you look into this critical checkout bug, please? Users cannot purchase hoverboards right now.'
+                },
+                {
+                  name: 'Helen',
+                  date: 'Now',
+                  avatar: avatarOne,
+                  text: 'Absolutely!'
+                }
+              ]}
             />
           </div>
 
@@ -1114,11 +1139,11 @@ export function ReplayApplication() {
               // @ts-ignore
               style={{ '--height': headerHeight + 'px' }}
             >
-              <div className={s['logo']}>
-                <IsoLogo />
+              <div className={s['left']}>
+                <IsoLogo className={s['logo']} />
               </div>
               <div className={s['users']}>
-                <img className="user" src={avatarTwo.src} />
+                <img className="user" src={avatarOne.src} />
                 <img className="user" src={avatarThree.src} />
               </div>
               <ViewToggle ref={viewToggleRef} />
@@ -1141,35 +1166,40 @@ export function ReplayApplication() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clipPath="url(#clip0_806_120)" className="info">
-                    <path
-                      d="M11.7419 2.32324C6.47972 2.32324 2.20898 6.59398 2.20898 11.8561C2.20898 17.1183 6.47972 21.389 11.7419 21.389C17.004 21.389 21.2748 17.1183 21.2748 11.8561C21.2748 6.59398 17.004 2.32324 11.7419 2.32324ZM12.6952 16.6226H10.7886V10.9029H12.6952V16.6226ZM12.6952 8.99627H10.7886V7.08969H12.6952V8.99627Z"
-                      fill="#BCBCBC"
-                    />
+                  <g
+                    clipPath="url(#clip0_806_120)"
+                    className="info"
+                    fill="#BCBCBC"
+                  >
+                    <path d="M11.7419 2.32324C6.47972 2.32324 2.20898 6.59398 2.20898 11.8561C2.20898 17.1183 6.47972 21.389 11.7419 21.389C17.004 21.389 21.2748 17.1183 21.2748 11.8561C21.2748 6.59398 17.004 2.32324 11.7419 2.32324ZM12.6952 16.6226H10.7886V10.9029H12.6952V16.6226ZM12.6952 8.99627H10.7886V7.08969H12.6952V8.99627Z" />
                   </g>
-                  <g clipPath="url(#clip1_806_120)" className="comments">
-                    <path
-                      d="M19.3682 56.3394H18.4149V63.6723C18.4149 64.1765 17.9859 64.589 17.4616 64.589H6.02214V65.5056C6.02214 66.5139 6.8801 67.3388 7.92872 67.3388H17.4616L21.2748 71.0053V58.1726C21.2748 57.1643 20.4168 56.3394 19.3682 56.3394ZM16.5083 60.9225V54.5061C16.5083 53.4978 15.6504 52.6729 14.6018 52.6729H4.11556C3.06695 52.6729 2.20898 53.4978 2.20898 54.5061V66.4222L6.02214 62.7557H14.6018C15.6504 62.7557 16.5083 61.9308 16.5083 60.9225Z"
-                      fill="#BCBCBC"
-                    />
+                  <g
+                    clipPath="url(#clip1_806_120)"
+                    className="comments"
+                    fill="#BCBCBC"
+                  >
+                    <path d="M19.3682 56.3394H18.4149V63.6723C18.4149 64.1765 17.9859 64.589 17.4616 64.589H6.02214V65.5056C6.02214 66.5139 6.8801 67.3388 7.92872 67.3388H17.4616L21.2748 71.0053V58.1726C21.2748 57.1643 20.4168 56.3394 19.3682 56.3394ZM16.5083 60.9225V54.5061C16.5083 53.4978 15.6504 52.6729 14.6018 52.6729H4.11556C3.06695 52.6729 2.20898 53.4978 2.20898 54.5061V66.4222L6.02214 62.7557H14.6018C15.6504 62.7557 16.5083 61.9308 16.5083 60.9225Z" />
                   </g>
-                  <g clipPath="url(#clip2_806_120)" className="code">
-                    <path
-                      d="M13.07 102.428C12.7375 102.096 12.2912 101.912 11.8275 101.912H5.55371C4.59121 101.912 3.80371 102.7 3.80371 103.662V117.662C3.80371 118.625 4.58246 119.412 5.54496 119.412H16.0537C17.0162 119.412 17.8037 118.625 17.8037 117.662V107.888C17.8037 107.425 17.62 106.978 17.2875 106.655L13.07 102.428ZM13.4287 115.912H8.17871C7.69746 115.912 7.30371 115.518 7.30371 115.037C7.30371 114.556 7.69746 114.162 8.17871 114.162H13.4287C13.91 114.162 14.3037 114.556 14.3037 115.037C14.3037 115.518 13.91 115.912 13.4287 115.912ZM13.4287 112.412H8.17871C7.69746 112.412 7.30371 112.018 7.30371 111.537C7.30371 111.056 7.69746 110.662 8.17871 110.662H13.4287C13.91 110.662 14.3037 111.056 14.3037 111.537C14.3037 112.018 13.91 112.412 13.4287 112.412ZM11.6787 107.162V103.225L16.4912 108.037H12.5537C12.0725 108.037 11.6787 107.643 11.6787 107.162Z"
-                      fill="#BCBCBC"
-                    />
+                  <g
+                    clipPath="url(#clip2_806_120)"
+                    className="code"
+                    fill="#BCBCBC"
+                  >
+                    <path d="M13.07 102.428C12.7375 102.096 12.2912 101.912 11.8275 101.912H5.55371C4.59121 101.912 3.80371 102.7 3.80371 103.662V117.662C3.80371 118.625 4.58246 119.412 5.54496 119.412H16.0537C17.0162 119.412 17.8037 118.625 17.8037 117.662V107.888C17.8037 107.425 17.62 106.978 17.2875 106.655L13.07 102.428ZM13.4287 115.912H8.17871C7.69746 115.912 7.30371 115.518 7.30371 115.037C7.30371 114.556 7.69746 114.162 8.17871 114.162H13.4287C13.91 114.162 14.3037 114.556 14.3037 115.037C14.3037 115.518 13.91 115.912 13.4287 115.912ZM13.4287 112.412H8.17871C7.69746 112.412 7.30371 112.018 7.30371 111.537C7.30371 111.056 7.69746 110.662 8.17871 110.662H13.4287C13.91 110.662 14.3037 111.056 14.3037 111.537C14.3037 112.018 13.91 112.412 13.4287 112.412ZM11.6787 107.162V103.225L16.4912 108.037H12.5537C12.0725 108.037 11.6787 107.643 11.6787 107.162Z" />
                   </g>
-                  <g clipPath="url(#clip3_806_120)" className="debugger">
-                    <path
-                      d="M19.5537 158.656C19.5537 163.486 15.6337 167.406 10.8037 167.406C5.97371 167.406 2.05371 163.486 2.05371 158.656C2.05371 157.615 2.24621 156.626 2.57871 155.699L4.22371 156.294C3.95246 157.029 3.80371 157.825 3.80371 158.656C3.80371 162.515 6.94496 165.656 10.8037 165.656C14.6625 165.656 17.8037 162.515 17.8037 158.656C17.8037 154.798 14.6625 151.656 10.8037 151.656C9.97246 151.656 9.18496 151.805 8.44996 152.076L7.85496 150.423C8.78246 150.099 9.77121 149.906 10.8037 149.906C15.6337 149.906 19.5537 153.826 19.5537 158.656ZM5.11621 151.656C4.38996 151.656 3.80371 152.243 3.80371 152.969C3.80371 153.695 4.38996 154.281 5.11621 154.281C5.84246 154.281 6.42871 153.695 6.42871 152.969C6.42871 152.243 5.84246 151.656 5.11621 151.656ZM16.0537 158.656C16.0537 161.553 13.7 163.906 10.8037 163.906C7.90746 163.906 5.55371 161.553 5.55371 158.656C5.55371 155.76 7.90746 153.406 10.8037 153.406C13.7 153.406 16.0537 155.76 16.0537 158.656ZM9.92871 156.031H8.17871V161.281H9.92871V156.031ZM13.4287 156.031H11.6787V161.281H13.4287V156.031Z"
-                      fill="#BCBCBC"
-                    />
+                  <g
+                    clipPath="url(#clip3_806_120)"
+                    className="debugger"
+                    fill="#BCBCBC"
+                  >
+                    <path d="M19.5537 158.656C19.5537 163.486 15.6337 167.406 10.8037 167.406C5.97371 167.406 2.05371 163.486 2.05371 158.656C2.05371 157.615 2.24621 156.626 2.57871 155.699L4.22371 156.294C3.95246 157.029 3.80371 157.825 3.80371 158.656C3.80371 162.515 6.94496 165.656 10.8037 165.656C14.6625 165.656 17.8037 162.515 17.8037 158.656C17.8037 154.798 14.6625 151.656 10.8037 151.656C9.97246 151.656 9.18496 151.805 8.44996 152.076L7.85496 150.423C8.78246 150.099 9.77121 149.906 10.8037 149.906C15.6337 149.906 19.5537 153.826 19.5537 158.656ZM5.11621 151.656C4.38996 151.656 3.80371 152.243 3.80371 152.969C3.80371 153.695 4.38996 154.281 5.11621 154.281C5.84246 154.281 6.42871 153.695 6.42871 152.969C6.42871 152.243 5.84246 151.656 5.11621 151.656ZM16.0537 158.656C16.0537 161.553 13.7 163.906 10.8037 163.906C7.90746 163.906 5.55371 161.553 5.55371 158.656C5.55371 155.76 7.90746 153.406 10.8037 153.406C13.7 153.406 16.0537 155.76 16.0537 158.656ZM9.92871 156.031H8.17871V161.281H9.92871V156.031ZM13.4287 156.031H11.6787V161.281H13.4287V156.031Z" />
                   </g>
-                  <g clipPath="url(#clip4_806_120)" className="search">
-                    <path
-                      d="M13.8662 208.399H13.175L12.93 208.163C13.7875 207.166 14.3037 205.871 14.3037 204.462C14.3037 201.321 11.7575 198.774 8.61621 198.774C5.47496 198.774 2.92871 201.321 2.92871 204.462C2.92871 207.603 5.47496 210.149 8.61621 210.149C10.025 210.149 11.32 209.633 12.3175 208.776L12.5537 209.021V209.712L16.9287 214.078L18.2325 212.774L13.8662 208.399V208.399ZM8.61621 208.399C6.43746 208.399 4.67871 206.641 4.67871 204.462C4.67871 202.283 6.43746 200.524 8.61621 200.524C10.795 200.524 12.5537 202.283 12.5537 204.462C12.5537 206.641 10.795 208.399 8.61621 208.399Z"
-                      fill="#BCBCBC"
-                    />
+                  <g
+                    clipPath="url(#clip4_806_120)"
+                    className="search"
+                    fill="#BCBCBC"
+                  >
+                    <path d="M13.8662 208.399H13.175L12.93 208.163C13.7875 207.166 14.3037 205.871 14.3037 204.462C14.3037 201.321 11.7575 198.774 8.61621 198.774C5.47496 198.774 2.92871 201.321 2.92871 204.462C2.92871 207.603 5.47496 210.149 8.61621 210.149C10.025 210.149 11.32 209.633 12.3175 208.776L12.5537 209.021V209.712L16.9287 214.078L18.2325 212.774L13.8662 208.399V208.399ZM8.61621 208.399C6.43746 208.399 4.67871 206.641 4.67871 204.462C4.67871 202.283 6.43746 200.524 8.61621 200.524C10.795 200.524 12.5537 202.283 12.5537 204.462C12.5537 206.641 10.795 208.399 8.61621 208.399Z" />
                   </g>
                   <defs>
                     <clipPath id="clip0_806_120">
@@ -1250,6 +1280,20 @@ export function ReplayApplication() {
                       markers: printMarkers,
                       printLineTarget: 14,
                       timelineType: 'justUi',
+                      comments: [
+                        {
+                          name: 'Helen',
+                          date: 'Now',
+                          avatar: avatarOne,
+                          text: 'I inspected the API request at that time and it looks like we misspelled a parameter, fixed!'
+                        },
+                        {
+                          name: 'Tina',
+                          date: 'Now',
+                          avatar: avatarThree,
+                          text: 'Woohoo, thanks for fixing that so quickly! 🙌🏼'
+                        }
+                      ],
                       currentMarker: markersType,
                       onHit: handleHit,
                       currentHit
@@ -1316,32 +1360,39 @@ export function ReplayApplication() {
                 '--height': timelineHeight
               }}
             >
-              <svg
-                className={clsx(s['play-pause'], 'pause')}
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                ref={playPauseRef}
-              >
-                <circle cx="20.5141" cy="20.5141" r="16.5141" fill="#01ACFD" />
-                <path
-                  className={s['play']}
-                  d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
-                  fill="#F9F9FA"
-                />
-                <path
-                  className={s['pause']}
-                  d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
-                  fill="#F9F9FA"
-                />
-                <path
-                  className={s['replay']}
-                  d="M25.2306 15.4557C23.961 14.1869 22.2187 13.3994 20.2837 13.3994C16.4138 13.3994 13.2881 16.5319 13.2881 20.3994C13.2881 24.2669 16.4138 27.3994 20.2837 27.3994C23.1348 27.3994 25.5722 25.6988 26.6637 23.2583C26.9069 22.7146 26.4712 22.1494 25.8756 22.1494C25.4891 22.1494 25.1516 22.3972 24.9792 22.7431C24.1203 24.4659 22.3403 25.6494 20.2837 25.6494C17.3856 25.6494 15.0304 23.2957 15.0304 20.3994C15.0304 17.5032 17.3856 15.1494 20.2837 15.1494C21.7371 15.1494 23.0329 15.7532 23.9785 16.7069L21.5009 19.1829C21.3749 19.3089 21.4641 19.5244 21.6423 19.5244H27.0881C27.1986 19.5244 27.2881 19.4349 27.2881 19.3244V13.882C27.2881 13.7039 27.0727 13.6146 26.9467 13.7406L25.2306 15.4557Z"
-                  fill="#F9F9FA"
-                />
-              </svg>
+              <div className={s['left']}>
+                <svg
+                  className={clsx(s['play-pause'], 'pause')}
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  ref={playPauseRef}
+                >
+                  <circle
+                    cx="20.5141"
+                    cy="20.5141"
+                    r="16.5141"
+                    fill="#01ACFD"
+                  />
+                  <path
+                    className={s['play']}
+                    d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
+                    fill="#F9F9FA"
+                  />
+                  <path
+                    className={s['pause']}
+                    d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
+                    fill="#F9F9FA"
+                  />
+                  <path
+                    className={s['replay']}
+                    d="M25.2306 15.4557C23.961 14.1869 22.2187 13.3994 20.2837 13.3994C16.4138 13.3994 13.2881 16.5319 13.2881 20.3994C13.2881 24.2669 16.4138 27.3994 20.2837 27.3994C23.1348 27.3994 25.5722 25.6988 26.6637 23.2583C26.9069 22.7146 26.4712 22.1494 25.8756 22.1494C25.4891 22.1494 25.1516 22.3972 24.9792 22.7431C24.1203 24.4659 22.3403 25.6494 20.2837 25.6494C17.3856 25.6494 15.0304 23.2957 15.0304 20.3994C15.0304 17.5032 17.3856 15.1494 20.2837 15.1494C21.7371 15.1494 23.0329 15.7532 23.9785 16.7069L21.5009 19.1829C21.3749 19.3089 21.4641 19.5244 21.6423 19.5244H27.0881C27.1986 19.5244 27.2881 19.4349 27.2881 19.3244V13.882C27.2881 13.7039 27.0727 13.6146 26.9467 13.7406L25.2306 15.4557Z"
+                    fill="#F9F9FA"
+                  />
+                </svg>
+              </div>
 
-              <div style={{ flex: 1, margin: '0 20px' }}>
+              <div className={s['timeline']}>
                 <ProgressBar
                   solid
                   animated={false}
@@ -1368,8 +1419,26 @@ export function ReplayApplication() {
 }
 
 export function OverboardStory() {
+  // useEffect(() => {
+  //   let int
+
+  //   gsap.delayedCall(3, () => {
+  //     int = setInterval(() => {
+  //       console.log('Hi')
+  //       window.scroll({ top: window.scrollY + 2.5 })
+  //     }, 1)
+  //   })
+
+  //   return () => {
+  //     if (int) {
+  //       clearInterval(int)
+  //     }
+  //   }
+  // }, [])
+
   return (
     <Container size="lg">
+      {/* <video src="/video/hero-video.mp4" /> */}
       <ReplayApplication />
     </Container>
   )

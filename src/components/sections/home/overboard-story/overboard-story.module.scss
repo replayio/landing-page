@@ -8,6 +8,7 @@
 }
 
 .store-container {
+  overflow: hidden;
   position: absolute;
   width: 100%;
   z-index: 10;
@@ -43,6 +44,8 @@
 
   .app {
     --padding: 0px;
+    --left-side-width: 75px;
+    --panels-gap: 26px;
 
     display: flex;
     flex-direction: column;
@@ -59,19 +62,24 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
+    .left {
+      display: flex;
+      justify-content: center;
+      width: var(--left-side-width);
+    }
+
     .header {
       --height: 70px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 32px;
-      background-color: white;
+      padding-right: var(--panels-gap);
+      background-color: f2f2f2;
       height: var(--height);
-      border-bottom: 1px solid var(--color-gray-lighter);
 
       .logo {
-        width: 25px;
+        width: 20px;
         color: var(--color-pink-crayon);
       }
 
@@ -96,24 +104,26 @@
       flex: 1;
 
       .toolbar {
-        padding: 20px 26px;
+        display: flex;
+        justify-content: center;
+        width: var(--left-side-width);
+        min-width: var(--left-side-width);
+        padding: 20px 0;
       }
 
       .grid {
-        --gap: 26px;
-
         position: relative;
-        margin: 26px 26px 0px 0px;
+        margin: 20px var(--panels-gap) 0px 0px;
         display: grid;
         width: 100%;
         grid-template-columns:
-          var(--gap)
-          calc(50% - var(--gap) - (var(--gap) / 2))
+          var(--panels-gap)
+          calc(50% - var(--panels-gap) - (var(--panels-gap) / 2))
           auto
-          calc(50% - var(--gap) - (var(--gap) / 2))
-          var(--gap);
-        grid-template-rows: calc(50% - (var(--gap) / 2)) calc(
-            50% - (var(--gap) / 2)
+          calc(50% - var(--panels-gap) - (var(--panels-gap) / 2))
+          var(--panels-gap);
+        grid-template-rows: calc(50% - (var(--panels-gap) / 2)) calc(
+            50% - (var(--panels-gap) / 2)
           );
         align-content: space-between;
         grid-template-areas:
@@ -130,7 +140,7 @@
     .bottom {
       display: flex;
       align-items: center;
-      padding: 24px;
+      padding: 24px var(--panels-gap) 24px 0;
       height: var(--height);
 
       .play-pause {
@@ -153,7 +163,12 @@
         }
       }
 
+      .timeline {
+        flex: 1;
+      }
+
       .current-time {
+        margin-left: 20px;
         background: #e6e6e6;
         border-radius: var(--border-radius-full);
         padding: 2px 12px;

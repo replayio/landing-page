@@ -5,6 +5,7 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Bubble } from '~/components/common/bubble-popup'
 import { HeadingSet } from '~/components/common/heading-set'
 import { Timeline } from '~/components/common/progress-bar'
+import { ScrollXGradient } from '~/components/common/scroll-x-gradient'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
@@ -86,6 +87,7 @@ const buildAssetId = (asset: typeof assets[number], idx: number) =>
   `asset-chunk-${asset.title}-${idx}`
 
 const AssetPlayer = () => {
+  const chunksScrollRef = useRef<HTMLDivElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
   const prevIdx = useRef(0)
   const timelineRef = useRef<
@@ -126,38 +128,56 @@ const AssetPlayer = () => {
 
   useEffect(() => {
     prevIdx.current = activeIdx
+
+    if (chunksScrollRef.current) {
+      const targetAsset = document.getElementById(
+        buildAssetId(assets[activeIdx], activeIdx)
+      )?.parentElement
+
+      if (targetAsset) {
+        chunksScrollRef.current.scroll({
+          left:
+            targetAsset.offsetLeft -
+            chunksScrollRef.current.clientWidth / 2 +
+            targetAsset.clientWidth / 2,
+          behavior: 'smooth'
+        })
+      }
+    }
   }, [activeIdx])
 
   return (
     <div className={s['asset-player']} ref={ref}>
       <div className={s['head']}>
-        <Container className={s['container']} size="md">
-          <AssetChunks
-            assets={assets.map((asset, idx) => {
-              const id = buildAssetId(asset, idx)
+        <ScrollXGradient offset={32} ref={chunksScrollRef}>
+          <Container className={s['container']} size="md">
+            <AssetChunks
+              assets={assets.map((asset, idx) => {
+                const id = buildAssetId(asset, idx)
 
-              return {
-                id,
-                active: idx <= activeIdx,
-                title: asset.title,
-                description: asset.description,
-                onClick: () => timelineRef.current?.seek(id)
-              }
-            })}
-          />
-
-          <div className={s['progress']}>
-            <Timeline
-              playing={inView}
-              markers={markers}
-              markerVisible={false}
-              markerSize={14}
-              duration={60}
-              direction="horizontal"
-              ref={timelineRef}
+                return {
+                  id,
+                  active: idx <= activeIdx,
+                  title: asset.title,
+                  description: asset.description,
+                  onClick: () => timelineRef.current?.seek(id)
+                }
+              })}
             />
-          </div>
-        </Container>
+
+            <div className={s['progress']}>
+              <Timeline
+                playing={inView}
+                markers={markers}
+                markerVisible={false}
+                markerSize={14}
+                duration={60}
+                direction="horizontal"
+                ref={timelineRef}
+              />
+            </div>
+          </Container>
+        </ScrollXGradient>
       </div>
       <Container size="md">
         <div className={s['epigraph-container']}>

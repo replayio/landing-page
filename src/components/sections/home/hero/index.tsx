@@ -6,18 +6,37 @@ import { Heading } from '~/components/common/heading'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
-import { useDeviceDetect } from '~/hooks/use-device-detect'
+import { ButtonLink } from '~/components/primitives/button'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
-import { breakpoints } from '~/lib/constants'
+import { breakpoints, isServer } from '~/lib/constants'
 
 import s from './hero.module.scss'
+
+const availablePlatforms = {
+  windows: '/downloads/windows-replay.zip',
+  mac: '/downloads/replay.dmg',
+  linux: '/downloads/linux-replay.tar.bz2'
+}
+
+const getDownloadLink = () => {
+  if (isServer) return
+
+  const uAgent = navigator.userAgent
+
+  return (
+    (uAgent.match(/Linux/i) && availablePlatforms['linux']) ||
+    (uAgent.match(/Windows/i) && availablePlatforms['windows']) ||
+    (uAgent.match(/Mac/i) && availablePlatforms['mac']) ||
+    undefined
+  )
+}
 
 export const Hero: FC = () => {
   const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const ref = useRef<HTMLDivElement>(null)
-  const { isDesktop } = useDeviceDetect()
+
+  const currentPlatformDownloadLink = getDownloadLink()
 
   useIsomorphicLayoutEffect(() => {
     let tl: gsap.core.Timeline
@@ -189,8 +208,18 @@ export const Hero: FC = () => {
               </span>{' '}
               your application with&nbsp;DevTools.
             </Heading>
-            <div className={clsx(s['cta'], { [s['hidden']]: !isDesktop })}>
-              <Button variant="primary">Download Replay</Button>
+            <div
+              className={clsx(s['cta'], {
+                [s['hidden']]: !currentPlatformDownloadLink
+              })}
+            >
+              <ButtonLink
+                href={currentPlatformDownloadLink || ''}
+                target="_blank"
+                variant="primary"
+              >
+                Download Replay
+              </ButtonLink>
             </div>
           </div>
         </div>
