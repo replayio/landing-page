@@ -591,7 +591,7 @@ export function ReplayApplication() {
       .fromTo(
         firstCommentIcon,
         {
-          scale: 0,
+          scale: 0.6,
           opacity: 0
         },
         {
@@ -599,14 +599,10 @@ export function ReplayApplication() {
           opacity: 1
         }
       )
-      .to(
-        firstCommentIcon,
-        {
-          scale: 1.2,
-          duration: 1
-        },
-        '+=2'
-      )
+      .to(firstCommentIcon, {
+        scale: 1.2,
+        duration: 1
+      })
       .to(firstCommentIcon, {
         scale: 1,
         duration: 1
@@ -625,8 +621,7 @@ export function ReplayApplication() {
           opacity: 1,
           ease: Elastic.easeOut.config(1, 0.6),
           duration: 3
-        },
-        '<'
+        }
       )
       .set(firstCommentInput, {
         color: 'inherit',
@@ -953,19 +948,17 @@ export function ReplayApplication() {
       .fromTo(
         secondCommentBox,
         {
-          transformOrigin: 'right top',
-          y: -8,
+          transformOrigin: 'right center',
+          y: -42,
           scale: 0.8,
           opacity: 0
         },
         {
-          y: 0,
           scale: 1,
           opacity: 1,
           ease: Elastic.easeOut.config(1, 0.6),
           duration: 3
-        },
-        '<'
+        }
       )
       .set(secondCommentInput, {
         color: 'inherit',

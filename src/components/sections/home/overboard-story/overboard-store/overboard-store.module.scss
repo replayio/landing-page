@@ -63,6 +63,7 @@
     z-index: var(--z-index-0);
 
     .stars {
+      user-select: none;
       opacity: 0.3;
       position: absolute;
       top: 0;

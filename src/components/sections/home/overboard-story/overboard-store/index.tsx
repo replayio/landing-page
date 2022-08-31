@@ -201,7 +201,8 @@ export const OverboardStore = memo(
                               key={name}
                             >
                               <Color
-                                defaultChecked={overboardColor === name}
+                                onChange={() => undefined}
+                                checked={overboardColor === name}
                                 label={name}
                                 value={name.toLowerCase()}
                                 startColor={start}
