@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { Elastic } from 'gsap'
 import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
 import get from 'lodash/get'
-import React, { forwardRef, useCallback, useRef, useState } from 'react'
+import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
