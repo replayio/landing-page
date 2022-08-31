@@ -6,10 +6,12 @@ import {
   HoverboardControls
 } from '@replayio/overboard'
 import clsx from 'clsx'
+import Image from 'next/future/image'
 import { forwardRef, memo, useImperativeHandle, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { InspectBox } from '~/components/common/inspect-box'
+import starsSvg from '~/public/images/home/overboard-stars.svg'
 
 import { Logo } from './logo'
 import s from './overboard-store.module.scss'
@@ -139,15 +141,8 @@ export const OverboardStore = memo(
           <div
             className={clsx('store', s['overboard-store'], s['mode-' + mode])}
           >
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                alignItems: 'bottom',
-                zIndex: 0
-              }}
-            >
+            <div className={s['underlay']}>
+              <Image className={s['stars']} src={starsSvg} />
               <AnimatedGrid ref={gridRef} />
             </div>
 

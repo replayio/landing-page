@@ -17,7 +17,6 @@ import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-st
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
-// import { isDev } from '~/lib/constants'
 import { padZeroesToNumber } from '~/lib/utils'
 import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarThree from '~/public/images/home/avatar-3.webp'
@@ -1419,6 +1418,8 @@ export function ReplayApplication() {
 }
 
 export function OverboardStory() {
+  const { isDesktop } = useDeviceDetect()
+
   // useEffect(() => {
   //   let int
 
@@ -1438,8 +1439,15 @@ export function OverboardStory() {
 
   return (
     <Container size="lg">
-      {/* <video src="/video/hero-video.mp4" /> */}
-      <ReplayApplication />
+      {isDesktop ? (
+        <ReplayApplication />
+      ) : (
+        <video
+          style={{ borderRadius: 12 }}
+          src="/video/hero-video.mp4"
+          poster="/video/hero-video-thumbnail.png"
+        />
+      )}
     </Container>
   )
 }

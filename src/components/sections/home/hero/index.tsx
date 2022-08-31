@@ -217,6 +217,7 @@ export const Hero: FC = () => {
                 href={currentPlatformDownloadLink || ''}
                 target="_blank"
                 variant="primary"
+                download
               >
                 Download Replay
               </ButtonLink>

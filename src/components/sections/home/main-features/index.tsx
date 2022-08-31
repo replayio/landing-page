@@ -8,9 +8,7 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
-import { isDev } from '~/lib/constants'
 
-// import { isDev } from '~/lib/constants'
 import s from './main-features.module.scss'
 
 type ScrollProgressBarProps = {
@@ -45,7 +43,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
 
     const trigger = ScrollTrigger.create({
       trigger: sectionRef,
-      markers: isDev,
+      markers: false,
       scrub: 1,
       start: 'top 80%',
       end: 'bottom 50%',
