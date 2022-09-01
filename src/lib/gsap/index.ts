@@ -4,6 +4,7 @@ import { CustomEase } from 'gsap/dist/CustomEase'
 import { DrawSVGPlugin } from 'gsap/dist/DrawSVGPlugin'
 import { Flip } from 'gsap/dist/Flip'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { SplitText } from 'gsap/dist/SplitText'
 import { TextPlugin } from 'gsap/dist/TextPlugin'
 import isElement from 'lodash/isElement'
 
@@ -22,7 +23,8 @@ gsap.registerPlugin(
   DrawSVGPlugin,
   ScrollTrigger,
   TextPlugin,
-  Flip
+  Flip,
+  SplitText
 )
 
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2
@@ -213,5 +215,6 @@ export {
   gsap,
   GSDevTools,
   ScrollTrigger,
+  SplitText,
   TextPlugin
 }

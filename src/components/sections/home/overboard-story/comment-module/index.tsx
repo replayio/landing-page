@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 import Image, { ImageProps } from 'next/future/image'
-import { FC, Fragment } from 'react'
+import { FC, Fragment, useMemo } from 'react'
+
+import { userTagRegex } from '~/lib/utils'
 
 import s from './comment-module.module.scss'
 
@@ -18,7 +20,23 @@ export const CommentModule: FC<CommentModuleProps> = ({
   comments,
   side = 'left'
 }) => {
-  const mainComment = comments[0]
+  const parsedComments = useMemo(() => {
+    return comments.map((comment) => {
+      const coincidence = userTagRegex.exec(comment.text)
+
+      return {
+        ...comment,
+        text: coincidence
+          ? comment.text.replace(
+              coincidence[0],
+              `<span class="${s['tag']}">${coincidence[0]}</span>`
+            )
+          : comment.text
+      }
+    })
+  }, [comments])
+
+  const mainComment = parsedComments[0]
 
   return (
     <div className={s['container']}>
@@ -40,7 +58,7 @@ export const CommentModule: FC<CommentModuleProps> = ({
 
       <div className={clsx('comment', s['comment'], s[side])}>
         <div className={s['thread']}>
-          {comments.map((comment, idx) => (
+          {parsedComments.map((comment, idx) => (
             <Fragment key={idx}>
               <div className={clsx('content', s['content'])} key={idx}>
                 <div className={s['content-inner']}>
@@ -59,7 +77,13 @@ export const CommentModule: FC<CommentModuleProps> = ({
                       data-placeholder="Type a comment..."
                       className={clsx('input', s['input'])}
                     >
-                      Type a comment...
+                      <span className={clsx('placeholder', s['placeholder'])}>
+                        Type a comment...
+                      </span>
+                      <span
+                        className={clsx('input-content', s['content'])}
+                        dangerouslySetInnerHTML={{ __html: mainComment.text }}
+                      />
                     </div>
                   ) : (
                     <p

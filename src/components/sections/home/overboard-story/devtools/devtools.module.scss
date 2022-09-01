@@ -48,7 +48,6 @@
         &::before {
           content: '!';
           font-weight: 900;
-          margin-right: 15px;
         }
 
         .marker {
@@ -90,7 +89,8 @@
         }
       }
 
-      .marker {
+      .marker,
+      &.is-error::before {
         margin-right: 15px;
       }
     }

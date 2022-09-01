@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Elastic } from 'gsap'
-import { clearProps, DURATION, Flip, gsap } from 'lib/gsap'
+import { clearProps, DURATION, Flip, gsap, SplitText } from 'lib/gsap'
 import get from 'lodash/get'
 import { forwardRef, useCallback, useRef, useState } from 'react'
 
@@ -314,35 +314,89 @@ export function ReplayApplication() {
     const firstCommentIcon = storeSelector(
       '#scrollytelling-first-comment .comment-icon'
     )
-    const firstCommentContent = storeSelector(
-      '#scrollytelling-first-comment .content'
-    )
-    const firstCommentDate = storeSelector(
-      '#scrollytelling-first-comment .content:nth-child(1) .date'
-    )
     const firstCommentBox = storeSelector(
       '#scrollytelling-first-comment .comment'
-    )
-    const [firstCommentInput] = storeSelector(
-      '#scrollytelling-first-comment .input'
     )
 
     /* Second Comment */
     const secondCommentIcon = appSelector(
       '#scrollytelling-second-comment .comment-icon'
     )
-    const secondCommentContent = appSelector(
-      '#scrollytelling-second-comment .content'
-    )
-    const secondCommentDate = appSelector(
-      '#scrollytelling-second-comment .content:nth-child(1) .date'
-    )
+
     const secondCommentBox = appSelector(
       '#scrollytelling-second-comment .comment'
     )
-    const [secondCommentInput] = appSelector(
-      '#scrollytelling-second-comment .input'
-    )
+
+    const animateCommentThread = (
+      wrapperId: string,
+      timeline: GSAPTimeline,
+      customSelector?: gsap.utils.SelectorFunc
+    ) => {
+      const selector = customSelector || gsap.utils.selector(sectionRef.current)
+
+      const commentContent = selector(`${wrapperId} .content`)
+      const [commentInput] = selector(`${wrapperId} .input`)
+      const commentDate = selector(`${wrapperId} .content:nth-child(1) .date`)
+
+      const splitText = new SplitText(commentInput.children[1], {
+        type: 'chars',
+        wordsClass: 'hi'
+      })
+
+      timeline
+        .set(commentInput.children[0], {
+          display: 'none'
+        })
+        .fromTo(
+          commentInput.children[1],
+          {
+            display: 'none'
+          },
+          {
+            display: 'block'
+          }
+        )
+        .fromTo(
+          splitText.chars,
+          {
+            display: 'none'
+          },
+          {
+            duration: 2,
+            display: 'inline',
+            stagger: 0.05
+          },
+          '<'
+        )
+        .fromTo(
+          commentDate,
+          {
+            opacity: 0,
+            height: 0
+          },
+          {
+            opacity: 1,
+            duration: 1,
+            height: 'auto'
+          }
+        )
+        .fromTo(
+          commentContent[1],
+          {
+            scale: 0.8,
+            opacity: 0,
+            height: 0
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            height: 'auto'
+          },
+          '>+=2'
+        )
+
+      return splitText
+    }
 
     /* Board and floor movement */
     const storeVariables = {
@@ -623,46 +677,14 @@ export function ReplayApplication() {
           duration: 3
         }
       )
-      .set(firstCommentInput, {
-        color: 'inherit',
-        text: ''
-      })
-      .to(
-        firstCommentInput,
-        {
-          text: firstCommentInput?.dataset['text']
-        },
-        '<'
-      )
-      .fromTo(
-        firstCommentDate,
-        {
-          opacity: 0,
-          height: 0
-        },
-        {
-          opacity: 1,
-          duration: 1,
-          height: 'auto'
-        }
-      )
-      .set(firstCommentInput, {
-        color: 'inherit'
-      })
-      .fromTo(
-        firstCommentContent[1],
-        {
-          scale: 0.8,
-          opacity: 0,
-          height: 0
-        },
-        {
-          scale: 1,
-          opacity: 1,
-          height: 'auto'
-        },
-        '>+=2'
-      )
+
+    const firstCommentSplitText = animateCommentThread(
+      '#scrollytelling-first-comment',
+      timeline,
+      storeSelector
+    )
+
+    timeline
       .fromTo(
         headerUsers[0],
         {
@@ -961,50 +983,21 @@ export function ReplayApplication() {
           duration: 3
         }
       )
-      .set(secondCommentInput, {
-        color: 'inherit',
-        text: ''
-      })
-      .to(
-        secondCommentInput,
-        {
-          text: secondCommentInput?.dataset['text']
-        },
-        '<'
-      )
-      .fromTo(
-        secondCommentDate,
-        {
-          opacity: 0,
-          height: 0
-        },
-        {
-          opacity: 1,
-          duration: 1,
-          height: 'auto'
-        }
-      )
-      .set(secondCommentInput, {
-        color: 'inherit'
-      })
-      .fromTo(
-        secondCommentContent[1],
-        {
-          scale: 0.8,
-          opacity: 0,
-          height: 0
-        },
-        {
-          scale: 1,
-          opacity: 1,
-          height: 'auto'
-        },
-        '>+=2'
-      )
-      /* Add some duration at the end */
-      .to({}, {})
+
+    const secondCommentSplitText = animateCommentThread(
+      '#scrollytelling-second-comment',
+      timeline,
+      appSelector
+    )
+
+    /* Add some duration at the end */
+    timeline.to({}, {})
 
     return () => {
+      /* Split Text Cleanup */
+      firstCommentSplitText.revert()
+      secondCommentSplitText.revert()
+
       /* ScrollTrigger Cleanup */
       scrollTo(0, 0)
 

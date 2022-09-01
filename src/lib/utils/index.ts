@@ -58,3 +58,5 @@ export const rangeMap = (
 ) =>
   ((input - inputStart) / (inputEnd - inputStart)) * (outputEnd - outputStart) +
   outputStart
+
+export const userTagRegex = /(?<![\w@])@([\w@]+(?:[.!][\w@]+)*)/
