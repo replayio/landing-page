@@ -663,6 +663,19 @@ export function ReplayApplication() {
         },
         '>+=2'
       )
+      .fromTo(
+        headerUsers[0],
+        {
+          xPercent: 20,
+          opacity: 0
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          duration: 2
+        },
+        '<'
+      )
       .to(
         firstCommentBox,
         {
@@ -691,19 +704,6 @@ export function ReplayApplication() {
           opacity: 1,
           duration: 2,
           stagger: 0.3
-        },
-        '<'
-      )
-      .fromTo(
-        headerUsers[0],
-        {
-          xPercent: 20,
-          opacity: 0
-        },
-        {
-          xPercent: 0,
-          opacity: 1,
-          duration: 2
         },
         '<'
       )
@@ -877,14 +877,15 @@ export function ReplayApplication() {
       .fromTo(
         printPanel,
         {
-          opacity: 0,
-          y: 20
+          opacity: 1,
+          overflow: 'hidden',
+          height: 0
         },
         {
-          opacity: 1,
-          y: 0
+          height: 'auto'
         }
       )
+      .set(printPanel, { overflow: 'visible' })
       .add(() => {
         playPauseRef.current?.classList.remove('play')
         playPauseRef.current?.classList.add('pause')
@@ -1000,6 +1001,8 @@ export function ReplayApplication() {
         },
         '>+=2'
       )
+      /* Add some duration at the end */
+      .to({}, {})
 
     return () => {
       /* ScrollTrigger Cleanup */
@@ -1043,10 +1046,10 @@ export function ReplayApplication() {
         },
         {
           hits: 1,
-          marker: markersType,
+          marker: 'transparent',
           prepend: 'Error',
-          content: [{ message: 'Color not found, received: undefined' }],
-          hide: !showPrints
+          isError: true,
+          content: [{ message: 'Color not found, received: undefined' }]
         }
       ]
     },
@@ -1265,7 +1268,7 @@ export function ReplayApplication() {
                       onChangeMarker: (v) => setMarkersType(v),
                       print: '"handleSubmit", formData',
                       markers: printMarkers,
-                      printLineTarget: 14,
+                      printLineTarget: 7,
                       timelineType: 'justUi',
                       comments: [
                         {

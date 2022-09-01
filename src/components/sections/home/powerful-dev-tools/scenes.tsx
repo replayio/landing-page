@@ -212,14 +212,16 @@ export const Scene1: FC<SceneProps> = ({
     _timeline.fromTo(
       printPanel,
       {
-        opacity: 0,
-        y: 20
+        opacity: 1,
+        overflow: 'hidden',
+        height: 0
       },
       {
-        opacity: 1,
-        y: 0
+        height: 'auto'
       }
     )
+
+    _timeline.set(printPanel, { overflow: 'visible' })
 
     _timeline.call(
       () => {

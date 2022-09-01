@@ -29,7 +29,8 @@
     .code-line {
       position: relative;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: center;
       line-height: 15px !important;
       font-size: 14px !important;
       font-family: var(--font-mono);
@@ -73,6 +74,7 @@
 
   .print-indicator {
     position: relative;
+    z-index: var(--z-index-20);
     display: inline-block;
     width: 4;
     height: 100%;
@@ -87,9 +89,7 @@
       height: 22px;
       width: 22px;
       color: white;
-      top: 50%;
       left: 8px;
-      transform: translateY(-50%);
       line-height: 17px;
       font-weight: 600;
 
@@ -144,13 +144,12 @@
   }
 
   .print-panel {
+    overflow: hidden;
+    position: relative;
+    z-index: var(--z-index-10);
+    height: 0;
     width: 100%;
-    position: absolute;
-    opacity: 0;
-    z-index: 1;
-    left: 0;
-    right: 0;
-    bottom: -3px;
+    background: #fafafa;
 
     .markers {
       position: relative;

@@ -18,6 +18,7 @@
   line-height: var(--line-height);
   z-index: var(--z-index-20);
   color: var(--color-gray-darker);
+  box-shadow: 0 0 10px 10px #00000008;
 
   &.bottom-right {
     margin-top: var(--margin-to-icon);

@@ -36,7 +36,7 @@ type InternalMarker = Marker & {
   normalizedPosition: number
 }
 
-type ProgressProps = {
+export type ProgressProps = {
   solid?: boolean
   progress?: number
   direction?: 'horizontal' | 'vertical'
@@ -338,7 +338,7 @@ export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressThumbProp>(
   )
 )
 
-type TimelineProps = {
+export type TimelineProps = {
   duration: number
   onStart?: () => void
   onComplete?: () => void

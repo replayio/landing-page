@@ -28,6 +28,9 @@
 
     .log-line {
       position: relative;
+      align-items: center;
+      padding: 4px 12px;
+      color: #01acfd;
 
       &:not(.active):hover,
       &:global(.active) {
@@ -35,6 +38,21 @@
           --translate-x: 0;
 
           opacity: 1;
+        }
+      }
+
+      &.is-error {
+        background: #f41b52ee;
+        color: var(--color-white);
+
+        &::before {
+          content: '!';
+          font-weight: 900;
+          margin-right: 15px;
+        }
+
+        .marker {
+          display: none;
         }
       }
 
