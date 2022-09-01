@@ -908,6 +908,7 @@ export function ReplayApplication() {
         }
       )
       .set(printPanel, { overflow: 'visible' })
+      .set(storePurchaseLoader, { '--play-state': 'paused' })
       .add(() => {
         playPauseRef.current?.classList.remove('play')
         playPauseRef.current?.classList.add('pause')
