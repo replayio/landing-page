@@ -85,23 +85,7 @@
 
     .content {
       .tag {
-        margin-left: 4px;
-        margin-right: 3px;
-
-        div {
-          position: relative;
-          font-weight: 500;
-          color: var(--color-white);
-
-          &::before {
-            content: '';
-            background-color: var(--color-pink-crayon);
-            position: absolute;
-            z-index: -1;
-            inset: -2px -4px;
-            border-radius: var(--border-radius-sm);
-          }
-        }
+        color: #01acfd;
       }
     }
   }
