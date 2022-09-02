@@ -226,15 +226,8 @@ export const PowerfulDevTools: FC = () => {
           title="Developer Tools"
           subtitle={
             <p>
-              Time travel debugging lets you replay the browser as it ran
-              before, so that you can start debugging immediately and get into
-              the flow state quickly.{' '}
-              <a
-                className={s['subtitle-link']}
-                href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
-              >
-                How&nbsp;Replay&nbsp;works.
-              </a>
+              Everything that's possible in Chrome DevTools and several things
+              that are not. You've never had this much fun debugging before.
             </p>
           }
           centered
