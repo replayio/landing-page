@@ -183,7 +183,7 @@ const CodeLine = ({
   return (
     <div
       className={s['code-line']}
-      style={{ background: debug ? '#BBEAFA' : 'transparent' }}
+      style={{ background: debug ? '#e0f7ff' : 'transparent' }}
     >
       <pre>
         <code
@@ -334,7 +334,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                   style={{
                     background:
                       (printIndicators?.[codeLine] === 'not-available' &&
-                        '#BBEAFA') ||
+                        '#d6f5ff') ||
                       (printIndicators?.[codeLine] === 'available' &&
                         '#69A5FF') ||
                       '#F1F1F1'

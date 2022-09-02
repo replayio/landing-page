@@ -2,7 +2,6 @@ import { ScrollTrigger } from 'lib/gsap'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
-import { PlayIcon } from '~/components/common/play-icon'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -87,20 +86,21 @@ export const MainFeatures: FC = () => {
             description={
               <>
                 <p>
-                  Replay.io gives your team the ability to time travel. When you
-                  share a replay with your team, they can inspect the replay as
-                  if they were sitting next to you when you recorded it. This is
-                  because when they’re viewing the replay, we’re replaying a
-                  browser in our backend that thinks it’s interacting with you,
-                  your computer, and the internet.
+                  Have you ever looked at a bug and wished you could teleport
+                  back to when it first occurred? With Replay, you get the next
+                  best thing.
                 </p>
-
+                <p>
+                  If someone on the team can record the bug, you can debug it.
+                  This works because Replay is the first Time Travel Debugger
+                  for the web.
+                </p>
                 <ButtonLink
-                  href="#async-collaboration"
+                  href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
                   variant="tertiary-inverted-alt"
                   style={{ marginTop: '2rem' }}
                 >
-                  Replay for teams <PlayIcon style={{ marginLeft: 8 }} />
+                  How Replay works
                 </ButtonLink>
               </>
             }
@@ -114,16 +114,24 @@ export const MainFeatures: FC = () => {
             disabled={activeHeading !== 1}
             className={s['feature']}
             overtitle="Time Travel Debugging"
-            title="Debug replays with developer tools."
+            title="Debug replays with Developer Tools."
             description={
               <>
                 <p>
-                  Replay.io lets you travel back in time and debug the
-                  application as it initially ran with familiar developer tools.
-                  You can inspect a React component at any point in time or add
-                  a print statement and see the logs in the Console. Anything is
-                  possible when you can replay!
+                  Travel back in time and debug the application as it initially
+                  ran.
                 </p>
+                <p>
+                  Inspect React components. Add print statements. Everything
+                  that's possible in Chrome DevTools is possible!
+                </p>
+                <ButtonLink
+                  href="#async-collaboration"
+                  variant="tertiary-inverted-alt"
+                  style={{ marginTop: '2rem' }}
+                >
+                  Replay for teams
+                </ButtonLink>
               </>
             }
           />
