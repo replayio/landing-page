@@ -1087,7 +1087,7 @@ export function ReplayApplication() {
                   name: 'Erika',
                   date: 'Now',
                   avatar: avatarOne,
-                  text: `@jasmine can you look into this critical checkout bug, please? Customers can't purchase hoverboards right now.`
+                  text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
                 },
                 {
                   name: 'Jasmine',
@@ -1269,13 +1269,13 @@ export function ReplayApplication() {
                           name: 'Jasmine',
                           date: 'Now',
                           avatar: avatarTwo,
-                          text: 'It looks like we were sending "color" instead of "colorId" to the API at that time. @erika all fixed!'
+                          text: 'It looks like we sent "color" instead of "colorId" to the API at that time. Fix deployed, @erika ready for a look!'
                         },
                         {
                           name: 'Erika',
                           date: 'Now',
                           avatar: avatarOne,
-                          text: 'Thanks for fixing that so quickly! 🎉'
+                          text: 'LGTM 🚢 thanks for fixing that so quickly!'
                         }
                       ],
                       currentMarker: markersType,
