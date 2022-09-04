@@ -28,7 +28,7 @@ export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({
 
 export const logContent = (content: any) => {
   const kind = typeof content
-
+  console.log(kind)
   if (kind === 'number') {
     return <span style={{ color: '#FF63E4' }}>{content}</span>
   }
@@ -42,7 +42,11 @@ export const logContent = (content: any) => {
   }
 
   if (kind === 'object') {
-    return JSON.stringify(content)
+    try {
+      return JSON.stringify(content)
+    } catch (e) {
+      return content
+    }
   }
 
   return content

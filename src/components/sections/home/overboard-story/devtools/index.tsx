@@ -11,8 +11,8 @@ import { ReactDevTools, ReactDevToolsProps } from './react'
 function ElementSelectorIcon() {
   return (
     <svg
-      width="12"
-      height="12"
+      width="14"
+      height="14"
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,12 @@ export function TabNav({
             }}
           >
             <button
-              style={{ all: 'unset', cursor: 'pointer', padding: '8px 10px' }}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                fontSize: '14px',
+                padding: '8px 10px'
+              }}
               onClick={() => setActivePanel?.(key as keyof typeof tabs)}
             >
               {key}

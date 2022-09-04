@@ -1035,7 +1035,17 @@ export function ReplayApplication() {
         {
           hits: 1,
           marker: markersType,
-          content: [{ color: 'green' }],
+          content: [
+            <div style={{ display: 'flex' }} key="logs">
+              <div style={{ color: '#8000d7' }}>handleSubmit</div>
+              <div style={{ display: 'flex' }}>
+                <div style={{ color: 'var(--color-gray)' }}>{`, {`}</div>
+                <div style={{ color: '#ff55cf' }}>color</div>:{' '}
+                <div style={{ color: '#5ca939' }}>"green"</div>{' '}
+                <div style={{ color: 'var(--color-gray)' }}>{`}`}</div>
+              </div>
+            </div>
+          ],
           hide: !showPrints
         },
         {
