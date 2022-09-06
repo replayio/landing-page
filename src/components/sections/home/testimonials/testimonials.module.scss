@@ -41,6 +41,8 @@
     display: flex;
     @include space-x(18px);
 
+    z-index: 10;
+
     .picture {
       &.active {
         .progress-bar-container {
@@ -84,6 +86,7 @@
       font-family: var(--font-heading);
       letter-spacing: -0.04em;
       line-height: 38px;
+      padding: 30px 0;
       text-align: center;
       max-width: 840px;
 
@@ -143,6 +146,7 @@
       }
 
       .identity-name {
+        font-size: 18px;
         font-weight: 700;
       }
 
@@ -167,6 +171,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    padding: 0;
     transform: translateY(50%);
 
     .button {
@@ -198,6 +203,7 @@
       .quote {
         font-size: 42px;
         line-height: 48px;
+        padding: 0;
       }
     }
 
