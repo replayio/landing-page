@@ -6,9 +6,12 @@ import { mdCodeRegex, processString, userTagRegex } from '~/lib/utils'
 
 import s from './comment-module.module.scss'
 
+export type CommentState = 'idle' | 'typing' | 'submited'
+
 export type CommentModuleProps = {
   side?: 'bottom-right' | 'side-left'
   comments: {
+    state?: CommentState
     text: string
     avatar: ImageProps['src']
     name: string
@@ -72,14 +75,20 @@ export const CommentModule: FC<CommentModuleProps> = ({
         <div className={s['thread']}>
           {parsedComments.map((comment, idx) => (
             <Fragment key={idx}>
-              <div className={clsx('content', s['content'])} key={idx}>
+              <div
+                className={clsx('content', s['content'], {
+                  [s[`state-${comment.state || 'idle'}`]]: mainComment
+                })}
+                key={idx}
+              >
                 <div className={s['content-inner']}>
                   <div className={s['header']}>
                     <Image className={s['picture']} src={comment.avatar} />
-                    <div>
+                    <div className={s['data']}>
                       <p className={s['name']}>{comment.name}</p>
-                      <div className="date">
+                      <div className={s['info']}>
                         <p className={s['date']}>{comment.date}</p>
+                        <p className={s['typing']}>Typing...</p>
                       </div>
                     </div>
                   </div>

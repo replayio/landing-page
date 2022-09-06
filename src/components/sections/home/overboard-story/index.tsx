@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { Elastic } from 'gsap'
 import { clearProps, DURATION, Flip, gsap, SplitText } from 'lib/gsap'
 import get from 'lodash/get'
-import { forwardRef, useCallback, useRef, useState } from 'react'
+import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
@@ -22,7 +22,11 @@ import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.jpeg'
 
 import { Code, CodeRef } from './code'
-import { CommentModule } from './comment-module'
+import {
+  CommentModule,
+  CommentModuleProps,
+  CommentState
+} from './comment-module'
 import {
   buildUuids,
   IdentifiedNode,
@@ -162,35 +166,6 @@ const timelineHeight = 90
 const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
-const firstComment = [
-  {
-    name: 'Erika',
-    date: 'Now',
-    avatar: avatarOne,
-    text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
-  },
-  {
-    name: 'Jasmine',
-    date: 'Now',
-    avatar: avatarTwo,
-    text: 'Absolutely!'
-  }
-]
-
-const secondComment = [
-  {
-    name: 'Jasmine',
-    date: 'Now',
-    avatar: avatarTwo,
-    text: 'It looks like we sent `color` instead of `colorId` to the API at that time. Fix deployed, @erika ready for a look!'
-  },
-  {
-    name: 'Erika',
-    date: 'Now',
-    avatar: avatarOne,
-    text: 'LGTM 🚢 thanks for fixing that so quickly!'
-  }
-]
 
 const SCROLLYTELLING_PX_DURATION = 16000
 
@@ -250,6 +225,7 @@ export function ReplayApplication() {
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
   const [currentTime, setCurrentTime] = useState(0)
+  const [commentState, setCommentState] = useState<CommentState>('idle')
   const { isDesktop } = useDeviceDetect()
   const { width } = useViewportSize()
 
@@ -365,25 +341,21 @@ export function ReplayApplication() {
 
       const commentContent = selector(`${wrapperId} .content`)
       const [commentInput] = selector(`${wrapperId} .input`)
-      const commentDate = selector(`${wrapperId} .content:nth-child(1) .date`)
 
       const splitText = new SplitText(commentInput.children[1], {
-        type: 'chars',
-        wordsClass: 'hi'
+        type: 'chars'
       })
 
       timeline
-        .set(commentInput.children[0], {
-          display: 'none'
+        .call(() => {
+          setCommentState('idle')
         })
-        .fromTo(
-          commentInput.children[1],
-          {
-            display: 'none'
+        .call(
+          () => {
+            setCommentState('typing')
           },
-          {
-            display: 'block'
-          }
+          undefined,
+          '<'
         )
         .fromTo(
           splitText.chars,
@@ -391,23 +363,26 @@ export function ReplayApplication() {
             display: 'none'
           },
           {
-            duration: 2,
+            duration: 1,
             display: 'inline',
-            stagger: 0.05
+            stagger: 0.05,
+            ease: 'power0.none'
           },
           '<'
         )
-        .fromTo(
-          commentDate,
-          {
-            opacity: 0,
-            height: 0
+        .call(
+          () => {
+            setCommentState('typing')
           },
-          {
-            opacity: 1,
-            duration: 1,
-            height: 'auto'
-          }
+          undefined,
+          '>'
+        )
+        .call(
+          () => {
+            setCommentState('submited')
+          },
+          undefined,
+          '<'
         )
         .fromTo(
           commentContent[1],
@@ -421,7 +396,7 @@ export function ReplayApplication() {
             opacity: 1,
             height: 'auto'
           },
-          '>+=2'
+          '>+=1'
         )
 
       return splitText
@@ -942,6 +917,15 @@ export function ReplayApplication() {
         playPauseRef.current?.classList.remove('play')
         playPauseRef.current?.classList.add('pause')
       })
+
+      /* Restore comment state */
+      .call(() => {
+        setCommentState('submited')
+      })
+      .add(() => {
+        setCommentState('idle')
+      })
+
       .fromTo(
         printTimelineProgress,
         {
@@ -1055,6 +1039,44 @@ export function ReplayApplication() {
     })
   }, [])
 
+  const [firstComment, secondComment] = useMemo<
+    [CommentModuleProps['comments'], CommentModuleProps['comments']]
+  >(
+    () => [
+      [
+        {
+          name: 'Erika',
+          date: 'Now',
+          state: commentState,
+          avatar: avatarOne,
+          text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
+        },
+        {
+          name: 'Jasmine',
+          date: 'Now',
+          avatar: avatarTwo,
+          text: 'Absolutely!'
+        }
+      ],
+      [
+        {
+          name: 'Jasmine',
+          date: 'Now',
+          avatar: avatarTwo,
+          state: commentState,
+          text: "It looks like we've sent `color` instead of `colorId` to the API at that time. Fix deployed, @erika ready for a look!"
+        },
+        {
+          name: 'Erika',
+          date: 'Now',
+          avatar: avatarOne,
+          text: 'LGTM 🚢 thanks for fixing that so quickly!'
+        }
+      ]
+    ],
+    [commentState]
+  )
+
   const devtoolProps = {
     console: {
       currentHit,
@@ -1064,17 +1086,7 @@ export function ReplayApplication() {
         {
           hits: 1,
           marker: markersType,
-          content: [
-            <div style={{ display: 'flex' }} key="logs">
-              <div style={{ color: '#8000d7' }}>handleSubmit</div>
-              <div style={{ display: 'flex' }}>
-                <div style={{ color: 'var(--color-gray)' }}>{`, {`}</div>
-                <div style={{ color: '#ff55cf' }}>color</div>:{' '}
-                <div style={{ color: '#5ca939' }}>"green"</div>{' '}
-                <div style={{ color: 'var(--color-gray)' }}>{`}`}</div>
-              </div>
-            </div>
-          ],
+          content: [{ color: 'green' }],
           hide: !showPrints
         },
         {
