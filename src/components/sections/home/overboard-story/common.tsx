@@ -42,7 +42,12 @@ export const logContent = (content: any) => {
   }
 
   if (kind === 'object') {
-    return JSON.stringify(content)
+    try {
+      return JSON.stringify(content)
+    } catch (e) {
+      // It is a react-node
+      return content
+    }
   }
 
   return content
