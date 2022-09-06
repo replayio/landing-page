@@ -35,15 +35,15 @@ const testimonials = [
     quote: '“Replay.io is galaxy brain tooling. Real gamechanger.”'
   },
   {
-    picture: '/images/home/ghadyani.jpeg',
-    name: 'Kevin Ghadyani',
+    picture: '/images/shoutouts/khourshid.jpg',
+    name: 'David Khourshid',
     company: {
-      name: 'JavaScript',
-      logo: '/images/home/js.svg'
+      name: 'Stately.ai',
+      logo: '/images/home/stately.png'
     },
-    position: 'Engineer',
+    position: 'Founder',
     quote:
-      '“I first saw Replay at ReactConf in 2019 and came away thinking "this is way cooler than anything I saw...”'
+      '“Replay.io is the obvious next step for the future of collaborative debugging applications...”'
   }
 ]
 
