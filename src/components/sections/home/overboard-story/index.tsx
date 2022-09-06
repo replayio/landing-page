@@ -162,6 +162,35 @@ const timelineHeight = 90
 const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
+const firstComment = [
+  {
+    name: 'Erika',
+    date: 'Now',
+    avatar: avatarOne,
+    text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
+  },
+  {
+    name: 'Jasmine',
+    date: 'Now',
+    avatar: avatarTwo,
+    text: 'Absolutely!'
+  }
+]
+
+const secondComment = [
+  {
+    name: 'Jasmine',
+    date: 'Now',
+    avatar: avatarTwo,
+    text: 'It looks like we sent `color` instead of `colorId` to the API at that time. Fix deployed, @erika ready for a look!'
+  },
+  {
+    name: 'Erika',
+    date: 'Now',
+    avatar: avatarOne,
+    text: 'LGTM 🚢 thanks for fixing that so quickly!'
+  }
+]
 
 const SCROLLYTELLING_PX_DURATION = 16000
 
@@ -1090,23 +1119,7 @@ export function ReplayApplication() {
               zIndex: 'var(--z-index-20)'
             }}
           >
-            <CommentModule
-              side="bottom-right"
-              comments={[
-                {
-                  name: 'Erika',
-                  date: 'Now',
-                  avatar: avatarOne,
-                  text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
-                },
-                {
-                  name: 'Jasmine',
-                  date: 'Now',
-                  avatar: avatarTwo,
-                  text: 'Absolutely!'
-                }
-              ]}
-            />
+            <CommentModule side="bottom-right" comments={firstComment} />
           </div>
 
           <OverboardStore
@@ -1269,25 +1282,12 @@ export function ReplayApplication() {
                   <Code
                     filename="handle-submit.ts"
                     printPanelConfig={{
-                      onChangeMarker: (v) => setMarkersType(v),
+                      onChangeMarker: setMarkersType,
                       print: '"handleSubmit", formData',
                       markers: printMarkers,
                       printLineTarget: 7,
                       timelineType: 'justUi',
-                      comments: [
-                        {
-                          name: 'Jasmine',
-                          date: 'Now',
-                          avatar: avatarTwo,
-                          text: 'It looks like we sent "color" instead of "colorId" to the API at that time. Fix deployed, @erika ready for a look!'
-                        },
-                        {
-                          name: 'Erika',
-                          date: 'Now',
-                          avatar: avatarOne,
-                          text: 'LGTM 🚢 thanks for fixing that so quickly!'
-                        }
-                      ],
+                      comments: secondComment,
                       currentMarker: markersType,
                       onHit: handleHit,
                       currentHit

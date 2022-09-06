@@ -87,6 +87,29 @@
       .tag {
         color: #01acfd;
       }
+
+      .code {
+        margin-left: 6px;
+        margin-right: 2px;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        color: var(--color-black);
+        font-size: 14px;
+        white-space: nowrap;
+
+        div {
+          position: relative;
+
+          &::before {
+            content: '';
+            background-color: var(--color-gray-lightest);
+            position: absolute;
+            z-index: -1;
+            inset: -2px -6px;
+            border-radius: var(--border-radius-md);
+          }
+        }
+      }
     }
   }
 }
