@@ -27,7 +27,7 @@ export const Feedback: FC = () => {
       <div className={s['card']}>
         <div className={s['image-container']}>
           <Image
-            src="/images/home/avatar-2.webp"
+            src="/images/home/avatar-2.jpeg"
             width={71}
             height={71}
             alt="avatar 2"

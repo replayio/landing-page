@@ -10,7 +10,7 @@
   overflow: hidden;
   background: var(--color-white);
   width: max-content;
-  width: 330px;
+  width: 35ch;
   border: 1px solid var(--color-gray-light);
   border-radius: var(--border-radius-lg);
   opacity: 0;
@@ -95,6 +95,7 @@
         font-weight: 500;
         color: var(--color-black);
         font-size: 14px;
+        white-space: nowrap;
 
         div {
           position: relative;

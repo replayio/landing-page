@@ -19,7 +19,7 @@ import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { padZeroesToNumber } from '~/lib/utils'
 import avatarOne from '~/public/images/home/avatar-1.webp'
-import avatarThree from '~/public/images/home/avatar-3.webp'
+import avatarTwo from '~/public/images/home/avatar-2.jpeg'
 
 import { Code, CodeRef } from './code'
 import { CommentModule } from './comment-module'
@@ -164,31 +164,31 @@ const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 const firstComment = [
   {
-    name: 'Helen',
+    name: 'Erika',
     date: 'Now',
     avatar: avatarOne,
-    text: 'It looks like we were sending "color" instead of `colorId` to the API at that time. @tina all fixed!'
+    text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
   },
   {
-    name: 'Tina',
+    name: 'Jasmine',
     date: 'Now',
-    avatar: avatarThree,
-    text: 'Thanks for fixing that so quickly! 🎉'
+    avatar: avatarTwo,
+    text: 'Absolutely!'
   }
 ]
 
 const secondComment = [
   {
-    name: 'Tina',
+    name: 'Jasmine',
     date: 'Now',
-    avatar: avatarThree,
-    text: `@helen can you look into this critical checkout bug, please? Customers can't purchase hoverboards right now.`
+    avatar: avatarTwo,
+    text: 'It looks like we sent `color` instead of `colorId` to the API at that time. Fix deployed, @erika ready for a look!'
   },
   {
-    name: 'Helen',
+    name: 'Erika',
     date: 'Now',
     avatar: avatarOne,
-    text: 'Absolutely!'
+    text: 'LGTM 🚢 thanks for fixing that so quickly!'
   }
 ]
 
@@ -1109,7 +1109,7 @@ export function ReplayApplication() {
               zIndex: 'var(--z-index-20)'
             }}
           >
-            <CommentModule side="bottom-right" comments={secondComment} />
+            <CommentModule side="bottom-right" comments={firstComment} />
           </div>
 
           <OverboardStore
@@ -1140,8 +1140,8 @@ export function ReplayApplication() {
                 <IsoLogo className={s['logo']} />
               </div>
               <div className={s['users']}>
+                <img className="user" src={avatarTwo.src} />
                 <img className="user" src={avatarOne.src} />
-                <img className="user" src={avatarThree.src} />
               </div>
               <ViewToggle ref={viewToggleRef} />
             </div>
@@ -1277,7 +1277,7 @@ export function ReplayApplication() {
                       markers: printMarkers,
                       printLineTarget: 7,
                       timelineType: 'justUi',
-                      comments: firstComment,
+                      comments: secondComment,
                       currentMarker: markersType,
                       onHit: handleHit,
                       currentHit
