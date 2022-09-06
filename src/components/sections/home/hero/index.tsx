@@ -204,10 +204,19 @@ export const Hero: FC = () => {
           <div className={s['heading']}>
             <Heading className={s['title']} size="lg">
               <span className={s['heading-highlight']}>
-                Record, Share, and Debug
+                The first time-travel debugger for developers
               </span>{' '}
-              your application with&nbsp;DevTools.
             </Heading>
+            <p
+              style={{
+                marginTop: 16,
+                fontSize: '32px',
+                lineHeight: '38px',
+                maxWidth: 600
+              }}
+            >
+              Replay records exactly what happened so you can fix bugs quickly
+            </p>
             <div
               className={clsx(s['cta'], {
                 [s['hidden']]: !currentPlatformDownloadLink
