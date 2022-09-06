@@ -1055,6 +1055,7 @@ export function ReplayApplication() {
           name: 'Jasmine',
           date: 'Now',
           avatar: avatarTwo,
+          state: 'submited',
           text: 'Absolutely!'
         }
       ],
@@ -1070,6 +1071,7 @@ export function ReplayApplication() {
           name: 'Erika',
           date: 'Now',
           avatar: avatarOne,
+          state: 'submited',
           text: 'LGTM 🚢 thanks for fixing that so quickly!'
         }
       ]
