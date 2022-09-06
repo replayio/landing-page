@@ -1,12 +1,13 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import { FC, useRef } from 'react'
+import { FC, useMemo, useRef } from 'react'
 
 import { Heading } from '~/components/common/heading'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
+import { useHasRendered } from '~/hooks/use-has-rendered'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints, isServer } from '~/lib/constants'
@@ -35,8 +36,13 @@ const getDownloadLink = () => {
 export const Hero: FC = () => {
   const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const ref = useRef<HTMLDivElement>(null)
+  const rendered = useHasRendered()
 
-  const currentPlatformDownloadLink = getDownloadLink()
+  const currentPlatformDownloadLink = useMemo(() => {
+    if (!rendered) return '/'
+
+    return getDownloadLink()
+  }, [rendered])
 
   useIsomorphicLayoutEffect(() => {
     let tl: gsap.core.Timeline
