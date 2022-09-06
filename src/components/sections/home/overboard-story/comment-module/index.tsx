@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import Image, { ImageProps } from 'next/future/image'
 import { FC, Fragment, useMemo } from 'react'
 
-import { userTagRegex } from '~/lib/utils'
+import { mdCodeRegex, processString, userTagRegex } from '~/lib/utils'
 
 import s from './comment-module.module.scss'
 
@@ -22,16 +22,28 @@ export const CommentModule: FC<CommentModuleProps> = ({
 }) => {
   const parsedComments = useMemo(() => {
     return comments.map((comment) => {
-      const coincidence = userTagRegex.exec(comment.text)
+      const result = processString([
+        {
+          regex: userTagRegex,
+          fn: (key, result) => (
+            <span className={s['tag']} key={key}>
+              {result[0]}
+            </span>
+          )
+        },
+        {
+          regex: mdCodeRegex,
+          fn: (key, result) => (
+            <span className={s['code']} key={key}>
+              {result[1]}
+            </span>
+          )
+        }
+      ])(comment.text)
 
       return {
         ...comment,
-        text: coincidence
-          ? comment.text.replace(
-              coincidence[0],
-              `<span class="${s['tag']}">${coincidence[0]}</span>`
-            )
-          : comment.text
+        text: result
       }
     })
   }, [comments])
@@ -72,27 +84,16 @@ export const CommentModule: FC<CommentModuleProps> = ({
                     </div>
                   </div>
                   {idx === 0 ? (
-                    <div
-                      data-text={mainComment.text}
-                      data-placeholder="Type a comment..."
-                      className={clsx('input', s['input'])}
-                    >
+                    <div className={clsx('input', s['input'])}>
                       <span className={clsx('placeholder', s['placeholder'])}>
                         Type a comment...
                       </span>
-                      <span
-                        className={clsx('input-content', s['content'])}
-                        dangerouslySetInnerHTML={{ __html: mainComment.text }}
-                      />
+                      <span className={clsx('input-content', s['content'])}>
+                        {mainComment.text}
+                      </span>
                     </div>
                   ) : (
-                    <p
-                      data-text={mainComment.text}
-                      data-placeholder="Type a comment..."
-                      className={clsx('text', s['text'])}
-                    >
-                      {comment.text}
-                    </p>
+                    <p className={clsx('text', s['text'])}>{comment.text}</p>
                   )}
                 </div>
               </div>

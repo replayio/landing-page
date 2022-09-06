@@ -42,11 +42,14 @@
       }
 
       &.is-error {
-        background: #f41b52ee;
+        background: #f41b52;
         color: var(--color-white);
 
         &::before {
-          content: '!';
+          content: '';
+          width: 20px;
+          height: 20px;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_902_119)'%3E%3Cpath d='M100 0C44.8 0 0 44.8 0 100C0 155.2 44.8 200 100 200C155.2 200 200 155.2 200 100C200 44.8 155.2 0 100 0ZM110 150H90V130H110V150ZM110 110H90V50H110V110Z' fill='%23FFFFFFAA'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_902_119'%3E%3Crect width='200' height='200' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
           font-weight: 900;
         }
 
