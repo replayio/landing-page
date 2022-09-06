@@ -200,7 +200,7 @@ const reactTree = identifyNodes(
           rotation: 0,
           isAnimated: true,
           velocity: 20,
-          color: 'red'
+          color: 'green'
         }
       },
       {
