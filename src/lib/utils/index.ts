@@ -75,7 +75,7 @@ export const processString = (options: Option[]) => {
   function processInputWithRegex(
     option: Option,
     input: string | string[]
-  ): string | string[] | ReactNode[] {
+  ): string | (ReactNode | string)[] {
     if (!option.fn || typeof option.fn !== 'function') return input
 
     if (!option.regex || !(option.regex instanceof RegExp)) return input
@@ -83,7 +83,7 @@ export const processString = (options: Option[]) => {
     if (typeof input === 'string') {
       const regex = option.regex
       let result = null
-      const output: ReactNode[] = []
+      const output: (ReactNode | string)[] = []
 
       while ((result = regex.exec(input)) !== null) {
         const index = result.index
@@ -107,7 +107,9 @@ export const processString = (options: Option[]) => {
     if (!options || !Array.isArray(options) || !options.length) return input
 
     options.forEach(
-      (option: Option) => (input = processInputWithRegex(option, input))
+      (option: Option) =>
+        ((input as ReturnType<typeof processInputWithRegex>) =
+          processInputWithRegex(option, input))
     )
 
     return input
