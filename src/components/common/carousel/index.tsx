@@ -81,16 +81,16 @@ export const Carousel = forwardRef<
             className={clsx(s['embla__viewport'], viewportClassname)}
             ref={viewportRef}
           >
-            <div className={clsx(s['embla__container'], containerClassname)}>
+            <ul className={clsx(s['embla__container'], containerClassname)}>
               {slides.map((child, idx) => (
-                <div
+                <li
                   className={clsx(s['embla__slide'], slideClassName)}
                   key={idx}
                 >
                   <div className={s['embla__slide__inner']}>{child}</div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
         {dots && (
