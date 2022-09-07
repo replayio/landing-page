@@ -15,7 +15,7 @@ const config = {
   redirects() {
     return [
       {
-        source: '/view:recording',
+        source: '/view/:recording',
         destination: 'https://app.replay.io/:recording',
         permanent: false
       },
