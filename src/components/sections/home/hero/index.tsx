@@ -210,10 +210,13 @@ export const Hero: FC = () => {
           <div className={s['heading']}>
             <Heading className={s['title']} size="lg">
               <span className={s['heading-highlight']}>
-                Record, Share, and Debug
+                The first time-travel debugger for the web.
               </span>{' '}
-              your application with&nbsp;DevTools.
             </Heading>
+            <p style={{}}>
+              Replay.io lets you record and debug your application after the
+              fact with browser devtools and console logs.
+            </p>
             <div
               className={clsx(s['cta'], {
                 [s['hidden']]: !currentPlatformDownloadLink

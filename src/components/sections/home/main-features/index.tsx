@@ -82,19 +82,20 @@ export const MainFeatures: FC = () => {
             disabled={activeHeading !== 0}
             className={s['feature']}
             overtitle="Async Collaboration"
-            title="Record and share replays with your team."
+            title="Record the bug once. Never reproduce it again."
             description={
               <>
                 <p>
-                  Have you ever looked at a bug and wished you could teleport
-                  back to when it first occurred? With Replay, you get the next
-                  best thing.
+                  <b>
+                    Replay gives you the power to share what you’re seeing with
+                    your team so that they can fix it fast.{' '}
+                  </b>
+                  Because Replay replays the browser down to level of the event
+                  loop, you no longer need to worry about filing bug reports
+                  with lengthy steps to reproduce. You can simply record the
+                  replay, add a couple of comments, and create the ticket.
                 </p>
-                <p>
-                  If someone on the team can record the bug, you can debug it.
-                  This works because Replay is the first Time Travel Debugger
-                  for the web.
-                </p>
+
                 <ButtonLink
                   href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
                   variant="tertiary-inverted-alt"
@@ -114,16 +115,18 @@ export const MainFeatures: FC = () => {
             disabled={activeHeading !== 1}
             className={s['feature']}
             overtitle="Time Travel Debugging"
-            title="Debug replays with Developer Tools."
+            title="Experience the thrill of time-travel debugging."
             description={
               <>
                 <p>
-                  Travel back in time and debug the application as it initially
-                  ran.
-                </p>
-                <p>
-                  Inspect React components. Add print statements. Everything
-                  that's possible in Chrome DevTools is possible!
+                  <b>
+                    Replay gives you the freedom to see what your application
+                    looked like at any point in time.
+                  </b>{' '}
+                  The hardest problems have many twists and turns, nulls and
+                  undefineds. With Replay, you can start annotating interesting
+                  points in time and narrowing down the problem. And because
+                  replays can be shared, debugging can now become a team sport.
                 </p>
                 <ButtonLink
                   href="#async-collaboration"
