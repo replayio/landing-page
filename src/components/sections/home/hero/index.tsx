@@ -204,18 +204,12 @@ export const Hero: FC = () => {
           <div className={s['heading']}>
             <Heading className={s['title']} size="lg">
               <span className={s['heading-highlight']}>
-                The first time-travel debugger for developers
+                The first time-travel debugger for the web.
               </span>{' '}
             </Heading>
-            <p
-              style={{
-                marginTop: 16,
-                fontSize: '32px',
-                lineHeight: '38px',
-                maxWidth: 600
-              }}
-            >
-              Replay records exactly what happened so you can fix bugs quickly
+            <p style={{}}>
+              Replay.io lets you record and debug your application after the
+              fact with browser devtools and console logs.
             </p>
             <div
               className={clsx(s['cta'], {
