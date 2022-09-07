@@ -126,16 +126,20 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                     {i > currentHit ? 'Forward' : 'Rewind'}
                   </button>
                 )}
-                <span
-                  data-marker={log.marker}
-                  data-line={log.line}
-                  className={clsx(
-                    'marker',
-                    commonS['marker'],
-                    commonS[log.marker],
-                    s['marker']
-                  )}
-                />
+
+                <div className={s['marker-container']}>
+                  <span
+                    data-marker={log.marker}
+                    data-line={log.line}
+                    className={clsx(
+                      'marker',
+                      commonS['marker'],
+                      commonS[log.marker],
+                      s['marker']
+                    )}
+                  />
+                </div>
+
                 <div key={i}>
                   {log.prepend ? `${log.prepend}, ` : ''}
                   {logContent(log.content)}

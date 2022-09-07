@@ -14,6 +14,7 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { IsoLogo } from '~/components/primitives/logo'
 import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-story/devtools/console'
+import { useAppStore } from '~/context/use-app-store'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
@@ -228,6 +229,7 @@ export function ReplayApplication() {
   const [commentState, setCommentState] = useState<CommentState>('idle')
   const { isDesktop } = useDeviceDetect()
   const { width } = useViewportSize()
+  const { fontsLoaded } = useAppStore()
 
   /* Store */
   const [storeState, setStoreState] =
@@ -279,7 +281,8 @@ export function ReplayApplication() {
       !devtoolsPanelRef.current ||
       !devtoolsAreaRef.current ||
       !codeRef.current?.elm ||
-      !progressBarRef.current
+      !progressBarRef.current ||
+      !fontsLoaded
     ) {
       return
     }
@@ -1028,7 +1031,7 @@ export function ReplayApplication() {
       clearProps(_devtoolsPanelRef, propsToClear)
       clearProps(_applicationRef, propsToClear)
     }
-  }, [isDesktop, width])
+  }, [isDesktop, fontsLoaded, width])
 
   const handleHit = useCallback((hit: number) => {
     setCurrentHit((prevValue) => {
@@ -1088,6 +1091,7 @@ export function ReplayApplication() {
         {
           hits: 1,
           marker: markersType,
+          prepend: 'handleSubmit',
           content: [{ color: 'green' }],
           hide: !showPrints
         },
