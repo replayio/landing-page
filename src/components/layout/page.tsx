@@ -1,4 +1,5 @@
 import { ScrollTrigger } from 'lib/gsap'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -31,6 +32,10 @@ export const PageLayout = ({ children }: Props) => {
 
   return (
     <>
+      <Head>
+        <html lang="en" />
+      </Head>
+
       <AnnouncementBar
         text={
           <>
