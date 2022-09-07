@@ -120,6 +120,7 @@ export const Carousel = forwardRef<
         {arrows && (
           <div className={s['arrows-container']}>
             <button
+              aria-label="previous slide"
               onClick={() => scrollPrev()}
               className="embla__button embla__button--prev"
             >
@@ -141,6 +142,7 @@ export const Carousel = forwardRef<
             </button>
 
             <button
+              aria-label="next slide"
               onClick={() => scrollNext()}
               className="embla__button embla__button--next"
             >

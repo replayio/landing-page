@@ -100,7 +100,7 @@ export const Work: FC = () => {
                   <Link unstyled href={href}>
                     <span>{title}</span>
                     <span>{skills}</span>
-                    <Image src={arrow} />
+                    <Image src={arrow} alt="" />
                   </Link>
                 </li>
               ))}

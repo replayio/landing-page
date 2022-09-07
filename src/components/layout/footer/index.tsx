@@ -162,6 +162,7 @@ export const Footer: FC = () => {
               </div>
               <div className={s['cta']}>
                 <ButtonLink
+                  aria-label="login to replay"
                   href="https://app.replay.io/"
                   className={s['play-button']}
                   size="sm"
@@ -233,7 +234,9 @@ export const Footer: FC = () => {
             <ul className={s['social']}>
               {Object.entries(social).map(([key, link]) => (
                 <li key={key} title={key}>
-                  <Link href={link.href}>{link.icon}</Link>
+                  <Link href={link.href} aria-label={key}>
+                    {link.icon}
+                  </Link>
                 </li>
               ))}
             </ul>
