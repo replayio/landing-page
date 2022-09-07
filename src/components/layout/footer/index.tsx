@@ -146,7 +146,7 @@ export const Footer: FC = () => {
       })}
     >
       <div className={s['bg']}>
-        <Image src={footerBgSvg} alt="footer background" />
+        <Image src={footerBgSvg} alt="" />
       </div>
       <Container size="lg">
         <div className={s['footer']} ref={sectionRef}>
@@ -156,7 +156,7 @@ export const Footer: FC = () => {
                 <span className={s['iso']}>
                   <IsoLogo />
                 </span>
-                <Heading className={s.heading} size="lg">
+                <Heading as="h4" className={s.heading} size="lg">
                   Start Replaying now
                 </Heading>
               </div>
@@ -199,8 +199,11 @@ export const Footer: FC = () => {
 
           <div className={s['middle']}>
             <div className={s['get-in-touch']}>
-              <p className={s['title']}>Get in touch</p>
+              <h4 id="footer-get-in-touch" className={s['title']}>
+                Get in touch
+              </h4>
               <Input
+                aria-labelledby="footer-get-in-touch"
                 placeholder="Enter your email address"
                 className={s['email']}
               />
@@ -208,8 +211,10 @@ export const Footer: FC = () => {
             <div className={s['nav']}>
               {Object.entries(links).map(([key, items]) => (
                 <div key={key} className={s['nav-group']}>
-                  <p className={s['title']}>{key}</p>
-                  <ul className={s['list']}>
+                  <h4 id={`footer-${key}`} className={s['title']}>
+                    {key}
+                  </h4>
+                  <ul aria-labelledby={`footer-${key}`} className={s['list']}>
                     {items.map(({ label, href }) => (
                       <li key={label}>
                         <Link href={href}>{label}</Link>
