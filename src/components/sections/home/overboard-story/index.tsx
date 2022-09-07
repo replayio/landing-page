@@ -1456,8 +1456,12 @@ export function OverboardStory() {
         <ReplayApplication />
       ) : (
         <video
-          style={{ borderRadius: 12 }}
+          style={{ borderRadius: 12, zIndex: 10 }}
+          muted
+          autoPlay
+          playsInline
           src="/video/hero-video.mp4"
+          // controls
           poster="/video/hero-video-thumbnail.png"
         />
       )}
