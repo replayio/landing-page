@@ -6,17 +6,17 @@ import { Carousel } from '~/components/common/carousel'
 import { PlayIcon } from '~/components/common/play-icon'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
+import { Button, ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
-import circleCiSvg from '~/public/images/logos/circle-ci.svg'
 import codeSandboxSvg from '~/public/images/logos/code-sandbox.svg'
+import dynaboardSvg from '~/public/images/logos/dynaboard.svg'
 import excalidrawSvg from '~/public/images/logos/excalidraw.svg'
-import gitbookSvg from '~/public/images/logos/git-book.svg'
 import glideSvg from '~/public/images/logos/glide.svg'
-import replItSvg from '~/public/images/logos/repl-it.svg'
+import midniteSvg from '~/public/images/logos/midnite.svg'
 import solidJsSvg from '~/public/images/logos/solid-js.svg'
+import subsetSvg from '~/public/images/logos/subset.svg'
 import xStateSvg from '~/public/images/logos/xstate.svg'
 
 import s from './trusted-by.module.scss'
@@ -27,28 +27,35 @@ const highlightedLogos = [
     description:
       "Glide's mission is to put the power, beauty, and magic of software development into the hands of a billion new creators.",
     image: '/images/home/glide-highlight-image.png',
-    href: '/'
+    href: 'https://replay.io/glide'
   },
   {
-    title: 'Glide.com',
+    title: 'TableCheck',
     description:
-      "Glide's mission is to put the power, beauty, and magic of software development into the hands of a billion new creators.",
-    image: '/images/home/glide-highlight-image.png',
-    href: '/'
+      "Discover and book the best venues in Japan. Whether you're looking for a quick bite or fine dining, TableCheck has you covered.",
+    image: '/images/home/tablecheck-highlight-image.png',
+    href: 'https://replay.io/tablecheck'
+  },
+  {
+    title: 'Pantheon',
+    description:
+      "Pantheon's WebOps Platform improves productivity to drive down the cost of making changes to your Drupal and WordPress websites.",
+    image: '/images/home/pantheon-highlight-image.png',
+    href: 'https://replay.io/pantheon'
   }
 ]
 
 const logos = [
   [
     {
-      title: 'Circle Ci',
-      logo: circleCiSvg,
-      url: 'https://circleci.com'
+      title: 'Midnite',
+      logo: midniteSvg,
+      url: 'https://www.midnite.com/'
     },
     {
-      title: 'Gitbook',
-      logo: gitbookSvg,
-      url: 'https://gitbook.com'
+      title: 'Subset',
+      logo: subsetSvg,
+      url: 'https://subset.so/'
     },
     {
       title: 'Code Sandbox',
@@ -56,9 +63,9 @@ const logos = [
       url: 'https://codesandbox.io'
     },
     {
-      title: 'Repl.it',
-      logo: replItSvg,
-      url: 'https://repl.it'
+      title: 'Dynaboard',
+      logo: dynaboardSvg,
+      url: 'https://dynaboard.com/'
     }
   ],
   [
@@ -113,13 +120,19 @@ export const TrustedBy: FC = () => {
                 />
               </div>
               <div className={s['content']}>
-                <p className={s['title']}>{logo.title}</p>
-                <p className={s['description']}>{logo.description}</p>
+                <div>
+                  <p className={s['title']}>{logo.title}</p>
+                  <p className={s['description']}>{logo.description}</p>
+                </div>
                 <div className={s['cta-container']}>
-                  <Button className={s['cta']} variant="tertiary-inverted">
+                  <ButtonLink
+                    href={logo.href}
+                    className={s['cta']}
+                    variant="tertiary-inverted"
+                  >
                     View case study
                     <PlayIcon style={{ marginLeft: 8 }} />
-                  </Button>
+                  </ButtonLink>
                   <Button
                     className={s['next']}
                     onClick={() => carousel.current?.scrollNext()}
