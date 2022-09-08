@@ -3,6 +3,9 @@
 
 .section {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   --max-height: calc(100vh - var(--padding) * 2);
 }
