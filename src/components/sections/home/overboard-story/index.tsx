@@ -57,7 +57,11 @@ export function OverboardStory() {
     <Container
       size="lg"
       ref={containerRef}
-      style={{ opacity: 0, transform: 'translateY(30px)' }}
+      style={{
+        opacity: 0,
+        transform: 'translateY(30px)',
+        willChange: 'opacity, transform'
+      }}
     >
       {isDesktop ? (
         <ReplayApplication />
