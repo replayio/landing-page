@@ -13,7 +13,7 @@ import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useMedia } from '~/hooks/use-media'
-import { breakpoints, isDev } from '~/lib/constants'
+import { breakpoints } from '~/lib/constants'
 import footerBgSvg from '~/public/images/home/footer-bg.svg'
 
 import { Container } from '../container'
@@ -101,7 +101,7 @@ export const Footer: FC = () => {
 
     const trigger = ScrollTrigger.create({
       trigger: sectionRef.current,
-      markers: isDev,
+      markers: false,
       scrub: 1,
       start: 'top bottom',
       end: `${isDesktopSize ? 'bottom' : '+=600px'} bottom`,

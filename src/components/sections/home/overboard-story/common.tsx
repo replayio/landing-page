@@ -1,6 +1,10 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
+import Prism from 'prismjs'
 import { FC, forwardRef, MutableRefObject, useEffect, useMemo } from 'react'
+
+// eslint-disable-next-line import/no-named-as-default-member
+Prism.manual = true
 
 import s from './overboard-story.module.scss'
 
@@ -42,7 +46,17 @@ export const logContent = (content: any) => {
   }
 
   if (kind === 'object') {
-    return JSON.stringify(content)
+    return (
+      <span
+        dangerouslySetInnerHTML={{
+          __html: Prism.highlight(
+            JSON.stringify(content),
+            Prism?.languages?.jsx,
+            'jsx'
+          )
+        }}
+      />
+    )
   }
 
   return content

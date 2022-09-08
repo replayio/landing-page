@@ -11,10 +11,16 @@
 
     .carousel-slide {
       min-width: 100%;
+      min-height: 100%;
+
+      & > div {
+        height: 100%;
+      }
     }
   }
 
   .highlighted {
+    height: 100%;
     min-width: 100%;
     display: grid;
     overflow: hidden;
@@ -23,17 +29,21 @@
       overflow: hidden;
       position: relative;
       border-radius: var(--border-radius-lg);
+      height: 270px;
 
       img {
-        width: 100%;
         height: 100%;
+        width: 100%;
         object-fit: cover;
         object-position: left;
       }
     }
 
     .content {
+      display: flex;
+      flex-direction: column;
       padding: 32px 24px;
+      justify-content: space-between;
 
       .title {
         font-size: 40px;
@@ -61,7 +71,7 @@
         }
 
         .next {
-          display: flex;
+          display: none;
           justify-content: center;
           align-items: center;
           border-radius: var(--border-radius-full);
@@ -73,21 +83,11 @@
     }
   }
 
-  .logos-mobile {
-    .slide {
-      min-width: 100%;
-    }
-  }
-
-  .logos-desktop {
-    display: none;
-  }
-
   .logos-grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: 80px;
-    grid-gap: 48px;
+    grid-gap: 24px;
     margin-top: 48px;
     width: 100%;
 
@@ -137,16 +137,12 @@
         .cta-container {
           flex-direction: row;
           align-items: flex-end;
+
+          .next {
+            display: flex;
+          }
         }
       }
-    }
-
-    .logos-mobile {
-      display: none;
-    }
-
-    .logos-desktop {
-      display: block;
     }
 
     .logos-grid {
@@ -165,7 +161,6 @@
 
     .logos-grid {
       margin-top: 64px;
-      grid-gap: 24px;
       grid-template-columns: repeat(4, 1fr);
     }
   }

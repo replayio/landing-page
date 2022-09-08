@@ -1,14 +1,17 @@
 import clsx from 'clsx'
 import Image from 'next/future/image'
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Bubble } from '~/components/common/bubble-popup'
 import { HeadingSet } from '~/components/common/heading-set'
 import { Timeline } from '~/components/common/progress-bar'
+import { ScrollXGradient } from '~/components/common/scroll-x-gradient'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
+import { useMedia } from '~/hooks/use-media'
+import { breakpoints } from '~/lib/constants'
 import pauseSVG from '~/public/images/home/pause.svg'
 
 import s from './powerful-dev-tools.module.scss'
@@ -45,47 +48,100 @@ const AssetChunks: FC<AssetChunkProps> = ({ assets }) => {
   )
 }
 
+const VideoAsset: FC<JSX.IntrinsicElements['video'] & { active: boolean }> = ({
+  active,
+  ...rest
+}) => {
+  const [showControls, setShowControls] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (!videoRef.current) return
+
+    const videoElm = videoRef.current
+
+    if (active) {
+      videoElm.play()
+      setShowControls(false)
+    } else {
+      videoElm.pause()
+      videoElm.currentTime = 0
+    }
+  }, [active])
+
+  return (
+    <video
+      onClick={() => setShowControls(true)}
+      style={{
+        opacity: active ? 1 : 0,
+        zIndex: active ? 10 : 0,
+        pointerEvents: active ? 'all' : 'none',
+        position: 'relative'
+      }}
+      controls={showControls}
+      muted
+      loop
+      playsInline
+      autoPlay
+      {...rest}
+      ref={videoRef}
+    />
+  )
+}
+
 const assets = [
   {
     title: 'Print Statements',
-    description: 'Add a print statement and view the logs in the Console.'
+    description: 'Add a print statement and view the logs in the Console.',
+    video: '/video/hero-video.mp4',
+    component: Scene1
   },
   {
     devtoolsTab: 'console',
     title: 'Console',
     description:
-      'Fast forward to a console log and evaluate expressions in the Terminal.'
+      'Fast forward to a console log and evaluate expressions in the Terminal.',
+    video: '/video/hero-video.mp4',
+    component: Scene2
   },
   {
     devtoolsTab: 'react',
     title: 'React',
     description:
-      'Inspect a React component and view its state, props, and hooks.'
+      'Inspect a React component and view its state, props, and hooks.',
+    video: '/video/hero-video.mp4',
+    component: Scene3
   },
   {
     devtoolsTab: 'elements',
     title: 'Elements',
     description:
-      'Inspect a DOM element and view its applied rules and computed properties.'
+      'Inspect a DOM element and view its applied rules and computed properties.',
+    video: '/video/hero-video.mp4',
+    component: Scene4
   },
   {
     devtoolsTab: 'network',
     title: 'Network',
     description:
-      'Inspect a Network request and view its headers, request and response bodies.'
+      'Inspect a Network request and view its headers, request and response bodies.',
+    video: '/video/hero-video.mp4',
+    component: Scene5
   },
   {
     title: 'Debugger',
-    description: 'Pause at a line of code and view the call stack and scopes.'
+    description: 'Pause at a line of code and view the call stack and scopes.',
+    video: '/video/hero-video.mp4',
+    component: Scene6
   }
 ]
-
-const scenes = [Scene1, Scene2, Scene3, Scene4, Scene5, Scene6]
 
 const buildAssetId = (asset: typeof assets[number], idx: number) =>
   `asset-chunk-${asset.title}-${idx}`
 
 const AssetPlayer = () => {
+  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const chunksScrollRef = useRef<HTMLDivElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
   const prevIdx = useRef(0)
   const timelineRef = useRef<
@@ -114,50 +170,68 @@ const AssetPlayer = () => {
     }
   }
 
-  const pauseTimeline = () => {
+  const pauseTimeline = useCallback(() => {
     timelineRef.current?.pause()
     setIsPlaying(false)
-  }
+  }, [])
 
-  const resumeTimeline = () => {
+  const resumeTimeline = useCallback(() => {
     timelineRef.current?.resume()
     setIsPlaying(true)
-  }
+  }, [])
 
   useEffect(() => {
     prevIdx.current = activeIdx
+
+    if (chunksScrollRef.current) {
+      const targetAsset = document.getElementById(
+        buildAssetId(assets[activeIdx], activeIdx)
+      )?.parentElement
+
+      if (targetAsset) {
+        chunksScrollRef.current.scroll({
+          left:
+            targetAsset.offsetLeft -
+            chunksScrollRef.current.clientWidth / 2 +
+            targetAsset.clientWidth / 2,
+          behavior: 'smooth'
+        })
+      }
+    }
   }, [activeIdx])
 
   return (
     <div className={s['asset-player']} ref={ref}>
       <div className={s['head']}>
-        <Container className={s['container']} size="md">
-          <AssetChunks
-            assets={assets.map((asset, idx) => {
-              const id = buildAssetId(asset, idx)
+        <ScrollXGradient offset={32} ref={chunksScrollRef}>
+          <Container className={s['container']} size="md">
+            <AssetChunks
+              assets={assets.map((asset, idx) => {
+                const id = buildAssetId(asset, idx)
 
-              return {
-                id,
-                active: idx <= activeIdx,
-                title: asset.title,
-                description: asset.description,
-                onClick: () => timelineRef.current?.seek(id)
-              }
-            })}
-          />
-
-          <div className={s['progress']}>
-            <Timeline
-              playing={inView}
-              markers={markers}
-              markerVisible={false}
-              markerSize={14}
-              duration={60}
-              direction="horizontal"
-              ref={timelineRef}
+                return {
+                  id,
+                  active: idx <= activeIdx,
+                  title: asset.title,
+                  description: asset.description,
+                  onClick: () => timelineRef.current?.seek(id)
+                }
+              })}
             />
-          </div>
-        </Container>
+
+            <div className={s['progress']}>
+              <Timeline
+                playing={inView}
+                markers={markers}
+                markerVisible={false}
+                markerSize={14}
+                duration={60}
+                direction="horizontal"
+                ref={timelineRef}
+              />
+            </div>
+          </Container>
+        </ScrollXGradient>
       </div>
       <Container size="md">
         <div className={s['epigraph-container']}>
@@ -169,29 +243,33 @@ const AssetPlayer = () => {
           <span className={s['epigraph']}>{assets[activeIdx].description}</span>
         </div>
         <div className={s['asset']}>
-          {scenes.map((Scene, idx) => (
-            <Scene
-              hoverTooltipComponent={(text: string) => (
-                <Bubble
-                  className={clsx(s['popup'], { [s['open']]: !isPlaying })}
-                  variant
-                >
-                  <div>
-                    <Image src={pauseSVG} />
-                    <p>Paused Timeline</p>
-                  </div>
-                  <p className={s['info']}>{text}</p>
-                </Bubble>
-              )}
-              active={inView && idx === activeIdx}
-              pauseTimeline={pauseTimeline}
-              resumeTimeline={resumeTimeline}
-              devtoolsProps={{
-                onPanelTabChange: handleDevtoolsTabChange
-              }}
-              key={idx}
-            />
-          ))}
+          {isDesktopSize
+            ? assets.map(({ component: Scene }, idx) => (
+                <Scene
+                  hoverTooltipComponent={(text: string) => (
+                    <Bubble
+                      className={clsx(s['popup'], { [s['open']]: !isPlaying })}
+                      variant
+                    >
+                      <div>
+                        <Image src={pauseSVG} />
+                        <p>Paused Timeline</p>
+                      </div>
+                      <p className={s['info']}>{text}</p>
+                    </Bubble>
+                  )}
+                  active={inView && idx === activeIdx}
+                  pauseTimeline={pauseTimeline}
+                  resumeTimeline={resumeTimeline}
+                  devtoolsProps={{
+                    onPanelTabChange: handleDevtoolsTabChange
+                  }}
+                  key={idx}
+                />
+              ))
+            : assets.map(({ video }, idx) => (
+                <VideoAsset src={video} active={activeIdx === idx} key={idx} />
+              ))}
         </div>
       </Container>
     </div>
@@ -206,14 +284,13 @@ export const PowerfulDevTools: FC = () => {
           title="Developer Tools"
           subtitle={
             <p>
-              Time travel debugging lets you replay the browser as it ran
-              before, so that you can start debugging immediately and get into
-              the flow state quickly.{' '}
+              Everything that's possible in Chrome DevTools and several things
+              that are not. You've never had this much fun debugging before.{' '}
               <a
                 className={s['subtitle-link']}
                 href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
               >
-                How&nbsp;Replay&nbsp;works.
+                How Replay works
               </a>
             </p>
           }

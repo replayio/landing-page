@@ -59,6 +59,7 @@ export type ConsoleProps = {
     content: any[]
     hits: number
     line?: number
+    isError?: boolean
   }[]
 }
 
@@ -103,13 +104,12 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
               )}
               <div
                 className={clsx(s['log-line'], {
+                  [s['is-error']]: log.isError,
                   [s['active']]: i === currentHit
                 })}
                 id="log-line"
                 style={{
-                  display: log.hide ? 'none' : 'flex',
-                  alignItems: 'center',
-                  padding: '4px 12px'
+                  display: log.hide ? 'none' : 'flex'
                 }}
               >
                 {!disableTravel && (
@@ -126,17 +126,21 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                     {i > currentHit ? 'Forward' : 'Rewind'}
                   </button>
                 )}
-                <span
-                  data-marker={log.marker}
-                  data-line={log.line}
-                  className={clsx(
-                    'marker',
-                    commonS['marker'],
-                    commonS[log.marker],
-                    s['marker']
-                  )}
-                />
-                <div style={{ color: '#01ACFD' }} key={i}>
+
+                <div className={s['marker-container']}>
+                  <span
+                    data-marker={log.marker}
+                    data-line={log.line}
+                    className={clsx(
+                      'marker',
+                      commonS['marker'],
+                      commonS[log.marker],
+                      s['marker']
+                    )}
+                  />
+                </div>
+
+                <div key={i}>
                   {log.prepend ? `${log.prepend}, ` : ''}
                   {logContent(log.content)}
                 </div>

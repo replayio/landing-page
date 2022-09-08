@@ -1,24 +1,58 @@
 import clsx from 'clsx'
 import Image, { ImageProps } from 'next/future/image'
-import { FC } from 'react'
+import { FC, Fragment, useMemo } from 'react'
+
+import { mdCodeRegex, processString, userTagRegex } from '~/lib/utils'
 
 import s from './comment-module.module.scss'
 
-type CommentModuleProps = {
-  side?: 'right' | 'left'
-  avatar: ImageProps['src']
-  comment: string
-  name: string
-  date: string
+export type CommentState = 'idle' | 'typing' | 'submited'
+
+export type CommentModuleProps = {
+  side?: 'bottom-right' | 'side-left'
+  comments: {
+    state?: CommentState
+    text: string
+    avatar: ImageProps['src']
+    name: string
+    date: string
+  }[]
 }
 
 export const CommentModule: FC<CommentModuleProps> = ({
-  comment,
-  side = 'left',
-  name,
-  date,
-  avatar
+  comments,
+  side = 'left'
 }) => {
+  const parsedComments = useMemo(() => {
+    return comments.map((comment) => {
+      const result = processString([
+        {
+          regex: userTagRegex,
+          fn: (key, result) => (
+            <span className={s['tag']} key={key}>
+              {result[0]}
+            </span>
+          )
+        },
+        {
+          regex: mdCodeRegex,
+          fn: (key, result) => (
+            <span className={s['code']} key={key}>
+              {result[1]}
+            </span>
+          )
+        }
+      ])(comment.text)
+
+      return {
+        ...comment,
+        text: result
+      }
+    })
+  }, [comments])
+
+  const mainComment = parsedComments[0]
+
   return (
     <div className={s['container']}>
       <svg
@@ -28,7 +62,7 @@ export const CommentModule: FC<CommentModuleProps> = ({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="22" cy="22" r="22" fill="#DD4261" />
+        <circle cx="22" cy="22" r="18" fill="var(--color-pink-crayon)" />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -38,24 +72,43 @@ export const CommentModule: FC<CommentModuleProps> = ({
       </svg>
 
       <div className={clsx('comment', s['comment'], s[side])}>
-        <div className={clsx('content', s['content'])}>
-          <div className={s['content-inner']}>
-            <div className={s['header']}>
-              <Image className={s['picture']} src={avatar} />
-              <div>
-                <p className={s['name']}>{name}</p>
-                <p className={s['date']}>{date}</p>
+        <div className={s['thread']}>
+          {parsedComments.map((comment, idx) => (
+            <Fragment key={idx}>
+              <div
+                className={clsx('content', s['content'], {
+                  [s[`state-${comment.state || 'idle'}`]]: mainComment
+                })}
+                key={idx}
+              >
+                <div className={s['content-inner']}>
+                  <div className={s['header']}>
+                    <Image className={s['picture']} src={comment.avatar} />
+                    <div className={s['data']}>
+                      <p className={s['name']}>{comment.name}</p>
+                      <div className={s['info']}>
+                        <p className={s['date']}>{comment.date}</p>
+                        <p className={s['typing']}>Typing...</p>
+                      </div>
+                    </div>
+                  </div>
+                  {idx === 0 ? (
+                    <div className={clsx('input', s['input'])}>
+                      <span className={clsx('placeholder', s['placeholder'])}>
+                        Type a comment...
+                      </span>
+                      <span className={clsx('input-content', s['content'])}>
+                        {mainComment.text}
+                      </span>
+                    </div>
+                  ) : (
+                    <p className={clsx('text', s['text'])}>{comment.text}</p>
+                  )}
+                </div>
               </div>
-            </div>
-            <p className={s['text']}>{comment}</p>
-          </div>
-        </div>
-        <div
-          data-text={comment}
-          data-placeholder="Type a comment..."
-          className={clsx('input', s['input'])}
-        >
-          Type a comment...
+              {comments.length - 1 != idx && <div className={s['divisor']} />}
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>

@@ -7,11 +7,9 @@ import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { useMedia } from '~/hooks/use-media'
-import { isDev } from '~/lib/constants'
 import future from '~/public/images/about/future.jpg'
 import now from '~/public/images/about/now.jpg'
 
-// import { isDev } from '~/lib/constants'
 import s from './hero.module.scss'
 
 type ScrollProgressBarProps = {
@@ -47,7 +45,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
 
     const trigger = ScrollTrigger.create({
       trigger: sectionRef,
-      markers: isDev,
+      markers: false,
       scrub: 1,
       start: 'top 40%',
       end: 'bottom 20%',

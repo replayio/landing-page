@@ -2,15 +2,12 @@ import { ScrollTrigger } from 'lib/gsap'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
-import { PlayIcon } from '~/components/common/play-icon'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
-import { isDev } from '~/lib/constants'
 
-// import { isDev } from '~/lib/constants'
 import s from './main-features.module.scss'
 
 type ScrollProgressBarProps = {
@@ -45,7 +42,7 @@ const ScrollProgressBar: FC<ScrollProgressBarProps> = ({
 
     const trigger = ScrollTrigger.create({
       trigger: sectionRef,
-      markers: isDev,
+      markers: false,
       scrub: 1,
       start: 'top 80%',
       end: 'bottom 50%',
@@ -85,16 +82,18 @@ export const MainFeatures: FC = () => {
             disabled={activeHeading !== 0}
             className={s['feature']}
             overtitle="Async Collaboration"
-            title="Record and share replays with your team."
+            title="Record the bug once. Never reproduce it again."
             description={
               <>
                 <p>
-                  Replay.io gives your team the ability to time travel. When you
-                  share a replay with your team, they can inspect the replay as
-                  if they were sitting next to you when you recorded it. This is
-                  because when they’re viewing the replay, we’re replaying a
-                  browser in our backend that thinks it’s interacting with you,
-                  your computer, and the internet.
+                  <b>
+                    Replay gives you the power to share what you’re seeing with
+                    your team so that they can fix it fast.{' '}
+                  </b>
+                  Because Replay replays the browser down to level of the event
+                  loop, you no longer need to worry about filing bug reports
+                  with lengthy steps to reproduce. You can simply record the
+                  replay, add a couple of comments, and create the ticket.
                 </p>
 
                 <ButtonLink
@@ -102,7 +101,7 @@ export const MainFeatures: FC = () => {
                   variant="tertiary-inverted-alt"
                   style={{ marginTop: '2rem' }}
                 >
-                  Replay for teams <PlayIcon style={{ marginLeft: 8 }} />
+                  Replay for Teams
                 </ButtonLink>
               </>
             }
@@ -116,16 +115,26 @@ export const MainFeatures: FC = () => {
             disabled={activeHeading !== 1}
             className={s['feature']}
             overtitle="Time Travel Debugging"
-            title="Debug replays with developer tools."
+            title="Experience the thrill of time-travel debugging."
             description={
               <>
                 <p>
-                  Replay.io lets you travel back in time and debug the
-                  application as it initially ran with familiar developer tools.
-                  You can inspect a React component at any point in time or add
-                  a print statement and see the logs in the Console. Anything is
-                  possible when you can replay!
+                  <b>
+                    Replay gives you the freedom to see what your application
+                    looked like at any point in time.
+                  </b>{' '}
+                  The hardest problems have many twists and turns, nulls and
+                  undefineds. With Replay, you can start annotating interesting
+                  points in time and narrowing down the problem. And because
+                  replays can be shared, debugging can now become a team sport.
                 </p>
+                <ButtonLink
+                  href="#developer-tools"
+                  variant="tertiary-inverted-alt"
+                  style={{ marginTop: '2rem' }}
+                >
+                  Replay DevTools
+                </ButtonLink>
               </>
             }
           />

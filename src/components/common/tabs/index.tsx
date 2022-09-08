@@ -2,6 +2,7 @@ import * as TabsPrimitives from '@radix-ui/react-tabs'
 import clsx from 'clsx'
 import { FC, forwardRef, HTMLAttributes, useRef } from 'react'
 
+import { ScrollXGradient } from '../scroll-x-gradient'
 import s from './tabs.module.scss'
 
 type BaseProps = {
@@ -23,7 +24,7 @@ type TabListProps = BaseProps & TabsPrimitives.TabsListProps
 
 export const TabList = forwardRef<HTMLDivElement, TabListProps>(
   ({ children, className, ...rest }, ref) => (
-    <div className={s['wrapper']}>
+    <ScrollXGradient offset={32} className={s['wrapper']}>
       <TabsPrimitives.List
         className={clsx(s['tabs'], className)}
         {...rest}
@@ -31,7 +32,7 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(
       >
         {children}
       </TabsPrimitives.List>
-    </div>
+    </ScrollXGradient>
   )
 )
 

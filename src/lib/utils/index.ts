@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { isClient } from '~/lib/constants'
 
 export const formatError = (
@@ -58,3 +60,58 @@ export const rangeMap = (
 ) =>
   ((input - inputStart) / (inputEnd - inputStart)) * (outputEnd - outputStart) +
   outputStart
+
+export const userTagRegex = /(@\w+)/g
+export const mdCodeRegex = /`(\w+)`/g
+
+type Option = {
+  regex: RegExp
+  fn: (key: number, result: RegExpExecArray) => ReactNode
+}
+
+export const processString = (options: Option[]) => {
+  let key = 0
+
+  function processInputWithRegex(
+    option: Option,
+    input: string | string[]
+  ): string | (ReactNode | string)[] {
+    if (!option.fn || typeof option.fn !== 'function') return input
+
+    if (!option.regex || !(option.regex instanceof RegExp)) return input
+
+    if (typeof input === 'string') {
+      const regex = option.regex
+      let result = null
+      const output: (ReactNode | string)[] = []
+
+      while ((result = regex.exec(input)) !== null) {
+        const index = result.index
+        const match = result[0]
+
+        output.push(input.substring(0, index))
+        output.push(option.fn(++key, result))
+
+        input = input.substring(index + match.length, input.length + 1)
+        regex.lastIndex = 0
+      }
+
+      output.push(input)
+      return output
+    } else if (Array.isArray(input)) {
+      return input.map((chunk) => processInputWithRegex(option, chunk))
+    } else return input
+  }
+
+  return function (input: string | string[]) {
+    if (!options || !Array.isArray(options) || !options.length) return input
+
+    options.forEach(
+      (option: Option) =>
+        ((input as ReturnType<typeof processInputWithRegex>) =
+          processInputWithRegex(option, input))
+    )
+
+    return input
+  }
+}
