@@ -36,6 +36,7 @@ type PrintPanelProps = {
   printPanelConfig: {
     print: string
     markers: ProgressMarker[]
+    markerActiveColor?: string
     currentMarker?: ConsoleMarker
     currentHit?: number
     onComplete?: () => void
@@ -145,6 +146,7 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
                 />
               ) : (
                 <Timeline
+                  solid
                   loop={false}
                   primaryColor="#01ACFD"
                   secondaryColor="#D5D5D5"
@@ -243,13 +245,14 @@ export const Code = forwardRef<CodeRef, CodeProps>(
 
     const timelineProps = useMemo(
       () => ({
-        markers: printPanelConfig?.markers?.map(({ position }, idx) => ({
-          position,
+        markers: printPanelConfig?.markers?.map((marker, idx) => ({
+          ...marker,
           onActive: () => printPanelConfig?.onHit?.(idx + 1),
           onInactive: () => printPanelConfig?.onHit?.(idx)
         })),
         markerSize: 12,
-        markerActiveColor: 'var(--color-pink-crayon)',
+        markerActiveColor:
+          printPanelConfig?.markerActiveColor || 'var(--color-pink-crayon)',
         onStart: () => {
           printPanelConfig?.onHit?.(0)
         },

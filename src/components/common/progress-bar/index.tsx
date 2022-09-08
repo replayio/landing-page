@@ -27,6 +27,7 @@ export type Marker = {
     if string it is the id of the element to track
   */
   position: number | string
+  activeColor?: string
   onActive?: () => void
   onInactive?: () => void
 }
@@ -260,49 +261,51 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
           />
         </div>
         {markerVisible &&
-          internalMarkers?.map(({ position, normalizedPosition }, idx) => {
-            const isOnEnds = position === 0 || position === 100
+          internalMarkers?.map(
+            ({ position, normalizedPosition, activeColor }, idx) => {
+              const isOnEnds = position === 0 || position === 100
 
-            return (
-              <ProgressMarker
-                size={markerSize}
-                color={primaryColor}
-                activeColor={markerActiveColor}
-                active={
-                  lastActiveMarker !== undefined &&
-                  position <= lastActiveMarker.position
-                }
-                style={{
-                  [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
-                    position + '%',
-                  //@ts-ignore
-                  '--translate-y':
-                    direction === 'vertical' && isOnEnds
-                      ? normalizedPosition
-                      : '0.5',
-                  '--translate-x':
-                    direction === 'horizontal' && isOnEnds
-                      ? normalizedPosition
-                      : '0.5'
-                }}
-                className={s['marker']}
-                key={`${position}-${idx}`}
-              />
-            )
-          })}
+              return (
+                <ProgressMarker
+                  size={markerSize}
+                  color={primaryColor}
+                  activeColor={activeColor || markerActiveColor}
+                  active={
+                    lastActiveMarker !== undefined &&
+                    position <= lastActiveMarker.position
+                  }
+                  style={{
+                    [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
+                      position + '%',
+                    //@ts-ignore
+                    '--translate-y':
+                      direction === 'vertical' && isOnEnds
+                        ? normalizedPosition
+                        : '0.5',
+                    '--translate-x':
+                      direction === 'horizontal' && isOnEnds
+                        ? normalizedPosition
+                        : '0.5'
+                  }}
+                  className={s['marker']}
+                  key={`${position}-${idx}`}
+                />
+              )
+            }
+          )}
       </div>
     )
   }
 )
 
-type ProgressThumbProp = {
+type ProgressMarkerProp = {
   size?: number
   color?: string
   active?: boolean
   activeColor?: string
 } & JSX.IntrinsicElements['span']
 
-export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressThumbProp>(
+export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressMarkerProp>(
   (
     {
       size = 18,

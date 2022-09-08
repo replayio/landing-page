@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import clamp from 'lodash/clamp'
 import get from 'lodash/get'
 import {
   ComponentRef,
@@ -11,7 +10,7 @@ import {
   useState
 } from 'react'
 
-import { UseGsapTimeAPI } from '~/hooks/use-gsap-time'
+import { ProgressAPI, ProgressProps } from '~/components/common/progress-bar'
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
 import { rangeMap } from '~/lib/utils'
 
@@ -60,12 +59,12 @@ const AnimatedPanel: FC<{ active?: boolean }> = ({ active, children }) => {
   )
 }
 
-const printMarkers = [
+const printMarkers: ProgressProps['markers'] = [
   { position: 30 },
   { position: 36 },
   { position: 40 },
   { position: 55 },
-  { position: 80 }
+  { position: 80, activeColor: 'var(--color-pink-crayon)' }
 ]
 
 export const Scene1: FC<SceneProps> = ({
@@ -155,6 +154,7 @@ export const Scene1: FC<SceneProps> = ({
     }
 
     addPrintButton[0]?.classList?.remove?.('active')
+    ;(codeRef.current?.timeline as ProgressAPI)?.update(0)
 
     setCurrentHit(0)
     setMarkersType('transparent')
@@ -258,11 +258,23 @@ export const Scene1: FC<SceneProps> = ({
       '+=0.5'
     )
 
-    _timeline.call(
-      () => {
-        ;(codeRef.current?.timeline as UseGsapTimeAPI)?.start?.()
+    const printTimelineProgress = { progress: 0 }
+
+    _timeline.fromTo(
+      printTimelineProgress,
+      {
+        progress: 0
       },
-      undefined,
+      {
+        progress: printMarkers[printMarkers.length - 1].position,
+        duration: 3,
+        ease: 'linear',
+        onUpdate() {
+          const progress = printTimelineProgress.progress
+
+          ;(codeRef.current?.timeline as ProgressAPI)?.update(progress)
+        }
+      },
       '+=0.5'
     )
 
@@ -286,11 +298,12 @@ export const Scene1: FC<SceneProps> = ({
           printPanelConfig={{
             print: '"rotation", angle',
             markers: printMarkers,
+            markerActiveColor: '#01ACFD',
             currentHit: currentHit,
             currentMarker: markersType,
             onChangeMarker: updateMarkers,
             onHit: setCurrentHit,
-            timelineType: 'timeBased',
+            timelineType: 'justUi',
             printLineTarget: 5
           }}
           printIndicators={{
@@ -387,6 +400,26 @@ export const Scene2: FC<SceneProps> = ({
     }
   ]
 
+  const resetAnimation = useCallback((killAndClear = false) => {
+    if (!consoleRef.current) return
+
+    const logLines = gsap.utils.selector(consoleRef.current)('#log-line')
+
+    logLines.forEach((line) => {
+      line.classList.remove('active')
+    })
+
+    if (killAndClear) {
+      timeline.current.kill()
+      timeline.current.clear()
+    }
+  }, [])
+
+  const wrapedPauseTimeline = useCallback(() => {
+    resetAnimation()
+    pauseTimeline?.()
+  }, [pauseTimeline, resetAnimation])
+
   useEffect(() => {
     if (!hoverboardRef.current || !consoleRef.current) return
 
@@ -472,13 +505,17 @@ export const Scene2: FC<SceneProps> = ({
     )
 
     return () => {
-      _timeline.clear()
-      _timeline.kill()
+      resetAnimation(true)
     }
-  }, [])
+  }, [resetAnimation])
 
-  useTimeline(active, timeline)
-  const events = useAnimationHover(pauseTimeline, resumeTimeline, timeline)
+  useTimeline(active, timeline, resetAnimation)
+
+  const events = useAnimationHover(
+    wrapedPauseTimeline,
+    resumeTimeline,
+    timeline
+  )
 
   return (
     <>
@@ -511,7 +548,6 @@ export const Scene2: FC<SceneProps> = ({
   )
 }
 
-let overboardProgress = 0
 const initialColor = 'red'
 const initialRotation = 0
 
@@ -535,7 +571,7 @@ export const Scene3: FC<SceneProps> = ({
   >(null)
   const [overboardColor, setOverboardColor] =
     useState<OverboardColors>(initialColor)
-  const [rotation, setRotation] = useState(initialRotation)
+  const [rotation] = useState(initialRotation)
 
   const tree = useMemo<IdentifiedNode<ReactNode>>(() => {
     const tree = {
@@ -613,21 +649,6 @@ export const Scene3: FC<SceneProps> = ({
     })
   }, [tree, overboardColor, rotation])
 
-  const updateOverboard = useCallback(() => {
-    overboardProgress += 1.75
-    const loopedValue = overboardProgress % 360
-    const a = rangeMap(
-      clamp(loopedValue, START_OF_ROTATION, END_OF_ROTATION),
-      START_OF_ROTATION,
-      END_OF_ROTATION,
-      0,
-      360
-    )
-
-    setRotation(Number(a.toFixed(0)))
-    overboardRef.current?.hoverboard?.flip(loopedValue)
-  }, [])
-
   const resetAnimation = useCallback((killAndClear = false) => {
     if (!devToolsRef.current) return
 
@@ -649,15 +670,11 @@ export const Scene3: FC<SceneProps> = ({
   }, [])
 
   useEffect(() => {
-    if (active) {
-      gsap.ticker.add(updateOverboard)
-    } else {
-      gsap.ticker.remove(updateOverboard)
-    }
-  }, [updateOverboard, active])
-
-  useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
+
+    /* Abort overboard & floor animation */
+    overboardRef.current.hoverboard?.wave(20)
+    overboardRef.current.grid?.move(0)
 
     const _timeline = timeline.current
 
@@ -919,6 +936,10 @@ export const Scene4: FC<SceneProps> = ({
 
   useEffect(() => {
     if (!overboardRef.current || !devToolsRef.current) return
+
+    /* Abort overboard & floor animation */
+    overboardRef.current.hoverboard?.wave(20)
+    overboardRef.current.grid?.move(0)
 
     const _timeline = timeline.current
     const toolsSelector = gsap.utils.selector(devToolsRef.current)
