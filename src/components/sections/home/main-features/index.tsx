@@ -97,11 +97,11 @@ export const MainFeatures: FC = () => {
                 </p>
 
                 <ButtonLink
-                  href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
+                  href="#async-collaboration"
                   variant="tertiary-inverted-alt"
                   style={{ marginTop: '2rem' }}
                 >
-                  How Replay works
+                  Replay for Teams
                 </ButtonLink>
               </>
             }
@@ -129,11 +129,11 @@ export const MainFeatures: FC = () => {
                   replays can be shared, debugging can now become a team sport.
                 </p>
                 <ButtonLink
-                  href="#async-collaboration"
+                  href="#developer-tools"
                   variant="tertiary-inverted-alt"
                   style={{ marginTop: '2rem' }}
                 >
-                  Replay for teams
+                  Replay DevTools
                 </ButtonLink>
               </>
             }
