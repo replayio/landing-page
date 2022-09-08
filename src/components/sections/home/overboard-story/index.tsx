@@ -41,10 +41,7 @@ export function OverboardStory() {
     if (isDesktop === undefined) return
     const tween = gsap.to(containerRef.current, {
       opacity: 1,
-      y: 0,
-      scale: 1,
       delay: 0.5,
-      duration: 0.5,
       ease: 'ease-out'
     })
 
@@ -59,8 +56,7 @@ export function OverboardStory() {
       ref={containerRef}
       style={{
         opacity: 0,
-        transform: 'translateY(30px)',
-        willChange: 'opacity, transform'
+        willChange: 'opacity'
       }}
     >
       {isDesktop ? (
