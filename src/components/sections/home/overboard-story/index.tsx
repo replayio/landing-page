@@ -1,7 +1,7 @@
 // import dynamic from 'next/dynamic'
 
-// import { gsap } from 'lib/gsap'
-// import { useEffect } from 'react'
+import { gsap } from 'lib/gsap'
+import { useEffect, useRef } from 'react'
 
 import { Container } from '~/components/layout/container'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -18,6 +18,7 @@ import ReplayApplication from './scrollytelling'
 
 export function OverboardStory() {
   const { isDesktop } = useDeviceDetect()
+  const containerRef = useRef<HTMLDivElement>(null)
 
   // useEffect(() => {
   //   let int
@@ -36,8 +37,28 @@ export function OverboardStory() {
   //   }
   // }, [])
 
+  useEffect(() => {
+    if (isDesktop === undefined) return
+    const tween = gsap.to(containerRef.current, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      delay: 0.5,
+      duration: 0.5,
+      ease: 'ease-out'
+    })
+
+    return () => {
+      tween.kill()
+    }
+  }, [isDesktop])
+
   return (
-    <Container size="lg">
+    <Container
+      size="lg"
+      ref={containerRef}
+      style={{ opacity: 0, transform: 'translateY(30px)' }}
+    >
       {isDesktop ? (
         <ReplayApplication />
       ) : (
