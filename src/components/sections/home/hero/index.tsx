@@ -209,9 +209,8 @@ export const Hero: FC = () => {
         <div className={s['hero']}>
           <div className={s['heading']}>
             <Heading className={s['title']} size="lg">
-              <span className={s['heading-highlight']}>
-                The first time-travel debugger for the web.
-              </span>{' '}
+              The first time-travel debugger{' '}
+              <span className={s['heading-highlight']}>for the web.</span>
             </Heading>
             <p style={{}}>
               Replay.io lets you record and debug your application after the

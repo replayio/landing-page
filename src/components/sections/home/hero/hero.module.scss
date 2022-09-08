@@ -57,24 +57,21 @@
 
     .heading {
       .title {
-        max-width: 1008px;
+        max-width: 408px;
       }
 
       .heading-highlight {
         color: var(--color-pink-crayon);
-        font-weight: 600;
-        font-size: 70px;
       }
 
       p {
-        color: var(--color-pink-crayon);
-        font-size: 22px;
-        margin-top: 30px;
-        max-width: 620px;
+        line-height: 1.4;
+        margin-top: 24px;
+        max-width: 600px;
       }
 
       .cta {
-        margin-top: 40px;
+        margin-top: 32px;
       }
     }
   }
@@ -111,7 +108,7 @@
         }
 
         .cta {
-          margin-top: 56px;
+          margin-top: 40px;
         }
       }
     }
@@ -131,7 +128,7 @@
     .hero {
       .heading {
         .title {
-          max-width: 915px;
+          max-width: 600px;
         }
       }
     }
