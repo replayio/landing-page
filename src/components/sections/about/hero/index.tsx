@@ -7,8 +7,8 @@ import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { useMedia } from '~/hooks/use-media'
-import future from '~/public/images/about/future.jpg'
-import now from '~/public/images/about/now.jpg'
+import now from '~/public/images/about/peteluma-1.jpeg'
+import future from '~/public/images/about/peteluma-2.jpeg'
 
 import s from './hero.module.scss'
 
