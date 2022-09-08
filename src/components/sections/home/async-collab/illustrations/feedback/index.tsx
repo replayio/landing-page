@@ -18,7 +18,7 @@ export const Feedback: FC = () => {
         </div>
         <div>
           <p className={s['title']}>
-            Why is update Cart called without a user id?
+            Why is updateCart called without a user id?
           </p>
           <span className={s['addon']}>api/cart.ts</span>
         </div>
@@ -35,9 +35,7 @@ export const Feedback: FC = () => {
           <span className={s['status']} />
         </div>
         <div>
-          <p className={s['title']}>
-            Should the cart show quantity field be disabled?
-          </p>
+          <p className={s['title']}>Should the quantity field be disabled?</p>
           <span className={s['addon']}>
             Qty 2
             <svg
