@@ -8,7 +8,6 @@ import { Heading } from '~/components/common/heading'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Discord, Linkedin, Twitter } from '~/components/icons/social'
 import { ButtonLink } from '~/components/primitives/button'
-import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -199,11 +198,16 @@ export const Footer: FC = () => {
 
           <div className={s['middle']}>
             <div className={s['get-in-touch']}>
-              <p className={s['title']}>Get in touch</p>
-              <Input
-                placeholder="Enter your email address"
-                className={s['email']}
-              />
+              <p className={s['title']}>Your time travel debugger</p>
+              <div className={s['button-container']}>
+                <ButtonLink
+                  href="https://app.replay.io/"
+                  size="md"
+                  variant="tertiary"
+                >
+                  Login
+                </ButtonLink>
+              </div>
             </div>
             <div className={s['nav']}>
               {Object.entries(links).map(([key, items]) => (

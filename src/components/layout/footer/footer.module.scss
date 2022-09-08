@@ -92,15 +92,13 @@
 
     .get-in-touch {
       width: 100%;
-      max-width: 365px;
 
       .title {
         font-family: var(--font-heading);
         font-size: 32px;
       }
 
-      .email {
-        width: 100%;
+      .button-container {
         margin-top: 24px;
       }
     }
@@ -200,6 +198,16 @@
       }
     }
 
+    .middle {
+      .get-in-touch {
+        max-width: 385px;
+
+        .title {
+          font-size: 28px;
+        }
+      }
+    }
+
     .bottom {
       flex-direction: row;
 
@@ -248,6 +256,10 @@
         grid-auto-columns: minmax(0, 160px);
         grid-auto-flow: column;
         gap: 0 40px;
+      }
+
+      .get-in-touch .title {
+        font-size: 32px;
       }
     }
   }
