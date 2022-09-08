@@ -18,12 +18,6 @@ class MyDocument extends Document {
         <Head>
           <link
             rel="preload"
-            href="/fonts/inter/Inter-italic.var.woff2"
-            as="font"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
             href="/fonts/inter/Inter-roman.var.woff2"
             as="font"
             crossOrigin="anonymous"
