@@ -31,10 +31,10 @@ export const UserCard: FC<UserCardProps> = ({
 }) => {
   return (
     <div className={s.card}>
-      <Image src={member.image} alt={member.name} />
+      <Image src={member.image} alt="" />
       {member.shout && <p className={s.shout}>{member.shout}</p>}
-      {member.position && <span className={s.position}>{member.position}</span>}
-      <span className={s.name}>{member.name}</span>
+      {member.position && <h4 className={s.position}>{member.position}</h4>}
+      <h3 className={s.name}>{member.name}</h3>
       {member.job && <span className={s.job}>{member.job}</span>}
       {member.bio && (
         <p className={s.bio}>
@@ -49,22 +49,18 @@ export const UserCard: FC<UserCardProps> = ({
         </p>
       )}
       {member.socials && (
-        <ul>
+        <nav>
           {member.socials.twitter && (
-            <li>
-              <Link href={member.socials.twitter}>
-                <Image src={twitterImg} alt="twitter" />
-              </Link>
-            </li>
+            <Link href={member.socials.twitter}>
+              <Image src={twitterImg} alt="twitter" />
+            </Link>
           )}
           {member.socials.linkedin && (
-            <li>
-              <Link href={member.socials.linkedin}>
-                <Image src={linkedinImg} alt="linkedin" />
-              </Link>
-            </li>
+            <Link href={member.socials.linkedin}>
+              <Image src={linkedinImg} alt="linkedin" />
+            </Link>
           )}
-        </ul>
+        </nav>
       )}
     </div>
   )

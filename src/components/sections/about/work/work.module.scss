@@ -26,7 +26,7 @@
       padding: 54px 40px;
       min-height: 520px;
 
-      > span:nth-child(2) {
+      > h2:nth-child(2) {
         font-family: var(--font-heading);
         font-size: 40px;
         letter-spacing: -0.04em;
@@ -62,7 +62,7 @@
           margin-bottom: 24px;
         }
 
-        > span:nth-child(2) {
+        > h2:nth-child(2) {
           font-family: var(--font-heading);
           font-size: 40px;
           letter-spacing: -0.04em;

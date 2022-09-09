@@ -37,7 +37,7 @@ export const Work: FC = () => {
         <div>
           <div className={s['work-item']}>
             <Image src={codeImg} alt="" />
-            <span>The code behind our code</span>
+            <h2>The code behind our code</h2>
             <p>
               Integrity, honesty, and decency. Our principles are not
               aspirations but constraints. They lie behind every action we take,
@@ -53,7 +53,7 @@ export const Work: FC = () => {
           </div>
           <div className={s['work-item']}>
             <Image src={valuesImg} alt="" />
-            <span>Embedded values</span>
+            <h2>Embedded values</h2>
             <p>
               Our values anchor our aspirations and drive us forward.
               <br />
@@ -74,7 +74,7 @@ export const Work: FC = () => {
         <div id="jobs" className={s['work-item-jobs']}>
           <div>
             <Image src={journeyImg} alt="" />
-            <span>Join our journey</span>
+            <h2>Join our journey</h2>
             <p>
               Excited by what we are doing? Think you’d be a good match?
               <br /> Great! We’d love to hear from you.
@@ -100,7 +100,7 @@ export const Work: FC = () => {
                   <Link unstyled href={href}>
                     <span>{title}</span>
                     <span>{skills}</span>
-                    <Image src={arrow} />
+                    <Image src={arrow} alt="" />
                   </Link>
                 </li>
               ))}

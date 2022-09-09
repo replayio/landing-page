@@ -67,7 +67,9 @@ export const Hero: FC = () => {
       <Container className={s.container} size="md">
         <div className={s['hero']}>
           <div className={s['heading']}>
-            <Heading size="sm">Pricing</Heading>
+            <Heading as="h1" size="sm">
+              Pricing
+            </Heading>
             <span>
               Individuals and open source communities
               <br /> will always be able to use Replay for free.
@@ -86,7 +88,7 @@ export const Hero: FC = () => {
               </button>
             </div>
           </div>
-          <div className={s.plans}>
+          <ul className={s.plans}>
             {plansData.map((item, i) => (
               <Card
                 variant={item.type === 'Organization' ? 'primary' : 'default'}
@@ -95,7 +97,7 @@ export const Hero: FC = () => {
                 data={item}
               />
             ))}
-          </div>
+          </ul>
           <div className={s.plans__mobile}>
             <Carousel className={s.slider} slideClassName={s['slide']}>
               {plansData.map((item, i) => (
