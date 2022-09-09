@@ -31,8 +31,8 @@ export const Card: FC<Props> = ({ data, annual, variant = 'default' }) => {
   }, [annual, data.price])
 
   return (
-    <div className={clsx(s.card, { [s.primary]: variant === 'primary' })}>
-      <span>{data.type}</span>
+    <li className={clsx(s.card, { [s.primary]: variant === 'primary' })}>
+      <h2>{data.type}</h2>
       <div>
         {data?.price ? (
           <>
@@ -57,6 +57,6 @@ export const Card: FC<Props> = ({ data, annual, variant = 'default' }) => {
           <li key={i}>{feature}</li>
         ))}
       </ul>
-    </div>
+    </li>
   )
 }

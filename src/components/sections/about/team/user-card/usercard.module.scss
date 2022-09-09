@@ -75,13 +75,11 @@
     line-height: 150%;
   }
 
-  ul {
+  nav {
     display: flex;
     margin-top: 32px;
-  }
 
-  li {
-    &:not(:first-child) {
+    & > *:not(:first-child) {
       margin-left: 16px;
     }
   }
@@ -109,7 +107,7 @@
       font-size: 27px;
     }
 
-    ul {
+    nav {
       display: flex;
       margin-top: 24px;
     }
