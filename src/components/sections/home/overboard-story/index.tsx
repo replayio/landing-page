@@ -5,6 +5,7 @@
 
 import { Container } from '~/components/layout/container'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
+import { useViewportSize } from '~/hooks/use-viewport-size'
 
 import { Code } from './code'
 import { Debugger } from './debugger'
@@ -18,6 +19,8 @@ import ReplayApplication from './scrollytelling'
 
 export function OverboardStory() {
   const { isDesktop } = useDeviceDetect()
+  const { height } = useViewportSize()
+  const SCROLLYTELLING_MIN_HEIGHT = 650
 
   // useEffect(() => {
   //   let int
@@ -36,9 +39,11 @@ export function OverboardStory() {
   //   }
   // }, [])
 
+  const canFitScrollytelling = height >= SCROLLYTELLING_MIN_HEIGHT
+
   return (
     <Container size="lg">
-      {isDesktop ? (
+      {isDesktop && canFitScrollytelling ? (
         <ReplayApplication />
       ) : (
         <video
