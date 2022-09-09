@@ -7,6 +7,47 @@
   --max-height: calc(100vh - var(--padding) * 2);
 }
 
+.controls {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  left: 0;
+  bottom: 0;
+  padding: 3vh 2vw;
+  z-index: var(--z-index-20);
+  opacity: 0;
+  transition: opacity var(--duration-fast) linear;
+
+  &.active {
+    opacity: 1;
+  }
+
+  .skip-scrollytelling {
+    transition: padding var(--duration-moderate) ease-out;
+    padding: 18px !important;
+    min-width: unset !important;
+    box-shadow: 0 0 16px 8px #00000020;
+
+    &:hover {
+      padding: 18px 24px !important;
+    }
+
+    .text {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+      line-height: 1;
+
+      .inner {
+        display: block;
+        padding-right: 8px;
+      }
+    }
+  }
+}
+
 .store-container {
   position: absolute;
   width: 100%;
@@ -53,7 +94,7 @@
     background: #f2f2f2;
     width: 100%;
     position: absolute;
-    max-width: calc(var(--max-height) * var(--raw-ratio));
+    max-width: calc((var(--max-height)) * var(--raw-ratio));
     height: auto !important;
 
     .left {

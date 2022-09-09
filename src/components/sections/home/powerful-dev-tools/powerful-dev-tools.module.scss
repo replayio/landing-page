@@ -189,6 +189,7 @@
 
     .asset-player {
       .asset {
+        min-height: 480px;
         gap: 48px;
         overflow: visible;
         grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);

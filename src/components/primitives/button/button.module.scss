@@ -47,10 +47,12 @@
   /* Sizes */
 
   &.md {
+    min-height: 52px;
     padding: 16px 32px;
   }
 
   &.sm {
+    min-height: 44px;
     padding: 12px 16px;
   }
 

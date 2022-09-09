@@ -2,7 +2,16 @@ import clsx from 'clsx'
 import { Elastic } from 'gsap'
 import { clearProps, DURATION, Flip, gsap, SplitText } from 'lib/gsap'
 import get from 'lodash/get'
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import {
+  FC,
+  forwardRef,
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import {
@@ -11,6 +20,7 @@ import {
   ProgressBar
 } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
+import { Button } from '~/components/primitives/button'
 import { IsoLogo } from '~/components/primitives/logo'
 import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-story/devtools/console'
 import { useAppStore } from '~/context/use-app-store'
@@ -41,6 +51,84 @@ import {
   StoreRef
 } from './overboard-store'
 import s from './overboard-story.module.scss'
+
+const ScrollytellingControls: FC<{
+  timeline: MutableRefObject<GSAPTimeline | undefined>
+  active?: boolean
+}> = ({ timeline, active = false }) => {
+  const skipTextTimeline = useRef<GSAPTimeline>()
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const target = gsap.utils.selector(buttonRef.current)('.text')
+
+    skipTextTimeline.current = gsap.timeline({ paused: true }).fromTo(
+      target,
+      {
+        width: 0,
+        opacity: 0
+      },
+      {
+        opacity: 1,
+        width: 'auto',
+        ease: 'power2.inOut',
+        duration: 0.25
+      }
+    )
+  }, [])
+
+  const handleSkipScrollytelling = useCallback(() => {
+    gsap.to(window, {
+      scrollTo: timeline.current?.scrollTrigger?.labelToScroll('end')
+    })
+  }, [timeline])
+
+  return (
+    <div className={clsx(s['controls'], { [s['active']]: active })}>
+      <Button
+        onClick={handleSkipScrollytelling}
+        className={s['skip-scrollytelling']}
+        onMouseLeave={() => {
+          skipTextTimeline.current?.reverse()
+        }}
+        onMouseOver={() => {
+          skipTextTimeline.current?.play()
+        }}
+        size="md"
+        variant="tertiary-inverted-alt"
+        rounded
+        ref={buttonRef}
+      >
+        <span className={clsx('text', s['text'])}>
+          <span className={s['inner']}>Skip Animation</span>
+        </span>
+        <span
+          style={{
+            width: 18,
+            height: 18,
+            position: 'relative'
+          }}
+        >
+          <svg
+            style={{
+              display: 'block',
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(calc(-50% + 2px))'
+            }}
+            width="26"
+            viewBox="0 0 26 18"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M13.5214 8.14526C14.1595 8.52577 14.1595 9.47423 13.5214 9.85474L3.44062 15.8655C2.80087 16.2469 2 15.7718 2 15.0107L2 2.98927C2 2.22824 2.80087 1.75307 3.44062 2.13452L13.5214 8.14526Z" />
+            <path d="M23.5214 8.14526C24.1595 8.52577 24.1595 9.47423 23.5214 9.85474L13.4406 15.8655C12.8009 16.2469 12 15.7718 12 15.0107L12 2.98927C12 2.22824 12.8009 1.75307 13.4406 2.13452L23.5214 8.14526Z" />
+          </svg>
+        </span>
+      </Button>
+    </div>
+  )
+}
 
 const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   return (
@@ -220,6 +308,7 @@ const reactTree = identifyNodes(
 )
 
 export default function ReplayApplication() {
+  const [controlsActive, setControlsActive] = useState(false)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
@@ -228,6 +317,7 @@ export default function ReplayApplication() {
   const { isDesktop } = useDeviceDetect()
   const { width } = useViewportSize()
   const { fontsLoaded } = useAppStore()
+  const timelineRef = useRef<GSAPTimeline>()
 
   /* Store */
   const [storeState, setStoreState] =
@@ -507,9 +597,11 @@ export default function ReplayApplication() {
         trigger: 'body',
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
+          setControlsActive(true)
         },
         onLeave: () => {
           document.documentElement.classList.remove('hide-header')
+          setControlsActive(false)
         }
       }
     })
@@ -524,9 +616,11 @@ export default function ReplayApplication() {
       })
       .add(() => {
         document.documentElement.classList.remove('hide-header')
+        setControlsActive(false)
       })
       .add(() => {
         document.documentElement.classList.add('hide-header')
+        setControlsActive(true)
       })
       .to(
         recordBadge,
@@ -716,6 +810,7 @@ export default function ReplayApplication() {
       )
 
       /* Devtools */
+      .addLabel('devtools')
       .fromTo(
         viewToggleRef.current,
         { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
@@ -1007,7 +1102,9 @@ export default function ReplayApplication() {
     )
 
     /* Add some duration at the end */
-    timeline.to({}, {})
+    timeline.to({}, {}).addLabel('end', '>')
+
+    timelineRef.current = timeline
 
     return () => {
       /* Split Text Cleanup */
@@ -1022,6 +1119,7 @@ export default function ReplayApplication() {
       timeline.kill()
 
       document.documentElement.classList.remove('hide-header')
+      setControlsActive(false)
 
       /* Flip Cleanup */
       /* Just clearing transforms bc otherwise we remove some important variables */
@@ -1425,6 +1523,8 @@ export default function ReplayApplication() {
           </AspectBox>
         </AspectBox>
       </Section>
+
+      <ScrollytellingControls timeline={timelineRef} active={controlsActive} />
     </div>
   )
 }
