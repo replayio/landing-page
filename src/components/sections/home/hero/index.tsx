@@ -213,8 +213,18 @@ export const Hero: FC = () => {
               <span className={s['heading-highlight']}>for the web.</span>
             </Heading>
             <p style={{}}>
-              Replay.io lets you record and debug your application after the
-              fact with browser devtools and console logs.
+              Time travel debugging gives you the ability to record, replay, and
+              inspect your application at any point in time. You can think of a
+              replay like a video that you can inspect with Chrome DevTools, but
+              that’s just the beginning.
+            </p>
+            <p>
+              Developers are using Replay today to debug the most ambitious{' '}
+              <a href="https://replay.io/glide">web applications</a>, share{' '}
+              <a href="https://replay.io/pantheon">reproducible bug reports</a>,
+              and even debug{' '}
+              <a href="https://github.com/facebook/react/issues/24864">React</a>{' '}
+              itself.{' '}
             </p>
             <div
               className={clsx(s['cta'], {
