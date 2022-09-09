@@ -3,6 +3,7 @@ import Image from 'next/future/image'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Bubble } from '~/components/common/bubble-popup'
+import { DownloadButton } from '~/components/common/download-button'
 import { HeadingSet } from '~/components/common/heading-set'
 import { Timeline } from '~/components/common/progress-bar'
 import { ScrollXGradient } from '~/components/common/scroll-x-gradient'
@@ -283,16 +284,19 @@ export const PowerfulDevTools: FC = () => {
         <SectionHeading
           title="Developer Tools"
           subtitle={
-            <p>
-              Everything that's possible in Chrome DevTools and several things
-              that are not. You've never had this much fun debugging before.{' '}
-              <a
-                className={s['subtitle-link']}
-                href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
-              >
-                How Replay works
-              </a>
-            </p>
+            <div>
+              <p>
+                Everything that's possible in Chrome DevTools and several things
+                that are not. You've never had this much fun debugging before.{' '}
+                <a
+                  className={s['subtitle-link']}
+                  href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
+                >
+                  How Replay works
+                </a>
+              </p>
+              <DownloadButton />
+            </div>
           }
           centered
         />

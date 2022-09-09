@@ -1,48 +1,20 @@
-import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import { FC, useMemo, useRef } from 'react'
+import { FC, useRef } from 'react'
 
+import { DownloadButton } from '~/components/common/download-button'
 import { Heading } from '~/components/common/heading'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { ButtonLink } from '~/components/primitives/button'
-import { useHasRendered } from '~/hooks/use-has-rendered'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
-import { breakpoints, isServer } from '~/lib/constants'
+import { breakpoints } from '~/lib/constants'
 
 import s from './hero.module.scss'
-
-const availablePlatforms = {
-  windows: '/downloads/windows-replay.zip',
-  mac: '/downloads/replay.dmg',
-  linux: '/downloads/linux-replay.tar.bz2'
-}
-
-const getDownloadLink = () => {
-  if (isServer) return
-
-  const uAgent = navigator.userAgent
-
-  return (
-    (uAgent.match(/Linux/i) && availablePlatforms['linux']) ||
-    (uAgent.match(/Windows/i) && availablePlatforms['windows']) ||
-    (uAgent.match(/Mac/i) && availablePlatforms['mac']) ||
-    undefined
-  )
-}
 
 export const Hero: FC = () => {
   const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
   const ref = useRef<HTMLDivElement>(null)
-  const rendered = useHasRendered()
-
-  const currentPlatformDownloadLink = useMemo(() => {
-    if (!rendered) return '/'
-
-    return getDownloadLink()
-  }, [rendered])
 
   useIsomorphicLayoutEffect(() => {
     let tl: gsap.core.Timeline
@@ -226,20 +198,7 @@ export const Hero: FC = () => {
               <a href="https://github.com/facebook/react/issues/24864">React</a>{' '}
               itself.{' '}
             </p>
-            <div
-              className={clsx(s['cta'], {
-                [s['hidden']]: !currentPlatformDownloadLink
-              })}
-            >
-              <ButtonLink
-                href={currentPlatformDownloadLink || ''}
-                target="_blank"
-                variant="primary"
-                download
-              >
-                Download Replay
-              </ButtonLink>
-            </div>
+            <DownloadButton />
           </div>
         </div>
       </Container>

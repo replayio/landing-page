@@ -2,6 +2,7 @@ import { ScrollTrigger } from 'lib/gsap'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
+import { PlayIcon } from '~/components/common/play-icon'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -76,6 +77,25 @@ export const MainFeatures: FC = () => {
 
   return (
     <Section id="main-features-section" className={s['section']}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginBottom: '8rem'
+        }}
+      >
+        <div>
+          <ButtonLink
+            href="#async-collaboration"
+            variant="secondary"
+            style={{ marginTop: '2rem' }}
+          >
+            View overboard replay
+            <PlayIcon style={{ marginLeft: '14px' }} />
+          </ButtonLink>
+        </div>
+      </div>
       <Container size="sm">
         <div className={s['main-features']}>
           <HeadingSet
