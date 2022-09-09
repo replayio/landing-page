@@ -153,16 +153,18 @@ export const Header = () => {
             <Container className={s['menu-inner']}>
               <ul>
                 {link.map(({ href, icon, label }) => (
-                  <Link href={href} key={label}>
-                    <p
-                      className={clsx(s['nav-link'], {
-                        [s['active']]: href === asPath
-                      })}
-                    >
-                      {icon && <span className={s['icon']}>{icon}</span>}
-                      {label}
-                    </p>
-                  </Link>
+                  <li key={label}>
+                    <Link href={href}>
+                      <p
+                        className={clsx(s['nav-link'], {
+                          [s['active']]: href === asPath
+                        })}
+                      >
+                        {icon && <span className={s['icon']}>{icon}</span>}
+                        {label}
+                      </p>
+                    </Link>
+                  </li>
                 ))}
               </ul>
               <ButtonLink
