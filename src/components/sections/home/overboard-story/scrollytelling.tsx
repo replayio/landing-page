@@ -529,7 +529,7 @@ export default function ReplayApplication() {
       smallCenteredStoreRef.current,
       {
         simple: false,
-        duration: 4
+        duration: 3
       }
     )
 
@@ -614,7 +614,7 @@ export default function ReplayApplication() {
     timeline
       .to(sectionRef.current, {
         yPercent: percentage,
-        duration: 7,
+        duration: 3,
         ease: 'power3.out'
       })
       .add(() => {
@@ -629,9 +629,9 @@ export default function ReplayApplication() {
         recordBadge,
         {
           opacity: 1,
-          duration: 2
+          duration: 0.5
         },
-        '<'
+        '<-3'
       )
       .add(() => {
         setOverboardColor('red')
@@ -639,12 +639,16 @@ export default function ReplayApplication() {
       .add(() => {
         setOverboardColor('green')
       })
-      .to(storeColors, {
-        opacity: 0,
-        duration: 3,
-        delay: 2,
-        yPercent: -20
-      })
+      .to(
+        storeColors,
+        {
+          opacity: 0,
+          duration: 0.5,
+          delay: 1.5,
+          yPercent: -20
+        },
+        '<'
+      )
       .add(() => {
         setStoreState('idle')
       })
@@ -664,10 +668,10 @@ export default function ReplayApplication() {
         setStoreState('error')
         progressBarRef.current?.update(100)
         setCurrentTime(timelineDuration)
-      }, '+=4')
+      })
 
       /* Viewer */
-      .add(flipTimeline1 as GSAPTimeline, '+=2')
+      .add(flipTimeline1 as GSAPTimeline, '<-8')
       .to(storeContainer, { borderRadius: 12 }, '<')
       .to(
         recordBadge,
