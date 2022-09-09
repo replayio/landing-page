@@ -315,7 +315,7 @@ export default function ReplayApplication() {
   const [currentTime, setCurrentTime] = useState(0)
   const [commentState, setCommentState] = useState<CommentState>('idle')
   const { isDesktop } = useDeviceDetect()
-  const { width } = useViewportSize()
+  const { width, height } = useViewportSize()
   const { fontsLoaded } = useAppStore()
   const timelineRef = useRef<GSAPTimeline>()
 
@@ -375,6 +375,9 @@ export default function ReplayApplication() {
     ) {
       return
     }
+
+    /* Go to the top of the page to prevent spacer errors */
+    window.scrollTo(0, 0)
 
     const _applicationRef = applicationRef.current
     const _targetStoreRef = targetStoreRef.current
@@ -1112,7 +1115,7 @@ export default function ReplayApplication() {
       secondCommentSplitText.revert()
 
       /* ScrollTrigger Cleanup */
-      scrollTo(0, 0)
+      window.scrollTo(0, 0)
 
       floorAndRotateTimeline.current?.kill()
       timeline.scrollTrigger?.kill()
@@ -1128,7 +1131,7 @@ export default function ReplayApplication() {
       clearProps(_devtoolsPanelRef, propsToClear)
       clearProps(_applicationRef, propsToClear)
     }
-  }, [isDesktop, fontsLoaded, width])
+  }, [isDesktop, fontsLoaded, width, height])
 
   const handleHit = useCallback((hit: number) => {
     setCurrentHit((prevValue) => {

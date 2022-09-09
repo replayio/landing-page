@@ -78,7 +78,8 @@
 
   .print-indicator {
     position: relative;
-    z-index: var(--z-index-20);
+    // Commenting this to prevent overlapping with popping up comments
+    // z-index: var(--z-index-20);
     display: inline-block;
     width: 4;
     height: 100%;

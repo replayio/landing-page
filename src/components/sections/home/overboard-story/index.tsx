@@ -20,7 +20,7 @@ import ReplayApplication from './scrollytelling'
 export function OverboardStory() {
   const { isDesktop } = useDeviceDetect()
   const { height } = useViewportSize()
-  const SCROLLYTELLING_MIN_HEIGHT = 650
+  const SCROLLYTELLING_MIN_HEIGHT = 620
 
   // useEffect(() => {
   //   let int
