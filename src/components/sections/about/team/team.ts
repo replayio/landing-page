@@ -1,5 +1,4 @@
 import brian from '~/public/images/about/team/brian.png'
-import cecelia from '~/public/images/about/team/cecelia.jpeg'
 import dan from '~/public/images/about/team/dan.png'
 import gideon from '~/public/images/about/team/gideon.png'
 import holger from '~/public/images/about/team/holger.png'
@@ -30,16 +29,6 @@ export const team = [
     position: 'CTO',
     name: 'Brian Hackett',
     bio: 'Brian has had a longtime passion for helping people understand hugely complex software systems, starting with a Stanford Ph.D. and continuing through 10 years at Mozilla, where he worked on JavaScript VM optimizations and developed a precursor to Replay. He is a nomadic adventurer and enjoys sailing around Polynesia and van travel in the western US with his wife.'
-  },
-  {
-    image: cecelia,
-    position: 'Community lead',
-    name: 'Cecelia Martinez',
-    bio: 'Cecelia is dedicated to building developer communities that are inclusive, constructive, and make software development a better experience for all. Her role as Community Lead at Replay.io involves coding, writing, speaking, teaching, and most importantly listening. She is a lead volunteer with Women Who Code FrontEnd, chapter head of Out in Tech Atlanta, a mentor, and part of the GitHub Stars program.',
-    socials: {
-      twitter: 'https://twitter.com/ceceliacreates',
-      linkedin: 'https://linkedin.com/in/ceceliamartinez'
-    }
   },
   {
     image: dan,
