@@ -70,8 +70,18 @@
         max-width: 600px;
       }
 
+      a {
+        text-decoration: underline;
+      }
+
       .cta {
         margin-top: 32px;
+        a {
+
+          font-weight: bold;
+          text-decoration: none;
+
+        }
       }
     }
   }
