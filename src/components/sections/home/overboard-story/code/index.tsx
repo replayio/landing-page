@@ -56,8 +56,16 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
   ({ printPanelConfig, timelineProps }, timelineRef) => {
     return (
       <div className={s['print-panel']} id="dev-tools-print-panel">
-        <div style={{ padding: 10 }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ padding: 0 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: 10,
+              background: 'white',
+              borderTop: '1px solid #eaeaea'
+            }}
+          >
             <div id="dev-tools-console-markers" className={s['markers']}>
               <div className={s['markers-container']}>
                 {availableMarkers.map((color) => (
@@ -107,8 +115,10 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
           <div
             style={{
               display: 'flex',
-              marginTop: 12,
-              alignItems: 'center'
+              // marginTop: 12,
+              alignItems: 'center',
+              padding: 10,
+              borderBottom: '1px solid #eaeaea'
             }}
           >
             <svg
