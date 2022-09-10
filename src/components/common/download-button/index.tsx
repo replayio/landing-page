@@ -34,10 +34,15 @@ export function DownloadButton() {
   }, [rendered])
 
   const { isDesktop } = useDeviceDetect()
+
+  if (!isDesktop) {
+    return null
+  }
+
   return (
     <div
       className={clsx(s['cta'], {
-        [s['hidden']]: !currentPlatformDownloadLink || !isDesktop
+        [s['hidden']]: !currentPlatformDownloadLink
       })}
     >
       <ButtonLink
