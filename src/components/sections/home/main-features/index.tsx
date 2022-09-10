@@ -75,17 +75,19 @@ export const MainFeatures: FC = () => {
     undefined
   )
 
+  const { isDesktop } = useDeviceDetect()
+
   return (
     <Section id="main-features-section" className={s['section']}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginBottom: '8rem'
-        }}
-      >
-        <div>
+      {isDesktop && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            marginBottom: '8rem'
+          }}
+        >
           <ButtonLink
             href="#async-collaboration"
             variant="secondary"
@@ -95,7 +97,7 @@ export const MainFeatures: FC = () => {
             <PlayIcon style={{ marginLeft: '14px' }} />
           </ButtonLink>
         </div>
-      </div>
+      )}
       <Container size="sm">
         <div className={s['main-features']}>
           <HeadingSet

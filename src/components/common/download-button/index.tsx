@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useMemo } from 'react'
 
 import { ButtonLink } from '~/components/primitives/button'
+import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useHasRendered } from '~/hooks/use-has-rendered'
 import { isServer } from '~/lib/constants'
 
@@ -31,10 +32,12 @@ export function DownloadButton() {
 
     return getDownloadLink()
   }, [rendered])
+
+  const { isDesktop } = useDeviceDetect()
   return (
     <div
       className={clsx(s['cta'], {
-        [s['hidden']]: !currentPlatformDownloadLink
+        [s['hidden']]: !currentPlatformDownloadLink || !isDesktop
       })}
     >
       <ButtonLink
