@@ -82,10 +82,12 @@ export const Hero: FC = () => {
               >
                 <Switch.Thumb className={s.thumb} />
               </Switch.Root>
-              <button onClick={() => setAnnual(!annual)}>
-                <span>Annual</span>
-                <span>Save 25%</span>
-              </button>
+              {false && (
+                <button onClick={() => setAnnual(!annual)}>
+                  <span>Annual</span>
+                  <span>Save 25%</span>
+                </button>
+              )}
             </div>
           </div>
           <ul className={s.plans}>

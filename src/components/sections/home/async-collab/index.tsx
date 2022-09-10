@@ -2,10 +2,9 @@ import clsx from 'clsx'
 import { FC } from 'react'
 
 import { Badge } from '~/components/common/badge'
-import { PlayIcon } from '~/components/common/play-icon'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { Button } from '~/components/primitives/button'
+import { ButtonLink } from '~/components/primitives/button'
 
 import s from './async-collab.module.scss'
 import { BugReports, EndToEndTests, Feedback, PullReq } from './illustrations'
@@ -50,9 +49,13 @@ export const AsyncCollab: FC = () => {
           subtitle="As easy to record as a video.  Sharing replays with your team lets you avoid needless back-and-forths and collaborate in new ways."
         />
         <div className={s['cta']}>
-          <Button variant="tertiary-inverted">
-            Learn more <PlayIcon style={{ marginLeft: 8 }} />
-          </Button>
+          <ButtonLink
+            href="https://app.replay.io/team/new"
+            variant="secondary"
+            style={{ marginTop: '0rem' }}
+          >
+            Create Team
+          </ButtonLink>
         </div>
         <div className={s['cards']}>
           <Card
@@ -80,7 +83,7 @@ export const AsyncCollab: FC = () => {
           <Card
             contentSpacing="sm"
             title="Feedback"
-            subtitle="Share replays in Slack when you want to get others feedback. In context comments make it easy to discuss function calls and ui elements."
+            subtitle="Share replays in Slack when you want to get others feedback.In context comments make it easy to discuss function calls and ui elements."
           >
             <Feedback />
           </Card>
