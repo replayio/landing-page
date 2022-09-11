@@ -51,7 +51,7 @@ export function DownloadButton() {
         variant="primary"
         download
       >
-        Download Replay
+        Record your first replay
       </ButtonLink>
     </div>
   )
