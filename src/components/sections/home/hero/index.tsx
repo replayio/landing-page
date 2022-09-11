@@ -55,26 +55,30 @@ export const Hero: FC = () => {
               The first time-travel debugger{' '}
               <span className={s['heading-highlight']}>for the web.</span>
             </Heading>
+
             <p style={{}}>
-              Time travel debugging lets you record, replay, and inspect your
-              application at any point in time. Think of replays like videos
-              that you can inspect with Chrome DevTools.
+              Time travel debugging lets you record and replay your browser. You
+              can think of replays like videos that you can inspect with Chrome
+              DevTools, but that's just the beginning. With Replay, you can add
+              Console logs on the fly, fast forward to any point in time, and
+              squash bugs as a team.
             </p>
             {isDesktop && (
               <p>
-                Developers are using Replay to debug the most ambitious{' '}
-                <a href="https://replay.io/glide">web applications</a> and even
+                Join developers who are time-traveling in some of the most
+                ambitious <a href="https://replay.io/glide">applications</a> and
                 libraries like{' '}
                 <a href="https://github.com/facebook/react/issues/24864">
                   React
                 </a>{' '}
                 and{' '}
-                <a href="https://github.com/reduxjs/react-redux/pull/1941">
+                <a href="https://github.com/reduxjs/react-redux/issues/1940">
                   Redux
                 </a>{' '}
-                .{' '}
+                today.
               </p>
             )}
+
             <DownloadButton />
           </div>
         </div>

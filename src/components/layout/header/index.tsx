@@ -16,8 +16,8 @@ import s from './header.module.scss'
 
 const link = [
   {
-    href: 'https://docs.replay.io/docs/why-replay-12b64a4c3b5d461981f1b498fc055d56#6524a5fc96304bf286184e004d2ba55f',
-    label: 'Use Cases'
+    href: 'https://docs.replay.io',
+    label: 'Docs'
   },
   {
     href: '/about',
