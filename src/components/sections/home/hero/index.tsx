@@ -56,23 +56,23 @@ export const Hero: FC = () => {
               <span className={s['heading-highlight']}>for the web.</span>
             </Heading>
             <p style={{}}>
-              Time travel debugging gives you the ability to record, replay, and
-              inspect your application at any point in time. You can think of a
-              replay like a video that you can inspect with Chrome DevTools, but
-              that’s just the beginning.
+              Time travel debugging lets you record, replay, and inspect your
+              application at any point in time. Think of replays like videos
+              that you can inspect with Chrome DevTools.
             </p>
             {isDesktop && (
               <p>
-                Developers are using Replay today to debug the most ambitious{' '}
-                <a href="https://replay.io/glide">web applications</a>, share{' '}
-                <a href="https://replay.io/pantheon">
-                  reproducible bug reports
-                </a>
-                , and even debug{' '}
+                Developers are using Replay to debug the most ambitious{' '}
+                <a href="https://replay.io/glide">web applications</a> and even
+                libraries like{' '}
                 <a href="https://github.com/facebook/react/issues/24864">
                   React
                 </a>{' '}
-                itself.{' '}
+                and{' '}
+                <a href="https://github.com/reduxjs/react-redux/pull/1941">
+                  Redux
+                </a>{' '}
+                .{' '}
               </p>
             )}
             <DownloadButton />

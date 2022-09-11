@@ -89,11 +89,11 @@ export const MainFeatures: FC = () => {
           }}
         >
           <ButtonLink
-            href="#async-collaboration"
+            href="https://app.replay.io/recording/cannot-purchase-bugslayer--76c9f375-ccc9-4af9-a431-6e69e5f6e053"
             variant="secondary"
             style={{ marginTop: '2rem' }}
           >
-            View overboard replay
+            View original replay
             <PlayIcon style={{ marginLeft: '14px' }} />
           </ButtonLink>
         </div>
