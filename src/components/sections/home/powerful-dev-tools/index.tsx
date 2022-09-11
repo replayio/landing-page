@@ -288,8 +288,9 @@ export const PowerfulDevTools: FC = () => {
           subtitle={
             <div>
               <p>
-                Everything that's possible in Chrome DevTools and several things
-                that are not. You've never had this much fun debugging before.{' '}
+                We took browser DevTools and super charged it with time-travel.
+                Add Console logs on the fly. Fast forward and inspect React
+                components. With time-travel, anything is possible!{' '}
                 <a
                   className={s['subtitle-link']}
                   href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"

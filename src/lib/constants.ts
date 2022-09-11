@@ -35,7 +35,7 @@ export const basementLog = `
 
 // TODO: update this data
 export const defaultMeta = {
-  title: 'Replay',
+  title: 'Replay - The first time-travel debugger for the web.',
   description: `Record, Share, and Debug your application with DevTools.`,
   ogImage: `${siteOrigin}/og.png`,
   twitter: {

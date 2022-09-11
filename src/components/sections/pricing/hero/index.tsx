@@ -1,5 +1,4 @@
-import * as Switch from '@radix-ui/react-switch'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
 import { Heading } from '~/components/common/heading'
