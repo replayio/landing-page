@@ -93,7 +93,9 @@ const VideoAsset: FC<JSX.IntrinsicElements['video'] & { active: boolean }> = ({
 const assets = [
   {
     title: 'Print Statements',
-    description: 'Add a print statement and view the logs in the Console.',
+
+    description:
+      'Add print statements and view the logs immediately in the Console.',
     video: '/video/hero-video.mp4',
     component: Scene1
   },
@@ -101,7 +103,7 @@ const assets = [
     devtoolsTab: 'console',
     title: 'Console',
     description:
-      'Fast forward to a console log and evaluate expressions in the Terminal.',
+      'Fast forward to console logs and evaluate expressions in the Terminal.',
     video: '/video/hero-video.mp4',
     component: Scene2
   },
@@ -109,7 +111,7 @@ const assets = [
     devtoolsTab: 'react',
     title: 'React',
     description:
-      'Inspect a React component and view its state, props, and hooks.',
+      'Inspect React components and view their state, props, and hooks.',
     video: '/video/hero-video.mp4',
     component: Scene3
   },
@@ -117,7 +119,7 @@ const assets = [
     devtoolsTab: 'elements',
     title: 'Elements',
     description:
-      'Inspect a DOM element and view its applied rules and computed properties.',
+      'Inspect DOM elements and view their applied rules and computed properties.',
     video: '/video/hero-video.mp4',
     component: Scene4
   },
@@ -125,7 +127,7 @@ const assets = [
     devtoolsTab: 'network',
     title: 'Network',
     description:
-      'Inspect a Network request and view its headers, request and response bodies.',
+      'Inspect Network requests and view their headers, request and response bodies.',
     video: '/video/hero-video.mp4',
     component: Scene5
   },

@@ -23,8 +23,8 @@
       display: block;
       margin-top: 57px;
       text-align: center;
-      font-style: italic;
-      color: var(--color-gray-almost-light-but-not-really);
+      font-weight: 500;
+      color: var(--color-gray);
       transition: opacity var(--duration-moderate) ease-in-out;
 
       &.placeholder {
