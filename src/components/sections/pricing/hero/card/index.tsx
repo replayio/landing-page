@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import { ButtonLink } from '~/components/primitives/button'
 
