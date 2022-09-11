@@ -15,21 +15,9 @@ interface Props {
     features: string[]
   }
   variant?: 'primary' | 'default'
-  annual?: boolean
 }
 
-export const Card: FC<Props> = ({ data, annual, variant = 'default' }) => {
-  const [price, setPrice] = useState(data.price)
-
-  useEffect(() => {
-    if (!annual && typeof data.price === 'number') {
-      setPrice(data.price)
-    }
-    if (annual && typeof data.price === 'number') {
-      setPrice(Math.ceil(data.price - (25 * data?.price) / 100))
-    }
-  }, [annual, data.price])
-
+export const Card: FC<Props> = ({ data, variant = 'default' }) => {
   return (
     <li className={clsx(s.card, { [s.primary]: variant === 'primary' })}>
       <h2>{data.type}</h2>
@@ -38,7 +26,7 @@ export const Card: FC<Props> = ({ data, annual, variant = 'default' }) => {
           <>
             <span>
               {typeof data.price === 'number' && '$'}
-              {price}
+              {data.price}
             </span>
             <span>{data.mode}</span>
           </>
