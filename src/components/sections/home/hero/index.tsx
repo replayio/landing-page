@@ -52,22 +52,20 @@ export const Hero: FC = () => {
         <div className={s['hero']}>
           <div className={s['heading']}>
             <Heading className={s['title']} size="lg">
-              The first time-travel debugger{' '}
-              <span className={s['heading-highlight']}>for the web.</span>
+              The time-travel debugger{' '}
+              <span className={s['heading-highlight']}>from the future.</span>
             </Heading>
 
             <p style={{}}>
-              Time travel debugging lets you record and replay your browser. You
-              can think of replays like videos that you can inspect with Chrome
-              DevTools, but that's just the beginning. With Replay, you can add
-              Console logs on the fly, fast forward to any point in time, and
-              squash bugs as a team.
+              Replays are like videos that you can inspect with DevTools, but
+              that's just the beginning. With Replay, you can add Console logs
+              on the fly, jump to any point in time, and squash bugs as a team.
             </p>
             {isDesktop && (
               <p>
-                Join developers who are time-traveling in some of the most
-                ambitious <a href="https://replay.io/glide">applications</a> and
-                libraries like{' '}
+                Join developers who are debugging some of the most ambitious{' '}
+                <a href="https://replay.io/glide">applications</a> and libraries
+                like{' '}
                 <a href="https://github.com/facebook/react/issues/24864">
                   React
                 </a>{' '}
