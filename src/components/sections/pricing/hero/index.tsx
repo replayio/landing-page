@@ -60,8 +60,6 @@ const plansData = [
 ]
 
 export const Hero: FC = () => {
-  const [annual, setAnnual] = useState(false)
-
   return (
     <Section className={s.section}>
       <Container className={s.container} size="md">
@@ -74,27 +72,11 @@ export const Hero: FC = () => {
               Individuals and open source communities
               <br /> will always be able to use Replay for free.
             </span>
-            {false && (
-              <div className={s.annual}>
-                <Switch.Root
-                  checked={annual}
-                  onCheckedChange={() => setAnnual(!annual)}
-                  className={s.switch}
-                >
-                  <Switch.Thumb className={s.thumb} />
-                </Switch.Root>
-                <button onClick={() => setAnnual(!annual)}>
-                  <span>Annual</span>
-                  <span>Save 25%</span>
-                </button>
-              </div>
-            )}
           </div>
           <ul className={s.plans}>
             {plansData.map((item, i) => (
               <Card
                 variant={item.type === 'Organization' ? 'primary' : 'default'}
-                annual={annual}
                 key={i}
                 data={item}
               />
@@ -105,7 +87,6 @@ export const Hero: FC = () => {
               {plansData.map((item, i) => (
                 <Card
                   variant={item.type === 'Organization' ? 'primary' : 'default'}
-                  annual={annual}
                   key={i}
                   data={item}
                 />
