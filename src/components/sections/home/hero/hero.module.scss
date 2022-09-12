@@ -82,6 +82,12 @@
   }
 }
 
+.hero-cta {
+  display: flex;
+  margin-top: 32px;
+  gap: 20px;
+}
+
 @media (max-width: $screen-md - 1px) {
   .hero .heading .title {
     font-size: min(42px, 8.75vw);

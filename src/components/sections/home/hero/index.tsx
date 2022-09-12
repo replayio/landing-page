@@ -59,14 +59,14 @@ export const Hero: FC = () => {
               </Heading>
 
               <p>
-                More than a video. Replay lets you jump to any point in the
-                recorded code execution, add Console logs on the fly, and squash
-                bugs as a team.
+                More than a video. Replay lets you jump to any point in
+                execution, add Console logs on the fly, and squash bugs as a
+                team.
               </p>
 
-              <div style={{ display: 'flex', marginTop: 32, gap: 20 }}>
+              <div className={s['hero-cta']}>
                 <DownloadButton />
-                <ButtonLink href="#overboard-story">
+                <ButtonLink href="#scrollytelling-spacer">
                   Experience time-traveling
                 </ButtonLink>
               </div>
