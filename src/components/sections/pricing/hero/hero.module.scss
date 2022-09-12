@@ -97,22 +97,22 @@
   .hero {
     .plans {
       display: none;
+    }
 
-      &__mobile {
-        display: unset;
+    .plans__mobile {
+      display: unset;
 
-        .slider {
-          margin-top: 64px;
-          height: 100%;
+      .slider {
+        margin-top: 64px;
+        height: 100%;
 
-          .slide {
-            margin: 0 20px;
+        .slide {
+          margin: 0 20px;
 
-            > div {
-              width: 35vw;
-              min-width: 410px;
-              height: 100%;
-            }
+          > div {
+            width: 35vw;
+            min-width: 410px;
+            height: 100%;
           }
         }
       }
@@ -134,28 +134,26 @@
       }
     }
 
-    .plans {
-      &__mobile {
-        .slider {
-          margin-top: 64px;
-          height: 100%;
+    .plans__mobile {
+      .slider {
+        margin-top: 64px;
+        height: 100%;
+
+        > div {
+          padding: 0 16px;
+
+          > ul {
+            gap: 16px;
+          }
+        }
+
+        .slide {
+          margin: unset;
 
           > div {
-            padding: 0 16px;
-
-            > div {
-              gap: 16px;
-            }
-          }
-
-          .slide {
-            margin: unset;
-
-            > div {
-              max-width: 380px;
-              width: 78vw;
-              min-width: unset;
-            }
+            max-width: 380px;
+            width: 78vw;
+            min-width: unset;
           }
         }
       }

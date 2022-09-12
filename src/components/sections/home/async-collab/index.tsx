@@ -51,7 +51,7 @@ export const AsyncCollab: FC = () => {
         <div className={s['cta']}>
           <ButtonLink
             href="https://app.replay.io/team/new"
-            variant="secondary"
+            variant="tertiary-inverted"
             style={{ marginTop: '0rem' }}
           >
             Create Replay Team

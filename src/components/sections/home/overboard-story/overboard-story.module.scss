@@ -3,11 +3,14 @@
 
 .section {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   --max-height: calc(100vh - var(--padding) * 2);
+
+  .section-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .controls {
@@ -59,6 +62,20 @@
   z-index: 10;
   max-width: calc(var(--max-height) * var(--raw-ratio));
   height: auto !important;
+
+  .store-entrance-animation-container {
+    height: 100%;
+    opacity: 0;
+    transition-property: opacity transform;
+    transition-duration: 0.5s;
+    transition-timing-function: var(--ease-out-soft);
+    transform: scale(0.95) translateY(30px);
+
+    &.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
 
   .record {
     opacity: 0;
@@ -318,3 +335,13 @@
     opacity: 0;
   }
 }
+
+// @keyframes fade-in {
+//   0% {
+//     opacity: 0;
+//   }
+
+//   100% {
+//     opacity: 1;
+//   }
+// }

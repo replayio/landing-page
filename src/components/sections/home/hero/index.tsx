@@ -6,7 +6,6 @@ import { Heading } from '~/components/common/heading'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
@@ -15,19 +14,20 @@ import s from './hero.module.scss'
 
 export const Hero: FC = () => {
   const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const pinWrapperRef = useRef<HTMLDivElement>(null)
   const ref = useRef<HTMLDivElement>(null)
-  const { isDesktop } = useDeviceDetect()
 
   useIsomorphicLayoutEffect(() => {
     let tl: gsap.core.Timeline
 
-    if (ref.current && isDesktopSize) {
+    if (ref.current && pinWrapperRef && isDesktopSize) {
       tl = gsap.timeline({
         scrollTrigger: {
           trigger: 'body',
           start: 0,
           end: 300,
           pin: ref.current,
+          pinSpacer: pinWrapperRef.current,
           pinSpacing: false,
           scrub: true
         }
@@ -45,24 +45,26 @@ export const Hero: FC = () => {
   }, [isDesktopSize])
 
   return (
-    <Section className={s['section']} ref={ref}>
-      <Container className={s['container']}>
-        {isDesktop && <HeroIllustration />}
+    <div id="hero-pin-wrapper" ref={pinWrapperRef}>
+      <Section className={s['section']} ref={ref}>
+        <Container className={s['container']}>
+          <HeroIllustration />
 
-        <div className={s['hero']}>
-          <div className={s['heading']}>
-            <Heading className={s['title']} size="lg">
-              The time-travel debugger{' '}
-              <span className={s['heading-highlight']}>from the future.</span>
-            </Heading>
+          <div className={s['hero']}>
+            <div className={s['heading']}>
+              <Heading className={s['title']} size="lg">
+                The time-travel debugger{' '}
+                <span className={s['heading-highlight']}>from the future.</span>
+              </Heading>
 
-            <p style={{}}>
-              Replays are like videos that you can inspect with DevTools, but
-              that's just the beginning. With Replay, you can add Console logs
-              on the fly, jump to any point in time, and squash bugs as a team.
-            </p>
-            {isDesktop && (
               <p>
+                Replays are like videos that you can inspect with DevTools, but
+                that's just the beginning. With Replay, you can add Console logs
+                on the fly, jump to any point in time, and squash bugs as a
+                team.
+              </p>
+
+              <p className={s['desktop-paragraph']}>
                 Join developers who are debugging some of the most ambitious{' '}
                 <a href="https://replay.io/glide">applications</a> and libraries
                 like{' '}
@@ -75,15 +77,16 @@ export const Hero: FC = () => {
                 </a>{' '}
                 today.
               </p>
-            )}
 
-            <DownloadButton />
+              <DownloadButton />
+            </div>
           </div>
-        </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </div>
   )
 }
+
 function HeroIllustration() {
   return (
     <div className={s['illustration']}>

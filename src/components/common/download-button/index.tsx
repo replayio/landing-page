@@ -25,6 +25,7 @@ const getDownloadLink = () => {
     undefined
   )
 }
+
 export function DownloadButton() {
   const rendered = useHasRendered()
   const currentPlatformDownloadLink = useMemo(() => {
@@ -35,14 +36,14 @@ export function DownloadButton() {
 
   const { isDesktop } = useDeviceDetect()
 
-  if (!isDesktop) {
-    return null
+  if (!isDesktop && rendered) {
+    return <></>
   }
 
   return (
     <div
       className={clsx(s['cta'], {
-        [s['hidden']]: !currentPlatformDownloadLink
+        [s['visible']]: rendered
       })}
     >
       <ButtonLink

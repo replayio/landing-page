@@ -2,7 +2,6 @@ import { ScrollTrigger } from 'lib/gsap'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeadingSet } from '~/components/common/heading-set'
-import { PlayIcon } from '~/components/common/play-icon'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -75,93 +74,75 @@ export const MainFeatures: FC = () => {
     undefined
   )
 
-  const { isDesktop } = useDeviceDetect()
-
   return (
-    <Section id="main-features-section" className={s['section']}>
-      {isDesktop && (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginBottom: '8rem'
-          }}
-        >
-          <ButtonLink
-            href="https://app.replay.io/recording/cannot-purchase-bugslayer--76c9f375-ccc9-4af9-a431-6e69e5f6e053"
-            variant="secondary"
-            style={{ marginTop: '2rem' }}
-          >
-            View original replay
-            <PlayIcon style={{ marginLeft: '14px' }} />
-          </ButtonLink>
-        </div>
-      )}
-      <Container size="sm">
-        <div className={s['main-features']}>
-          <HeadingSet
-            disabled={activeHeading !== 0}
-            className={s['feature']}
-            overtitle="Async Collaboration"
-            title="Record once. Never reproduce again."
-            description={
-              <>
-                <p>
-                  <b>
-                    Replay gives you the power to share what you’re seeing with
-                    your team so that they can fix it fast.{' '}
-                  </b>
-                  Because Replay replays the browser down to level of the event
-                  loop, you no longer need to worry about including the steps to
-                  reproduce in your bug report. You can simply record the
-                  replay, add a couple of comments, and file the issue.
-                </p>
+    <>
+      <Section id="main-features-section" className={s['section']}>
+        <Container size="sm">
+          <div className={s['main-features']}>
+            <HeadingSet
+              disabled={activeHeading !== 0}
+              className={s['feature']}
+              overtitle="Async Collaboration"
+              title="Record once. Never reproduce again."
+              description={
+                <>
+                  <p>
+                    <b>
+                      Replay gives you the power to share what you’re seeing
+                      with your team so that they can fix it fast.{' '}
+                    </b>
+                    Because Replay replays the browser down to level of the
+                    event loop, you no longer need to worry about including the
+                    steps to reproduce in your bug report. You can simply record
+                    the replay, add a couple of comments, and file the issue.
+                  </p>
 
-                <ButtonLink
-                  href="#async-collaboration"
-                  variant="tertiary-inverted-alt"
-                  style={{ marginTop: '2rem' }}
-                >
-                  Replay for Teams
-                </ButtonLink>
-              </>
-            }
-          />
+                  <ButtonLink
+                    href="#async-collaboration"
+                    variant="tertiary-inverted-alt"
+                    style={{ marginTop: '2rem' }}
+                  >
+                    Replay for Teams
+                  </ButtonLink>
+                </>
+              }
+            />
 
-          <div className={s['progress-bar']}>
-            <ScrollProgressBar onProgressUpdate={setActiveHeading} />
+            <div className={s['progress-bar']}>
+              <ScrollProgressBar onProgressUpdate={setActiveHeading} />
+            </div>
+
+            <HeadingSet
+              disabled={activeHeading !== 1}
+              className={s['feature']}
+              overtitle="Time Travel Debugging"
+              title="Debug with super powers."
+              description={
+                <>
+                  <p>
+                    <b>
+                      Replay gives you the freedom to see what your application
+                      looked like at any point in time.
+                    </b>{' '}
+                    The hardest problems have many twists and turns, nulls and
+                    undefineds. With Replay, you can start annotating
+                    interesting points in time and narrowing down the problem.
+                    It's amazing how much simpler software is when you can time
+                    travel.
+                  </p>
+                  <ButtonLink
+                    href="#developer-tools"
+                    variant="tertiary-inverted-alt"
+                    style={{ marginTop: '2rem' }}
+                  >
+                    Replay DevTools
+                  </ButtonLink>
+                </>
+              }
+            />
           </div>
-
-          <HeadingSet
-            disabled={activeHeading !== 1}
-            className={s['feature']}
-            overtitle="Time Travel Debugging"
-            title="Debug with super powers."
-            description={
-              <>
-                <p>
-                  <b>
-                    Replay gives you the freedom to see what your application
-                    looked like at any point in time.
-                  </b>{' '}
-                  The hardest problems have many twists and turns, nulls and
-                  undefineds. With Replay, you can start annotating interesting
-                  points in time and narrowing down the problem. It's amazing
-                  how much simpler software is when you can time travel.
-                </p>
-                <ButtonLink
-                  href="#developer-tools"
-                  variant="tertiary-inverted-alt"
-                  style={{ marginTop: '2rem' }}
-                >
-                  Replay DevTools
-                </ButtonLink>
-              </>
-            }
-          />
-        </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </>
   )
 }
