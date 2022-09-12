@@ -2,5 +2,11 @@
 @import 'css/helpers';
 
 .cta {
-  margin-top: 32px;
+  display: none;
+}
+
+@media (min-width: $screen-md) {
+  .cta {
+    display: block;
+  }
 }

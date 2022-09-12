@@ -6,6 +6,7 @@ import { Heading } from '~/components/common/heading'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
@@ -51,33 +52,23 @@ export const Hero: FC = () => {
 
         <div className={s['hero']}>
           <div className={s['heading']}>
-            <Heading className={s['title']} size="lg">
+            <Heading as="h1" className={s['title']} size="lg">
               The time-travel debugger{' '}
               <span className={s['heading-highlight']}>from the future.</span>
             </Heading>
 
-            <p style={{}}>
-              Replays are like videos that you can inspect with DevTools, but
-              that's just the beginning. With Replay, you can add Console logs
-              on the fly, jump to any point in time, and squash bugs as a team.
+            <p>
+              More than a video. Replay lets you jump to any point in the
+              recorded code execution, add Console logs on the fly, and squash
+              bugs as a team.
             </p>
-            {isDesktop && (
-              <p>
-                Join developers who are debugging some of the most ambitious{' '}
-                <a href="https://replay.io/glide">applications</a> and libraries
-                like{' '}
-                <a href="https://github.com/facebook/react/issues/24864">
-                  React
-                </a>{' '}
-                and{' '}
-                <a href="https://github.com/reduxjs/react-redux/issues/1940">
-                  Redux
-                </a>{' '}
-                today.
-              </p>
-            )}
 
-            <DownloadButton />
+            <div style={{ display: 'flex', marginTop: 32, gap: 20 }}>
+              <DownloadButton />
+              <ButtonLink href="#overboard-story">
+                Experience time-traveling
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </Container>
