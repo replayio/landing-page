@@ -18,10 +18,11 @@ const ReplayApplication = dynamic(() => import('./scrollytelling'), {
   loading: () => <AspectBox ratio={1920 / 1080} />
 })
 
+const SCROLLYTELLING_MIN_HEIGHT = 620
+
 export function OverboardStory() {
   const { isDesktop } = useDeviceDetect()
   const { height } = useViewportSize()
-  const SCROLLYTELLING_MIN_HEIGHT = 620
 
   // useEffect(() => {
   //   let int

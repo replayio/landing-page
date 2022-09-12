@@ -84,6 +84,7 @@
 }
 
 .marker {
+  --animation-max-scale: 2;
   --color: #ffacbb;
   --translate-x: 0;
   --translate-y: 0;
@@ -93,7 +94,9 @@
 
   &.active {
     --color: var(--color-pink-crayon);
+  }
 
+  &.current {
     .marker-thumb {
       &::before {
         animation-name: radar;
@@ -135,11 +138,11 @@
   }
 
   40% {
-    opacity: 0.4;
+    opacity: 0.6;
   }
 
   100% {
     opacity: 0;
-    transform: scale(2);
+    transform: scale(var(--animation-max-scale));
   }
 }

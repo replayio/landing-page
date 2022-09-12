@@ -53,12 +53,41 @@ import {
 } from './overboard-store'
 import s from './overboard-story.module.scss'
 
+let onScrollTriggerUpdate: (state: ScrollTrigger) => void
+
+const TimelineLogo: FC<{ children: ReactNode; onClick?: () => void }> = ({
+  children,
+  onClick
+}) => {
+  return (
+    <Button
+      onClick={onClick}
+      style={{ width: '100%', height: '100%', position: 'relative' }}
+      unstyled
+    >
+      <span
+        style={{
+          display: 'block',
+          position: 'absolute',
+          width: 21,
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}
+      >
+        {children}
+      </span>
+    </Button>
+  )
+}
+
 const ScrollytellingControls: FC<{
   timeline: MutableRefObject<GSAPTimeline | undefined>
   active?: boolean
 }> = ({ timeline, active = false }) => {
   const skipTextTimeline = useRef<GSAPTimeline>()
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const progressBarRef = useRef<ProgressAPI>(null)
 
   useEffect(() => {
     const target = gsap.utils.selector(buttonRef.current)('.text')
@@ -76,16 +105,178 @@ const ScrollytellingControls: FC<{
         duration: 0.25
       }
     )
-  }, [])
 
-  const handleSkipScrollytelling = useCallback(() => {
-    gsap.to(window, {
-      scrollTo: timeline.current?.scrollTrigger?.labelToScroll('end')
-    })
+    onScrollTriggerUpdate = (state: ScrollTrigger) => {
+      progressBarRef.current?.update(state.progress * 100)
+    }
   }, [timeline])
+
+  const scrollToLabel = useCallback(
+    (label: string) => {
+      gsap.to(window, {
+        scrollTo: timeline.current?.scrollTrigger?.labelToScroll(label)
+      })
+    },
+    [timeline]
+  )
+
+  const handleSkipScrollytelling = useCallback(
+    () => scrollToLabel('end'),
+    [scrollToLabel]
+  )
+
+  const markers = useMemo(() => {
+    const sharedMarkerStyles = { '--animation-max-scale': '1.5' }
+
+    return [
+      {
+        style: sharedMarkerStyles,
+        position: 20,
+        children: (
+          <TimelineLogo onClick={() => scrollToLabel('record')}>
+            <svg
+              viewBox="0 0 23 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.21 6.9502L14.54 11.0002L20.21 15.0502V6.9502Z"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12.9201 5.33008H4.01014C3.11544 5.33008 2.39014 6.05538 2.39014 6.95008V15.0501C2.39014 15.9448 3.11544 16.6701 4.01014 16.6701H12.9201C13.8148 16.6701 14.5401 15.9448 14.5401 15.0501V6.95008C14.5401 6.05538 13.8148 5.33008 12.9201 5.33008Z"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </TimelineLogo>
+        )
+      },
+      {
+        style: sharedMarkerStyles,
+        position: 40,
+        children: (
+          <TimelineLogo onClick={() => scrollToLabel('comments')}>
+            <svg
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18.3668 13.0668C18.3668 13.4911 18.1982 13.8981 17.8982 14.1982C17.5981 14.4982 17.1911 14.6668 16.7668 14.6668H7.1668L3.9668 17.8668V5.0668C3.9668 4.64245 4.13537 4.23548 4.43543 3.93543C4.73548 3.63537 5.14245 3.4668 5.5668 3.4668H16.7668C17.1911 3.4668 17.5981 3.63537 17.8982 3.93543C18.1982 4.23548 18.3668 4.64245 18.3668 5.0668V13.0668Z"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </TimelineLogo>
+        )
+      },
+      {
+        style: sharedMarkerStyles,
+        position: 60,
+        children: (
+          <TimelineLogo onClick={() => scrollToLabel('react')}>
+            <svg
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clipPath="url(#clip0_2873_7683)">
+                <path
+                  d="M11.2124 13.0366C12.1984 13.0366 12.9976 12.2559 12.9976 11.2927C12.9976 10.3296 12.1984 9.54883 11.2124 9.54883C10.2265 9.54883 9.42725 10.3296 9.42725 11.2927C9.42725 12.2559 10.2265 13.0366 11.2124 13.0366Z"
+                  fill="white"
+                />
+                <path
+                  d="M11.2134 14.8625C16.5038 14.8625 20.7925 13.2629 20.7925 11.2897C20.7925 9.31642 16.5038 7.7168 11.2134 7.7168C5.92298 7.7168 1.63428 9.31642 1.63428 11.2897C1.63428 13.2629 5.92298 14.8625 11.2134 14.8625Z"
+                  stroke="white"
+                  strokeWidth="0.7"
+                />
+                <path
+                  d="M8.04495 13.0771C10.6901 17.5527 14.2526 20.3811 16.002 19.3945C17.7513 18.4079 17.0251 13.9799 14.3799 9.50423C11.7347 5.0286 8.17221 2.2002 6.42287 3.18682C4.67353 4.17344 5.39976 8.60147 8.04495 13.0771Z"
+                  stroke="white"
+                  strokeWidth="0.7"
+                />
+                <path
+                  d="M8.04643 9.50363C5.40123 13.9793 4.675 18.4073 6.42434 19.3939C8.17368 20.3805 11.7362 17.5521 14.3814 13.0765C17.0265 8.60087 17.7528 4.17284 16.0034 3.18622C14.2541 2.1996 10.6916 5.028 8.04643 9.50363Z"
+                  stroke="white"
+                  strokeWidth="0.7"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_2873_7683">
+                  <rect
+                    width="21.3333"
+                    height="21.3333"
+                    fill="white"
+                    transform="translate(0.5 0.333008)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </TimelineLogo>
+        )
+      },
+      {
+        style: sharedMarkerStyles,
+        position: 80,
+        children: (
+          <TimelineLogo onClick={() => scrollToLabel('prints')}>
+            <svg
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.026 3.13379H5.30697C4.38236 3.13379 3.63281 3.88333 3.63281 4.80794V16.527C3.63281 17.4516 4.38236 18.2012 5.30697 18.2012H17.026C17.9507 18.2012 18.7002 17.4516 18.7002 16.527V4.80794C18.7002 3.88333 17.9507 3.13379 17.026 3.13379Z"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M11.1665 7.31934V14.016"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M7.81836 10.668H14.515"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </TimelineLogo>
+        )
+      }
+    ]
+  }, [scrollToLabel])
 
   return (
     <div className={clsx(s['controls'], { [s['active']]: active })}>
+      <div className={s['timeline']}>
+        <ProgressBar
+          animated={false}
+          progress={50}
+          direction="vertical"
+          secondaryColor="#C8C8C8"
+          primaryColor="#464646"
+          markerColor="#C8C8C8"
+          markerActiveColor="#464646"
+          markerSize={40}
+          markers={markers}
+          ref={progressBarRef}
+        />
+      </div>
       <Button
         onClick={handleSkipScrollytelling}
         className={s['skip-scrollytelling']}
@@ -603,6 +794,9 @@ export default function ReplayApplication() {
         preventOverlaps: true,
         scrub: true,
         trigger: 'body',
+        onUpdate: (state) => {
+          onScrollTriggerUpdate?.(state)
+        },
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
           setControlsActive(true)
@@ -638,6 +832,7 @@ export default function ReplayApplication() {
         },
         '<'
       )
+      .addLabel('record')
       .add(() => {
         setOverboardColor('red')
       })
@@ -761,6 +956,7 @@ export default function ReplayApplication() {
           opacity: 1
         }
       )
+      .addLabel('comments')
       .to(firstCommentIcon, {
         scale: 1.2,
         duration: 1
@@ -870,6 +1066,7 @@ export default function ReplayApplication() {
         },
         '<'
       )
+      .addLabel('react')
       .call(() => {
         setHoveredComponentBlockId(null)
         setActiveComponent(null)
@@ -957,6 +1154,7 @@ export default function ReplayApplication() {
           scale: 1
         }
       )
+      .addLabel('prints')
       .fromTo(
         printTutorial,
         {
