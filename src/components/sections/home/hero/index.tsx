@@ -7,6 +7,7 @@ import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { ButtonLink } from '~/components/primitives/button'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
@@ -53,34 +54,24 @@ export const Hero: FC = () => {
 
           <div className={s['hero']}>
             <div className={s['heading']}>
-              <Heading className={s['title']} size="lg">
+              <Heading as="h1" className={s['title']} size="lg">
                 The time-travel debugger{' '}
                 <span className={s['heading-highlight']}>from the future.</span>
               </Heading>
 
               <p>
-                Replays are like videos that you can inspect with DevTools, but
-                that's just the beginning. With Replay, you can add Console logs
-                on the fly, jump to any point in time, and squash bugs as a
+                More than a video. Replay lets you jump to any point in
+                execution, add Console logs on the fly, and squash bugs as a
                 team.
               </p>
 
-              <p className={s['desktop-paragraph']}>
-                Join developers who are debugging some of the most ambitious{' '}
-                <a href="https://replay.io/glide">applications</a> and libraries
-                like{' '}
-                <a href="https://github.com/facebook/react/issues/24864">
-                  React
-                </a>{' '}
-                and{' '}
-                <a href="https://github.com/reduxjs/react-redux/issues/1940">
-                  Redux
-                </a>{' '}
-                today.
-              </p>
-
               <OnRenderFadeIn animateTranslate={false}>
-                <DownloadButton />
+                <div className={s['hero-cta']}>
+                  <DownloadButton />
+                  <ButtonLink href="#scrollytelling-spacer">
+                    Experience time-traveling
+                  </ButtonLink>
+                </div>
               </OnRenderFadeIn>
             </div>
           </div>
