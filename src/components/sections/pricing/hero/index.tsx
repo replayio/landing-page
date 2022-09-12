@@ -24,7 +24,7 @@ const plansData = [
     cta: 'Create Team',
     link: 'https://app.replay.io/team/new',
     features: [
-      '100 recordings per month',
+      '1000 recordings per month',
       'Up to 10 users + developers',
       'Source map uploads',
       'Record automated tests'
@@ -37,8 +37,8 @@ const plansData = [
     cta: 'Create Organization',
     link: 'https://app.replay.io/org/new',
     features: [
-      '100 recordings per month',
-      'Up to 10 users + developers',
+      '10,000 recordings per month',
+      'Up to 100 users + developers',
       'Account-level access controls',
       'Additional organizational settings',
       'Additional SSO integrations'
