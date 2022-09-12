@@ -32,9 +32,9 @@ function ElementSelectorIcon() {
 
 export const tabs = {
   console: Console,
+  react: ReactDevTools,
   elements: Elements,
-  network: Network,
-  react: ReactDevTools
+  network: Network
 }
 
 export function TabNav({

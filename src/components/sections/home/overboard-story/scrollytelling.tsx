@@ -252,7 +252,12 @@ const headerHeight = 50
 const timelineHeight = 90
 const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
-const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
+const devtoolsTabs: (keyof typeof tabs)[] = [
+  'console',
+  'react',
+  'elements',
+  'network'
+]
 
 const SCROLLYTELLING_PX_DURATION = 16000
 
