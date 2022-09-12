@@ -3,6 +3,7 @@ import Image from 'next/future/image'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Bubble } from '~/components/common/bubble-popup'
+import { DownloadButton } from '~/components/common/download-button'
 import { HeadingSet } from '~/components/common/heading-set'
 import { Timeline } from '~/components/common/progress-bar'
 import { ScrollXGradient } from '~/components/common/scroll-x-gradient'
@@ -92,7 +93,9 @@ const VideoAsset: FC<JSX.IntrinsicElements['video'] & { active: boolean }> = ({
 const assets = [
   {
     title: 'Print Statements',
-    description: 'Add a print statement and view the logs in the Console.',
+
+    description:
+      'Add print statements and view the logs immediately in the Console.',
     video: '/video/hero-video.mp4',
     component: Scene1
   },
@@ -100,7 +103,7 @@ const assets = [
     devtoolsTab: 'console',
     title: 'Console',
     description:
-      'Fast forward to a console log and evaluate expressions in the Terminal.',
+      'Fast forward to console logs and evaluate expressions in the Terminal.',
     video: '/video/hero-video.mp4',
     component: Scene2
   },
@@ -108,7 +111,7 @@ const assets = [
     devtoolsTab: 'react',
     title: 'React',
     description:
-      'Inspect a React component and view its state, props, and hooks.',
+      'Inspect React components and view their state, props, and hooks.',
     video: '/video/hero-video.mp4',
     component: Scene3
   },
@@ -116,7 +119,7 @@ const assets = [
     devtoolsTab: 'elements',
     title: 'Elements',
     description:
-      'Inspect a DOM element and view its applied rules and computed properties.',
+      'Inspect DOM elements and view their applied rules and computed properties.',
     video: '/video/hero-video.mp4',
     component: Scene4
   },
@@ -124,7 +127,7 @@ const assets = [
     devtoolsTab: 'network',
     title: 'Network',
     description:
-      'Inspect a Network request and view its headers, request and response bodies.',
+      'Inspect Network requests and view their headers, request and response bodies.',
     video: '/video/hero-video.mp4',
     component: Scene5
   },
@@ -283,16 +286,20 @@ export const PowerfulDevTools: FC = () => {
         <SectionHeading
           title="Developer Tools"
           subtitle={
-            <p>
-              Everything that's possible in Chrome DevTools and several things
-              that are not. You've never had this much fun debugging before.{' '}
-              <a
-                className={s['subtitle-link']}
-                href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
-              >
-                How Replay works
-              </a>
-            </p>
+            <div>
+              <p>
+                We took browser DevTools and super charged it with time-travel.
+                Add Console logs on the fly. Jump to any point in time. With
+                time-travel, anything is possible!{' '}
+                <a
+                  className={s['subtitle-link']}
+                  href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
+                >
+                  How Replay replays
+                </a>
+              </p>
+              <DownloadButton />
+            </div>
           }
           centered
         />

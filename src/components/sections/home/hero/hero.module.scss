@@ -67,12 +67,11 @@
       p {
         line-height: 1.4;
         margin-top: 24px;
-        max-width: 600px;
-      }
+        max-width: 540px;
 
-      .cta {
-        display: none;
-        margin-top: 32px;
+        a {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -130,7 +129,12 @@
     .hero {
       .heading {
         .title {
-          max-width: 600px;
+          max-width: 700px;
+        }
+
+        p {
+          font-size: 18px;
+          max-width: 580px;
         }
       }
     }
