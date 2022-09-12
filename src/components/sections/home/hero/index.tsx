@@ -7,7 +7,6 @@ import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
-import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
@@ -16,19 +15,20 @@ import s from './hero.module.scss'
 
 export const Hero: FC = () => {
   const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
+  const pinWrapperRef = useRef<HTMLDivElement>(null)
   const ref = useRef<HTMLDivElement>(null)
-  const { isDesktop } = useDeviceDetect()
 
   useIsomorphicLayoutEffect(() => {
     let tl: gsap.core.Timeline
 
-    if (ref.current && isDesktopSize) {
+    if (ref.current && pinWrapperRef && isDesktopSize) {
       tl = gsap.timeline({
         scrollTrigger: {
           trigger: 'body',
           start: 0,
           end: 300,
           pin: ref.current,
+          pinSpacer: pinWrapperRef.current,
           pinSpacing: false,
           scrub: true
         }
@@ -46,35 +46,38 @@ export const Hero: FC = () => {
   }, [isDesktopSize])
 
   return (
-    <Section className={s['section']} ref={ref}>
-      <Container className={s['container']}>
-        {isDesktop && <HeroIllustration />}
+    <div id="hero-pin-wrapper" ref={pinWrapperRef}>
+      <Section className={s['section']} ref={ref}>
+        <Container className={s['container']}>
+          <HeroIllustration />
 
-        <div className={s['hero']}>
-          <div className={s['heading']}>
-            <Heading as="h1" className={s['title']} size="lg">
-              The time-travel debugger{' '}
-              <span className={s['heading-highlight']}>from the future.</span>
-            </Heading>
+          <div className={s['hero']}>
+            <div className={s['heading']}>
+              <Heading as="h1" className={s['title']} size="lg">
+                The time-travel debugger{' '}
+                <span className={s['heading-highlight']}>from the future.</span>
+              </Heading>
 
-            <p>
-              More than a video. Replay lets you jump to any point in the
-              recorded code execution, add Console logs on the fly, and squash
-              bugs as a team.
-            </p>
+              <p>
+                More than a video. Replay lets you jump to any point in the
+                recorded code execution, add Console logs on the fly, and squash
+                bugs as a team.
+              </p>
 
-            <div style={{ display: 'flex', marginTop: 32, gap: 20 }}>
-              <DownloadButton />
-              <ButtonLink href="#overboard-story">
-                Experience time-traveling
-              </ButtonLink>
+              <div style={{ display: 'flex', marginTop: 32, gap: 20 }}>
+                <DownloadButton />
+                <ButtonLink href="#overboard-story">
+                  Experience time-traveling
+                </ButtonLink>
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </div>
   )
 }
+
 function HeroIllustration() {
   return (
     <div className={s['illustration']}>
