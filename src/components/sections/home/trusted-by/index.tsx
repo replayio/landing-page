@@ -23,7 +23,7 @@ import s from './trusted-by.module.scss'
 
 const highlightedLogos = [
   {
-    title: 'Glide.com',
+    title: 'GlideApps.com',
     description:
       "Glide's mission is to put the power, beauty, and magic of software development into the hands of a billion new creators.",
     image: '/images/home/glide-highlight-image.png',
@@ -87,7 +87,7 @@ const logos = [
     {
       title: 'Glide',
       logo: glideSvg,
-      url: 'https://glide.com'
+      url: 'https://www.glideapps.com/'
     }
   ]
 ]
