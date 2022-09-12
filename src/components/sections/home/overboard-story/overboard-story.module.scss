@@ -65,16 +65,6 @@
 
   .store-entrance-animation-container {
     height: 100%;
-    opacity: 0;
-    transition-property: opacity transform;
-    transition-duration: 0.5s;
-    transition-timing-function: var(--ease-out-soft);
-    transform: scale(0.95) translateY(30px);
-
-    &.visible {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
   }
 
   .record {

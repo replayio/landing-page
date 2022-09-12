@@ -74,11 +74,12 @@ export const Hero: FC = () => {
           </div>
           <ul className={s.plans}>
             {plansData.map((item, i) => (
-              <Card
-                variant={item.type === 'Organization' ? 'primary' : 'default'}
-                key={i}
-                data={item}
-              />
+              <li key={i}>
+                <Card
+                  variant={item.type === 'Organization' ? 'primary' : 'default'}
+                  data={item}
+                />
+              </li>
             ))}
           </ul>
           <div className={s.plans__mobile}>
