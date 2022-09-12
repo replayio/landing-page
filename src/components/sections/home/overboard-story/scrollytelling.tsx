@@ -79,8 +79,13 @@ const ScrollytellingControls: FC<{
   }, [])
 
   const handleSkipScrollytelling = useCallback(() => {
+    const endScrollOffset =
+      timeline.current?.scrollTrigger?.labelToScroll('end') ?? 0
+    const headerOffset = 77
     gsap.to(window, {
-      scrollTo: timeline.current?.scrollTrigger?.labelToScroll('end')
+      scrollTo: endScrollOffset + window.innerHeight - headerOffset,
+      duration: 3,
+      ease: 'circ.out'
     })
   }, [timeline])
 
@@ -247,7 +252,7 @@ const RecSvg = () => (
   </svg>
 )
 
-const timelineDuration = 10
+const timelineDuration = 8
 const padding = 16
 const headerHeight = 50
 const timelineHeight = 90
@@ -461,9 +466,9 @@ export default function ReplayApplication() {
             display: 'none'
           },
           {
-            duration: 1,
+            duration: 0.6,
             display: 'inline',
-            stagger: 0.05,
+            stagger: 0.025,
             ease: 'power0.none'
           },
           '<'
@@ -532,7 +537,7 @@ export default function ReplayApplication() {
       smallCenteredStoreRef.current,
       {
         simple: false,
-        duration: 4
+        duration: 2
       }
     )
 
@@ -619,7 +624,7 @@ export default function ReplayApplication() {
     timeline
       .to(sectionRef.current, {
         yPercent: percentage,
-        duration: 7,
+        duration: 3,
         ease: 'power3.out'
       })
       .add(() => {
@@ -636,20 +641,23 @@ export default function ReplayApplication() {
           opacity: 1,
           duration: 2
         },
-        '<'
+        '<-=3'
       )
       .add(() => {
         setOverboardColor('red')
-      })
+      }, '<+=0.5')
       .add(() => {
         setOverboardColor('green')
-      })
-      .to(storeColors, {
-        opacity: 0,
-        duration: 3,
-        delay: 2,
-        yPercent: -20
-      })
+      }, '<+=0.6')
+      .to(
+        storeColors,
+        {
+          opacity: 0,
+          duration: 0.6,
+          yPercent: -30
+        },
+        '<+=0.8'
+      )
       .add(() => {
         setStoreState('idle')
       })
@@ -657,10 +665,10 @@ export default function ReplayApplication() {
         storePurchase,
         {
           opacity: 0,
-          yPercent: 20
+          yPercent: 30
         },
-        { opacity: 1, yPercent: -50, duration: 3 },
-        '<'
+        { opacity: 1, yPercent: -50, duration: 1 },
+        '<-=1'
       )
       .add(() => {
         setStoreState('loading')
@@ -669,7 +677,7 @@ export default function ReplayApplication() {
         setStoreState('error')
         progressBarRef.current?.update(100)
         setCurrentTime(timelineDuration)
-      }, '+=4')
+      }, '+=1')
 
       /* Viewer */
       .add(flipTimeline1 as GSAPTimeline, '+=2')

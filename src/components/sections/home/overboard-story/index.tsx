@@ -87,7 +87,7 @@ export function OverboardStory() {
             href="https://app.replay.io/recording/cannot-purchase-bugslayer--76c9f375-ccc9-4af9-a431-6e69e5f6e053"
             variant="tertiary-inverted-alt"
           >
-            View original replay
+            View Overboard replay
             <PlayIcon style={{ marginLeft: '14px' }} />
           </ButtonLink>
         </div>
