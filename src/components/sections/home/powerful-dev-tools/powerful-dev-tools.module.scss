@@ -61,16 +61,44 @@
     }
 
     .asset {
+      --border-radius: var(--border-radius-xl);
+      --bg-padding: 2px;
+
+      position: relative;
       display: grid;
       width: 100%;
       padding: 18px;
       margin-top: 57px;
       overflow: hidden;
-      border-radius: var(--border-radius-xl);
-      background: var(--color-gray-lightest);
+      border-radius: var(--border-radius);
       align-items: center;
       gap: 32px;
       pointer-events: none;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: var(--border-radius);
+        background: linear-gradient(
+          213.03deg,
+          #f41c52 -3.09%,
+          rgb(246 38 90 / 0) 27.16%,
+          rgb(187 138 250 / 0) 71.03%,
+          #bb8afa 98.92%
+        );
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: var(--bg-padding);
+        border-radius: calc(var(--border-radius) - var(--bg-padding));
+        background: var(--color-white) url('/images/home/devtools-bg.svg');
+        background-size: 130%;
+        background-position: center 40%;
+        background-repeat: no-repeat;
+      }
 
       & > * {
         grid-row: 1;

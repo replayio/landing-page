@@ -21,8 +21,10 @@
   z-index: var(--z-index-20);
   opacity: 0;
   transition: opacity var(--duration-fast) linear;
+  pointer-events: none;
 
   &.active {
+    pointer-events: all;
     opacity: 1;
   }
 
