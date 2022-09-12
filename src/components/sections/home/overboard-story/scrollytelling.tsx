@@ -14,6 +14,7 @@ import {
 } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
+import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import {
   Marker as ProgressMarker,
   ProgressAPI,
@@ -25,7 +26,6 @@ import { IsoLogo } from '~/components/primitives/logo'
 import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-story/devtools/console'
 import { useAppStore } from '~/context/use-app-store'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
-import { useHasRendered } from '~/hooks/use-has-rendered'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { padZeroesToNumber } from '~/lib/utils'
@@ -319,7 +319,6 @@ export default function ReplayApplication() {
   const { width, height } = useViewportSize()
   const { fontsLoaded } = useAppStore()
   const timelineRef = useRef<GSAPTimeline>()
-  const rendered = useHasRendered()
   const pinWrapperRef = useRef<HTMLDivElement>(null)
 
   /* Store */
@@ -1256,10 +1255,8 @@ export default function ReplayApplication() {
                 <CommentModule side="bottom-right" comments={firstComment} />
               </div>
 
-              <div
-                className={clsx(s['store-entrance-animation-container'], {
-                  [s['visible']]: rendered
-                })}
+              <OnRenderFadeIn
+                className={s['store-entrance-animation-container']}
               >
                 <OverboardStore
                   storeId={storeId}
@@ -1270,7 +1267,7 @@ export default function ReplayApplication() {
                   inspectMode="react"
                   ref={storeApiRef}
                 />
-              </div>
+              </OnRenderFadeIn>
             </AspectBox>
 
             <AspectBox className={s['app-container']} ratio={1920 / 1080}>

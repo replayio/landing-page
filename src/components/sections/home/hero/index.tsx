@@ -3,6 +3,7 @@ import { FC, useRef } from 'react'
 
 import { DownloadButton } from '~/components/common/download-button'
 import { Heading } from '~/components/common/heading'
+import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -78,7 +79,9 @@ export const Hero: FC = () => {
                 today.
               </p>
 
-              <DownloadButton />
+              <OnRenderFadeIn animateTranslate={false}>
+                <DownloadButton />
+              </OnRenderFadeIn>
             </div>
           </div>
         </Container>

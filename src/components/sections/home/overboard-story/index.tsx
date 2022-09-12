@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 
 import { AspectBox } from '~/components/common/aspect-box'
+import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import { PlayIcon } from '~/components/common/play-icon'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
@@ -50,14 +51,20 @@ export function OverboardStory() {
 
           case false || !canFitScrollytelling:
             return (
-              <video
-                style={{ borderRadius: 12, zIndex: 10 }}
-                muted
-                playsInline
-                src="/video/hero-video.mp4"
-                controls
-                poster="/video/hero-video-thumbnail.png"
-              />
+              <OnRenderFadeIn>
+                {(animationEnded: boolean) => {
+                  return (
+                    <video
+                      style={{ borderRadius: 12, zIndex: 10 }}
+                      muted
+                      playsInline
+                      src={animationEnded ? '/video/hero-video.mp4' : undefined}
+                      controls
+                      poster="/video/hero-video-thumbnail.png"
+                    />
+                  )
+                }}
+              </OnRenderFadeIn>
             )
 
           default:
