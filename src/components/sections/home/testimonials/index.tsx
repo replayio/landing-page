@@ -39,7 +39,7 @@ const testimonials = [
     name: 'David Khourshid',
     company: {
       name: 'Stately.ai',
-      logo: '/images/home/stately.png'
+      logo: '/images/home/stately.svg'
     },
     position: 'Founder',
     quote:
@@ -51,7 +51,7 @@ const testimonials = [
     name: 'Jean Yang',
     company: {
       name: 'Akita Software',
-      logo: '/images/home/akita.jpeg'
+      logo: '/images/home/akita.svg'
     },
     position: 'Founder and CEO',
     quote:
