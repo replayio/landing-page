@@ -61,21 +61,21 @@
     }
 
     .asset {
-      --border-radius: var(--border-radius-xl);
+      --border-radius: var(--border-radius-sm);
       --bg-padding: 2px;
 
       position: relative;
       display: grid;
       width: 100%;
-      padding: 18px;
       margin-top: 57px;
       overflow: hidden;
-      border-radius: var(--border-radius);
       align-items: center;
       gap: 32px;
       pointer-events: none;
+      border-radius: var(--border-radius);
 
       &::before {
+        display: none;
         content: '';
         position: absolute;
         inset: 0;
@@ -90,6 +90,7 @@
       }
 
       &::after {
+        display: none;
         content: '';
         position: absolute;
         inset: var(--bg-padding);
@@ -217,12 +218,20 @@
 
     .asset-player {
       .asset {
+        --border-radius: var(--border-radius-xl);
+
         min-height: 480px;
         gap: 48px;
         overflow: visible;
         grid-template-columns: minmax(320px, 45%) minmax(320px, 45%);
         justify-content: center;
         pointer-events: unset;
+        padding: 18px;
+
+        &::before,
+        &::after {
+          display: block;
+        }
 
         & > *:nth-child(2n + 1) {
           grid-row: 1;
