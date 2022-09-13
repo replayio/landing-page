@@ -4,6 +4,7 @@ import Image from 'next/future/image'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useMemo, useRef } from 'react'
 
+import { DownloadButton } from '~/components/common/download-button'
 import { Heading } from '~/components/common/heading'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Discord, Linkedin, Twitter } from '~/components/icons/social'
@@ -199,15 +200,9 @@ export const Footer: FC = () => {
 
           <div className={s['middle']}>
             <div className={s['get-in-touch']}>
-              <p className={s['title']}>Your time travel debugger</p>
+              <h4 className={s['title']}>Record your first Replay</h4>
               <div className={s['button-container']}>
-                <ButtonLink
-                  href="https://app.replay.io/"
-                  size="md"
-                  variant="tertiary"
-                >
-                  Login
-                </ButtonLink>
+                <DownloadButton variant="tertiary-inverted" title="Download" />
               </div>
             </div>
             <div className={s['nav']}>

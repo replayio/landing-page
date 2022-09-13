@@ -259,7 +259,9 @@
       }
 
       .get-in-touch .title {
-        font-size: 32px;
+        text-transform: capitalize;
+        font-weight: 700;
+        font-size: 18px;
       }
     }
   }

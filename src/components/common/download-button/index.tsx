@@ -26,7 +26,13 @@ const getDownloadLink = () => {
   )
 }
 
-export function DownloadButton() {
+export function DownloadButton({
+  title = 'Record your first replay',
+  variant = 'primary'
+}: {
+  title: string
+  variant?: 'primary' | 'tertiary-inverted'
+}) {
   const rendered = useHasRendered()
   const currentPlatformDownloadLink = useMemo(() => {
     if (!rendered) return '/'
@@ -49,10 +55,10 @@ export function DownloadButton() {
       <ButtonLink
         href={currentPlatformDownloadLink || ''}
         target="_blank"
-        variant="primary"
+        variant={variant}
         download
       >
-        Record your first replay
+        {title}
       </ButtonLink>
     </div>
   )
