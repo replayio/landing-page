@@ -29,10 +29,29 @@
   &.horizontal {
     width: 100%;
     flex-direction: row;
+
     .timeline {
       width: 35vh;
       height: 26px;
       right: 36px;
+
+      &::before,
+      &::after {
+        height: 3px;
+        width: 15%;
+      }
+
+      &::before {
+        --direction: to left;
+
+        left: 0;
+      }
+
+      &::after {
+        --direction: to right;
+
+        right: 0;
+      }
     }
   }
 
@@ -43,6 +62,24 @@
     .timeline {
       height: 35vh;
       width: 54px;
+
+      &::before,
+      &::after {
+        height: 15%;
+        width: 3px;
+      }
+
+      &::before {
+        --direction: to top;
+
+        top: 0;
+      }
+
+      &::after {
+        --direction: to bottom;
+
+        bottom: 0;
+      }
     }
   }
 
@@ -64,26 +101,12 @@
       z-index: var(--z-index-10);
       transition: opacity var(--duration-fast) linear;
       pointer-events: none;
-      height: 15%;
-      width: 3px;
       position: absolute;
       background: linear-gradient(
         var(--direction),
         var(--color-transparent),
         var(--color-white)
       );
-    }
-
-    &::before {
-      --direction: to top;
-
-      top: 0;
-    }
-
-    &::after {
-      --direction: to bottom;
-
-      bottom: 0;
     }
   }
 
