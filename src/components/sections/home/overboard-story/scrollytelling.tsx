@@ -468,7 +468,7 @@ const RecSvg = () => (
   </svg>
 )
 
-const timelineDuration = 10
+const timelineDuration = 8
 const padding = 16
 const headerHeight = 50
 const timelineHeight = 90
@@ -683,9 +683,9 @@ export default function ReplayApplication() {
             display: 'none'
           },
           {
-            duration: 1,
+            duration: 0.6,
             display: 'inline',
-            stagger: 0.05,
+            stagger: 0.025,
             ease: 'power0.none'
           },
           '<'
@@ -754,7 +754,7 @@ export default function ReplayApplication() {
       smallCenteredStoreRef.current,
       {
         simple: false,
-        duration: 4
+        duration: 2
       }
     )
 
@@ -844,7 +844,7 @@ export default function ReplayApplication() {
     timeline
       .to(sectionRef.current, {
         yPercent: percentage,
-        duration: 7,
+        duration: 3,
         ease: 'power3.out'
       })
       .add(() => {
@@ -859,23 +859,26 @@ export default function ReplayApplication() {
         recordBadge,
         {
           opacity: 1,
-          duration: 2
+          duration: 0.5
         },
         '<'
       )
       .addLabel('record')
       .add(() => {
         setOverboardColor('red')
-      })
+      }, '<+=0.5')
       .add(() => {
         setOverboardColor('green')
       })
-      .to(storeColors, {
-        opacity: 0,
-        duration: 3,
-        delay: 2,
-        yPercent: -20
-      })
+      .to(
+        storeColors,
+        {
+          opacity: 0,
+          duration: 0.5,
+          yPercent: -20
+        },
+        '<+=0.5'
+      )
       .add(() => {
         setStoreState('idle')
       })
@@ -885,7 +888,7 @@ export default function ReplayApplication() {
           opacity: 0,
           yPercent: 20
         },
-        { opacity: 1, yPercent: -50, duration: 3 },
+        { opacity: 1, yPercent: -50, duration: 1 },
         '<'
       )
       .add(() => {
@@ -895,10 +898,10 @@ export default function ReplayApplication() {
         setStoreState('error')
         progressBarRef.current?.update(100)
         setCurrentTime(timelineDuration)
-      }, '+=4')
+      }, '+=1')
 
       /* Viewer */
-      .add(flipTimeline1 as GSAPTimeline, '+=2')
+      .add(flipTimeline1 as GSAPTimeline, '>')
       .to(storeContainer, { borderRadius: 12 }, '<')
       .to(
         recordBadge,
@@ -927,7 +930,7 @@ export default function ReplayApplication() {
         {
           opacity: 0,
           yPercent: -40,
-          duration: 3
+          duration: 2 // <-- These three have to be the same
         },
         '<'
       )
@@ -935,7 +938,7 @@ export default function ReplayApplication() {
         [storePurchase, firstComment],
         {
           yPercent: -50,
-          duration: 3
+          duration: 2 // <-- These three have to be the same
         },
         '<'
       )
@@ -943,7 +946,7 @@ export default function ReplayApplication() {
         storeContent,
         {
           y: 0,
-          duration: 3
+          duration: 2 // <-- These three have to be the same
         },
         '<'
       )

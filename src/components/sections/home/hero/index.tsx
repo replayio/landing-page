@@ -26,17 +26,13 @@ export const Hero: FC = () => {
       tl = gsap.timeline({
         scrollTrigger: {
           trigger: 'body',
-          start: 0,
-          end: 300,
-          pin: ref.current,
-          pinSpacer: pinWrapperRef.current,
-          pinSpacing: false,
+          start: 25,
+          end: 150,
           scrub: true
         }
       })
       tl.to(ref.current, {
-        opacity: 0,
-        scale: 0.97
+        opacity: 0
       })
     }
 
@@ -68,8 +64,19 @@ export const Hero: FC = () => {
               <OnRenderFadeIn animateTranslate={false}>
                 <div className={s['hero-cta']}>
                   <DownloadButton />
-                  <ButtonLink href="#scrollytelling-spacer">
-                    Experience time-traveling
+                  <ButtonLink
+                    variant="tertiary"
+                    href="#scrollytelling-spacer"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      gsap.to(window, {
+                        scrollTo: 600,
+                        duration: 1,
+                        ease: 'power4.out'
+                      })
+                    }}
+                  >
+                    Scroll to start time-traveling
                   </ButtonLink>
                 </div>
               </OnRenderFadeIn>
