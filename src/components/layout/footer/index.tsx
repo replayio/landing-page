@@ -200,9 +200,15 @@ export const Footer: FC = () => {
 
           <div className={s['middle']}>
             <div className={s['get-in-touch']}>
-              <h4 className={s['title']}>Record your first Replay</h4>
+              <h4 className={s['title']}>
+                Replay is free for individuals because everyone should be able
+                to time travel.
+              </h4>
               <div className={s['button-container']}>
-                <DownloadButton variant="tertiary-inverted" title="Download" />
+                <DownloadButton
+                  variant="tertiary"
+                  title="Record your first replay"
+                />
               </div>
             </div>
             <div className={s['nav']}>

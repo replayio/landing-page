@@ -96,6 +96,7 @@
       .title {
         font-family: var(--font-heading);
         font-size: 32px;
+        max-width: 340px;
       }
 
       .button-container {
@@ -116,7 +117,6 @@
         @include space-y(16px);
 
         .title {
-          text-transform: capitalize;
           font-weight: 700;
           font-size: 18px;
         }
@@ -259,7 +259,6 @@
       }
 
       .get-in-touch .title {
-        text-transform: capitalize;
         font-weight: 700;
         font-size: 18px;
       }
