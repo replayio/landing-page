@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { useMemo } from 'react'
 
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -9,20 +8,32 @@ import { isServer } from '~/lib/constants'
 import s from './download-button.module.scss'
 
 const availablePlatforms = {
-  windows: '/downloads/windows-replay.zip',
-  mac: '/downloads/replay.dmg',
-  linux: '/downloads/linux-replay.tar.bz2'
+  windows: {
+    label: 'Windows',
+    imageSource: '/images/logos/windows.svg',
+    downloadSource: '/downloads/windows-replay.zip'
+  },
+  mac: {
+    label: 'Mac',
+    imageSource: '/images/logos/apple.svg',
+    downloadSource: '/downloads/replay.zip'
+  },
+  linux: {
+    label: 'Linux',
+    imageSource: '/images/logos/linux.svg',
+    downloadSource: '/downloads/linux-replay.tar.bz2'
+  }
 }
-const getDownloadLink = () => {
-  if (isServer) return
+const getPlatform = () => {
+  if (isServer) return 'mac'
 
   const uAgent = navigator.userAgent
 
   return (
-    (uAgent.match(/Linux/i) && availablePlatforms['linux']) ||
-    (uAgent.match(/Windows/i) && availablePlatforms['windows']) ||
-    (uAgent.match(/Mac/i) && availablePlatforms['mac']) ||
-    undefined
+    (uAgent.match(/Linux/i) && 'linux') ||
+    (uAgent.match(/Windows/i) && 'windows') ||
+    (uAgent.match(/Mac/i) && 'mac') ||
+    'mac'
   )
 }
 
@@ -34,16 +45,12 @@ export function DownloadButton({
   variant?: 'primary' | 'tertiary-inverted'
 }) {
   const rendered = useHasRendered()
-  const currentPlatformDownloadLink = useMemo(() => {
-    if (!rendered) return '/'
-
-    return getDownloadLink()
-  }, [rendered])
+  const platform = availablePlatforms[getPlatform()]
 
   const { isDesktop } = useDeviceDetect()
 
   if (!isDesktop && rendered) {
-    return <></>
+    return null
   }
 
   return (
@@ -53,12 +60,21 @@ export function DownloadButton({
       })}
     >
       <ButtonLink
-        href={currentPlatformDownloadLink || ''}
+        href={platform.downloadSource}
         target="_blank"
         variant={variant}
         download
       >
-        {title}
+        {title}{' '}
+        <img
+          alt={platform.label}
+          src={platform.imageSource}
+          style={{
+            height: 20,
+            marginLeft: 8,
+            filter: variant === 'primary' ? 'invert(100%)' : undefined
+          }}
+        />
       </ButtonLink>
     </div>
   )
