@@ -42,7 +42,7 @@ export function DownloadButton({
   variant = 'primary'
 }: {
   title?: string
-  variant?: 'primary' | 'tertiary-inverted'
+  variant?: 'primary' | 'tertiary-inverted' | 'tertiary'
 }) {
   const rendered = useHasRendered()
   const platform = availablePlatforms[getPlatform()]
