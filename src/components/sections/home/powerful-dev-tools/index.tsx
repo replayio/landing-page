@@ -298,7 +298,9 @@ export const PowerfulDevTools: FC = () => {
                   How Replay replays
                 </a>
               </p>
-              <DownloadButton />
+              <div style={{ marginTop: 32 }}>
+                <DownloadButton />
+              </div>
             </div>
           }
           centered
