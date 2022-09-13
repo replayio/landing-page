@@ -25,6 +25,30 @@ const getDownloadLink = () => {
     undefined
   )
 }
+const getLogoSource = () => {
+  if (isServer) return
+
+  const uAgent = navigator.userAgent
+
+  return (
+    (uAgent.match(/Linux/i) && '/images/logos/linux.svg') ||
+    (uAgent.match(/Windows/i) && '/images/logos/windows.svg') ||
+    (uAgent.match(/Mac/i) && '/images/logos/apple.svg') ||
+    undefined
+  )
+}
+const getLogoAlt = () => {
+  if (isServer) return
+
+  const uAgent = navigator.userAgent
+
+  return (
+    (uAgent.match(/Linux/i) && 'Linux') ||
+    (uAgent.match(/Windows/i) && 'Windows') ||
+    (uAgent.match(/Mac/i) && 'Apple') ||
+    undefined
+  )
+}
 
 export function DownloadButton({
   title = 'Record your first replay',
@@ -43,8 +67,10 @@ export function DownloadButton({
   const { isDesktop } = useDeviceDetect()
 
   if (!isDesktop && rendered) {
-    return <></>
+    return null
   }
+
+  const logoSource = getLogoSource()
 
   return (
     <div
@@ -58,7 +84,16 @@ export function DownloadButton({
         variant={variant}
         download
       >
-        {title}
+        {title}{' '}
+        <img
+          alt={getLogoAlt()}
+          src={logoSource}
+          style={{
+            height: 20,
+            marginLeft: 8,
+            filter: variant === 'primary' ? 'invert(100%)' : undefined
+          }}
+        />
       </ButtonLink>
     </div>
   )
