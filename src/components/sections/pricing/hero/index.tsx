@@ -1,5 +1,4 @@
-import * as Switch from '@radix-ui/react-switch'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
 import { Heading } from '~/components/common/heading'
@@ -25,7 +24,7 @@ const plansData = [
     cta: 'Create Team',
     link: 'https://app.replay.io/team/new',
     features: [
-      '100 recordings per month',
+      '1000 recordings per month',
       'Up to 10 users + developers',
       'Source map uploads',
       'Record automated tests'
@@ -38,8 +37,8 @@ const plansData = [
     cta: 'Create Organization',
     link: 'https://app.replay.io/org/new',
     features: [
-      '100 recordings per month',
-      'Up to 10 users + developers',
+      '10,000 recordings per month',
+      'Up to 100 users + developers',
       'Account-level access controls',
       'Additional organizational settings',
       'Additional SSO integrations'
@@ -60,48 +59,34 @@ const plansData = [
 ]
 
 export const Hero: FC = () => {
-  const [annual, setAnnual] = useState(false)
-
   return (
     <Section className={s.section}>
       <Container className={s.container} size="md">
         <div className={s['hero']}>
           <div className={s['heading']}>
-            <Heading size="sm">Pricing</Heading>
+            <Heading as="h1" size="sm">
+              Pricing
+            </Heading>
             <span>
               Individuals and open source communities
               <br /> will always be able to use Replay for free.
             </span>
-            <div className={s.annual}>
-              <Switch.Root
-                checked={annual}
-                onCheckedChange={() => setAnnual(!annual)}
-                className={s.switch}
-              >
-                <Switch.Thumb className={s.thumb} />
-              </Switch.Root>
-              <button onClick={() => setAnnual(!annual)}>
-                <span>Annual</span>
-                <span>Save 25%</span>
-              </button>
-            </div>
           </div>
-          <div className={s.plans}>
+          <ul className={s.plans}>
             {plansData.map((item, i) => (
-              <Card
-                variant={item.type === 'Organization' ? 'primary' : 'default'}
-                annual={annual}
-                key={i}
-                data={item}
-              />
+              <li key={i}>
+                <Card
+                  variant={item.type === 'Organization' ? 'primary' : 'default'}
+                  data={item}
+                />
+              </li>
             ))}
-          </div>
+          </ul>
           <div className={s.plans__mobile}>
             <Carousel className={s.slider} slideClassName={s['slide']}>
               {plansData.map((item, i) => (
                 <Card
                   variant={item.type === 'Organization' ? 'primary' : 'default'}
-                  annual={annual}
                   key={i}
                   data={item}
                 />

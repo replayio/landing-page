@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import { ButtonLink } from '~/components/primitives/button'
 
@@ -15,30 +15,18 @@ interface Props {
     features: string[]
   }
   variant?: 'primary' | 'default'
-  annual?: boolean
 }
 
-export const Card: FC<Props> = ({ data, annual, variant = 'default' }) => {
-  const [price, setPrice] = useState(data.price)
-
-  useEffect(() => {
-    if (!annual && typeof data.price === 'number') {
-      setPrice(data.price)
-    }
-    if (annual && typeof data.price === 'number') {
-      setPrice(Math.ceil(data.price - (25 * data?.price) / 100))
-    }
-  }, [annual, data.price])
-
+export const Card: FC<Props> = ({ data, variant = 'default' }) => {
   return (
     <div className={clsx(s.card, { [s.primary]: variant === 'primary' })}>
-      <span>{data.type}</span>
+      <h2>{data.type}</h2>
       <div>
         {data?.price ? (
           <>
             <span>
               {typeof data.price === 'number' && '$'}
-              {price}
+              {data.price}
             </span>
             <span>{data.mode}</span>
           </>

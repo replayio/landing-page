@@ -3,6 +3,7 @@ import { gsap } from 'lib/gsap'
 import clamp from 'lodash/clamp'
 import {
   forwardRef,
+  ReactNode,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -21,12 +22,13 @@ import { msToSecs } from '~/lib/utils'
 
 import s from './progress-bar.module.scss'
 
-export type Marker = {
+export type Marker = JSX.IntrinsicElements['span'] & {
   /* 
     If number it is the percentage position,
     if string it is the id of the element to track
   */
   position: number | string
+  children?: ReactNode
   activeColor?: string
   onActive?: () => void
   onInactive?: () => void
@@ -47,6 +49,7 @@ export type ProgressProps = {
   markers?: Marker[]
   markerSize?: number
   markerVisible?: boolean
+  markerColor?: string
   markerActiveColor?: string
   /*
     If progress bar is animated we use
@@ -90,6 +93,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
       markers,
       markerSize,
       markerVisible = true,
+      markerColor,
       markerActiveColor,
       onMarkerUpdate,
       direction = 'horizontal',
@@ -262,17 +266,32 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
         </div>
         {markerVisible &&
           internalMarkers?.map(
-            ({ position, normalizedPosition, activeColor }, idx) => {
+            (
+              {
+                position,
+                normalizedPosition,
+                activeColor,
+                children,
+                style,
+                className,
+                ...rest
+              },
+              idx
+            ) => {
               const isOnEnds = position === 0 || position === 100
 
               return (
                 <ProgressMarker
                   size={markerSize}
-                  color={primaryColor}
+                  color={markerColor || primaryColor}
                   activeColor={activeColor || markerActiveColor}
                   active={
                     lastActiveMarker !== undefined &&
                     position <= lastActiveMarker.position
+                  }
+                  current={
+                    lastActiveMarker !== undefined &&
+                    position === lastActiveMarker.position
                   }
                   style={{
                     [`--${direction === 'horizontal' ? 'left' : 'top'}`]:
@@ -285,11 +304,15 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
                     '--translate-x':
                       direction === 'horizontal' && isOnEnds
                         ? normalizedPosition
-                        : '0.5'
+                        : '0.5',
+                    ...style
                   }}
-                  className={s['marker']}
+                  className={clsx(s['marker'], className)}
+                  {...rest}
                   key={`${position}-${idx}`}
-                />
+                >
+                  {children}
+                </ProgressMarker>
               )
             }
           )}
@@ -302,6 +325,7 @@ type ProgressMarkerProp = {
   size?: number
   color?: string
   active?: boolean
+  current?: boolean
   activeColor?: string
 } & JSX.IntrinsicElements['span']
 
@@ -310,10 +334,12 @@ export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressMarkerProp>(
     {
       size = 18,
       active = false,
+      current = false,
       className,
       style,
       color,
       activeColor,
+      children,
       ...props
     },
     ref
@@ -325,7 +351,8 @@ export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressMarkerProp>(
         s['marker'],
         s['animated'],
         {
-          [s['active']]: active
+          [s['active']]: active,
+          [s['current']]: current
         },
         className
       )}
@@ -336,7 +363,9 @@ export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressMarkerProp>(
         className={s['marker-thumb']}
         /* @ts-ignore */
         style={{ '--size': size + 'px' }}
-      />
+      >
+        {children && <span>{children}</span>}
+      </span>
     </span>
   )
 )

@@ -3,6 +3,7 @@ import { CSSRulePlugin } from 'gsap/dist/CSSRulePlugin'
 import { CustomEase } from 'gsap/dist/CustomEase'
 import { DrawSVGPlugin } from 'gsap/dist/DrawSVGPlugin'
 import { Flip } from 'gsap/dist/Flip'
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { SplitText } from 'gsap/dist/SplitText'
 import { TextPlugin } from 'gsap/dist/TextPlugin'
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 gsap.registerPlugin(
   CSSRulePlugin,
   CustomEase,
+  ScrollToPlugin,
   DrawSVGPlugin,
   ScrollTrigger,
   TextPlugin,

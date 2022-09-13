@@ -2,15 +2,26 @@ import clsx from 'clsx'
 import { Elastic } from 'gsap'
 import { clearProps, DURATION, Flip, gsap, SplitText } from 'lib/gsap'
 import get from 'lodash/get'
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import {
+  FC,
+  forwardRef,
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
+import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import {
   Marker as ProgressMarker,
   ProgressAPI,
   ProgressBar
 } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
+import { Button } from '~/components/primitives/button'
 import { IsoLogo } from '~/components/primitives/logo'
 import { Marker as ConsoleMarker } from '~/components/sections/home/overboard-story/devtools/console'
 import { useAppStore } from '~/context/use-app-store'
@@ -41,6 +52,305 @@ import {
   StoreRef
 } from './overboard-store'
 import s from './overboard-story.module.scss'
+
+let onScrollTriggerUpdate: (state: ScrollTrigger) => void
+
+const TimelineLogo: FC<{ children: ReactNode; onClick?: () => void }> = ({
+  children,
+  onClick
+}) => {
+  return (
+    <Button
+      onClick={onClick}
+      style={{ width: '100%', height: '100%', position: 'relative' }}
+      unstyled
+    >
+      <span
+        style={{
+          display: 'block',
+          position: 'absolute',
+          width: 21,
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}
+      >
+        {children}
+      </span>
+    </Button>
+  )
+}
+
+const timelineMarkers = [
+  {
+    label: 'record',
+    position: 20,
+    icon: (
+      <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M20.21 6.9502L14.54 11.0002L20.21 15.0502V6.9502Z"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12.9201 5.33008H4.01014C3.11544 5.33008 2.39014 6.05538 2.39014 6.95008V15.0501C2.39014 15.9448 3.11544 16.6701 4.01014 16.6701H12.9201C13.8148 16.6701 14.5401 15.9448 14.5401 15.0501V6.95008C14.5401 6.05538 13.8148 5.33008 12.9201 5.33008Z"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    )
+  },
+  {
+    label: 'comments',
+    position: 40,
+    icon: (
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M18.3668 13.0668C18.3668 13.4911 18.1982 13.8981 17.8982 14.1982C17.5981 14.4982 17.1911 14.6668 16.7668 14.6668H7.1668L3.9668 17.8668V5.0668C3.9668 4.64245 4.13537 4.23548 4.43543 3.93543C4.73548 3.63537 5.14245 3.4668 5.5668 3.4668H16.7668C17.1911 3.4668 17.5981 3.63537 17.8982 3.93543C18.1982 4.23548 18.3668 4.64245 18.3668 5.0668V13.0668Z"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    )
+  },
+  {
+    label: 'react',
+    position: 60,
+    icon: (
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clipPath="url(#clip0_2873_7683)">
+          <path
+            d="M11.2124 13.0366C12.1984 13.0366 12.9976 12.2559 12.9976 11.2927C12.9976 10.3296 12.1984 9.54883 11.2124 9.54883C10.2265 9.54883 9.42725 10.3296 9.42725 11.2927C9.42725 12.2559 10.2265 13.0366 11.2124 13.0366Z"
+            fill="white"
+          />
+          <path
+            d="M11.2134 14.8625C16.5038 14.8625 20.7925 13.2629 20.7925 11.2897C20.7925 9.31642 16.5038 7.7168 11.2134 7.7168C5.92298 7.7168 1.63428 9.31642 1.63428 11.2897C1.63428 13.2629 5.92298 14.8625 11.2134 14.8625Z"
+            stroke="white"
+            strokeWidth="0.7"
+          />
+          <path
+            d="M8.04495 13.0771C10.6901 17.5527 14.2526 20.3811 16.002 19.3945C17.7513 18.4079 17.0251 13.9799 14.3799 9.50423C11.7347 5.0286 8.17221 2.2002 6.42287 3.18682C4.67353 4.17344 5.39976 8.60147 8.04495 13.0771Z"
+            stroke="white"
+            strokeWidth="0.7"
+          />
+          <path
+            d="M8.04643 9.50363C5.40123 13.9793 4.675 18.4073 6.42434 19.3939C8.17368 20.3805 11.7362 17.5521 14.3814 13.0765C17.0265 8.60087 17.7528 4.17284 16.0034 3.18622C14.2541 2.1996 10.6916 5.028 8.04643 9.50363Z"
+            stroke="white"
+            strokeWidth="0.7"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_2873_7683">
+            <rect
+              width="21.3333"
+              height="21.3333"
+              fill="white"
+              transform="translate(0.5 0.333008)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    )
+  },
+  {
+    label: 'prints',
+    position: 80,
+    icon: (
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17.026 3.13379H5.30697C4.38236 3.13379 3.63281 3.88333 3.63281 4.80794V16.527C3.63281 17.4516 4.38236 18.2012 5.30697 18.2012H17.026C17.9507 18.2012 18.7002 17.4516 18.7002 16.527V4.80794C18.7002 3.88333 17.9507 3.13379 17.026 3.13379Z"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11.1665 7.31934V14.016"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M7.81836 10.668H14.515"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    )
+  }
+]
+
+const ScrollytellingControls: FC<{
+  labelPositions: number[]
+  timeline: MutableRefObject<GSAPTimeline | undefined>
+  active?: boolean
+}> = ({ timeline, labelPositions, active = false }) => {
+  const skipTextTimeline = useRef<GSAPTimeline>()
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const progressBarRef = useRef<ProgressAPI>(null)
+  const { width, height } = useViewportSize()
+  const orientation = width / height > 1.6 ? 'vertical' : 'horizontal'
+
+  useEffect(() => {
+    const target = gsap.utils.selector(buttonRef.current)('.text')
+
+    skipTextTimeline.current = gsap.timeline({ paused: true }).fromTo(
+      target,
+      {
+        width: 0,
+        opacity: 0
+      },
+      {
+        opacity: 1,
+        width: 'auto',
+        ease: 'power2.inOut',
+        duration: 0.25
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    if (!labelPositions.length) return
+
+    const internalMarkerPositions = timelineMarkers.map(
+      ({ position }) => position
+    )
+
+    const _labelPositions = [0, ...labelPositions, 100]
+    const _internalMarkerPositions = [0, ...internalMarkerPositions, 100]
+
+    const getCurrentMultiplier = (progress: number) => {
+      const idx = _labelPositions.findIndex((p) => progress <= p)
+
+      const prevInternal = _internalMarkerPositions[idx - 1]
+      const prevLabelPos = _labelPositions[idx - 1]
+      const currInternal = _internalMarkerPositions[idx]
+      const currLabelPos = _labelPositions[idx]
+
+      return {
+        prevLabelPos,
+        prevInternal,
+        multiplier:
+          (currInternal - prevInternal) / (currLabelPos - prevLabelPos)
+      }
+    }
+
+    onScrollTriggerUpdate = (state: ScrollTrigger) => {
+      const progress = state.progress * 100
+      /* 
+        This is here bc labels are placed not proportionally, but
+        we need to show proportional spaced markers on the UI
+      */
+      const { prevInternal, prevLabelPos, multiplier } =
+        getCurrentMultiplier(progress)
+
+      const res = (progress - prevLabelPos) * multiplier
+
+      progressBarRef.current?.update(prevInternal + res)
+    }
+  }, [labelPositions])
+
+  const scrollToLabel = useCallback(
+    (label: string) => {
+      gsap.to(window, {
+        scrollTo: timeline.current?.scrollTrigger?.labelToScroll(label)
+      })
+    },
+    [timeline]
+  )
+
+  const handleSkipScrollytelling = useCallback(
+    () => scrollToLabel('end'),
+    [scrollToLabel]
+  )
+
+  const markers = useMemo(() => {
+    const sharedMarkerStyles = { '--animation-max-scale': '1.5' }
+
+    return timelineMarkers.map(({ position, icon, label }) => ({
+      style: sharedMarkerStyles,
+      position,
+      children: (
+        <TimelineLogo onClick={() => scrollToLabel(label)}>{icon}</TimelineLogo>
+      )
+    }))
+  }, [scrollToLabel])
+
+  return (
+    <div
+      className={clsx(s['controls'], {
+        [s['active']]: active,
+        [s['horizontal']]: orientation === 'horizontal',
+        [s['vertical']]: orientation === 'vertical'
+      })}
+    >
+      <div className={s['timeline']}>
+        <ProgressBar
+          animated={false}
+          progress={50}
+          direction={orientation}
+          secondaryColor="#C8C8C8"
+          primaryColor="#464646"
+          markerColor="#C8C8C8"
+          markerActiveColor="#464646"
+          markerSize={40}
+          markers={markers}
+          ref={progressBarRef}
+        />
+      </div>
+      <Button
+        onClick={handleSkipScrollytelling}
+        className={s['skip-scrollytelling']}
+        onMouseLeave={() => {
+          skipTextTimeline.current?.reverse()
+        }}
+        onMouseOver={() => {
+          skipTextTimeline.current?.play()
+        }}
+        size="md"
+        variant="tertiary-inverted-alt"
+        rounded
+        ref={buttonRef}
+      >
+        <span className={clsx('text', s['text'])}>
+          <span className={s['inner']}>Skip Animation</span>
+        </span>
+        <span
+          style={{
+            width: 18,
+            height: 18,
+            position: 'relative'
+          }}
+        >
+          <svg
+            style={{
+              display: 'block',
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(calc(-50% + 2px))'
+            }}
+            width="26"
+            viewBox="0 0 26 18"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M13.5214 8.14526C14.1595 8.52577 14.1595 9.47423 13.5214 9.85474L3.44062 15.8655C2.80087 16.2469 2 15.7718 2 15.0107L2 2.98927C2 2.22824 2.80087 1.75307 3.44062 2.13452L13.5214 8.14526Z" />
+            <path d="M23.5214 8.14526C24.1595 8.52577 24.1595 9.47423 23.5214 9.85474L13.4406 15.8655C12.8009 16.2469 12 15.7718 12 15.0107L12 2.98927C12 2.22824 12.8009 1.75307 13.4406 2.13452L23.5214 8.14526Z" />
+          </svg>
+        </span>
+      </Button>
+    </div>
+  )
+}
 
 const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   return (
@@ -158,7 +468,7 @@ const RecSvg = () => (
   </svg>
 )
 
-const timelineDuration = 10
+const timelineDuration = 8
 const padding = 16
 const headerHeight = 50
 const timelineHeight = 90
@@ -166,7 +476,7 @@ const printMarkers: ProgressMarker[] = [{ position: 50 }]
 const storeId = 'hero'
 const devtoolsTabs: (keyof typeof tabs)[] = ['console', 'react']
 
-const SCROLLYTELLING_PX_DURATION = 16000
+const SCROLLYTELLING_PX_DURATION = 15000
 
 const codeBlock = `export function handleSubmit(event) {
   event.preventDefault()
@@ -220,14 +530,18 @@ const reactTree = identifyNodes(
 )
 
 export default function ReplayApplication() {
+  const [controlsActive, setControlsActive] = useState(false)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
   const [currentTime, setCurrentTime] = useState(0)
   const [commentState, setCommentState] = useState<CommentState>('idle')
   const { isDesktop } = useDeviceDetect()
-  const { width } = useViewportSize()
+  const { width, height } = useViewportSize()
   const { fontsLoaded } = useAppStore()
+  const timelineRef = useRef<GSAPTimeline>()
+  const pinWrapperRef = useRef<HTMLDivElement>(null)
+  const [mainLabelPositions, setMainLabelPositions] = useState<number[]>([])
 
   /* Store */
   const [storeState, setStoreState] =
@@ -272,6 +586,7 @@ export default function ReplayApplication() {
       /* Check device */
       !isDesktop ||
       /* Required refs */
+      !pinWrapperRef.current ||
       !applicationRef.current ||
       !smallCenteredStoreRef.current ||
       !sectionRef.current ||
@@ -285,6 +600,9 @@ export default function ReplayApplication() {
     ) {
       return
     }
+
+    /* Go to the top of the page to prevent spacer errors */
+    window.scrollTo(0, 0)
 
     const _applicationRef = applicationRef.current
     const _targetStoreRef = targetStoreRef.current
@@ -365,9 +683,9 @@ export default function ReplayApplication() {
             display: 'none'
           },
           {
-            duration: 1,
+            duration: 0.6,
             display: 'inline',
-            stagger: 0.05,
+            stagger: 0.025,
             ease: 'power0.none'
           },
           '<'
@@ -436,7 +754,7 @@ export default function ReplayApplication() {
       smallCenteredStoreRef.current,
       {
         simple: false,
-        duration: 4
+        duration: 2
       }
     )
 
@@ -499,17 +817,24 @@ export default function ReplayApplication() {
         fastScrollEnd: true,
         id: 'overboard-story',
         markers: false,
+        /* This pin is interupting the store fade-in animation */
         pin: sectionRef.current,
+        pinSpacer: pinWrapperRef.current,
         /* We are making our own spacer */
         pinSpacing: false,
         preventOverlaps: true,
         scrub: true,
         trigger: 'body',
+        onUpdate: (state) => {
+          onScrollTriggerUpdate?.(state)
+        },
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
+          setControlsActive(true)
         },
         onLeave: () => {
           document.documentElement.classList.remove('hide-header')
+          setControlsActive(false)
         }
       }
     })
@@ -519,35 +844,41 @@ export default function ReplayApplication() {
     timeline
       .to(sectionRef.current, {
         yPercent: percentage,
-        duration: 7,
+        duration: 3,
         ease: 'power3.out'
       })
       .add(() => {
         document.documentElement.classList.remove('hide-header')
+        setControlsActive(false)
       })
       .add(() => {
         document.documentElement.classList.add('hide-header')
+        setControlsActive(true)
       })
       .to(
         recordBadge,
         {
           opacity: 1,
-          duration: 2
+          duration: 0.5
         },
         '<'
       )
+      .addLabel('record')
       .add(() => {
         setOverboardColor('red')
-      })
+      }, '<+=0.5')
       .add(() => {
         setOverboardColor('green')
       })
-      .to(storeColors, {
-        opacity: 0,
-        duration: 3,
-        delay: 2,
-        yPercent: -20
-      })
+      .to(
+        storeColors,
+        {
+          opacity: 0,
+          duration: 0.5,
+          yPercent: -20
+        },
+        '<+=0.5'
+      )
       .add(() => {
         setStoreState('idle')
       })
@@ -557,7 +888,7 @@ export default function ReplayApplication() {
           opacity: 0,
           yPercent: 20
         },
-        { opacity: 1, yPercent: -50, duration: 3 },
+        { opacity: 1, yPercent: -50, duration: 1 },
         '<'
       )
       .add(() => {
@@ -567,10 +898,10 @@ export default function ReplayApplication() {
         setStoreState('error')
         progressBarRef.current?.update(100)
         setCurrentTime(timelineDuration)
-      }, '+=4')
+      }, '+=1')
 
       /* Viewer */
-      .add(flipTimeline1 as GSAPTimeline, '+=2')
+      .add(flipTimeline1 as GSAPTimeline, '>')
       .to(storeContainer, { borderRadius: 12 }, '<')
       .to(
         recordBadge,
@@ -599,7 +930,7 @@ export default function ReplayApplication() {
         {
           opacity: 0,
           yPercent: -40,
-          duration: 3
+          duration: 2 // <-- These three have to be the same
         },
         '<'
       )
@@ -607,7 +938,7 @@ export default function ReplayApplication() {
         [storePurchase, firstComment],
         {
           yPercent: -50,
-          duration: 3
+          duration: 2 // <-- These three have to be the same
         },
         '<'
       )
@@ -615,7 +946,7 @@ export default function ReplayApplication() {
         storeContent,
         {
           y: 0,
-          duration: 3
+          duration: 2 // <-- These three have to be the same
         },
         '<'
       )
@@ -659,6 +990,7 @@ export default function ReplayApplication() {
           opacity: 1
         }
       )
+      .addLabel('comments')
       .to(firstCommentIcon, {
         scale: 1.2,
         duration: 1
@@ -716,6 +1048,7 @@ export default function ReplayApplication() {
       )
 
       /* Devtools */
+      .addLabel('devtools')
       .fromTo(
         viewToggleRef.current,
         { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
@@ -767,6 +1100,7 @@ export default function ReplayApplication() {
         },
         '<'
       )
+      .addLabel('react')
       .call(() => {
         setHoveredComponentBlockId(null)
         setActiveComponent(null)
@@ -854,6 +1188,7 @@ export default function ReplayApplication() {
           scale: 1
         }
       )
+      .addLabel('prints')
       .fromTo(
         printTutorial,
         {
@@ -1007,7 +1342,16 @@ export default function ReplayApplication() {
     )
 
     /* Add some duration at the end */
-    timeline.to({}, {})
+    timeline.to({}, {}).addLabel('end', '>')
+
+    timelineRef.current = timeline
+
+    const markerLabels = ['record', 'comments', 'react', 'prints']
+    const markerLabelPositions = markerLabels.map((l) => {
+      return timeline.labels[l]
+    })
+
+    setMainLabelPositions(markerLabelPositions)
 
     return () => {
       /* Split Text Cleanup */
@@ -1015,13 +1359,14 @@ export default function ReplayApplication() {
       secondCommentSplitText.revert()
 
       /* ScrollTrigger Cleanup */
-      scrollTo(0, 0)
+      window.scrollTo(0, 0)
 
       floorAndRotateTimeline.current?.kill()
       timeline.scrollTrigger?.kill()
       timeline.kill()
 
       document.documentElement.classList.remove('hide-header')
+      setControlsActive(false)
 
       /* Flip Cleanup */
       /* Just clearing transforms bc otherwise we remove some important variables */
@@ -1030,7 +1375,7 @@ export default function ReplayApplication() {
       clearProps(_devtoolsPanelRef, propsToClear)
       clearProps(_applicationRef, propsToClear)
     }
-  }, [isDesktop, fontsLoaded, width])
+  }, [isDesktop, fontsLoaded, width, height])
 
   const handleHit = useCallback((hit: number) => {
     setCurrentHit((prevValue) => {
@@ -1113,318 +1458,344 @@ export default function ReplayApplication() {
 
   return (
     <div id="scrollytelling-spacer">
-      <Section
-        className={s['section']}
-        /* @ts-ignore */
-        ref={sectionRef}
-      >
-        <AspectBox
-          ratio={1920 / 1080}
-          className={s['store-container']}
-          ref={targetStoreRef}
+      {/*
+        We are making our own pin wrapper bc the gsap
+        one is interrupting the store transition due to reparenting
+      */}
+      <div id="section-pin-wrapper" ref={pinWrapperRef}>
+        <Section
+          className={s['section']}
+          /* @ts-ignore */
+          ref={sectionRef}
         >
-          <RecSvg />
-
-          <div
-            id="scrollytelling-first-comment"
-            style={{
-              opacity: 0,
-              width: 44,
-              position: 'absolute',
-              left: '38.5%',
-              top: '38%',
-              zIndex: 'var(--z-index-20)'
-            }}
-          >
-            <CommentModule side="bottom-right" comments={firstComment} />
-          </div>
-
-          <OverboardStore
-            storeId={storeId}
-            state={storeState}
-            overboardColor={overboardColor}
-            style={{ height: '100%' }}
-            mode="full"
-            inspectMode="react"
-            ref={storeApiRef}
-          />
-        </AspectBox>
-
-        <AspectBox className={s['app-container']} ratio={1920 / 1080}>
-          <AspectBox
-            ratio={1360 / 910}
-            className={s['app']}
-            /* @ts-ignore */
-            style={{ '--padding': padding + 'px' }}
-            ref={applicationRef}
-          >
-            <div
-              className={clsx('header', s['header'])}
-              // @ts-ignore
-              style={{ '--height': headerHeight + 'px' }}
+          {/*
+            This .section-inner exists bc if we put 'display: flex' on the
+            pinned section above it breaks the custom pin wrapper dimensions.
+          */}
+          <div className={s['section-inner']}>
+            <AspectBox
+              ratio={1920 / 1080}
+              className={s['store-container']}
+              ref={targetStoreRef}
             >
-              <div className={s['left']}>
-                <IsoLogo className={s['logo']} />
-              </div>
-              <div className={s['users']}>
-                <img className="user" src={avatarTwo.src} />
-                <img className="user" src={avatarOne.src} />
-              </div>
-              <ViewToggle ref={viewToggleRef} />
-            </div>
+              <RecSvg />
 
-            <div
-              className={s['content']}
-              style={{
-                // @ts-ignore
-                '--height': `calc(100% - ${
-                  padding * 2
-                }px - ${headerHeight}px - ${timelineHeight}px)`
-              }}
-            >
-              <div className={clsx('toolbar', s['toolbar'])}>
-                <svg
-                  width="24"
-                  height="218"
-                  viewBox="0 0 24 218"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g
-                    clipPath="url(#clip0_806_120)"
-                    className="info"
-                    fill="#BCBCBC"
-                  >
-                    <path d="M11.7419 2.32324C6.47972 2.32324 2.20898 6.59398 2.20898 11.8561C2.20898 17.1183 6.47972 21.389 11.7419 21.389C17.004 21.389 21.2748 17.1183 21.2748 11.8561C21.2748 6.59398 17.004 2.32324 11.7419 2.32324ZM12.6952 16.6226H10.7886V10.9029H12.6952V16.6226ZM12.6952 8.99627H10.7886V7.08969H12.6952V8.99627Z" />
-                  </g>
-                  <g
-                    clipPath="url(#clip1_806_120)"
-                    className="comments"
-                    fill="#BCBCBC"
-                  >
-                    <path d="M19.3682 56.3394H18.4149V63.6723C18.4149 64.1765 17.9859 64.589 17.4616 64.589H6.02214V65.5056C6.02214 66.5139 6.8801 67.3388 7.92872 67.3388H17.4616L21.2748 71.0053V58.1726C21.2748 57.1643 20.4168 56.3394 19.3682 56.3394ZM16.5083 60.9225V54.5061C16.5083 53.4978 15.6504 52.6729 14.6018 52.6729H4.11556C3.06695 52.6729 2.20898 53.4978 2.20898 54.5061V66.4222L6.02214 62.7557H14.6018C15.6504 62.7557 16.5083 61.9308 16.5083 60.9225Z" />
-                  </g>
-                  <g
-                    clipPath="url(#clip2_806_120)"
-                    className="code"
-                    fill="#BCBCBC"
-                  >
-                    <path d="M13.07 102.428C12.7375 102.096 12.2912 101.912 11.8275 101.912H5.55371C4.59121 101.912 3.80371 102.7 3.80371 103.662V117.662C3.80371 118.625 4.58246 119.412 5.54496 119.412H16.0537C17.0162 119.412 17.8037 118.625 17.8037 117.662V107.888C17.8037 107.425 17.62 106.978 17.2875 106.655L13.07 102.428ZM13.4287 115.912H8.17871C7.69746 115.912 7.30371 115.518 7.30371 115.037C7.30371 114.556 7.69746 114.162 8.17871 114.162H13.4287C13.91 114.162 14.3037 114.556 14.3037 115.037C14.3037 115.518 13.91 115.912 13.4287 115.912ZM13.4287 112.412H8.17871C7.69746 112.412 7.30371 112.018 7.30371 111.537C7.30371 111.056 7.69746 110.662 8.17871 110.662H13.4287C13.91 110.662 14.3037 111.056 14.3037 111.537C14.3037 112.018 13.91 112.412 13.4287 112.412ZM11.6787 107.162V103.225L16.4912 108.037H12.5537C12.0725 108.037 11.6787 107.643 11.6787 107.162Z" />
-                  </g>
-                  <g
-                    clipPath="url(#clip3_806_120)"
-                    className="debugger"
-                    fill="#BCBCBC"
-                  >
-                    <path d="M19.5537 158.656C19.5537 163.486 15.6337 167.406 10.8037 167.406C5.97371 167.406 2.05371 163.486 2.05371 158.656C2.05371 157.615 2.24621 156.626 2.57871 155.699L4.22371 156.294C3.95246 157.029 3.80371 157.825 3.80371 158.656C3.80371 162.515 6.94496 165.656 10.8037 165.656C14.6625 165.656 17.8037 162.515 17.8037 158.656C17.8037 154.798 14.6625 151.656 10.8037 151.656C9.97246 151.656 9.18496 151.805 8.44996 152.076L7.85496 150.423C8.78246 150.099 9.77121 149.906 10.8037 149.906C15.6337 149.906 19.5537 153.826 19.5537 158.656ZM5.11621 151.656C4.38996 151.656 3.80371 152.243 3.80371 152.969C3.80371 153.695 4.38996 154.281 5.11621 154.281C5.84246 154.281 6.42871 153.695 6.42871 152.969C6.42871 152.243 5.84246 151.656 5.11621 151.656ZM16.0537 158.656C16.0537 161.553 13.7 163.906 10.8037 163.906C7.90746 163.906 5.55371 161.553 5.55371 158.656C5.55371 155.76 7.90746 153.406 10.8037 153.406C13.7 153.406 16.0537 155.76 16.0537 158.656ZM9.92871 156.031H8.17871V161.281H9.92871V156.031ZM13.4287 156.031H11.6787V161.281H13.4287V156.031Z" />
-                  </g>
-                  <g
-                    clipPath="url(#clip4_806_120)"
-                    className="search"
-                    fill="#BCBCBC"
-                  >
-                    <path d="M13.8662 208.399H13.175L12.93 208.163C13.7875 207.166 14.3037 205.871 14.3037 204.462C14.3037 201.321 11.7575 198.774 8.61621 198.774C5.47496 198.774 2.92871 201.321 2.92871 204.462C2.92871 207.603 5.47496 210.149 8.61621 210.149C10.025 210.149 11.32 209.633 12.3175 208.776L12.5537 209.021V209.712L16.9287 214.078L18.2325 212.774L13.8662 208.399V208.399ZM8.61621 208.399C6.43746 208.399 4.67871 206.641 4.67871 204.462C4.67871 202.283 6.43746 200.524 8.61621 200.524C10.795 200.524 12.5537 202.283 12.5537 204.462C12.5537 206.641 10.795 208.399 8.61621 208.399Z" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_806_120">
-                      <rect
-                        width="22.8789"
-                        height="22.8789"
-                        fill="white"
-                        transform="translate(0.303711 0.416992)"
-                      />
-                    </clipPath>
-                    <clipPath id="clip1_806_120">
-                      <rect
-                        width="22.8789"
-                        height="22.8789"
-                        fill="white"
-                        transform="translate(0.303711 50.29)"
-                      />
-                    </clipPath>
-                    <clipPath id="clip2_806_120">
-                      <rect
-                        width="21"
-                        height="21"
-                        fill="white"
-                        transform="translate(0.303711 100.162)"
-                      />
-                    </clipPath>
-                    <clipPath id="clip3_806_120">
-                      <rect
-                        width="21"
-                        height="21"
-                        fill="white"
-                        transform="translate(0.303711 148.156)"
-                      />
-                    </clipPath>
-                    <clipPath id="clip4_806_120">
-                      <rect
-                        width="21"
-                        height="21"
-                        fill="white"
-                        transform="translate(0.303711 196.149)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
+              <div
+                id="scrollytelling-first-comment"
+                style={{
+                  opacity: 0,
+                  width: 44,
+                  position: 'absolute',
+                  left: '38.5%',
+                  top: '38%',
+                  zIndex: 'var(--z-index-20)'
+                }}
+              >
+                <CommentModule side="bottom-right" comments={firstComment} />
               </div>
-              <div className={s['grid']}>
-                <AspectBox
-                  ratio={1920 / 1080}
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '49%'
-                  }}
-                  ref={smallRightCenteredStoreRef}
+
+              <OnRenderFadeIn
+                className={s['store-entrance-animation-container']}
+              >
+                <OverboardStore
+                  storeId={storeId}
+                  state={storeState}
+                  overboardColor={overboardColor}
+                  style={{ height: '100%' }}
+                  mode="full"
+                  inspectMode="react"
+                  ref={storeApiRef}
                 />
-                <AspectBox
-                  ratio={1920 / 1080}
-                  style={{
-                    gridArea: '1 / 1 / 3 / 6',
-                    alignSelf: 'center'
-                  }}
-                  ref={smallCenteredStoreRef}
-                />
+              </OnRenderFadeIn>
+            </AspectBox>
+
+            <AspectBox className={s['app-container']} ratio={1920 / 1080}>
+              <AspectBox
+                ratio={1360 / 910}
+                className={s['app']}
+                /* @ts-ignore */
+                style={{ '--padding': padding + 'px' }}
+                ref={applicationRef}
+              >
                 <div
-                  style={{
-                    gridArea: 'code',
-                    position: 'relative'
-                  }}
-                  ref={codeAreaRef}
+                  className={clsx('header', s['header'])}
+                  // @ts-ignore
+                  style={{ '--height': headerHeight + 'px' }}
                 >
-                  <Code
-                    filename="handle-submit.ts"
-                    printPanelConfig={{
-                      onChangeMarker: setMarkersType,
-                      print: '"handleSubmit", formData',
-                      markers: printMarkers,
-                      printLineTarget: 7,
-                      timelineType: 'justUi',
-                      comments: secondComment,
-                      currentMarker: markersType,
-                      onHit: handleHit,
-                      currentHit
-                    }}
-                    className={s['code']}
-                    printIndicators={{
-                      1: 'not-available',
-                      2: 'available',
-                      4: 'available',
-                      5: 'available',
-                      6: 'available',
-                      7: 'available',
-                      8: 'available',
-                      9: 'not-available',
-                      10: 'not-available',
-                      11: 'not-available',
-                      15: 'available',
-                      16: 'available'
-                    }}
-                    code={codeBlock}
-                    ref={codeRef}
-                  />
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      bottom: 0,
-                      right: 0,
-                      opacity: 0
-                    }}
-                    ref={devtoolsPanelRef}
-                  >
-                    <DevTools
-                      onlyShow={devtoolsTabs}
-                      panelWrapperProps={{ style: { flex: 1 } }}
-                      style={{ height: '100%' }}
-                      onPanelTabChange={(tab) => {
-                        // eslint-disable-next-line no-prototype-builtins
-                        if (devtoolProps.hasOwnProperty(tab)) {
-                          setActiveDevtoolTab(tab)
-                        }
+                  <div className={s['left']}>
+                    <IsoLogo className={s['logo']} />
+                  </div>
+                  <div className={s['users']}>
+                    <img className="user" src={avatarTwo.src} />
+                    <img className="user" src={avatarOne.src} />
+                  </div>
+                  <ViewToggle ref={viewToggleRef} />
+                </div>
+
+                <div
+                  className={s['content']}
+                  style={{
+                    // @ts-ignore
+                    '--height': `calc(100% - ${
+                      padding * 2
+                    }px - ${headerHeight}px - ${timelineHeight}px)`
+                  }}
+                >
+                  <div className={clsx('toolbar', s['toolbar'])}>
+                    <svg
+                      width="24"
+                      height="218"
+                      viewBox="0 0 24 218"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        clipPath="url(#clip0_806_120)"
+                        className="info"
+                        fill="#BCBCBC"
+                      >
+                        <path d="M11.7419 2.32324C6.47972 2.32324 2.20898 6.59398 2.20898 11.8561C2.20898 17.1183 6.47972 21.389 11.7419 21.389C17.004 21.389 21.2748 17.1183 21.2748 11.8561C21.2748 6.59398 17.004 2.32324 11.7419 2.32324ZM12.6952 16.6226H10.7886V10.9029H12.6952V16.6226ZM12.6952 8.99627H10.7886V7.08969H12.6952V8.99627Z" />
+                      </g>
+                      <g
+                        clipPath="url(#clip1_806_120)"
+                        className="comments"
+                        fill="#BCBCBC"
+                      >
+                        <path d="M19.3682 56.3394H18.4149V63.6723C18.4149 64.1765 17.9859 64.589 17.4616 64.589H6.02214V65.5056C6.02214 66.5139 6.8801 67.3388 7.92872 67.3388H17.4616L21.2748 71.0053V58.1726C21.2748 57.1643 20.4168 56.3394 19.3682 56.3394ZM16.5083 60.9225V54.5061C16.5083 53.4978 15.6504 52.6729 14.6018 52.6729H4.11556C3.06695 52.6729 2.20898 53.4978 2.20898 54.5061V66.4222L6.02214 62.7557H14.6018C15.6504 62.7557 16.5083 61.9308 16.5083 60.9225Z" />
+                      </g>
+                      <g
+                        clipPath="url(#clip2_806_120)"
+                        className="code"
+                        fill="#BCBCBC"
+                      >
+                        <path d="M13.07 102.428C12.7375 102.096 12.2912 101.912 11.8275 101.912H5.55371C4.59121 101.912 3.80371 102.7 3.80371 103.662V117.662C3.80371 118.625 4.58246 119.412 5.54496 119.412H16.0537C17.0162 119.412 17.8037 118.625 17.8037 117.662V107.888C17.8037 107.425 17.62 106.978 17.2875 106.655L13.07 102.428ZM13.4287 115.912H8.17871C7.69746 115.912 7.30371 115.518 7.30371 115.037C7.30371 114.556 7.69746 114.162 8.17871 114.162H13.4287C13.91 114.162 14.3037 114.556 14.3037 115.037C14.3037 115.518 13.91 115.912 13.4287 115.912ZM13.4287 112.412H8.17871C7.69746 112.412 7.30371 112.018 7.30371 111.537C7.30371 111.056 7.69746 110.662 8.17871 110.662H13.4287C13.91 110.662 14.3037 111.056 14.3037 111.537C14.3037 112.018 13.91 112.412 13.4287 112.412ZM11.6787 107.162V103.225L16.4912 108.037H12.5537C12.0725 108.037 11.6787 107.643 11.6787 107.162Z" />
+                      </g>
+                      <g
+                        clipPath="url(#clip3_806_120)"
+                        className="debugger"
+                        fill="#BCBCBC"
+                      >
+                        <path d="M19.5537 158.656C19.5537 163.486 15.6337 167.406 10.8037 167.406C5.97371 167.406 2.05371 163.486 2.05371 158.656C2.05371 157.615 2.24621 156.626 2.57871 155.699L4.22371 156.294C3.95246 157.029 3.80371 157.825 3.80371 158.656C3.80371 162.515 6.94496 165.656 10.8037 165.656C14.6625 165.656 17.8037 162.515 17.8037 158.656C17.8037 154.798 14.6625 151.656 10.8037 151.656C9.97246 151.656 9.18496 151.805 8.44996 152.076L7.85496 150.423C8.78246 150.099 9.77121 149.906 10.8037 149.906C15.6337 149.906 19.5537 153.826 19.5537 158.656ZM5.11621 151.656C4.38996 151.656 3.80371 152.243 3.80371 152.969C3.80371 153.695 4.38996 154.281 5.11621 154.281C5.84246 154.281 6.42871 153.695 6.42871 152.969C6.42871 152.243 5.84246 151.656 5.11621 151.656ZM16.0537 158.656C16.0537 161.553 13.7 163.906 10.8037 163.906C7.90746 163.906 5.55371 161.553 5.55371 158.656C5.55371 155.76 7.90746 153.406 10.8037 153.406C13.7 153.406 16.0537 155.76 16.0537 158.656ZM9.92871 156.031H8.17871V161.281H9.92871V156.031ZM13.4287 156.031H11.6787V161.281H13.4287V156.031Z" />
+                      </g>
+                      <g
+                        clipPath="url(#clip4_806_120)"
+                        className="search"
+                        fill="#BCBCBC"
+                      >
+                        <path d="M13.8662 208.399H13.175L12.93 208.163C13.7875 207.166 14.3037 205.871 14.3037 204.462C14.3037 201.321 11.7575 198.774 8.61621 198.774C5.47496 198.774 2.92871 201.321 2.92871 204.462C2.92871 207.603 5.47496 210.149 8.61621 210.149C10.025 210.149 11.32 209.633 12.3175 208.776L12.5537 209.021V209.712L16.9287 214.078L18.2325 212.774L13.8662 208.399V208.399ZM8.61621 208.399C6.43746 208.399 4.67871 206.641 4.67871 204.462C4.67871 202.283 6.43746 200.524 8.61621 200.524C10.795 200.524 12.5537 202.283 12.5537 204.462C12.5537 206.641 10.795 208.399 8.61621 208.399Z" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_806_120">
+                          <rect
+                            width="22.8789"
+                            height="22.8789"
+                            fill="white"
+                            transform="translate(0.303711 0.416992)"
+                          />
+                        </clipPath>
+                        <clipPath id="clip1_806_120">
+                          <rect
+                            width="22.8789"
+                            height="22.8789"
+                            fill="white"
+                            transform="translate(0.303711 50.29)"
+                          />
+                        </clipPath>
+                        <clipPath id="clip2_806_120">
+                          <rect
+                            width="21"
+                            height="21"
+                            fill="white"
+                            transform="translate(0.303711 100.162)"
+                          />
+                        </clipPath>
+                        <clipPath id="clip3_806_120">
+                          <rect
+                            width="21"
+                            height="21"
+                            fill="white"
+                            transform="translate(0.303711 148.156)"
+                          />
+                        </clipPath>
+                        <clipPath id="clip4_806_120">
+                          <rect
+                            width="21"
+                            height="21"
+                            fill="white"
+                            transform="translate(0.303711 196.149)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div className={s['grid']}>
+                    <AspectBox
+                      ratio={1920 / 1080}
+                      style={{
+                        position: 'absolute',
+                        right: 0,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        width: '49%'
                       }}
-                      panel={activeDevtoolTab}
-                      // @ts-ignore
-                      panelProps={devtoolProps[activeDevtoolTab]}
+                      ref={smallRightCenteredStoreRef}
+                    />
+                    <AspectBox
+                      ratio={1920 / 1080}
+                      style={{
+                        gridArea: '1 / 1 / 3 / 6',
+                        alignSelf: 'center'
+                      }}
+                      ref={smallCenteredStoreRef}
+                    />
+                    <div
+                      style={{
+                        gridArea: 'code',
+                        position: 'relative'
+                      }}
+                      ref={codeAreaRef}
+                    >
+                      <Code
+                        filename="handle-submit.ts"
+                        printPanelConfig={{
+                          onChangeMarker: setMarkersType,
+                          print: '"handleSubmit", formData',
+                          markers: printMarkers,
+                          printLineTarget: 7,
+                          timelineType: 'justUi',
+                          comments: secondComment,
+                          currentMarker: markersType,
+                          onHit: handleHit,
+                          currentHit
+                        }}
+                        className={s['code']}
+                        printIndicators={{
+                          1: 'not-available',
+                          2: 'available',
+                          4: 'available',
+                          5: 'available',
+                          6: 'available',
+                          7: 'available',
+                          8: 'available',
+                          9: 'not-available',
+                          10: 'not-available',
+                          11: 'not-available',
+                          15: 'available',
+                          16: 'available'
+                        }}
+                        code={codeBlock}
+                        ref={codeRef}
+                      />
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          bottom: 0,
+                          right: 0,
+                          opacity: 0
+                        }}
+                        ref={devtoolsPanelRef}
+                      >
+                        <DevTools
+                          onlyShow={devtoolsTabs}
+                          panelWrapperProps={{ style: { flex: 1 } }}
+                          style={{ height: '100%' }}
+                          onPanelTabChange={(tab) => {
+                            // eslint-disable-next-line no-prototype-builtins
+                            if (devtoolProps.hasOwnProperty(tab)) {
+                              setActiveDevtoolTab(tab)
+                            }
+                          }}
+                          panel={activeDevtoolTab}
+                          // @ts-ignore
+                          panelProps={devtoolProps[activeDevtoolTab]}
+                        />
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        gridArea: 'store'
+                      }}
+                      ref={smallRightStoreAreaRef}
+                    />
+                    <div
+                      style={{ gridArea: 'devtools' }}
+                      ref={devtoolsAreaRef}
                     />
                   </div>
                 </div>
+
                 <div
+                  className={s['bottom']}
                   style={{
-                    gridArea: 'store'
+                    // @ts-ignore
+                    '--height': timelineHeight
                   }}
-                  ref={smallRightStoreAreaRef}
-                />
-                <div style={{ gridArea: 'devtools' }} ref={devtoolsAreaRef} />
-              </div>
-            </div>
-
-            <div
-              className={s['bottom']}
-              style={{
-                // @ts-ignore
-                '--height': timelineHeight
-              }}
-            >
-              <div className={s['left']}>
-                <svg
-                  className={clsx(s['play-pause'], 'pause')}
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  ref={playPauseRef}
                 >
-                  <circle
-                    cx="20.5141"
-                    cy="20.5141"
-                    r="16.5141"
-                    fill="#01ACFD"
-                  />
-                  <path
-                    className={s['play']}
-                    d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
-                    fill="#F9F9FA"
-                  />
-                  <path
-                    className={s['pause']}
-                    d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
-                    fill="#F9F9FA"
-                  />
-                  <path
-                    className={s['replay']}
-                    d="M25.2306 15.4557C23.961 14.1869 22.2187 13.3994 20.2837 13.3994C16.4138 13.3994 13.2881 16.5319 13.2881 20.3994C13.2881 24.2669 16.4138 27.3994 20.2837 27.3994C23.1348 27.3994 25.5722 25.6988 26.6637 23.2583C26.9069 22.7146 26.4712 22.1494 25.8756 22.1494C25.4891 22.1494 25.1516 22.3972 24.9792 22.7431C24.1203 24.4659 22.3403 25.6494 20.2837 25.6494C17.3856 25.6494 15.0304 23.2957 15.0304 20.3994C15.0304 17.5032 17.3856 15.1494 20.2837 15.1494C21.7371 15.1494 23.0329 15.7532 23.9785 16.7069L21.5009 19.1829C21.3749 19.3089 21.4641 19.5244 21.6423 19.5244H27.0881C27.1986 19.5244 27.2881 19.4349 27.2881 19.3244V13.882C27.2881 13.7039 27.0727 13.6146 26.9467 13.7406L25.2306 15.4557Z"
-                    fill="#F9F9FA"
-                  />
-                </svg>
-              </div>
+                  <div className={s['left']}>
+                    <svg
+                      className={clsx(s['play-pause'], 'pause')}
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      ref={playPauseRef}
+                    >
+                      <circle
+                        cx="20.5141"
+                        cy="20.5141"
+                        r="16.5141"
+                        fill="#01ACFD"
+                      />
+                      <path
+                        className={s['play']}
+                        d="M27.3028 19.2853L22.4846 16.5263L17.6663 13.7674C17.4573 13.6478 17.2203 13.5849 16.9791 13.585C16.7378 13.585 16.5008 13.648 16.2919 13.7676C16.083 13.8873 15.9095 14.0593 15.7888 14.2665C15.6682 14.4737 15.6046 14.7087 15.6045 14.948V25.9837C15.6046 26.2229 15.6681 26.458 15.7888 26.6652C15.9095 26.8724 16.083 27.0444 16.2919 27.164C16.5008 27.2837 16.7378 27.3467 16.979 27.3467C17.2203 27.3468 17.4573 27.2839 17.6663 27.1643L22.4846 24.4054L27.3028 21.6465C27.5118 21.5268 27.6853 21.3547 27.8059 21.1475C27.9266 20.9403 27.9901 20.7052 27.9901 20.4659C27.9901 20.2266 27.9266 19.9915 27.8059 19.7843C27.6853 19.577 27.5118 19.4049 27.3028 19.2853V19.2853Z"
+                        fill="#F9F9FA"
+                      />
+                      <path
+                        className={s['pause']}
+                        d="M24.5823 27.3994C23.247 27.3994 22.1645 26.317 22.1645 24.9817L22.1645 15.8172C22.1645 14.4819 23.247 13.3994 24.5823 13.3994V13.3994C25.9175 13.3994 27 14.4819 27 15.8172L27 24.9817C27 26.317 25.9175 27.3994 24.5823 27.3994V27.3994ZM16.4177 27.3994C15.0825 27.3994 14 26.317 14 24.9817L14 15.8172C14 14.4819 15.0825 13.3994 16.4177 13.3994V13.3994C17.753 13.3994 18.8355 14.4819 18.8355 15.8172L18.8355 24.9817C18.8355 26.317 17.753 27.3994 16.4177 27.3994V27.3994Z"
+                        fill="#F9F9FA"
+                      />
+                      <path
+                        className={s['replay']}
+                        d="M25.2306 15.4557C23.961 14.1869 22.2187 13.3994 20.2837 13.3994C16.4138 13.3994 13.2881 16.5319 13.2881 20.3994C13.2881 24.2669 16.4138 27.3994 20.2837 27.3994C23.1348 27.3994 25.5722 25.6988 26.6637 23.2583C26.9069 22.7146 26.4712 22.1494 25.8756 22.1494C25.4891 22.1494 25.1516 22.3972 24.9792 22.7431C24.1203 24.4659 22.3403 25.6494 20.2837 25.6494C17.3856 25.6494 15.0304 23.2957 15.0304 20.3994C15.0304 17.5032 17.3856 15.1494 20.2837 15.1494C21.7371 15.1494 23.0329 15.7532 23.9785 16.7069L21.5009 19.1829C21.3749 19.3089 21.4641 19.5244 21.6423 19.5244H27.0881C27.1986 19.5244 27.2881 19.4349 27.2881 19.3244V13.882C27.2881 13.7039 27.0727 13.6146 26.9467 13.7406L25.2306 15.4557Z"
+                        fill="#F9F9FA"
+                      />
+                    </svg>
+                  </div>
 
-              <div className={s['timeline']}>
-                <ProgressBar
-                  solid
-                  animated={false}
-                  progress={0}
-                  primaryColor="#01ACFD"
-                  secondaryColor="#D9D9D9"
-                  markers={showPrints ? printMarkers : undefined}
-                  markerSize={14}
-                  markerActiveColor="var(--color-pink-crayon)"
-                  ref={progressBarRef}
-                />
-              </div>
+                  <div className={s['timeline']}>
+                    <ProgressBar
+                      solid
+                      animated={false}
+                      progress={0}
+                      primaryColor="#01ACFD"
+                      secondaryColor="#D9D9D9"
+                      markers={showPrints ? printMarkers : undefined}
+                      markerSize={14}
+                      markerActiveColor="var(--color-pink-crayon)"
+                      ref={progressBarRef}
+                    />
+                  </div>
 
-              <span className={s['current-time']}>
-                0:{padZeroesToNumber(Number(currentTime.toFixed(0)), 2)} / 0:
-                {padZeroesToNumber(timelineDuration, 2)}
-              </span>
-            </div>
-          </AspectBox>
-        </AspectBox>
-      </Section>
+                  <span className={s['current-time']}>
+                    0:{padZeroesToNumber(Number(currentTime.toFixed(0)), 2)} /
+                    0:
+                    {padZeroesToNumber(timelineDuration, 2)}
+                  </span>
+                </div>
+              </AspectBox>
+            </AspectBox>
+          </div>
+        </Section>
+      </div>
+
+      <ScrollytellingControls
+        labelPositions={mainLabelPositions}
+        timeline={timelineRef}
+        active={controlsActive}
+      />
     </div>
   )
 }

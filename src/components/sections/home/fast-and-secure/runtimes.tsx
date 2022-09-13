@@ -9,6 +9,7 @@ export type Runtime = {
     | 'Coming Soon'
     | 'Closed Beta'
     | '2023'
+    | '2024'
     | 'Community'
     | ''
   description: string
@@ -30,7 +31,7 @@ export const browsers: Runtime[] = [
   {
     icon: '/images/logos/safari.svg',
     title: 'Safari',
-    badge: 'Beta',
+    badge: '2023',
     description: ''
   }
 ]
@@ -76,19 +77,19 @@ export const runtimes: Runtime[] = [
     title: 'Node'
   },
   {
-    badge: 'Community',
+    badge: '2024',
     description: ' ',
     icon: '/images/logos/ruby.svg',
     title: 'Ruby'
   },
   {
-    badge: 'Community',
+    badge: '2024',
     description: ' ',
     icon: '/images/logos/java.svg',
     title: 'Java'
   },
   {
-    badge: 'Community',
+    badge: '2024',
     description: ' ',
     icon: '/images/logos/python.svg',
     title: 'Python'

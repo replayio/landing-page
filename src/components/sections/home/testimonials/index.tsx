@@ -39,11 +39,34 @@ const testimonials = [
     name: 'David Khourshid',
     company: {
       name: 'Stately.ai',
-      logo: '/images/home/stately.png'
+      logo: '/images/home/stately.svg'
     },
     position: 'Founder',
     quote:
       '“Replay.io is the obvious next step for the future of collaborative debugging applications...”'
+  },
+
+  {
+    picture: '/images/shoutouts/yang.jpg',
+    name: 'Jean Yang',
+    company: {
+      name: 'Akita Software',
+      logo: '/images/home/akita.svg'
+    },
+    position: 'Founder and CEO',
+    quote:
+      '“Awesome to see time-travel debugging in such a usable, intuitive form!”'
+  },
+  {
+    picture: '/images/shoutouts/kirschner.jpg',
+    name: 'Harald Kirschner',
+    company: {
+      name: 'VS Code',
+      logo: '/images/home/vscode.svg'
+    },
+    position: 'Product Manager',
+    quote:
+      '“Replay first feels like magic, but you quickly wonder how you ever worked without it.”'
   }
 ]
 

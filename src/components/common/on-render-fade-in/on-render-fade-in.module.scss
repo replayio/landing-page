@@ -1,0 +1,18 @@
+.container {
+  --scale: 0.95;
+
+  opacity: 0;
+  transition-property: opacity transform;
+  transition-duration: 0.5s;
+  transition-timing-function: var(--ease-out-soft);
+  transform: scale(var(--scale)) translateY(var(--translate-y));
+
+  &.translate {
+    --translate-y: 30px;
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

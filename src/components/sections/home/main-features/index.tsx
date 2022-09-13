@@ -75,71 +75,74 @@ export const MainFeatures: FC = () => {
   )
 
   return (
-    <Section id="main-features-section" className={s['section']}>
-      <Container size="sm">
-        <div className={s['main-features']}>
-          <HeadingSet
-            disabled={activeHeading !== 0}
-            className={s['feature']}
-            overtitle="Async Collaboration"
-            title="Record the bug once. Never reproduce it again."
-            description={
-              <>
-                <p>
-                  <b>
-                    Replay gives you the power to share what you’re seeing with
-                    your team so that they can fix it fast.{' '}
-                  </b>
-                  Because Replay replays the browser down to level of the event
-                  loop, you no longer need to worry about filing bug reports
-                  with lengthy steps to reproduce. You can simply record the
-                  replay, add a couple of comments, and create the ticket.
-                </p>
+    <>
+      <Section id="main-features-section" className={s['section']}>
+        <Container size="sm">
+          <div className={s['main-features']}>
+            <HeadingSet
+              disabled={activeHeading !== 0}
+              className={s['feature']}
+              overtitle="Async Collaboration"
+              title="Record once. Never reproduce again."
+              description={
+                <>
+                  <p>
+                    <b>
+                      Replay gives you the power to share what you’re seeing
+                      with your team so that they can fix it fast.{' '}
+                    </b>
+                    Because Replay replays the browser down to level of the
+                    event loop, you no longer need to worry about including the
+                    steps to reproduce in your bug report. You can simply record
+                    the replay, add a couple of comments, and file the issue.
+                  </p>
 
-                <ButtonLink
-                  href="#async-collaboration"
-                  variant="tertiary-inverted-alt"
-                  style={{ marginTop: '2rem' }}
-                >
-                  Replay for Teams
-                </ButtonLink>
-              </>
-            }
-          />
+                  <ButtonLink
+                    href="#async-collaboration"
+                    variant="tertiary-inverted-alt"
+                    style={{ marginTop: '2rem' }}
+                  >
+                    Replay for Teams
+                  </ButtonLink>
+                </>
+              }
+            />
 
-          <div className={s['progress-bar']}>
-            <ScrollProgressBar onProgressUpdate={setActiveHeading} />
+            <div className={s['progress-bar']}>
+              <ScrollProgressBar onProgressUpdate={setActiveHeading} />
+            </div>
+
+            <HeadingSet
+              disabled={activeHeading !== 1}
+              className={s['feature']}
+              overtitle="Time Travel Debugging"
+              title="Debug with super powers."
+              description={
+                <>
+                  <p>
+                    <b>
+                      Replay gives you the freedom to see what your application
+                      looked like at any point in time.
+                    </b>{' '}
+                    The hardest problems have many twists and turns, nulls and
+                    undefineds. With Replay, you can start annotating
+                    interesting points in time and narrowing down the problem.
+                    It's amazing how much simpler software is when you can time
+                    travel.
+                  </p>
+                  <ButtonLink
+                    href="#developer-tools"
+                    variant="tertiary-inverted-alt"
+                    style={{ marginTop: '2rem' }}
+                  >
+                    Replay DevTools
+                  </ButtonLink>
+                </>
+              }
+            />
           </div>
-
-          <HeadingSet
-            disabled={activeHeading !== 1}
-            className={s['feature']}
-            overtitle="Time Travel Debugging"
-            title="Experience the thrill of time-travel debugging."
-            description={
-              <>
-                <p>
-                  <b>
-                    Replay gives you the freedom to see what your application
-                    looked like at any point in time.
-                  </b>{' '}
-                  The hardest problems have many twists and turns, nulls and
-                  undefineds. With Replay, you can start annotating interesting
-                  points in time and narrowing down the problem. And because
-                  replays can be shared, debugging can now become a team sport.
-                </p>
-                <ButtonLink
-                  href="#developer-tools"
-                  variant="tertiary-inverted-alt"
-                  style={{ marginTop: '2rem' }}
-                >
-                  Replay DevTools
-                </ButtonLink>
-              </>
-            }
-          />
-        </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </>
   )
 }

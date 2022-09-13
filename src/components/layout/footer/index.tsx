@@ -145,7 +145,7 @@ export const Footer: FC = () => {
       })}
     >
       <div className={s['bg']}>
-        <Image src={footerBgSvg} alt="footer background" />
+        <Image src={footerBgSvg} alt="" />
       </div>
       <Container size="lg">
         <div className={s['footer']} ref={sectionRef}>
@@ -155,12 +155,13 @@ export const Footer: FC = () => {
                 <span className={s['iso']}>
                   <IsoLogo />
                 </span>
-                <Heading className={s.heading} size="lg">
+                <Heading as="h4" className={s.heading} size="lg">
                   Start Replaying now
                 </Heading>
               </div>
               <div className={s['cta']}>
                 <ButtonLink
+                  aria-label="login to replay"
                   href="https://app.replay.io/"
                   className={s['play-button']}
                   size="sm"
@@ -212,8 +213,10 @@ export const Footer: FC = () => {
             <div className={s['nav']}>
               {Object.entries(links).map(([key, items]) => (
                 <div key={key} className={s['nav-group']}>
-                  <p className={s['title']}>{key}</p>
-                  <ul className={s['list']}>
+                  <h4 id={`footer-${key}`} className={s['title']}>
+                    {key}
+                  </h4>
+                  <ul aria-labelledby={`footer-${key}`} className={s['list']}>
                     {items.map(({ label, href }) => (
                       <li key={label}>
                         <Link href={href}>{label}</Link>
@@ -232,7 +235,9 @@ export const Footer: FC = () => {
             <ul className={s['social']}>
               {Object.entries(social).map(([key, link]) => (
                 <li key={key} title={key}>
-                  <Link href={link.href}>{link.icon}</Link>
+                  <Link href={link.href} aria-label={key}>
+                    {link.icon}
+                  </Link>
                 </li>
               ))}
             </ul>

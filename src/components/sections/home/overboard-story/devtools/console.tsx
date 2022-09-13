@@ -96,6 +96,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                 <hr
                   style={{
                     position: 'absolute',
+                    zIndex: 1,
                     width: '100%',
                     borderColor: 'var(--color-pink-crayon)',
                     borderTopWidth: '1px'
