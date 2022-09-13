@@ -30,7 +30,7 @@ export function DownloadButton({
   title = 'Record your first replay',
   variant = 'primary'
 }: {
-  title: string
+  title?: string
   variant?: 'primary' | 'tertiary-inverted'
 }) {
   const rendered = useHasRendered()
