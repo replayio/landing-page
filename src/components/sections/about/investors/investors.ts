@@ -1,12 +1,30 @@
 import amjad from '~/public/images/about/investors/amjad.png'
+import anderssenHorowitz from '~/public/images/about/investors/anderssen-horowitz.svg'
 import beyang from '~/public/images/about/investors/beyang.png'
 import desigan from '~/public/images/about/investors/desigan.jpg'
+import iaVentures from '~/public/images/about/investors/ia-ventures.svg'
 import ives from '~/public/images/about/investors/ives.png'
 import kenneth from '~/public/images/about/investors/kenneth.png'
 import max from '~/public/images/about/investors/max.png'
 import preston from '~/public/images/about/investors/preston.png'
 import rasmus from '~/public/images/about/investors/rasmus.png'
 import shawn from '~/public/images/about/investors/shawn.png'
+import versionone from '~/public/images/about/investors/versionone.svg'
+
+export const institutions = [
+  {
+    name: 'Anderssen Horowitz',
+    image: anderssenHorowitz
+  },
+  {
+    name: 'IA Ventures',
+    image: iaVentures
+  },
+  {
+    name: 'Versionone',
+    image: versionone
+  }
+]
 
 export const investors = [
   {

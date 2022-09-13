@@ -40,7 +40,7 @@ export const Team: FC = () => {
           </p>
         </div>
       </Container>
-      <div>
+      <div className={s['fade-container']}>
         <Container size="md" className={s['slider-container']}>
           <div className={s.team}>
             <Carousel
