@@ -293,10 +293,12 @@ const ScrollytellingControls: FC<{
           width: 40,
           height: 40,
           padding: 8,
+          backgroundColor: 'white',
           border: '1px solid #c8c8c8',
           borderRadius: '100%',
           position: 'relative',
-          top: 32
+          top: 32,
+          zIndex: 100
         }}
         onClick={() => scrollToLabel('start')}
       >
@@ -334,10 +336,12 @@ const ScrollytellingControls: FC<{
           width: 40,
           height: 40,
           padding: 8,
+          backgroundColor: 'white',
           border: '1px solid #c8c8c8',
           borderRadius: '100%',
           position: 'relative',
-          top: -32
+          top: -32,
+          zIndex: 100
         }}
         onClick={() => scrollToLabel('end')}
       >

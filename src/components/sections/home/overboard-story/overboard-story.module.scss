@@ -66,7 +66,7 @@
 
       &::before,
       &::after {
-        height: 15%;
+        height: 13.7%;
         width: 3px;
       }
 
@@ -103,11 +103,7 @@
       transition: opacity var(--duration-fast) linear;
       pointer-events: none;
       position: absolute;
-      background: linear-gradient(
-        var(--direction),
-        var(--color-transparent),
-        var(--color-white)
-      );
+      background-color: white;
     }
   }
 
