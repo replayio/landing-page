@@ -198,7 +198,7 @@ const ScrollytellingControls: FC<{
   const buttonRef = useRef<HTMLButtonElement>(null)
   const progressBarRef = useRef<ProgressAPI>(null)
   const { width, height } = useViewportSize()
-  const orientation = width / height > 1.8 ? 'vertical' : 'horizontal'
+  const orientation = width / height > 1.6 ? 'vertical' : 'horizontal'
 
   useEffect(() => {
     const target = gsap.utils.selector(buttonRef.current)('.text')
