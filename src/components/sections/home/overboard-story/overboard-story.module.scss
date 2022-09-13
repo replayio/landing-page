@@ -16,8 +16,8 @@
 .controls {
   position: fixed;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   right: 0;
   bottom: 0;
   padding: 3vh 2vw;
@@ -61,6 +61,7 @@
 
     .timeline {
       height: 35vh;
+      min-height: 320px;
       width: 54px;
 
       &::before,

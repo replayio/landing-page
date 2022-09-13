@@ -268,11 +268,6 @@ const ScrollytellingControls: FC<{
     [timeline]
   )
 
-  const handleSkipScrollytelling = useCallback(
-    () => scrollToLabel('end'),
-    [scrollToLabel]
-  )
-
   const markers = useMemo(() => {
     const sharedMarkerStyles = { '--animation-max-scale': '1.5' }
 
@@ -293,6 +288,33 @@ const ScrollytellingControls: FC<{
         [s['vertical']]: orientation === 'vertical'
       })}
     >
+      <button
+        style={{
+          width: 40,
+          height: 40,
+          padding: 8,
+          border: '1px solid #c8c8c8',
+          borderRadius: '100%',
+          position: 'relative',
+          top: 32
+        }}
+        onClick={() => scrollToLabel('start')}
+      >
+        <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6 9.5L11.5 4L17 9.5"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M6 17L11.5 11.5L17 17"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
       <div className={s['timeline']}>
         <ProgressBar
           animated={false}
@@ -307,47 +329,33 @@ const ScrollytellingControls: FC<{
           ref={progressBarRef}
         />
       </div>
-      <Button
-        onClick={handleSkipScrollytelling}
-        className={s['skip-scrollytelling']}
-        onMouseLeave={() => {
-          skipTextTimeline.current?.reverse()
+      <button
+        style={{
+          width: 40,
+          height: 40,
+          padding: 8,
+          border: '1px solid #c8c8c8',
+          borderRadius: '100%',
+          position: 'relative',
+          top: -32
         }}
-        onMouseOver={() => {
-          skipTextTimeline.current?.play()
-        }}
-        size="md"
-        variant="tertiary-inverted-alt"
-        rounded
-        ref={buttonRef}
+        onClick={() => scrollToLabel('end')}
       >
-        <span className={clsx('text', s['text'])}>
-          <span className={s['inner']}>Skip Animation</span>
-        </span>
-        <span
-          style={{
-            width: 18,
-            height: 18,
-            position: 'relative'
-          }}
-        >
-          <svg
-            style={{
-              display: 'block',
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(calc(-50% + 2px))'
-            }}
-            width="26"
-            viewBox="0 0 26 18"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M13.5214 8.14526C14.1595 8.52577 14.1595 9.47423 13.5214 9.85474L3.44062 15.8655C2.80087 16.2469 2 15.7718 2 15.0107L2 2.98927C2 2.22824 2.80087 1.75307 3.44062 2.13452L13.5214 8.14526Z" />
-            <path d="M23.5214 8.14526C24.1595 8.52577 24.1595 9.47423 23.5214 9.85474L13.4406 15.8655C12.8009 16.2469 12 15.7718 12 15.0107L12 2.98927C12 2.22824 12.8009 1.75307 13.4406 2.13452L23.5214 8.14526Z" />
-          </svg>
-        </span>
-      </Button>
+        <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17 12.5L11.5 18L6 12.5"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M17 5L11.5 10.5L6 5"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
     </div>
   )
 }
