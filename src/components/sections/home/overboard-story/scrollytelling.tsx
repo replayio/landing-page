@@ -289,6 +289,7 @@ const ScrollytellingControls: FC<{
       })}
     >
       <button
+        title="Skip to beginning"
         style={{
           width: 40,
           height: 40,
@@ -332,6 +333,7 @@ const ScrollytellingControls: FC<{
         />
       </div>
       <button
+        title="Skip to end"
         style={{
           width: 40,
           height: 40,
