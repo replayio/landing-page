@@ -295,10 +295,12 @@ export const PowerfulDevTools: FC = () => {
                   className={s['subtitle-link']}
                   href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
                 >
-                  How Replay replays
+                  How Replay works
                 </a>
               </p>
-              <DownloadButton />
+              <div style={{ paddingTop: '30px' }}>
+                <DownloadButton />
+              </div>
             </div>
           }
           centered
