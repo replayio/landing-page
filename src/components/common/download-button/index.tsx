@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { useMemo } from 'react'
 
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -9,44 +8,32 @@ import { isServer } from '~/lib/constants'
 import s from './download-button.module.scss'
 
 const availablePlatforms = {
-  windows: '/downloads/windows-replay.zip',
-  mac: '/downloads/replay.dmg',
-  linux: '/downloads/linux-replay.tar.bz2'
+  windows: {
+    label: 'Windows',
+    imageSource: '/images/logos/windows.svg',
+    downloadSource: '/downloads/windows-replay.zip'
+  },
+  mac: {
+    label: 'Mac',
+    imageSource: '/images/logos/apple.svg',
+    downloadSource: '/downloads/replay.zip'
+  },
+  linux: {
+    label: 'Linux',
+    imageSource: '/images/logos/linux.svg',
+    downloadSource: '/downloads/linux-replay.tar.bz2'
+  }
 }
-const getDownloadLink = () => {
-  if (isServer) return
+const getPlatform = () => {
+  if (isServer) return 'mac'
 
   const uAgent = navigator.userAgent
 
   return (
-    (uAgent.match(/Linux/i) && availablePlatforms['linux']) ||
-    (uAgent.match(/Windows/i) && availablePlatforms['windows']) ||
-    (uAgent.match(/Mac/i) && availablePlatforms['mac']) ||
-    undefined
-  )
-}
-const getLogoSource = () => {
-  if (isServer) return
-
-  const uAgent = navigator.userAgent
-
-  return (
-    (uAgent.match(/Linux/i) && '/images/logos/linux.svg') ||
-    (uAgent.match(/Windows/i) && '/images/logos/windows.svg') ||
-    (uAgent.match(/Mac/i) && '/images/logos/apple.svg') ||
-    undefined
-  )
-}
-const getLogoAlt = () => {
-  if (isServer) return
-
-  const uAgent = navigator.userAgent
-
-  return (
-    (uAgent.match(/Linux/i) && 'Linux') ||
-    (uAgent.match(/Windows/i) && 'Windows') ||
-    (uAgent.match(/Mac/i) && 'Apple') ||
-    undefined
+    (uAgent.match(/Linux/i) && 'linux') ||
+    (uAgent.match(/Windows/i) && 'windows') ||
+    (uAgent.match(/Mac/i) && 'mac') ||
+    'mac'
   )
 }
 
@@ -58,19 +45,13 @@ export function DownloadButton({
   variant?: 'primary' | 'tertiary-inverted'
 }) {
   const rendered = useHasRendered()
-  const currentPlatformDownloadLink = useMemo(() => {
-    if (!rendered) return '/'
-
-    return getDownloadLink()
-  }, [rendered])
+  const platform = availablePlatforms[getPlatform()]
 
   const { isDesktop } = useDeviceDetect()
 
   if (!isDesktop && rendered) {
     return null
   }
-
-  const logoSource = getLogoSource()
 
   return (
     <div
@@ -79,15 +60,15 @@ export function DownloadButton({
       })}
     >
       <ButtonLink
-        href={currentPlatformDownloadLink || ''}
+        href={platform.downloadSource}
         target="_blank"
         variant={variant}
         download
       >
         {title}{' '}
         <img
-          alt={getLogoAlt()}
-          src={logoSource}
+          alt={platform.label}
+          src={platform.imageSource}
           style={{
             height: 20,
             marginLeft: 8,
