@@ -96,7 +96,7 @@ const assets = [
 
     description:
       'Add print statements and view the logs immediately in the Console.',
-    video: '/video/hero-video.mp4',
+    video: '/video/01-print-statements.mp4',
     component: Scene1
   },
   {
@@ -104,7 +104,7 @@ const assets = [
     title: 'Console',
     description:
       'Fast forward to console logs and evaluate expressions in the Terminal.',
-    video: '/video/hero-video.mp4',
+    video: '/video/02-console.mp4',
     component: Scene2
   },
   {
@@ -112,7 +112,7 @@ const assets = [
     title: 'React',
     description:
       'Inspect React components and view their state, props, and hooks.',
-    video: '/video/hero-video.mp4',
+    video: '/video/03-react.mp4',
     component: Scene3
   },
   {
@@ -120,7 +120,7 @@ const assets = [
     title: 'Elements',
     description:
       'Inspect DOM elements and view their applied rules and computed properties.',
-    video: '/video/hero-video.mp4',
+    video: '/video/04-elements.mp4',
     component: Scene4
   },
   {
@@ -128,13 +128,13 @@ const assets = [
     title: 'Network',
     description:
       'Inspect Network requests and view their headers, request and response bodies.',
-    video: '/video/hero-video.mp4',
+    video: '/video/05-network.mp4',
     component: Scene5
   },
   {
     title: 'Debugger',
     description: 'Pause at a line of code and view the call stack and scopes.',
-    video: '/video/hero-video.mp4',
+    video: '/video/06-debugger.mp4',
     component: Scene6
   }
 ]
