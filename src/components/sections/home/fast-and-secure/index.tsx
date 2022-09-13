@@ -1,10 +1,13 @@
 import clsx from 'clsx'
+import Image from 'next/future/image'
 import { FC, MutableRefObject, useEffect, useRef } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
 import { Section, SectionHeading } from '~/components/common/section'
 import { Tabs } from '~/components/common/tabs'
 import { Container } from '~/components/layout/container'
+import gdpr from '~/public/images/home/gdpr.svg'
+import soc2 from '~/public/images/home/soc2.svg'
 
 import { Card } from './card'
 import s from './fast-and-secure.module.scss'
@@ -123,6 +126,37 @@ export const FastAndSecure: FC = () => {
                 reliably. The result is a recorder that is enterprise ready and
                 stress tested on the most ambitious applications.
               </p>
+
+              <div
+                style={{
+                  display: 'flex',
+                  padding: '26px',
+                  justifyContent: 'center'
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    width: '200px',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <Image
+                    height={80}
+                    width={80}
+                    priority
+                    src={soc2}
+                    alt="section background"
+                  />
+                  <Image
+                    height={80}
+                    width={80}
+                    priority
+                    src={gdpr}
+                    alt="section background"
+                  />
+                </div>
+              </div>
             </div>
           }
           centered

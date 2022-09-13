@@ -1,0 +1,11 @@
+@import 'css/variables';
+@import 'css/helpers';
+
+.cta {
+  opacity: 0;
+  transition: opacity var(--duration-moderate) linear;
+
+  &.visible {
+    opacity: 1;
+  }
+}

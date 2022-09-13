@@ -42,6 +42,10 @@
     @include space-x(18px);
 
     .picture {
+      :hover {
+        cursor: pointer;
+      }
+
       &.active {
         .progress-bar-container {
           transform: scale(1.35);

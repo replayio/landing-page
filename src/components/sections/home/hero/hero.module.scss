@@ -12,6 +12,7 @@
     --illus-translate-x: 500px;
     --illus-translate-y: -55px;
 
+    display: none;
     position: absolute;
     right: 0;
     top: 0;
@@ -53,7 +54,7 @@
   .hero {
     position: relative;
     padding-top: 32px;
-    padding-bottom: 112px;
+    padding-bottom: 56px;
 
     .heading {
       .title {
@@ -67,25 +68,24 @@
       p {
         line-height: 1.4;
         margin-top: 24px;
-        max-width: 600px;
-      }
+        max-width: 540px;
 
-      a {
-        text-decoration: underline;
-      }
-
-      .cta {
-        display: none;
-        margin-top: 32px;
         a {
-
-          font-weight: bold;
-          text-decoration: none;
-
+          text-decoration: underline;
         }
+      }
+
+      .desktop-paragraph {
+        display: none;
       }
     }
   }
+}
+
+.hero-cta {
+  display: flex;
+  margin-top: 32px;
+  gap: 20px;
 }
 
 @media (max-width: $screen-md - 1px) {
@@ -112,6 +112,7 @@
 
     .hero {
       padding-top: 60px;
+      padding-bottom: 80px;
 
       .heading {
         .title {
@@ -132,15 +133,28 @@
     .illustration {
       --illus-translate-x: 280px;
 
+      display: block;
+
       .gradient {
         display: none;
       }
     }
 
     .hero {
+      padding-bottom: 112px;
+
       .heading {
         .title {
-          max-width: 600px;
+          max-width: 700px;
+        }
+
+        p {
+          font-size: 18px;
+          max-width: 64ch;
+        }
+
+        .desktop-paragraph {
+          display: block;
         }
       }
     }
