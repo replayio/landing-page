@@ -14,10 +14,8 @@
 }
 
 .controls {
-  height: 100%;
   position: fixed;
   display: flex;
-  flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
   right: 0;
@@ -28,6 +26,26 @@
   transition: opacity var(--duration-fast) linear;
   pointer-events: none;
 
+  &.horizontal {
+    width: 100%;
+    flex-direction: row;
+    .timeline {
+      width: 35vh;
+      height: 26px;
+      right: 36px;
+    }
+  }
+
+  &.vertical {
+    height: 100%;
+    flex-direction: column;
+
+    .timeline {
+      height: 35vh;
+      width: 54px;
+    }
+  }
+
   @include space-y(24px);
 
   &.active {
@@ -37,17 +55,8 @@
 
   .timeline {
     position: relative;
-    height: 35vh;
-    width: 54px;
     display: flex;
     justify-content: center;
-    // mask-image: linear-gradient(
-    //   to bottom,
-    //   transparent 0%,
-    //   white 10%,
-    //   white 90%,
-    //   transparent 100%
-    // );
 
     &::before,
     &::after {

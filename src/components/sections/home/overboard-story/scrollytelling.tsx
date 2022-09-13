@@ -197,6 +197,8 @@ const ScrollytellingControls: FC<{
   const skipTextTimeline = useRef<GSAPTimeline>()
   const buttonRef = useRef<HTMLButtonElement>(null)
   const progressBarRef = useRef<ProgressAPI>(null)
+  const { width, height } = useViewportSize()
+  const orientation = width / height > 1.8 ? 'vertical' : 'horizontal'
 
   useEffect(() => {
     const target = gsap.utils.selector(buttonRef.current)('.text')
@@ -284,12 +286,18 @@ const ScrollytellingControls: FC<{
   }, [scrollToLabel])
 
   return (
-    <div className={clsx(s['controls'], { [s['active']]: active })}>
+    <div
+      className={clsx(s['controls'], {
+        [s['active']]: active,
+        [s['horizontal']]: orientation === 'horizontal',
+        [s['vertical']]: orientation === 'vertical'
+      })}
+    >
       <div className={s['timeline']}>
         <ProgressBar
           animated={false}
           progress={50}
-          direction="vertical"
+          direction={orientation}
           secondaryColor="#C8C8C8"
           primaryColor="#464646"
           markerColor="#C8C8C8"
