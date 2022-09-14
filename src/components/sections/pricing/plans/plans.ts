@@ -54,7 +54,7 @@ export const plans = [
       },
       {
         title: 'Create recordings programmatically',
-        description: `Record Node scripts and Playwright and Puppeteer tests in CI with API Keys. With Replay, you can record the flakey test once and debug it directly.`
+        description: `Record Node scripts and Playwright and Puppeteer tests in CI with API Keys. With Replay, you can record the flaky test once and debug it directly.`
       },
       {
         title: 'Open source communities',
@@ -66,7 +66,7 @@ export const plans = [
     type: 'Organization',
     icon: organization,
     description:
-      'The organization plan offers additional controls around access to Replay and how replays are recorded.',
+      'Organization includes Team workspaces with additional controls around access and recordings, SSO / SAML integration and Enterprise Security features.',
     cta: 'Create Organization',
     link: 'https://app.replay.io/org/new',
     content: [
@@ -81,8 +81,18 @@ export const plans = [
         }
       },
       {
+        title: 'Multiple Teams',
+        description:
+          'Create multiple teams for different workflows, environments and teams within your Organization. We set an Org-wide cap at 10k recordings / month and up to 100 users / developers.'
+      },
+      {
+        title: 'Test Suites',
+        description:
+          'We offer custom integrations with your e2e test runner and CI/CD pipeline e.g. Playwright, Cypress. Add Replay to CI, upload Replay for test failures to record and debug flaky tests. '
+      },
+      {
         title: 'Single sign on authentication',
-        description: `Replay handles authentication with Google SSO by default. Additional identity providers and authentication protocols of your choice are available.`
+        description: `Replay handles authentication with Google SSO by default. Additional identity providers and authentication protocols of your choice are available e.g Okta.`
       }
     ]
   },
@@ -90,7 +100,7 @@ export const plans = [
     type: 'Enterprise',
     icon: enterprise,
     description:
-      'The organization plan offers additional controls around access to Replay and how replays are recorded.',
+      'The enterprise plan offers additional controls around how Replays are managed, how they are recorded, and how they are stored. We also happy to discuss additional customizations around security, platform support, and debugging functionality.',
     cta: 'Email Us',
     link: 'mailto:sales@replay.io',
     content: [
@@ -101,6 +111,11 @@ export const plans = [
       {
         title: 'Support',
         description: `Access to dedicated support and a 99.9% uptime commitment for all scheduled availability.`
+      },
+      {
+        title: 'Custom integrations',
+        description:
+          'Integrate Replay into your existing bug reporting, CI/CD, and development workflows. e.g. Jira, Jenkins, Selenium, Sentry, NextJS'
       }
     ]
   }

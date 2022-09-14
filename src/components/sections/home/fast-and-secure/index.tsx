@@ -22,19 +22,9 @@ import {
 
 const categories = [
   {
-    title: 'Browsers',
-    key: 'browsers',
-    content: browsers
-  },
-  {
     title: 'Security',
     key: 'security',
     content: security
-  },
-  {
-    title: 'Runtimes',
-    key: 'runtimes',
-    content: runtimes
   },
   {
     title: 'Platforms',
@@ -45,6 +35,16 @@ const categories = [
     title: 'Test Runners',
     key: 'test-runners',
     content: testRunners
+  },
+  {
+    title: 'Browsers',
+    key: 'browsers',
+    content: browsers
+  },
+  {
+    title: 'Runtimes',
+    key: 'runtimes',
+    content: runtimes
   }
 ]
 

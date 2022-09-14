@@ -4,11 +4,11 @@ import Image from 'next/future/image'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useMemo, useRef } from 'react'
 
+import { DownloadButton } from '~/components/common/download-button'
 import { Heading } from '~/components/common/heading'
 import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
 import { Discord, Linkedin, Twitter } from '~/components/icons/social'
 import { ButtonLink } from '~/components/primitives/button'
-import { Input } from '~/components/primitives/input'
 import { Link } from '~/components/primitives/link'
 import { IsoLogo } from '~/components/primitives/logo'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -200,14 +200,16 @@ export const Footer: FC = () => {
 
           <div className={s['middle']}>
             <div className={s['get-in-touch']}>
-              <h4 id="footer-get-in-touch" className={s['title']}>
-                Get in touch
+              <h4 className={s['title']}>
+                Replay is free for individuals because everyone should be able
+                to time travel.
               </h4>
-              <Input
-                aria-labelledby="footer-get-in-touch"
-                placeholder="Enter your email address"
-                className={s['email']}
-              />
+              <div className={s['button-container']}>
+                <DownloadButton
+                  variant="tertiary"
+                  title="Record your first replay"
+                />
+              </div>
             </div>
             <div className={s['nav']}>
               {Object.entries(links).map(([key, items]) => (
