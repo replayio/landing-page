@@ -16,7 +16,7 @@ const availablePlatforms = {
   mac: {
     label: 'Mac',
     imageSource: '/images/logos/apple.svg',
-    downloadSource: '/downloads/replay.zip'
+    downloadSource: '/downloads/replay.dmg'
   },
   linux: {
     label: 'Linux',
