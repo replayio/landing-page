@@ -7,7 +7,6 @@ import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import { ProgressMarker } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { ButtonLink } from '~/components/primitives/button'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
@@ -64,11 +63,9 @@ export const Hero: FC = () => {
               <OnRenderFadeIn animateTranslate={false}>
                 <div className={s['hero-cta']}>
                   <DownloadButton />
-                  <ButtonLink
-                    variant="tertiary"
-                    href="#scrollytelling-spacer"
-                    onClick={(event) => {
-                      event.preventDefault()
+                  <button
+                    className={s['scroll-to']}
+                    onClick={() => {
                       gsap.to(window, {
                         scrollTo: 600,
                         duration: 1,
@@ -76,8 +73,22 @@ export const Hero: FC = () => {
                       })
                     }}
                   >
-                    Scroll to start time-traveling
-                  </ButtonLink>
+                    <span>Scroll to experience Replay</span>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18 9L12.5 14.5L7 9"
+                        stroke="var(--color-pink-crayon)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </button>
                 </div>
               </OnRenderFadeIn>
             </div>
