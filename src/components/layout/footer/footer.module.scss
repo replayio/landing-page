@@ -118,6 +118,7 @@
         @include space-y(16px);
 
         .title {
+          text-transform: capitalize;
           font-weight: 700;
           font-size: 18px;
         }
