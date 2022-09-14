@@ -27,13 +27,14 @@
   pointer-events: none;
 
   &.horizontal {
+    @include space-x(56px);
+
     width: 100%;
     flex-direction: row;
 
     .timeline {
       width: 35vh;
       height: 26px;
-      right: 36px;
 
       &::before,
       &::after {
@@ -56,12 +57,14 @@
   }
 
   &.vertical {
+    @include space-y(56px);
+
     height: 100%;
     flex-direction: column;
 
     .timeline {
-      height: 35vh;
-      min-height: 320px;
+      height: 25vh;
+      min-height: 240px;
       width: 54px;
 
       &::before,
@@ -84,8 +87,6 @@
     }
   }
 
-  @include space-y(24px);
-
   &.active {
     pointer-events: all;
     opacity: 1;
@@ -95,9 +96,11 @@
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     &::before,
     &::after {
+      display: none;
       content: '';
       z-index: var(--z-index-10);
       transition: opacity var(--duration-fast) linear;
@@ -107,28 +110,15 @@
     }
   }
 
-  .skip-scrollytelling {
-    transition: padding var(--duration-moderate) ease-out;
-    padding: 18px !important;
-    min-width: unset !important;
-    box-shadow: 0 0 16px 8px #00000020;
-
-    &:hover {
-      padding: 18px 24px !important;
-    }
-
-    .text {
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      overflow: hidden;
-      line-height: 1;
-
-      .inner {
-        display: block;
-        padding-right: 8px;
-      }
-    }
+  .skip {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    background-color: white;
+    border: 1px solid #c8c8c8;
+    border-radius: 100%;
+    position: relative;
+    z-index: var(--z-index-10);
   }
 }
 
