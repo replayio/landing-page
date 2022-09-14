@@ -31,7 +31,6 @@ export type GetLayoutFn<P = Record<string, unknown>> = (
 ) => React.ReactNode
 
 const App = ({ Component, pageProps, ...rest }: AppProps) => {
-  console.log(`GA ???`, { gaTrackingId })
   if (gaTrackingId) useAppGA()
 
   React.useEffect(() => {
