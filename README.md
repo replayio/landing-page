@@ -1,19 +1,10 @@
-# next-typescript
+# Replay Landing Page
 
-The objective of this boilerplate is to set up everything the developer will need (in terms of configuration) to start a next + typescript project. Eslint, prettier and husky are configured to work independent of the user's IDE configuration (as long as it's vscode).
+![cover](https://replay.io/images/bugslayer.jpeg)
 
-![typescript](https://user-images.githubusercontent.com/13522179/174338949-b3ca8cd7-a7be-4fc2-8845-7e2c2f44a3b3.png)
+Welcome to BugSlayer -- Replay's official landing page. We teamed up with our friends from Basement to create the craziest GSAP based scrolly-telling hero we've ever seen.
 
-
-## Featured Aspects of the Stack
-
-- [TypeScript](https://www.typescriptlang.org/)
-- [Next.js](https://nextjs.org/)
-
-## Things to Note
-
-- It comes with Inter (it's better to host fonts here rather than getting them from google fonts).
-- Pages, components, etc... are located under `/src`. If you are changing this, be sure to also update `tsconfig.json`'s `baseUrl`.
+Here's a [replay](https://app.replay.io/recording/cannot-purchase-bugslayer--76c9f375-ccc9-4af9-a431-6e69e5f6e053) of the experience. We hope you enjoy!
 
 ## Get Started
 
