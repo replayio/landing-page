@@ -2,7 +2,7 @@
 @import 'css/helpers';
 
 .scroll-to {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   color: var(--color-pink-crayon);
@@ -13,6 +13,12 @@
 
   svg {
     animation: bounce 2s infinite;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .scroll-to {
+    display: flex;
   }
 }
 
