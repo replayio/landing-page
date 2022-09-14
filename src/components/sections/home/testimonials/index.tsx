@@ -9,12 +9,17 @@ import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
 import { useGsapTime } from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
+import abramov from '~/public/images/home/abramov.jpg'
+import rauchg from '~/public/images/home/rauch.jpg'
+import khourshid from '~/public/images/shoutouts/khourshid.jpg'
+import kirschner from '~/public/images/shoutouts/kirschner.jpg'
+import yang from '~/public/images/shoutouts/yang.jpg'
 
 import s from './testimonials.module.scss'
 
 const testimonials = [
   {
-    picture: '/images/home/rauch.jpg',
+    picture: rauchg,
     name: 'Guillermo Rauch',
     company: {
       name: 'Vercel',
@@ -25,7 +30,7 @@ const testimonials = [
       "“It's a well known fact that engineers want high quality bug reports, with extensive details...”"
   },
   {
-    picture: '/images/home/abramov.jpg',
+    picture: abramov,
     name: 'Dan Abramov',
     company: {
       name: 'React',
@@ -35,7 +40,7 @@ const testimonials = [
     quote: '“Replay.io is galaxy brain tooling. Real gamechanger.”'
   },
   {
-    picture: '/images/shoutouts/khourshid.jpg',
+    picture: khourshid,
     name: 'David Khourshid',
     company: {
       name: 'Stately.ai',
@@ -45,9 +50,8 @@ const testimonials = [
     quote:
       '“Replay.io is the obvious next step for the future of collaborative debugging applications...”'
   },
-
   {
-    picture: '/images/shoutouts/yang.jpg',
+    picture: yang,
     name: 'Jean Yang',
     company: {
       name: 'Akita Software',
@@ -58,7 +62,7 @@ const testimonials = [
       '“Awesome to see time-travel debugging in such a usable, intuitive form!”'
   },
   {
-    picture: '/images/shoutouts/kirschner.jpg',
+    picture: kirschner,
     name: 'Harald Kirschner',
     company: {
       name: 'VS Code',
@@ -164,6 +168,7 @@ export const Testimonials: FC = () => {
                     height={64}
                     src={picture}
                     quality={100}
+                    placeholder="blur"
                     alt={`${name} picture`}
                   />
                 </div>

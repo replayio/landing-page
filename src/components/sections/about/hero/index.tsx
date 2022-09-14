@@ -94,7 +94,11 @@ export const Hero: FC = () => {
           <HeadingSet
             disabled={activeHeading !== 0}
             className={s['feature']}
-            image={future}
+            image={{
+              src: future,
+              alt: 'The replay team chatting',
+              placeholder: 'blur'
+            }}
             title="Replay in the future"
             description={
               <>
@@ -122,7 +126,11 @@ export const Hero: FC = () => {
             disabled={activeHeading !== 1}
             className={s['feature']}
             title="Replay here and now"
-            image={now}
+            image={{
+              src: now,
+              alt: 'The replay team chatting',
+              placeholder: 'blur'
+            }}
             description={
               <>
                 <p>

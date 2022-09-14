@@ -10,6 +10,9 @@ import { Button, ButtonLink } from '~/components/primitives/button'
 import { Link } from '~/components/primitives/link'
 import { useMedia } from '~/hooks/use-media'
 import { breakpoints } from '~/lib/constants'
+import glideBannerImage from '~/public/images/home/glide-highlight-image.png'
+import pantheonImage from '~/public/images/home/pantheon-highlight-image.png'
+import tableCheckImage from '~/public/images/home/tablecheck-highlight-image.png'
 import codeSandboxSvg from '~/public/images/logos/code-sandbox.svg'
 import dynaboardSvg from '~/public/images/logos/dynaboard.svg'
 import excalidrawSvg from '~/public/images/logos/excalidraw.svg'
@@ -26,21 +29,21 @@ const highlightedLogos = [
     title: 'GlideApps.com',
     description:
       "Glide's mission is to put the power, beauty, and magic of software development into the hands of a billion new creators.",
-    image: '/images/home/glide-highlight-image.png',
+    image: glideBannerImage,
     href: 'https://replay.io/glide'
   },
   {
     title: 'TableCheck',
     description:
       "Discover and book the best venues in Japan. Whether you're looking for a quick bite or fine dining, TableCheck has you covered.",
-    image: '/images/home/tablecheck-highlight-image.png',
+    image: tableCheckImage,
     href: 'https://replay.io/tablecheck'
   },
   {
     title: 'Pantheon',
     description:
       "Pantheon's WebOps Platform improves productivity to drive down the cost of making changes to your Drupal and WordPress websites.",
-    image: '/images/home/pantheon-highlight-image.png',
+    image: pantheonImage,
     href: 'https://replay.io/pantheon'
   }
 ]
@@ -115,6 +118,7 @@ export const TrustedBy: FC = () => {
                   width={530}
                   height={310}
                   src={logo.image}
+                  placeholder="blur"
                   alt={logo.title}
                   quality={100}
                 />
