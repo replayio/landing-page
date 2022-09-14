@@ -165,7 +165,7 @@ export const FastAndSecure: FC = () => {
         className={s['tabs']}
         contentClassName={s['tabs-content']}
         tabListProps={{ className: clsx(s['tabs-list'], 'container') }}
-        defaultValue="browsers"
+        defaultValue="security"
         tabs={categories.map(({ title, key }) => ({
           children: title,
           value: key
