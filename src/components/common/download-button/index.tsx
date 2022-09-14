@@ -24,6 +24,7 @@ const availablePlatforms = {
     downloadSource: '/downloads/linux-replay.tar.bz2'
   }
 }
+
 const getPlatform = () => {
   if (isServer) return 'mac'
 
