@@ -67,10 +67,8 @@ export const GAScripts = () => {
 export const useAppGA = () => {
   const router = useRouter()
 
-  console.log(`GA!!!`)
   React.useEffect(() => {
     const handleRouteChange = (url: string) => {
-      console.log(`GA!!! 2`, url)
       pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouteChange)
