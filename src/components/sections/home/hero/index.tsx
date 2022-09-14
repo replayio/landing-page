@@ -56,8 +56,8 @@ export const Hero: FC = () => {
 
               <p>
                 More than a video. Replay lets you jump to any point in
-                execution, add Console logs on the fly, and squash bugs as a
-                team.
+                execution, add&nbsp;Console logs on the fly, and squash bugs as
+                a team.
               </p>
 
               <OnRenderFadeIn animateTranslate={false}>
