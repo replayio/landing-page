@@ -38,14 +38,24 @@ export function OverboardStory() {
               <OnRenderFadeIn>
                 {(animationEnded: boolean) => {
                   return (
-                    <video
-                      style={{ borderRadius: 12, zIndex: 10 }}
-                      muted
-                      playsInline
-                      src={animationEnded ? '/video/hero-video.mp4' : undefined}
-                      controls
-                      poster="/video/hero-video-thumbnail.png"
-                    />
+                    <AspectBox
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                      ratio={1593 / 1080}
+                    >
+                      <video
+                        style={{ borderRadius: 12, zIndex: 10 }}
+                        muted
+                        playsInline
+                        src={
+                          animationEnded ? '/video/hero-video.mp4' : undefined
+                        }
+                        controls
+                        poster="/video/hero-video-thumbnail.png"
+                      />
+                    </AspectBox>
                   )
                 }}
               </OnRenderFadeIn>

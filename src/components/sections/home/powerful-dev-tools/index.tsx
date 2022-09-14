@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import Image from 'next/future/image'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
+import { AspectBox } from '~/components/common/aspect-box'
 import { Bubble } from '~/components/common/bubble-popup'
 import { DownloadButton } from '~/components/common/download-button'
 import { HeadingSet } from '~/components/common/heading-set'
@@ -71,22 +72,26 @@ const VideoAsset: FC<JSX.IntrinsicElements['video'] & { active: boolean }> = ({
   }, [active])
 
   return (
-    <video
-      onClick={() => setShowControls(true)}
-      style={{
-        opacity: active ? 1 : 0,
-        zIndex: active ? 10 : 0,
-        pointerEvents: active ? 'all' : 'none',
-        position: 'relative'
-      }}
-      controls={showControls}
-      muted
-      loop
-      playsInline
-      autoPlay
-      {...rest}
-      ref={videoRef}
-    />
+    <AspectBox ratio={2568 / 972}>
+      <video
+        onClick={() => setShowControls(true)}
+        style={{
+          opacity: active ? 1 : 0,
+          zIndex: active ? 10 : 0,
+          pointerEvents: active ? 'all' : 'none',
+          position: 'relative',
+          width: '100%',
+          height: '100%'
+        }}
+        controls={showControls}
+        muted
+        loop
+        playsInline
+        autoPlay
+        {...rest}
+        ref={videoRef}
+      />
+    </AspectBox>
   )
 }
 
@@ -151,6 +156,7 @@ const AssetPlayer = () => {
     UseGsapTimeAPI & { seek: (percentage: string | number) => void }
   >(null)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [alreadySaw, setAlreadySaw] = useState(false)
   const [ref, { inView }] = useIntersectionObserver<HTMLDivElement>({
     triggerOnce: false
   })
@@ -202,6 +208,12 @@ const AssetPlayer = () => {
       }
     }
   }, [activeIdx])
+
+  useEffect(() => {
+    if (inView) {
+      setAlreadySaw(true)
+    }
+  }, [inView])
 
   return (
     <div className={s['asset-player']} ref={ref}>
@@ -271,7 +283,11 @@ const AssetPlayer = () => {
                 />
               ))
             : assets.map(({ video }, idx) => (
-                <VideoAsset src={video} active={activeIdx === idx} key={idx} />
+                <VideoAsset
+                  src={alreadySaw ? video : undefined}
+                  active={activeIdx === idx}
+                  key={idx}
+                />
               ))}
         </div>
       </Container>

@@ -142,7 +142,7 @@ export const OverboardStore = memo(
             className={clsx('store', s['overboard-store'], s['mode-' + mode])}
           >
             <div className={s['underlay']}>
-              <Image className={s['stars']} src={starsSvg} />
+              <Image priority className={s['stars']} src={starsSvg} />
               <AnimatedGrid ref={gridRef} />
             </div>
 
