@@ -10,8 +10,8 @@ import { ButtonLink } from '~/components/primitives/button'
 import { useGsapTime } from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import abramov from '~/public/images/home/abramov.jpg'
+import andarist from '~/public/images/shoutouts/andarist.jpg'
 import rauchg from '~/public/images/home/rauch.jpg'
-import khourshid from '~/public/images/shoutouts/khourshid.jpg'
 import kirschner from '~/public/images/shoutouts/kirschner.jpg'
 import yang from '~/public/images/shoutouts/yang.jpg'
 
@@ -40,15 +40,15 @@ const testimonials = [
     quote: '“Replay.io is galaxy brain tooling. Real gamechanger.”'
   },
   {
-    picture: khourshid,
-    name: 'David Khourshid',
+    picture: andarist,
+    name: 'Mateusz Burzyński',
     company: {
       name: 'Stately.ai',
       logo: '/images/home/stately.svg'
     },
-    position: 'Founder',
+    position: 'Software Engineer',
     quote:
-      '“Replay.io is the obvious next step for the future of collaborative debugging applications...”'
+      `What the fuck is this, is it the future? is it the past? is it now? don't care this is just freaking amazing!`
   },
   {
     picture: yang,
