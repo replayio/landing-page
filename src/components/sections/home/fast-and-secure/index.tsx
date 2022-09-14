@@ -144,14 +144,12 @@ export const FastAndSecure: FC = () => {
                   <Image
                     height={80}
                     width={80}
-                    priority
                     src={soc2}
                     alt="section background"
                   />
                   <Image
                     height={80}
                     width={80}
-                    priority
                     src={gdpr}
                     alt="section background"
                   />
