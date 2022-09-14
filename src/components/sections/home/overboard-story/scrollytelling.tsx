@@ -85,7 +85,7 @@ const TimelineLogo: FC<{ children: ReactNode; onClick?: () => void }> = ({
 const timelineMarkers = [
   {
     label: 'record',
-    position: 20,
+    position: 1,
     icon: (
       <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -107,7 +107,7 @@ const timelineMarkers = [
   },
   {
     label: 'comments',
-    position: 40,
+    position: 33,
     icon: (
       <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -122,7 +122,7 @@ const timelineMarkers = [
   },
   {
     label: 'react',
-    position: 60,
+    position: 66,
     icon: (
       <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_2873_7683)">
@@ -161,7 +161,7 @@ const timelineMarkers = [
   },
   {
     label: 'prints',
-    position: 80,
+    position: 99,
     icon: (
       <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -195,29 +195,9 @@ const ScrollytellingControls: FC<{
   timeline: MutableRefObject<GSAPTimeline | undefined>
   active?: boolean
 }> = ({ timeline, labelPositions, active = false }) => {
-  const skipTextTimeline = useRef<GSAPTimeline>()
-  const buttonRef = useRef<HTMLButtonElement>(null)
   const progressBarRef = useRef<ProgressAPI>(null)
   const { width, height } = useViewportSize()
   const orientation = width / height > 1.6 ? 'vertical' : 'horizontal'
-
-  useEffect(() => {
-    const target = gsap.utils.selector(buttonRef.current)('.text')
-
-    skipTextTimeline.current = gsap.timeline({ paused: true }).fromTo(
-      target,
-      {
-        width: 0,
-        opacity: 0
-      },
-      {
-        opacity: 1,
-        width: 'auto',
-        ease: 'power2.inOut',
-        duration: 0.25
-      }
-    )
-  }, [])
 
   useEffect(() => {
     if (!labelPositions.length) return
@@ -256,24 +236,21 @@ const ScrollytellingControls: FC<{
 
       const res = prevInternal + (_progress - prevLabelPos) * multiplier
 
-      // console.log({ res })
-
       progressBarRef.current?.update(res)
     }
   }, [labelPositions])
 
   const scrollToLabel = useCallback(
-    (label: string) => {
-      gsap.to(window, {
-        scrollTo: timeline.current?.scrollTrigger?.labelToScroll(label)
-      })
+    (label: string, offset = 0) => {
+      const targetPx = timeline.current?.scrollTrigger?.labelToScroll(label)
+
+      if (targetPx != undefined) {
+        gsap.to(window, {
+          scrollTo: targetPx + offset
+        })
+      }
     },
     [timeline]
-  )
-
-  const handleSkipScrollytelling = useCallback(
-    () => scrollToLabel('end'),
-    [scrollToLabel]
   )
 
   const markers = useMemo(() => {
@@ -296,6 +273,26 @@ const ScrollytellingControls: FC<{
         [s['vertical']]: orientation === 'vertical'
       })}
     >
+      <button
+        title="Skip to beginning"
+        className={s['skip']}
+        onClick={() => scrollToLabel('start')}
+      >
+        <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6 9.5L11.5 4L17 9.5"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M6 17L11.5 11.5L17 17"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
       <div className={s['timeline']}>
         <ProgressBar
           animated={false}
@@ -310,47 +307,26 @@ const ScrollytellingControls: FC<{
           ref={progressBarRef}
         />
       </div>
-      <Button
-        onClick={handleSkipScrollytelling}
-        className={s['skip-scrollytelling']}
-        onMouseLeave={() => {
-          skipTextTimeline.current?.reverse()
-        }}
-        onMouseOver={() => {
-          skipTextTimeline.current?.play()
-        }}
-        size="md"
-        variant="tertiary-inverted-alt"
-        rounded
-        ref={buttonRef}
+      <button
+        title="Skip to end"
+        className={s['skip']}
+        onClick={() => scrollToLabel('end', window.innerHeight / 4)}
       >
-        <span className={clsx('text', s['text'])}>
-          <span className={s['inner']}>Skip Animation</span>
-        </span>
-        <span
-          style={{
-            width: 18,
-            height: 18,
-            position: 'relative'
-          }}
-        >
-          <svg
-            style={{
-              display: 'block',
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(calc(-50% + 2px))'
-            }}
-            width="26"
-            viewBox="0 0 26 18"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M13.5214 8.14526C14.1595 8.52577 14.1595 9.47423 13.5214 9.85474L3.44062 15.8655C2.80087 16.2469 2 15.7718 2 15.0107L2 2.98927C2 2.22824 2.80087 1.75307 3.44062 2.13452L13.5214 8.14526Z" />
-            <path d="M23.5214 8.14526C24.1595 8.52577 24.1595 9.47423 23.5214 9.85474L13.4406 15.8655C12.8009 16.2469 12 15.7718 12 15.0107L12 2.98927C12 2.22824 12.8009 1.75307 13.4406 2.13452L23.5214 8.14526Z" />
-          </svg>
-        </span>
-      </Button>
+        <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17 12.5L11.5 18L6 12.5"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M17 5L11.5 10.5L6 5"
+            stroke="#464646"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
     </div>
   )
 }
