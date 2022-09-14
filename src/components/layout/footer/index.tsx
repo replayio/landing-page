@@ -161,28 +161,7 @@ export const Footer: FC = () => {
                 </Heading>
               </div>
               <div className={s['cta']}>
-                <ButtonLink
-                  aria-label="login to replay"
-                  href="https://app.replay.io/"
-                  className={s['play-button']}
-                  size="sm"
-                  noHover
-                  rounded
-                  variant="tertiary"
-                >
-                  <svg
-                    width="30"
-                    height="31"
-                    viewBox="0 0 30 31"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M21.0214 14.6453C21.6595 15.0258 21.6595 15.9742 21.0214 16.3547L10.9406 22.3655C10.3009 22.7469 9.5 22.2718 9.5 21.5107L9.5 9.48927C9.5 8.72824 10.3009 8.25307 10.9406 8.63452L21.0214 14.6453Z"
-                      fill="#F41C52"
-                    />
-                  </svg>
-                </ButtonLink>
+                <DownloadButton variant="tertiary" title="Download Replay" />
               </div>
             </div>
             <div className={s['timeline']}>
@@ -201,15 +180,10 @@ export const Footer: FC = () => {
           <div className={s['middle']}>
             <div className={s['get-in-touch']}>
               <h4 className={s['title']}>
-                Replay is free for individuals because everyone should be able
-                to time travel.
+                Time-travel debugging is the best way to see and understand
+                software. This is why Replay will always be free for
+                individuals.
               </h4>
-              <div className={s['button-container']}>
-                <DownloadButton
-                  variant="tertiary"
-                  title="Record your first replay"
-                />
-              </div>
             </div>
             <div className={s['nav']}>
               {Object.entries(links).map(([key, items]) => (

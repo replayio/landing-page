@@ -95,7 +95,8 @@
 
       .title {
         font-family: var(--font-heading);
-        font-size: 32px;
+        font-size: 18px;
+        font-weight: 700;
         max-width: 340px;
       }
 
@@ -256,11 +257,6 @@
         grid-auto-columns: minmax(0, 160px);
         grid-auto-flow: column;
         gap: 0 40px;
-      }
-
-      .get-in-touch .title {
-        font-weight: 700;
-        font-size: 18px;
       }
     }
   }
