@@ -92,15 +92,15 @@
 
     .get-in-touch {
       width: 100%;
-      max-width: 365px;
 
       .title {
         font-family: var(--font-heading);
-        font-size: 32px;
+        font-size: 18px;
+        font-weight: 700;
+        max-width: 340px;
       }
 
-      .email {
-        width: 100%;
+      .button-container {
         margin-top: 24px;
       }
     }
@@ -197,6 +197,12 @@
             width: 100%;
           }
         }
+      }
+    }
+
+    .middle {
+      .get-in-touch {
+        max-width: 385px;
       }
     }
 

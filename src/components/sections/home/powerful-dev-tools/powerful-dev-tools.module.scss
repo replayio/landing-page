@@ -75,6 +75,7 @@
       border-radius: var(--border-radius);
 
       &::before {
+        z-index: -2;
         display: none;
         content: '';
         position: absolute;
@@ -90,6 +91,7 @@
       }
 
       &::after {
+        z-index: -1;
         display: none;
         content: '';
         position: absolute;
@@ -236,11 +238,15 @@
         & > *:nth-child(2n + 1) {
           grid-row: 1;
           grid-column: 1;
+
+          --delay: 0s;
         }
 
         & > *:nth-child(2n) {
           grid-row: 1;
           grid-column: 2;
+
+          --delay: 50ms;
         }
 
         .popup {

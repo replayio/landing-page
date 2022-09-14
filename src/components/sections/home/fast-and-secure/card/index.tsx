@@ -72,7 +72,7 @@ export const Card: FC<CardProps> = ({
       lanternContainer.style.setProperty('--lantern-y', `${y}px`)
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
     }

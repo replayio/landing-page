@@ -22,19 +22,9 @@ import {
 
 const categories = [
   {
-    title: 'Browsers',
-    key: 'browsers',
-    content: browsers
-  },
-  {
     title: 'Security',
     key: 'security',
     content: security
-  },
-  {
-    title: 'Runtimes',
-    key: 'runtimes',
-    content: runtimes
   },
   {
     title: 'Platforms',
@@ -45,6 +35,16 @@ const categories = [
     title: 'Test Runners',
     key: 'test-runners',
     content: testRunners
+  },
+  {
+    title: 'Browsers',
+    key: 'browsers',
+    content: browsers
+  },
+  {
+    title: 'Runtimes',
+    key: 'runtimes',
+    content: runtimes
   }
 ]
 
@@ -144,14 +144,12 @@ export const FastAndSecure: FC = () => {
                   <Image
                     height={80}
                     width={80}
-                    priority
                     src={soc2}
                     alt="section background"
                   />
                   <Image
                     height={80}
                     width={80}
-                    priority
                     src={gdpr}
                     alt="section background"
                   />
@@ -167,7 +165,7 @@ export const FastAndSecure: FC = () => {
         className={s['tabs']}
         contentClassName={s['tabs-content']}
         tabListProps={{ className: clsx(s['tabs-list'], 'container') }}
-        defaultValue="browsers"
+        defaultValue="security"
         tabs={categories.map(({ title, key }) => ({
           children: title,
           value: key

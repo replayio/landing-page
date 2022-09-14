@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
-import { PlayIcon } from '~/components/common/play-icon'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -24,23 +23,6 @@ export function OverboardStory() {
   const { isDesktop } = useDeviceDetect()
   const { height } = useViewportSize()
 
-  // useEffect(() => {
-  //   let int
-
-  //   gsap.delayedCall(3, () => {
-  //     int = setInterval(() => {
-  //       console.log('Hi')
-  //       window.scroll({ top: window.scrollY + 2.5 })
-  //     }, 1)
-  //   })
-
-  //   return () => {
-  //     if (int) {
-  //       clearInterval(int)
-  //     }
-  //   }
-  // }, [])
-
   const canFitScrollytelling = height >= SCROLLYTELLING_MIN_HEIGHT
 
   return (
@@ -55,14 +37,24 @@ export function OverboardStory() {
               <OnRenderFadeIn>
                 {(animationEnded: boolean) => {
                   return (
-                    <video
-                      style={{ borderRadius: 12, zIndex: 10 }}
-                      muted
-                      playsInline
-                      src={animationEnded ? '/video/hero-video.mp4' : undefined}
-                      controls
-                      poster="/video/hero-video-thumbnail.png"
-                    />
+                    <AspectBox
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                      ratio={1593 / 1080}
+                    >
+                      <video
+                        style={{ borderRadius: 12, zIndex: 10 }}
+                        muted
+                        playsInline
+                        src={
+                          animationEnded ? '/video/hero-video.mp4' : undefined
+                        }
+                        controls
+                        poster="/video/hero-video-thumbnail.png"
+                      />
+                    </AspectBox>
                   )
                 }}
               </OnRenderFadeIn>
@@ -84,12 +76,22 @@ export function OverboardStory() {
             marginBottom: '-20px'
           }}
         >
+          <p
+            style={{
+              width: '360px',
+              textAlign: 'center',
+              marginBottom: '1.2rem',
+              fontStyle: 'italic'
+            }}
+          >
+            We promise this isn't vaporware. Inspect this replay in DevTools, no
+            login needed.
+          </p>
           <ButtonLink
             href="https://app.replay.io/recording/cannot-purchase-bugslayer--76c9f375-ccc9-4af9-a431-6e69e5f6e053"
             variant="tertiary-inverted-alt"
           >
-            View Overboard replay
-            <PlayIcon style={{ marginLeft: '14px' }} />
+            View original replay
           </ButtonLink>
         </div>
       )}

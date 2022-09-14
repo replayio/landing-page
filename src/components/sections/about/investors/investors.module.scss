@@ -1,0 +1,35 @@
+@import 'css/variables';
+
+.institutions {
+  display: grid;
+  grid-auto-columns: 1fr;
+  gap: 54px 24px;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+
+  > img {
+    max-width: 50vw;
+  }
+}
+
+.individuals {
+  margin-top: 56px;
+}
+
+@media (min-width: $screen-sm) {
+  .institutions {
+    margin-top: -54px;
+  }
+}
+
+@media (min-width: $screen-md) {
+  .institutions {
+    margin-top: -32px;
+    grid-auto-flow: column;
+  }
+
+  .individuals {
+    margin-top: 80px;
+  }
+}

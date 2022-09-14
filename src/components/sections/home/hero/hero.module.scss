@@ -1,6 +1,27 @@
 @import 'css/variables';
 @import 'css/helpers';
 
+.scroll-to {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-pink-crayon);
+  position: absolute;
+  left: 50%;
+  bottom: -90px;
+  transform: translateX(-50%);
+
+  svg {
+    animation: bounce 2s infinite;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .scroll-to {
+    display: flex;
+  }
+}
+
 .section {
   overflow: hidden;
 
@@ -150,7 +171,7 @@
 
         p {
           font-size: 18px;
-          max-width: 52ch;
+          max-width: 570px;
         }
 
         .desktop-paragraph {
@@ -174,5 +195,23 @@
   100% {
     transform: matrix(2, 0, 0, 2, var(--x), var(--y));
     opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-5%);
+  }
+
+  60% {
+    transform: translateY(-10%);
   }
 }

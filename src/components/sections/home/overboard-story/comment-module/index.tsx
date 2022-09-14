@@ -83,7 +83,11 @@ export const CommentModule: FC<CommentModuleProps> = ({
               >
                 <div className={s['content-inner']}>
                   <div className={s['header']}>
-                    <Image className={s['picture']} src={comment.avatar} />
+                    <Image
+                      className={s['picture']}
+                      alt="comment avatar"
+                      src={comment.avatar}
+                    />
                     <div className={s['data']}>
                       <p className={s['name']}>{comment.name}</p>
                       <div className={s['info']}>

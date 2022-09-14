@@ -91,7 +91,7 @@ export const MainFeatures: FC = () => {
                       Replay gives you the power to share what you’re seeing
                       with your team so that they can fix it fast.{' '}
                     </b>
-                    Because Replay replays the browser down to level of the
+                    Because Replay replays the browser down to the level of the
                     event loop, you no longer need to worry about including the
                     steps to reproduce in your bug report. You can simply record
                     the replay, add a couple of comments, and file the issue.

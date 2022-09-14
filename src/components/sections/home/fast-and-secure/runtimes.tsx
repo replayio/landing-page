@@ -112,7 +112,7 @@ export const platforms: Runtime[] = [
   {
     badge: 'Today',
     description: ' ',
-    icon: '/images/logos/windows.svg',
+    icon: '/images/logos/linux.svg',
     title: 'Linux'
   },
   {
