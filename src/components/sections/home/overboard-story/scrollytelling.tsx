@@ -53,7 +53,7 @@ import {
 } from './overboard-store'
 import s from './overboard-story.module.scss'
 
-let onScrollTriggerUpdate: (state: ScrollTrigger) => void
+let onScrollTriggerUpdate: (progress: number) => void
 
 const TimelineLogo: FC<{ children: ReactNode; onClick?: () => void }> = ({
   children,
@@ -244,18 +244,20 @@ const ScrollytellingControls: FC<{
       }
     }
 
-    onScrollTriggerUpdate = (state: ScrollTrigger) => {
-      const progress = state.progress * 100
+    onScrollTriggerUpdate = (progress: number) => {
+      const _progress = progress * 100
       /* 
         This is here bc labels are placed not proportionally, but
         we need to show proportional spaced markers on the UI
       */
       const { prevInternal, prevLabelPos, multiplier } =
-        getCurrentMultiplier(progress)
+        getCurrentMultiplier(_progress)
 
-      const res = (progress - prevLabelPos) * multiplier
+      const res = prevInternal + (_progress - prevLabelPos) * multiplier
 
-      progressBarRef.current?.update(prevInternal + res)
+      // console.log({ res })
+
+      progressBarRef.current?.update(res)
     }
   }, [labelPositions])
 
@@ -801,6 +803,18 @@ export default function ReplayApplication() {
     const pinSpacer = document.getElementById('scrollytelling-spacer')
     gsap.set(pinSpacer, { height: SCROLLYTELLING_PX_DURATION })
 
+    const scrollyTellingEndPx = Math.floor(
+      /*
+        We have to calculate this bc the end of the scroll trigger is
+        when the bottom of the app touches the end of the spacer.
+      */
+      SCROLLYTELLING_PX_DURATION + // Pin spacer length
+        pinTargetSpaceTop - // Add space from pin to top
+        pinTargetHeight - // Remove the pin target height
+        applicationWindowSpaceBottom * 2 - // Remove top/bottom space
+        1 // Remove the pixel that we skip on ScrollTrigger start
+    )
+
     const timeline = gsap.timeline({
       smoothChildTiming: true,
       defaults: {
@@ -825,8 +839,12 @@ export default function ReplayApplication() {
         preventOverlaps: true,
         scrub: true,
         trigger: 'body',
-        onUpdate: (state) => {
-          onScrollTriggerUpdate?.(state)
+        onUpdate: () => {
+          /*
+            We are avoiding using timeline progress bc label positions are not accurate 🤷🏼‍♂️.
+            we are using scroll-top pixels & pixel values returned by labelToScroll() func.
+           */
+          onScrollTriggerUpdate?.(window.scrollY / scrollyTellingEndPx)
         },
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
@@ -842,6 +860,7 @@ export default function ReplayApplication() {
     const printTimelineProgress = { progress: 0 }
 
     timeline
+      .addLabel('start')
       .to(sectionRef.current, {
         yPercent: percentage,
         duration: 3,
@@ -861,7 +880,7 @@ export default function ReplayApplication() {
           opacity: 1,
           duration: 0.5
         },
-        '<'
+        '>'
       )
       .addLabel('record')
       .add(() => {
@@ -1071,6 +1090,7 @@ export default function ReplayApplication() {
 
       /* Devtools */
       .add(flipTimeline2 as GSAPTimeline)
+      .addLabel('react', '>')
       .to(
         devtoolsToolsComments,
         {
@@ -1100,7 +1120,6 @@ export default function ReplayApplication() {
         },
         '<'
       )
-      .addLabel('react')
       .call(() => {
         setHoveredComponentBlockId(null)
         setActiveComponent(null)
@@ -1347,9 +1366,12 @@ export default function ReplayApplication() {
     timelineRef.current = timeline
 
     const markerLabels = ['record', 'comments', 'react', 'prints']
-    const markerLabelPositions = markerLabels.map((l) => {
-      return timeline.labels[l]
-    })
+    const markerLabelPositions = markerLabels.map(
+      (l) =>
+        (Math.floor(timeline.scrollTrigger?.labelToScroll(l) || 0) /
+          scrollyTellingEndPx) *
+        100
+    )
 
     setMainLabelPositions(markerLabelPositions)
 

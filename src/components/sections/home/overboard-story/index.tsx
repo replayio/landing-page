@@ -24,23 +24,6 @@ export function OverboardStory() {
   const { isDesktop } = useDeviceDetect()
   const { height } = useViewportSize()
 
-  // useEffect(() => {
-  //   let int
-
-  //   gsap.delayedCall(3, () => {
-  //     int = setInterval(() => {
-  //       console.log('Hi')
-  //       window.scroll({ top: window.scrollY + 2.5 })
-  //     }, 1)
-  //   })
-
-  //   return () => {
-  //     if (int) {
-  //       clearInterval(int)
-  //     }
-  //   }
-  // }, [])
-
   const canFitScrollytelling = height >= SCROLLYTELLING_MIN_HEIGHT
 
   return (
