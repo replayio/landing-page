@@ -36,7 +36,7 @@ export const Work: FC = () => {
       <Container className={s.container}>
         <div>
           <div className={s['work-item']}>
-            <Image src={codeImg} alt="" />
+            <Image src={codeImg} alt="Code icon" />
             <h2>The code behind our code</h2>
             <p>
               Integrity, honesty, and decency. Our principles are not
@@ -52,7 +52,7 @@ export const Work: FC = () => {
             </ButtonLink>
           </div>
           <div className={s['work-item']}>
-            <Image src={valuesImg} alt="" />
+            <Image src={valuesImg} alt="Values icon" />
             <h2>Embedded values</h2>
             <p>
               Our values anchor our aspirations and drive us forward.
@@ -73,7 +73,7 @@ export const Work: FC = () => {
         </div>
         <div id="jobs" className={s['work-item-jobs']}>
           <div>
-            <Image src={journeyImg} alt="" />
+            <Image src={journeyImg} alt="Journey icon" />
             <h2>Join our journey</h2>
             <p>
               Excited by what we are doing? Think you’d be a good match?
@@ -100,7 +100,7 @@ export const Work: FC = () => {
                   <Link unstyled href={href}>
                     <span>{title}</span>
                     <span>{skills}</span>
-                    <Image src={arrow} alt="" />
+                    <Image src={arrow} alt="go to link arrow" />
                   </Link>
                 </li>
               ))}

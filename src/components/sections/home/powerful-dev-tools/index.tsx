@@ -271,7 +271,7 @@ const AssetPlayer = () => {
                       variant
                     >
                       <div>
-                        <Image src={pauseSVG} />
+                        <Image alt="pause icon" src={pauseSVG} />
                         <p>Paused Timeline</p>
                       </div>
                       <p className={s['info']}>{text}</p>

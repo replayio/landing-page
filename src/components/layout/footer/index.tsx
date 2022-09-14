@@ -146,7 +146,7 @@ export const Footer: FC = () => {
       })}
     >
       <div className={s['bg']}>
-        <Image src={footerBgSvg} alt="" />
+        <Image src={footerBgSvg} alt="footer bg" />
       </div>
       <Container size="lg">
         <div className={s['footer']} ref={sectionRef}>

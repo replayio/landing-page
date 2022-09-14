@@ -1550,12 +1550,14 @@ export default function ReplayApplication() {
                   </div>
                   <div className={s['users']}>
                     <Image
+                      alt="user avatar"
                       width={32}
                       height={32}
                       className="user"
                       src={avatarTwo.src}
                     />
                     <Image
+                      alt="user avatar"
                       width={32}
                       height={32}
                       className="user"
