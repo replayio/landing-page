@@ -49,8 +49,8 @@ export function DownloadButton({
 
   const { isDesktop } = useDeviceDetect()
 
-  if (!isDesktop && rendered) {
-    return null
+  if (!isDesktop || !rendered) {
+    return <></>
   }
 
   return (
