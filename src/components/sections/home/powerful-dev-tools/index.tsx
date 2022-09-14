@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import Image from 'next/future/image'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
@@ -17,7 +18,25 @@ import { breakpoints } from '~/lib/constants'
 import pauseSVG from '~/public/images/home/pause.svg'
 
 import s from './powerful-dev-tools.module.scss'
-import { Scene1, Scene2, Scene3, Scene4, Scene5, Scene6 } from './scenes'
+
+const Scene1 = dynamic(() => import('./scenes').then((m) => m.Scene1), {
+  ssr: false
+})
+const Scene2 = dynamic(() => import('./scenes').then((m) => m.Scene2), {
+  ssr: false
+})
+const Scene3 = dynamic(() => import('./scenes').then((m) => m.Scene3), {
+  ssr: false
+})
+const Scene4 = dynamic(() => import('./scenes').then((m) => m.Scene4), {
+  ssr: false
+})
+const Scene5 = dynamic(() => import('./scenes').then((m) => m.Scene5), {
+  ssr: false
+})
+const Scene6 = dynamic(() => import('./scenes').then((m) => m.Scene6), {
+  ssr: false
+})
 
 type AssetChunkProps = {
   assets: {
@@ -101,7 +120,6 @@ const VideoAsset: FC<JSX.IntrinsicElements['video'] & { active: boolean }> = ({
 const assets = [
   {
     title: 'Print Statements',
-
     description:
       'Add print statements and view the logs immediately in the Console.',
     video: '/video/01-print-statements.mp4',
