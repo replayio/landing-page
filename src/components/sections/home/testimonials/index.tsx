@@ -31,7 +31,7 @@ const testimonials = [
       name: 'React',
       logo: '/images/home/react.svg'
     },
-    position: 'Mantainer',
+    position: 'Maintainer',
     quote: '“Replay.io is galaxy brain tooling. Real gamechanger.”'
   },
   {
