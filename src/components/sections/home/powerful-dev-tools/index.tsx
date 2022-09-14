@@ -19,21 +19,27 @@ import pauseSVG from '~/public/images/home/pause.svg'
 
 import s from './powerful-dev-tools.module.scss'
 
+// @ts-ignore
 const Scene1 = dynamic(() => import('./scenes').then((m) => m.Scene1), {
   ssr: false
 })
+// @ts-ignore
 const Scene2 = dynamic(() => import('./scenes').then((m) => m.Scene2), {
   ssr: false
 })
+// @ts-ignore
 const Scene3 = dynamic(() => import('./scenes').then((m) => m.Scene3), {
   ssr: false
 })
+// @ts-ignore
 const Scene4 = dynamic(() => import('./scenes').then((m) => m.Scene4), {
   ssr: false
 })
+// @ts-ignore
 const Scene5 = dynamic(() => import('./scenes').then((m) => m.Scene5), {
   ssr: false
 })
+// @ts-ignore
 const Scene6 = dynamic(() => import('./scenes').then((m) => m.Scene6), {
   ssr: false
 })
