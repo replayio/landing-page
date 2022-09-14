@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Image from 'next/future/image'
 
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -67,11 +68,12 @@ export function DownloadButton({
         download
       >
         {title}{' '}
-        <img
+        <Image
+          width={20}
+          height={20}
           alt={platform.label}
           src={platform.imageSource}
           style={{
-            height: 20,
             marginLeft: 8,
             filter: variant === 'primary' ? 'invert(100%)' : undefined
           }}

@@ -63,7 +63,11 @@ const VideoAsset: FC<JSX.IntrinsicElements['video'] & { active: boolean }> = ({
     const videoElm = videoRef.current
 
     if (active) {
-      videoElm.play()
+      try {
+        videoElm.play()
+      } catch {
+        /* Not needed */
+      }
       setShowControls(false)
     } else {
       videoElm.pause()

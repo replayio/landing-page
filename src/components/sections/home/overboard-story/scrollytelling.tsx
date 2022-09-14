@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { Elastic } from 'gsap'
 import { clearProps, DURATION, Flip, gsap, SplitText } from 'lib/gsap'
 import get from 'lodash/get'
+import Image from 'next/future/image'
 import {
   FC,
   forwardRef,
@@ -1548,8 +1549,18 @@ export default function ReplayApplication() {
                     <IsoLogo className={s['logo']} />
                   </div>
                   <div className={s['users']}>
-                    <img className="user" src={avatarTwo.src} />
-                    <img className="user" src={avatarOne.src} />
+                    <Image
+                      width={32}
+                      height={32}
+                      className="user"
+                      src={avatarTwo.src}
+                    />
+                    <Image
+                      width={32}
+                      height={32}
+                      className="user"
+                      src={avatarOne.src}
+                    />
                   </div>
                   <ViewToggle ref={viewToggleRef} />
                 </div>
