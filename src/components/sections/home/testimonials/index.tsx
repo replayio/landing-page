@@ -13,6 +13,7 @@ import abramov from '~/public/images/home/abramov.jpg'
 import andarist from '~/public/images/shoutouts/andarist.jpg'
 import rauchg from '~/public/images/home/rauch.jpg'
 import kirschner from '~/public/images/shoutouts/kirschner.jpg'
+import khourshid from '~/public/images/shoutouts/khourshid.jpg'
 import yang from '~/public/images/shoutouts/yang.jpg'
 
 import s from './testimonials.module.scss'
@@ -40,15 +41,15 @@ const testimonials = [
     quote: '“Replay.io is galaxy brain tooling. Real gamechanger.”'
   },
   {
-    picture: andarist,
-    name: 'Mateusz Burzyński',
+    picture: khourshid,
+    name: 'David Khourshid',
     company: {
       name: 'Stately.ai',
       logo: '/images/home/stately.svg'
     },
-    position: 'Software Engineer',
+    position: 'Founder',
     quote:
-      `What the fuck is this, is it the future? is it the past? is it now? don't care this is just freaking amazing!`
+      '“Replay.io is the obvious next step for the future of collaborative debugging applications...”'
   },
   {
     picture: yang,
@@ -71,6 +72,17 @@ const testimonials = [
     position: 'Product Manager',
     quote:
       '“Replay first feels like magic, but you quickly wonder how you ever worked without it.”'
+  },
+  {
+    picture: andarist,
+    name: 'Mateusz Burzyński',
+    company: {
+      name: 'Stately.ai',
+      logo: '/images/home/stately.svg'
+    },
+    position: 'Software Engineer',
+    quote:
+      `What the fuck is this, is it the future? is it the past? is it now? don't care this is just freaking amazing!`
   }
 ]
 
