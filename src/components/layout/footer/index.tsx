@@ -49,7 +49,7 @@ const links = {
     },
     {
       label: 'Contact Us',
-      href: 'mailto:sales@replay.io'
+      href: 'mailto:hey@replay.io'
     }
   ],
   legal: [
