@@ -48,7 +48,6 @@ export const event = ({
 export const GAScripts = () => {
   return (
     <>
-      <link rel="preconnect" href="https://www.googletagmanager.com" />
       <Script
         strategy="afterInteractive"
         async
