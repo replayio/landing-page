@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
-import { PlayIcon } from '~/components/common/play-icon'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
