@@ -1,6 +1,13 @@
 import clsx from 'clsx'
 import { Elastic } from 'gsap'
-import { clearProps, DURATION, Flip, gsap, SplitText } from 'lib/gsap'
+import {
+  clearProps,
+  DURATION,
+  Flip,
+  gsap,
+  ScrollTrigger,
+  SplitText
+} from 'lib/gsap'
 import get from 'lodash/get'
 import Image from 'next/future/image'
 import {
@@ -778,7 +785,12 @@ export default function ReplayApplication() {
 
     /* Set the spacer height */
     const pinSpacer = document.getElementById('scrollytelling-spacer')
-    gsap.set(pinSpacer, { height: SCROLLYTELLING_PX_DURATION })
+    gsap.set(pinSpacer, {
+      height: SCROLLYTELLING_PX_DURATION,
+      onComplete: () => {
+        ScrollTrigger.refresh()
+      }
+    })
 
     const scrollyTellingEndPx = Math.floor(
       /*
