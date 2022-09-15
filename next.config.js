@@ -145,6 +145,16 @@ const config = {
         destination:
           'https://docs.replay.io/docs/case-studies-and-comparisons-3bd958ab68234ae697cdac5904bbc36e',
         permanent: true
+      },
+      {
+        source: '/terms-of-use',
+        destination: 'https://www.replay.io/terms-of-service',
+        permanent: true
+      },
+      {
+        source: '/security-privacy',
+        destination: 'https://www.replay.io/privacy-policy',
+        permanent: true
       }
     ]
   },
