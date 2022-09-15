@@ -18,7 +18,7 @@ class MyDocument extends Document {
         <Head>
           <link
             rel="preload"
-            href="/fonts/inter/Inter-roman.var.woff2"
+            href="/fonts/inter/Inter-Regular.woff2"
             as="font"
             crossOrigin="anonymous"
           />
