@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import throttle from 'lodash/throttle'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import Burger from '~/components/icons/burger'
 import { Button, ButtonLink } from '~/components/primitives/button'
@@ -86,6 +86,18 @@ export const Header = () => {
     }
   }, [hasScrolled])
 
+  const handleLogoClick: React.MouseEventHandler<HTMLAnchorElement> =
+    useCallback((e) => {
+      if (window.location.pathname === '/') {
+        e.preventDefault()
+        window?.scroll({
+          left: window.scrollX,
+          top: 0,
+          behavior: 'smooth'
+        })
+      }
+    }, [])
+
   useEffect(() => {
     const selector = gsap.utils.selector(menuRef.current)
     const menuInner = selector(`.${s['menu-inner']}`)
@@ -138,7 +150,7 @@ export const Header = () => {
       <Container size="md">
         <div className={s['inner-mobile']} ref={headerMobileRef}>
           <div className={s['mobile-wrapper']}>
-            <Link href="/" aria-label="Go Home">
+            <Link href="/" onClick={handleLogoClick} aria-label="Go Home">
               <Logo width={80} className={s['logo']} />
             </Link>
 
@@ -179,7 +191,7 @@ export const Header = () => {
         </div>
 
         <div className={s['inner-desktop']}>
-          <Link href="/" aria-label="Go Home">
+          <Link href="/" onClick={handleLogoClick} aria-label="Go Home">
             <Logo width={94} className={s['logo']} />
           </Link>
 
