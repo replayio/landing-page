@@ -111,6 +111,12 @@ const config = {
         permanent: true
       },
       {
+        source: '/record-bugs',
+        destination:
+          'https://docs.replay.io/docs/recording-bug-reports-80c37d7d6753485f81497570625d06f0',
+        permanent: true
+      },
+      {
         source: '/examples',
         destination:
           'https://docs.replay.io/docs/resources-and-examples-d25ae319114e4d109022458cd47f38ec',
