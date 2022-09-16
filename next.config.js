@@ -56,7 +56,7 @@ const config = {
       },
       {
         source: '/docs',
-        destination: 'https://docs.replay.io/docs',
+        destination: 'https://docs.replay.io',
         permanent: true
       },
       {
