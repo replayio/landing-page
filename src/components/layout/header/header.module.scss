@@ -8,6 +8,26 @@
   }
 }
 
+:global(.has-scrollytelling) {
+  .header {
+    position: relative;
+
+    &:global(.sticky) {
+      position: sticky;
+    }
+
+    &.has-scrolled {
+      border-color: transparent;
+    }
+  }
+}
+
+:global(.sticky-header) {
+  .header {
+    position: sticky;
+  }
+}
+
 .header {
   position: sticky;
   display: flex;
