@@ -792,6 +792,9 @@ export default function ReplayApplication() {
       }
     })
 
+    /* Add scrollytelling class to prevent sticky on header */
+    document.documentElement.classList.add('has-scrollytelling')
+
     const scrollyTellingEndPx = Math.floor(
       /*
         We have to calculate this bc the end of the scroll trigger is
@@ -840,6 +843,7 @@ export default function ReplayApplication() {
           setControlsActive(true)
         },
         onLeave: () => {
+          document.documentElement.classList.add('sticky-header')
           document.documentElement.classList.remove('hide-header')
           setControlsActive(false)
         }
@@ -856,13 +860,13 @@ export default function ReplayApplication() {
         ease: 'power3.out'
       })
       .add(() => {
+        document.documentElement.classList.remove('sticky-header')
         document.documentElement.classList.remove('hide-header')
         setControlsActive(false)
-      })
+      }, '<+=1')
       .add(() => {
-        document.documentElement.classList.add('hide-header')
         setControlsActive(true)
-      })
+      }, '<')
       .to(
         recordBadge,
         {
