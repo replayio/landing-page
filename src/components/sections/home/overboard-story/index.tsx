@@ -5,6 +5,7 @@ import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
+import { useHasRendered } from '~/hooks/use-has-rendered'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 
 import { Code } from './code'
@@ -20,6 +21,7 @@ const ReplayApplication = dynamic(() => import('./scrollytelling'), {
 const SCROLLYTELLING_MIN_HEIGHT = 620
 
 export function OverboardStory() {
+  const rendered = useHasRendered()
   const { isDesktop } = useDeviceDetect()
   const { height } = useViewportSize()
 
@@ -28,42 +30,39 @@ export function OverboardStory() {
   return (
     <Container size="lg">
       {(() => {
-        switch (isDesktop) {
-          case true && canFitScrollytelling:
-            return <ReplayApplication />
-
-          case false || !canFitScrollytelling:
-            return (
-              <OnRenderFadeIn>
-                {(animationEnded: boolean) => {
-                  return (
-                    <AspectBox
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center'
-                      }}
-                      ratio={1593 / 1080}
-                    >
-                      <video
-                        style={{ borderRadius: 12, zIndex: 10 }}
-                        muted
-                        playsInline
-                        src={
-                          animationEnded ? '/video/hero-video.mp4' : undefined
-                        }
-                        controls
-                        poster="/video/hero-video-thumbnail.png"
-                      />
-                    </AspectBox>
-                  )
-                }}
-              </OnRenderFadeIn>
-            )
-
-          default:
-            /* This saves the space for the video/scrollytelling preventing layout shift */
-            return <AspectBox ratio={1920 / 1080} />
+        if (rendered && isDesktop == true && canFitScrollytelling) {
+          return <ReplayApplication />
         }
+
+        if (rendered && (isDesktop == false || !canFitScrollytelling)) {
+          return (
+            <OnRenderFadeIn>
+              {(animationEnded: boolean) => {
+                return (
+                  <AspectBox
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                    ratio={1593 / 1080}
+                  >
+                    <video
+                      style={{ borderRadius: 12, zIndex: 10 }}
+                      muted
+                      playsInline
+                      src={animationEnded ? '/video/hero-video.mp4' : undefined}
+                      controls
+                      poster="/video/hero-video-thumbnail.png"
+                    />
+                  </AspectBox>
+                )
+              }}
+            </OnRenderFadeIn>
+          )
+        }
+
+        /* This saves the space for the video/scrollytelling preventing layout shift */
+        return <AspectBox ratio={1920 / 1080} />
       })()}
 
       {isDesktop && (
