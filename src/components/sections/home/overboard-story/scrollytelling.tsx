@@ -1381,6 +1381,7 @@ export default function ReplayApplication() {
       timeline.kill()
 
       document.documentElement.classList.remove('hide-header')
+      document.documentElement.classList.remove('has-scrollytelling')
       setControlsActive(false)
 
       /* Flip Cleanup */
