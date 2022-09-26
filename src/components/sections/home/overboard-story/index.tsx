@@ -29,6 +29,24 @@ export function OverboardStory() {
 
   return (
     <Container size="lg">
+      <div
+        style={{
+          minWidth: 200,
+          padding: '4px 8px',
+          transform: 'translateX(-50%)',
+          position: 'fixed',
+          left: '50%',
+          top: 10,
+          zIndex: 1000,
+          borderRadius: 'var(--border-radius-md)',
+          backgroundColor: 'var(--color-gray-darker)',
+          color: 'white',
+          textAlign: 'center'
+        }}
+      >
+        Keep scrolling to see the rest of the experience
+      </div>
+
       {(() => {
         if (rendered && isDesktop == true && canFitScrollytelling) {
           return <ReplayApplication />
