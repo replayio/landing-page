@@ -1,6 +1,5 @@
 import brian from '~/public/images/about/team/brian.png'
 import dan from '~/public/images/about/team/dan.png'
-import gideon from '~/public/images/about/team/gideon.png'
 import holger from '~/public/images/about/team/holger.png'
 import jason from '~/public/images/about/team/jason.png'
 import jon from '~/public/images/about/team/jon.png'
@@ -10,7 +9,6 @@ import mark from '~/public/images/about/team/mark.png'
 import oliver from '~/public/images/about/team/oliver.jpg'
 import ryan from '~/public/images/about/team/ryan.png'
 import sophie from '~/public/images/about/team/sophie.png'
-import travis from '~/public/images/about/team/travis.jpeg'
 import vaughn from '~/public/images/about/team/vaughn.jpeg'
 
 export const team = [
@@ -85,15 +83,6 @@ export const team = [
     }
   },
   {
-    image: gideon,
-    position: 'Engineering manager',
-    name: 'Gideon Redelinghuys',
-    bio: `Gideon is a South African software enthusiast who studied formal methods. Gideon has also made some detours on his way to Replay via working on the core AWS EC2 team, working and managing the SRE team at Cloudflare, and most recently building software products at the digital product studio Two Bulls.`,
-    socials: {
-      linkedin: 'https://www.linkedin.com/in/gjredelinghuys/'
-    }
-  },
-  {
     image: ryan,
     position: 'Software engineer',
     name: 'Ryan Duffy',
@@ -130,15 +119,6 @@ export const team = [
     socials: {
       twitter: 'https://twitter.com/olliedealb',
       linkedin: 'https://www.linkedin.com/in/oliver-de-albuquerque-4a666934/'
-    }
-  },
-  {
-    image: travis,
-    position: 'Software engineer',
-    name: 'Travis Arnold',
-    bio: `Travis is a traditional graphic designer turned engineer. He enjoys digging into the details of design systems, static analysis, and grid theory. When not hacking on design and code, he loves to spend time with family at the beach playing frisbee with their dog, Wayne.`,
-    socials: {
-      twitter: 'https://twitter.com/souporserious'
     }
   }
 ]
