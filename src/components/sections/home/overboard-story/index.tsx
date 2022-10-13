@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useLayoutEffect } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
@@ -29,23 +30,7 @@ export function OverboardStory() {
 
   return (
     <Container size="lg">
-      <div
-        style={{
-          minWidth: 200,
-          padding: '4px 8px',
-          transform: 'translateX(-50%)',
-          position: 'fixed',
-          left: '50%',
-          top: 10,
-          zIndex: 1000,
-          borderRadius: 'var(--border-radius-md)',
-          backgroundColor: 'var(--color-gray-darker)',
-          color: 'white',
-          textAlign: 'center'
-        }}
-      >
-        Keep scrolling to see the rest of the experience
-      </div>
+      <ScrollBanner />
 
       {(() => {
         if (rendered && isDesktop == true && canFitScrollytelling) {
@@ -113,6 +98,61 @@ export function OverboardStory() {
         </div>
       )}
     </Container>
+  )
+}
+
+function ScrollBanner() {
+  useLayoutEffect(() => {
+    function handleScroll() {
+      // const scrollBannerElement = document.getElementById(
+      //   'scroll-banner'
+      // ) as HTMLElement
+      const heroElement = document.getElementById(
+        'hero-pin-wrapper'
+      ) as HTMLElement
+      const spacerElement = document.getElementById(
+        'scrollytelling-spacer'
+      ) as HTMLElement
+
+      if (heroElement === null || spacerElement === null) {
+        return
+      }
+
+      const minHeight = heroElement.offsetHeight
+      const maxHeight = spacerElement.offsetHeight - window.innerHeight
+      const scrollY = window.scrollY
+
+      if (scrollY > minHeight && scrollY < maxHeight) {
+        // start watching for idle scroll
+      }
+    }
+
+    document.addEventListener('scroll', handleScroll)
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  return (
+    <div
+      id="scroll-banner"
+      style={{
+        minWidth: 200,
+        padding: '4px 8px',
+        transform: 'translateX(-50%)',
+        position: 'fixed',
+        left: '50%',
+        top: 10,
+        zIndex: 1000,
+        borderRadius: 'var(--border-radius-md)',
+        backgroundColor: 'var(--color-gray-darker)',
+        color: 'white',
+        textAlign: 'center'
+      }}
+    >
+      Keep scrolling to see the rest of the experience
+    </div>
   )
 }
 
