@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
@@ -102,11 +102,15 @@ export function OverboardStory() {
 }
 
 function ScrollBanner() {
+  const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   useLayoutEffect(() => {
+    let shouldDestroy = false
+
     function handleScroll() {
-      // const scrollBannerElement = document.getElementById(
-      //   'scroll-banner'
-      // ) as HTMLElement
+      const scrollBannerElement = document.getElementById(
+        'scroll-banner'
+      ) as HTMLElement
       const heroElement = document.getElementById(
         'hero-pin-wrapper'
       ) as HTMLElement
@@ -122,8 +126,42 @@ function ScrollBanner() {
       const maxHeight = spacerElement.offsetHeight - window.innerHeight
       const scrollY = window.scrollY
 
-      if (scrollY > minHeight && scrollY < maxHeight) {
-        // start watching for idle scroll
+      /** Clear timeout if continuing to scroll */
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current)
+      }
+
+      if (shouldDestroy) {
+        scrollBannerElement.style.opacity = '0'
+
+        /** Wait to until transition is complete before hiding. */
+        setTimeout(() => {
+          /** Make sure to hide the element */
+          scrollBannerElement.style.display = 'none'
+        }, 300)
+
+        document.removeEventListener('scroll', handleScroll)
+      } else {
+        /** Remove listener once going through the entire story */
+        if (scrollY > maxHeight) {
+          shouldDestroy = true
+        }
+
+        /** Start timer to show scroll helper banner */
+        if (scrollY > minHeight && scrollY < maxHeight) {
+          const timeToShowBanner = 5000
+
+          timeoutId.current = setTimeout(() => {
+            shouldDestroy = true
+
+            scrollBannerElement.style.display = 'block'
+
+            /** Wait one tick to trigger transition. */
+            requestAnimationFrame(() => {
+              scrollBannerElement.style.opacity = '1'
+            })
+          }, timeToShowBanner)
+        }
       }
     }
 
@@ -135,22 +173,7 @@ function ScrollBanner() {
   }, [])
 
   return (
-    <div
-      id="scroll-banner"
-      style={{
-        minWidth: 200,
-        padding: '4px 8px',
-        transform: 'translateX(-50%)',
-        position: 'fixed',
-        left: '50%',
-        top: 10,
-        zIndex: 1000,
-        borderRadius: 'var(--border-radius-md)',
-        backgroundColor: 'var(--color-gray-darker)',
-        color: 'white',
-        textAlign: 'center'
-      }}
-    >
+    <div id="scroll-banner">
       Keep scrolling to see the rest of the experience
     </div>
   )
