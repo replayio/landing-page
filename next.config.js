@@ -153,7 +153,7 @@ const config = {
       },
       {
         source: '/security-privacy',
-        destination: 'https://www.replay.io/privacy-policy',
+        destination: 'https://www.replay.io/security-and-privacy',
         permanent: true
       }
     ]
