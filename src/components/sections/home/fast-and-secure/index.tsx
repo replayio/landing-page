@@ -126,6 +126,8 @@ export const FastAndSecure: FC = () => {
                 reliably. The result is a recorder that is enterprise ready and
                 stress tested on the most ambitious applications.
               </p>
+              
+              <p>Read more in our <a href="/security-and-privacy">Security and Privacy</a> policy.</p>
 
               <div
                 style={{
