@@ -127,7 +127,13 @@ export const FastAndSecure: FC = () => {
                 stress tested on the most ambitious applications.
               </p>
               
-              <p>Read more in our <a href="/security-and-privacy">Security and Privacy</a> policy.</p>
+              <p>
+                Read more in our{" "}
+                <a className={s["subtitle-link"]} href="/security-and-privacy">
+                  Security and Privacy
+                </a>{" "}
+                policy.
+              </p>
 
               <div
                 style={{
