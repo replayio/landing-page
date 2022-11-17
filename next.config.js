@@ -99,6 +99,12 @@ const config = {
         permanent: true
       },
       {
+        source: '/midnite',
+        destination:
+          'https://medium.com/replay-io/midnite-builds-time-travel-workflows-for-fast-paced-betting-platform-780adf305a78',
+        permanent: true
+      },
+      {
         source: '/tablecheck',
         destination:
           'https://medium.com/replay-io/tablecheck-transforms-qa-dev-communication-to-support-thousands-of-restaurants-and-hotel-chains-df5d4a940c58',
