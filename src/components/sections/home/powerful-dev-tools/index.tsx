@@ -85,17 +85,21 @@ const VideoAsset: FC<JSX.IntrinsicElements['video'] & { active: boolean }> = ({
   useEffect(() => {
     if (!videoRef.current) return
 
-    const videoElm = videoRef.current
+    try {
+      const videoElm = videoRef.current
 
-    if (active) {
-      videoElm.play().catch(() => {
-        /* Not needed */
-      })
+      if (active) {
+        videoElm.play().catch(() => {
+          /* Not needed */
+        })
 
-      setShowControls(false)
-    } else {
-      videoElm.pause()
-      videoElm.currentTime = 0
+        setShowControls(false)
+      } else {
+        videoElm.pause()
+        videoElm.currentTime = 0
+      }
+    } catch {
+      console.warn('Unable to autoplay video')
     }
   }, [active])
 
