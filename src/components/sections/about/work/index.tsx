@@ -22,11 +22,6 @@ const positions = [
     title: 'Runtime Engineer',
     skills: 'Engineering',
     href: 'https://replayio.notion.site/replayio/Runtime-Engineer-47b715e382264dd5bc32d3ab1de14753'
-  },
-  {
-    title: 'Software Engineer',
-    skills: 'Backend',
-    href: 'https://replayio.notion.site/Software-Engineer-Backend-76a11fe78732431fb606c036e3a216d4'
   }
 ]
 
