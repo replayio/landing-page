@@ -61,7 +61,7 @@ const config = {
       },
       {
         source: '/blog',
-        destination: 'https://medium.com/replay-io',
+        destination: 'https://blog.replay.io',
         permanent: true
       },
       {
