@@ -64,7 +64,7 @@ const links = {
   resources: [
     {
       label: 'Blog',
-      href: 'https://medium.com/replay-io'
+      href: 'https://blog.replay.io'
     },
     {
       label: 'Security & Privacy',
