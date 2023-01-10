@@ -20,6 +20,11 @@ const positions = [
   },
 
   {
+    title: 'UI Developer',
+    skills: 'Engineering + Design',
+    href: 'https://replayio.notion.site/UI-Developer-79b76cce588a47719b8c7ef032bfae32'
+  },
+  {
     title: 'Backend Engineering Manager',
     skills: 'Management',
     href: 'https://replayio.notion.site/Backend-Engineering-Manager-bfb84da8872d493dbe7a891e420be408'
