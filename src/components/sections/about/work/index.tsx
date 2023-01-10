@@ -14,14 +14,21 @@ import s from './work.module.scss'
 
 const positions = [
   {
-    title: 'QA Manager',
-    skills: 'Management',
-    href: 'https://replayio.notion.site/Quality-Assurance-Manager-8f5936e6a79a44beb6c4de9ecdbb3344'
-  },
-  {
     title: 'Runtime Engineer',
     skills: 'Engineering',
     href: 'https://replayio.notion.site/replayio/Runtime-Engineer-47b715e382264dd5bc32d3ab1de14753'
+  },
+
+  {
+    title: 'Backend Engineering Manager',
+    skills: 'Management',
+    href: 'https://replayio.notion.site/Backend-Engineering-Manager-bfb84da8872d493dbe7a891e420be408'
+  },
+
+  {
+    title: 'QA Manager',
+    skills: 'Management',
+    href: 'https://replayio.notion.site/Quality-Assurance-Manager-8f5936e6a79a44beb6c4de9ecdbb3344'
   }
 ]
 
