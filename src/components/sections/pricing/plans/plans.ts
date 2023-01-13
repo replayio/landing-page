@@ -118,5 +118,27 @@ export const plans = [
           'Integrate Replay into your existing bug reporting, CI/CD, and development workflows. e.g. Jira, Jenkins, Selenium, Sentry, NextJS'
       }
     ]
+  },
+  {
+    type: 'Open Source',
+    icon: enterprise,
+    description:
+      'The Open Source Plan offers Team plan benefits with flexibility on the number of users and developers so maintainers can incorporate Replay into their bug reporting flow and automated test suite. We offer additional features to make it easy for contributors to share Replays with maintainers so they can easily debug issues.',
+    cta: 'Email Us',
+    link: 'mailto:sales@replay.io',
+    content: [
+      {
+        title: 'Team Plan',
+        description: `Access to Team Plan features with flexibility on the number of seats for developers and users to fit large and growing Open Source projects taht want to use Replay at scale.`
+      },
+      {
+        title: 'Issue Template Best Practices',
+        description: `Documentation and onboarding support to get your bug report process in good shape with Replay.`
+      },
+      {
+        title: 'Team Inbox',
+        description: `Contributors can submit Replays and share them with maintainers so they can be easily triaged with source map support.`
+      }
+    ]
   }
 ]
