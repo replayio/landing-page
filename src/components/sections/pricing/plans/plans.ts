@@ -121,9 +121,9 @@ export const plans = [
   },
   {
     type: 'Open Source',
-    icon: enterprise,
+    icon: organization,
     description:
-      'The Open Source Plan offers Team plan benefits with flexibility on the number of users and developers so maintainers can incorporate Replay into their bug reporting flow and automated test suite. We offer additional features to make it easy for contributors to share Replays with maintainers so they can easily debug issues.',
+      'Our Open Source Plan offers the same features of our Team Plan with more flexibility on the number of users and developers.',
     cta: 'Email Us',
     link: 'mailto:sales@replay.io',
     content: [
