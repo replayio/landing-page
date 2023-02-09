@@ -15,7 +15,7 @@ export const Policy: FC = () => {
           <Heading as="h1" size="sm">
             Privacy Policy
           </Heading>
-          <span>Efective date: 13 sep 2021</span>
+          <span>Effective date: 8 Feb 2023</span>
         </div>
         <div className={s.content}>
           <p>
@@ -24,7 +24,7 @@ export const Policy: FC = () => {
             accessing our Services in any manner, you acknowledge that you
             accept the practices and policies outlined below, and you hereby
             consent that we will collect, use and share your information as
-            described in this Privacy Policy
+            described in this Privacy Policy.
             <br />
             <br />
             Remember that your use of Replay's Services is at all times subject
