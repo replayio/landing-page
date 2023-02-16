@@ -12,6 +12,7 @@ import sophie from '~/public/images/about/team/sophie.png'
 import vaughn from '~/public/images/about/team/vaughn.jpeg'
 import miriam from '~/public/images/about/team/miriam.png'
 import domi from '~/public/images/about/team/domi.png'
+import colin from '~/public/images/about/team/colin.png'
 
 export const team = [
   {
@@ -135,5 +136,11 @@ export const team = [
     position: 'Software engineer',
     name: 'Dominik Seifert',
     bio: `Dominik's two decades of software engineering adventures involved building MMORPG servers, optimizing CUDA algorithms and building/debugging full-stack applications. After getting frustrated about the inability to directly analyze his own systems' control and data flow, he dedicated his PhD dissertation to exploring and finding novel solutions for exactly that problem. Originally from Germany, he has been living in Taiwan for most of his adult life.`
-  }
+  },
+  {
+    image: colin,
+    position: 'Software engineer',
+    name: 'Colin Weld',
+    bio: `Colin helps build and scale Replay's backend. He hails from Oakland, California, and has been obsessed with data structures, invariants, and consistency since he first learned how to program. Prior to Replay, he worked on Backblaze's storage cloud. Outside of work, you can find him playing in a band, cooking, hiking, and rarely sitting still.`
+  }  
 ]
