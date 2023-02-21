@@ -52,7 +52,7 @@ export const shouts = [
     image: guillermo,
     job: 'CEO of Vercel',
     name: 'Guillermo Rauch',
-    shout: `It's a well known fact that engineers want high quality bug reports, with extensive details, reproduction steps, etc. Yet we have no tools for this other than praying that people follow a Markdown issue template. I think this tool has a very good chance of creating a new category around collaborative debugging. Well done Jason!
+    shout: `This tool has a very good chance of creating a new category around collaborative debugging. Well done!
       `
   },
   {

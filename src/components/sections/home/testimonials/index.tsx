@@ -28,7 +28,7 @@ const testimonials = [
     },
     position: 'CEO',
     quote:
-      "“It's a well known fact that engineers want high quality bug reports, with extensive details...”"
+      "“This tool has a very good chance of creating a new category around collaborative debugging.”"
   },
   {
     picture: abramov,
@@ -82,7 +82,7 @@ const testimonials = [
     },
     position: 'Software Engineer',
     quote:
-      `What the fuck is this, is it the future? is it the past? is it now? don't care this is just freaking amazing!`
+      `What the fuck is this, is it the future? Is it the past? Is it now? Don't care this is just freaking amazing!`
   }
 ]
 
