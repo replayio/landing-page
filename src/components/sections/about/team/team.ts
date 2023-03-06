@@ -1,18 +1,17 @@
 import brian from '~/public/images/about/team/brian.png'
+import colin from '~/public/images/about/team/colin.png'
 import dan from '~/public/images/about/team/dan.png'
+import domi from '~/public/images/about/team/domi.png'
 import holger from '~/public/images/about/team/holger.png'
 import jason from '~/public/images/about/team/jason.png'
 import jon from '~/public/images/about/team/jon.png'
 import kannan from '~/public/images/about/team/kannan.png'
 import logan from '~/public/images/about/team/logan.jpeg'
 import mark from '~/public/images/about/team/mark.png'
-import oliver from '~/public/images/about/team/oliver.jpg'
+import miriam from '~/public/images/about/team/miriam.png'
 import ryan from '~/public/images/about/team/ryan.png'
 import sophie from '~/public/images/about/team/sophie.png'
 import vaughn from '~/public/images/about/team/vaughn.jpeg'
-import miriam from '~/public/images/about/team/miriam.png'
-import domi from '~/public/images/about/team/domi.png'
-import colin from '~/public/images/about/team/colin.png'
 
 export const team = [
   {
@@ -116,16 +115,6 @@ export const team = [
     bio: `Holger explored the world of programming languages from 6502 machine code to extracting LISP programs from mathematical proofs. These days he's mostly interested in creating developer tools. When he's not working on Replay or one of his VSCode extensions, he likes to read political blogs and books and watch asian movies.`
   },
   {
-    image: oliver,
-    position: 'GTM lead',
-    name: 'Oliver de Albuquerque',
-    bio: `Oliver is making Replay invaluable for companies and dev teams. He’s a UK born US citizen who loves music, art and nature (ask him about salmon and showbonian). Before Replay, he hopped around Google most recently leading BD for Chrome and Web Platform's capabilities effort and prior to that, he stood up a new business line at GLG. He has lived all over - Middle East, UK, Texas and the Midwest but he’s happy to make California his home.`,
-    socials: {
-      twitter: 'https://twitter.com/olliedealb',
-      linkedin: 'https://www.linkedin.com/in/oliver-de-albuquerque-4a666934/'
-    }
-  },
-  {
     image: miriam,
     position: 'Software engineer',
     name: 'Miriam Budayr',
@@ -142,5 +131,5 @@ export const team = [
     position: 'Software engineer',
     name: 'Colin Weld',
     bio: `Colin helps build and scale Replay's backend. He hails from Oakland, California, and has been obsessed with data structures, invariants, and consistency since he first learned how to program. Prior to Replay, he worked on Backblaze's storage cloud. Outside of work, you can find him playing in a band, cooking, hiking, and rarely sitting still.`
-  }  
+  }
 ]
