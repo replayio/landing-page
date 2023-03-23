@@ -18,12 +18,6 @@ const positions = [
     skills: 'Engineering',
     href: 'https://replayio.notion.site/replayio/Runtime-Engineer-47b715e382264dd5bc32d3ab1de14753'
   },
-
-  {
-    title: 'UI Developer',
-    skills: 'Engineering + Design',
-    href: 'https://replayio.notion.site/UI-Developer-79b76cce588a47719b8c7ef032bfae32'
-  },
   {
     title: 'Backend Engineering Manager',
     skills: 'Management',
