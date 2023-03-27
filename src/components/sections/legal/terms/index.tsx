@@ -15,7 +15,7 @@ export const TermsOfService: FC = () => {
           <Heading as="h1" size="sm">
             Terms of Use
           </Heading>
-          <span>Efective date: 14 JUL 2021</span>
+          <span>Efective date: 28 MAR 2023</span>
         </div>
 
         <div className={s.content}>
@@ -30,7 +30,7 @@ export const TermsOfService: FC = () => {
             <li>
               <Link href="mailto:support@replay.io">support@replay.io</Link>
             </li>
-            <li>1263 California Street, Mountain View, CA 94041</li>
+            <li>548 Market St, PMB 78081, San Francisco, CA 94104</li>
           </ul>
           <p>
             These Terms of Use (the “Terms”) are a binding contract between you
@@ -525,7 +525,7 @@ export const TermsOfService: FC = () => {
               <br />
               Jason Laster
               <br />
-              1263 California Street, Mountain View, CA 94041
+              548 Market St, PMB 78081, San Francisco, CA 94104
               <br />
               <Link href="mailto:support@replay.io">support@replay.io</Link>
             </div>
@@ -954,8 +954,8 @@ export const TermsOfService: FC = () => {
             <li>
               Opt-out. You have the right to opt out of the provisions of this
               Section by sending written notice of your decision to opt out to
-              the following address: 1263 California Street, Mountain View, CA
-              94041, postmarked within thirty (30) days of first accepting these
+              the following address: 548 Market St, PMB 78081, San Francisco, CA
+              94104, postmarked within thirty (30) days of first accepting these
               Terms. You must include (i) your name and residence address, (ii)
               the email address and/or telephone number associated with your
               account, and (iii) a clear statement that you want to opt out of

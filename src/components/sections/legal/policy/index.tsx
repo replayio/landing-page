@@ -781,7 +781,7 @@ export const Policy: FC = () => {
             <li>
               <Link href="mailto:support@replay.io">support@replay.io</Link>
             </li>
-            <li>1263 California Street, Mountain View, CA 94041</li>
+            <li>548 Market St, PMB 78081, San Francisco, CA 94104</li>
           </ul>
         </div>
       </Container>
