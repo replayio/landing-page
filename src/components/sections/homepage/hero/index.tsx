@@ -1,4 +1,3 @@
-import * as Dialog from '@radix-ui/react-dialog'
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
@@ -6,10 +5,10 @@ import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
+import { VideoModal } from '~/components/common/video-modal'
 import { Container } from '~/components/layout/container'
 import { Section } from '~/components/layout/section'
 import { Button } from '~/components/primitives/cta'
-import { MuxVideo } from '~/components/primitives/mux-video'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import heroImage from '~/images/homepage/hero-image.jpg'
@@ -120,7 +119,15 @@ export const Hero = () => {
           />
 
           <div className={s['ctas']}>
-            <VideoModal />
+            <VideoModal
+              poster="/images/homepage/hero-video-placeholder.png"
+              url="https://stream.mux.com/j4HHD01eAGd01vFBPyQhfpWuDWSlXKsGep1o2dbDAlE2s.m3u8"
+              button={
+                <Button mode="secondary" size="big" aria-label="Watch video">
+                  Watch video
+                </Button>
+              }
+            />
             <Button mode="primary" size="big" aria-label="Get started">
               Get started
             </Button>
@@ -198,36 +205,5 @@ export const Hero = () => {
         </Container>
       </div>
     </Section>
-  )
-}
-
-const VideoModal = () => {
-  return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <Button mode="secondary" size="big" aria-label="Watch video">
-          Watch video
-        </Button>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className={s.modalOverlay} />
-        <Dialog.Content
-          onOpenAutoFocus={(e) => {
-            e.preventDefault()
-          }}
-          onCloseAutoFocus={(e) => {
-            e.preventDefault()
-          }}
-          className={s.modalContent}
-        >
-          <MuxVideo
-            poster="/images/homepage/hero-video-placeholder.png"
-            controls
-            className={s.video}
-            muxSrc="https://stream.mux.com/j4HHD01eAGd01vFBPyQhfpWuDWSlXKsGep1o2dbDAlE2s.m3u8"
-          />
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
   )
 }
