@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
-import heroImage from '~/images/homepage/hero-image.jpg'
 import { AspectBox } from '~/components/common/aspect-box'
 import { Container } from '~/components/layout/container'
 import { Section } from '~/components/layout/section'
@@ -13,6 +12,7 @@ import { Button } from '~/components/primitives/cta'
 import { MuxVideo } from '~/components/primitives/mux-video'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
+import heroImage from '~/images/homepage/hero-image.jpg'
 
 import s from './hero.module.scss'
 

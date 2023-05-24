@@ -253,7 +253,8 @@
       "property-no-vendor-prefix": null,
       "value-no-vendor-prefix": null,
       "scss/no-global-function-names": null,
-      "scss/double-slash-comment-empty-line-before": null
+      "scss/double-slash-comment-empty-line-before": null,
+      "scss/operator-no-newline-after": null
     }
   },
   "lint-staged": {
