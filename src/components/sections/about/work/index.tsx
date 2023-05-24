@@ -1,4 +1,4 @@
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { FC } from 'react'
 
 import { Section } from '~/components/common/section'

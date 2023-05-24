@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Image from 'next/future/image'
+import Image from 'next/image'
 
 import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'

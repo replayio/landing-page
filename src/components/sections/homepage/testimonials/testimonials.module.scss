@@ -1,0 +1,128 @@
+@import '~/css/helpers';
+
+.section {
+  padding: 108px var(--container-sides-space) 216px;
+  overflow: hidden;
+
+  @include respond-to('tablet-lg') {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+
+  .bg-container {
+    isolation: isolate;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .child {
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  .container {
+    position: relative;
+    max-width: 1112px;
+    margin: auto;
+
+    .wrapper {
+      position: relative;
+      overflow: hidden;
+      margin-top: 72px;
+
+      @include respond-to('tablet-lg') {
+        margin-top: 32px;
+      }
+
+      .testimonialsWrapper {
+        position: relative;
+        column-count: 3;
+        column-gap: 16px;
+
+        @include respond-to('min-tablet-lg') {
+          mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+        }
+
+        @include respond-to('tablet-lg') {
+          column-count: 1;
+        }
+
+        .testimonial {
+          padding: 24px;
+          background: linear-gradient(
+            256.14deg,
+            rgb(17 24 39 / 0.32) 0%,
+            rgb(17 24 38 / 0.32) 4.7%,
+            rgb(16 23 38 / 0.32) 8.9%,
+            rgb(16 23 37 / 0.32) 12.8%,
+            rgb(16 22 36 / 0.32) 16.56%,
+            rgb(15 21 35 / 0.32) 20.37%,
+            rgb(15 20 33 / 0.32) 24.4%,
+            rgb(14 20 32 / 0.32) 28.83%,
+            rgb(13 18 30 / 0.32) 33.84%,
+            rgb(12 17 28 / 0.32) 39.6%,
+            rgb(11 16 25 / 0.32) 46.3%,
+            rgb(10 14 22 / 0.32) 54.1%,
+            rgb(8 12 19 / 0.32) 63.2%,
+            rgb(7 10 16 / 0.32) 73.76%,
+            rgb(5 7 12 / 0.32) 85.97%,
+            rgb(3 4 7 / 0.32) 100%
+          );
+          border: 1px solid rgb(31 41 55 / 0.86);
+          backdrop-filter: blur(1px);
+          border-radius: 16px;
+          height: max-content;
+          width: 100%;
+
+          @include respond-to('min-tablet-lg') {
+            margin-bottom: 20px;
+          }
+
+          @include respond-to('tablet-lg') {
+            &:not(&:last-child) {
+              margin-bottom: 16px;
+            }
+          }
+
+          .quote {
+            font-size: 14px;
+            line-height: 21px;
+            letter-spacing: -0.02em;
+          }
+
+          .author {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 16px;
+
+            .name {
+              font-size: 14px;
+              line-height: 17px;
+              letter-spacing: -0.02em;
+            }
+
+            .position {
+              font-size: 12px;
+              line-height: 15px;
+              letter-spacing: -0.02em;
+              color: var(--grey-400);
+              margin-top: 4px;
+              display: flex;
+              align-items: center;
+
+              svg {
+                width: 12px;
+                height: 12px;
+                margin: 0 4px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

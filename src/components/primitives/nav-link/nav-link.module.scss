@@ -1,0 +1,32 @@
+@import '~/css/helpers';
+
+.nav-link {
+  --active-color: var(--white);
+  --inactive-color: var(--grey-400);
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--inactive-color);
+  transition: color var(--duration-normal) var(--ease-1),
+    opacity var(--duration-normal) var(--ease-1);
+  outline-offset: 2px !important;
+
+  &.inverted-hover {
+    --active-color: var(--grey-400);
+    --inactive-color: var(--white);
+  }
+
+  &:focus,
+  &:hover {
+    color: var(--active-color);
+  }
+
+  &.active {
+    color: var(--active-color);
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}

@@ -31,3 +31,19 @@ export const useMedia = (mediaQuery: string, initialValue?: boolean) => {
 
   return isVerified
 }
+
+export const useTabletBreakpoint = () => {
+  return useMedia('(max-width: 768px)')
+}
+
+export const useTabletLgBreakpoint = () => {
+  return useMedia('(max-width: 1024px)')
+}
+
+export const useMinTabletBreakpoint = () => {
+  return useMedia('(min-width: 769px)')
+}
+
+export const useMinTabletLgBreakpoint = () => {
+  return useMedia('(min-width: 1025px)')
+}

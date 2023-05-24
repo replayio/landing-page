@@ -115,3 +115,15 @@ export const processString = (options: Option[]) => {
     return input
   }
 }
+
+export const padZeroes = (number: number, digits: number) =>
+  number.toString().padStart(digits, '0')
+
+export const dummyImage = (config: {
+  width: number
+  height: number
+  background: string
+  foreground: string
+}) => {
+  return `https://dummyimage.com/${config.width}x${config.height}/${config.background}/${config.foreground}`
+}

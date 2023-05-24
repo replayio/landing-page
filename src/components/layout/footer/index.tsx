@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { ScrollTrigger } from 'lib/gsap'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useMemo, useRef } from 'react'
 

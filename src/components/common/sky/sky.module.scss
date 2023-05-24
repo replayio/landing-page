@@ -1,0 +1,135 @@
+/* stylelint-disable scss/operator-no-newline-after */
+.sky {
+  position: relative;
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #0d121e 0%,
+    transparent 90%,
+    transparent 100%
+  );
+
+  --mask-percent: 6%;
+
+  mask: linear-gradient(
+    0deg,
+    transparent,
+    rgb(0 0 0 / 1) var(--mask-percent),
+    rgb(0 0 0 / 1) calc(100% - var(--mask-percent)),
+    transparent
+  );
+  overflow: hidden;
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+
+  .star,
+  .asteroid-wrapper {
+    position: absolute;
+  }
+
+  .asteroid-wrapper {
+    --x1: 0;
+    --x2: 0;
+    --angle: 0deg;
+    --progress: 0;
+    --brightness-factor: 0;
+
+    left: 50%;
+    top: 0%;
+    height: 100%;
+    transform: translateY(calc(110% * var(--progress) - 5%))
+      /* Base x1 + the diff between x2 and x1 multiplied by the progress */
+      translateX(
+        calc(
+          50vw * var(--x1) + (50vw * var(--x2) - 50vw * var(--x1)) *
+            var(--progress)
+        )
+      )
+      rotate(var(--angle));
+    transform-origin: top center;
+    z-index: 1;
+
+    .asteroid {
+      position: relative;
+      display: block;
+      box-shadow: 0 0 10px 3px
+        rgb(255 255 255 / calc(10% + 70% * var(--brightness-factor)));
+
+      .head {
+        background: #fff;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+      }
+
+      .tail {
+        bottom: 0;
+        border-radius: 9999px;
+        height: 40px;
+        width: 100%;
+        background: linear-gradient(180deg, #fff0 0%, #ffffff50 100%);
+        transform-origin: bottom center;
+        position: absolute;
+        animation: asteroid-tail 0.25s ease-in-out infinite alternate;
+        animation-play-state: var(--section-play-state);
+      }
+    }
+  }
+
+  .star {
+    --x: 0;
+    --y: 0;
+    --delay-factor: 0;
+
+    border-radius: 50%;
+    background: #fff;
+    width: 2px;
+    height: 2px;
+    transform: translate(-50%, -50%);
+    left: calc(50% + (50% * var(--x)));
+    top: calc(50% + (50% * var(--y)));
+    box-shadow: 0 0 20px 2px #ffffff30;
+    animation: star-blink calc(2s + 1s * var(--delay-factor)) ease-in-out
+      infinite calc(3s * var(--delay-factor));
+    animation-play-state: var(--section-play-state);
+
+    &.small {
+      width: 1px;
+      height: 1px;
+    }
+  }
+}
+
+@keyframes asteroid-tail {
+  from {
+    transform: scaleY(0.8);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes star-blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

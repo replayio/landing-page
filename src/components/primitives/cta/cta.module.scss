@@ -1,0 +1,192 @@
+@import '~/css/helpers';
+
+.cta {
+  --border-radius: var(--border-radius-8);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: var(--height);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--white);
+  width: max-content;
+  text-align: center;
+
+  /* Button border */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border-color, transparent);
+  }
+
+  &.hovering {
+    .content::after {
+      opacity: 1;
+    }
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .iconPrefix,
+  .iconSuffix {
+    max-width: 16px;
+    max-height: 16px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .iconPrefix {
+    margin-right: 8px;
+  }
+
+  .iconSuffix {
+    margin-left: 8px;
+  }
+
+  /* Lantern effect */
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: var(--border-radius);
+    will-change: mask-image, opacity;
+    backface-visibility: hidden;
+    transition: opacity var(--duration-normal) var(--ease-1);
+
+    @include hoverable-mouse {
+      display: block;
+      background: var(--bg-gradient-mask);
+      mask-image: radial-gradient(
+        circle var(--circle-radius, 0) at var(--x, 0) var(--y, 0),
+        var(--bg-gradient-mask),
+        transparent 100%
+      );
+    }
+  }
+}
+
+.primary,
+.secondary {
+  border-radius: var(--border-radius);
+
+  .content {
+    padding: 0 16px;
+    border-radius: calc(var(--border-radius) - 1px);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.primary {
+  --bg: linear-gradient(116.04deg, #f41c52 35.23%, #ff537e 129.14%);
+  --bg-gradient-mask: rgb(255 255 255 / 0.6);
+
+  &::after {
+    --border-color: #ff537e;
+  }
+}
+
+.secondary {
+  --bg: radial-gradient(
+      88.75% 52.94% at 50% 47.06%,
+      rgb(31 41 55 / 0.32) 38.54%,
+      rgb(31 41 55 / 0.0768) 100%
+    ),
+    rgb(17 24 39);
+  --bg-gradient-mask: rgb(217 217 217 / 0.4);
+
+  &::after {
+    --border-color: rgb(31 41 55 / 0.6);
+  }
+}
+
+.small {
+  --height: 32px;
+}
+
+.big {
+  --height: 44px;
+}
+
+.timer {
+  /* Timer variables */
+  --progress: 0;
+  --gradient-opacity: 0;
+  --gradient-grow: 1;
+  --inv-gradient-opacity: calc(1 - var(--gradient-opacity));
+  --gradient-spread-angle: 30deg;
+  --gradient-complete-angle: calc(var(--progress) * 360deg);
+
+  /*
+    White color darkened by a 30%, we don't use opacity to prevent
+    color overlapping on the edges of the gradient
+  */
+  --primary-color: #bdbec1;
+  --secondary-color-rgb: 30 40 54;
+
+  &::after {
+    --border-color: transparent;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    border-radius: calc(var(--border-radius) + 1px);
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    transition: opacity var(--duration-normal) var(--ease-1);
+    background: linear-gradient(
+        0deg,
+        rgb(var(--secondary-color-rgb) / var(--inv-gradient-opacity)),
+        rgb(var(--secondary-color-rgb) / var(--inv-gradient-opacity))
+      ),
+      /* This is the gradient that moves */
+        conic-gradient(
+          from 0deg at 50% 50%,
+          var(--primary-color) 0deg,
+          var(--primary-color) calc(var(--gradient-complete-angle)),
+          transparent
+            calc(
+              var(--gradient-complete-angle) + var(--gradient-spread-angle) *
+                var(--gradient-grow)
+            )
+        ),
+      /* This is a gradient that gives the spread effect at the end (360 deg) */
+        conic-gradient(
+          from 0deg at 50% 50%,
+          transparent 0deg,
+          transparent
+            calc(360deg - var(--gradient-spread-angle) * var(--gradient-grow)),
+          var(--primary-color) 360deg
+        ),
+      /* This is the background, that's why it's the last */
+        rgb(var(--secondary-color-rgb));
+  }
+}

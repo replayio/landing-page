@@ -1,0 +1,85 @@
+@import 'css/helpers';
+
+.root {
+  position: relative;
+
+  --lantern-color: rgb(217 217 217 / 0.3);
+  --lantern-color-mask: var(--lantern-color);
+  --border-color: gray;
+  --circle-radius: 0;
+
+  @include hoverable-mouse {
+    &.hovering {
+      .mask-border {
+        opacity: 1;
+      }
+
+      .content-wrapper {
+        .light {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.content-wrapper {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+
+  .light {
+    display: none;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-1);
+    border-radius: calc(var(--border-radius) - 1px);
+
+    @include hoverable-mouse {
+      z-index: 3;
+      background: var(--lantern-color);
+      mask-image: radial-gradient(
+        circle calc(var(--circle-radius) * 2) at var(--x) var(--y),
+        var(--lantern-color-mask),
+        transparent 100%
+      );
+      will-change: mask-image, opacity;
+      backface-visibility: hidden;
+
+      @include respond-to('min-mobile-lg') {
+        display: block;
+      }
+    }
+  }
+}
+
+.mask-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: var(--border-radius);
+  transition: opacity var(--duration-normal) var(--ease-1);
+
+  @include hoverable-mouse {
+    display: block;
+    will-change: background, opacity;
+    background-size: auto;
+    background-origin: padding-box;
+    background-image: radial-gradient(
+      calc(var(--circle-radius) * 2) at var(--x) var(--y),
+      var(--border-color),
+      transparent 130%
+    );
+  }
+
+  @include respond-to('mobile-lg') {
+    display: none;
+  }
+}

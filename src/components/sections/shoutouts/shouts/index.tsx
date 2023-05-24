@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 import Masonry from 'react-masonry-css'
 

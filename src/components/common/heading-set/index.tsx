@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Image, { ImageProps } from 'next/future/image'
+import Image, { ImageProps } from 'next/image'
 import { FC } from 'react'
 
 import s from './heading-set.module.scss'

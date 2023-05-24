@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/future/image'
+import Image, { StaticImageData } from 'next/image'
 import { FC } from 'react'
 
 import { Link } from '~/components/primitives/link'

@@ -1,0 +1,176 @@
+@import '~/css/helpers';
+
+.section {
+  padding-bottom: 216px;
+
+  @include respond-to('tablet-lg') {
+    padding-bottom: 80px;
+  }
+
+  .container {
+    @include respond-to('tablet') {
+      padding: 0;
+    }
+
+    .wrapper {
+      background: linear-gradient(
+        256.14deg,
+        #111827 0%,
+        #111826 4.7%,
+        #101726 8.9%,
+        #101725 12.8%,
+        #101624 16.56%,
+        #0f1523 20.37%,
+        #0f1421 24.4%,
+        #0e1420 28.83%,
+        #0d121e 33.84%,
+        #0c111c 39.6%,
+        #0b1019 46.3%,
+        #0a0e16 54.1%,
+        #080c13 63.2%,
+        #070a10 73.76%,
+        #05070c 85.97%,
+        #030407 100%
+      );
+      border: 1px solid rgb(31 41 55 / 0.86);
+      border-radius: 24px;
+      padding: 88px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 44px;
+
+      @include respond-to('tablet') {
+        display: grid;
+        border-radius: 0;
+        border-left: unset;
+        border-right: unset;
+        padding: 24px var(--container-sides-space);
+        gap: 24px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 70px;
+
+        @include respond-to('tablet') {
+          flex-direction: column-reverse;
+          gap: 24px;
+        }
+
+        .author {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          min-width: 30%;
+
+          @include respond-to('tablet') {
+            gap: 12px;
+
+            img {
+              width: 40px;
+              height: 40px;
+            }
+          }
+
+          > div {
+            .name {
+              font-size: 18px;
+              line-height: 24px;
+              letter-spacing: -0.02em;
+              margin-bottom: 2px;
+
+              @include respond-to('tablet') {
+                font-size: 14px;
+                line-height: 18px;
+                margin-bottom: 0;
+              }
+            }
+
+            .position {
+              line-height: 20px;
+              letter-spacing: -0.02em;
+              color: var(--grey-400);
+
+              @include respond-to('tablet') {
+                font-size: 12px;
+                line-height: 16px;
+              }
+            }
+          }
+        }
+
+        .quoteWrapper {
+          position: relative;
+
+          @include respond-to('min-tablet') {
+            &::before {
+              content: '';
+              position: absolute;
+              top: -10px;
+              right: calc(100% + 16px);
+              background-image: url("data:image/svg+xml,%3Csvg width='48' height='37' viewBox='0 0 48 37' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 37V26.8224C0 23.8185 0.560788 20.6557 1.68237 17.3338C2.80394 14.0119 4.36364 10.8314 6.36145 7.79226C8.35925 4.7531 10.7076 2.15568 13.4064 0L21.1873 5.61891C19.0493 8.76408 17.2267 12.0506 15.7196 15.4785C14.2125 18.9064 13.4589 22.6347 13.4589 26.6633V37H0ZM26.8127 37V26.8224C26.8127 23.8185 27.3735 20.6557 28.4951 17.3338C29.6166 14.0119 31.1763 10.8314 33.1741 7.79226C35.172 4.7531 37.5203 2.15568 40.2191 0L48 5.61891C45.862 8.76408 44.0394 12.0506 42.5323 15.4785C41.0252 18.9064 40.2716 22.6347 40.2716 26.6633V37H26.8127Z' fill='%231F2937'/%3E%3C/svg%3E%0A");
+              width: 48px;
+              height: 37px;
+            }
+          }
+
+          p {
+            font-size: 24px;
+            line-height: 36px;
+            letter-spacing: -0.02em;
+            max-width: 551px;
+
+            @include respond-to('tablet') {
+              font-size: 14px;
+              line-height: 20px;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+
+      .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @include respond-to('tablet') {
+          grid-area: 1;
+          justify-content: center;
+        }
+
+        .companysWrapper {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+
+          @include respond-to('tablet') {
+            gap: 28px;
+          }
+
+          button {
+            opacity: 0.2;
+
+            &.active {
+              opacity: 1;
+            }
+
+            svg {
+              width: 80px;
+            }
+          }
+        }
+      }
+
+      .mainCta {
+        @include respond-to('tablet') {
+          max-width: 320px;
+          width: 100%;
+          margin: auto;
+        }
+      }
+    }
+  }
+}
