@@ -9,25 +9,25 @@
   overflow: hidden;
 
   .typeform {
-    all:unset;
-    font-family:Helvetica,Arial,sans-serif;
-    display:inline-block;
-    max-width:100%;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    background-color:#F0F0F0;
-    color:#000000;
-    font-size:15px;
-    border-radius:18px;
-    padding:0 25px;
-    font-weight:bold;
-    height:37.5px;
-    cursor:pointer;
-    line-height:37.5px;
-    text-align:center;
-    margin:0;
-    text-decoration:none
+    all: unset;
+    font-family: Helvetica, Arial, sans-serif;
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #f0f0f0;
+    color: #000;
+    font-size: 15px;
+    border-radius: 18px;
+    padding: 0 25px;
+    font-weight: bold;
+    height: 37.5px;
+    cursor: pointer;
+    line-height: 37.5px;
+    text-align: center;
+    margin: 0;
+    text-decoration: none;
   }
 
   &::after {
@@ -88,6 +88,7 @@
 
       .cta {
         margin-top: 56px;
+
         .docs {
           margin-left: 20px;
         }
@@ -121,7 +122,6 @@
           font-size: 18px;
           max-width: 570px;
         }
-
       }
     }
 
