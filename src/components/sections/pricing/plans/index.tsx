@@ -78,7 +78,9 @@ export const Plans: FC = () => {
         <Heading size="sm">Plans</Heading>
       </div>
       <div
-        className={clsx(s['tabs-container'], { [s.stuck]: isStuck === true })}
+        className={clsx(s['tabs-container'], {
+          [s.stuck as string]: isStuck === true
+        })}
         ref={tabsRef}
       >
         <Container className={s['inner-container']}>
@@ -87,7 +89,7 @@ export const Plans: FC = () => {
             {tabs.map((tab, i) => (
               <button
                 onClick={() => navigateToPlan(i)}
-                className={clsx({ [s.active]: activeKey === i })}
+                className={clsx({ [s.active as string]: activeKey === i })}
                 key={i}
               >
                 {tab}

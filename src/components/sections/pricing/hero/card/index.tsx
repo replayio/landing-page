@@ -19,7 +19,9 @@ interface Props {
 
 export const Card: FC<Props> = ({ data, variant = 'default' }) => {
   return (
-    <div className={clsx(s.card, { [s.primary]: variant === 'primary' })}>
+    <div
+      className={clsx(s.card, { [s.primary as string]: variant === 'primary' })}
+    >
       <h2>{data.type}</h2>
       <div>
         {data?.price ? (

@@ -51,9 +51,9 @@ export const Button = forwardRef(
         className={clsx(
           s['button'],
           {
-            [s['rounded']]: rounded,
-            [s['unstyled']]: unstyled,
-            [s['no-hover']]: noHover
+            [s['rounded'] as string]: rounded,
+            [s['unstyled'] as string]: unstyled,
+            [s['no-hover'] as string]: noHover
           },
           s[variant],
           s[size],

@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import dynamic from 'next/dynamic'
+import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
@@ -17,13 +17,17 @@ import heroImage from '~/images/homepage/hero-image.jpg'
 import s from './hero.module.scss'
 
 const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky),
+  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
   {
     ssr: false
   }
 )
+
 const Grid3D = dynamic(
-  () => import('~/components/common/grid-3d').then((m) => m.Grid3D),
+  () =>
+    import('~/components/common/grid-3d').then(
+      (m) => m.Grid3D
+    ) as LoaderComponent,
   {
     ssr: false
   }

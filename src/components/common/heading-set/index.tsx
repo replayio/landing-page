@@ -29,7 +29,10 @@ export const HeadingSet: FC<HeadingSetProps> = ({
     <div
       className={clsx(
         s['heading-set'],
-        { [s['centered']]: centered, [s['disabled']]: disabled },
+        {
+          [s['centered'] as string]: centered,
+          [s['disabled'] as string]: disabled
+        },
         className
       )}
     >

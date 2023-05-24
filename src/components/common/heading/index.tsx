@@ -28,7 +28,7 @@ export const Heading: FC<HeadingProps> = ({
         s['heading'],
         s[size],
         {
-          [s['centered']]: centered
+          [s['centered'] as string]: centered
         },
         className
       )}

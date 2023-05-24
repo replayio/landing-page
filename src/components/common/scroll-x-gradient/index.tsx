@@ -57,12 +57,12 @@ export const ScrollXGradient = forwardRef<HTMLDivElement, ScrollXGradientProps>(
         <div className={s['scrollable']} ref={mergeRefs([scrollRef, ref])}>
           <div
             className={clsx(s['gradient'], s['left'], {
-              [s['active']]: overflow.overflowLeft
+              [s['active'] as string]: overflow.overflowLeft
             })}
           />
           <div
             className={clsx(s['gradient'], s['right'], {
-              [s['active']]: overflow.overflowRight
+              [s['active'] as string]: overflow.overflowRight
             })}
           />
           {children}

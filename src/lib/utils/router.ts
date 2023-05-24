@@ -37,7 +37,7 @@ export const getHrefWithQuery = (
   if (newQueryParams) {
     Object.keys(newQueryParams).forEach((key) => {
       const value = newQueryParams[key]
-      if (value === null) {
+      if (value === null || value === undefined) {
         if (override) uri.searchParams.delete(key)
         return
       }

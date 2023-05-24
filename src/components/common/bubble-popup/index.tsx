@@ -10,7 +10,11 @@ interface BubbleProps {
 
 export const Bubble = ({ className, children, variant }: BubbleProps) => {
   return (
-    <div className={clsx(s['popup'], className, { [s['variant']]: variant })}>
+    <div
+      className={clsx(s['popup'], className, {
+        [s['variant'] as string]: variant
+      })}
+    >
       {children}
 
       <span className={s['peak']}>

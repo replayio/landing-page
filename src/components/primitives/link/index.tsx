@@ -16,7 +16,11 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     return (
       <NextLink
         {...restProps}
-        className={clsx(s['link'], { [s['unstyled']]: unstyled }, className)}
+        className={clsx(
+          s['link'],
+          { [s['unstyled'] as string]: unstyled },
+          className
+        )}
         ref={ref}
       >
         {children}

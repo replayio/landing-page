@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic'
+import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 
 import { Section } from '~/components/layout/section'
@@ -6,7 +6,7 @@ import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import { getImageSizes } from '~/lib/utils/image'
 const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky),
+  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
   {
     ssr: false
   }
