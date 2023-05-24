@@ -256,15 +256,14 @@ const AssetSideBugs = () => {
             </span>
             <div className={s.progressBar}>
               <Timeline
-                thickness={5}
-                className={s.timeline}
+                thickness={4}
                 playing={timelineHover && !play}
                 primaryColor="#01acfd"
                 markerSize={12}
                 markers={[
                   {
                     position: 35,
-                    activeColor: 'rgb(136 19 55 / 0.96)',
+                    activeColor: '#881337',
 
                     onActive: () => {
                       setPlay(true)
