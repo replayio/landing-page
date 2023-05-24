@@ -118,6 +118,8 @@ export const Meta = (props: MetaProps) => {
         />
         <link rel="canonical" href={resolvedMetadata.canonical} />
 
+        <script src="//embed.typeform.com/next/embed.js" />
+
         {props.preload?.map(({ href, as }) => (
           <link key={href} rel="preload" href={href} as={as} />
         ))}

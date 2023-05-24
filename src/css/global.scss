@@ -154,3 +154,20 @@ body:not(.user-is-tabbing) textarea:focus {
     --padding: 32px;
   }
 }
+
+#scroll-banner {
+  display: none;
+  min-width: 200px;
+  padding: 4px 8px;
+  transform: translateX(-50%);
+  position: fixed;
+  left: 50%;
+  top: 10px;
+  z-index: 1000;
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-gray-darker);
+  color: white;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}

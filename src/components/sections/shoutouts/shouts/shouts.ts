@@ -1,4 +1,5 @@
 import abramov from '~/public/images/shoutouts/abramov.jpg'
+import andarist from '~/public/images/shoutouts/andarist.jpg'
 import auchenberg from '~/public/images/shoutouts/auchenberg.jpg'
 import bahmutov from '~/public/images/shoutouts/bahmutov.jpg'
 import balhara from '~/public/images/shoutouts/balhara.jpg'
@@ -22,7 +23,6 @@ import kyle from '~/public/images/shoutouts/kyle.jpg'
 import litt from '~/public/images/shoutouts/litt.jpg'
 import mac from '~/public/images/shoutouts/mac.jpg'
 import masad from '~/public/images/shoutouts/masad.jpg'
-import mateusz from '~/public/images/shoutouts/mateusz.jpg'
 import matthews from '~/public/images/shoutouts/matthews.jpg'
 import nabors from '~/public/images/shoutouts/nabors.jpg'
 import pocock from '~/public/images/shoutouts/pocock.jpg'
@@ -52,7 +52,7 @@ export const shouts = [
     image: guillermo,
     job: 'CEO of Vercel',
     name: 'Guillermo Rauch',
-    shout: `It's a well known fact that engineers want high quality bug reports, with extensive details, reproduction steps, etc. Yet we have no tools for this other than praying that people follow a Markdown issue template. I think this tool has a very good chance of creating a new category around collaborative debugging. Well done Jason!
+    shout: `This tool has a very good chance of creating a new category around collaborative debugging. Well done!
       `
   },
   {
@@ -116,7 +116,7 @@ export const shouts = [
     shout: `Debugging intermittent tests in Replay will be a game changer. The debugger feels like hopping into Doc Brown’s DeLorean!`
   },
   {
-    image: mateusz,
+    image: andarist,
     job: 'Software Engineer at Stately.ai',
     name: 'Mateusz Burzyński',
     shout: `What the fuck is this, is it the future? is it the past? is it now? don't care this is just freaking amazing!`

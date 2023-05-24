@@ -15,7 +15,7 @@ export const Policy: FC = () => {
           <Heading as="h1" size="sm">
             Privacy Policy
           </Heading>
-          <span>Efective date: 13 sep 2021</span>
+          <span>Effective date: 8 Feb 2023</span>
         </div>
         <div className={s.content}>
           <p>
@@ -24,7 +24,7 @@ export const Policy: FC = () => {
             accessing our Services in any manner, you acknowledge that you
             accept the practices and policies outlined below, and you hereby
             consent that we will collect, use and share your information as
-            described in this Privacy Policy
+            described in this Privacy Policy.
             <br />
             <br />
             Remember that your use of Replay's Services is at all times subject
@@ -781,7 +781,7 @@ export const Policy: FC = () => {
             <li>
               <Link href="mailto:support@replay.io">support@replay.io</Link>
             </li>
-            <li>1263 California Street, Mountain View, CA 94041</li>
+            <li>548 Market St, PMB 78081, San Francisco, CA 94104</li>
           </ul>
         </div>
       </Container>

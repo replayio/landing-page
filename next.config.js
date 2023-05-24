@@ -61,7 +61,7 @@ const config = {
       },
       {
         source: '/blog',
-        destination: 'https://medium.com/replay-io',
+        destination: 'https://blog.replay.io',
         permanent: true
       },
       {
@@ -96,6 +96,12 @@ const config = {
         source: '/glide',
         destination:
           'https://medium.com/replay-io/glide-saves-40-hours-weekly-by-eliminating-the-reproducibility-problem-8a06e6330263',
+        permanent: true
+      },
+      {
+        source: '/midnite',
+        destination:
+          'https://medium.com/replay-io/midnite-builds-time-travel-workflows-for-fast-paced-betting-platform-780adf305a78',
         permanent: true
       },
       {
@@ -153,7 +159,7 @@ const config = {
       },
       {
         source: '/security-privacy',
-        destination: 'https://www.replay.io/privacy-policy',
+        destination: 'https://www.replay.io/security-and-privacy',
         permanent: true
       }
     ]

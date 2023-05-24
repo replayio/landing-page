@@ -32,8 +32,8 @@ export const investors = [
     position: 'Designer/engineer at playbit',
     name: 'Rasmus Anderson',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/rsms',
+      linkedin: 'https://www.linkedin.com/in/rasmusandersson/'
     }
   },
   {
@@ -41,8 +41,8 @@ export const investors = [
     position: 'Founder of github',
     name: 'Tom Preston-Werner',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/mojombo',
+      linkedin: 'https://www.linkedin.com/in/mojombo/'
     }
   },
   {
@@ -50,8 +50,8 @@ export const investors = [
     position: 'VP of design at GitHub',
     name: 'Max Schoenning',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/mschoening',
+      linkedin: 'https://www.linkedin.com/in/max-schoening/'
     }
   },
   {
@@ -59,8 +59,8 @@ export const investors = [
     position: 'Founder of codesandbox',
     name: 'Ives Van Hoorne',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/compuives',
+      linkedin: 'https://www.linkedin.com/in/ivesvh/'
     }
   },
   {
@@ -68,8 +68,8 @@ export const investors = [
     position: 'Tech advisor',
     name: 'Desigan Chinniah',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/cyberdees',
+      linkedin: 'https://www.linkedin.com/in/desiganchinniah/'
     }
   },
   {
@@ -77,8 +77,8 @@ export const investors = [
     position: 'Developer of Products at Stripe',
     name: 'Kenneth Auchenberg',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/auchenberg',
+      linkedin: 'https://www.linkedin.com/in/auchenberg/'
     }
   },
   {
@@ -86,8 +86,8 @@ export const investors = [
     position: 'Founder of Sourcegraph',
     name: 'Beyang Liu',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/beyang',
+      linkedin: 'https://www.linkedin.com/in/beyang-liu/'
     }
   },
   {
@@ -95,8 +95,8 @@ export const investors = [
     position: 'Founder at Replit',
     name: 'Amjad Masad',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/amasad',
+      linkedin: 'https://www.linkedin.com/in/amjadmasad/'
     }
   },
   {
@@ -104,8 +104,7 @@ export const investors = [
     position: 'Head of DX at Temporalio',
     name: 'Shawn Wang',
     socials: {
-      twitter: 'https://twitter.com/',
-      linkedin: 'https://www.linkedin.com/'
+      twitter: 'https://twitter.com/swyx'
     }
   }
 ]
