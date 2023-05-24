@@ -557,7 +557,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     }
   },
   timeTravel: {
-    href: '/',
+    href: '/time-travel',
     label: 'Time Travel'
   },
   company: {
