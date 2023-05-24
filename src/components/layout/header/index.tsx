@@ -64,7 +64,7 @@ export const Header = () => {
           >
             <Image
               fill
-              src="/assets/logo.png"
+              src="/images/logo.png"
               alt="Replay's logo"
               quality={100}
               priority

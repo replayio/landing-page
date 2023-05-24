@@ -31,7 +31,7 @@ export const Footer = () => {
       <div className={s.titleWrapper}>
         <div className={s.isotypeWrapper}>
           <Image
-            src="/assets/isotype.png"
+            src="/images/isotype.png"
             alt="Replay's isotype"
             fill
             quality={100}

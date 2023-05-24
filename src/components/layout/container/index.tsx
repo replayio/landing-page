@@ -1,18 +1,23 @@
 import clsx from 'clsx'
-import { forwardRef } from 'react'
+import { ComponentProps, ElementType, forwardRef } from 'react'
 
-export type ContainerProps = {
-  size?: 'sm' | 'md' | 'lg'
+import s from './container.module.scss'
+
+type Props = {
+  size?: 'sm' | 'md' | 'lg' /* Not in use just for compatibility */
+  as?: 'div' | 'section'
 } & JSX.IntrinsicElements['div']
 
-export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, size = 'md', ...props }, ref) => {
+export const Container = forwardRef<HTMLDivElement, Props>(
+  ({ className, as = 'div', ...props }, ref) => {
+    const Element: ElementType = as
+
     return (
-      <div
-        {...props}
-        className={clsx('container', size, className)}
-        ref={ref}
-      />
+      <Element {...props} className={clsx(s.container, className)} ref={ref} />
     )
   }
 )
+
+export const containerStyles = s
+
+export type ContainerProps = ComponentProps<typeof Container>
