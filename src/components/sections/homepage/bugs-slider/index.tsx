@@ -177,14 +177,14 @@ const AssetSideBugs = () => {
     <AssetSideBox caption="Try hovering the replay." className={s.bugsReport}>
       <div className={s.illustration}>
         <Image
-          src="/assets/bugs-slider/skateboard-shadow.png"
+          src="/images/bugs-slider/skateboard-shadow.png"
           alt="Skateboard"
           height={75}
           width={186}
           className={clsx(s.skateboardShadow, play && s.pause)}
         />
         <Image
-          src="/assets/bugs-slider/skateboard.png"
+          src="/images/bugs-slider/skateboard.png"
           alt="Skateboard"
           height={75}
           width={186}
@@ -195,7 +195,7 @@ const AssetSideBugs = () => {
       </div>
       <AssetSideComment
         username="Elaine Baylor"
-        avatar="/assets/bugs-slider/elaine-avatar.jpg"
+        avatar="/images/bugs-slider/elaine-avatar.jpg"
         commentedAt="on Apr 21"
       >
         <p className={s.commentText}>
@@ -296,14 +296,14 @@ const AssetSideBrowser = () => {
     <AssetSideBox caption="Try hovering the errors." className={s.browser}>
       <div className={s.illustration}>
         <Image
-          src="/assets/bugs-slider/skateboard-shadow.png"
+          src="/images/bugs-slider/skateboard-shadow.png"
           alt="Skateboard"
           height={75}
           width={186}
           className={s.skateboardShadow}
         />
         <Image
-          src="/assets/bugs-slider/skateboard.png"
+          src="/images/bugs-slider/skateboard.png"
           alt="Skateboard"
           height={75}
           width={186}
@@ -325,7 +325,7 @@ const AssetSideBrowser = () => {
       </div>
       <AssetSideComment
         username="Replay (bot)"
-        avatar="/assets/bugs-slider/replay-bot-avatar.png"
+        avatar="/images/bugs-slider/replay-bot-avatar.png"
         commentedAt="1 hour ago"
       >
         <p className={s.commentText}>

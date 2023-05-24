@@ -1,12 +1,13 @@
 import clsx from 'clsx'
-import { forwardRef } from 'react'
+import * as React from 'react'
 
-import s from './aspect-box.module.scss'
+import s from './aspect-box.module.css'
 
-type AspectBoxProps = { ratio: number } & JSX.IntrinsicElements['div']
-
-export const AspectBox = forwardRef<HTMLDivElement, AspectBoxProps>(
-  ({ ratio, children, className, style, ...rest }, ref) => (
+export const AspectBox = React.forwardRef<
+  HTMLDivElement,
+  { ratio: number } & JSX.IntrinsicElements['div']
+>(({ ratio, children, className, style, ...rest }, ref) => {
+  return (
     <div
       {...rest}
       className={clsx(s['aspect-box'], className)}
@@ -20,4 +21,4 @@ export const AspectBox = forwardRef<HTMLDivElement, AspectBoxProps>(
       {children}
     </div>
   )
-)
+})

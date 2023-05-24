@@ -188,7 +188,7 @@ const highlighted: HighlightedType[] = [
     description:
       "Glide's mission is to put the power, beauty, and magic of software development into the hands of a billion new creators.",
     image: {
-      src: '/assets/homepage/trusted-teams/glide.png',
+      src: '/images/homepage/trusted-teams/glide.png',
       alt: 'Glide'
     }
   },
@@ -222,7 +222,7 @@ const highlighted: HighlightedType[] = [
     description:
       'Connect your POS, CRM, guest database, and other useful tools to enhance your staff productivity and efficiency.',
     image: {
-      src: '/assets/homepage/trusted-teams/tablecheck.png',
+      src: '/images/homepage/trusted-teams/tablecheck.png',
       alt: 'TableCheck'
     }
   },
@@ -246,7 +246,7 @@ const highlighted: HighlightedType[] = [
     description:
       "Pantheon's WebOps Platform improves productivity to drive down the cost of making changes to your Drupal and WordPress websites.",
     image: {
-      src: '/assets/homepage/trusted-teams/pantheon.png',
+      src: '/images/homepage/trusted-teams/pantheon.png',
       alt: 'Pantheon'
     }
   }

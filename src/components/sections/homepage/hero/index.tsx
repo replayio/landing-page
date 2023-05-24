@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
-import heroImage from '~/assets/homepage/hero-image.jpg'
+import heroImage from '~/images/homepage/hero-image.jpg'
 import { AspectBox } from '~/components/common/aspect-box'
 import { Container } from '~/components/layout/container'
 import { Section } from '~/components/layout/section'
@@ -217,7 +217,7 @@ const VideoModal = () => {
           className={s.modalContent}
         >
           <MuxVideo
-            poster="/assets/homepage/hero-video-placeholder.png"
+            poster="/images/homepage/hero-video-placeholder.png"
             controls
             className={s.video}
             muxSrc="https://stream.mux.com/j4HHD01eAGd01vFBPyQhfpWuDWSlXKsGep1o2dbDAlE2s.m3u8"

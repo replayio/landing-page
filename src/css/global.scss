@@ -9,13 +9,16 @@
 :root {
   --font-system: -apple-system, blinkmacsystemfont, segoe ui, roboto, oxygen,
     ubuntu, cantarell, fira sans, droid sans, helvetica neue, sans-serif;
-  --font-body: 'Inter', var(--font-system), sans-serif;
-  --font-heading: 'Roobert', var(--font-system);
-  --font-mono: 'Roboto Mono', var(--font-system);
-  --inspect-color: #f00;
-  --header-height: 56px;
+  // --font-body: 'Inter', var(--font-system), sans-serif;
+  // --font-heading: 'Roobert', var(--font-system);
+  // --font-mono: 'Roboto Mono', var(--font-system);
+
+  --font-body: var(--font-inter), var(--font-system), sans-serif;
+  --font-heading: var(--font-roobert), var(--font-system), sans-serif;
+  --font-editor: var(--font-roboto-mono), var(--font-system), sans-serif;
 
   /* Colors */
+  --inspect-color: #f00;
   --color-transparent: rgb(255 255 255 / 0);
   --color-pink-crayon: #f41c52;
   --color-pink-light: #ff5f87;
@@ -28,6 +31,25 @@
   --color-gray: #505050;
   --color-gray-dark: #464646;
   --color-gray-darker: #323232;
+
+  /* New colors */
+  --white: #fff;
+  --black: #000;
+  --red-400: #f41c52;
+  --grey-300: #d1d5db;
+  --grey-400: #9ca3af;
+  --grey-500: #6b7280;
+  --grey-600: #4b5563;
+  --blue-800: #1f2937;
+
+  /* Layout */
+  --container-sides-space: 24px;
+  --container-width: 1060px;
+  --header-height: 76px;
+  --header-z-index: 999;
+  --mobile-menu-z-index: 998;
+  --border-radius-8: 8px;
+  --ease-1: cubic-bezier(0.5, 1, 0.89, 1);
 
   /* Gradients */
   --gradient-primary: linear-gradient(
@@ -44,6 +66,8 @@
   /* Durations */
   --duration-fast: 0.15s;
   --duration-moderate: 0.25s;
+  --duration-normal: 0.33s;
+  --duration-slow: 0.5s;
   --duration-long: 1s;
   --duration-super-long: 4s;
 
@@ -79,12 +103,12 @@ html {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-padding-top: var(--header-height);
   // scroll-behavior: smooth;
 
   // tweak if site is light mode.
-  background-color: var(--color-white);
-  color: var(--color-gray-darker);
+  color-scheme: dark;
+  background-color: black;
+  scroll-padding-top: calc(var(--header-height) + 66px);
 }
 
 body {

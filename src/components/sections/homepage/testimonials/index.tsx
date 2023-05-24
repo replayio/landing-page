@@ -82,7 +82,7 @@ const data: DataType[] = [
     quote: '"Replay.io is galaxy brain tooling. Real gamechanger."',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -107,7 +107,7 @@ const data: DataType[] = [
     quote: '"Replay.io is galaxy brain tooling. Real gamechanger."',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -133,7 +133,7 @@ const data: DataType[] = [
       '“I think Replay has a very good chance of creating a new category around collaborative debugging”',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -159,7 +159,7 @@ const data: DataType[] = [
       '“Replay.io is the obvious next step for the future of collaborative debugging applications...”',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -185,7 +185,7 @@ const data: DataType[] = [
       '"Awesome to see time-travel debugging in such a usable, intuitive form!". "Awesome to see time-travel debugging in such a usable, intuitive form!"',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -211,7 +211,7 @@ const data: DataType[] = [
       '"Replay first feels like magic, but you quickly wonder how you ever worked without it."',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -237,7 +237,7 @@ const data: DataType[] = [
       '“Replay.io is the obvious next step for the future of collaborative debugging applications...”',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -263,7 +263,7 @@ const data: DataType[] = [
       '“Awesome to see time-travel debugging in such a usable, intuitive form!”',
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -289,7 +289,7 @@ const data: DataType[] = [
       "What the fuck is this, is it the future? Is it the past? Is it now? Don't care this is just freaking amazing!'",
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: (

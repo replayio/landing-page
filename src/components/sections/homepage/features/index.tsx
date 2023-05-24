@@ -259,7 +259,7 @@ const data: DataType[] = [
       href: '/'
     },
     asset: {
-      url: '/assets/homepage/features/reporting.png'
+      url: '/images/homepage/features/reporting.png'
     }
   },
   {
@@ -273,7 +273,7 @@ const data: DataType[] = [
       href: '/'
     },
     asset: {
-      url: '/assets/homepage/features/encryptions.svg'
+      url: '/images/homepage/features/encryptions.svg'
     }
   },
   {
@@ -287,7 +287,7 @@ const data: DataType[] = [
       href: '/'
     },
     asset: {
-      url: '/assets/homepage/features/saml.svg'
+      url: '/images/homepage/features/saml.svg'
     }
   }
 ]

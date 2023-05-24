@@ -19,7 +19,7 @@
     "target": "esnext",
     "baseUrl": "./src",
     "paths": {
-      "~/assets/*": ["../public/images/*"],
+      "~/images/*": ["../public/images/*"],
       "~/public/*": ["../public/*"],
       "~/*": ["./*"]
     },

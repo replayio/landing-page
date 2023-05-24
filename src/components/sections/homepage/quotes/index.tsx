@@ -105,7 +105,7 @@ const data: DataType[] = [
     id: 0,
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: 'CEO, Vercel'
@@ -137,7 +137,7 @@ const data: DataType[] = [
     id: 1,
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: 'CEO, Vercel'
@@ -169,7 +169,7 @@ const data: DataType[] = [
     id: 2,
     author: {
       avatar: {
-        url: '/assets/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.png'
       },
       name: 'Guillermo Rauch',
       jobPosition: 'CEO, Vercel'
