@@ -40,46 +40,6 @@
       width: 100%;
       aspect-ratio: 7 / 1;
     }
-
-    .lights {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 15vw;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform-origin: top left;
-      transform: rotate(-45deg) translate(-35%, -35%);
-
-      span {
-        background: linear-gradient(180deg, #fff 0%, #d3d8df 59.49%);
-        border-radius: 50%;
-        aspect-ratio: 1 / 30;
-
-        @include respond-to('tablet') {
-          display: none;
-        }
-      }
-
-      .light-1 {
-        opacity: 0.2;
-        filter: blur(60px);
-        height: 80vw;
-      }
-
-      .light-2 {
-        opacity: 0.32;
-        filter: blur(60px);
-        height: 100vw;
-      }
-
-      .light-3 {
-        opacity: 0.32;
-        filter: blur(60px);
-        height: 90vw;
-      }
-    }
   }
 
   .textContainer {

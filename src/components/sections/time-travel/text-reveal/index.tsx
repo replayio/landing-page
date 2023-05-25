@@ -56,7 +56,7 @@ export const TextReveal = () => {
         .to(txt, {
           duration: 20,
           delay: 10,
-          rotateX: 25
+          rotateX: 15
         })
         .to(
           bg,
@@ -89,11 +89,6 @@ export const TextReveal = () => {
       <div ref={backgroundRef} className={s['bg-container']}>
         <Sky />
         <span className={s['groundLight']} />
-        <div className={s['lights']}>
-          <span className={s['light-1']} />
-          <span className={s['light-2']} />
-          <span className={s['light-3']} />
-        </div>
       </div>
       <div ref={containerRef} className={s['textContainer']}>
         <h4 ref={textRef} className={s['text']}>
