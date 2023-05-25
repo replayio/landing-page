@@ -1,16 +1,8 @@
 import clsx from 'clsx'
-import { Elastic } from 'gsap'
-import {
-  clearProps,
-  DURATION,
-  Flip,
-  gsap,
-  ScrollTrigger,
-  SplitText
-} from 'lib/gsap'
+import { clearProps, DURATION, Flip, gsap, ScrollTrigger } from 'lib/gsap'
 import get from 'lodash/get'
 import Image from 'next/image'
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { CSSProperties, forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
@@ -31,11 +23,6 @@ import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.jpeg'
 
 import { Code, CodeRef } from './code'
-import {
-  CommentModule,
-  CommentModuleProps,
-  CommentState
-} from './comment-module'
 import {
   buildUuids,
   IdentifiedNode,
@@ -235,7 +222,6 @@ export default function ReplayApplication() {
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
   const [currentTime, setCurrentTime] = useState(0)
-  const [commentState, setCommentState] = useState<CommentState>('idle')
   const { isDesktop } = useDeviceDetect()
   const { width, height } = useViewportSize()
   const { fontsLoaded } = useAppStore()
@@ -244,9 +230,7 @@ export default function ReplayApplication() {
 
   /* Store */
   const [storeState, setStoreState] =
-    useState<OverboardStoreProps['state']>('idle')
-  const [overboardColor, setOverboardColor] =
-    useState<OverboardStoreProps['overboardColor']>('red')
+    useState<OverboardStoreProps['state']>('error')
 
   /* React */
   const [activeComponent, setActiveComponent] =
@@ -319,107 +303,12 @@ export default function ReplayApplication() {
     const addPrintButton = codeSelector('#dev-tools-add-print')
     const printTutorial = codeSelector('#dev-tools-print-tutorial')
     const printPanel = codeSelector('#dev-tools-print-panel')
-    const storeLogo = storeSelector(`#overboard-store-logo-${storeId}`)
-    const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
     const storePurchase = storeSelector(`#overboard-store-purchase-${storeId}`)
     const [storePurchaseLoader] = storeSelector(
       `#overboard-store-purchase-${storeId} .loader`
     )
-    const storeColors = storeSelector(`#overboard-store-colors-${storeId}`)
-    const devtoolsTools = appSelector('.toolbar .debugger,.search,.code')
     const devtoolsToolsComments = appSelector('.toolbar .comments')
     const devtoolsToolsCode = appSelector('.toolbar .code')
-    const headerUsers = appSelector('.header .user')
-    const recordBadge = storeSelector('.record')
-    const storeContainer = storeSelector('.store')
-
-    /* First Comment */
-    const firstComment = storeSelector('#scrollytelling-first-comment')
-    const firstCommentIcon = storeSelector(
-      '#scrollytelling-first-comment .comment-icon'
-    )
-    const firstCommentBox = storeSelector(
-      '#scrollytelling-first-comment .comment'
-    )
-
-    /* Second Comment */
-    const secondCommentIcon = appSelector(
-      '#scrollytelling-second-comment .comment-icon'
-    )
-
-    const secondCommentBox = appSelector(
-      '#scrollytelling-second-comment .comment'
-    )
-
-    const animateCommentThread = (
-      wrapperId: string,
-      timeline: GSAPTimeline,
-      customSelector?: gsap.utils.SelectorFunc
-    ) => {
-      const selector = customSelector || gsap.utils.selector(sectionRef.current)
-
-      const commentContent = selector(`${wrapperId} .content`)
-      const [commentInput] = selector(`${wrapperId} .input`)
-
-      const splitText = new SplitText(commentInput.children[1], {
-        type: 'chars'
-      })
-
-      timeline
-        .call(() => {
-          setCommentState('idle')
-        })
-        .call(
-          () => {
-            setCommentState('typing')
-          },
-          undefined,
-          '<'
-        )
-        .fromTo(
-          splitText.chars,
-          {
-            display: 'none'
-          },
-          {
-            duration: 0.6,
-            display: 'inline',
-            stagger: 0.025,
-            ease: 'power0.none'
-          },
-          '<'
-        )
-        .call(
-          () => {
-            setCommentState('typing')
-          },
-          undefined,
-          '>'
-        )
-        .call(
-          () => {
-            setCommentState('submited')
-          },
-          undefined,
-          '<'
-        )
-        .fromTo(
-          commentContent[1],
-          {
-            scale: 0.8,
-            opacity: 0,
-            height: 0
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            height: 'auto'
-          },
-          '>+=1'
-        )
-
-      return splitText
-    }
 
     /* Board and floor movement */
     const storeVariables = {
@@ -447,24 +336,6 @@ export default function ReplayApplication() {
           storeApiRef.current?.hoverboard?.wave(nextProgress)
         }
       })
-
-    const flipTimeline1 = Flip.fit(
-      targetStoreRef.current,
-      smallCenteredStoreRef.current,
-      {
-        simple: false,
-        duration: 2
-      }
-    )
-
-    const flipTimeline2 = Flip.fit(
-      targetStoreRef.current,
-      smallRightCenteredStoreRef.current,
-      {
-        simple: false,
-        duration: 4
-      }
-    )
 
     const flipTimeline3 = Flip.fit(
       targetStoreRef.current,
@@ -555,13 +426,16 @@ export default function ReplayApplication() {
           document.documentElement.classList.add('hide-header')
         },
         onLeave: () => {
-          document.documentElement.classList.add('sticky-header')
           document.documentElement.classList.remove('hide-header')
         }
       }
     })
 
     const printTimelineProgress = { progress: 0 }
+
+    Flip.fit(targetStoreRef.current, smallRightCenteredStoreRef.current, {
+      simple: false
+    })
 
     timeline
       .addLabel('start')
@@ -571,36 +445,7 @@ export default function ReplayApplication() {
         ease: 'power3.out'
       })
       .add(() => {
-        document.documentElement.classList.remove('sticky-header')
-        document.documentElement.classList.remove('hide-header')
-      }, '<+=1')
-
-      .to(
-        recordBadge,
-        {
-          opacity: 1,
-          duration: 0.5
-        },
-        '>'
-      )
-      .addLabel('record')
-      .add(() => {
-        setOverboardColor('red')
-      }, '<+=0.5')
-      .add(() => {
-        setOverboardColor('green')
-      })
-      .to(
-        storeColors,
-        {
-          opacity: 0,
-          duration: 0.5,
-          yPercent: -20
-        },
-        '<+=0.5'
-      )
-      .add(() => {
-        setStoreState('idle')
+        setStoreState('error')
       })
       .fromTo(
         storePurchase,
@@ -611,187 +456,9 @@ export default function ReplayApplication() {
         { opacity: 1, yPercent: -50, duration: 1 },
         '<'
       )
-      .add(() => {
-        setStoreState('loading')
-      })
-      .add(() => {
-        setStoreState('error')
-        progressBarRef.current?.update(100)
-        setCurrentTime(timelineDuration)
-      }, '+=1')
 
-      /* Viewer */
-      .add(flipTimeline1 as GSAPTimeline, '>')
-      .to(storeContainer, { borderRadius: 12 }, '<')
-      .to(
-        recordBadge,
-        {
-          opacity: 0
-        },
-        '<'
-      )
-      .fromTo(
-        applicationRef.current,
-        {
-          scale: 0.9,
-          yPercent: 20,
-          opacity: 0
-        },
-        {
-          scale: 1,
-          yPercent: 0,
-          opacity: 1,
-          duration: 2
-        },
-        '<'
-      )
-      .to(
-        storeLogo,
-        {
-          opacity: 0,
-          yPercent: -40,
-          duration: 2 // <-- These three have to be the same
-        },
-        '<'
-      )
-      .to(
-        [storePurchase, firstComment],
-        {
-          yPercent: -50,
-          duration: 2 // <-- These three have to be the same
-        },
-        '<'
-      )
-      .to(
-        storeContent,
-        {
-          y: 0,
-          duration: 2 // <-- These three have to be the same
-        },
-        '<'
-      )
-      .add(() => {
-        floorAndRotateTimeline.current?.play()
-      }, '<')
-      .add(() => {
-        floorAndRotateTimeline.current?.pause()
-      }, '<')
-      .add(() => {
-        playPauseRef.current?.classList.remove('play')
-        playPauseRef.current?.classList.add('pause')
-        progressBarRef.current?.update(50)
-        setCurrentTime(timelineDuration * 0.5)
-      }, '<')
-
-      /* Comments */
-      .set(firstComment, { opacity: 1 })
-      .to(
-        devtoolsToolsComments,
-        {
-          fill: '#05ACFD'
-        },
-        '<'
-      )
-      .to(
-        devtoolsToolsCode,
-        {
-          fill: '#BCBCBC'
-        },
-        '<'
-      )
-      .fromTo(
-        firstCommentIcon,
-        {
-          scale: 0.6,
-          opacity: 0
-        },
-        {
-          scale: 1,
-          opacity: 1
-        }
-      )
-      .addLabel('comments')
-      .to(firstCommentIcon, {
-        scale: 1.2,
-        duration: 1
-      })
-      .to(firstCommentIcon, {
-        scale: 1,
-        duration: 1
-      })
-      .fromTo(
-        firstCommentBox,
-        {
-          transformOrigin: 'left top',
-          y: -8,
-          scale: 0.8,
-          opacity: 0
-        },
-        {
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          ease: Elastic.easeOut.config(1, 0.6),
-          duration: 3
-        }
-      )
-
-    const firstCommentSplitText = animateCommentThread(
-      '#scrollytelling-first-comment',
-      timeline,
-      storeSelector
-    )
-
-    timeline
-      .fromTo(
-        headerUsers[0],
-        {
-          xPercent: 20,
-          opacity: 0
-        },
-        {
-          xPercent: 0,
-          opacity: 1,
-          duration: 2
-        },
-        '<'
-      )
-      .to(
-        firstCommentBox,
-        {
-          y: -8,
-          scale: 0.8,
-          opacity: 0,
-          duration: 1.5
-        },
-        '>+=2'
-      )
-
-      /* Devtools */
-      .addLabel('devtools')
-      .fromTo(
-        viewToggleRef.current,
-        { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
-        { clipPath: 'inset(4px 4px 4px 50% round 4px)' }
-      )
-      .fromTo(
-        devtoolsTools,
-        {
-          yPercent: -20,
-          opacity: 0
-        },
-        {
-          yPercent: 1,
-          opacity: 1,
-          duration: 2,
-          stagger: 0.3
-        },
-        '<'
-      )
-
-      /* Devtools */
-      .add(flipTimeline2 as GSAPTimeline)
       .addLabel('react', '>')
+
       .to(
         devtoolsToolsComments,
         {
@@ -803,13 +470,6 @@ export default function ReplayApplication() {
         devtoolsToolsCode,
         {
           fill: '#05ACFD'
-        },
-        '<'
-      )
-      .to(
-        firstComment,
-        {
-          opacity: 0
         },
         '<'
       )
@@ -975,14 +635,6 @@ export default function ReplayApplication() {
         playPauseRef.current?.classList.add('pause')
       })
 
-      /* Restore comment state */
-      .call(() => {
-        setCommentState('submited')
-      })
-      .add(() => {
-        setCommentState('idle')
-      })
-
       .fromTo(
         printTimelineProgress,
         {
@@ -1027,39 +679,6 @@ export default function ReplayApplication() {
           }
         }
       )
-      .to(
-        secondCommentIcon,
-        {
-          scale: 1.2,
-          duration: 1
-        },
-        '+=2'
-      )
-      .to(secondCommentIcon, {
-        scale: 1,
-        duration: 1
-      })
-      .fromTo(
-        secondCommentBox,
-        {
-          transformOrigin: 'right center',
-          y: -42,
-          scale: 0.8,
-          opacity: 0
-        },
-        {
-          scale: 1,
-          opacity: 1,
-          ease: Elastic.easeOut.config(1, 0.6),
-          duration: 3
-        }
-      )
-
-    const secondCommentSplitText = animateCommentThread(
-      '#scrollytelling-second-comment',
-      timeline,
-      appSelector
-    )
 
     /* Add some duration at the end */
     timeline.to({}, {}).addLabel('end', '>')
@@ -1067,10 +686,6 @@ export default function ReplayApplication() {
     timelineRef.current = timeline
 
     return () => {
-      /* Split Text Cleanup */
-      firstCommentSplitText.revert()
-      secondCommentSplitText.revert()
-
       /* ScrollTrigger Cleanup */
       window.scrollTo(0, 0)
 
@@ -1098,46 +713,6 @@ export default function ReplayApplication() {
       return hit
     })
   }, [])
-
-  const [firstComment, secondComment] = useMemo<
-    [CommentModuleProps['comments'], CommentModuleProps['comments']]
-  >(
-    () => [
-      [
-        {
-          name: 'Erika',
-          date: 'Now',
-          state: commentState,
-          avatar: avatarOne,
-          text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
-        },
-        {
-          name: 'Jasmine',
-          date: 'Now',
-          avatar: avatarTwo,
-          state: 'submited',
-          text: 'Absolutely!'
-        }
-      ],
-      [
-        {
-          name: 'Jasmine',
-          date: 'Now',
-          avatar: avatarTwo,
-          state: commentState,
-          text: "It looks like we've sent `color` instead of `colorId` to the API at that time. Fix deployed, @erika ready for a look!"
-        },
-        {
-          name: 'Erika',
-          date: 'Now',
-          avatar: avatarOne,
-          state: 'submited',
-          text: 'LGTM 🚢 thanks for fixing that so quickly!'
-        }
-      ]
-    ],
-    [commentState]
-  )
 
   const devtoolProps = {
     console: {
@@ -1193,27 +768,13 @@ export default function ReplayApplication() {
             >
               <RecSvg />
 
-              <div
-                id="scrollytelling-first-comment"
-                style={{
-                  opacity: 0,
-                  width: 44,
-                  position: 'absolute',
-                  left: '38.5%',
-                  top: '38%',
-                  zIndex: 'var(--z-index-20)'
-                }}
-              >
-                <CommentModule side="bottom-right" comments={firstComment} />
-              </div>
-
               <OnRenderFadeIn
                 className={s['store-entrance-animation-container']}
               >
                 <OverboardStore
                   storeId={storeId}
                   state={storeState}
-                  overboardColor={overboardColor}
+                  overboardColor="red"
                   style={{ height: '100%' }}
                   mode="full"
                   inspectMode="react"
@@ -1227,7 +788,11 @@ export default function ReplayApplication() {
                 ratio={1360 / 910}
                 className={s['app']}
                 /* @ts-ignore */
-                style={{ '--padding': padding + 'px' }}
+                style={
+                  {
+                    '--padding': padding + 'px'
+                  } as CSSProperties
+                }
                 ref={applicationRef}
               >
                 <div
@@ -1388,7 +953,6 @@ export default function ReplayApplication() {
                           markers: printMarkers,
                           printLineTarget: 7,
                           timelineType: 'justUi',
-                          comments: secondComment,
                           currentMarker: markersType,
                           onHit: handleHit,
                           currentHit

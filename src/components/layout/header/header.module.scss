@@ -1,5 +1,12 @@
 @import '~/css/helpers';
 
+:global(.hide-header) {
+  .header {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 .header {
   height: var(--header-height);
   padding: 0 var(--container-sides-space);

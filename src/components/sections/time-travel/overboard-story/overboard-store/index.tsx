@@ -1,10 +1,4 @@
-import {
-  Color,
-  Colors,
-  colorways,
-  Hoverboard,
-  HoverboardControls
-} from '@replayio/overboard'
+import { Hoverboard, HoverboardControls } from '@replayio/overboard'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { forwardRef, memo, useImperativeHandle, useRef } from 'react'
@@ -13,7 +7,6 @@ import { AspectBox } from '~/components/common/aspect-box'
 import { InspectBox } from '~/components/common/inspect-box'
 import starsSvg from '~/public/images/home/overboard-stars.svg'
 
-import { Logo } from './logo'
 import s from './overboard-store.module.scss'
 
 export type OverboardColors = 'red' | 'green' | 'blue'
@@ -86,7 +79,6 @@ export const OverboardStore = memo(
         mode,
         state = 'idle',
         overboardColor,
-        onOverboardColorChange,
         inspectMode,
         onPurchase,
         className,
@@ -153,11 +145,6 @@ export const OverboardStore = memo(
 
             <div style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }}>
               <InspectBox name={inspectNames[inspectMode]['main']} boxId="main">
-                <Logo
-                  id={buildId('overboard-store-logo')}
-                  className={s['logo']}
-                />
-
                 <div
                   id={buildId('overboard-store-inner')}
                   className={s['store-inner']}
@@ -169,7 +156,7 @@ export const OverboardStore = memo(
                     <InspectBox
                       name={inspectNames[inspectMode]['hoverboard']}
                       boxId="hoverboard"
-                      className={s['overboard-wrapper']}
+                      className={s['overboard-wrapper'] as string}
                     >
                       <AspectBox style={{ width: '100%' }} ratio={700 / 340}>
                         <Hoverboard
@@ -177,68 +164,27 @@ export const OverboardStore = memo(
                           color={overboardColor}
                         />
                       </AspectBox>
-                    </InspectBox>
-                  </InspectBox>
-
-                  <InspectBox
-                    name={inspectNames[inspectMode]['purchase-form']}
-                    boxId="purchase-form"
-                    className={s['purchase-form']}
-                  >
-                    <InspectBox
-                      id={buildId('overboard-store-colors')}
-                      name={inspectNames[inspectMode]['colors']}
-                      boxId="colors"
-                      className={s['color-picker']}
-                    >
-                      <Colors
-                        onColorChange={(color) => {
-                          // TODO: need to fix type in overboard design system
-                          // @ts-ignore
-                          onOverboardColorChange(color)
-                        }}
+                      <InspectBox
+                        id={buildId('overboard-store-purchase')}
+                        name={inspectNames[inspectMode]['submit']}
+                        boxId="submit"
+                        className={s['button-wrapper']}
                       >
-                        {Object.entries(colorways).map(
-                          ([name, [start, end]]) => (
-                            <InspectBox
-                              name={inspectNames[inspectMode]['color']}
-                              boxId={`color-${name}`}
-                              key={name}
-                            >
-                              <Color
-                                onChange={() => undefined}
-                                checked={overboardColor === name}
-                                label={name}
-                                value={name.toLowerCase()}
-                                startColor={start}
-                                endColor={end}
-                              />
-                            </InspectBox>
-                          )
-                        )}
-                      </Colors>
+                        <button
+                          onClick={onPurchase}
+                          className={clsx(s['purchase'], {
+                            [s['loading'] as string]: state === 'loading',
+                            [s['error'] as string]: state === 'error'
+                          })}
+                          disabled={state === 'loading'}
+                        >
+                          <span className={s['content']}>
+                            {state === 'error' ? 'Error' : 'Purchase'}
+                          </span>
+                          <span className={clsx('loader', s['loader'])} />
+                        </button>
+                      </InspectBox>
                     </InspectBox>
-                  </InspectBox>
-
-                  <InspectBox
-                    id={buildId('overboard-store-purchase')}
-                    name={inspectNames[inspectMode]['submit']}
-                    boxId="submit"
-                    className={s['button-wrapper']}
-                  >
-                    <button
-                      onClick={onPurchase}
-                      className={clsx(s['purchase'], {
-                        [s['loading']]: state === 'loading',
-                        [s['error']]: state === 'error'
-                      })}
-                      disabled={state === 'loading'}
-                    >
-                      <span className={s['content']}>
-                        {state === 'error' ? 'Error' : 'Purchase'}
-                      </span>
-                      <span className={clsx('loader', s['loader'])} />
-                    </button>
                   </InspectBox>
                 </div>
               </InspectBox>
