@@ -5,20 +5,16 @@ import { MuxVideo } from '~/components/primitives/mux-video'
 
 import s from './video-modal.module.scss'
 
-interface VideoModalProps {
+interface ModalProps {
   url: string
   poster?: string
-  button: React.ReactNode
+  children: React.ReactNode
 }
 
-export const VideoModal: React.FC<VideoModalProps> = ({
-  url,
-  poster,
-  button
-}) => {
+export const Modal: React.FC<ModalProps> = ({ url, poster, children }) => {
   return (
     <Dialog.Root>
-      <Dialog.Trigger asChild>{button}</Dialog.Trigger>
+      {children}
       <Dialog.Portal>
         <Dialog.Overlay className={s.modalOverlay} />
         <Dialog.Content
@@ -36,3 +32,12 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     </Dialog.Root>
   )
 }
+
+export const Trigger = Dialog.Trigger
+
+const Video = {
+  Modal,
+  Trigger
+}
+
+export default Video
