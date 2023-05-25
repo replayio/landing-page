@@ -56,6 +56,10 @@
         background: linear-gradient(180deg, #fff 0%, #d3d8df 59.49%);
         border-radius: 50%;
         aspect-ratio: 1 / 30;
+
+        @include respond-to('tablet') {
+          display: none;
+        }
       }
 
       .light-1 {
