@@ -7,6 +7,8 @@ export interface AppStore {
   setNavigationSitemapShowing: (navigationSitemapShowing: boolean) => void
   tabIsFocused: boolean
   setTabIsFocused: (tabIsFocused: boolean) => void
+  fontsLoaded: boolean
+  setFontsLoaded: (fontsLoaded: boolean) => void
 }
 
 export const useAppStore = create<AppStore>((set) => ({
@@ -15,5 +17,7 @@ export const useAppStore = create<AppStore>((set) => ({
     set((s) => ({ ...s, navigationSitemapShowing })),
   tabIsFocused: true,
   setTabIsFocused: (tabIsFocused: boolean) =>
-    set((s) => ({ ...s, tabIsFocused }))
+    set((s) => ({ ...s, tabIsFocused })),
+  fontsLoaded: false,
+  setFontsLoaded: (fontsLoaded: boolean) => set((s) => ({ ...s, fontsLoaded }))
 }))
