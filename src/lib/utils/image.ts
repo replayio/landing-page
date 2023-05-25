@@ -19,7 +19,8 @@ export const getNextImageSrc = ({
 
 export const findClosestNextImageWidth = (width: number): NextImageWidth => {
   return (
-    imageWidths.find((w) => w >= width) || imageWidths[imageWidths.length - 1]
+    imageWidths.find((w) => w >= width) ||
+    (imageWidths[imageWidths.length - 1] as NextImageWidth)
   )
 }
 

@@ -52,6 +52,7 @@ export const Investors: FC = () => {
               arrows={!isMobile}
               className={styles.slider}
               config={{
+                /* @ts-ignore */
                 containScroll: isDesktop ? 'trimSnaps' : '',
                 skipSnaps: true
               }}

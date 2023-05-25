@@ -12,13 +12,14 @@
     "build:analyze": "cross-env ANALYZE=true yarn build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx && stylelint '**/*.{css,scss}'",
+    "lint": "next lint && stylelint '**/*.{css,scss}'",
     "tsc": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-navigation-menu": "^1.1.2",
+    "@radix-ui/react-polymorphic": "^0.0.14",
     "@radix-ui/react-radio-group": "^1.1.2",
     "@radix-ui/react-switch": "^0.1.5",
     "@radix-ui/react-tabs": "^1.0.0",
@@ -30,7 +31,7 @@
     "hls.js": "1.1.5",
     "lodash": "^4.17.21",
     "mousetrap": "1.6.5",
-    "next": "^13.4.3",
+    "next": "13.4",
     "prismjs": "^1.28.0",
     "react": "^18.2.0",
     "react-device-detect": "2.1.2",
@@ -78,7 +79,7 @@
     "stylelint-config-standard": "^23.0.0",
     "stylelint-config-standard-scss": "^2.0.1",
     "stylelint-prettier": "^1.2.0",
-    "typescript": "4.5.5",
+    "typescript": "^4.8.4",
     "use-indexed-children": "0.2.0"
   },
   "engines": {
@@ -97,7 +98,8 @@
     "arrowParens": "always",
     "tabWidth": 2,
     "printWidth": 80,
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "endOfLine": "auto"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -115,7 +117,8 @@
       "plugin:react/recommended",
       "plugin:@typescript-eslint/recommended",
       "prettier",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:@next/next/recommended"
     ],
     "env": {
       "es6": true,
@@ -169,7 +172,10 @@
         }
       ],
       "prettier/prettier": [
-        "warn"
+        "warn",
+        {
+          "endOfLine": "auto"
+        }
       ],
       "@typescript-eslint/explicit-module-boundary-types": "off"
     },

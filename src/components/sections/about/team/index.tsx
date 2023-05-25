@@ -49,6 +49,7 @@ export const Team: FC = () => {
               className={s.slider}
               config={{
                 align: 'center',
+                /* @ts-ignore */
                 containScroll: isDesktop ? 'trimSnaps' : '',
                 skipSnaps: true
               }}

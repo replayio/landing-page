@@ -58,7 +58,7 @@ export function DownloadButton({
   return (
     <div
       className={clsx(s['cta'], {
-        [s['visible']]: rendered
+        [s['visible'] as string]: rendered
       })}
     >
       <ButtonLink
