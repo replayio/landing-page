@@ -5,15 +5,19 @@ import s from './container.module.scss'
 
 type Props = {
   size?: 'sm' | 'md' | 'lg' /* Not in use just for compatibility */
-  as?: 'div' | 'section'
+  as?: 'div' | 'section' | 'header' | 'footer'
 } & JSX.IntrinsicElements['div']
 
 export const Container = forwardRef<HTMLDivElement, Props>(
-  ({ className, as = 'div', ...props }, ref) => {
+  ({ className, as = 'div', size = 'md', ...props }, ref) => {
     const Element: ElementType = as
 
     return (
-      <Element {...props} className={clsx(s.container, className)} ref={ref} />
+      <Element
+        {...props}
+        className={clsx(s.container, s[size], className)}
+        ref={ref}
+      />
     )
   }
 )
