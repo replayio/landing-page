@@ -84,9 +84,5 @@ export const ButtonLink: FC<ButtonLinkProps> = ({ href, ...rest }) => {
     }
   }, [href])
 
-  return (
-    <Link href={href} asChild>
-      <Button as="a" {...externalProps} {...rest} />
-    </Link>
-  )
+  return <Button href={href} as={Link} {...externalProps} {...rest} />
 }
