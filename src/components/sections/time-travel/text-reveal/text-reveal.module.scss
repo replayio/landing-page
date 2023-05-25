@@ -1,0 +1,102 @@
+@import 'css/helpers';
+
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -75vh;
+
+  .bg-container {
+    isolation: isolate;
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    mask: radial-gradient(
+      100% 50%,
+      transparent,
+      black 25%,
+      black 75%,
+      transparent
+    );
+    overflow: hidden;
+
+    .groundLight {
+      position: absolute;
+      top: 51%;
+      background: radial-gradient(
+        50% 52.52% at 50% 50%,
+        #1f2937 0%,
+        #111827 25.52%,
+        rgb(17 24 39 / 0) 100%
+      );
+      opacity: 0.6;
+      width: 100%;
+      aspect-ratio: 7 / 1;
+    }
+
+    .lights {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 15vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      transform: rotate(-45deg) translate(-35%, -35%);
+
+      span {
+        background: linear-gradient(180deg, #fff 0%, #d3d8df 59.49%);
+        border-radius: 50%;
+        aspect-ratio: 1 / 30;
+      }
+
+      .light-1 {
+        opacity: 0.2;
+        filter: blur(60px);
+        height: 80vw;
+      }
+
+      .light-2 {
+        opacity: 0.32;
+        filter: blur(60px);
+        height: 100vw;
+      }
+
+      .light-3 {
+        opacity: 0.32;
+        filter: blur(60px);
+        height: 90vw;
+      }
+    }
+  }
+
+  .textContainer {
+    max-width: 980px;
+    perspective: 300px;
+    position: relative;
+
+    @include respond-to('tablet') {
+      max-width: 95vh;
+    }
+    @include respond-to('tablet-lg') {
+      max-width: 85vh;
+    }
+
+    .text {
+      font-family: var(--font-roobert);
+      line-height: 133%;
+      font-weight: 600;
+      text-align: center;
+      color: var(--white);
+      font-size: clamp(24px, 6vw, 48px);
+    }
+  }
+}
