@@ -1,13 +1,14 @@
 @import 'css/helpers';
 
 .section {
-  position: relative;
+  position: sticky;
+  top: 0;
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: -75vh;
+  overflow: hidden;
 
   .bg-container {
     isolation: isolate;

@@ -19,6 +19,7 @@ export const TextReveal = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const backgroundRef = useRef<HTMLDivElement>(null)
+  const spacerRef = useRef<HTMLDivElement>(null)
 
   const tl = useRef<GSAPTimeline>()
 
@@ -26,7 +27,8 @@ export const TextReveal = () => {
     const txt = textRef.current
     const section = sectionRef.current
     const bg = backgroundRef.current
-    if (!txt || !section || !bg) return
+    const pin = spacerRef.current
+    if (!txt || !section || !bg || !pin) return
     const words = new SplitText(txt, {
       type: 'words'
     })
@@ -35,29 +37,25 @@ export const TextReveal = () => {
       tl.current = gsap
         .timeline({
           scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: `+${height * 1.5}`,
-            scrub: true,
-            pin: true
+            trigger: pin,
+            start: 'top-=50px top',
+            end: 'bottom top',
+            scrub: true
           }
         })
-        .from(
-          words.words,
-          {
-            duration: 2,
-            opacity: 0.2,
-            stagger: 1.5,
-
-            delay: 5
-          },
-          5
-        )
-        .to(txt, {
-          duration: 20,
-          delay: 10,
-          rotateX: 15
+        .from(words.words, {
+          duration: 2,
+          opacity: 0.2,
+          stagger: 1.5
         })
+        .to(
+          txt,
+          {
+            duration: 20,
+            rotateX: 15
+          },
+          '<'
+        )
         .to(
           bg,
           {
@@ -69,9 +67,8 @@ export const TextReveal = () => {
         .to(
           txt,
           {
-            duration: 40,
-            translateZ: '-100',
-            translateY: '-70vh'
+            duration: 25,
+            translateZ: '-100'
           },
           '<+10'
         )
@@ -85,16 +82,24 @@ export const TextReveal = () => {
     }
   }, [height])
   return (
-    <div ref={sectionRef} className={s['section']}>
-      <div ref={backgroundRef} className={s['bg-container']}>
-        <Sky />
-        <span className={s['groundLight']} />
-      </div>
-      <div ref={containerRef} className={s['textContainer']}>
-        <h4 ref={textRef} className={s['text']}>
-          Recording and replaying software has the ability to change the way we
-          see and understand our systems.
-        </h4>
+    <div
+      ref={spacerRef}
+      style={{
+        height: '250vh',
+        position: 'relative'
+      }}
+    >
+      <div ref={sectionRef} className={s['section']}>
+        <div ref={backgroundRef} className={s['bg-container']}>
+          <Sky />
+          <span className={s['groundLight']} />
+        </div>
+        <div ref={containerRef} className={s['textContainer']}>
+          <h4 ref={textRef} className={s['text']}>
+            Recording and replaying software has the ability to change the way
+            we see and understand our systems.
+          </h4>
+        </div>
       </div>
     </div>
   )
