@@ -20,7 +20,7 @@ type SkyElement =
       x2: number
     }
 
-export const Sky = () => {
+export const Sky = ({ withGradient = true }) => {
   const { width: viewportWidth, height: viewportHeight } = useViewportSize()
   const skyRef = useRef<HTMLDivElement>(null)
   const [render, setRender] = useState(false)
@@ -104,7 +104,12 @@ export const Sky = () => {
 
   if (!render) return null
   return (
-    <div className={s['sky']} ref={skyRef}>
+    <div
+      className={clsx(s['sky'], {
+        [s['with-gradient'] as string]: withGradient
+      })}
+      ref={skyRef}
+    >
       {generated.map((g, i) => {
         if (g.type === 'asteroid') {
           const vpw = viewportWidth || window.innerWidth
@@ -124,9 +129,9 @@ export const Sky = () => {
                 ['--angle' as string]: `${angle}deg`
               }}
             >
-              <span className={s['asteroid']}>
-                <div className={s['head']} />
-                <div className={s['tail']} />
+              <span className={s['asteroid'] as string}>
+                <div className={s['head'] as string} />
+                <div className={s['tail'] as string} />
               </span>
             </div>
           )

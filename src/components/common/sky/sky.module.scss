@@ -2,12 +2,6 @@
 .sky {
   position: relative;
   height: 100%;
-  background: radial-gradient(
-    circle at 50% 50%,
-    #0d121e 0%,
-    transparent 90%,
-    transparent 100%
-  );
 
   --mask-percent: 6%;
 
@@ -21,6 +15,15 @@
   overflow: hidden;
   opacity: 0;
   animation: fade-in 0.5s ease-in-out forwards;
+
+  &.with-gradient {
+    background: radial-gradient(
+      circle at 50% 50%,
+      #0d121e 0%,
+      transparent 90%,
+      transparent 100%
+    );
+  }
 
   .star,
   .asteroid-wrapper {
