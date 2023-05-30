@@ -8,7 +8,7 @@ import { AspectBox } from '~/components/common/aspect-box'
 import Video from '~/components/common/video-modal'
 import { Container } from '~/components/layout/container'
 import { Section } from '~/components/layout/section'
-import { Button } from '~/components/primitives/cta'
+import { Button, ButtonLink } from '~/components/primitives/cta'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import heroImage from '~/images/homepage/hero-image.jpg'
@@ -193,14 +193,16 @@ export const Hero = () => {
             />
 
             <div className={s['cta']}>
-              <Button
+              <ButtonLink
                 mode="secondary"
                 size="small"
                 aria-label="Launch DevTools"
+                href="https://app.replay.io/recording/overboard-bugslayer--43b2078d-885d-44dc-94fa-0c9228f33423?point=1622592768352318442299266728722498&time=999"
+                target="_blank"
               >
                 Launch DevTools
                 <Logo />
-              </Button>
+              </ButtonLink>
             </div>
           </div>
         </Container>
