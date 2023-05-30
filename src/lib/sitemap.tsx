@@ -556,10 +556,6 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
       ]
     }
   },
-  timeTravel: {
-    href: '/time-travel',
-    label: 'Time Travel'
-  },
   company: {
     label: 'Company',
     dropdown: {
@@ -778,6 +774,10 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
         }
       ]
     }
+  },
+  timeTravel: {
+    href: '/time-travel',
+    label: 'Time Travel'
   },
   pricing: {
     href: '/',
