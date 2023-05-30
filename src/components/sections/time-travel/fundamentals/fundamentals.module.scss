@@ -23,10 +23,14 @@
     @include respond-to('tablet-lg') {
       padding: 0 var(--container-sides-space);
     }
+
+    .subtitle {
+      max-width: 540px;
+    }
   }
 
   .filterWrapper {
-    max-width: min(calc(100vw - 48px), 1060px);
+    max-width: min(calc(100vw - var(--container-sides-space) * 2), 1060px);
     margin: 72px auto 32px;
     border-bottom: 1px solid #374151;
     display: flex;
@@ -104,11 +108,11 @@
         display: flex;
         grid-gap: unset;
         flex-direction: row;
-        margin-left: -24px;
+        margin-left: calc(-1 * var(--container-sides-space));
       }
 
       .emblaSlide {
-        max-width: min(calc(100vw - 48px), 1060px);
+        max-width: min(calc(100vw - var(--container-sides-space) * 2), 1060px);
         cursor: grab;
         transition-property: transform, filter;
         transition-duration: var(--duration-normal);
@@ -125,7 +129,7 @@
 
         @include respond-to('tablet-lg') {
           flex-shrink: 0;
-          padding-left: 24px;
+          padding-left: var(--container-sides-space);
           min-width: 0;
           max-width: 100%;
           align-self: stretch;

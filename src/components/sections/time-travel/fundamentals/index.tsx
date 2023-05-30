@@ -84,7 +84,8 @@ export const Fundamentals = () => {
         title={{ children: 'The fundamentals of time travel', as: 'h2' }}
         subtitle={{
           children:
-            'Time travel  is an idea that is as old as time. We believe that it is finally time for it to take off.'
+            'Time travel  is an idea that is as old as time. We believe that it is finally time for it to take off.',
+          className: s.subtitle
         }}
       />
 
