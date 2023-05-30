@@ -12,11 +12,11 @@ import {
 import Marquee from 'react-fast-marquee'
 
 import * as Lantern from '~/components/common/lantern-effect'
+import { ArizeIcon } from '~/components/icons/arize'
 import { CodesandboxIcon } from '~/components/icons/codesandbox'
-import { DynaboardIcon } from '~/components/icons/dynaboard'
-import { ExcalidrawIcon } from '~/components/icons/excalidraw'
 import { MidniteIcon } from '~/components/icons/midnite'
 import { SubsetIcon } from '~/components/icons/subset'
+import { VercelIcon } from '~/components/icons/vercel'
 import { Section } from '~/components/layout/section'
 import { Title } from '~/components/primitives/texts'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
@@ -73,7 +73,7 @@ const HighlightedSection = () => {
       <div className={s.emblaContainer}>
         {highlighted.map((item) => (
           <div className={s.emblaSlide} key={item.id}>
-            <Link href={item.href}>
+            <Link passHref href={item.href}>
               <HighlightCard {...item} />
             </Link>
           </div>
@@ -280,14 +280,14 @@ const teams: TeamType = [
   },
   {
     id: 3,
-    logo: <DynaboardIcon />,
+    logo: <VercelIcon />,
     href: '/',
-    label: 'Dynaboard'
+    label: 'Vercel'
   },
   {
     id: 4,
-    logo: <ExcalidrawIcon />,
+    logo: <ArizeIcon />,
     href: '/',
-    label: 'Excalidraw'
+    label: 'Arize'
   }
 ]

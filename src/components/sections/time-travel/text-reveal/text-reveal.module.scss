@@ -48,11 +48,11 @@
     perspective: 300px;
     position: relative;
 
-    @include respond-to('tablet') {
-      max-width: 95vh;
-    }
     @include respond-to('tablet-lg') {
-      max-width: 85vh;
+      max-width: 85vw;
+    }
+    @include respond-to('tablet') {
+      max-width: 95vw;
     }
 
     .text {
