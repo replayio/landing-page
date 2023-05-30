@@ -26,7 +26,7 @@
   }
 
   .filterWrapper {
-    max-width: 1060px;
+    max-width: min(calc(100vw - 48px), 1060px);
     margin: 72px auto 32px;
     border-bottom: 1px solid #374151;
     display: flex;
@@ -108,7 +108,7 @@
       }
 
       .emblaSlide {
-        max-width: 1060px;
+        max-width: min(calc(100vw - 48px), 1060px);
         cursor: grab;
         transition-property: transform, filter;
         transition-duration: var(--duration-normal);
