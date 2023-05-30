@@ -98,11 +98,8 @@
 
     .emblaContainer {
       display: grid;
-      height: 100%;
       grid-template-columns: repeat(3, max-content);
       grid-gap: 40px;
-      -webkit-touch-callout: none;
-      -webkit-tap-highlight-color: transparent;
 
       @include respond-to('tablet-lg') {
         display: flex;
@@ -113,11 +110,6 @@
 
       .emblaSlide {
         max-width: min(calc(100vw - var(--container-sides-space) * 2), 1060px);
-        cursor: grab;
-        transition-property: transform, filter;
-        transition-duration: var(--duration-normal);
-        transition-timing-function: var(--ease-1);
-        will-change: filter, transform;
 
         @include respond-to('min-tablet-lg') {
           transform: scale(0.95);
@@ -133,10 +125,6 @@
           min-width: 0;
           max-width: 100%;
           align-self: stretch;
-        }
-
-        &:active {
-          cursor: grabbing;
         }
 
         .card {

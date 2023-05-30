@@ -118,11 +118,11 @@ export const Fundamentals = () => {
       </div>
 
       <div className={s.embla} ref={emblaRef}>
-        <div className={s.emblaContainer}>
+        <div className={clsx(s.emblaContainer, 'emblaContainer')}>
           {data.map((item) => (
             <div
               key={item.id}
-              className={clsx(s.emblaSlide, {
+              className={clsx(s.emblaSlide, 'emblaSlide', {
                 [s.active as string]: item.id === selectedFeatureId
               })}
             >
