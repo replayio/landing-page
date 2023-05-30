@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
+import { Arrows } from '~/components/common/arrows'
 import { Section } from '~/components/common/section'
-import ChevronIcon from '~/components/icons/chevron'
 import { ButtonLink } from '~/components/primitives/cta'
 import { NavLink } from '~/components/primitives/nav-link'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
@@ -70,6 +70,26 @@ export const Fundamentals = () => {
     embla?.reInit()
   }, [isTablet, embla])
 
+  const prevCard = () => {
+    const findFeatureIndex: number = data.findIndex(
+      (item) => item.id === selectedFeatureId
+    )
+
+    if (data[findFeatureIndex - 1]) {
+      setSelectedFeatureId(data[findFeatureIndex - 1]?.id as string)
+    }
+  }
+
+  const nextCard = () => {
+    const findFeatureIndex: number = data.findIndex(
+      (item) => item.id === selectedFeatureId
+    )
+
+    if (data[findFeatureIndex + 1] !== undefined) {
+      setSelectedFeatureId(data[findFeatureIndex + 1]?.id as string)
+    }
+  }
+
   return (
     <Section
       id="homepage-bugs-slider"
@@ -111,8 +131,11 @@ export const Fundamentals = () => {
 
         {!isTablet && (
           <Arrows
-            selectedFeatureId={selectedFeatureId}
-            handleSelctedFeature={(id) => setSelectedFeatureId(id)}
+            label="feature"
+            onPrev={prevCard}
+            onNext={nextCard}
+            prevDisabled={selectedFeatureId === data[0]?.id}
+            nextDisabled={selectedFeatureId === data[data.length - 1]?.id}
           />
         )}
       </div>
@@ -144,57 +167,15 @@ export const Fundamentals = () => {
 
         {isTablet && (
           <Arrows
-            selectedFeatureId={selectedFeatureId}
-            handleSelctedFeature={(id) => setSelectedFeatureId(id)}
+            label="feature"
+            onPrev={prevCard}
+            onNext={nextCard}
+            prevDisabled={selectedFeatureId === data[0]?.id}
+            nextDisabled={selectedFeatureId === data[data.length - 1]?.id}
           />
         )}
       </div>
     </Section>
-  )
-}
-
-const Arrows = ({
-  selectedFeatureId,
-  handleSelctedFeature
-}: {
-  selectedFeatureId: string
-  handleSelctedFeature: (id: string) => void
-}) => {
-  return (
-    <div className={s.arrowsWrapper}>
-      <button
-        type="button"
-        aria-label="Previous feature"
-        disabled={selectedFeatureId === data[0]?.id}
-        onClick={() => {
-          const findFeatureIndex: number = data.findIndex(
-            (item) => item.id === selectedFeatureId
-          )
-
-          if (data[findFeatureIndex - 1]) {
-            handleSelctedFeature(data[findFeatureIndex - 1]?.id as string)
-          }
-        }}
-      >
-        <ChevronIcon />
-      </button>
-      <button
-        type="button"
-        aria-label="Next feature"
-        disabled={selectedFeatureId === data[data.length - 1]?.id}
-        onClick={() => {
-          const findFeatureIndex: number = data.findIndex(
-            (item) => item.id === selectedFeatureId
-          )
-
-          if (data[findFeatureIndex + 1] !== undefined) {
-            handleSelctedFeature(data[findFeatureIndex + 1]?.id as string)
-          }
-        }}
-      >
-        <ChevronIcon />
-      </button>
-    </div>
   )
 }
 
