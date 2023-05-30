@@ -13,14 +13,14 @@ export type TabData = {
 export const TabsWithArrows = ({
   tabs,
   currentTabIndex,
-  callback,
+  onChange,
   withArrows = true,
   arrowProps,
   className
 }: {
   tabs: TabData[]
   currentTabIndex: number
-  callback: (index?: number) => void
+  onChange: (index?: number) => void
   withArrows?: boolean
   arrowProps?: ArrowsProps
   className?: string
@@ -53,8 +53,8 @@ export const TabsWithArrows = ({
       }px`
     }
 
-    callback(currentTabIndex)
-  }, [tabs, currentTabIndex, withArrows, callback])
+    onChange(currentTabIndex)
+  }, [tabs, currentTabIndex, withArrows, onChange])
 
   return (
     <div className={clsx(s.tabs, className)}>
