@@ -29,62 +29,14 @@
     }
   }
 
-  .filterWrapper {
+  .tabs {
     max-width: min(calc(100vw - var(--container-sides-space) * 2), 1060px);
     margin: 72px auto 32px;
     border-bottom: 1px solid #374151;
-    display: flex;
     padding-top: 2px;
-    justify-content: space-between;
-    position: relative;
-    height: 39px;
 
     @include respond-to('tablet-lg') {
       margin: 32px var(--container-sides-space) 24px;
-    }
-
-    .activeBar {
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      height: 1px;
-      width: 200px;
-      background-color: var(--white);
-      transition-property: left, width;
-      transition-duration: var(--duration-normal);
-      transition-timing-function: var(--ease-1);
-    }
-
-    .labelsWrapper {
-      display: flex;
-
-      button {
-        font-size: 14px;
-        line-height: 20px;
-        text-align: center;
-        letter-spacing: -0.02em;
-        color: var(--grey-500);
-        transition: color var(--duration-normal) var(--ease-1);
-        height: 100%;
-        display: flex;
-        padding-top: 4px;
-
-        &:first-child {
-          padding-right: 16px;
-        }
-
-        &:last-child {
-          padding-left: 16px;
-        }
-
-        &:not(:first-child):not(:last-child) {
-          padding: 4px 16px 0;
-        }
-
-        &.active {
-          color: var(--white);
-        }
-      }
     }
   }
 
@@ -325,65 +277,6 @@
             }
           }
         }
-      }
-    }
-  }
-
-  .arrowsWrapper {
-    display: flex;
-    gap: 4px;
-
-    @include respond-to('tablet-lg') {
-      gap: 12px;
-      justify-content: center;
-      margin-top: 16px;
-    }
-
-    button {
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--blue-800);
-      color: var(--grey-400);
-      border: 1px solid rgb(55 65 81 / 0.48);
-      opacity: 0.4;
-      transition-property: opacity, color, background, border-color;
-      transition-duration: var(--duration-normal);
-      transition-timing-function: var(--ease-1);
-
-      @include respond-to('tablet-lg') {
-        width: 32px;
-        height: 32px;
-      }
-
-      &[disabled] {
-        cursor: not-allowed;
-      }
-
-      &:enabled {
-        background: rgb(17 24 39 / 0.56);
-        color: var(--white);
-        border-color: rgb(31 41 55 / 0.86);
-        opacity: 1;
-      }
-
-      svg {
-        width: 16px;
-        height: 16px;
-      }
-
-      &:first-child {
-        border-radius: 12px 4px 4px 12px;
-
-        svg {
-          transform: rotate(180deg);
-        }
-      }
-
-      &:last-child {
-        border-radius: 4px 12px 12px 4px;
       }
     }
   }
