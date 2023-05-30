@@ -88,7 +88,7 @@ export const Fundamentals = () => {
           onClick: () => setSelectedFeatureId(item.id)
         }))}
         currentTabIndex={currentTabIndex}
-        callback={(index) => {
+        onChange={(index) => {
           if (index !== undefined) {
             scrollTo(index)
           }
