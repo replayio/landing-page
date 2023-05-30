@@ -3,6 +3,13 @@ import React from 'react'
 import ChevronIcon from '~/components/icons/chevron'
 
 import s from './arrows.module.scss'
+export type ArrowsProps = {
+  label?: string
+  prevDisabled?: boolean
+  nextDisabled?: boolean
+  onPrev: () => void
+  onNext: () => void
+}
 
 export const Arrows = ({
   label = '',
@@ -10,13 +17,7 @@ export const Arrows = ({
   onNext,
   prevDisabled = false,
   nextDisabled = false
-}: {
-  label?: string
-  prevDisabled?: boolean
-  nextDisabled?: boolean
-  onPrev: () => void
-  onNext: () => void
-}) => {
+}: ArrowsProps) => {
   return (
     <div className={s.arrowsWrapper}>
       <button
