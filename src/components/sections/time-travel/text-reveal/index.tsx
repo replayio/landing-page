@@ -77,7 +77,6 @@ export const TextReveal = () => {
     return () => {
       words.revert()
       ctx.revert()
-      ctx.clear()
       ctx.kill()
     }
   }, [height])
