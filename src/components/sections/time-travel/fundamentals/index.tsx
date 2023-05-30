@@ -1,9 +1,10 @@
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { Arrows } from '~/components/common/arrows'
 import { Section } from '~/components/common/section'
+import { TabsWithArrows } from '~/components/common/tabsWithArrows'
 import { ButtonLink } from '~/components/primitives/cta'
 import { NavLink } from '~/components/primitives/nav-link'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
@@ -15,9 +16,11 @@ export const Fundamentals = () => {
   const [selectedFeatureId, setSelectedFeatureId] = useState<string>(
     data[0]?.id || 'record-runtime'
   )
+  const currentTabIndex = data.findIndex(
+    (item) => item.id === selectedFeatureId
+  )
   const [emblaRef, embla] = useEmblaCarousel({ align: 'center' })
   const isTablet = useTabletLgBreakpoint()
-  const activeBarRef = useRef<HTMLDivElement>(null)
 
   const onSelect = useCallback(() => {
     if (!embla) return
@@ -28,37 +31,6 @@ export const Fundamentals = () => {
     (index: number) => embla && embla.scrollTo(index),
     [embla]
   )
-  useEffect(() => {
-    if (!activeBarRef.current) return
-
-    const findFeature = data.find((item) => item.id === selectedFeatureId)
-    const findFeatureIndex = data.findIndex(
-      (item) => item.id === selectedFeatureId
-    )
-
-    if (!findFeature) return
-
-    const findLabelElement: any = document.querySelector(`#${findFeature.id}`)
-    const labelElementComputedStyle = getComputedStyle(findLabelElement)
-
-    const labelElementWithoutPadding =
-      findLabelElement.clientWidth -
-      parseFloat(labelElementComputedStyle.paddingRight) -
-      parseFloat(labelElementComputedStyle.paddingLeft)
-
-    activeBarRef.current.style.width = `${labelElementWithoutPadding}px`
-
-    if (findFeatureIndex === 0) {
-      activeBarRef.current.style.left = `${findLabelElement.offsetLeft}px`
-    } else {
-      activeBarRef.current.style.left = `${
-        findLabelElement.offsetLeft +
-        parseFloat(labelElementComputedStyle.paddingLeft)
-      }px`
-    }
-
-    scrollTo(findFeatureIndex)
-  }, [selectedFeatureId, isTablet, scrollTo])
 
   useEffect(() => {
     if (!embla) return
@@ -109,36 +81,28 @@ export const Fundamentals = () => {
         }}
       />
 
-      <div className={s.filterWrapper}>
-        <div className={s.activeBar} ref={activeBarRef} />
-
-        <div className={s.labelsWrapper}>
-          {data.map((item) => (
-            <button
-              key={item.id}
-              id={item.id}
-              type="button"
-              aria-label={item.label}
-              onClick={() => setSelectedFeatureId(item.id)}
-              className={clsx({
-                [s.active as string]: item.id === selectedFeatureId
-              })}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-
-        {!isTablet && (
-          <Arrows
-            label="feature"
-            onPrev={prevCard}
-            onNext={nextCard}
-            prevDisabled={selectedFeatureId === data[0]?.id}
-            nextDisabled={selectedFeatureId === data[data.length - 1]?.id}
-          />
-        )}
-      </div>
+      <TabsWithArrows
+        tabs={data.map((item) => ({
+          id: item.id,
+          label: item.label,
+          onClick: () => setSelectedFeatureId(item.id)
+        }))}
+        currentTabIndex={currentTabIndex}
+        callback={(index) => {
+          if (index !== undefined) {
+            scrollTo(index)
+          }
+        }}
+        withArrows={!isTablet}
+        arrowProps={{
+          label: 'feature',
+          onPrev: prevCard,
+          onNext: nextCard,
+          prevDisabled: selectedFeatureId === data[0]?.id,
+          nextDisabled: selectedFeatureId === data[data.length - 1]?.id
+        }}
+        className={s.tabs}
+      />
 
       <div className={s.embla} ref={emblaRef}>
         <div className={clsx(s.emblaContainer, 'emblaContainer')}>

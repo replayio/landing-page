@@ -1,0 +1,52 @@
+@import 'css/helpers';
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 39px;
+
+  .activeBar {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    width: 200px;
+    background-color: var(--white);
+    transition-property: left, width;
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-1);
+  }
+
+  .labelsWrapper {
+    display: flex;
+
+    button {
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      letter-spacing: -0.02em;
+      color: var(--grey-500);
+      transition: color var(--duration-normal) var(--ease-1);
+      height: 100%;
+      display: flex;
+      padding-top: 4px;
+
+      &:first-child {
+        padding-right: 16px;
+      }
+
+      &:last-child {
+        padding-left: 16px;
+      }
+
+      &:not(:first-child):not(:last-child) {
+        padding: 4px 16px 0;
+      }
+
+      &.active {
+        color: var(--white);
+      }
+    }
+  }
+}
