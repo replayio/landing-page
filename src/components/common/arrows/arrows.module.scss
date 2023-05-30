@@ -1,0 +1,60 @@
+@import 'css/helpers';
+
+.arrowsWrapper {
+  display: flex;
+  gap: 4px;
+
+  @include respond-to('tablet-lg') {
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+  }
+
+  button {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--blue-800);
+    color: var(--grey-400);
+    border: 1px solid rgb(55 65 81 / 0.48);
+    opacity: 0.4;
+    transition-property: opacity, color, background, border-color;
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-1);
+
+    @include respond-to('tablet-lg') {
+      width: 32px;
+      height: 32px;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
+
+    &:enabled {
+      background: rgb(17 24 39 / 0.56);
+      color: var(--white);
+      border-color: rgb(31 41 55 / 0.86);
+      opacity: 1;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:first-child {
+      border-radius: 12px 4px 4px 12px;
+
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:last-child {
+      border-radius: 4px 12px 12px 4px;
+    }
+  }
+}

@@ -194,3 +194,21 @@ body:not(.user-is-tabbing) textarea:focus {
   opacity: 0;
   transition: opacity 0.2s ease-out;
 }
+
+.emblaContainer {
+  height: 100%;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.emblaSlide {
+  cursor: grab;
+  transition-property: transform, filter;
+  transition-duration: var(--duration-normal);
+  transition-timing-function: var(--ease-1);
+  will-change: filter, transform;
+
+  &:active {
+    cursor: grabbing;
+  }
+}

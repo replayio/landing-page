@@ -29,4 +29,21 @@
   &.disabled {
     pointer-events: none;
   }
+
+  .iconPrefix,
+  .iconSuffix {
+    max-width: 16px;
+    max-height: 16px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .iconPrefix {
+    margin-right: 8px;
+  }
+
+  .iconSuffix {
+    margin-left: 8px;
+  }
 }

@@ -1,0 +1,283 @@
+@import '~/css/helpers';
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
+
+.section {
+  margin: auto;
+  margin-bottom: 216px;
+  overflow: hidden;
+  @include respond-to('tablet-lg') {
+    margin-bottom: 80px;
+  }
+
+  @include respond-to('min-desktop-sm') {
+    mask: linear-gradient(
+      90deg,
+      transparent,
+      black 12.5%,
+      black 87.5%,
+      transparent
+    );
+  }
+
+  .titleAndSubtitle {
+    @include respond-to('tablet-lg') {
+      padding: 0 var(--container-sides-space);
+    }
+
+    .subtitle {
+      max-width: 540px;
+    }
+  }
+
+  .tabs {
+    max-width: min(calc(100vw - var(--container-sides-space) * 2), 1060px);
+    margin: 72px auto 32px;
+    border-bottom: 1px solid #374151;
+    padding-top: 2px;
+
+    @include respond-to('tablet-lg') {
+      margin: 32px var(--container-sides-space) 24px;
+    }
+  }
+
+  .embla {
+    margin-top: 48px;
+
+    @include respond-to('tablet-lg') {
+      margin-top: 34px;
+      padding: 0 var(--container-sides-space);
+    }
+
+    .emblaContainer {
+      display: grid;
+      grid-template-columns: repeat(3, max-content);
+      grid-gap: 40px;
+
+      @include respond-to('tablet-lg') {
+        display: flex;
+        grid-gap: unset;
+        flex-direction: row;
+        margin-left: calc(-1 * var(--container-sides-space));
+      }
+
+      .emblaSlide {
+        max-width: min(calc(100vw - var(--container-sides-space) * 2), 1060px);
+
+        @include respond-to('min-tablet-lg') {
+          transform: scale(0.95);
+
+          &.active {
+            transform: scale(1);
+          }
+        }
+
+        @include respond-to('tablet-lg') {
+          flex-shrink: 0;
+          padding-left: var(--container-sides-space);
+          min-width: 0;
+          max-width: 100%;
+          align-self: stretch;
+        }
+
+        .card {
+          background: linear-gradient(
+            256.14deg,
+            #111827 0%,
+            #111826 4.7%,
+            #101726 8.9%,
+            #101725 12.8%,
+            #101624 16.56%,
+            #0f1523 20.37%,
+            #0f1421 24.4%,
+            #0e1420 28.83%,
+            #0d121e 33.84%,
+            #0c111c 39.6%,
+            #0b1019 46.3%,
+            #0a0e16 54.1%,
+            #080c13 63.2%,
+            #070a10 73.76%,
+            #05070c 85.97%,
+            #030407 100%
+          );
+          border: 1px solid rgb(31 41 55 / 0.86);
+          border-radius: 24px;
+          padding: 12px 0 12px 48px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 42px;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+
+          @include respond-to('tablet-lg') {
+            grid-template-columns: 100%;
+            padding: 24px 16px 16px;
+          }
+
+          .infoSide {
+            padding: 36px 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            @include respond-to('tablet-lg') {
+              padding: 0;
+            }
+
+            .title {
+              font-size: 40px;
+              line-height: 54px;
+              letter-spacing: -0.02em;
+              margin-bottom: 24px;
+              @include respond-to('tablet-lg') {
+                font-size: 18px;
+                line-height: 24px;
+                margin-bottom: 16px;
+              }
+
+              span {
+                color: var(--grey-500);
+              }
+            }
+
+            .description {
+              font-size: 14px;
+              line-height: 20px;
+              letter-spacing: -0.02em;
+              display: flex;
+              flex-direction: column;
+              gap: 16px;
+              color: var(--grey-400);
+              margin-bottom: unset;
+
+              @include respond-to('tablet-lg') {
+                font-size: 14px;
+                margin-bottom: 16px;
+              }
+
+              a {
+                color: var(--white);
+
+                &:hover,
+                &:focus {
+                  text-decoration: underline;
+                }
+              }
+            }
+
+            .links {
+              margin-top: 16px;
+              display: flex;
+              align-items: stretch;
+
+              @include respond-to('tablet-lg') {
+                margin-top: auto;
+              }
+            }
+
+            .link {
+              font-size: 14px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              transition: color var(--duration-normal) var(--ease-1);
+              text-align: center;
+
+              @include respond-to('tablet-lg') {
+                min-height: 32px;
+                width: 100%;
+              }
+            }
+
+            .cta {
+              @include respond-to('tablet-lg') {
+                width: 100%;
+              }
+            }
+          }
+
+          .assetSide {
+            background: linear-gradient(
+              256.14deg,
+              #111827 0%,
+              #111826 4.7%,
+              #101726 8.9%,
+              #101725 12.8%,
+              #101624 16.56%,
+              #0f1523 20.37%,
+              #0f1421 24.4%,
+              #0e1420 28.83%,
+              #0d121e 33.84%,
+              #0c111c 39.6%,
+              #0b1019 46.3%,
+              #0a0e16 54.1%,
+              #080c13 63.2%,
+              #070a10 73.76%,
+              #05070c 85.97%,
+              #030407 100%
+            );
+            border: 1px solid rgb(31 41 55 / 0.86);
+            border-right: 0;
+            box-shadow: 0px 4px 8px -2px rgb(31 41 55 / 0.1),
+              0px 2px 4px -2px rgb(31 41 55 / 0.06);
+            border-radius: 16px 0 0 16px;
+            width: 100%;
+            height: 100%;
+            padding: 8px 0 8px 8px;
+
+            @include respond-to('tablet-lg') {
+              padding: 4px;
+              border-radius: 16px;
+              border: 1px solid rgb(31 41 55 / 0.86);
+              transform: unset;
+              margin: 24px 0;
+              height: 270px;
+            }
+
+            .assetWrapper {
+              user-select: none;
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              height: 100%;
+              border: 1px solid rgb(31 41 55 / 0.86);
+              border-right: 0;
+              border-radius: 8px 0 0 8px;
+              position: relative;
+
+              @include respond-to('tablet-lg') {
+                border-radius: 12px;
+                border: 1px solid rgb(31 41 55 / 0.86);
+                padding: 12px;
+              }
+
+              .assetTab {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                padding: 12px;
+                border-bottom: 1px solid rgb(31 41 55 / 0.86);
+                background: linear-gradient(
+                  269.3deg,
+                  rgb(31 41 55 / 0.24) 0%,
+                  rgb(31 41 55 / 0.0576) 100%
+                );
+
+                span {
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  background: rgb(31 41 55 / 0.88);
+                }
+              }
+
+              .assetContent {
+                flex: 1 0 auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
