@@ -153,7 +153,7 @@ export const DebugSpeed = () => {
       data-sitemap
       data-sitemap-icon="debug-speed"
       data-sitemap-short-title="Debug"
-      data-sitemap-complete-title="The fundamentals of time travel"
+      data-sitemap-complete-title="Debug at the speed of thought"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
