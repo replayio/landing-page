@@ -42,12 +42,12 @@
       }
 
       &.is-error {
-        background: #ffe0e8;
-        color: #d31717;
+        background: #b0032b48;
+        color: #f98e8e;
 
         // For highlighted text
         span {
-          color: #d31717;
+          color: #f98e8e;
           background: none !important;
         }
 
