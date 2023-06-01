@@ -405,12 +405,12 @@ export default function ReplayApplication() {
         },
         onEnterBack: () => {
           document.documentElement.classList.add('hide-header')
-          // setControlsActive(true)
         },
         onLeave: () => {
-          document.documentElement.classList.add('sticky-header')
           document.documentElement.classList.remove('hide-header')
-          // setControlsActive(false)
+        },
+        onLeaveBack: () => {
+          document.documentElement.classList.remove('hide-header')
         }
       }
     })
@@ -424,11 +424,9 @@ export default function ReplayApplication() {
         duration: 3,
         ease: 'power3.out'
       })
-      // .add(() => {
-      //   document.documentElement.classList.remove('sticky-header')
-      //   document.documentElement.classList.remove('hide-header')
-      //   setControlsActive(false)
-      // }, '<+=1')
+      .add(() => {
+        document.documentElement.classList.add('hide-header')
+      }, '<+=1')
       .set(
         applicationRef.current,
         {
@@ -707,8 +705,8 @@ export default function ReplayApplication() {
       timeline.scrollTrigger?.kill()
       timeline.kill()
 
+      /* Remove header styles */
       document.documentElement.classList.remove('hide-header')
-      document.documentElement.classList.remove('has-scrollytelling')
 
       /* Flip Cleanup */
       /* Just clearing transforms bc otherwise we remove some important variables */
@@ -1155,12 +1153,6 @@ export default function ReplayApplication() {
           </div>
         </Section>
       </div>
-
-      {/* <ScrollytellingControls
-        labelPositions={mainLabelPositions}
-        timeline={timelineRef}
-        active={controlsActive}
-      /> */}
     </div>
   )
 }
