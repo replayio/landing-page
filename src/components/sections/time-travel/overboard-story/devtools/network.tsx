@@ -85,9 +85,9 @@ export const Network = forwardRef<HTMLDivElement, NetworkProps>(
                 <button
                   onClick={() => onActiveCallChange(idx)}
                   className={clsx(s['call-line'], {
-                    [s['pending']]: call.pending,
-                    [s['active']]: idx === activeCallIdx,
-                    [s['error']]: call.status >= 400
+                    [s['pending'] as string]: call.pending,
+                    [s['active'] as string]: idx === activeCallIdx,
+                    [s['error'] as string]: call.status >= 400
                   })}
                   key={idx}
                   id="call-line"

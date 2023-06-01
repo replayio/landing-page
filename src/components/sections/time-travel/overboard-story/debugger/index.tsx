@@ -357,7 +357,9 @@ export const Debugger = forwardRef<HTMLDivElement, DebuggerProps>(
           <DebuggerSection title="Call Stack">
             {scopeArray?.map((stack, idx) => (
               <div
-                className={clsx(s['stack-line'], { [s['active']]: idx === 0 })}
+                className={clsx(s['stack-line'], {
+                  [s['active'] as string]: idx === 0
+                })}
                 key={stack}
               >
                 {stack}

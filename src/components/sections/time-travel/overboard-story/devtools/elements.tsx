@@ -146,7 +146,7 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
       let target = elm
 
       if (activeElement.inspectInnerTarget) {
-        target = elmSelector(activeElement.inspectInnerTarget)[0]
+        target = elmSelector(activeElement.inspectInnerTarget)[0] as Element
       }
 
       return {

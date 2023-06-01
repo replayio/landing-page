@@ -77,7 +77,7 @@ export const CommentModule: FC<CommentModuleProps> = ({
             <Fragment key={idx}>
               <div
                 className={clsx('content', s['content'], {
-                  [s[`state-${comment.state || 'idle'}`]]: mainComment
+                  [s[`state-${comment.state || 'idle'}`] as string]: mainComment
                 })}
                 key={idx}
               >
@@ -102,7 +102,7 @@ export const CommentModule: FC<CommentModuleProps> = ({
                         Type a comment...
                       </span>
                       <span className={clsx('input-content', s['content'])}>
-                        {mainComment.text}
+                        {mainComment?.text}
                       </span>
                     </div>
                   ) : (
