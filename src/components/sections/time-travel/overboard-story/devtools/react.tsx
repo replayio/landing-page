@@ -91,7 +91,7 @@ function renderReactTree({
           >
             ▴
           </span>
-          <span style={{ color: '#8434D3' }}>{node.type}</span>
+          <span style={{ color: 'var(--editor-functions)' }}>{node.type}</span>
           {node.props?.key && (
             <span style={{ color: '#FF9640' }}>
               key="
@@ -171,11 +171,12 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
                 padding: 10,
                 fontVariantNumeric: 'tabular-nums',
                 borderLeft: '1px solid var(--editor-border-color)',
-                width: '40%'
+                width: '40%',
+                textAlign: 'left'
               }}
             >
               props:
-              <ul style={{ paddingLeft: 16 }}>
+              <ul style={{ paddingLeft: 16, textAlign: 'left' }}>
                 {Object.entries(activeComponent?.props || {}).map(
                   ([key, value]) => (
                     <li key={key}>

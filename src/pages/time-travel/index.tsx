@@ -2,14 +2,12 @@ import { PageLayout } from '~/components/layout/page'
 import Prefooter from '~/components/sections/homepage/prefooter'
 import { Fundamentals } from '~/components/sections/time-travel/fundamentals'
 import { Hero } from '~/components/sections/time-travel/hero'
-import { OverboardStory } from '~/components/sections/time-travel/overboard-story'
 import { TextReveal } from '~/components/sections/time-travel/text-reveal'
 
 const TimeTravel = () => {
   return (
     <PageLayout>
       <Hero />
-      <OverboardStory />
       <div
         style={{
           background:
