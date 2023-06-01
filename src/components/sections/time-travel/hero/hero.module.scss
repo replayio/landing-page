@@ -37,11 +37,12 @@
     position: sticky;
     top: 0;
     padding-top: calc(var(--header-height) + 48px);
-    margin-bottom: 48px;
+    margin-bottom: 96px;
 
     @include respond-to('tablet') {
       position: relative;
       top: unset;
+      margin-bottom: 48px;
     }
 
     .highlight {
