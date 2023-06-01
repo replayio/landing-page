@@ -5,7 +5,7 @@
   align-content: center;
   padding: 64px;
   border-radius: 20px;
-  background-color: #1e076c;
+  background-color: #000;
   overflow: hidden;
   -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
   pointer-events: none;
@@ -58,19 +58,11 @@
   .underlay {
     position: absolute;
     inset: 0;
-    display: flex;
-    align-items: bottom;
     z-index: var(--z-index-0);
 
-    .stars {
-      user-select: none;
-      opacity: 0.3;
+    .layer {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      z-index: var(--z-index-10);
+      inset: 0;
     }
   }
 
@@ -111,6 +103,7 @@
       opacity: 0;
       display: block;
       position: absolute;
+      bottom: 0;
       left: 50%;
       margin: 0 auto;
       transform: translate(-50%, -50%);
@@ -122,8 +115,8 @@
         position: relative;
         display: block;
         background: var(--color-white);
-        padding: 16px;
-        min-width: 140px;
+        padding: 12px;
+        min-width: 120px;
         border-radius: var(--border-radius-full);
         box-shadow: 0 0 16px var(--glow), 0 0 15px var(--glow),
           0 0 5px var(--glow);
@@ -141,6 +134,10 @@
           color: var(--color-white);
 
           --glow: rgb(244 28 82 / 50%);
+
+          .content {
+            color: #fff;
+          }
         }
 
         &:disabled {
@@ -162,6 +159,7 @@
         }
 
         .content {
+          color: #000;
           display: block;
         }
 

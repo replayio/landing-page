@@ -1,19 +1,18 @@
 import {
-  Color,
-  Colors,
-  colorways,
+  // Color,
+  // Colors,
+  // colorways,
   Hoverboard,
   HoverboardControls
 } from '@replayio/overboard'
 import clsx from 'clsx'
-import Image from 'next/image'
+import dynamic, { LoaderComponent } from 'next/dynamic'
 import { forwardRef, memo, useImperativeHandle, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { InspectBox } from '~/components/common/inspect-box'
-import starsSvg from '~/public/images/home/overboard-stars.svg'
 
-import { Logo } from './logo'
+// import { Logo } from './logo'
 import s from './overboard-store.module.scss'
 
 export type OverboardColors = 'red' | 'green' | 'blue'
@@ -31,6 +30,23 @@ export type OverboardStoreProps = {
 type GridControls = {
   move: (progress: number) => void
 }
+
+const Sky = dynamic(
+  () => import('~/components/common/sky').then((m) => m.Sky),
+  {
+    ssr: false
+  }
+)
+
+const Grid3D = dynamic(
+  () =>
+    import('~/components/common/grid-3d').then(
+      (m) => m.Grid3D
+    ) as LoaderComponent,
+  {
+    ssr: false
+  }
+)
 
 const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
   const gridRef = useRef<HTMLDivElement>(null)
@@ -54,7 +70,7 @@ const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
 
   return (
     <>
-      <div
+      {/* <div
         style={{
           position: 'absolute',
           inset: 0,
@@ -62,13 +78,8 @@ const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
             'linear-gradient(180deg, #1E076C 0%, #A312B5 50%, transparent 100%)',
           zIndex: 3
         }}
-      />
-      <div className={s['animated-grid']}>
-        <div className={s['grid']}>
-          <div className={s['grid-fade']} />
-          <div className={s['grid-lines']} ref={gridRef} />
-        </div>
-      </div>
+      /> */}
+      <Grid3D />
     </>
   )
 })
@@ -86,7 +97,7 @@ export const OverboardStore = memo(
         mode,
         state = 'idle',
         overboardColor,
-        onOverboardColorChange,
+        // onOverboardColorChange,
         inspectMode,
         onPurchase,
         className,
@@ -142,21 +153,20 @@ export const OverboardStore = memo(
             className={clsx('store', s['overboard-store'], s['mode-' + mode])}
           >
             <div className={s['underlay']}>
-              <Image
-                priority
-                className={s['stars']}
-                alt="store stars"
-                src={starsSvg}
-              />
-              <AnimatedGrid ref={gridRef} />
+              <div className={s['layer']}>
+                <Sky withAsteroids={false} count={30} />
+              </div>
+              <div className={s['layer']}>
+                <AnimatedGrid ref={gridRef} />
+              </div>
             </div>
 
             <div style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }}>
               <InspectBox name={inspectNames[inspectMode]['main']} boxId="main">
-                <Logo
+                {/* <Logo
                   id={buildId('overboard-store-logo')}
                   className={s['logo']}
-                />
+                /> */}
 
                 <div
                   id={buildId('overboard-store-inner')}
@@ -185,7 +195,7 @@ export const OverboardStore = memo(
                     boxId="purchase-form"
                     className={s['purchase-form']}
                   >
-                    <InspectBox
+                    {/* <InspectBox
                       id={buildId('overboard-store-colors')}
                       name={inspectNames[inspectMode]['colors']}
                       boxId="colors"
@@ -217,7 +227,7 @@ export const OverboardStore = memo(
                           )
                         )}
                       </Colors>
-                    </InspectBox>
+                    </InspectBox> */}
                   </InspectBox>
 
                   <InspectBox
@@ -229,8 +239,8 @@ export const OverboardStore = memo(
                     <button
                       onClick={onPurchase}
                       className={clsx(s['purchase'], {
-                        [s['loading']]: state === 'loading',
-                        [s['error']]: state === 'error'
+                        [s['loading'] as string]: state === 'loading',
+                        [s['error'] as string]: state === 'error'
                       })}
                       disabled={state === 'loading'}
                     >
