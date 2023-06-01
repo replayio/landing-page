@@ -182,7 +182,7 @@
 
         .markers-container {
           pointer-events: all;
-          transform: translateX(0px);
+          transform: translateX(-1.5px);
           opacity: 1;
 
           [data-marker='unicorn'] {
