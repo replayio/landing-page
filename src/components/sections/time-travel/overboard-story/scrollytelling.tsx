@@ -1,25 +1,8 @@
 import clsx from 'clsx'
-// import { Elastic } from 'gsap'
-import {
-  clearProps,
-  DURATION,
-  Flip,
-  gsap,
-  ScrollTrigger
-  // SplitText
-} from 'lib/gsap'
+import { clearProps, DURATION, Flip, gsap, ScrollTrigger } from 'lib/gsap'
 import get from 'lodash/get'
 import Image from 'next/image'
-import {
-  // FC,
-  forwardRef,
-  // MutableRefObject,
-  useCallback,
-  // useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react'
+import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
@@ -29,7 +12,6 @@ import {
   ProgressBar
 } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
-// import { Button } from '~/components/primitives/button'
 import { IsoLogo } from '~/components/primitives/logo'
 import { Marker as ConsoleMarker } from '~/components/sections/time-travel/overboard-story/devtools/console'
 import { useAppStore } from '~/context/use-app-store'
@@ -62,281 +44,6 @@ import {
 import s from './overboard-story.module.scss'
 
 let onScrollTriggerUpdate: (progress: number) => void
-
-// const TimelineLogo: FC<{ children: ReactNode; onClick?: () => void }> = ({
-//   children,
-//   onClick
-// }) => {
-//   return (
-//     <Button
-//       onClick={onClick}
-//       style={{ width: '100%', height: '100%', position: 'relative' }}
-//       unstyled
-//     >
-//       <span
-//         style={{
-//           display: 'block',
-//           position: 'absolute',
-//           width: 21,
-//           left: '50%',
-//           top: '50%',
-//           transform: 'translate(-50%, -50%)'
-//         }}
-//       >
-//         {children}
-//       </span>
-//     </Button>
-//   )
-// }
-
-// const timelineMarkers = [
-//   {
-//     label: 'record',
-//     position: 1,
-//     icon: (
-//       <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-//         <path
-//           d="M20.21 6.9502L14.54 11.0002L20.21 15.0502V6.9502Z"
-//           stroke="white"
-//           strokeWidth="1.5"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         />
-//         <path
-//           d="M12.9201 5.33008H4.01014C3.11544 5.33008 2.39014 6.05538 2.39014 6.95008V15.0501C2.39014 15.9448 3.11544 16.6701 4.01014 16.6701H12.9201C13.8148 16.6701 14.5401 15.9448 14.5401 15.0501V6.95008C14.5401 6.05538 13.8148 5.33008 12.9201 5.33008Z"
-//           stroke="white"
-//           strokeWidth="1.5"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         />
-//       </svg>
-//     )
-//   },
-//   {
-//     label: 'comments',
-//     position: 33,
-//     icon: (
-//       <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-//         <path
-//           d="M18.3668 13.0668C18.3668 13.4911 18.1982 13.8981 17.8982 14.1982C17.5981 14.4982 17.1911 14.6668 16.7668 14.6668H7.1668L3.9668 17.8668V5.0668C3.9668 4.64245 4.13537 4.23548 4.43543 3.93543C4.73548 3.63537 5.14245 3.4668 5.5668 3.4668H16.7668C17.1911 3.4668 17.5981 3.63537 17.8982 3.93543C18.1982 4.23548 18.3668 4.64245 18.3668 5.0668V13.0668Z"
-//           stroke="white"
-//           strokeWidth="1.5"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         />
-//       </svg>
-//     )
-//   },
-//   {
-//     label: 'react',
-//     position: 66,
-//     icon: (
-//       <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-//         <g clipPath="url(#clip0_2873_7683)">
-//           <path
-//             d="M11.2124 13.0366C12.1984 13.0366 12.9976 12.2559 12.9976 11.2927C12.9976 10.3296 12.1984 9.54883 11.2124 9.54883C10.2265 9.54883 9.42725 10.3296 9.42725 11.2927C9.42725 12.2559 10.2265 13.0366 11.2124 13.0366Z"
-//             fill="white"
-//           />
-//           <path
-//             d="M11.2134 14.8625C16.5038 14.8625 20.7925 13.2629 20.7925 11.2897C20.7925 9.31642 16.5038 7.7168 11.2134 7.7168C5.92298 7.7168 1.63428 9.31642 1.63428 11.2897C1.63428 13.2629 5.92298 14.8625 11.2134 14.8625Z"
-//             stroke="white"
-//             strokeWidth="0.7"
-//           />
-//           <path
-//             d="M8.04495 13.0771C10.6901 17.5527 14.2526 20.3811 16.002 19.3945C17.7513 18.4079 17.0251 13.9799 14.3799 9.50423C11.7347 5.0286 8.17221 2.2002 6.42287 3.18682C4.67353 4.17344 5.39976 8.60147 8.04495 13.0771Z"
-//             stroke="white"
-//             strokeWidth="0.7"
-//           />
-//           <path
-//             d="M8.04643 9.50363C5.40123 13.9793 4.675 18.4073 6.42434 19.3939C8.17368 20.3805 11.7362 17.5521 14.3814 13.0765C17.0265 8.60087 17.7528 4.17284 16.0034 3.18622C14.2541 2.1996 10.6916 5.028 8.04643 9.50363Z"
-//             stroke="white"
-//             strokeWidth="0.7"
-//           />
-//         </g>
-//         <defs>
-//           <clipPath id="clip0_2873_7683">
-//             <rect
-//               width="21.3333"
-//               height="21.3333"
-//               fill="white"
-//               transform="translate(0.5 0.333008)"
-//             />
-//           </clipPath>
-//         </defs>
-//       </svg>
-//     )
-//   },
-//   {
-//     label: 'prints',
-//     position: 99,
-//     icon: (
-//       <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-//         <path
-//           d="M17.026 3.13379H5.30697C4.38236 3.13379 3.63281 3.88333 3.63281 4.80794V16.527C3.63281 17.4516 4.38236 18.2012 5.30697 18.2012H17.026C17.9507 18.2012 18.7002 17.4516 18.7002 16.527V4.80794C18.7002 3.88333 17.9507 3.13379 17.026 3.13379Z"
-//           stroke="white"
-//           strokeWidth="1.5"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         />
-//         <path
-//           d="M11.1665 7.31934V14.016"
-//           stroke="white"
-//           strokeWidth="1.5"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         />
-//         <path
-//           d="M7.81836 10.668H14.515"
-//           stroke="white"
-//           strokeWidth="1.5"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         />
-//       </svg>
-//     )
-//   }
-// ]
-
-// const ScrollytellingControls: FC<{
-//   labelPositions: number[]
-//   timeline: MutableRefObject<GSAPTimeline | undefined>
-//   active?: boolean
-// }> = ({ timeline, labelPositions, active = false }) => {
-//   const progressBarRef = useRef<ProgressAPI>(null)
-//   const { width, height } = useViewportSize()
-//   const orientation = width / height > 1.6 ? 'vertical' : 'horizontal'
-
-//   useEffect(() => {
-//     if (!labelPositions.length) return
-
-//     const internalMarkerPositions = timelineMarkers.map(
-//       ({ position }) => position
-//     )
-
-//     const _labelPositions = [0, ...labelPositions, 100]
-//     const _internalMarkerPositions = [0, ...internalMarkerPositions, 100]
-
-//     const getCurrentMultiplier = (progress: number) => {
-//       const idx = _labelPositions.findIndex((p) => progress <= p)
-
-//       const prevInternal = _internalMarkerPositions[idx - 1]
-//       const prevLabelPos = _labelPositions[idx - 1]
-//       const currInternal = _internalMarkerPositions[idx]
-//       const currLabelPos = _labelPositions[idx]
-
-//       return {
-//         prevLabelPos,
-//         prevInternal,
-//         multiplier:
-//           (currInternal - prevInternal) / (currLabelPos - prevLabelPos)
-//       }
-//     }
-
-//     onScrollTriggerUpdate = (progress: number) => {
-//       const _progress = progress * 100
-//       /*
-//         This is here bc labels are placed not proportionally, but
-//         we need to show proportional spaced markers on the UI
-//       */
-//       const { prevInternal, prevLabelPos, multiplier } =
-//         getCurrentMultiplier(_progress)
-
-//       const res = prevInternal + (_progress - prevLabelPos) * multiplier
-
-//       progressBarRef.current?.update(res)
-//     }
-//   }, [labelPositions])
-
-//   const scrollToLabel = useCallback(
-//     (label: string, offset = 0) => {
-//       const targetPx = timeline.current?.scrollTrigger?.labelToScroll(label)
-
-//       if (targetPx != undefined) {
-//         gsap.to(window, {
-//           scrollTo: targetPx + offset
-//         })
-//       }
-//     },
-//     [timeline]
-//   )
-
-//   const markers = useMemo(() => {
-//     const sharedMarkerStyles = { '--animation-max-scale': '1.5' }
-
-//     return timelineMarkers.map(({ position, icon, label }) => ({
-//       style: sharedMarkerStyles,
-//       position,
-//       children: (
-//         <TimelineLogo onClick={() => scrollToLabel(label)}>{icon}</TimelineLogo>
-//       )
-//     }))
-//   }, [scrollToLabel])
-
-//   return (
-//     <div
-//       className={clsx(s['controls'], {
-//         [s['active']]: active,
-//         [s['horizontal']]: orientation === 'horizontal',
-//         [s['vertical']]: orientation === 'vertical'
-//       })}
-//     >
-//       <button
-//         title="Skip to beginning"
-//         className={s['skip']}
-//         onClick={() => scrollToLabel('start')}
-//       >
-//         <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-//           <path
-//             d="M6 9.5L11.5 4L17 9.5"
-//             stroke="#464646"
-//             strokeWidth="2"
-//             strokeLinecap="round"
-//           />
-//           <path
-//             d="M6 17L11.5 11.5L17 17"
-//             stroke="#464646"
-//             strokeWidth="2"
-//             strokeLinecap="round"
-//           />
-//         </svg>
-//       </button>
-//       <div className={s['timeline']}>
-//         <ProgressBar
-//           animated={false}
-//           progress={50}
-//           direction={orientation}
-//           secondaryColor="#C8C8C8"
-//           primaryColor="#464646"
-//           markerColor="#C8C8C8"
-//           markerActiveColor="#464646"
-//           markerSize={40}
-//           markers={markers}
-//           ref={progressBarRef}
-//         />
-//       </div>
-//       <button
-//         title="Skip to end"
-//         className={s['skip']}
-//         onClick={() => scrollToLabel('end', window.innerHeight / 4)}
-//       >
-//         <svg viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-//           <path
-//             d="M17 12.5L11.5 18L6 12.5"
-//             stroke="#464646"
-//             strokeWidth="2"
-//             strokeLinecap="round"
-//           />
-//           <path
-//             d="M17 5L11.5 10.5L6 5"
-//             stroke="#464646"
-//             strokeWidth="2"
-//             strokeLinecap="round"
-//           />
-//         </svg>
-//       </button>
-//     </div>
-//   )
-// }
 
 const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   return (
@@ -425,35 +132,6 @@ const ViewToggle = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   )
 })
 
-// const RecSvg = () => (
-//   <svg
-//     width="86"
-//     height="40"
-//     viewBox="0 0 86 40"
-//     fill="none"
-//     xmlns="http://www.w3.org/2000/svg"
-//     className={clsx('record', s['record'])}
-//   >
-//     <rect className={s['bg']} width="86" height="40" rx="8" fill="#F41C52" />
-//     <path
-//       d="M20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30Z"
-//       stroke="white"
-//       strokeWidth="2"
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//     />
-//     <path
-//       className={s['circle']}
-//       d="M20 26C23.3137 26 26 23.3137 26 20C26 16.6863 23.3137 14 20 14C16.6863 14 14 16.6863 14 20C14 23.3137 16.6863 26 20 26Z"
-//       fill="white"
-//     />
-//     <path
-//       d="M39.7614 27V12.4545H44.6761C45.8125 12.4545 46.7453 12.6487 47.4744 13.0369C48.2036 13.4205 48.7434 13.9484 49.0938 14.6207C49.4441 15.2931 49.6193 16.0578 49.6193 16.9148C49.6193 17.7718 49.4441 18.5317 49.0938 19.1946C48.7434 19.8575 48.206 20.3783 47.4815 20.7571C46.7571 21.1312 45.8314 21.3182 44.7045 21.3182H40.7273V19.7273H44.6477C45.4242 19.7273 46.0492 19.6136 46.5227 19.3864C47.0009 19.1591 47.3466 18.8371 47.5597 18.4205C47.7775 17.9991 47.8864 17.4972 47.8864 16.9148C47.8864 16.3324 47.7775 15.8234 47.5597 15.3878C47.3419 14.9522 46.9938 14.616 46.5156 14.3793C46.0374 14.1378 45.4053 14.017 44.6193 14.017H41.5227V27H39.7614ZM46.608 20.4659L50.1875 27H48.142L44.6193 20.4659H46.608ZM52.5543 27V12.4545H61.3327V14.017H54.3157V18.9318H60.8782V20.4943H54.3157V25.4375H61.4464V27H52.5543ZM76.212 17H74.4506C74.3465 16.4934 74.1642 16.0483 73.9038 15.6648C73.6481 15.2812 73.3356 14.9593 72.9663 14.6989C72.6017 14.4337 72.1969 14.2348 71.7518 14.1023C71.3067 13.9697 70.8427 13.9034 70.3597 13.9034C69.479 13.9034 68.6812 14.1259 67.9663 14.571C67.256 15.0161 66.6902 15.6719 66.2688 16.5384C65.8522 17.4048 65.6438 18.4678 65.6438 19.7273C65.6438 20.9867 65.8522 22.0497 66.2688 22.9162C66.6902 23.7827 67.256 24.4384 67.9663 24.8835C68.6812 25.3286 69.479 25.5511 70.3597 25.5511C70.8427 25.5511 71.3067 25.4848 71.7518 25.3523C72.1969 25.2197 72.6017 25.0232 72.9663 24.7628C73.3356 24.4976 73.6481 24.1733 73.9038 23.7898C74.1642 23.4015 74.3465 22.9564 74.4506 22.4545H76.212C76.0794 23.1979 75.838 23.8632 75.4876 24.4503C75.1372 25.0374 74.7016 25.5369 74.1808 25.9489C73.6599 26.3561 73.0752 26.6662 72.4265 26.8793C71.7826 27.0923 71.0936 27.1989 70.3597 27.1989C69.1192 27.1989 68.016 26.8958 67.0501 26.2898C66.0842 25.6837 65.3242 24.822 64.7702 23.7045C64.2163 22.5871 63.9393 21.2614 63.9393 19.7273C63.9393 18.1932 64.2163 16.8674 64.7702 15.75C65.3242 14.6326 66.0842 13.7708 67.0501 13.1648C68.016 12.5587 69.1192 12.2557 70.3597 12.2557C71.0936 12.2557 71.7826 12.3622 72.4265 12.5753C73.0752 12.7884 73.6599 13.1009 74.1808 13.5128C74.7016 13.92 75.1372 14.4171 75.4876 15.0043C75.838 15.5866 76.0794 16.2519 76.212 17Z"
-//       fill="white"
-//     />
-//   </svg>
-// )
-
 const timelineDuration = 8
 const padding = 16
 const headerHeight = 50
@@ -516,7 +194,6 @@ const reactTree = identifyNodes(
 )
 
 export default function ReplayApplication() {
-  // const [controlsActive, setControlsActive] = useState(false)
   const [activeDevtoolTab, setActiveDevtoolTab] =
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
@@ -527,13 +204,10 @@ export default function ReplayApplication() {
   const { fontsLoaded } = useAppStore()
   const timelineRef = useRef<GSAPTimeline>()
   const pinWrapperRef = useRef<HTMLDivElement>(null)
-  // const [mainLabelPositions, setMainLabelPositions] = useState<number[]>([])
 
   /* Store */
   const [storeState, setStoreState] =
     useState<OverboardStoreProps['state']>('idle')
-  // const [overboardColor, setOverboardColor] =
-  //   useState<OverboardStoreProps['overboardColor']>('red')
 
   /* React */
   const [activeComponent, setActiveComponent] =
@@ -606,107 +280,12 @@ export default function ReplayApplication() {
     const addPrintButton = codeSelector('#dev-tools-add-print')
     const printTutorial = codeSelector('#dev-tools-print-tutorial')
     const printPanel = codeSelector('#dev-tools-print-panel')
-    // const storeLogo = storeSelector(`#overboard-store-logo-${storeId}`)
-    // const storeContent = storeSelector(`#overboard-store-inner-${storeId}`)
-    // const storePurchase = storeSelector(`#overboard-store-purchase-${storeId}`)
     const [storePurchaseLoader] = storeSelector(
       `#overboard-store-purchase-${storeId} .loader`
     )
-    // const storeColors = storeSelector(`#overboard-store-colors-${storeId}`)
     const devtoolsTools = appSelector('.toolbar .debugger,.search,.code')
-    // const devtoolsToolsComments = appSelector('.toolbar .comments')
     const devtoolsToolsCode = appSelector('.toolbar .code')
     const headerUsers = appSelector('.header .user')
-    // const recordBadge = storeSelector('.record')
-    // const storeContainer = storeSelector('.store')
-
-    /* First Comment */
-    // const firstComment = storeSelector('#scrollytelling-first-comment')
-    // const firstCommentIcon = storeSelector(
-    // '#scrollytelling-first-comment .comment-icon'
-    // )
-    // const firstCommentBox = storeSelector(
-    // '#scrollytelling-first-comment .comment'
-    // )
-
-    /* Second Comment */
-    // const secondCommentIcon = appSelector(
-    //   '#scrollytelling-second-comment .comment-icon'
-    // )
-
-    // const secondCommentBox = appSelector(
-    //   '#scrollytelling-second-comment .comment'
-    // )
-
-    // const animateCommentThread = (
-    //   wrapperId: string,
-    //   timeline: GSAPTimeline,
-    //   customSelector?: gsap.utils.SelectorFunc
-    // ) => {
-    //   const selector = customSelector || gsap.utils.selector(sectionRef.current)
-
-    //   const commentContent = selector(`${wrapperId} .content`)
-    //   const [commentInput] = selector(`${wrapperId} .input`)
-
-    //   const splitText = new SplitText(commentInput.children[1], {
-    //     type: 'chars'
-    //   })
-
-    //   timeline
-    //     .call(() => {
-    //       setCommentState('idle')
-    //     })
-    //     .call(
-    //       () => {
-    //         setCommentState('typing')
-    //       },
-    //       undefined,
-    //       '<'
-    //     )
-    //     .fromTo(
-    //       splitText.chars,
-    //       {
-    //         display: 'none'
-    //       },
-    //       {
-    //         duration: 0.6,
-    //         display: 'inline',
-    //         stagger: 0.025,
-    //         ease: 'power0.none'
-    //       },
-    //       '<'
-    //     )
-    //     .call(
-    //       () => {
-    //         setCommentState('typing')
-    //       },
-    //       undefined,
-    //       '>'
-    //     )
-    //     .call(
-    //       () => {
-    //         setCommentState('submited')
-    //       },
-    //       undefined,
-    //       '<'
-    //     )
-    //     .fromTo(
-    //       commentContent[1],
-    //       {
-    //         scale: 0.8,
-    //         opacity: 0,
-    //         height: 0
-    //       },
-    //       {
-    //         scale: 1,
-    //         opacity: 1,
-    //         height: 'auto'
-    //       },
-    //       '>+=1'
-    //     )
-
-    //   return splitText
-    // }
 
     /* Board and floor movement */
     const storeVariables = {
@@ -734,24 +313,6 @@ export default function ReplayApplication() {
           storeApiRef.current?.hoverboard?.wave(nextProgress)
         }
       })
-
-    // const flipTimeline1 = Flip.fit(
-    //   targetStoreRef.current,
-    //   smallCenteredStoreRef.current,
-    //   {
-    //     simple: false,
-    //     duration: 2
-    //   }
-    // )
-
-    // const flipTimeline2 = Flip.fit(
-    //   targetStoreRef.current,
-    //   smallRightCenteredStoreRef.current,
-    //   {
-    //     simple: false,
-    //     duration: 4
-    //   }
-    // )
 
     const flipTimeline3 = Flip.fit(
       targetStoreRef.current,
@@ -868,65 +429,6 @@ export default function ReplayApplication() {
       //   document.documentElement.classList.remove('hide-header')
       //   setControlsActive(false)
       // }, '<+=1')
-      // .add(() => {
-      //   setControlsActive(true)
-      // }, '<')
-      // .to(
-      //   recordBadge,
-      //   {
-      //     opacity: 1,
-      //     duration: 0.5
-      //   },
-      //   '>'
-      // )
-      // .addLabel('record')
-      // .add(() => {
-      //   setOverboardColor('red')
-      // }, '<+=0.5')
-      // .add(() => {
-      //   setOverboardColor('green')
-      // })
-      // .to(
-      //   storeColors,
-      //   {
-      //     opacity: 0,
-      //     duration: 0.5,
-      //     yPercent: -20
-      //   },
-      //   '<+=0.5'
-      // )
-      // .add(() => {
-      //   setStoreState('idle')
-      // })
-      // .fromTo(
-      //   storePurchase,
-      //   {
-      //     opacity: 0,
-      //     yPercent: 20
-      //   },
-      //   { opacity: 1, yPercent: -50, duration: 1 },
-      //   '<'
-      // )
-      // .add(() => {
-      //   setStoreState('loading')
-      // })
-      // .add(() => {
-      //   setStoreState('error')
-      //   progressBarRef.current?.update(100)
-      //   setCurrentTime(timelineDuration)
-      // }, '+=1')
-
-      /* Viewer */
-      // .add(flipTimeline1 as GSAPTimeline, '>')
-      // .to(storeContainer, { borderRadius: 12 }, '<')
-      // .to(
-      //   recordBadge,
-      //   {
-      //     opacity: 0
-      //   },
-      //   '<'
-      // )
-
       .set(
         applicationRef.current,
         {
@@ -938,127 +440,14 @@ export default function ReplayApplication() {
         0
       )
 
-      // .to(
-      //   storeLogo,
-      //   {
-      //     opacity: 0,
-      //     yPercent: -40,
-      //     duration: 2 // <-- These three have to be the same
-      //   },
-      //   '<'
-      // )
-      // .to(
-      //   [storePurchase, firstComment],
-      //   {
-      //     yPercent: -50,
-      //     duration: 2 // <-- These three have to be the same
-      //   },
-      //   '<'
-      // )
-      // .to(
-      //   storeContent,
-      //   {
-      //     y: 0,
-      //     duration: 2 // <-- These three have to be the same
-      //   },
-      //   '<'
-      // )
-      // .add(() => {
-      //   floorAndRotateTimeline.current?.play()
-      // }, '<')
-      // .add(() => {
-      //   floorAndRotateTimeline.current?.pause()
-      // }, '<')
-      // .add(() => {
-      //   playPauseRef.current?.classList.remove('play')
-      //   playPauseRef.current?.classList.add('pause')
-      //   progressBarRef.current?.update(50)
-      //   setCurrentTime(timelineDuration * 0.5)
-      // }, '<')
-
-      /* Comments */
-      //   .set(firstComment, { opacity: 1 })
-      //   .to(
-      //     devtoolsToolsComments,
-      //     {
-      //       fill: '#05ACFD'
-      //     },
-      //     '<'
-      //   )
-      //   .to(
-      //     devtoolsToolsCode,
-      //     {
-      //       fill: '#BCBCBC'
-      //     },
-      //     '<'
-      //   )
-      //   .fromTo(
-      //     firstCommentIcon,
-      //     {
-      //       scale: 0.6,
-      //       opacity: 0
-      //     },
-      //     {
-      //       scale: 1,
-      //       opacity: 1
-      //     }
-      //   )
-      //   .addLabel('comments')
-      //   .to(firstCommentIcon, {
-      //     scale: 1.2,
-      //     duration: 1
-      //   })
-      //   .to(firstCommentIcon, {
-      //     scale: 1,
-      //     duration: 1
-      //   })
-      //   .fromTo(
-      //     firstCommentBox,
-      //     {
-      //       transformOrigin: 'left top',
-      //       y: -8,
-      //       scale: 0.8,
-      //       opacity: 0
-      //     },
-      //     {
-      //       y: 0,
-      //       scale: 1,
-      //       opacity: 1,
-      //       ease: Elastic.easeOut.config(1, 0.6),
-      //       duration: 3
-      //     }
-      //   )
-
-      // const firstCommentSplitText = animateCommentThread(
-      //   '#scrollytelling-first-comment',
-      //   timeline,
-      //   storeSelector
-      // )
-
-      // timeline
       .set(
-        // new
         [headerUsers[0]],
-        // {
-        //   xPercent: 20,
-        //   opacity: 0
-        // },
         {
           xPercent: 0,
           opacity: 1
         },
         0
       )
-      // .to(
-      //   firstCommentBox,
-      //   {
-      //     y: -8,
-      //     scale: 0.8,
-      //     opacity: 0,
-      //     duration: 1.5
-      //   },
-      //   '>+=2'
-      // )
 
       /* Devtools */
       .addLabel('devtools')
@@ -1070,10 +459,7 @@ export default function ReplayApplication() {
       )
       .set(
         devtoolsTools,
-        // {
-        //   yPercent: -20,
-        //   opacity: 0
-        // },
+
         {
           yPercent: 1,
           opacity: 1,
@@ -1084,15 +470,8 @@ export default function ReplayApplication() {
       )
 
       /* Devtools */
-      // .add(flipTimeline2 as GSAPTimeline)
       .addLabel('react', '>')
-      // .to(
-      //   devtoolsToolsComments,
-      //   {
-      //     fill: '#BCBCBC'
-      //   },
-      //   '<'
-      // )
+
       .set(
         devtoolsToolsCode,
         {
@@ -1100,13 +479,7 @@ export default function ReplayApplication() {
         },
         0
       )
-      // .to(
-      //   firstComment,
-      //   {
-      //     opacity: 0
-      //   },
-      //   '<'
-      // )
+
       .set(
         devtoolsPanelRef.current,
         {
@@ -1263,7 +636,7 @@ export default function ReplayApplication() {
         }
       )
       .set(printPanel, { overflow: 'visible' })
-      .set(storePurchaseLoader, { '--play-state': 'paused' })
+      .set([storePurchaseLoader], { '--play-state': 'paused' })
       .add(() => {
         playPauseRef.current?.classList.remove('play')
         playPauseRef.current?.classList.add('pause')
@@ -1300,7 +673,7 @@ export default function ReplayApplication() {
               setStoreState('idle')
             }
 
-            gsap.set(storePurchaseLoader, {
+            gsap.set([storePurchaseLoader], {
               '--rotate-z': `${360 * 4 * (progress / 100)}deg`
             })
 
@@ -1321,60 +694,12 @@ export default function ReplayApplication() {
           }
         }
       )
-    // .to(
-    //   secondCommentIcon,
-    //   {
-    //     scale: 1.2,
-    //     duration: 1
-    //   },
-    //   '+=2'
-    // )
-    // .to(secondCommentIcon, {
-    //   scale: 1,
-    //   duration: 1
-    // })
-    // .fromTo(
-    //   secondCommentBox,
-    //   {
-    //     transformOrigin: 'right center',
-    //     y: -42,
-    //     scale: 0.8,
-    //     opacity: 0
-    //   },
-    //   {
-    //     scale: 1,
-    //     opacity: 1,
-    //     ease: Elastic.easeOut.config(1, 0.6),
-    //     duration: 3
-    //   }
-    // )
-
-    // const secondCommentSplitText = animateCommentThread(
-    //   '#scrollytelling-second-comment',
-    //   timeline,
-    //   appSelector
-    // )
-
     /* Add some duration at the end */
     timeline.to({}, {}).addLabel('end', '>')
 
     timelineRef.current = timeline
 
-    // const markerLabels = ['record', 'comments', 'react', 'prints']
-    // const markerLabelPositions = markerLabels.map(
-    //   (l) =>
-    //     (Math.floor(timeline.scrollTrigger?.labelToScroll(l) || 0) /
-    //       scrollyTellingEndPx) *
-    //     100
-    // )
-
-    // setMainLabelPositions(markerLabelPositions)
-
     return () => {
-      /* Split Text Cleanup */
-      // firstCommentSplitText.revert()
-      // secondCommentSplitText.revert()
-
       /* ScrollTrigger Cleanup */
       window.scrollTo(0, 0)
 
@@ -1384,7 +709,6 @@ export default function ReplayApplication() {
 
       document.documentElement.classList.remove('hide-header')
       document.documentElement.classList.remove('has-scrollytelling')
-      // setControlsActive(false)
 
       /* Flip Cleanup */
       /* Just clearing transforms bc otherwise we remove some important variables */
