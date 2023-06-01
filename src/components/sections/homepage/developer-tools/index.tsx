@@ -46,11 +46,12 @@ import networkCode from '~/images/homepage/devtools-high-res/network_code.png'
 import networkReplay from '~/images/homepage/devtools-high-res/network_replay.png'
 import networkInspector from '~/images/homepage/devtools-high-res/network_inspector.png'
 
-/* -- Images -- */
-import networkPanel from '~/images/homepage/devtools/network-panel.png'
-import reactPanel from '~/images/homepage/devtools/react-panel.png'
-import testsPanel from '~/images/homepage/devtools/tests-panel.png'
-import tracePanel from '~/images/homepage/devtools/trace-panel.png'
+/* Mobile */
+import networkMobile from '~/images/homepage/devtools-high-res/network_mobile.png'
+import reactInspectorMobile from '~/images/homepage/devtools-high-res/react-inspector_mobile.png'
+import testsMobile from '~/images/homepage/devtools-high-res/tests_mobile.png'
+import consoleLogsMobile from '~/images/homepage/devtools-high-res/console-logs_mobile.png'
+import eventsMobile from '~/images/homepage/devtools-high-res/events_mobile.png'
 
 import s from './developer-tools.module.scss'
 
@@ -75,7 +76,7 @@ const chunks: {
       <Image
         {...props}
         className={clsx(s['mobile-panel'], className)}
-        src={reactPanel}
+        src={reactInspectorMobile}
         quality={100}
         alt="code panel"
       />
@@ -130,7 +131,7 @@ const chunks: {
         {...props}
         className={clsx(s['mobile-panel'], className)}
         quality={100}
-        src={testsPanel}
+        src={consoleLogsMobile}
         alt="code panel"
       />
     ),
@@ -183,7 +184,7 @@ const chunks: {
       <Image
         {...props}
         className={clsx(s['mobile-panel'], className)}
-        src={tracePanel}
+        src={testsMobile}
         quality={100}
         alt="code panel"
       />
@@ -250,7 +251,7 @@ const chunks: {
       <Image
         {...props}
         className={clsx(s['mobile-panel'], className)}
-        src={networkPanel}
+        src={eventsMobile}
         quality={100}
         alt="code panel"
       />
@@ -317,7 +318,7 @@ const chunks: {
       <Image
         {...props}
         className={clsx(s['mobile-panel'], className)}
-        src={networkPanel}
+        src={networkMobile}
         quality={100}
         alt="code panel"
       />
