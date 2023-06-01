@@ -4,7 +4,7 @@
 .section {
   position: relative;
 
-  --max-height: calc(100vh - var(--padding) * 2);
+  --max-height: calc(100vh - var(--header-height));
 
   .section-inner {
     display: flex;
