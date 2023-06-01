@@ -2,7 +2,7 @@
 import 'prismjs/themes/prism-coy.css'
 
 import clsx from 'clsx'
-import Prism from 'prismjs'
+import Prism, { highlight, languages } from 'prismjs'
 import {
   forwardRef,
   Fragment,
@@ -62,8 +62,8 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
               display: 'flex',
               alignItems: 'center',
               padding: 10,
-              background: 'white',
-              borderTop: '1px solid #eaeaea'
+              background: 'var(--editor-800)',
+              borderTop: '1px solid var(--editor-border-color)'
             }}
           >
             <div id="dev-tools-console-markers" className={s['markers']}>
@@ -94,7 +94,7 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
               style={{
                 flex: 1,
                 fontFamily: 'var(--font-mono)',
-                color: '#8000D7',
+                color: 'var(--editor-functions)',
                 marginLeft: 8
               }}
             >
@@ -118,7 +118,7 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
               // marginTop: 12,
               alignItems: 'center',
               padding: 10,
-              borderBottom: '1px solid #eaeaea'
+              borderBottom: '1px solid var(--editor-border-color)'
             }}
           >
             <svg
@@ -131,16 +131,21 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
               <circle
                 r="7.85294"
                 transform="matrix(-1 0 0 1 8.24472 7.85294)"
-                fill="#DBDBDB"
+                fill="var(--grey-600)"
               />
               <path
                 d="M4.68231 7.17859L7.22809 5.60423L9.7739 4.02988C9.88432 3.96166 10.0095 3.92576 10.137 3.92578C10.2645 3.92581 10.3897 3.96176 10.5001 4.03002C10.6105 4.09829 10.7021 4.19646 10.7659 4.31469C10.8296 4.43291 10.8632 4.56702 10.8633 4.70355V11.0009C10.8632 11.1375 10.8297 11.2716 10.7659 11.3898C10.7022 11.508 10.6105 11.6062 10.5001 11.6745C10.3897 11.7427 10.2645 11.7787 10.137 11.7787C10.0095 11.7787 9.88432 11.7428 9.7739 11.6746L7.22809 10.1003L4.68231 8.52595C4.5719 8.45767 4.48021 8.35948 4.41647 8.24122C4.35272 8.12296 4.31916 7.98882 4.31916 7.85227C4.31916 7.71572 4.35272 7.58157 4.41647 7.46332C4.48021 7.34506 4.5719 7.24686 4.68231 7.17859Z"
-                fill="white"
+                fill="var(--grey-300)"
               />
-              <circle cx="29.185" cy="7.85294" r="7.85294" fill="#DBDBDB" />
+              <circle
+                cx="29.185"
+                cy="7.85294"
+                r="7.85294"
+                fill="var(--grey-600)"
+              />
               <path
                 d="M32.7474 7.17859L30.2016 5.60423L27.6558 4.02988C27.5454 3.96166 27.4201 3.92576 27.2927 3.92578C27.1652 3.92581 27.04 3.96176 26.9296 4.03002C26.8192 4.09829 26.7275 4.19646 26.6638 4.31469C26.6 4.43291 26.5665 4.56702 26.5664 4.70355V11.0009C26.5664 11.1375 26.6 11.2716 26.6638 11.3898C26.7275 11.508 26.8192 11.6062 26.9296 11.6745C27.04 11.7427 27.1652 11.7787 27.2927 11.7787C27.4201 11.7787 27.5454 11.7428 27.6558 11.6746L30.2016 10.1003L32.7474 8.52595C32.8578 8.45767 32.9495 8.35948 33.0132 8.24122C33.077 8.12296 33.1105 7.98882 33.1105 7.85227C33.1105 7.71572 33.077 7.58157 33.0132 7.46332C32.9495 7.34506 32.8578 7.24686 32.7474 7.17859Z"
-                fill="white"
+                fill="var(--grey-300)"
               />
             </svg>
             <div style={{ flex: 1, padding: '0 10px' }}>
@@ -148,7 +153,12 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
                 <ProgressBar
                   solid
                   primaryColor="#01ACFD"
-                  secondaryColor="#D5D5D5"
+                  secondaryColor="linear-gradient(
+                        180deg,
+                        rgb(1 172 253 / 0) 0%,
+                        rgb(1 172 253 / 0.4) 57.55%,
+                        rgb(1 172 253 / 0) 100%
+                      )"
                   animated={false}
                   {...timelineProps}
                   debug
@@ -159,7 +169,12 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
                   solid
                   loop={false}
                   primaryColor="#01ACFD"
-                  secondaryColor="#D5D5D5"
+                  secondaryColor="linear-gradient(
+                        180deg,
+                        rgb(1 172 253 / 0) 0%,
+                        rgb(1 172 253 / 0.4) 57.55%,
+                        rgb(1 172 253 / 0) 100%
+                      )"
                   duration={4}
                   {...timelineProps}
                   ref={timelineRef as RefObject<UseGsapTimeAPI>}
@@ -273,8 +288,8 @@ export const Code = forwardRef<CodeRef, CodeProps>(
     )
 
     const parsedCode = useMemo(() => {
-      if (!code) return ''
-      return Prism.highlight(code, Prism?.languages?.jsx, 'jsx')
+      if (!code || !languages?.jsx) return ''
+      return highlight(code, languages.jsx, 'jsx')
     }, [code])
 
     useImperativeHandle(
@@ -316,7 +331,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                 width: 4,
                 top: 0,
                 bottom: 0,
-                background: '#F1F1F1'
+                background: 'var(--editor-600)'
               }}
             />
           </div>
@@ -332,9 +347,11 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                 <span
                   style={{
                     display: 'inline-block',
-                    color: hasBreakpoint ? 'var(--color-white)' : '#666666',
+                    color: hasBreakpoint
+                      ? 'var(--color-white)'
+                      : 'var(--grey-600)',
                     textAlign: 'right',
-                    paddingRight: '3px',
+                    paddingRight: '4px',
                     fontVariantNumeric: 'tabular-nums',
                     background: hasBreakpoint ? '#69A5FF' : undefined
                   }}
@@ -347,10 +364,10 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                   style={{
                     background:
                       (printIndicators?.[codeLine] === 'not-available' &&
-                        '#d6f5ff') ||
+                        'var(--red-400)') ||
                       (printIndicators?.[codeLine] === 'available' &&
-                        '#69A5FF') ||
-                      '#F1F1F1'
+                        'var(--editor-500)') ||
+                      'var(--editor-600)'
                   }}
                 >
                   {isTargetLine && (

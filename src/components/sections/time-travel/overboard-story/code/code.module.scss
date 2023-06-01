@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  background: var(--editor-700);
 
   .file-tab {
     display: flex;
@@ -10,7 +11,7 @@
     height: 100%;
     padding: 0 24px;
     font-size: 14px;
-    background: var(--color-gray-lighter);
+    background: var(--editor-500);
   }
 
   .code {
@@ -47,7 +48,7 @@
 
     :global {
       .reserved {
-        color: #dd00a9;
+        color: var(--editor-reserved);
       }
 
       .operator {
@@ -55,23 +56,23 @@
       }
 
       .declaration {
-        color: #000;
+        color: var(--color-white);
       }
 
       .variable {
-        color: #3172e0;
+        color: var(--editor-variable);
       }
 
-      .function {
-        color: #8000d7;
+      i .function {
+        color: var(--editor-function);
       }
 
       .symbol {
-        color: #000;
+        color: var(--color-white);
       }
 
       .string {
-        color: #5ca939;
+        color: var(--color-gry-200);
       }
     }
   }
@@ -155,12 +156,12 @@
     z-index: var(--z-index-10);
     height: 0;
     width: 100%;
-    background: #fafafa;
+    background: var(--editor-600);
 
     .markers {
       position: relative;
       border-radius: var(--border-radius-full);
-      background: #f0f0f0;
+      background: var(--grey-600);
       padding: 6px;
       display: flex;
       transition: transform var(--duration-fast) ease-out;
@@ -171,7 +172,7 @@
         transform: scale(1.2);
 
         .toggle::after {
-          --background: #d8d8d8;
+          --background: var(--grey-400);
 
           height: 2px;
           width: 9px;
@@ -238,17 +239,18 @@
     }
 
     .hit-counter {
-      --background: #e5e5e5;
-      --color: var(--color-gray);
+      --background: var(--editor-500);
+      --color: var(--color-white);
 
       transition: background var(--duration-fast) linear;
       background: var(--background);
       border-radius: var(--border-radius-full);
-      font-size: 11px;
+      font-size: 10px;
       display: inline-flex;
       width: 44px;
       height: 16px;
       color: var(--color);
+      align-items: center;
       justify-content: center;
       font-variant-numeric: tabular-num;
     }

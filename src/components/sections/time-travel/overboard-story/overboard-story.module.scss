@@ -168,8 +168,8 @@
     opacity: 0;
     overflow: hidden;
     border-radius: 16px;
-    border: 1px solid var(--color-gray-lighter);
-    background: #f2f2f2;
+    border: 1px solid var(--editor-border-color);
+    background: var(--editor-800);
     width: 100%;
     position: absolute;
     max-width: calc((var(--max-height)) * var(--raw-ratio));
@@ -188,12 +188,13 @@
       align-items: center;
       justify-content: space-between;
       padding-right: var(--panels-gap);
-      background-color: f2f2f2;
+      background-color: var(--editor-700);
+      border-bottom: 1px solid var(--editor-border-color);
       height: var(--height);
 
       .logo {
         width: 20px;
-        color: var(--color-pink-crayon);
+        color: var(--color-white);
       }
 
       .users {
@@ -278,12 +279,19 @@
 
       .timeline {
         flex: 1;
+
+        div {
+          height: 4px;
+          border-radius: 0;
+        }
       }
 
       .current-time {
         margin-left: 20px;
-        background: #e6e6e6;
-        border-radius: var(--border-radius-full);
+        background: var(--editor-700);
+        color: var(--grey-400);
+        border-radius: 4px;
+        border: 1px solid var(--editor-border-color);
         padding: 2px 12px;
         font-variant-numeric: tabular-nums;
         font-size: 12px;
@@ -358,10 +366,10 @@
 }
 
 .panel-container {
-  background: white;
+  background: var(--editor-700);
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid var(--color-gray-lighter);
+  border: 1px solid var(--editor-border-color);
 }
 
 @keyframes record-bg {

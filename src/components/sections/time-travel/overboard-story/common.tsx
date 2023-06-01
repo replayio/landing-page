@@ -1,6 +1,7 @@
+/* eslint-disable import/no-named-as-default-member */
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
-import Prism from 'prismjs'
+import Prism, { Grammar } from 'prismjs'
 import { FC, forwardRef, MutableRefObject, useEffect, useMemo } from 'react'
 
 // eslint-disable-next-line import/no-named-as-default-member
@@ -19,8 +20,8 @@ export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({
       alignItems: 'center',
       fontSize: 12,
       padding: '6px 10px',
-      borderBottom: '1px solid var(--color-gray-lighter)',
-      color: '#a5a3a3',
+      borderBottom: '1px solid var(--editor-border-color)',
+      color: 'var(--grey-400)',
       minHeight: 35,
       ...style
     }}
@@ -34,7 +35,7 @@ export const logContent = (content: any) => {
   const kind = typeof content
 
   if (kind === 'number') {
-    return <span style={{ color: '#FF63E4' }}>{content}</span>
+    return <span style={{ color: 'var(--editor-reserved)' }}>{content}</span>
   }
 
   if (kind === 'string') {
@@ -51,7 +52,7 @@ export const logContent = (content: any) => {
         dangerouslySetInnerHTML={{
           __html: Prism.highlight(
             JSON.stringify(content),
-            Prism?.languages?.jsx,
+            Prism.languages?.jsx as Grammar,
             'jsx'
           )
         }}
@@ -170,8 +171,8 @@ export const Header: FC<JSX.IntrinsicElements['div']> = ({
       display: 'flex',
       alignItems: 'center',
       height: 35,
-      background: 'var(--color-gray-lightest)',
-      borderBottom: '1px solid var(--color-gray-lighter)',
+      background: 'var(--editor-600)',
+      borderBottom: '1px solid var(--editor-border-color)',
       ...style
     }}
     {...rest}

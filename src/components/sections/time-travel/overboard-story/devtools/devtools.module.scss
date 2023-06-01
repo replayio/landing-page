@@ -3,7 +3,7 @@
 
 .dev-tools {
   width: 100%;
-  border: 1px solid var(--color-gray-lighter);
+  border: 1px solid var(--editor-border-color);
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -118,14 +118,14 @@
 .react-dev-tools {
   display: grid;
   grid-template-rows: auto 1fr;
-  background: var(--color-white);
+  background: var(--editor-700);
   height: 100%;
 }
 
 .elements-panel {
   display: flex;
   font-family: monospace;
-  background: var(--color-white);
+  background: var(--editor-700);
   height: 100%;
 }
 
@@ -138,17 +138,17 @@
     min-width: max-content;
 
     &.active {
-      background: var(--color-gray-lightest) !important;
+      background: var(--editor-600) !important;
     }
 
     &:global(.hovered) {
-      background: #ecf1ff;
+      background: var(--editor-600) !important;
     }
   }
 }
 
 .tabs {
-  border-bottom: 1px solid var(--color-gray-lighter);
+  border-bottom: 1px solid var(--editor-border-color);
   font-family: var(--font-body);
   font-size: 12px;
   display: flex;
@@ -156,7 +156,7 @@
   overflow-x: auto;
 
   & > * {
-    color: #c0c0c0;
+    color: var(--editor-500);
     padding: 8px 13px;
 
     &:nth-child(1) {
@@ -165,14 +165,14 @@
   }
 
   &:not(:first-child) {
-    border-top: 1px solid var(--color-gray-lighter);
+    border-top: 1px solid var(--editor-border-color);
   }
 }
 
 .network-panel {
   display: flex;
   font-family: monospace;
-  background: var(--color-white);
+  background: var(--editor-700);
   height: 100%;
 
   .calls {

@@ -33,7 +33,7 @@ function renderHtmlTree({
     <ul className={s['node-tree']}>
       <li
         className={clsx(s['node-line'], {
-          [s['active']]: activeElement?.uuid === node.uuid
+          [s['active'] as string]: activeElement?.uuid === node.uuid
         })}
         id="node-line"
         style={{ marginLeft: isNested ? 8 : 0 }}
@@ -57,7 +57,7 @@ function renderHtmlTree({
           >
             ▴
           </span>
-          <span style={{ color: '#8434D3' }}>
+          <span style={{ color: 'var(--grey-400)' }}>
             {'<'}
             {node.type}
 
@@ -107,7 +107,7 @@ function renderHtmlTree({
             >
               ▴
             </span>
-            <span style={{ color: '#8434D3' }}>
+            <span style={{ color: 'var(--grey-400)' }}>
               {'</'}
               {node.type}
               {'>'}
@@ -124,7 +124,7 @@ export const logStyleContent = (_: string, content: any) => {
   const colorRegex = /^#[0-9a-f]{6}$/i
 
   if (colorRegex.test(content)) {
-    return <span style={{ color: '#FF63E4' }}>{content};</span>
+    return <span style={{ color: 'var(--editor-reserved)' }}>{content};</span>
   }
 
   return <>{content};</>
@@ -191,7 +191,10 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
               {Object.entries(activeStyles || {}).map(([key, value]) => (
                 <li key={key}>
                   {key}:{' '}
-                  <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
+                  <span
+                    id="hoverboard-rotate"
+                    style={{ color: 'var(--editor-variable)' }}
+                  >
                     {logStyleContent(key, value)}
                   </span>
                 </li>

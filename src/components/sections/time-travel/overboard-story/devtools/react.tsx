@@ -67,7 +67,7 @@ function renderReactTree({
     <ul className={s['node-tree']}>
       <li
         className={clsx(s['node-line'], {
-          [s['active']]: activeComponent?.uuid === node?.uuid
+          [s['active'] as string]: activeComponent?.uuid === node?.uuid
         })}
         id="node-line"
         style={{ marginLeft: isNested ? 8 : 0 }}
@@ -170,7 +170,7 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
               style={{
                 padding: 10,
                 fontVariantNumeric: 'tabular-nums',
-                borderLeft: '1px solid var(--color-gray-lighter)',
+                borderLeft: '1px solid var(--editor-border-color)',
                 width: '40%'
               }}
             >
@@ -180,7 +180,10 @@ export const ReactDevTools = forwardRef<HTMLDivElement, ReactDevToolsProps>(
                   ([key, value]) => (
                     <li key={key}>
                       {key}:{' '}
-                      <span id="hoverboard-rotate" style={{ color: '#314EB2' }}>
+                      <span
+                        id="hoverboard-rotate"
+                        style={{ color: 'var(--editor-variable)' }}
+                      >
                         {logContent(value)}
                       </span>
                     </li>

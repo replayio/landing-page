@@ -1,10 +1,9 @@
 import dynamic from 'next/dynamic'
-import { useLayoutEffect, useRef } from 'react'
 
+// import { useLayoutEffect, useRef } from 'react'
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import { Container } from '~/components/layout/container'
-import { ButtonLink } from '~/components/primitives/button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useHasRendered } from '~/hooks/use-has-rendered'
 import { useViewportSize } from '~/hooks/use-viewport-size'
@@ -101,82 +100,82 @@ export function OverboardStory() {
   )
 }
 
-function ScrollBanner() {
-  const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null)
+// function ScrollBanner() {
+//   const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  useLayoutEffect(() => {
-    let shouldDestroy = false
+//   useLayoutEffect(() => {
+//     let shouldDestroy = false
 
-    function handleScroll() {
-      const scrollBannerElement = document.getElementById(
-        'scroll-banner'
-      ) as HTMLElement
-      const heroElement = document.getElementById(
-        'hero-pin-wrapper'
-      ) as HTMLElement
-      const spacerElement = document.getElementById(
-        'scrollytelling-spacer'
-      ) as HTMLElement
+//     function handleScroll() {
+//       const scrollBannerElement = document.getElementById(
+//         'scroll-banner'
+//       ) as HTMLElement
+//       const heroElement = document.getElementById(
+//         'hero-pin-wrapper'
+//       ) as HTMLElement
+//       const spacerElement = document.getElementById(
+//         'scrollytelling-spacer'
+//       ) as HTMLElement
 
-      if (heroElement === null || spacerElement === null) {
-        return
-      }
+//       if (heroElement === null || spacerElement === null) {
+//         return
+//       }
 
-      const minHeight = heroElement.offsetHeight
-      const maxHeight = spacerElement.offsetHeight - window.innerHeight
-      const scrollY = window.scrollY
+//       const minHeight = heroElement.offsetHeight
+//       const maxHeight = spacerElement.offsetHeight - window.innerHeight
+//       const scrollY = window.scrollY
 
-      /** Clear timeout if continuing to scroll */
-      if (timeoutId.current) {
-        clearTimeout(timeoutId.current)
-      }
+//       /** Clear timeout if continuing to scroll */
+//       if (timeoutId.current) {
+//         clearTimeout(timeoutId.current)
+//       }
 
-      if (shouldDestroy) {
-        scrollBannerElement.style.opacity = '0'
+//       if (shouldDestroy) {
+//         scrollBannerElement.style.opacity = '0'
 
-        /** Wait to until transition is complete before hiding. */
-        setTimeout(() => {
-          /** Make sure to hide the element */
-          scrollBannerElement.style.display = 'none'
-        }, 300)
+//         /** Wait to until transition is complete before hiding. */
+//         setTimeout(() => {
+//           /** Make sure to hide the element */
+//           scrollBannerElement.style.display = 'none'
+//         }, 300)
 
-        document.removeEventListener('scroll', handleScroll)
-      } else {
-        /** Remove listener once going through the entire story */
-        if (scrollY > maxHeight) {
-          shouldDestroy = true
-        }
+//         document.removeEventListener('scroll', handleScroll)
+//       } else {
+//         /** Remove listener once going through the entire story */
+//         if (scrollY > maxHeight) {
+//           shouldDestroy = true
+//         }
 
-        /** Start timer to show scroll helper banner */
-        if (scrollY > minHeight && scrollY < maxHeight) {
-          const timeToShowBanner = 5000
+//         /** Start timer to show scroll helper banner */
+//         if (scrollY > minHeight && scrollY < maxHeight) {
+//           const timeToShowBanner = 5000
 
-          timeoutId.current = setTimeout(() => {
-            shouldDestroy = true
+//           timeoutId.current = setTimeout(() => {
+//             shouldDestroy = true
 
-            scrollBannerElement.style.display = 'block'
+//             scrollBannerElement.style.display = 'block'
 
-            /** Wait one tick to trigger transition. */
-            requestAnimationFrame(() => {
-              scrollBannerElement.style.opacity = '1'
-            })
-          }, timeToShowBanner)
-        }
-      }
-    }
+//             /** Wait one tick to trigger transition. */
+//             requestAnimationFrame(() => {
+//               scrollBannerElement.style.opacity = '1'
+//             })
+//           }, timeToShowBanner)
+//         }
+//       }
+//     }
 
-    document.addEventListener('scroll', handleScroll)
+//     document.addEventListener('scroll', handleScroll)
 
-    return () => {
-      document.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+//     return () => {
+//       document.removeEventListener('scroll', handleScroll)
+//     }
+//   }, [])
 
-  return (
-    <div id="scroll-banner">
-      Keep scrolling to see the rest of the experience
-    </div>
-  )
-}
+//   return (
+//     <div id="scroll-banner">
+//       Keep scrolling to see the rest of the experience
+//     </div>
+//   )
+// }
 
 export { Code, Debugger, DevTools, OverboardStore }

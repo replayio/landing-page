@@ -83,7 +83,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
         style={{
           display: 'grid',
           gridTemplateRows: 'auto 1fr',
-          backgroundColor: 'white'
+          backgroundColor: 'var(--editor-700)'
         }}
         ref={ref}
       >
@@ -105,8 +105,8 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
               )}
               <div
                 className={clsx(s['log-line'], {
-                  [s['is-error']]: log.isError,
-                  [s['active']]: i === currentHit
+                  [s['is-error'] as string]: log.isError,
+                  [s['active'] as string]: i === currentHit
                 })}
                 id="log-line"
                 style={{
@@ -152,7 +152,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
 
         <div
           style={{
-            borderTop: '1px solid #EAEAEA',
+            borderTop: '1px solid var(--editor-border-color)',
             padding: '8px 8px 20px 8px'
           }}
         >
