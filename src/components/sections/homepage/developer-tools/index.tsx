@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
 import { gsap } from 'lib/gsap'
@@ -15,20 +16,41 @@ import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useTabletBreakpoint } from '~/hooks/use-media'
 import { useMouseTracker } from '~/hooks/use-mouse-tracker'
-import bugslayerPanel from '~/images/homepage/devtools/bugslayer-panel.png'
-import codePanel2 from '~/images/homepage/devtools/code-2-panel.png'
-import codePanel3 from '~/images/homepage/devtools/code-3-panel.png'
-import codePanel4 from '~/images/homepage/devtools/code-4-panel.png'
-import codePanel from '~/images/homepage/devtools/code-panel.png'
-import consoleLogs2Panel from '~/images/homepage/devtools/console-logs-2-panel.png'
-import consoleLogsPanel from '~/images/homepage/devtools/console-logs-panel.png'
-import consoleLogsPanelSmall from '~/images/homepage/devtools/console-logs-small-panel.png'
-import formPanel from '~/images/homepage/devtools/form-panel.png'
+import { padZeroes } from '~/lib/utils'
+
+/* -- Images High Res -- */
+/* React Inspector */
+import reactInspectorCode from '~/images/homepage/devtools-high-res/react-inspector_code.png'
+import reactInspectorInspector from '~/images/homepage/devtools-high-res/react-inspector_inspector.png'
+import reactInspectorReplay from '~/images/homepage/devtools-high-res/react-inspector_replay.png'
+
+/* Console Logs */
+import consoleLogsCode from '~/images/homepage/devtools-high-res/console-logs_code.png'
+import consoleLogsConsole from '~/images/homepage/devtools-high-res/console-logs_console.png'
+import consoleLogsReplay from '~/images/homepage/devtools-high-res/console-logs_replay.png'
+
+/* Tests */
+import testsCode from '~/images/homepage/devtools-high-res/tests_code.png'
+import testsReplay from '~/images/homepage/devtools-high-res/tests_replay.png'
+import testsSuite from '~/images/homepage/devtools-high-res/tests_suite.png'
+import testsInspector from '~/images/homepage/devtools-high-res/tests_inspector.png'
+
+/* Events */
+import eventsCode from '~/images/homepage/devtools-high-res/events_code.png'
+import eventsReplay from '~/images/homepage/devtools-high-res/events_replay.png'
+import eventsInspector from '~/images/homepage/devtools-high-res/events_inspector.png'
+import eventsEvents from '~/images/homepage/devtools-high-res/events_events.png'
+
+/* Network */
+import networkCode from '~/images/homepage/devtools-high-res/network_code.png'
+import networkReplay from '~/images/homepage/devtools-high-res/network_replay.png'
+import networkInspector from '~/images/homepage/devtools-high-res/network_inspector.png'
+
+/* -- Images -- */
 import networkPanel from '~/images/homepage/devtools/network-panel.png'
 import reactPanel from '~/images/homepage/devtools/react-panel.png'
 import testsPanel from '~/images/homepage/devtools/tests-panel.png'
 import tracePanel from '~/images/homepage/devtools/trace-panel.png'
-import { padZeroes } from '~/lib/utils'
 
 import s from './developer-tools.module.scss'
 
@@ -60,7 +82,7 @@ const chunks: {
           <Image
             {...props}
             className={s['panel']}
-            src={codePanel}
+            src={reactInspectorCode}
             alt="code panel"
             quality={100}
             draggable={false}
@@ -80,7 +102,7 @@ const chunks: {
                 ...style
               }}
               className={s['panel']}
-              src={bugslayerPanel}
+              src={reactInspectorReplay}
               alt="app panel"
               quality={100}
               draggable={false}
@@ -90,7 +112,7 @@ const chunks: {
             <Image
               {...props}
               className={clsx(s['panel'], s['highlight-panel'])}
-              src={reactPanel}
+              src={reactInspectorInspector}
               alt="code panel"
               quality={100}
               draggable={false}
@@ -120,7 +142,7 @@ const chunks: {
           <Image
             {...props}
             className={clsx(s['panel'], s['highlight-panel'])}
-            src={codePanel2}
+            src={consoleLogsCode}
             alt="code panel"
             quality={100}
             draggable={false}
@@ -140,7 +162,7 @@ const chunks: {
                 ...style
               }}
               className={s['panel']}
-              src={bugslayerPanel}
+              src={consoleLogsReplay}
               alt="app panel"
               quality={100}
               draggable={false}
@@ -150,7 +172,7 @@ const chunks: {
             <Image
               {...props}
               className={s['panel']}
-              src={consoleLogsPanel}
+              src={consoleLogsConsole}
               alt="code panel"
               quality={100}
               draggable={false}
@@ -180,7 +202,7 @@ const chunks: {
           <Image
             {...props}
             className={clsx(s['panel'], s['highlight-panel'])}
-            src={testsPanel}
+            src={testsSuite}
             alt="code panel"
             quality={100}
             draggable={false}
@@ -193,7 +215,7 @@ const chunks: {
           <Image
             {...props}
             className={s['panel']}
-            src={codePanel3}
+            src={testsCode}
             alt="app panel"
             quality={100}
             draggable={false}
@@ -207,7 +229,7 @@ const chunks: {
             <Image
               {...props}
               className={s['panel']}
-              src={formPanel}
+              src={testsReplay}
               alt="app panel"
               quality={100}
               draggable={false}
@@ -217,7 +239,7 @@ const chunks: {
             <Image
               {...props}
               className={s['panel']}
-              src={consoleLogs2Panel}
+              src={testsInspector}
               alt="code panel"
               quality={100}
               draggable={false}
@@ -247,7 +269,7 @@ const chunks: {
           <Image
             {...props}
             className={clsx(s['panel'], s['highlight-panel'])}
-            src={tracePanel}
+            src={eventsEvents}
             alt="code panel"
             quality={100}
             draggable={false}
@@ -260,7 +282,7 @@ const chunks: {
           <Image
             {...props}
             className={s['panel']}
-            src={codePanel4}
+            src={eventsCode}
             alt="code panel"
             quality={100}
             draggable={false}
@@ -280,7 +302,7 @@ const chunks: {
                 ...style
               }}
               className={s['panel']}
-              src={bugslayerPanel}
+              src={eventsReplay}
               alt="code panel"
               quality={100}
               draggable={false}
@@ -290,7 +312,7 @@ const chunks: {
             <Image
               {...props}
               className={s['panel']}
-              src={consoleLogsPanelSmall}
+              src={eventsInspector}
               alt="code panel"
               quality={100}
               draggable={false}
@@ -320,7 +342,7 @@ const chunks: {
           <Image
             {...props}
             className={s['panel']}
-            src={codePanel}
+            src={networkCode}
             alt="code panel"
             quality={100}
             draggable={false}
@@ -340,7 +362,7 @@ const chunks: {
                 ...style
               }}
               className={s['panel']}
-              src={bugslayerPanel}
+              src={networkReplay}
               alt="app panel"
               quality={100}
               draggable={false}
@@ -350,7 +372,7 @@ const chunks: {
             <Image
               {...props}
               className={clsx(s['panel'], s['highlight-panel'])}
-              src={networkPanel}
+              src={networkInspector}
               alt="code panel"
               quality={100}
               draggable={false}
