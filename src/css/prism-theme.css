@@ -142,7 +142,6 @@ pre[class*='language-']::after {
 .token.url,
 .token.variable {
   color: var(--color-white);
-  background: rgb(255 255 255 / 0.5);
 }
 
 .token.atrule,
