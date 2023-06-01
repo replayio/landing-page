@@ -155,6 +155,7 @@
     position: relative;
     z-index: var(--z-index-10);
     height: 0;
+    text-align: left;
     width: 100%;
     background: var(--editor-600);
 
@@ -170,6 +171,7 @@
       &:hover,
       &:global(.active) {
         transform: scale(1.2);
+        background: var(--color-white);
 
         .toggle::after {
           --background: var(--grey-400);
@@ -194,7 +196,7 @@
       }
 
       .toggle {
-        --background: #d8d8d8;
+        --background: var(--grey-400);
 
         position: relative;
         display: inline-block;
@@ -226,7 +228,7 @@
         padding-left: 0;
         margin-left: 6px;
         opacity: 0;
-        background: #f0f0f0;
+        background: var(--color-white);
         position: absolute;
         display: flex;
         z-index: 0;
