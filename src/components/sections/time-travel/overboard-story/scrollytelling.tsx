@@ -2,10 +2,9 @@ import clsx from 'clsx'
 import { clearProps, DURATION, Flip, gsap, ScrollTrigger } from 'lib/gsap'
 import get from 'lodash/get'
 import Image from 'next/image'
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
 import {
   Marker as ProgressMarker,
   ProgressAPI,
@@ -23,11 +22,6 @@ import avatarOne from '~/public/images/home/avatar-1.webp'
 import avatarTwo from '~/public/images/home/avatar-2.jpeg'
 
 import { Code, CodeRef } from './code'
-import {
-  CommentModule,
-  CommentModuleProps,
-  CommentState
-} from './comment-module'
 import {
   buildUuids,
   IdentifiedNode,
@@ -198,7 +192,6 @@ export default function ReplayApplication() {
     useState<DevToolsProps<keyof typeof tabs>['panel']>('react')
   const [markersType, setMarkersType] = useState<ConsoleMarker>('transparent')
   const [currentTime, setCurrentTime] = useState(0)
-  const [commentState, setCommentState] = useState<CommentState>('idle')
   const { isDesktop } = useDeviceDetect()
   const { width, height } = useViewportSize()
   const { fontsLoaded } = useAppStore()
@@ -335,11 +328,6 @@ export default function ReplayApplication() {
     // Calculate Distance (Percentaje) from the top of the screen to the top of the element
     const { height: pinTargetHeight, top: pinTargetSpaceTop } =
       sectionRef.current.getBoundingClientRect()
-    const distance =
-      window.pageYOffset +
-      pinTargetSpaceTop -
-      (window.innerHeight - pinTargetHeight) / 2
-    const percentage = -(distance * 100) / pinTargetHeight
     const applicationWindowSpaceBottom = Math.floor(
       (window.innerHeight - applicationRef.current.clientHeight) / 2
     )
@@ -372,6 +360,13 @@ export default function ReplayApplication() {
       simple: false
     })
 
+    /* Set sticky top on pin element */
+    const { height } = pinWrapperRef.current.getBoundingClientRect()
+    gsap.set(pinWrapperRef.current, {
+      position: 'sticky',
+      top: `calc(50vh - ${height / 2}px)`
+    })
+
     const timeline = gsap.timeline({
       smoothChildTiming: true,
       defaults: {
@@ -387,10 +382,7 @@ export default function ReplayApplication() {
         }px bottom-=${applicationWindowSpaceBottom}px`,
         fastScrollEnd: true,
         id: 'overboard-story',
-        markers: false,
-        /* This pin is interupting the store fade-in animation */
-        pin: sectionRef.current,
-        pinSpacer: pinWrapperRef.current,
+        // markers: true,
         /* We are making our own spacer */
         pinSpacing: false,
         preventOverlaps: true,
@@ -419,14 +411,9 @@ export default function ReplayApplication() {
 
     timeline
       .addLabel('start')
-      .to(sectionRef.current, {
-        yPercent: percentage,
-        duration: 3,
-        ease: 'power3.out'
-      })
       .add(() => {
         document.documentElement.classList.add('hide-header')
-      }, '<+=1')
+      }, '<+=0.5')
       .set(
         applicationRef.current,
         {
@@ -437,7 +424,6 @@ export default function ReplayApplication() {
         },
         0
       )
-
       .set(
         [headerUsers[0]],
         {
@@ -451,7 +437,6 @@ export default function ReplayApplication() {
       .addLabel('devtools')
       .set(
         viewToggleRef.current,
-        // { clipPath: 'inset(4px 50% 4px 4px round 4px)' },
         { clipPath: 'inset(4px 4px 4px 50% round 4px)' },
         0
       )
@@ -639,14 +624,6 @@ export default function ReplayApplication() {
         playPauseRef.current?.classList.add('pause')
       })
 
-      /* Restore comment state */
-      .call(() => {
-        setCommentState('submited')
-      })
-      .add(() => {
-        setCommentState('idle')
-      })
-
       .fromTo(
         printTimelineProgress,
         {
@@ -725,46 +702,6 @@ export default function ReplayApplication() {
     })
   }, [])
 
-  const [firstComment, secondComment] = useMemo<
-    [CommentModuleProps['comments'], CommentModuleProps['comments']]
-  >(
-    () => [
-      [
-        {
-          name: 'Erika',
-          date: 'Now',
-          state: commentState,
-          avatar: avatarOne,
-          text: `@jasmine can you look into this checkout bug, please? Customers can't purchase hoverboards right now.`
-        },
-        {
-          name: 'Jasmine',
-          date: 'Now',
-          avatar: avatarTwo,
-          state: 'submited',
-          text: 'Absolutely!'
-        }
-      ],
-      [
-        {
-          name: 'Jasmine',
-          date: 'Now',
-          avatar: avatarTwo,
-          state: commentState,
-          text: "It looks like we've sent `color` instead of `colorId` to the API at that time. Fix deployed, @erika ready for a look!"
-        },
-        {
-          name: 'Erika',
-          date: 'Now',
-          avatar: avatarOne,
-          state: 'submited',
-          text: 'LGTM 🚢 thanks for fixing that so quickly!'
-        }
-      ]
-    ],
-    [commentState]
-  )
-
   const devtoolProps = {
     console: {
       currentHit,
@@ -817,35 +754,15 @@ export default function ReplayApplication() {
               className={s['store-container']}
               ref={targetStoreRef}
             >
-              {/* <RecSvg /> */}
-
-              <div
-                id="scrollytelling-first-comment"
-                style={{
-                  opacity: 0,
-                  width: 44,
-                  position: 'absolute',
-                  left: '38.5%',
-                  top: '38%',
-                  zIndex: 'var(--z-index-20)'
-                }}
-              >
-                <CommentModule side="bottom-right" comments={firstComment} />
-              </div>
-
-              <OnRenderFadeIn
-                className={s['store-entrance-animation-container']}
-              >
-                <OverboardStore
-                  storeId={storeId}
-                  state={storeState}
-                  overboardColor="red"
-                  style={{ height: '100%' }}
-                  mode="full"
-                  inspectMode="react"
-                  ref={storeApiRef}
-                />
-              </OnRenderFadeIn>
+              <OverboardStore
+                storeId={storeId}
+                state={storeState}
+                overboardColor="red"
+                style={{ height: '100%' }}
+                mode="full"
+                inspectMode="react"
+                ref={storeApiRef}
+              />
             </AspectBox>
 
             <AspectBox className={s['app-container']} ratio={1920 / 1080}>
@@ -1014,7 +931,7 @@ export default function ReplayApplication() {
                           markers: printMarkers,
                           printLineTarget: 7,
                           timelineType: 'justUi',
-                          comments: secondComment,
+                          comments: undefined,
                           currentMarker: markersType,
                           onHit: handleHit,
                           currentHit
@@ -1043,8 +960,7 @@ export default function ReplayApplication() {
                           top: 0,
                           left: 0,
                           bottom: 0,
-                          right: 0,
-                          opacity: 0
+                          right: 0
                         }}
                         ref={devtoolsPanelRef}
                       >
