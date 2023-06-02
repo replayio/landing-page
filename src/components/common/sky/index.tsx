@@ -30,7 +30,7 @@ export const Sky = ({
   const [render, setRender] = useState(false)
 
   useEffect(() => {
-    if (!skyRef.current) return
+    if (!skyRef.current || !render) return
 
     const asteroids = skyRef.current.querySelectorAll(
       `.${s['asteroid-wrapper']}`
@@ -61,7 +61,7 @@ export const Sky = ({
     return () => {
       tl.kill()
     }
-  }, [])
+  }, [render])
 
   const generated = useMemo(() => {
     const gen: SkyElement[] = [...Array(count)].map((_) => {
@@ -107,6 +107,7 @@ export const Sky = ({
   }, [])
 
   if (!render) return null
+
   return (
     <div
       className={clsx(s['sky'], {
