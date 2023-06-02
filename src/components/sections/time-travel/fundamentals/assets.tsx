@@ -119,8 +119,8 @@ const RecordRuntime = () => {
 
 const Debugging = () => {
   return (
-    <AssetSideBox className={s.recordRuntime}>
-      <p>RecordRuntime</p>
+    <AssetSideBox className={s.debugging}>
+      <span className={s.devider} />
     </AssetSideBox>
   )
 }
