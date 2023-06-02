@@ -1,0 +1,158 @@
+@import 'css/helpers';
+
+.assetSide {
+  background: linear-gradient(
+    256.14deg,
+    #111827 0%,
+    #111826 4.7%,
+    #101726 8.9%,
+    #101725 12.8%,
+    #101624 16.56%,
+    #0f1523 20.37%,
+    #0f1421 24.4%,
+    #0e1420 28.83%,
+    #0d121e 33.84%,
+    #0c111c 39.6%,
+    #0b1019 46.3%,
+    #0a0e16 54.1%,
+    #080c13 63.2%,
+    #070a10 73.76%,
+    #05070c 85.97%,
+    #030407 100%
+  );
+  border: 1px solid rgb(31 41 55 / 0.86);
+  border-right: 0;
+  box-shadow: 0px 4px 8px -2px rgb(31 41 55 / 0.1),
+    0px 2px 4px -2px rgb(31 41 55 / 0.06);
+  border-radius: 16px 0 0 16px;
+  width: 100%;
+  height: 100%;
+  padding: 8px 0 8px 8px;
+
+  @include respond-to('tablet-lg') {
+    padding: 4px;
+    border-radius: 16px;
+    border: 1px solid rgb(31 41 55 / 0.86);
+    transform: unset;
+    margin: 24px 0;
+    height: 270px;
+  }
+
+  .assetWrapper {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(31 41 55 / 0.86);
+    border-right: 0;
+    border-radius: 8px 0 0 8px;
+    position: relative;
+
+    @include respond-to('tablet-lg') {
+      border-radius: 12px;
+      border: 1px solid rgb(31 41 55 / 0.86);
+      padding: 12px;
+    }
+
+    .assetTab {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px;
+      border-bottom: 1px solid rgb(31 41 55 / 0.86);
+      background: linear-gradient(
+        269.3deg,
+        rgb(31 41 55 / 0.24) 0%,
+        rgb(31 41 55 / 0.0576) 100%
+      );
+
+      span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgb(31 41 55 / 0.88);
+      }
+    }
+
+    .assetContent {
+      flex: 1 0 auto;
+      overflow: hidden;
+      mask: radial-gradient(
+        circle at 50% 50%,
+        black 0%,
+        rgb(0 0 0 / 0.05) 65%,
+        transparent 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .binaryBackground {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .text {
+      color: var(--grey-600);
+      font-size: 16px;
+      line-height: 24px;
+      overflow-wrap: break-word;
+      white-space: wrap;
+      opacity: 0.6;
+    }
+  }
+
+  .recordRuntime {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .playerButton {
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 9999px;
+      background: linear-gradient(57.77deg, #f41c52 18.3%, #ff537e 96.38%);
+
+      &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 9999px;
+        background: linear-gradient(57.77deg, #f41c52 18.3%, #ff537e 96.38%);
+        animation: radar 1.5s infinite;
+      }
+
+      .playState {
+        border-top: 16px solid transparent;
+        border-bottom: 16px solid transparent;
+        border-left: 24px solid var(--color-white);
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+@keyframes radar {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  40% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
