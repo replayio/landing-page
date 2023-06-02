@@ -1,6 +1,8 @@
 import clsx from 'clsx'
+import Image from 'next/image'
 import { useRef } from 'react'
 
+import { Timeline } from '~/components/common/progress-bar'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { gsap } from '~/lib/gsap'
 
@@ -15,13 +17,13 @@ const AssetSideBox = ({
 }) => {
   return (
     <div className={s.assetSide}>
-      <div className={clsx(s.assetWrapper, className)}>
+      <div className={s.assetWrapper}>
         <div className={s.assetTab}>
           <span />
           <span />
           <span />
         </div>
-        <div className={s.assetContent}>{children}</div>
+        <div className={clsx(s.assetContent, className)}>{children}</div>
       </div>
     </div>
   )
@@ -36,6 +38,8 @@ const BinaryBackground = ({ animation = false }) => {
 
   useIsomorphicLayoutEffect(() => {
     if (!animation) return
+
+    // split text in groups of 5 characters
 
     const ctx = gsap.context(() => {
       tl.current = gsap.timeline({
@@ -54,7 +58,11 @@ const BinaryBackground = ({ animation = false }) => {
 
   return (
     <div ref={containerRef} className={s.binaryBackground}>
-      <p className={s.text}>{text}</p>
+      <p className={s.text}>
+        {animation
+          ? text.match(/.{1,5}/g) || [].map((e, i) => <span key={i}>{e}</span>)
+          : text}
+      </p>
     </div>
   )
 }
@@ -63,7 +71,47 @@ const RecordRuntime = () => {
   return (
     <div className={s.recordRuntime}>
       <AssetSideBox className={s.recordRuntime}>
-        <p>RecordRuntime</p>
+        <BinaryBackground />
+        <div className={s.illustration}>
+          <Image
+            src="/images/bugs-slider/skateboard-shadow.png"
+            alt="Skateboard"
+            height={75}
+            width={186}
+            className={s.skateboardShadow}
+          />
+          <Image
+            src="/images/bugs-slider/skateboard.png"
+            alt="Skateboard"
+            height={75}
+            width={186}
+            className={s.skateboard}
+          />
+        </div>
+        <div className={s.timeline}>
+          <Timeline
+            playing
+            solid
+            duration={10}
+            primaryColor="var(--color-pink-crayon)"
+            secondaryColor="var(--grey-600)"
+            thickness={5}
+            markerActiveColor="var(--color-pink-crayon)"
+            markerColor="var(--grey-600)"
+            markerSize={10}
+            markers={[
+              {
+                position: 30
+              },
+              {
+                position: 50
+              },
+              {
+                position: 75
+              }
+            ]}
+          />
+        </div>
       </AssetSideBox>
     </div>
   )
@@ -79,8 +127,8 @@ const Debugging = () => {
 
 const RecordRandomness = () => {
   return (
-    <AssetSideBox className={s.recordRuntime}>
-      <BinaryBackground />
+    <AssetSideBox className={s.RecordRandomness}>
+      <BinaryBackground animation />
       <div className={s.playerButton}>
         <span className={s.playState} />
       </div>
