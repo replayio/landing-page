@@ -4,6 +4,7 @@
 @import './reset.css';
 @import './inter.css';
 @import './roboto.css';
+@import './prism-theme.css';
 
 :root {
   --font-system: -apple-system, blinkmacsystemfont, segoe ui, roboto, oxygen,
@@ -41,9 +42,20 @@
   --grey-600: #4b5563;
   --blue-800: #1f2937;
 
+  /* Code editor styles */
+  --editor-800: #0e1421;
+  --editor-700: #111827;
+  --editor-600: #1d2635;
+  --editor-500: #333d4d;
+  --editor-border-color: rgb(31 41 55 / 0.86);
+  --editor-functions: #9b5aef;
+  --editor-reserved: #f41c52;
+  --editor-variable: #3734d3;
+
   /* Layout */
   --container-sides-space: 24px;
   --container-width: 1060px;
+  --container-width-lg: 1280px;
   --header-height: 76px;
   --header-z-index: 999;
   --mobile-menu-z-index: 998;

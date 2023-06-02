@@ -20,7 +20,11 @@ type SkyElement =
       x2: number
     }
 
-export const Sky = ({ withGradient = true }) => {
+export const Sky = ({
+  withGradient = true,
+  count = 40,
+  withAsteroids = true
+}) => {
   const { width: viewportWidth, height: viewportHeight } = useViewportSize()
   const skyRef = useRef<HTMLDivElement>(null)
   const [render, setRender] = useState(false)
@@ -60,8 +64,8 @@ export const Sky = ({ withGradient = true }) => {
   }, [])
 
   const generated = useMemo(() => {
-    const gen: SkyElement[] = [...Array(40)].map((_) => {
-      const isAsteroid = gsap.utils.random(0, 1) > 0.95 // 5% chance of being an asteroid
+    const gen: SkyElement[] = [...Array(count)].map((_) => {
+      const isAsteroid = withAsteroids ? gsap.utils.random(0, 1) > 0.95 : false // 5% chance of being an asteroid
 
       if (isAsteroid) {
         const x1 = gsap.utils.random(-1, 1)
@@ -90,7 +94,7 @@ export const Sky = ({ withGradient = true }) => {
     })
 
     return gen
-  }, [])
+  }, [count, withAsteroids])
 
   useEffect(() => {
     const t = setTimeout(() => {
