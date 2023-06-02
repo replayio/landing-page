@@ -6,13 +6,12 @@ import {
   HoverboardControls
 } from '@replayio/overboard'
 import clsx from 'clsx'
-import dynamic, { LoaderComponent } from 'next/dynamic'
+import dynamic from 'next/dynamic'
 import { forwardRef, memo, useImperativeHandle, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { InspectBox } from '~/components/common/inspect-box'
 
-// import { Logo } from './logo'
 import s from './overboard-store.module.scss'
 
 export type OverboardColors = 'red' | 'green' | 'blue'
@@ -38,15 +37,7 @@ const Sky = dynamic(
   }
 )
 
-const Grid3D = dynamic(
-  () =>
-    import('~/components/common/grid-3d').then(
-      (m) => m.Grid3D
-    ) as LoaderComponent,
-  {
-    ssr: false
-  }
-)
+import { Grid3D } from '~/components/common/grid-3d'
 
 const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
   const gridRef = useRef<HTMLDivElement>(null)
@@ -56,12 +47,14 @@ const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
     () => {
       return {
         move: (progress: number) => {
-          if (gridRef.current) {
-            gridRef.current.style.transform = `rotateX(45deg) translateY(${
-              -47.8 * progress
-            }%)`
-            gridRef.current.style.animation = 'none'
-          }
+          if (!gridRef.current?.childNodes) return
+
+          gridRef.current?.childNodes.forEach((c) => {
+            const child = c as HTMLElement
+
+            child.style.transform = `translate3d(0, ${100 * progress}%, 0)`
+            child.style.animation = 'none'
+          })
         }
       }
     },
@@ -70,7 +63,7 @@ const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
 
   return (
     <>
-      <Grid3D />
+      <Grid3D ref={gridRef} />
     </>
   )
 })
