@@ -296,7 +296,7 @@ export default function ReplayApplication() {
 
     const floorAndRotateTimelineDuration = 16
     floorAndRotateTimeline.current = gsap
-      .timeline({ repeat: -1 })
+      .timeline({ repeat: -1, paused: true })
       .to(storeVariables, {
         hoverboardWaveProgress:
           storeVariables.hoverboardAnimationMaxArg *
@@ -482,7 +482,6 @@ export default function ReplayApplication() {
         devtoolsPanelRef.current,
         {
           opacity: 1
-          // duration: 2
         },
         0
       )

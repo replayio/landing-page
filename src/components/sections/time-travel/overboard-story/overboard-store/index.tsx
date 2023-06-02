@@ -70,15 +70,6 @@ const AnimatedGrid = forwardRef<GridControls, unknown>((_, ref) => {
 
   return (
     <>
-      {/* <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, #1E076C 0%, #A312B5 50%, transparent 100%)',
-          zIndex: 3
-        }}
-      /> */}
       <Grid3D />
     </>
   )
@@ -163,11 +154,6 @@ export const OverboardStore = memo(
 
             <div style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }}>
               <InspectBox name={inspectNames[inspectMode]['main']} boxId="main">
-                {/* <Logo
-                  id={buildId('overboard-store-logo')}
-                  className={s['logo']}
-                /> */}
-
                 <div
                   id={buildId('overboard-store-inner')}
                   className={s['store-inner']}
@@ -183,6 +169,7 @@ export const OverboardStore = memo(
                     >
                       <AspectBox style={{ width: '100%' }} ratio={700 / 340}>
                         <Hoverboard
+                          wave={0}
                           ref={hoverboardRef}
                           color={overboardColor}
                         />
