@@ -8,18 +8,11 @@ const TimeTravel = () => {
   return (
     <PageLayout>
       <Hero />
-      <div
-        style={{
-          background:
-            'linear-gradient(180deg, #000000 0%, #111827 40.63%, #000000 82.81%, #111827 100%)'
-        }}
-      >
-        <TextReveal />
-        <Fundamentals />
-        {/* debug  */}
-        {/* roadmap */}
-        <Prefooter />
-      </div>
+      <TextReveal />
+      <Fundamentals />
+      {/* debug  */}
+      {/* roadmap */}
+      <Prefooter />
     </PageLayout>
   )
 }
