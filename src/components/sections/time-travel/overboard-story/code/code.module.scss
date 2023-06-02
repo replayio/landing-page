@@ -171,7 +171,7 @@
       &:hover,
       &:global(.active) {
         transform: scale(1.2);
-        background: var(--color-white);
+        background: var(--editor-600);
 
         .toggle::after {
           --background: var(--grey-400);
@@ -181,6 +181,7 @@
         }
 
         .markers-container {
+          background: var(--editor-600);
           pointer-events: all;
           transform: translateX(-1.5px);
           opacity: 1;
@@ -228,7 +229,7 @@
         padding-left: 0;
         margin-left: 6px;
         opacity: 0;
-        background: var(--color-white);
+        background: var(--editor-600);
         position: absolute;
         display: flex;
         z-index: 0;
