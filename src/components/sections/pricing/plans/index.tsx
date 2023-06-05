@@ -79,6 +79,9 @@ export const Plans: FC = () => {
           children: <>Plans</>,
           hero: true
         }}
+        subtitle={{
+          children: ''
+        }}
       />
       <div
         className={clsx(s['tabs-container'], {
