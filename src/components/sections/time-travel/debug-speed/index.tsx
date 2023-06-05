@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import React, { useRef } from 'react'
 
 import { Section } from '~/components/common/section'
@@ -9,12 +10,27 @@ import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { gsap } from '~/lib/gsap'
 
-import { Console, PrintStatements, ReactDevtools } from './assets'
 import s from './debug.module.scss'
+import { SceneProps } from './scenes'
+
+const PrintStatements = dynamic(
+  () => import('./scenes').then((m) => m.Scene1),
+  {
+    ssr: false
+  }
+)
+// @ts-ignore
+const Console = dynamic(() => import('./scenes').then((m) => m.Scene2), {
+  ssr: false
+})
+// @ts-ignore
+const ReactDevtools = dynamic(() => import('./scenes').then((m) => m.Scene3), {
+  ssr: false
+})
 
 const SCROLL_TRIGGER_DURATION = 3000
 const CARD_HEIGHT = 320
-const CONTAINER_PADDING = 152
+const CONTAINER_PADDING = 152 / 2
 
 export const DebugSpeed = () => {
   const { height } = useViewportSize()
@@ -23,6 +39,7 @@ export const DebugSpeed = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const spacerRef = useRef<HTMLDivElement>(null)
+  const progressBarRef = useRef<HTMLDivElement>(null)
 
   const tl = useRef<gsap.core.Timeline>()
 
@@ -38,11 +55,13 @@ export const DebugSpeed = () => {
 
       const texts = container?.querySelectorAll(`.${s.sideText}`)
       const assets = container?.querySelectorAll(`.${s.card}`)
+      const progressBar = progressBarRef.current
 
       if (
         !container ||
         !spacer ||
         !textsContainer ||
+        !progressBar ||
         !texts?.[0] ||
         !texts?.[1] ||
         !texts?.[2] ||
@@ -55,22 +74,55 @@ export const DebugSpeed = () => {
 
       gsap.set(spacer, { height: SCROLL_TRIGGER_DURATION })
       const offsetTop = height / 2 - CONTAINER_PADDING - CARD_HEIGHT / 2
-      tl.current = gsap
+
+      gsap
         .timeline({
           scrollTrigger: {
             trigger: spacerRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: true
+            scrub: 1.5
+          }
+        })
+        .from(progressBar, {
+          height: 0
+        })
+
+      tl.current = gsap
+        .timeline({
+          scrollTrigger: {
+            snap: {
+              snapTo: 'labelsDirectional',
+              duration: 3,
+              delay: 0.1
+            },
+            trigger: spacerRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+            onEnterBack: () => {
+              document.documentElement.classList.add('hide-header')
+            },
+            onLeave: () => {
+              document.documentElement.classList.remove('hide-header')
+            },
+            onLeaveBack: () => {
+              document.documentElement.classList.remove('hide-header')
+            }
           },
           defaults: {
             ease: 'none',
             duration: 15
           }
         })
+        .addLabel('start')
         .to(textsContainer, {
           y: offsetTop
         })
+        .add(() => {
+          document.documentElement.classList.add('hide-header')
+        }, '<+=1')
+        .addLabel('print-statements')
         .to(textsContainer, {
           delay: 10,
           y: offsetTop - CARD_HEIGHT
@@ -103,6 +155,7 @@ export const DebugSpeed = () => {
           },
           '<'
         )
+        .addLabel('console')
         .to(textsContainer, {
           delay: 10,
           y: offsetTop - CARD_HEIGHT * 2
@@ -135,10 +188,13 @@ export const DebugSpeed = () => {
           },
           '<'
         )
+        .addLabel('react-devtools')
         // add some extra delay at the end of the tl
-        .to(container, {
-          delay: 10
+        .to(progressBar, {
+          duration: 10,
+          opacity: 0
         })
+        .addLabel('end')
     }, sectionRef)
     return () => {
       ctx.revert()
@@ -176,11 +232,12 @@ export const DebugSpeed = () => {
             <div className={s.assetsContainer}>
               {data.map((d, i) => (
                 <AssetCard key={i}>
-                  <d.asset />
+                  <d.asset active />
                 </AssetCard>
               ))}
             </div>
           )}
+          {!isTablet && <span ref={progressBarRef} className={s.progressBar} />}
         </Container>
       </div>
     </Section>
@@ -199,7 +256,7 @@ const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
     >
       {isTablet && (
         <AssetCard>
-          <AssetComponent />
+          <AssetComponent active />
         </AssetCard>
       )}
       {!isTablet && <Button className={s.sideTextIcon}>{icon}</Button>}
@@ -219,7 +276,7 @@ type dataType = {
   subtitle: string
   description: string
   icon: React.ReactElement
-  asset: React.FC
+  asset: React.FC<SceneProps>
 }
 
 const data: dataType[] = [
@@ -243,7 +300,7 @@ const data: dataType[] = [
         />
       </svg>
     ),
-    asset: PrintStatements
+    asset: PrintStatements as React.FC<SceneProps>
   },
   {
     title: 'Jump to any console log.',
@@ -262,7 +319,7 @@ const data: dataType[] = [
         />
       </svg>
     ),
-    asset: Console
+    asset: Console as React.FC<SceneProps>
   },
   {
     title: 'Stay in the state of flow.',
@@ -282,6 +339,6 @@ const data: dataType[] = [
         />
       </svg>
     ),
-    asset: ReactDevtools
+    asset: ReactDevtools as React.FC<SceneProps>
   }
 ]
