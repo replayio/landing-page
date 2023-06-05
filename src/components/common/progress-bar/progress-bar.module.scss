@@ -130,6 +130,8 @@
       border-radius: var(--border-radius-full);
       animation: 4s linear infinite none;
       animation-play-state: var(--section-play-state);
+      transform-origin: center;
+      left: 0;
     }
   }
 }

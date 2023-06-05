@@ -1,6 +1,13 @@
 .container {
   margin: auto;
   position: relative;
-  max-width: var(--container-width);
   padding: 0 var(--container-sides-space);
+
+  &.md {
+    max-width: var(--container-width);
+  }
+
+  &.lg {
+    max-width: var(--container-width-lg);
+  }
 }

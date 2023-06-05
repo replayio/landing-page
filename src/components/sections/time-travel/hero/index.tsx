@@ -9,6 +9,7 @@ import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { gsap } from '~/lib/gsap'
 
+import { OverboardStory } from '../overboard-story'
 import s from './hero.module.scss'
 
 const Sky = dynamic(
@@ -84,6 +85,7 @@ export const Hero = () => {
           </div>
         </Container>
       </div>
+      <OverboardStory />
     </Section>
   )
 }
