@@ -159,8 +159,9 @@ const binaryIcons = [
       className={className}
       src="/images/time-travel/fundamentals/react_binary.png"
       alt="react"
-      height={40}
-      width={40}
+      height={32}
+      width={32}
+      quality={100}
     />
   ),
   ({ className }: { className: string }) => (
@@ -168,8 +169,9 @@ const binaryIcons = [
       className={className}
       src="/images/time-travel/fundamentals/css_binary.png"
       alt="css"
-      height={40}
-      width={40}
+      height={32}
+      width={32}
+      quality={100}
     />
   ),
   ({ className }: { className: string }) => (
@@ -177,8 +179,9 @@ const binaryIcons = [
       className={className}
       src="/images/time-travel/fundamentals/js_binary.png"
       alt="javascript"
-      height={40}
-      width={40}
+      height={32}
+      width={32}
+      quality={100}
     />
   )
 ]
