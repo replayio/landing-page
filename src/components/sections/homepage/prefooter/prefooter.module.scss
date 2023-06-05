@@ -3,10 +3,6 @@
 .section {
   position: relative;
   margin-top: 72px;
-
-  @include respond-to('tablet-lg') {
-    margin-bottom: 24px;
-  }
 }
 
 .pin {
