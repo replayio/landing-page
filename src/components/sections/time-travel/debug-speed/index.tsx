@@ -9,6 +9,7 @@ import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import { useViewportSize } from '~/hooks/use-viewport-size'
 import { gsap } from '~/lib/gsap'
 
+import { Console, PrintStatements, ReactDevtools } from './assets'
 import s from './debug.module.scss'
 
 const SCROLL_TRIGGER_DURATION = 3000
@@ -174,7 +175,9 @@ export const DebugSpeed = () => {
           {!isTablet && (
             <div className={s.assetsContainer}>
               {data.map((d, i) => (
-                <d.asset key={i} />
+                <AssetCard key={i}>
+                  <d.asset />
+                </AssetCard>
               ))}
             </div>
           )}
@@ -194,7 +197,11 @@ const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
       }}
       className={s.sideText}
     >
-      {isTablet && <AssetComponent />}
+      {isTablet && (
+        <AssetCard>
+          <AssetComponent />
+        </AssetCard>
+      )}
       {!isTablet && <Button className={s.sideTextIcon}>{icon}</Button>}
       <p className={s.sideTextSubtitle}>{subtitle}</p>
       <h3 className={s.sideTextTitle}>{title}</h3>
@@ -205,30 +212,6 @@ const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
 
 const AssetCard = ({ children }: { children: React.ReactNode }) => {
   return <div className={s.card}>{children}</div>
-}
-
-const PrintStatements = () => {
-  return (
-    <AssetCard>
-      <div className={s.printStatements}>Print Statements</div>
-    </AssetCard>
-  )
-}
-
-const Console = () => {
-  return (
-    <AssetCard>
-      <div className={s.console}>Console</div>
-    </AssetCard>
-  )
-}
-
-const ReactDevtools = () => {
-  return (
-    <AssetCard>
-      <div className={s.reactDevtools}>React Devtools</div>
-    </AssetCard>
-  )
 }
 
 type dataType = {
