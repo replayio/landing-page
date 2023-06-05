@@ -175,8 +175,8 @@ const binaryIcons = [
   ({ className }: { className: string }) => (
     <Image
       className={className}
-      src="/images/time-travel/fundamentals/javascript_binary.png"
-      alt="javascrip"
+      src="/images/time-travel/fundamentals/js_binary.png"
+      alt="javascript"
       height={40}
       width={40}
     />
