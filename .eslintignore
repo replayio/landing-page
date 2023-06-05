@@ -1,6 +1,0 @@
-next.config.js
-
-src/components/common/meta.tsx
-src/components/layout/header/index.tsx
-src/components/layout/header/nav-sitemap/index.tsx
-src/components/layout/header/navigation.tsx
