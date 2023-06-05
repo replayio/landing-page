@@ -10,6 +10,7 @@ import { NavLink } from '~/components/primitives/nav-link'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 
+import { Debugging, RecordRandomness, RecordRuntime } from './assets'
 import s from './fundamentals.module.scss'
 
 export const Fundamentals = () => {
@@ -177,53 +178,6 @@ const InfoSide = ({
             {cta.label}
           </NavLink>
         )}
-      </div>
-    </div>
-  )
-}
-
-const RecordRuntime = () => {
-  return (
-    <div className={s.recordRuntime}>
-      <AssetSideBox className={s.recordRuntime}>
-        <p>RecordRuntime</p>
-      </AssetSideBox>
-    </div>
-  )
-}
-
-const RecordRandomness = () => {
-  return (
-    <AssetSideBox className={s.recordRuntime}>
-      <p>RecordRuntime</p>
-    </AssetSideBox>
-  )
-}
-
-const Debugging = () => {
-  return (
-    <AssetSideBox className={s.recordRuntime}>
-      <p>RecordRuntime</p>
-    </AssetSideBox>
-  )
-}
-
-const AssetSideBox = ({
-  children,
-  className
-}: {
-  children: React.ReactNode
-  className?: string
-}) => {
-  return (
-    <div className={s.assetSide}>
-      <div className={clsx(s.assetWrapper, className)}>
-        <div className={s.assetTab}>
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className={s.assetContent}>{children}</div>
       </div>
     </div>
   )

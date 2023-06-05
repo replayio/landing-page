@@ -104,7 +104,7 @@ export const Security = () => {
               <BackgroundSvg isTablet={!!isTablet} />
             </div>
 
-            <Link href="/" aria-label="Go to" className={s.cta}>
+            <Link passHref href="/" aria-label="Go to" className={s.cta}>
               <svg
                 width="20"
                 height="20"
@@ -175,7 +175,7 @@ export const Security = () => {
               ))}
             </Marquee>
 
-            <Link href="/" aria-label="Go to" className={s.cta}>
+            <Link passHref href="/" aria-label="Go to" className={s.cta}>
               <svg
                 width="20"
                 height="20"

@@ -40,13 +40,14 @@
     left: 50%;
     top: 0%;
     height: 100%;
-    transform: translateY(calc(110% * var(--progress) - 5%))
-      /* Base x1 + the diff between x2 and x1 multiplied by the progress */
-      translateX(
-        calc(
-          50vw * var(--x1) + (50vw * var(--x2) - 50vw * var(--x1)) *
-            var(--progress)
-        )
+    transform: translate3d(
+        /* Base x1 + the diff between x2 and x1 multiplied by the progress */
+          calc(
+            50vw * var(--x1) + (50vw * var(--x2) - 50vw * var(--x1)) *
+              var(--progress)
+          ),
+        calc(110% * var(--progress) - 5%),
+        0
       )
       rotate(var(--angle));
     transform-origin: top center;
