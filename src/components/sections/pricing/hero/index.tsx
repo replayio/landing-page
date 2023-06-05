@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
-import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { TitleAndSubtitle } from '~/components/primitives/texts'
 
 import { Card } from './card'
 import s from './hero.module.scss'
@@ -63,15 +63,18 @@ export const Hero: FC = () => {
     <Section className={s.section}>
       <Container className={s.container} size="md">
         <div className={s['hero']}>
-          <div className={s['heading']}>
-            <Heading as="h1" size="sm">
-              Pricing
-            </Heading>
-            <span>
-              Individuals and open source communities
-              <br /> will always be able to use Replay for free.
-            </span>
-          </div>
+          <TitleAndSubtitle
+            title={{
+              children: <>Pricing</>,
+              hero: true
+            }}
+            subtitle={{
+              className: s.subtitle,
+              children:
+                'Individuals and open source communities will always be able to use Replay for free.'
+            }}
+          />
+
           <ul className={s.plans}>
             {plansData.map((item, i) => (
               <li key={i}>

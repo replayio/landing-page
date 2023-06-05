@@ -10,6 +10,8 @@ const Pricing = () => {
 
       <Hero />
       <Plans />
+      <br />
+      <br />
     </PageLayout>
   )
 }

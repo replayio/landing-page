@@ -13,7 +13,7 @@
   .tabs-container {
     position: sticky;
     width: 100%;
-    background-color: var(--color-white);
+    background-color: var(--color-darker);
     top: var(--header-height);
     z-index: var(--z-index-10);
 
@@ -23,8 +23,9 @@
     }
 
     &.stuck {
-      border-bottom: 1px solid var(--color-gray-lighter);
+      border-bottom: 1px solid var(--color-gray-darker);
       transition: border-bottom 150ms;
+      background-color: black;
 
       .inner-container {
         position: relative;
@@ -73,11 +74,11 @@
       display: grid;
       gap: 25px;
       grid-template-columns: 0.9fr 1fr;
-      border: 1px solid var(--color-gray-lighter);
+      border: 1px solid var(--color-gray-darker);
       border-radius: var(--border-radius-2xl);
       padding: 80px 76px;
       scroll-margin-top: 100px;
-      background-color: var(--color-white);
+      background-color: var(--color-dark);
 
       &:not(:first-child) {
         margin-top: 40px;

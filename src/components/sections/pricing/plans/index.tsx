@@ -2,10 +2,10 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { FC, useEffect, useRef, useState } from 'react'
 
-import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { ButtonLink } from '~/components/primitives/button'
+import { TitleAndSubtitle } from '~/components/primitives/texts'
 
 import { plans } from './plans'
 import s from './plans.module.scss'
@@ -74,9 +74,12 @@ export const Plans: FC = () => {
 
   return (
     <Section className={s.section}>
-      <div className={s['heading']}>
-        <Heading size="sm">Plans</Heading>
-      </div>
+      <TitleAndSubtitle
+        title={{
+          children: <>Plans</>,
+          hero: true
+        }}
+      />
       <div
         className={clsx(s['tabs-container'], {
           [s.stuck as string]: isStuck === true
