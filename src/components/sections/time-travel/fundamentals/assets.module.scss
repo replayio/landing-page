@@ -77,12 +77,6 @@
       position: relative;
       flex: 1 0 auto;
       overflow: hidden;
-      mask: radial-gradient(
-        circle at 50% 50%,
-        black 0%,
-        rgb(0 0 0 / 0.05) 65%,
-        transparent 100%
-      );
       display: flex;
       align-items: center;
       justify-content: center;
@@ -93,6 +87,12 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    mask: radial-gradient(
+      circle at 50% 50%,
+      black 0%,
+      rgb(0 0 0 / 0.05) 65%,
+      transparent 100%
+    );
 
     .text {
       color: var(--grey-600);
@@ -119,15 +119,15 @@
 
   .debugging {
     overflow: hidden;
+    mask-image: linear-gradient(
+      to left,
+      rgb(0 0 0 / 0) 0%,
+      var(--white),
+      rgb(0 0 0 / 0) 100%
+    );
 
     .marquee {
       position: absolute;
-      mask-image: linear-gradient(
-        to left,
-        rgb(0 0 0 / 0) 0%,
-        var(--white),
-        rgb(0 0 0 / 0) 100%
-      );
 
       .iconWrapper {
         width: 64px;
