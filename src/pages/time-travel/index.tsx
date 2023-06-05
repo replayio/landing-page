@@ -11,7 +11,7 @@ const TimeTravel = () => {
       <div
         style={{
           background:
-            'linear-gradient(180deg, #000000 0%, #111827 40.63%, #000000 82.81%, #111827 100%)'
+            'linear-gradient(180deg, #000000 0%, #111827 40.63%, #000000 100%)'
         }}
       >
         <TextReveal />

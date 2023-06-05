@@ -11,6 +11,7 @@
   }
 
   .bg-container {
+    z-index: 0;
     isolation: isolate;
     position: absolute;
     width: 100%;
@@ -20,16 +21,9 @@
     left: 0;
 
     .child {
-      position: absolute;
-      inset: 0;
-    }
-
-    .grid {
-      display: block;
-
-      @include respond-to('tablet') {
-        display: none;
-      }
+      position: sticky;
+      top: 0;
+      height: 100vh;
     }
   }
 
