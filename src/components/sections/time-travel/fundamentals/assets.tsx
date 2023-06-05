@@ -133,7 +133,7 @@ const Debugging = () => {
       >
         {binaryIcons.map((Icon, idx) => (
           <div className={s.iconWrapper} key={idx}>
-            <Icon className={s.icon} />
+            <Icon className={s.icon as string} />
           </div>
         ))}
       </Marquee>
@@ -153,7 +153,35 @@ const Debugging = () => {
   )
 }
 
-const binaryIcons = [ReactIcon, CssIcon, JavascriptIcon]
+const binaryIcons = [
+  ({ className }: { className: string }) => (
+    <Image
+      className={className}
+      src="/images/time-travel/fundamentals/react_binary.png"
+      alt="react"
+      height={40}
+      width={40}
+    />
+  ),
+  ({ className }: { className: string }) => (
+    <Image
+      className={className}
+      src="/images/time-travel/fundamentals/css_binary.png"
+      alt="css"
+      height={40}
+      width={40}
+    />
+  ),
+  ({ className }: { className: string }) => (
+    <Image
+      className={className}
+      src="/images/time-travel/fundamentals/javascript_binary.png"
+      alt="javascrip"
+      height={40}
+      width={40}
+    />
+  )
+]
 const icons = [ReactIcon, CssIcon, JavascriptIcon]
 
 export { Debugging, RecordRandomness, RecordRuntime }
