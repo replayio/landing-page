@@ -1,5 +1,6 @@
+import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -8,7 +9,7 @@ import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import { useViewportSize } from '~/hooks/use-viewport-size'
-import { gsap } from '~/lib/gsap'
+import { gsap, ScrollTrigger } from '~/lib/gsap'
 
 import s from './debug.module.scss'
 import { SceneProps } from './scenes'
@@ -30,7 +31,7 @@ const ReactDevtools = dynamic(() => import('./scenes').then((m) => m.Scene3), {
 
 const SCROLL_TRIGGER_DURATION = 3000
 const CARD_HEIGHT = 320
-const CONTAINER_PADDING = 152 / 2
+const CONTAINER_PADDING = 76
 
 export const DebugSpeed = () => {
   const { height } = useViewportSize()
@@ -41,7 +42,17 @@ export const DebugSpeed = () => {
   const spacerRef = useRef<HTMLDivElement>(null)
   const progressBarRef = useRef<HTMLDivElement>(null)
 
-  const tl = useRef<gsap.core.Timeline>()
+  const [sceneStatus, setSceneStatus] = useState({
+    activeScene: null as null | number,
+    showScene: 0
+  })
+
+  const setScene = (index: number) => {
+    setSceneStatus({
+      activeScene: index,
+      showScene: index
+    })
+  }
 
   useIsomorphicLayoutEffect(() => {
     if (isTablet) return
@@ -54,7 +65,6 @@ export const DebugSpeed = () => {
       )
 
       const texts = container?.querySelectorAll(`.${s.sideText}`)
-      const assets = container?.querySelectorAll(`.${s.card}`)
       const progressBar = progressBarRef.current
 
       if (
@@ -64,15 +74,11 @@ export const DebugSpeed = () => {
         !progressBar ||
         !texts?.[0] ||
         !texts?.[1] ||
-        !texts?.[2] ||
-        !assets?.[0] ||
-        !assets?.[1] ||
-        !assets?.[2]
+        !texts?.[2]
       ) {
         return
       }
 
-      gsap.set(spacer, { height: SCROLL_TRIGGER_DURATION })
       const offsetTop = height / 2 - CONTAINER_PADDING - CARD_HEIGHT / 2
 
       gsap
@@ -88,14 +94,9 @@ export const DebugSpeed = () => {
           height: 0
         })
 
-      tl.current = gsap
+      gsap
         .timeline({
           scrollTrigger: {
-            snap: {
-              snapTo: 'labelsDirectional',
-              duration: 3,
-              delay: 0.1
-            },
             trigger: spacerRef.current,
             start: 'top top',
             end: 'bottom bottom',
@@ -105,9 +106,17 @@ export const DebugSpeed = () => {
             },
             onLeave: () => {
               document.documentElement.classList.remove('hide-header')
+              setSceneStatus({
+                activeScene: null,
+                showScene: 2
+              })
             },
             onLeaveBack: () => {
               document.documentElement.classList.remove('hide-header')
+              setSceneStatus({
+                activeScene: null,
+                showScene: 0
+              })
             }
           },
           defaults: {
@@ -116,17 +125,30 @@ export const DebugSpeed = () => {
           }
         })
         .addLabel('start')
-        .to(textsContainer, {
-          y: offsetTop
-        })
         .add(() => {
           document.documentElement.classList.add('hide-header')
         }, '<+=1')
         .addLabel('print-statements')
-        .to(textsContainer, {
-          delay: 10,
-          y: offsetTop - CARD_HEIGHT
-        })
+        .fromTo(
+          textsContainer,
+          {
+            y: offsetTop
+          },
+          {
+            delay: 20,
+            y: offsetTop - CARD_HEIGHT,
+            onComplete: () => {
+              setScene(1)
+            },
+            onStart: () => {
+              setScene(0)
+            },
+            onReverseComplete: () => {
+              setScene(0)
+            }
+          }
+        )
+
         .to(
           texts[0],
           {
@@ -141,25 +163,23 @@ export const DebugSpeed = () => {
           },
           '<'
         )
-        .to(
-          assets[0],
-          {
-            opacity: 0
-          },
-          '<'
-        )
-        .from(
-          assets[1],
-          {
-            autoAlpha: 0
-          },
-          '<'
-        )
-        .addLabel('console')
         .to(textsContainer, {
-          delay: 10,
-          y: offsetTop - CARD_HEIGHT * 2
+          delay: 20,
+          y: offsetTop - CARD_HEIGHT * 2,
+          onStart: () => {
+            setScene(1)
+          },
+          onComplete: () => {
+            setScene(2)
+          },
+          onReverseComplete: () => {
+            setScene(1)
+          },
+          onReverseStart: () => {
+            setScene(2)
+          }
         })
+        .addLabel('console')
         .to(
           texts[1],
           {
@@ -174,22 +194,11 @@ export const DebugSpeed = () => {
           },
           '<'
         )
-        .to(
-          assets[1],
-          {
-            autoAlpha: 0
-          },
-          '<'
-        )
-        .from(
-          assets[2],
-          {
-            autoAlpha: 0
-          },
-          '<'
-        )
         .addLabel('react-devtools')
         // add some extra delay at the end of the tl
+        .to(spacer, {
+          duration: 15
+        })
         .to(progressBar, {
           duration: 10,
           opacity: 0
@@ -221,7 +230,7 @@ export const DebugSpeed = () => {
           className: s.subtitle
         }}
       />
-      <div ref={spacerRef}>
+      <div style={{ height: SCROLL_TRIGGER_DURATION }} ref={spacerRef}>
         <Container ref={containerRef} className={s.container}>
           <div className={s.sideTextsContainer}>
             {data.map((d, i) => (
@@ -231,8 +240,8 @@ export const DebugSpeed = () => {
           {!isTablet && (
             <div className={s.assetsContainer}>
               {data.map((d, i) => (
-                <AssetCard key={i}>
-                  <d.asset active />
+                <AssetCard key={i} show={i === sceneStatus.showScene}>
+                  <d.asset active={i === sceneStatus.activeScene} />
                 </AssetCard>
               ))}
             </div>
@@ -245,18 +254,48 @@ export const DebugSpeed = () => {
 }
 
 const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
+  const containerRef = useRef<HTMLDivElement>(null)
   const isTablet = useTabletLgBreakpoint()
+  const [isOnScreen, setIsOnScreen] = useState(false)
+
   const AssetComponent = asset
+  useIsomorphicLayoutEffect(() => {
+    if (!isTablet) return
+    const st = ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: 'top bottom',
+      end: 'bottom bottom',
+      onEnter: () => {
+        setIsOnScreen(true)
+      },
+      onLeaveBack: () => {
+        setIsOnScreen(false)
+      },
+      onLeave: () => {
+        setIsOnScreen(false)
+      },
+      onEnterBack: () => {
+        setIsOnScreen(true)
+      }
+    })
+
+    return () => {
+      st?.kill()
+      setIsOnScreen(true)
+    }
+  }, [isTablet])
+
   return (
     <div
+      ref={containerRef}
       style={{
         height: isTablet ? 'auto' : CARD_HEIGHT
       }}
       className={s.sideText}
     >
       {isTablet && (
-        <AssetCard>
-          <AssetComponent active />
+        <AssetCard show={isOnScreen}>
+          <AssetComponent active={isOnScreen} />
         </AssetCard>
       )}
       {!isTablet && <Button className={s.sideTextIcon}>{icon}</Button>}
@@ -267,8 +306,23 @@ const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
   )
 }
 
-const AssetCard = ({ children }: { children: React.ReactNode }) => {
-  return <div className={s.card}>{children}</div>
+const AssetCard = ({
+  children,
+  show
+}: {
+  show?: boolean
+  children: React.ReactNode
+}) => {
+  return (
+    <div
+      className={clsx(s.card, {
+        [s['show'] as string]: show,
+        [s['hide'] as string]: !show
+      })}
+    >
+      {children}
+    </div>
+  )
 }
 
 type dataType = {

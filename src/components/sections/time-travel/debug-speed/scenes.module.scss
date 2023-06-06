@@ -180,21 +180,6 @@
   &:nth-child(2n) {
     align-items: center;
   }
-
-  &.show {
-    opacity: 0;
-    animation: fade-in var(--duration-moderate) ease-out forwards;
-    animation-delay: var(--delay);
-    z-index: var(--z-index-10);
-  }
-
-  &.hide {
-    opacity: 1;
-    animation: fade-out var(--duration-moderate) ease-out forwards;
-    animation-delay: var(--delay);
-    z-index: 0;
-    pointer-events: none;
-  }
 }
 
 .overboard {

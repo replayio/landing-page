@@ -1,5 +1,3 @@
-//@ts-nocheck
-import clsx from 'clsx'
 import get from 'lodash/get'
 import {
   ComponentRef,
@@ -38,19 +36,10 @@ export type SceneProps = {
   devtoolsProps?: Partial<DevToolsProps>
 }
 
-const TIMELINE_PLAY_DELAY = 1.4
+const TIMELINE_PLAY_DELAY = 0.5
 
-const AnimatedPanel: FC<{ active?: boolean }> = ({ active, children }) => {
-  return (
-    <div
-      className={clsx(s['animated-panel'], {
-        [s['show'] as string]: active,
-        [s['hide'] as string]: !active
-      })}
-    >
-      {children}
-    </div>
-  )
+const AnimatedPanel: FC<{ show?: boolean }> = ({ children }) => {
+  return <div className={s['animated-panel']}>{children}</div>
 }
 
 const printMarkers: ProgressProps['markers'] = [
@@ -283,7 +272,7 @@ export const Scene1: FC<SceneProps> = ({
 
   return (
     <>
-      <AnimatedPanel active={active}>
+      <AnimatedPanel>
         {hoverTooltipComponent &&
           hoverTooltipComponent(
             'You can interact with windows now. Try changing the log marker style.'
@@ -311,13 +300,12 @@ export const Scene1: FC<SceneProps> = ({
 export function HoverBoard() {
   const [pos, setPos] = useState({left: 0, right: 0})
   const [angle, setAngle] = useState(0)
-}
-`}
+}`}
           ref={codeRef}
         />
       </AnimatedPanel>
 
-      <AnimatedPanel active={active}>
+      <AnimatedPanel>
         <DevTools
           {...devtoolsProps}
           panel="console"
@@ -512,7 +500,7 @@ export const Scene2: FC<SceneProps> = ({
 
   return (
     <>
-      <AnimatedPanel active={active}>
+      <AnimatedPanel>
         {hoverTooltipComponent &&
           hoverTooltipComponent(
             'You can interact with windows now. Try time traveling to each log.'
@@ -532,7 +520,7 @@ export const Scene2: FC<SceneProps> = ({
         />
       </AnimatedPanel>
 
-      <AnimatedPanel active={active}>
+      <AnimatedPanel>
         <OverboardStore
           inspectMode="html"
           mode="just-overboard"
@@ -785,7 +773,7 @@ export const Scene3: FC<SceneProps> = ({
 
   return (
     <>
-      <AnimatedPanel active={active}>
+      <AnimatedPanel>
         {hoverTooltipComponent &&
           hoverTooltipComponent(
             'You can interact with windows now. Try inspecting any component.'
@@ -806,7 +794,7 @@ export const Scene3: FC<SceneProps> = ({
         />
       </AnimatedPanel>
 
-      <AnimatedPanel active={active}>
+      <AnimatedPanel>
         <div ref={storeRef}>
           <OverboardStore
             inspectMode="react"
