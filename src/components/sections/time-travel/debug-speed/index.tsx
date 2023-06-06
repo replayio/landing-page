@@ -90,8 +90,14 @@ export const DebugSpeed = () => {
             scrub: 1.5
           }
         })
-        .from(progressBar, {
-          height: 0
+        .to(progressBar, {
+          height: '33%'
+        })
+        .to(progressBar, {
+          height: '66%'
+        })
+        .to(progressBar, {
+          height: '100%'
         })
 
       gsap
