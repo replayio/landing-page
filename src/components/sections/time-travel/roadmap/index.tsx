@@ -39,6 +39,9 @@ export const Roadmap = () => {
       if (!container || !spacer || !items || !progressBar) {
         return
       }
+      gsap.set(spacer, {
+        height: SCROLL_TRIGGER_DURATION
+      })
 
       tl.current = gsap.timeline({
         scrollTrigger: {
@@ -48,7 +51,8 @@ export const Roadmap = () => {
           scrub: 1.2
         },
         defaults: {
-          duration: 15
+          duration: 15,
+          ease: 'none'
         }
       })
 
@@ -62,14 +66,9 @@ export const Roadmap = () => {
         const year = item.querySelector(`.${s.year}`)
 
         tl.current
-          .to(
-            progressBar,
-            {
-              delay: 10,
-              height: `${38 + i * ITEM_HEIGHT}px`
-            }
-            // '<'
-          )
+          .to(progressBar, {
+            height: `${38 + i * ITEM_HEIGHT}px`
+          })
           .from(icon, {
             delay: 5,
             scale: 0.25,
@@ -131,10 +130,7 @@ export const Roadmap = () => {
       <TitleAndSubtitle
         title={{ children: 'The time travel  roadmap.', as: 'h2' }}
       />
-      <div
-        style={{ height: SCROLL_TRIGGER_DURATION, position: 'relative' }}
-        ref={spacerRef}
-      >
+      <div ref={spacerRef}>
         <div className={s.pin}>
           <Container ref={containerRef} className={s.container}>
             {data.map((item, index) => (
