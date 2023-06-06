@@ -37,7 +37,7 @@ export type SceneProps = {
   devtoolsProps?: Partial<DevToolsProps>
 }
 
-const TIMELINE_PLAY_DELAY = 0.5
+const TIMELINE_PLAY_DELAY = 0
 
 const AnimatedPanel: FC<{ show?: boolean }> = ({ children }) => {
   return <div className={s['animated-panel']}>{children}</div>

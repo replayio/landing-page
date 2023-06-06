@@ -11,16 +11,6 @@
     margin-bottom: 32px;
   }
 
-  @include respond-to('min-desktop-sm') {
-    mask: linear-gradient(
-      90deg,
-      transparent,
-      black 12.5%,
-      black 87.5%,
-      transparent
-    );
-  }
-
   .titleAndSubtitle {
     @include respond-to('tablet-lg') {
       padding: 0 var(--container-sides-space);
@@ -36,7 +26,6 @@
     top: 0;
     height: 100vh;
     padding: var(--header-height) var(--container-sides-space);
-    overflow: hidden;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -47,6 +36,16 @@
       height: auto;
       flex-direction: column;
       padding: 32px var(--container-sides-space);
+    }
+
+    @include respond-to('min-tablet-lg') {
+      mask: linear-gradient(
+        0deg,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+      );
     }
 
     .sideTextsContainer {
@@ -184,7 +183,7 @@
         width: 2px;
         left: 0;
         bottom: 0;
-        background: linear-gradient(0deg, #f41c52, rgb(244 28 82 / 0.12));
+        background: linear-gradient(0deg, #f41c52, rgb(244 28 82 / 0));
       }
     }
   }

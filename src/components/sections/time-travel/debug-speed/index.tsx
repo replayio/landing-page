@@ -124,86 +124,78 @@ export const DebugSpeed = () => {
             duration: 15
           }
         })
-        .addLabel('start')
         .add(() => {
           document.documentElement.classList.add('hide-header')
         }, '<+=1')
-        .addLabel('print-statements')
         .fromTo(
           textsContainer,
           {
             y: offsetTop
           },
           {
-            delay: 20,
+            delay: 15,
             y: offsetTop - CARD_HEIGHT,
-            onComplete: () => {
-              setScene(1)
-            },
             onStart: () => {
               setScene(0)
+            },
+            onComplete: () => {
+              setScene(1)
             },
             onReverseComplete: () => {
               setScene(0)
             }
           }
         )
-
         .to(
           texts[0],
           {
-            opacity: 0.4
+            opacity: 0.2
           },
           '<'
         )
         .from(
           texts[1],
           {
-            opacity: 0.4
+            opacity: 0.2
           },
           '<'
         )
         .to(textsContainer, {
-          delay: 20,
+          delay: 15,
           y: offsetTop - CARD_HEIGHT * 2,
-          onStart: () => {
-            setScene(1)
-          },
           onComplete: () => {
             setScene(2)
           },
           onReverseComplete: () => {
             setScene(1)
-          },
-          onReverseStart: () => {
-            setScene(2)
           }
         })
-        .addLabel('console')
         .to(
           texts[1],
           {
-            opacity: 0.4
+            opacity: 0.2
           },
           '<'
         )
         .from(
           texts[2],
           {
-            opacity: 0.4
+            opacity: 0.2
           },
           '<'
         )
-        .addLabel('react-devtools')
         // add some extra delay at the end of the tl
         .to(spacer, {
-          duration: 15
+          delay: 10,
+          onReverseComplete: () => {
+            setScene(2)
+          }
         })
+
         .to(progressBar, {
           duration: 10,
           opacity: 0
         })
-        .addLabel('end')
     }, sectionRef)
     return () => {
       ctx.revert()
