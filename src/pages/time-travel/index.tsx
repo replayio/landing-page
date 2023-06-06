@@ -2,6 +2,7 @@ import { PageLayout } from '~/components/layout/page'
 import Prefooter from '~/components/sections/homepage/prefooter'
 import { Fundamentals } from '~/components/sections/time-travel/fundamentals'
 import { Hero } from '~/components/sections/time-travel/hero'
+import { Roadmap } from '~/components/sections/time-travel/roadmap'
 import { TextReveal } from '~/components/sections/time-travel/text-reveal'
 
 const TimeTravel = () => {
@@ -17,7 +18,7 @@ const TimeTravel = () => {
         <TextReveal />
         <Fundamentals />
         {/* debug  */}
-        {/* roadmap */}
+        <Roadmap />
         <Prefooter />
       </div>
     </PageLayout>
