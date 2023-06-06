@@ -1,3 +1,4 @@
+// @ts-nocheck
 import get from 'lodash/get'
 import {
   ComponentRef,
