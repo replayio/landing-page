@@ -107,8 +107,13 @@ export const DebugSpeed = () => {
             start: 'top top',
             end: 'bottom bottom',
             scrub: true,
+
+            onEnter: () => {
+              setScene(0)
+            },
             onEnterBack: () => {
               document.documentElement.classList.add('hide-header')
+              setScene(2)
             },
             onLeave: () => {
               document.documentElement.classList.remove('hide-header')

@@ -62,7 +62,7 @@ export const Scene1: FC<SceneProps> = ({
     gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
   )
   const [markersType, setMarkersType] = useState<Marker>('transparent')
-  const [showPrints, setShowPrints] = useState(false)
+  const [showPrints, setShowPrints] = useState(true)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
   const consoleRef = useRef()
   const [currentHit, setCurrentHit] = useState(0)
@@ -142,7 +142,7 @@ export const Scene1: FC<SceneProps> = ({
 
     setCurrentHit(0)
     setMarkersType('transparent')
-    setShowPrints(false)
+    setShowPrints(true)
   }, [])
 
   useEffect(() => {
@@ -158,7 +158,11 @@ export const Scene1: FC<SceneProps> = ({
     const yellowMarker = codeSelector(
       '#dev-tools-console-markers [data-marker="yellow"]'
     )
-
+    gsap.set(printPanel, {
+      height: 'auto',
+      opacity: 1,
+      overflow: 'visible'
+    })
     _timeline.fromTo(
       addPrintButton,
       {
@@ -193,19 +197,19 @@ export const Scene1: FC<SceneProps> = ({
       '>-50%'
     )
 
-    _timeline.fromTo(
-      printPanel,
-      {
-        opacity: 1,
-        overflow: 'hidden',
-        height: 0
-      },
-      {
-        height: 'auto'
-      }
-    )
+    // _timeline.fromTo(
+    //   printPanel,
+    //   {
+    //     opacity: 1,
+    //     overflow: 'hidden',
+    //     height: 0
+    //   },
+    //   {
+    //     height: 'auto'
+    //   }
+    // )
 
-    _timeline.set(printPanel, { overflow: 'visible' })
+    // _timeline.set(printPanel, { overflow: 'visible' })
 
     _timeline.call(
       () => {
