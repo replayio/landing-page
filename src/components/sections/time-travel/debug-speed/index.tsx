@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -54,32 +54,18 @@ export const DebugSpeed = () => {
     })
   }
 
+  const offsetTop = height / 2 - CONTAINER_PADDING - CARD_HEIGHT / 2
+
   useIsomorphicLayoutEffect(() => {
     if (isTablet) return
 
     const ctx = gsap.context(() => {
       const container = containerRef.current
       const spacer = spacerRef.current
-      const textsContainer = container?.querySelector(
-        `.${s.sideTextsContainer}`
-      )
 
-      const texts = container?.querySelectorAll(`.${s.sideText}`)
       const progressBar = progressBarRef.current
 
-      if (
-        !container ||
-        !spacer ||
-        !textsContainer ||
-        !progressBar ||
-        !texts?.[0] ||
-        !texts?.[1] ||
-        !texts?.[2]
-      ) {
-        return
-      }
-
-      const offsetTop = height / 2 - CONTAINER_PADDING - CARD_HEIGHT / 2
+      if (!container || !spacer || !progressBar) return
 
       gsap
         .timeline({
@@ -138,42 +124,20 @@ export const DebugSpeed = () => {
         .add(() => {
           document.documentElement.classList.add('hide-header')
         }, '<+=1')
-        .fromTo(
-          textsContainer,
-          {
-            y: offsetTop
-          },
-          {
-            delay: 15,
-            y: offsetTop - CARD_HEIGHT,
-            onStart: () => {
-              setScene(0)
-            },
-            onComplete: () => {
-              setScene(1)
-            },
-            onReverseComplete: () => {
-              setScene(0)
-            }
-          }
-        )
-        .to(
-          texts[0],
-          {
-            opacity: 0.2
-          },
-          '<'
-        )
-        .from(
-          texts[1],
-          {
-            opacity: 0.2
-          },
-          '<'
-        )
-        .to(textsContainer, {
+        .to(spacer, {
           delay: 15,
-          y: offsetTop - CARD_HEIGHT * 2,
+          onStart: () => {
+            setScene(0)
+          },
+          onComplete: () => {
+            setScene(1)
+          },
+          onReverseComplete: () => {
+            setScene(0)
+          }
+        })
+        .to(spacer, {
+          delay: 15,
           onComplete: () => {
             setScene(2)
           },
@@ -181,28 +145,12 @@ export const DebugSpeed = () => {
             setScene(1)
           }
         })
-        .to(
-          texts[1],
-          {
-            opacity: 0.2
-          },
-          '<'
-        )
-        .from(
-          texts[2],
-          {
-            opacity: 0.2
-          },
-          '<'
-        )
-        // add some extra delay at the end of the tl
         .to(spacer, {
           delay: 10,
           onReverseComplete: () => {
             setScene(2)
           }
         })
-
         .to(progressBar, {
           duration: 10,
           opacity: 0
@@ -212,7 +160,37 @@ export const DebugSpeed = () => {
       ctx.revert()
       ctx.kill()
     }
-  }, [height, isTablet])
+  }, [height, isTablet, offsetTop])
+
+  useEffect(() => {
+    if (isTablet) return
+    const textsContainer = containerRef.current?.querySelector(
+      `.${s.sideTextsContainer}`
+    )
+
+    const texts = containerRef.current?.querySelectorAll(`.${s.sideText}`)
+
+    if (!textsContainer || !texts?.[0] || !texts?.[1] || !texts?.[2]) return
+
+    gsap.to(textsContainer, {
+      y: offsetTop - CARD_HEIGHT * sceneStatus.showScene
+    })
+    texts.forEach((text, i) => {
+      if (i === sceneStatus.showScene) {
+        gsap.to(text, {
+          opacity: 1,
+          duration: 1,
+          ease: 'power1.inOut'
+        })
+      } else {
+        gsap.to(text, {
+          opacity: 0.2,
+          duration: 1,
+          ease: 'power1.inOut'
+        })
+      }
+    })
+  }, [height, isTablet, offsetTop, sceneStatus])
 
   return (
     <Section
