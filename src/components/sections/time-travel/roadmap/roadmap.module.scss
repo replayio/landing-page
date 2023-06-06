@@ -1,0 +1,117 @@
+@import 'css/helpers';
+
+.section {
+  margin: auto;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .pin {
+    top: 0;
+    height: 100vh;
+    position: sticky;
+    padding: calc(var(--header-height) * 2) var(--container-sides-space);
+    overflow: hidden;
+
+    @include respond-to('min-desktop-sm') {
+      mask: linear-gradient(
+        0deg,
+        transparent,
+        black 12.5%,
+        black 87.5%,
+        transparent
+      );
+    }
+  }
+
+  .container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+
+    .item {
+      display: flex;
+      gap: 52px;
+
+      .iconWrapper {
+        flex-shrink: 0;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: var(--color-pink-crayon);
+        border: 1px solid rgb(255 255 255 / 0.24);
+        border-radius: 9999px;
+        transform: translate(0, 50%);
+
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .content {
+        .year,
+        .description {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          text-align: left;
+          letter-spacing: -0.02em;
+          color: var(--grey-400);
+        }
+
+        .description {
+          max-width: 330px;
+        }
+
+        .title {
+          color: var(--color-white);
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 24px;
+          letter-spacing: -0.02em;
+          margin-top: 8px;
+          margin-bottom: 12px;
+        }
+      }
+    }
+
+    .progressBar {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: calc(var(--container-sides-space) + 15px);
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(
+        0deg,
+        rgb(55 65 81 / 0) 0%,
+        rgb(55 65 81 / 0.88) 19.39%,
+        rgb(55 65 81 / 0.88) 89.39%,
+        rgb(55 65 81 / 0) 100%
+      );
+
+      .thumb {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2px;
+        height: 0%;
+        background: linear-gradient(
+          180deg,
+          rgb(244 28 82 / 0) 0%,
+          #f41c52 100%
+        );
+        animation: progressBar 10s linear infinite;
+      }
+    }
+  }
+}
