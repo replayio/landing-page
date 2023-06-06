@@ -13,16 +13,6 @@
     position: sticky;
     padding: calc(var(--header-height) * 2) var(--container-sides-space);
     overflow: hidden;
-
-    @include respond-to('min-desktop-sm') {
-      mask: linear-gradient(
-        0deg,
-        transparent,
-        black 12.5%,
-        black 87.5%,
-        transparent
-      );
-    }
   }
 
   .container {
@@ -31,6 +21,7 @@
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+    mask: linear-gradient(180deg, black 0%, black 92.5%, transparent);
 
     .item {
       display: flex;
