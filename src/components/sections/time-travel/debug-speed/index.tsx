@@ -6,10 +6,11 @@ import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
 import { Button } from '~/components/primitives/cta'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
+import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import { useViewportSize } from '~/hooks/use-viewport-size'
-import { gsap, ScrollTrigger } from '~/lib/gsap'
+import { gsap } from '~/lib/gsap'
 
 import s from './debug.module.scss'
 import { SceneProps } from './scenes'
@@ -172,24 +173,31 @@ export const DebugSpeed = () => {
 
     if (!textsContainer || !texts?.[0] || !texts?.[1] || !texts?.[2]) return
 
-    gsap.to(textsContainer, {
-      y: offsetTop - CARD_HEIGHT * sceneStatus.showScene
-    })
-    texts.forEach((text, i) => {
-      if (i === sceneStatus.showScene) {
-        gsap.to(text, {
-          opacity: 1,
-          duration: 1,
-          ease: 'power1.inOut'
-        })
-      } else {
-        gsap.to(text, {
-          opacity: 0.2,
-          duration: 1,
-          ease: 'power1.inOut'
-        })
-      }
-    })
+    const ctx = gsap.context(() => {
+      gsap.to(textsContainer, {
+        y: offsetTop - CARD_HEIGHT * sceneStatus.showScene
+      })
+      texts.forEach((text, i) => {
+        if (i === sceneStatus.showScene) {
+          gsap.to(text, {
+            opacity: 1,
+            duration: 1,
+            ease: 'power1.inOut'
+          })
+        } else {
+          gsap.to(text, {
+            opacity: 0.2,
+            duration: 1,
+            ease: 'power1.inOut'
+          })
+        }
+      })
+    }, sectionRef)
+
+    return () => {
+      ctx.revert()
+      ctx.kill()
+    }
   }, [height, isTablet, offsetTop, sceneStatus])
 
   return (
@@ -235,48 +243,25 @@ export const DebugSpeed = () => {
 }
 
 const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
-  const containerRef = useRef<HTMLDivElement>(null)
   const isTablet = useTabletLgBreakpoint()
-  const [isOnScreen, setIsOnScreen] = useState(false)
+
+  const [ref, { inView }] = useIntersectionObserver<HTMLDivElement>({
+    triggerOnce: false
+  })
 
   const AssetComponent = asset
-  useIsomorphicLayoutEffect(() => {
-    if (!isTablet) return
-    const st = ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: 'top bottom',
-      end: 'bottom bottom',
-      onEnter: () => {
-        setIsOnScreen(true)
-      },
-      onLeaveBack: () => {
-        setIsOnScreen(false)
-      },
-      onLeave: () => {
-        setIsOnScreen(false)
-      },
-      onEnterBack: () => {
-        setIsOnScreen(true)
-      }
-    })
-
-    return () => {
-      st?.kill()
-      setIsOnScreen(true)
-    }
-  }, [isTablet])
 
   return (
     <div
-      ref={containerRef}
+      ref={ref}
       style={{
         height: isTablet ? 'auto' : CARD_HEIGHT
       }}
       className={s.sideText}
     >
       {isTablet && (
-        <AssetCard show={isOnScreen}>
-          <AssetComponent active={isOnScreen} />
+        <AssetCard show={inView}>
+          <AssetComponent active={inView} />
         </AssetCard>
       )}
       {!isTablet && <Button className={s.sideTextIcon}>{icon}</Button>}
