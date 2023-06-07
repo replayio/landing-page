@@ -164,14 +164,21 @@ export const DebugSpeed = () => {
   }, [height, isTablet, offsetTop])
 
   useEffect(() => {
-    if (isTablet) return
     const textsContainer = containerRef.current?.querySelector(
       `.${s.sideTextsContainer}`
     )
 
     const texts = containerRef.current?.querySelectorAll(`.${s.sideText}`)
 
-    if (!textsContainer || !texts?.[0] || !texts?.[1] || !texts?.[2]) return
+    if (!textsContainer || !texts) return
+
+    if (isTablet) {
+      gsap.set(textsContainer, {
+        y: 0
+      })
+
+      return
+    }
 
     const ctx = gsap.context(() => {
       gsap.to(textsContainer, {
@@ -195,8 +202,7 @@ export const DebugSpeed = () => {
     }, sectionRef)
 
     return () => {
-      ctx.revert()
-      ctx.kill()
+      ctx?.kill()
     }
   }, [height, isTablet, offsetTop, sceneStatus])
 
@@ -219,7 +225,10 @@ export const DebugSpeed = () => {
           className: s.subtitle
         }}
       />
-      <div style={{ height: SCROLL_TRIGGER_DURATION }} ref={spacerRef}>
+      <div
+        style={{ height: isTablet ? 'auto' : SCROLL_TRIGGER_DURATION }}
+        ref={spacerRef}
+      >
         <Container ref={containerRef} className={s.container}>
           <div className={s.sideTextsContainer}>
             {data.map((d, i) => (

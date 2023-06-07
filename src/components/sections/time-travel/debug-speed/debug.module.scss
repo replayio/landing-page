@@ -27,12 +27,12 @@
     height: 100vh;
     padding: var(--header-height) 40px var(--container-sides-space);
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
     flex-direction: row;
     gap: 40px;
 
     @include respond-to('tablet-lg') {
+      position: relative;
       height: auto;
       flex-direction: column;
       padding: 32px var(--container-sides-space);
