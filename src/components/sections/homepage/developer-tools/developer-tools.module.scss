@@ -79,6 +79,8 @@
       )
     )
     rotateY(calc(var(--global-rotation-y) + var(--local-rotation-y)));
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .section {
