@@ -3,6 +3,7 @@ import Prefooter from '~/components/sections/homepage/prefooter'
 import { DebugSpeed } from '~/components/sections/time-travel/debug-speed'
 import { Fundamentals } from '~/components/sections/time-travel/fundamentals'
 import { Hero } from '~/components/sections/time-travel/hero'
+import { Roadmap } from '~/components/sections/time-travel/roadmap'
 import { TextReveal } from '~/components/sections/time-travel/text-reveal'
 
 const TimeTravel = () => {
@@ -18,7 +19,7 @@ const TimeTravel = () => {
         <TextReveal />
         <Fundamentals />
         <DebugSpeed />
-        {/* roadmap */}
+        <Roadmap />
         <Prefooter />
       </div>
     </PageLayout>

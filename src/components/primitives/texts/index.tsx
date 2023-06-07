@@ -44,13 +44,13 @@ export const TitleAndSubtitle = ({
   className
 }: {
   title: TitleProps
-  subtitle: SubtitleProps
+  subtitle?: SubtitleProps
   className?: string
 }) => {
   return (
     <div className={clsx(s.titleSubtitleWrapper, className)}>
       <Title {...title} />
-      <Subtitle {...subtitle} />
+      {subtitle && <Subtitle {...subtitle} />}
     </div>
   )
 }
