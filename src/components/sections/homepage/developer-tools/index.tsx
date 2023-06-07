@@ -373,10 +373,23 @@ export const DeveloperTools = () => {
   const isTablet = useTabletBreakpoint()
   const { isDesktop } = useDeviceDetect()
   const [emblaRef, embla] = useEmblaCarousel({ align: 'start' })
+  const sectionRef = useRef<HTMLDivElement>(null)
   const [inViewRef, inView] = useIntersectionObserver<HTMLDivElement>({})
 
   const [activeChunk, setActiveChunk] = useState(0)
   const devtoolsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (inView.inView) {
+      document.documentElement.classList.add('hide-header')
+    } else {
+      document.documentElement.classList.remove('hide-header')
+    }
+    return () => {
+      document.documentElement.classList.remove('hide-header')
+    }
+  }, [inView])
+
   const { elementRef: mouseTrackedElementRef } =
     useMouseTracker<HTMLDivElement>({
       enableOnlyWhenHovering: true,
@@ -498,6 +511,7 @@ export const DeveloperTools = () => {
 
   return (
     <Section
+      ref={sectionRef}
       id="homepage-developer-tools"
       className={s['section']}
       data-sitemap
