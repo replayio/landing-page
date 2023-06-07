@@ -137,7 +137,7 @@ const chunks: {
     ),
     panels: [
       {
-        style: { width: topanelperc(580) },
+        style: { width: topanelperc(585) },
         children: (props) => (
           <Image
             {...props}
@@ -150,7 +150,7 @@ const chunks: {
         )
       },
       {
-        style: { width: topanelperc(556) },
+        style: { width: topanelperc(618) },
         children: [
           ({ ...props }) => (
             <Image
@@ -191,7 +191,7 @@ const chunks: {
     ),
     panels: [
       {
-        style: { width: topanelperc(315) },
+        style: { width: topanelperc(270) },
         children: (props) => (
           <Image
             {...props}
@@ -204,7 +204,7 @@ const chunks: {
         )
       },
       {
-        style: { width: topanelperc(381) },
+        style: { width: topanelperc(448) },
         children: (props) => (
           <Image
             {...props}
@@ -217,7 +217,7 @@ const chunks: {
         )
       },
       {
-        style: { width: topanelperc(499) },
+        style: { width: topanelperc(474) },
         children: [
           (props) => (
             <Image
