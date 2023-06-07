@@ -123,11 +123,11 @@
 
     svg {
       path:first-child {
-        fill: var(--color-gray-dark);
+        fill: var(--color-white);
       }
 
       path:nth-child(2) {
-        stroke: var(--color-gray-dark);
+        stroke: var(--color-white);
       }
     }
   }

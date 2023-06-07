@@ -86,7 +86,7 @@ export const Hero: FC = () => {
         subtitle={{
           className: s.subtitle,
           children:
-            'Learn where Replay is right now and where we are going next.'
+            'Learn where Replay is right now and where we are going next. Find out about our values. Meet the team and discover opportunities to join us on our journey.'
         }}
       />
       <Container size="sm">
