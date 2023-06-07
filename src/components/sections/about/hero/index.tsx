@@ -1,11 +1,11 @@
 import { ScrollTrigger } from 'lib/gsap'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
-import { Heading } from '~/components/common/heading'
 import { HeadingSet } from '~/components/common/heading-set'
 import { ProgressBar } from '~/components/common/progress-bar'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useMedia } from '~/hooks/use-media'
 import now from '~/public/images/about/peteluma-1.jpeg'
 import future from '~/public/images/about/peteluma-2.jpeg'
@@ -78,18 +78,18 @@ export const Hero: FC = () => {
 
   return (
     <Section id="values" className={s['section']}>
+      <TitleAndSubtitle
+        title={{
+          children: <>About Replay</>,
+          hero: true
+        }}
+        subtitle={{
+          className: s.subtitle,
+          children:
+            'Learn where Replay is right now and where we are going next.'
+        }}
+      />
       <Container size="sm">
-        <div className={s.heading}>
-          <Heading as="h1" size="sm">
-            About Replay
-          </Heading>
-          <p>
-            Learn where Replay is right now and where we are going next.
-            <br className={s['hide-mobile']} /> Find out about our principles
-            and values. Meet the team and discover opportunities to join us on
-            our journey.
-          </p>
-        </div>
         <div className={s['main-features']}>
           <HeadingSet
             disabled={activeHeading !== 0}
