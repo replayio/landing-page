@@ -1,7 +1,7 @@
 import {
-  // Color,
-  // Colors,
-  // colorways,
+  Color,
+  Colors,
+  colorways,
   Hoverboard,
   HoverboardControls
 } from '@replayio/overboard'
@@ -24,6 +24,7 @@ export type OverboardStoreProps = {
   mode: 'just-overboard' | 'color-picker' | 'purchase' | 'full'
   inspectMode: 'html' | 'react'
   state?: 'idle' | 'loading' | 'error'
+  colorPicker?: boolean
 } & JSX.IntrinsicElements['div']
 
 type GridControls = {
@@ -81,10 +82,11 @@ export const OverboardStore = memo(
         mode,
         state = 'idle',
         overboardColor,
-        // onOverboardColorChange,
+        onOverboardColorChange,
         inspectMode,
         onPurchase,
         className,
+        colorPicker = false,
         ...rest
       },
       ref
@@ -175,39 +177,41 @@ export const OverboardStore = memo(
                     boxId="purchase-form"
                     className={s['purchase-form']}
                   >
-                    {/* <InspectBox
-                      id={buildId('overboard-store-colors')}
-                      name={inspectNames[inspectMode]['colors']}
-                      boxId="colors"
-                      className={s['color-picker']}
-                    >
-                      <Colors
-                        onColorChange={(color) => {
-                          // TODO: need to fix type in overboard design system
-                          // @ts-ignore
-                          onOverboardColorChange(color)
-                        }}
+                    {colorPicker && (
+                      <InspectBox
+                        id={buildId('overboard-store-colors')}
+                        name={inspectNames[inspectMode]['colors']}
+                        boxId="colors"
+                        className={s['color-picker']}
                       >
-                        {Object.entries(colorways).map(
-                          ([name, [start, end]]) => (
-                            <InspectBox
-                              name={inspectNames[inspectMode]['color']}
-                              boxId={`color-${name}`}
-                              key={name}
-                            >
-                              <Color
-                                onChange={() => undefined}
-                                checked={overboardColor === name}
-                                label={name}
-                                value={name.toLowerCase()}
-                                startColor={start}
-                                endColor={end}
-                              />
-                            </InspectBox>
-                          )
-                        )}
-                      </Colors>
-                    </InspectBox> */}
+                        <Colors
+                          onColorChange={(color) => {
+                            // TODO: need to fix type in overboard design system
+                            // @ts-ignore
+                            onOverboardColorChange(color)
+                          }}
+                        >
+                          {Object.entries(colorways).map(
+                            ([name, [start, end]]) => (
+                              <InspectBox
+                                name={inspectNames[inspectMode]['color']}
+                                boxId={`color-${name}`}
+                                key={name}
+                              >
+                                <Color
+                                  onChange={() => undefined}
+                                  checked={overboardColor === name}
+                                  label={name}
+                                  value={name.toLowerCase()}
+                                  startColor={start}
+                                  endColor={end}
+                                />
+                              </InspectBox>
+                            )
+                          )}
+                        </Colors>
+                      </InspectBox>
+                    )}
                   </InspectBox>
 
                   <InspectBox

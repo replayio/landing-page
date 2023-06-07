@@ -71,7 +71,8 @@ export const Work: FC = () => {
             <Image src={journeyImg} alt="Journey icon" />
             <h2>Join our journey</h2>
             <p>
-              Excited by what we are doing? Think you’d be a good match?
+              Excited by what we are doing? <br />
+              Think you’d be a good match?
               <br /> Great! We’d love to hear from you.
               <br />
               <br />
@@ -88,7 +89,7 @@ export const Work: FC = () => {
             <ul>
               <li>
                 <span>Job title</span>
-                <span>Skills & qualifications</span>
+                <span>Qualifications</span>
               </li>
               {positions.map(({ title, skills, href }, i) => (
                 <li key={i}>

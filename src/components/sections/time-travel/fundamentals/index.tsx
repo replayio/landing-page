@@ -65,11 +65,11 @@ export const Fundamentals = () => {
 
   return (
     <Section
-      id="homepage-bugs-slider"
+      id="time-travel-fundamentals"
       className={s.section}
       data-sitemap
       data-sitemap-icon="fundamentals"
-      data-sitemap-short-title="fundamentals"
+      data-sitemap-short-title="Fundamentals"
       data-sitemap-complete-title="The fundamentals of time travel"
     >
       <TitleAndSubtitle
