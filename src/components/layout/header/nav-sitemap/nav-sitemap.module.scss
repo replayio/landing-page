@@ -1,5 +1,13 @@
 @import '~/css/helpers';
 
+:global(.hide-header) {
+  .navigationSitemap {
+    &.show {
+      transform: translateY(calc(-1 * var(--header-height)));
+    }
+  }
+}
+
 .navigationSitemap {
   position: fixed;
   top: var(--header-height);

@@ -1,0 +1,215 @@
+@import 'css/helpers';
+
+.section {
+  position: relative;
+  margin: auto;
+  margin-bottom: 80px;
+  @include respond-to('tablet') {
+    margin-bottom: 24px;
+  }
+  @include respond-to('tablet-lg') {
+    margin-bottom: 32px;
+  }
+
+  .titleAndSubtitle {
+    @include respond-to('tablet-lg') {
+      padding: 0 var(--container-sides-space);
+    }
+
+    .subtitle {
+      max-width: 450px;
+    }
+  }
+
+  .container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: var(--header-height) 40px var(--container-sides-space);
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 40px;
+
+    @include respond-to('tablet-lg') {
+      position: relative;
+      height: auto;
+      flex-direction: column;
+      padding: 32px var(--container-sides-space);
+    }
+
+    @include respond-to('min-tablet-lg') {
+      mask: linear-gradient(
+        0deg,
+        transparent 7.5%,
+        black 15%,
+        black 85%,
+        transparent 92.5%
+      );
+    }
+
+    .sideTextsContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: auto;
+      gap: 0;
+
+      @include respond-to('tablet-lg') {
+        width: 100%;
+        gap: 56px;
+        align-items: center;
+      }
+
+      .sideText {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        max-width: unset;
+
+        @include respond-to('tablet-lg') {
+          width: 100%;
+          max-width: 550px;
+        }
+
+        .sideTextIcon {
+          width: 32px;
+          height: 32px;
+          margin-bottom: 24px;
+
+          svg {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+          }
+        }
+
+        .sideTextSubtitle {
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          background: var(--gradient-primary);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
+          margin-bottom: 8px;
+        }
+
+        .sideTextTitle {
+          font-family: var(--font-roobert);
+          font-style: normal;
+          font-weight: 600;
+          font-size: 32px;
+          line-height: 38px;
+          letter-spacing: -0.04em;
+          margin-bottom: 16px;
+        }
+
+        .sideTextDescription {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 22px;
+          color: var(--grey-400);
+          max-width: 400px;
+        }
+      }
+    }
+
+    .assetsContainer {
+      position: relative;
+      height: 100%;
+      flex: 1 1 0%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 500px;
+      max-width: 530px;
+    }
+
+    .card {
+      background: var(--gradient-card);
+      border: 1px solid rgb(31 41 55 / 0.86);
+      border-radius: 24px;
+      padding: 12px;
+      max-width: 100%;
+      position: absolute;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: opacity var(--duration-long) var(--ease-out-sof);
+
+      &.show {
+        opacity: 0;
+        animation: fade-in var(--duration-moderate) ease-out forwards;
+        animation-delay: var(--delay);
+        z-index: var(--z-index-10);
+      }
+
+      &.hide {
+        opacity: 1;
+        animation: fade-out var(--duration-moderate) ease-out forwards;
+        animation-delay: var(--delay);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      @include respond-to('tablet-lg') {
+        width: 100%;
+        max-width: 550px;
+        position: unset;
+        margin-bottom: 24px;
+      }
+    }
+
+    .progressBar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 0;
+      width: 2px;
+      background: rgb(244 28 82 / 0.2);
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 30%;
+        width: 2px;
+        left: 0;
+        bottom: 0;
+        background: linear-gradient(0deg, #f41c52, rgb(244 28 82 / 0));
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.95);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
