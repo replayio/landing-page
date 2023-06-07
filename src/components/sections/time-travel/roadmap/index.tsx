@@ -66,14 +66,19 @@ export const Roadmap = () => {
         const year = item.querySelector(`.${s.year}`)
 
         tl.current
+
           .to(progressBar, {
             height: `${38 + i * ITEM_HEIGHT}px`
           })
-          .from(icon, {
-            delay: 5,
-            scale: 0.25,
-            background: '#4b5563'
-          })
+          .from(
+            icon,
+            {
+              delay: 15,
+              scale: 0.25,
+              background: '#4b5563'
+            },
+            '<'
+          )
           .from(
             title,
             {
@@ -88,10 +93,14 @@ export const Roadmap = () => {
             },
             '<'
           )
-          .from([description, year], {
-            yPercent: 20,
-            opacity: 0
-          })
+          .from(
+            [description, year],
+            {
+              yPercent: 20,
+              opacity: 0
+            },
+            '<'
+          )
       })
 
       tl.current.to(progressBar, {
