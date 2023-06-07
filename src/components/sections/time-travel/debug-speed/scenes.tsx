@@ -45,8 +45,6 @@ const AnimatedPanel: FC<{ show?: boolean }> = ({ children }) => {
 
 const printMarkers: ProgressProps['markers'] = [
   { position: 30 },
-  { position: 36 },
-  { position: 40 },
   { position: 55 },
   { position: 80, activeColor: 'var(--color-pink-crayon)' }
 ]
@@ -55,8 +53,7 @@ export const Scene1: FC<SceneProps> = ({
   active,
   pauseTimeline,
   resumeTimeline,
-  devtoolsProps,
-  hoverTooltipComponent
+  devtoolsProps
 }) => {
   const timeline = useRef(
     gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
@@ -69,11 +66,11 @@ export const Scene1: FC<SceneProps> = ({
 
   const fullLogs: ConsoleProps['logs'] = [
     {
-      line: 5,
-      hits: 5,
+      line: 3,
+      hits: 3,
       marker: markersType,
       prepend: 'rotate',
-      content: [60, 68, 80, 90, 120],
+      content: [60, 90, 120],
       hide: !showPrints
     },
     {
@@ -197,20 +194,6 @@ export const Scene1: FC<SceneProps> = ({
       '>-50%'
     )
 
-    // _timeline.fromTo(
-    //   printPanel,
-    //   {
-    //     opacity: 1,
-    //     overflow: 'hidden',
-    //     height: 0
-    //   },
-    //   {
-    //     height: 'auto'
-    //   }
-    // )
-
-    // _timeline.set(printPanel, { overflow: 'visible' })
-
     _timeline.call(
       () => {
         consoleMarkers[0]?.classList?.add?.('active')
@@ -278,10 +261,6 @@ export const Scene1: FC<SceneProps> = ({
   return (
     <>
       <AnimatedPanel>
-        {hoverTooltipComponent &&
-          hoverTooltipComponent(
-            'You can interact with windows now. Try changing the log marker style.'
-          )}
         <Code
           {...events}
           printPanelConfig={{
@@ -293,16 +272,14 @@ export const Scene1: FC<SceneProps> = ({
             onChangeMarker: updateMarkers,
             onHit: setCurrentHit,
             timelineType: 'justUi',
-            printLineTarget: 5
+            printLineTarget: 3
           }}
           printIndicators={{
-            3: 'not-available',
-            4: 'available',
-            5: 'available'
+            1: 'not-available',
+            2: 'available',
+            3: 'available'
           }}
-          code={`
-
-export function HoverBoard() {
+          code={`export function HoverBoard() {
   const [pos, setPos] = useState({left: 0, right: 0})
   const [angle, setAngle] = useState(0)
 }`}
@@ -808,6 +785,7 @@ export const Scene3: FC<SceneProps> = ({
             mode="color-picker"
             className={s.overboard}
             ref={overboardRef}
+            colorPicker
           />
         </div>
       </AnimatedPanel>
