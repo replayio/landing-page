@@ -235,7 +235,7 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
             y2: 0
           }
         },
-        { attr: { y1: 125, y2: 125 * 2 } }
+        { attr: { y1: 125, y2: 250 } }
       )
         .fromTo(
           gmb,
@@ -258,7 +258,7 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
               x2: 0
             }
           },
-          { attr: { y1: 125, y2: 125 * 2, x2: 50 } }
+          { attr: { y1: 125, y2: 250, x1: 0, x2: 50 } }
         )
         .fromTo(
           glb,
@@ -270,7 +270,7 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
               x2: 50
             }
           },
-          { attr: { y1: 315, y2: 490, x2: 0 } },
+          { attr: { y1: 315, y2: 490, x1: 50, x2: 0 } },
           '<+=1'
         )
         .fromTo(
@@ -283,7 +283,7 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
               x2: 92
             }
           },
-          { attr: { y1: 125, y2: 125 * 2, x2: 42 } }
+          { attr: { y1: 125, y2: 250, h1: 92, x2: 42 } }
         )
         .fromTo(
           grb,
@@ -295,7 +295,7 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
               x2: 42
             }
           },
-          { attr: { y1: 315, y2: 490, x2: 92 } },
+          { attr: { y1: 315, y2: 490, x1: 42, x2: 92 } },
           '<+=1'
         )
     }, svgRef)
@@ -570,6 +570,8 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
         <linearGradient
           ref={gradientMidTop}
           id="pulse-mt"
+          y1="74.5"
+          y2="74.4929"
           x1="74.5"
           x2="74.4929"
           gradientUnits="userSpaceOnUse"
@@ -582,6 +584,8 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
         <linearGradient
           ref={gradientLeftTop}
           id="pulse-lt"
+          y1="74.5"
+          y2="74.4929"
           x1="74.5"
           x2="74.4929"
           gradientUnits="userSpaceOnUse"
@@ -594,6 +598,8 @@ const BackgroundSvg = ({ isTablet }: BackgroundSvgProps) => {
         <linearGradient
           ref={gradientRightTop}
           id="pulse-rt"
+          y1="74.5"
+          y2="74.4929"
           x1="74.5"
           x2="74.4929"
           gradientUnits="userSpaceOnUse"
