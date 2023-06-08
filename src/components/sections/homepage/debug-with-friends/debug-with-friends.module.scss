@@ -3,10 +3,10 @@
 .section {
   padding-bottom: 216px;
   max-width: 100%;
-  overflow: hidden;
+  overflow-x: clip;
 
   @include respond-to('tablet-lg') {
-    padding-bottom: 0 0 80px;
+    padding-bottom: 80px;
   }
 
   .container {
