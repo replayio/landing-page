@@ -132,12 +132,17 @@ export const Roadmap = () => {
       ref={sectionRef}
       data-sitemap
       data-sitemap-icon="roadmap"
-      data-sitemap-short-title="Roadmap"
-      data-sitemap-complete-title="The time travel  roadmap"
+      data-sitemap-short-title="History"
+      data-sitemap-complete-title="The time travel roadmap"
       className={s.section}
     >
       <TitleAndSubtitle
         title={{ children: 'The time travel  roadmap.', as: 'h2' }}
+        subtitle={{
+          children:
+            'Time travel is an old idea that most assumed was impossible. We believe that it is finally time for it to take off.',
+          className: s.subtitle
+        }}
       />
       <div ref={spacerRef}>
         <div className={s.pin}>

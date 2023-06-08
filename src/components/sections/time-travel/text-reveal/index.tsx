@@ -95,8 +95,8 @@ export const TextReveal = () => {
         </div>
         <div ref={containerRef} className={s['textContainer']}>
           <h4 ref={textRef} className={s['text']}>
-            Recording and replaying software has the ability to change the way
-            we see and understand our systems.
+            Time travel debugging changes the way we see and understand our
+            software and collaborate with our team.
           </h4>
         </div>
       </div>
