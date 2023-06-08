@@ -24,8 +24,8 @@ import {
 export const links = [
   SITEMAP.solutions,
   SITEMAP.devTools,
-  SITEMAP.company,
   SITEMAP.timeTravel,
+  SITEMAP.company,
   SITEMAP.pricing
 ]
 

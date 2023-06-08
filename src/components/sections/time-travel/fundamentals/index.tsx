@@ -70,14 +70,14 @@ export const Fundamentals = () => {
       data-sitemap
       data-sitemap-icon="fundamentals"
       data-sitemap-short-title="Fundamentals"
-      data-sitemap-complete-title="The fundamentals of time travel"
+      data-sitemap-complete-title="Fundamentals of time travel"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
         title={{ children: 'The fundamentals of time travel', as: 'h2' }}
         subtitle={{
           children:
-            'Time travel  is an idea that is as old as time. We believe that it is finally time for it to take off.',
+            'Time travel is a fundamentally different way to analyze software.',
           className: s.subtitle
         }}
       />
@@ -199,40 +199,40 @@ type DataType = {
 const data: DataType[] = [
   {
     id: 'record-runtime',
-    label: 'Runtime',
+    label: 'What it means?',
     title: (
       <>
-        Record the runtime <span>not the application.</span>
+        Don't record your app. <span>Record your runtime.</span>
       </>
     ),
     description: (
       <>
         <p>
-          Time travel is not about recording and replaying user actions. Time
-          travel is about recording and deterministically replaying the runtime
-          down to the event loop and microtask queue.
+          Time travel is not about recording user actions. Time travel is about
+          recording and deterministically replaying the runtime down to the
+          event loop and microtask queue.
         </p>
         <p>
-          When <span>Replay.io</span> replays a runtime, the browser thinks it’s
-          running on the original computer, at the original time, with the
-          original user. In reality it’s running in the simulation, a virtual
-          environment with perfect emulation.
+          Put another way, the runtime needs to think it’s running on the
+          original computer and at the original time. When in reality, it’s
+          running in a docker container where its library calls are intercepted
+          and replayed.
         </p>
       </>
     ),
     Asset: RecordRuntime,
     cta: {
-      href: '/',
-      label: 'Learn more'
+      href: 'https://medium.com/replay-io/how-replay-works-5c9c29580c58',
+      label: 'How Replay works'
     },
     videoHref: '/'
   },
   {
     id: 'Record-randomness',
-    label: 'Randomness',
+    label: 'How it works?',
     title: (
       <>
-        Record the randomness <span> replay the rest.</span>
+        Record the randomness. <span> Replay the rest.</span>
       </>
     ),
     description: (
@@ -240,28 +240,28 @@ const data: DataType[] = [
         <p>
           Fibonacci is deterministic so it does not need to be recorded. It can
           be simply be re-run. The challenge with recording and replaying a
-          runtime like Chrome is knowing how to record the randomness and replay
-          it later.
+          program like Chrome is knowing how to record the essential randomness
+          and replay it later.
         </p>
         <p>
-          Record + Replay has three benefits over traditional instrumentation
-          approaches. It’s light weight because 99.9% of compute is
-          deterministic. The entire execution trace and application state is
-          available. It’s possible to perform dynamic analysis after the fact.
-          See our replayability roadmap.
+          Time travel has three non-intuitive benefits. First, it’s really
+          light-weight because 99.9% of compute is deterministic. Second, it’s
+          lossless because the entire execution trace and application state is
+          available. Third, it’s repayable so it’s possible to perform dynamic
+          analysis.
         </p>
       </>
     ),
     Asset: RecordRandomness,
     cta: {
-      href: '/',
+      href: 'https://medium.com/replay-io/the-replayability-roadmap-c1d674fee576',
       label: 'See our replayability roadmap'
     },
     videoHref: '/'
   },
   {
     id: 'debugging-database',
-    label: 'Debugging',
+    label: "What's possible?",
     title: (
       <>
         Debugging <span>as a database.</span>
@@ -270,22 +270,21 @@ const data: DataType[] = [
     description: (
       <>
         <p>
-          Breakpoint debugging is all about pausing a program at a point in time
-          and exploring the current state. Time travel debugging lets you look
-          at the program at any point in time.
+          Breakpoint debugging lets you pause a program at a point in time and
+          explore the current state. Time travel debugging lets you pause at any
+          point in time and explore.
         </p>
         <p>
-          At a higher-level, time travel debugging lets anyone build DevTools
-          that can query the state of the program across time. This is how we
-          build React DevTools and the Cypress Panel and how anyone can extend
-          our protocol to build next-generation UIs.
+          At a higher-level, time travel lets you query the state of the program
+          across time. This is how we build Replay DevTools and how anyone can
+          extend our protocol to build even more futuristic DevTools.
         </p>
       </>
     ),
     Asset: Debugging,
     cta: {
-      href: '/',
-      label: 'Learn more'
+      href: 'https://blog.replay.io/how-we-rebuilt-react-devtools-with-replay-routines',
+      label: 'How we built React DevTools '
     },
     videoHref: '/'
   }

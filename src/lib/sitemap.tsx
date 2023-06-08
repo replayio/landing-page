@@ -57,7 +57,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     label: 'Home'
   },
   solutions: {
-    label: 'Solutions',
+    label: 'Workflows',
     dropdown: {
       sidebar: [
         {
@@ -780,7 +780,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     label: 'Time Travel'
   },
   pricing: {
-    href: '/',
+    href: '/pricing',
     label: 'Pricing'
   },
   login: {
@@ -788,15 +788,15 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     label: 'Login'
   },
   aboutUs: {
-    href: '/',
+    href: '/about',
     label: 'About Us'
   },
   hiring: {
-    href: '/',
+    href: '/about',
     label: 'We’re Hiring'
   },
   values: {
-    href: '/',
+    href: '/about',
     label: 'Values'
   },
   docs: {

@@ -213,17 +213,12 @@ export const DebugSpeed = () => {
       className={s.section}
       data-sitemap
       data-sitemap-icon="debug-speed"
-      data-sitemap-short-title="Debug"
-      data-sitemap-complete-title="Debug at the speed of thought"
+      data-sitemap-short-title="Methodology"
+      data-sitemap-complete-title="Instant console logs"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Debug at the speed of thought.', as: 'h2' }}
-        subtitle={{
-          children:
-            'Everyone debugs with print statements. Time travel takes print statements to the next level.',
-          className: s.subtitle
-        }}
+        title={{ children: 'Debug with instant console logs.', as: 'h2' }}
       />
       <div
         style={{ height: isTablet ? 'auto' : SCROLL_TRIGGER_DURATION }}
@@ -311,9 +306,10 @@ type dataType = {
 const data: dataType[] = [
   {
     title: 'Add logs with a single click.',
-    subtitle: 'Print Statements',
+    subtitle: 'Console logs',
     description:
-      'Console logs are great, but the feedback loop is slow. With Replay, you can add an expression and see the logs in the console in under a second.',
+      'Add a Console log to a line of code and see the logs automagically appear in the console.',
+
     icon: (
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -335,7 +331,8 @@ const data: dataType[] = [
     title: 'Jump to any console log.',
     subtitle: 'console',
     description:
-      'Has a console log ever left you with more questions than answers? With Replay, you can fast forward to any log and see what was going on.',
+      'Fast forward and rewind to any console log and inspect your application state.',
+
     icon: (
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -352,9 +349,9 @@ const data: dataType[] = [
   },
   {
     title: 'Stay in the state of flow.',
-    subtitle: 'react devtools',
+    subtitle: 'DevTools',
     description:
-      'One of the reasons that debugging is harder than developing is the feedback loop is significantly slower. That’s why we’ve coupled instant print statements with IDE grade code search and Browser DevTools.',
+      'Stay in the state of flow with great code search, instant console logs, and Browser DevTools.',
     icon: (
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
