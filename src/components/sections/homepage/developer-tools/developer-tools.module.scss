@@ -234,25 +234,31 @@
   margin-top: 64px;
 
   .chunk {
+    transition: flex-grow 0.25s var(--ease-out-soft);
+
     .head {
       width: 100%;
       text-align: left;
       display: block;
       cursor: pointer;
+      text-overflow: ellipsis;
     }
 
     .body {
       opacity: 0;
-      transition: opacity 0.25s ease-out;
       user-select: none;
     }
 
     &.active {
+      flex-grow: 1.75;
+
       .title {
         color: var(--white);
       }
 
       .body {
+        transition: opacity 0.25s var(--ease-out-soft) 0.25s;
+        animation-delay: 0.5s;
         opacity: 1;
         user-select: unset;
       }
@@ -329,5 +335,15 @@
     &:last-child {
       flex: 0 0 calc(100% - var(--slide-spacing));
     }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
