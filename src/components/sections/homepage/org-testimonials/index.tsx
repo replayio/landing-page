@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import useEmblaCarousel, { EmblaCarouselType } from 'embla-carousel-react'
 import { gsap } from 'lib/gsap'
 import Image from 'next/image'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { NextIcon } from '~/components/icons/next'
 import { ReactIcon } from '~/components/icons/react'
@@ -12,6 +12,7 @@ import { Section } from '~/components/layout/section'
 import { RadioButtons } from '~/components/primitives/radio-buttons'
 import { useGsapTime } from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
+import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 
 import s from './org-testimonials.module.scss'
 
@@ -64,7 +65,7 @@ export const OrganizationTestimonials = () => {
     }
   }, [embla, time])
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!inView) return
 
     const elms = organizationsRef.current?.querySelectorAll(
