@@ -11,7 +11,7 @@ import { Section } from '~/components/layout/section'
 import { Button, ButtonLink } from '~/components/primitives/cta'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
-import heroImage from '~/images/homepage/hero-image.jpg'
+import heroImage from '~/images/homepage/hero-image.png'
 
 import s from './hero.module.scss'
 
