@@ -118,6 +118,7 @@ export const NavigationContent = ({
                 {item.links.map((link) => (
                   <li key={link.id}>
                     <Link
+                      passHref
                       className={clsx({
                         [s.active as string]: asPath === link.href
                       })}
@@ -144,29 +145,31 @@ export const NavigationContent = ({
             <p>{item.title}</p>
             <ul>
               {item.links.map((subitem) => (
-                <Link
-                  href={subitem.href}
-                  aria-label={`Go to ${subitem.label}`}
-                  key={subitem.label}
-                >
-                  {subitem.label}
+                <li key={subitem.label}>
+                  <Link
+                    href={subitem.href}
+                    aria-label={`Go to ${subitem.label}`}
+                    key={subitem.label}
+                  >
+                    {subitem.label}
 
-                  {checkIsExternal(subitem.href) && (
-                    <svg
-                      width="12"
-                      height="12"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m3.34881 8.65164 5.3033-5.3033m0 0H3.87914m4.77297 0v4.77297"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  )}
-                </Link>
+                    {checkIsExternal(subitem.href) && (
+                      <svg
+                        width="12"
+                        height="12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m3.34881 8.65164 5.3033-5.3033m0 0H3.87914m4.77297 0v4.77297"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
