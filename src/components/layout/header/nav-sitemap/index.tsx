@@ -4,7 +4,9 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { ColaborationIcon } from '~/components/icons/colaboration'
+import { CursorOutlinedIcon } from '~/components/icons/cursorOutlined'
 import { DebuggingIcon } from '~/components/icons/debugging'
+import { GridIcon } from '~/components/icons/grid'
 import { WorkflowIcon } from '~/components/icons/workflow'
 import { useAppStore } from '~/context/use-app-store'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
@@ -184,6 +186,10 @@ const Item = ({
         return <ColaborationIcon />
       case 'debugging':
         return <DebuggingIcon />
+      case 'fundamentals':
+        return <GridIcon />
+      case 'roadmap':
+        return <CursorOutlinedIcon />
       default:
         return null
     }
@@ -191,6 +197,7 @@ const Item = ({
 
   return (
     <Link
+      passHref
       id={`sitemap-${id}-item`}
       className={clsx({
         [s.active as string]: active

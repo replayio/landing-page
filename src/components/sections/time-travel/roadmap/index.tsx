@@ -132,8 +132,8 @@ export const Roadmap = () => {
       ref={sectionRef}
       data-sitemap
       data-sitemap-icon="roadmap"
-      data-sitemap-short-title="History"
-      data-sitemap-complete-title="The time travel roadmap"
+      data-sitemap-short-title="Roadmap"
+      data-sitemap-complete-title="The future ahead."
       className={s.section}
     >
       <TitleAndSubtitle

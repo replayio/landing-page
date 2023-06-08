@@ -212,9 +212,9 @@ export const DebugSpeed = () => {
       ref={sectionRef}
       className={s.section}
       data-sitemap
-      data-sitemap-icon="debug-speed"
-      data-sitemap-short-title="Methodology"
-      data-sitemap-complete-title="Instant console logs"
+      data-sitemap-icon="debugging"
+      data-sitemap-short-title="Debugging"
+      data-sitemap-complete-title="Print statements to the next level."
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
