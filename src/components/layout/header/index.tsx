@@ -57,6 +57,7 @@ export const Header = () => {
       >
         <NavigationWrapper>
           <Link
+            passHref
             href={SITEMAP.home.href || '/'}
             aria-label={`Go to ${SITEMAP.home.label}`}
             onClick={toggle.handleOff}
