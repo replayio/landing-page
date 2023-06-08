@@ -140,7 +140,7 @@ export const Hero = () => {
         {/* This is done like this, to prevent a scroll-x when the svg overflows the width of the "dashboard" image */}
         <div className={s['outline-container']}>
           <Container>
-            <AspectBox ratio={1060 / 607}>
+            <AspectBox ratio={2548 / 1348}>
               <svg
                 viewBox={`0 0 ${outlineSvgSize.width} ${outlineSvgSize.height}`}
                 fill="none"
