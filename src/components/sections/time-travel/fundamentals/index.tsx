@@ -69,8 +69,8 @@ export const Fundamentals = () => {
       className={s.section}
       data-sitemap
       data-sitemap-icon="fundamentals"
-      data-sitemap-short-title="Features"
-      data-sitemap-complete-title="Fundamentals of time travel."
+      data-sitemap-short-title="Fundamentals"
+      data-sitemap-complete-title="Features of time travel"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
