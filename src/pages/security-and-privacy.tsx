@@ -7,6 +7,8 @@ const Privacy = () => {
     <PageLayout>
       <Meta title="Security and Privacy | Replay" />
       <Security />
+      <br />
+      <br />
     </PageLayout>
   )
 }

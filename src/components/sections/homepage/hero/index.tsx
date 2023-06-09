@@ -2,10 +2,12 @@ import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import Video from '~/components/common/video-modal'
+import { IconsLibrary } from '~/components/icons'
 import { Container } from '~/components/layout/container'
 import { Section } from '~/components/layout/section'
 import { Button, ButtonLink } from '~/components/primitives/cta'
@@ -100,6 +102,14 @@ export const Hero = () => {
         </div>
       </div>
       <div className={s['first']} ref={firstRef}>
+        <Link passHref href="" className={s['announcement']}>
+          <div className={s['announcementInner']}>
+            <p className={s['announcementText']}>
+              Introducing Replay for Cypress
+            </p>
+            <span className={s.arrowIcon}>{IconsLibrary['arrow']}</span>
+          </div>
+        </Link>
         <Container>
           <TitleAndSubtitle
             title={{
