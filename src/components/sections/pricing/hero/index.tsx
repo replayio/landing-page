@@ -1,4 +1,5 @@
-import { FC } from 'react'
+import clsx from 'clsx'
+import { FC, useState } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
 import { Section } from '~/components/common/section'
@@ -7,8 +8,9 @@ import { TitleAndSubtitle } from '~/components/primitives/texts'
 
 import { Card } from './card'
 import s from './hero.module.scss'
+import { PricingModes, Toggle } from './toggle'
 
-const plansData = [
+const bugsPlansData = [
   {
     type: 'Individual',
     price: 'Free',
@@ -57,25 +59,41 @@ const plansData = [
     ]
   }
 ]
+const testsPlansData = [
+  {
+    type: 'Replay for CI',
+    cta: 'Email Us',
+    link: 'mailto:sales@replay.io',
+    features: ['Unlimited recordings', 'Trace Viewer', 'Dedicated support']
+  }
+]
 
 export const Hero: FC = () => {
+  const [mode, setMode] = useState<PricingModes>('bugs')
+
+  const plansData = mode === 'bugs' ? bugsPlansData : testsPlansData
+
   return (
     <Section className={s.section}>
       <Container className={s.container} size="md">
         <div className={s['hero']}>
-          <TitleAndSubtitle
-            title={{
-              children: <>Pricing</>,
-              hero: true
-            }}
-            subtitle={{
-              className: s.subtitle,
-              children:
-                'Individuals and open source communities will always be able to use Replay for free.'
-            }}
-          />
-
-          <ul className={s.plans}>
+          <div className={s['heading']}>
+            <TitleAndSubtitle
+              title={{
+                children: <>Pricing</>,
+                hero: true
+              }}
+              subtitle={{
+                className: s.subtitle,
+                children:
+                  'Individuals and open source communities will always be able to use Replay for free.'
+              }}
+            />
+          </div>
+          <div className={s.toggle}>
+            <Toggle mode={mode} setMode={setMode} />
+          </div>
+          <ul className={clsx(s.plans)}>
             {plansData.map((item, i) => (
               <li key={i}>
                 <Card
