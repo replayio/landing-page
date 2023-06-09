@@ -65,6 +65,10 @@
           gap: 16px;
           min-width: 30%;
 
+          img {
+            border-radius: 999px;
+          }
+
           @include respond-to('tablet') {
             gap: 12px;
 
@@ -158,7 +162,8 @@
             }
 
             svg {
-              width: 80px;
+              height: 20px;
+              max-width: 140px;
             }
           }
         }
