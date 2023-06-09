@@ -137,6 +137,7 @@ export const Roadmap = () => {
       className={s.section}
     >
       <TitleAndSubtitle
+        className={s.titleAndSubtitle}
         title={{ children: 'The time travel  roadmap.', as: 'h2' }}
         subtitle={{
           children:

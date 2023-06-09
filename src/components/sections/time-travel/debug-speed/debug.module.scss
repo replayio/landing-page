@@ -12,8 +12,10 @@
   }
 
   .titleAndSubtitle {
+    margin-bottom: -80px;
     @include respond-to('tablet-lg') {
       padding: 0 var(--container-sides-space);
+      margin-bottom: 0;
     }
 
     .subtitle {
