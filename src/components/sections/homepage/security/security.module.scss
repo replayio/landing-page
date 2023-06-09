@@ -63,6 +63,7 @@
           line-height: 38px;
           letter-spacing: -0.02em;
           margin-bottom: 24px;
+          max-width: 380px;
 
           @include respond-to('tablet') {
             font-size: 18px;
@@ -136,46 +137,64 @@
           }
         }
 
-        .marquee {
-          margin-top: 28px;
+        .marqueeContainer {
+          position: absolute;
+          transform: translate(calc(50% - 100px), 0);
+          height: 100%;
+          width: 100%;
+          right: 0;
+          top: 0;
           mask-image: linear-gradient(
-            to left,
+            0deg,
             rgb(0 0 0 / 0) 0%,
-            var(--white),
+            var(--white) 10%,
+            var(--white) 90%,
             rgb(0 0 0 / 0) 100%
           );
+          margin-top: 0;
 
-          @include respond-to('tablet') {
-            margin-top: 0;
-            margin-bottom: 54px;
+          @include respond-to('tablet-lg') {
+            position: relative;
+            transform: unset;
+            mask-image: linear-gradient(
+              90deg,
+              rgb(0 0 0 / 0) 0%,
+              var(--white) 10%,
+              var(--white) 90%,
+              rgb(0 0 0 / 0) 100%
+            );
+            height: auto;
+            margin-top: 32px;
           }
 
-          .imageWrapper {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(
-              180deg,
-              rgb(0 0 0 / 0.7744) 0%,
-              rgb(0 0 0 / 0.2112) 100%
-            );
-            box-shadow: inset 0px 0px 2px rgb(125 125 125 / 0.25);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgb(31 41 55 / 0.6);
-            margin: 0 8px;
-            user-select: none;
+          .marquee {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            right: 0;
 
-            @include respond-to('tablet') {
+            .imageWrapper {
               width: 80px;
               height: 80px;
-            }
+              background: linear-gradient(
+                180deg,
+                rgb(0 0 0 / 0.7744) 0%,
+                rgb(0 0 0 / 0.2112) 100%
+              );
+              box-shadow: inset 0px 0px 2px rgb(125 125 125 / 0.25);
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 1px solid rgb(31 41 55 / 0.6);
+              margin: 0 8px;
+              user-select: none;
 
-            & svg {
-              width: 32px;
-              height: 32px;
-              color: var(--grey-400);
+              & svg {
+                width: 32px;
+                height: 32px;
+                color: var(--grey-400);
+              }
             }
           }
         }
