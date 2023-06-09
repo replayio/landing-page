@@ -70,34 +70,48 @@ export const Roadmap = () => {
           .to(progressBar, {
             height: `${38 + i * ITEM_HEIGHT}px`
           })
-          .from(
+          .fromTo(
             icon,
             {
-              delay: 15,
               scale: 0.25,
               background: '#4b5563'
             },
+            {
+              delay: 15,
+              scale: 1,
+              background: '#f41c52'
+            },
             '<'
           )
-          .from(
+          .fromTo(
             title,
             {
               color: '#9ca3af'
             },
+            {
+              color: '#FFFFFF'
+            },
             '<'
           )
-          .from(
+          .fromTo(
             [svg],
             {
               opacity: 0
             },
+            {
+              opacity: 1
+            },
             '<'
           )
-          .from(
+          .fromTo(
             [description, year],
             {
               yPercent: 20,
               opacity: 0
+            },
+            {
+              yPercent: 0,
+              opacity: 1
             },
             '<'
           )
