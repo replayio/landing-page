@@ -54,7 +54,7 @@ export const TextReveal = () => {
             duration: 20,
             rotateX: 15
           },
-          '<'
+          '<+10'
         )
         .to(
           bg,
