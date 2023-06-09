@@ -16,7 +16,7 @@
 
   .pin {
     top: 0;
-    height: 99vh;
+    height: 100vh;
     overflow: hidden;
     position: sticky;
     padding: calc(var(--header-height) * 2) var(--container-sides-space);
@@ -27,7 +27,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
     mask: linear-gradient(180deg, black 0%, black 92.5%, transparent);
 
     .item {
