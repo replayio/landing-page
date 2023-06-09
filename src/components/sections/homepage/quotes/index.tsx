@@ -226,7 +226,7 @@ const data: DataType[] = [
       </svg>
     ),
     cta: {
-      href: '/',
+      href: 'https://medium.com/replay-io/tablecheck-transforms-qa-dev-communication-to-support-thousands-of-restaurants-and-hotel-chains-df5d4a940c58',
       label: 'Read case study'
     }
   },
@@ -250,7 +250,7 @@ const data: DataType[] = [
       </svg>
     ),
     cta: {
-      href: '/',
+      href: 'https://medium.com/@pennepitstop/pantheon-solves-performance-bottlenecks-improving-load-time-by-5x-fed6f02e8106',
       label: 'Read case study'
     }
   }
