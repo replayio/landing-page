@@ -37,10 +37,44 @@
     position: sticky;
     top: 0;
     padding-top: calc(var(--header-height) + 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     @include respond-to('tablet') {
       position: relative;
       top: unset;
+    }
+
+    .announcement {
+      border-radius: var(--border-radius-full);
+      padding: 2px;
+      background: linear-gradient(126deg, #2f2124 0%, #251419 100%);
+      margin-bottom: 4px;
+
+      @include respond-to('tablet') {
+        margin-bottom: 16px;
+      }
+
+      .announcementInner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-pink-crayon);
+        padding: 8px 16px;
+        border-radius: var(--border-radius-full);
+        background: linear-gradient(116.04deg, #150509 35.23%, #1c0b0f 129.14%);
+
+        .announcementText {
+          font-size: 14px;
+          line-height: 18px;
+        }
+
+        .arrowIcon {
+          margin-left: 8px;
+        }
+      }
     }
 
     .highlight {
