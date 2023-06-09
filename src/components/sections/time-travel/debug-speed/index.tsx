@@ -203,6 +203,9 @@ export const DebugSpeed = () => {
 
     return () => {
       ctx?.kill()
+      gsap.set(texts, {
+        opacity: 1
+      })
     }
   }, [height, isTablet, offsetTop, sceneStatus])
 
@@ -265,7 +268,7 @@ const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
     >
       {isTablet && (
         <AssetCard show={inView}>
-          <AssetComponent active={inView} />
+          <AssetComponent active={inView} short />
         </AssetCard>
       )}
       {!isTablet && <Button className={s.sideTextIcon}>{icon}</Button>}
