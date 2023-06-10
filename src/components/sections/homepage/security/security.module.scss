@@ -104,6 +104,9 @@
           height: 100%;
           max-height: unset;
 
+          /* Same as child svg, this fixes this element width in firefox */
+          aspect-ratio: 148 / 305;
+
           @include respond-to('tablet-lg') {
             display: flex;
             align-items: center;

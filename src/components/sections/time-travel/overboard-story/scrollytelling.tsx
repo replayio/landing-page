@@ -382,7 +382,6 @@ export default function ReplayApplication() {
         }px bottom-=${applicationWindowSpaceBottom}px`,
         fastScrollEnd: true,
         id: 'overboard-story',
-        // markers: true,
         /* We are making our own spacer */
         pinSpacing: false,
         preventOverlaps: true,
