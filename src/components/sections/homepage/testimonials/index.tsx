@@ -80,31 +80,6 @@ const data: DataType[] = [
   {
     id: 0,
     quote:
-      '“If a picture is worth a thousand words, a replay is worth a thousand pictures”',
-    author: {
-      avatar: {
-        url: '/images/homepage/testimonials/zack-rosen.jpg'
-      },
-      name: 'Zack Rosen',
-      jobPosition: (
-        <p className={s.position}>
-          CEO,{' '}
-          <Image
-            alt="pantheon"
-            src="/images/homepage/testimonials/pantheon.png"
-            quality={100}
-            width={12}
-            height={12}
-            role="icon"
-          />
-          Pantheon
-        </p>
-      )
-    }
-  },
-  {
-    id: 1,
-    quote:
       '“I think Replay has a very good chance of creating a new category around collaborative debugging”',
     author: {
       avatar: {
@@ -129,19 +104,33 @@ const data: DataType[] = [
     }
   },
   {
-    id: 2,
-    quote: `“Imagine if you could retroactively insert logs and breakpoints to all bug reports. That's Replay”`,
+    id: 1,
+    quote:
+      '“If a picture is worth a thousand words, a replay is worth a thousand pictures”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/shawn.png'
+        url: '/images/homepage/testimonials/zack-rosen.jpg'
       },
-      name: 'Shawn Wang',
-      jobPosition: <p className={s.position}>Developer Advocate</p>
+      name: 'Zack Rosen',
+      jobPosition: (
+        <p className={s.position}>
+          CEO,{' '}
+          <Image
+            alt="pantheon"
+            src="/images/homepage/testimonials/pantheon.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Pantheon
+        </p>
+      )
     }
   },
 
   {
-    id: 3,
+    id: 2,
     quote:
       '“Replay.io is the most significant leap forward for debugging since we introduced the step debugger”',
     author: {
@@ -163,6 +152,18 @@ const data: DataType[] = [
           Stripe
         </p>
       )
+    }
+  },
+
+  {
+    id: 3,
+    quote: `“Imagine if you could retroactively insert logs and breakpoints to all bug reports. That's Replay”`,
+    author: {
+      avatar: {
+        url: '/images/homepage/testimonials/shawn.png'
+      },
+      name: 'Shawn Wang',
+      jobPosition: <p className={s.position}>Developer Advocate</p>
     }
   },
   {
@@ -218,31 +219,6 @@ const data: DataType[] = [
   {
     id: 6,
     quote:
-      '“Haven’t been blown away by a dev tool since… well, browser devtools. Incredible DX that makes debugging the gnarliest problems a breeze”',
-    author: {
-      avatar: {
-        url: '/images/homepage/testimonials/jacob.jpg'
-      },
-      name: 'Jacob Zhang',
-      jobPosition: (
-        <p className={s.position}>
-          Founder,{' '}
-          <Image
-            alt="Algodaily"
-            src="/images/homepage/testimonials/algodaily.png"
-            quality={100}
-            width={12}
-            height={12}
-            role="icon"
-          />
-          Algodaily
-        </p>
-      )
-    }
-  },
-  {
-    id: 7,
-    quote:
       '“Recording and debugging flaky tests with Replay.io feels like hopping in Doc Brown’s DeLorean and flying back to the time of the crash!”',
     author: {
       avatar: {
@@ -265,6 +241,32 @@ const data: DataType[] = [
       )
     }
   },
+  {
+    id: 7,
+    quote:
+      '“Haven’t been blown away by a dev tool since… well, browser devtools. Incredible DX that makes debugging the gnarliest problems a breeze”',
+    author: {
+      avatar: {
+        url: '/images/homepage/testimonials/jacob.jpg'
+      },
+      name: 'Jacob Zhang',
+      jobPosition: (
+        <p className={s.position}>
+          Founder,{' '}
+          <Image
+            alt="Algodaily"
+            src="/images/homepage/testimonials/algodaily.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Algodaily
+        </p>
+      )
+    }
+  },
+
   {
     id: 8,
     quote:

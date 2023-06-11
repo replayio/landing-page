@@ -217,11 +217,15 @@ export const DebugSpeed = () => {
       data-sitemap
       data-sitemap-icon="debugging"
       data-sitemap-short-title="Methodology"
-      data-sitemap-complete-title="Debug at the speed of thought"
+      data-sitemap-complete-title="Debug with instant logs"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Debug with instant console logs.', as: 'h2' }}
+        title={{ children: 'Debug with instant logs.', as: 'h2' }}
+        subtitle={{
+          children: `What would console logging from the future look like?`,
+          className: s.subtitle
+        }}
       />
       <div
         style={{ height: isTablet ? 'auto' : SCROLL_TRIGGER_DURATION }}

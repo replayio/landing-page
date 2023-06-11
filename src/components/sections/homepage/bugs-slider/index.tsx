@@ -123,7 +123,7 @@ export const BugsSlider = () => {
               [s['active'] as string]: currentSlide === 1
             })}
           />
-          Browser tests
+          Test suites
         </ButtonTimer>
       </div>
     </Section>
@@ -597,11 +597,12 @@ const data: DataType[] = [
     ),
     description: (
       <>
-        Want green test runs?{' '}
+        Want green test runs that finish quickly?{' '}
         <Link href="/" aria-label="Join our waitlist">
           Join our waitlist
         </Link>{' '}
-        and we will help you deflake your Cypress tests.
+        and we will help you start recording your browser tests in CI and fixing
+        your worst tests.
       </>
     ),
     Asset: AssetSideBrowser,

@@ -240,7 +240,7 @@ const data: DataType[] = [
       jobPosition: 'Front End Lead at Pantheon'
     },
     quote:
-      'The tools that we were using before were barely better than useless. You’d say thanks for the console log screenshot but I don’t know how to help you. So you’d spend 2–3 days trying to recreate the issues and finding it in the code. With Replay, all that wasted time has been eliminated. We are a way faster development team and we can actually scale.',
+      'The tools that we were using before were barely better than useless. You’d say thanks for the console log screenshot but I don’t know how to help you. So you’d spend 2–3 days trying to recreate the issues and finding it in the code. With Replay, all that wasted time has been eliminated.',
     companyLogo: (
       <svg viewBox="0 0 141 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
