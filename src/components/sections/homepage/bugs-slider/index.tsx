@@ -598,11 +598,16 @@ const data: DataType[] = [
     description: (
       <>
         Want green test runs that finish quickly?{' '}
-        <Link href="/" aria-label="Join our waitlist">
-          Join our waitlist
-        </Link>{' '}
-        and we will help you start recording your browser tests in CI and fixing
-        your worst tests.
+        <button
+          className={s.waitlist}
+          data-tf-popup="jTudlerL"
+          data-tf-iframe-props="title=Test Suites"
+          data-tf-medium="snippet"
+          aria-label="Learn more about Test Suites"
+        >
+          Join the waitlist
+        </button>{' '}
+        and start recording and fixing your worst browser tests.
       </>
     ),
     Asset: AssetSideBrowser,
