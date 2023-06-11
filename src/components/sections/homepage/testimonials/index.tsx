@@ -130,29 +130,16 @@ const data: DataType[] = [
   },
   {
     id: 2,
-    quote:
-      '“Before Replay.io, we spent somewhere between 1–2 hours per day per dev in this reproducibility purgatory”',
+    quote: `“Imagine if you could retroactively insert logs and breakpoints to all bug reports. That's Replay”`,
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/mark-probst.jpg'
+        url: '/images/homepage/testimonials/shawn.png'
       },
-      name: 'Mark Probst',
-      jobPosition: (
-        <p className={s.position}>
-          CTO,{' '}
-          <Image
-            alt="glide apps"
-            src="/images/homepage/testimonials/glide-apps.png"
-            quality={100}
-            width={12}
-            height={12}
-            role="icon"
-          />
-          Glide apps
-        </p>
-      )
+      name: 'Shawn Wang',
+      jobPosition: <p className={s.position}>Developer Advocate</p>
     }
   },
+
   {
     id: 3,
     quote:
