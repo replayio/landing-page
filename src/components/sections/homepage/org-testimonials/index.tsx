@@ -17,7 +17,7 @@ import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import s from './org-testimonials.module.scss'
 
 export const OrganizationTestimonials = () => {
-  const initialIdx = Math.floor(testimonials.length / 2)
+  const initialIdx = Math.floor(0)
 
   const [activeOrg, setActiveOrg] = useState(initialIdx)
   const [activeOrgTestimonial, setActiveOrgTestimonial] = useState(0)
@@ -206,20 +206,40 @@ const testimonials: {
   }[]
 }[] = [
   {
+    org: 'Next',
+    icon: <NextIcon />,
+    testimonials: [
+      {
+        name: 'Tim Neutkins',
+        title: 'Co-author of Next.js',
+        quote:
+          '“Next.js App Router is now stable in 13.4. Wouldn’t have been possible with Replay, we investigated so many (over 20) super complicated bugs that using traditional debugging would have cost us days to investigate.”',
+        image: '/images/homepage/testimonials/tim-neutkins.png'
+      },
+      {
+        name: 'JJ Kasper',
+        title: 'Next',
+        quote:
+          '“When I see a hard-to-reproduce issue in GitHub, I ask for a replay.”',
+        image: '/images/homepage/testimonials/jj-kasper.png'
+      }
+    ]
+  },
+  {
     org: 'React',
     icon: <ReactIcon />,
     testimonials: [
+      {
+        name: 'Sebastian Markbåge',
+        title: 'React Maintener',
+        quote: `“If I don't immediately know the answer to a bug, I immediately reach for replay.io. It's like HMR for repros.”`,
+        image: '/images/homepage/testimonials/sebastian.png'
+      },
       {
         name: 'Dan Abramov',
         title: 'React Maintener',
         quote: '“Replay.io is galaxy brain tooling. Real gamechanger”',
         image: '/images/homepage/testimonials/dan-abramov.png'
-      },
-      {
-        name: 'Sebastian Markbåge',
-        title: 'React',
-        quote: `“If I don't immediately know the answer to a bug, I immediately reach for replay.io. It's like HMR for repros.”`,
-        image: '/images/homepage/testimonials/sebastian.png'
       }
     ]
   },
@@ -285,18 +305,18 @@ const testimonials: {
     ),
     testimonials: [
       {
-        name: 'Alex Kotliarskyi',
-        title: 'Senior engineer at Replit',
-        quote:
-          '“Morning! Saved another 10 to 20 minutes finding a bug using Replay!”',
-        image: '/images/homepage/testimonials/alex.png'
-      },
-      {
         name: 'Amjad Masad',
         title: 'Founder Replit',
         quote:
           '"Programmers typically reach for debuggers when they run out of ideas on how to fix their code. Now coders reach for time-travel debugging to understand their programs and not just when they want fix a bug."',
         image: '/images/homepage/testimonials/amjad.png'
+      },
+      {
+        name: 'Alex Kotliarskyi',
+        title: 'Senior engineer at Replit',
+        quote:
+          '“Morning! Saved another 10 to 20 minutes finding a bug using Replay!”',
+        image: '/images/homepage/testimonials/alex.png'
       }
     ]
   },
@@ -310,25 +330,6 @@ const testimonials: {
         quote:
           '"Fast forwarding and rewinding to breakpoints has saved me days(weeks??) while hunting down issues in @solid_js interruptible concurrent rendering."',
         image: '/images/homepage/testimonials/ryan-carniato.png'
-      }
-    ]
-  },
-  {
-    org: 'Next',
-    icon: <NextIcon />,
-    testimonials: [
-      {
-        name: 'Tim Neutkins',
-        title: 'Co-author of Next.js',
-        quote: '“Time travel is saving us hours debugging Next.js App Router.”',
-        image: '/images/homepage/testimonials/tim-neutkins.png'
-      },
-      {
-        name: 'JJ Kasper',
-        title: 'Next',
-        quote:
-          '“When I see a hard-to-reproduce issue in GitHub, I ask for a replay.”',
-        image: '/images/homepage/testimonials/jj-kasper.png'
       }
     ]
   },
@@ -677,8 +678,15 @@ const testimonials: {
     ),
     testimonials: [
       {
+        name: 'Mateusz Burzyński',
+        title: 'Software Engineer at Stately.ai',
+        quote: `"Current status: time-travel debugging Typescript's compiler. Replay is the hero tool I don't deserve. My dev life consists of 2 major eras now - I call them pre-Replay and post-Replay."`,
+        image: '/images/homepage/testimonials/mateusz.png'
+      },
+
+      {
         name: 'Matt Pockock',
-        title: 'Lead developer at Stately',
+        title: 'Full-time TypeScript educator',
         quote: `“Replay.io is from another planet where bug reports save you time, instead of eating up hours of debugging.”`,
         image: '/images/homepage/testimonials/matt.png'
       }
@@ -750,7 +758,7 @@ const testimonials: {
     ),
     testimonials: [
       {
-        name: 'David K',
+        name: 'David Khourshid',
         title: 'Founder of Stately.ai',
         quote: `“Time travel is the obvious next step for the future of collaboratively inspecting and debugging applications.”`,
         image: '/images/homepage/testimonials/david.png'
@@ -760,72 +768,6 @@ const testimonials: {
         title: 'Software Engineer at Stately.ai',
         quote: `“What the fuck is this, is it the future? is it the past? is it now? don't care this is just freaking amazing!”`,
         image: '/images/homepage/testimonials/mateusz.png'
-      }
-    ]
-  },
-  {
-    org: 'Vercel',
-    icon: (
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clipPath="url(#clip0_4061_173506)">
-          <g filter="url(#filter0_d_4061_173506)">
-            <path d="M23.5 6L44 42H3L23.5 6Z" fill="white" />
-          </g>
-        </g>
-        <defs>
-          <filter
-            id="filter0_d_4061_173506"
-            x="-1"
-            y="2"
-            width="49"
-            height="44"
-            filterUnits="userSpaceOnUse"
-            colorInterpolationFilters="sRGB"
-          >
-            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-            <feColorMatrix
-              in="SourceAlpha"
-              type="matrix"
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-              result="hardAlpha"
-            />
-            <feOffset />
-            <feGaussianBlur stdDeviation="2" />
-            <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
-            <feBlend
-              mode="normal"
-              in2="BackgroundImageFix"
-              result="effect1_dropShadow_4061_173506"
-            />
-            <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="effect1_dropShadow_4061_173506"
-              result="shape"
-            />
-          </filter>
-          <clipPath id="clip0_4061_173506">
-            <rect width="48" height="48" fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
-    ),
-    testimonials: [
-      {
-        name: 'Guillermo Rauch',
-        title: 'Founder of Stately.ai',
-        quote: `“Time travel has a very good chance of creating a new category around collaborative debugging.”`,
-        image: '/images/homepage/testimonials/rauch-g.png'
       }
     ]
   },
@@ -915,75 +857,6 @@ const testimonials: {
         title: 'Author of Redux form and final form',
         quote: `"People use the word "game-changer" waaaaay too often. Very rarely does anything change the game. But holy 🤬, this just might! I'm sharing it to all of my teams, even reaching out to teams at previous employers to make them aware of this magic. Great work!"`,
         image: '/images/homepage/testimonials/erik.png'
-      }
-    ]
-  },
-  {
-    org: 'Temporal',
-    icon: (
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clipPath="url(#clip0_4061_173176)">
-          <g filter="url(#filter0_d_4061_173176)">
-            <path
-              d="M32.02 15.3985C30.9001 7.0065 28.0648 0 23.7092 0C19.3549 0 16.5196 7.00528 15.3985 15.3985C7.0065 16.5183 0 19.3537 0 23.7092C0 28.0636 7.0065 30.899 15.3985 32.02C16.5183 40.4108 19.3537 47.4186 23.7092 47.4186C28.0636 47.4186 30.899 40.412 32.02 32.02C40.412 30.899 47.4186 28.0648 47.4186 23.7092C47.4186 19.3537 40.4108 16.5183 32.02 15.3985ZM15.1256 29.5741C7.08778 28.413 2.40101 25.756 2.40101 23.7081C2.40101 21.6601 7.08899 19.0031 15.1256 17.842C14.9485 19.7771 14.8563 21.7523 14.8563 23.7081C14.8563 25.6638 14.9485 27.6414 15.1256 29.5741ZM23.7105 2.3998C25.7584 2.3998 28.4155 7.08778 29.5765 15.1243C27.6426 14.9472 25.6662 14.855 23.7105 14.855C21.7547 14.855 19.7784 14.9472 17.8444 15.1243C19.0055 7.08657 21.6625 2.3998 23.7105 2.3998ZM32.2941 29.5741C31.8987 29.6323 30.2754 29.8216 29.8652 29.8628C29.8252 30.2741 29.6336 31.8963 29.5765 32.2917C28.4155 40.3295 25.7584 45.0176 23.7105 45.0176C21.6625 45.0176 19.0055 40.3295 17.8444 32.2917C17.7874 31.8963 17.5957 30.273 17.5556 29.8628C17.3688 27.958 17.256 25.9113 17.256 23.7081C17.256 21.506 17.3688 19.4592 17.5556 17.5521C19.4605 17.3651 21.5072 17.2523 23.7105 17.2523C25.9125 17.2523 27.9592 17.3651 29.8652 17.5521C30.2765 17.5921 31.8987 17.7837 32.2941 17.8408C40.332 19.0018 45.0211 21.6601 45.0211 23.7068C45.02 25.7535 40.332 28.413 32.2941 29.5741Z"
-              fill="white"
-            />
-          </g>
-        </g>
-        <defs>
-          <filter
-            id="filter0_d_4061_173176"
-            x="-4"
-            y="-4"
-            width="55.4185"
-            height="55.4189"
-            filterUnits="userSpaceOnUse"
-            colorInterpolationFilters="sRGB"
-          >
-            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-            <feColorMatrix
-              in="SourceAlpha"
-              type="matrix"
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-              result="hardAlpha"
-            />
-            <feOffset />
-            <feGaussianBlur stdDeviation="2" />
-            <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
-            <feBlend
-              mode="normal"
-              in2="BackgroundImageFix"
-              result="effect1_dropShadow_4061_173176"
-            />
-            <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="effect1_dropShadow_4061_173176"
-              result="shape"
-            />
-          </filter>
-          <clipPath id="clip0_4061_173176">
-            <rect width="48" height="48" fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
-    ),
-    testimonials: [
-      {
-        name: 'Shawn Wang',
-        title: 'Head of DX at Temporal.io',
-        quote: `"Imagine if you could retroactively insert logs and breakpoints to all bug reports. That's Replay."`,
-        image: '/images/homepage/testimonials/shawn.png'
       }
     ]
   }
