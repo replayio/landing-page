@@ -69,6 +69,7 @@ const chunks: {
   mobilePanel?: PanelWrapper
   panels?: ColConfig[]
   title: string
+  shortTitle: string
   description: string
 }[] = [
   {
@@ -121,9 +122,10 @@ const chunks: {
         ]
       }
     ],
-    title: 'Next-Gen React DevTools',
+    title: 'Inspect React components',
+    shortTitle: 'React DevTools',
     description:
-      'Whether you’re using context, state, or effects, Replay gives you the tools to inspect your component and see why it rendered.'
+      'Whether you’re using context, state, or hooks, Replay gives you the tools to inspect your components and see why they rendered.'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -175,9 +177,10 @@ const chunks: {
         ]
       }
     ],
-    title: 'Instant console logs',
+    title: 'Retroactive console logs',
+    shortTitle: 'Console logs',
     description:
-      'We’ve obsessed over the perfect print statement loop where you can add an expression and see the logs immediately'
+      'Simply click on a line of code, type an expression, and see the logs in the Console.'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -242,9 +245,10 @@ const chunks: {
         ]
       }
     ],
-    title: 'De-flake Cypress test',
+    title: 'De-flake your tests',
+    shortTitle: 'Test panel',
     description:
-      'Start recording your cypress test in CI and never worry about reproducing failures locally in order to time travel thought your test steps and asserts.'
+      'With built-in support for Cypress and Playwright coming soon, you can jump to steps and into your application event handlers.'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -310,6 +314,7 @@ const chunks: {
       }
     ],
     title: 'Time travel to any point in time',
+    shortTitle: 'Time travel',
     description:
       'Experience the magic of time travel by jumping to any Console log, React onClick, Redux dispatch, and React setState.'
   },
@@ -364,8 +369,9 @@ const chunks: {
       }
     ],
     title: 'Powerful Browser DevTools',
+    shortTitle: 'DevTools',
     description:
-      'Inspect UI elements, Network events, Console logs, Call Stacks, and Scopes as if your application is running live.'
+      'Inspect UI elements, Network events, Console logs, Call Stacks, and Scopes at any point in time.'
   }
 ]
 
@@ -606,7 +612,9 @@ export const DeveloperTools = () => {
                       </div>
 
                       <span className={s['idx']}>{padZeroes(idx + 1, 2)}.</span>
-                      <h3 className={s['title']}>{chunk.title}</h3>
+                      <h3 className={s['title']}>
+                        {isActive ? chunk.title : chunk.shortTitle}
+                      </h3>
                     </button>
 
                     <div className={s['body']}>
