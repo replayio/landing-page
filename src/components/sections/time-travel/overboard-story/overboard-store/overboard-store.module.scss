@@ -43,7 +43,7 @@
     }
 
     .store-inner {
-      transform: translateY(23%);
+      // transform: translateY(23%);
 
       .button-wrapper,
       .color-picker {
@@ -106,8 +106,8 @@
       position: absolute;
       bottom: 0;
       left: 50%;
-      margin: 0 auto;
-      transform: translate(-50%, -50%);
+      margin: -12px auto;
+      transform: translate(-50%, 0%);
 
       .purchase {
         --glow: rgb(255 99 228 / 50%);
