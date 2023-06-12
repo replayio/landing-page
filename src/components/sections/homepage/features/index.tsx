@@ -251,7 +251,7 @@ const data: DataType[] = [
   {
     id: 'reporting-label',
     label: 'Reporting',
-    title: 'SOC Type II reporting',
+    title: 'SOC2 Type II reporting',
     description:
       'Replay.io continuously monitors and reports primarily using System and Organization Controls (SOC) 2 Type 2.',
     cta: {
