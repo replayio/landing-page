@@ -379,7 +379,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                         id="dev-tools-print-tutorial"
                         className={s['tutorial-popup']}
                       >
-                        <div className={s['sparkles']}>
+                        <div>
                           <svg
                             width="32"
                             height="32"
@@ -413,7 +413,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                             </defs>
                           </svg>
                         </div>
-                        <div>
+                        <div className={s['hits-container']}>
                           <p className={s['text']}>
                             Click to add a print statement
                           </p>
