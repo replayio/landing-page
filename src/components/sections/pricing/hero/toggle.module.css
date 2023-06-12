@@ -1,0 +1,28 @@
+
+.ToggleGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: all 0.2s ease;
+    background-color: var(--gradient-primary);
+}
+
+.ToggleGroupItem {
+
+}
+
+.ToggleGroup .ToggleGroupItem[data-state="on"] {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+}
