@@ -12,7 +12,7 @@ import styles from '~/components/sections/pricing/pricing.module.css'
 const Pricing = () => {
   const [selectedTab, setSelectedTab] = useState('testsuite')
 
-  const handleTabChange = (tabValue) => {
+  const handleTabChange = (tabValue: string) => {
     setSelectedTab(tabValue)
   }
 
