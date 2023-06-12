@@ -5,9 +5,9 @@ import { useDeviceDetect } from '~/hooks/use-device-detect'
 import s from './grid-3d.module.scss'
 
 const GridSvg = () => {
-  const { isDesktop, isSafari } = useDeviceDetect()
+  const { isDesktop, isChrome } = useDeviceDetect()
 
-  const loadHeavyFilters = isDesktop && !isSafari
+  const loadHeavyFilters = isDesktop && isChrome
 
   return (
     <svg

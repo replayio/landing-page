@@ -75,7 +75,7 @@ export const Hero = () => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: '60% top',
+        end: '500px top',
         scrub: true
       }
     })
