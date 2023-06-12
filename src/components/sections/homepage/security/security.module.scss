@@ -57,6 +57,11 @@
           justify-content: space-between;
         }
 
+        .content {
+          position: relative;
+          z-index: var(--z-index-10);
+        }
+
         .title {
           font-size: 24px;
           line-height: 38px;
