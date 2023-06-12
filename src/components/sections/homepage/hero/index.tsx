@@ -131,7 +131,7 @@ export const Hero = () => {
           <div className={s['ctas']}>
             <Video.Modal
               poster="/images/homepage/hero-video-placeholder.png"
-              url="https://stream.mux.com/j4HHD01eAGd01vFBPyQhfpWuDWSlXKsGep1o2dbDAlE2s.m3u8"
+              url="https://stream.mux.com/RfpT026NiAnQTWXP4BKsBBUHjFReABrAO01ltzQxmOVQE.m3u8"
             >
               <Video.Trigger asChild>
                 <Button mode="secondary" size="big" aria-label="Watch video">
