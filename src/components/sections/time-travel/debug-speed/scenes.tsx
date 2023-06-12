@@ -31,6 +31,7 @@ import s from './scenes.module.scss'
 
 export type SceneProps = {
   active: boolean
+  short?: boolean
   pauseTimeline?: () => void
   resumeTimeline?: () => void
   hoverTooltipComponent?: (text: string) => ReactNode
@@ -51,6 +52,7 @@ const printMarkers: ProgressProps['markers'] = [
 
 export const Scene1: FC<SceneProps> = ({
   active,
+  short = false,
   pauseTimeline,
   resumeTimeline,
   devtoolsProps
@@ -260,32 +262,34 @@ export const Scene1: FC<SceneProps> = ({
 
   return (
     <>
-      <AnimatedPanel>
-        <Code
-          {...events}
-          printPanelConfig={{
-            print: '"rotation", angle',
-            markers: printMarkers,
-            markerActiveColor: '#01ACFD',
-            currentHit: currentHit,
-            currentMarker: markersType,
-            onChangeMarker: updateMarkers,
-            onHit: setCurrentHit,
-            timelineType: 'justUi',
-            printLineTarget: 3
-          }}
-          printIndicators={{
-            1: 'not-available',
-            2: 'available',
-            3: 'available'
-          }}
-          code={`export function HoverBoard() {
+      {!short && (
+        <AnimatedPanel>
+          <Code
+            {...events}
+            printPanelConfig={{
+              print: '"rotation", angle',
+              markers: printMarkers,
+              markerActiveColor: '#01ACFD',
+              currentHit: currentHit,
+              currentMarker: markersType,
+              onChangeMarker: updateMarkers,
+              onHit: setCurrentHit,
+              timelineType: 'justUi',
+              printLineTarget: 3
+            }}
+            printIndicators={{
+              1: 'not-available',
+              2: 'available',
+              3: 'available'
+            }}
+            code={`export function HoverBoard() {
   const [pos, setPos] = useState({left: 0, right: 0})
   const [angle, setAngle] = useState(0)
 }`}
-          ref={codeRef}
-        />
-      </AnimatedPanel>
+            ref={codeRef}
+          />
+        </AnimatedPanel>
+      )}
 
       <AnimatedPanel>
         <DevTools
@@ -319,6 +323,7 @@ const storeState = {
 }
 
 export const Scene2: FC<SceneProps> = ({
+  short = false,
   active,
   pauseTimeline,
   resumeTimeline,
@@ -502,14 +507,16 @@ export const Scene2: FC<SceneProps> = ({
         />
       </AnimatedPanel>
 
-      <AnimatedPanel>
-        <OverboardStore
-          inspectMode="html"
-          mode="just-overboard"
-          ref={hoverboardRef}
-          className={s.overboard}
-        />
-      </AnimatedPanel>
+      {!short && (
+        <AnimatedPanel>
+          <OverboardStore
+            inspectMode="html"
+            mode="just-overboard"
+            ref={hoverboardRef}
+            className={s.overboard}
+          />
+        </AnimatedPanel>
+      )}
     </>
   )
 }
@@ -518,6 +525,7 @@ const initialColor = 'red'
 const initialRotation = 0
 
 export const Scene3: FC<SceneProps> = ({
+  short = false,
   active,
   pauseTimeline,
   resumeTimeline,
@@ -775,20 +783,21 @@ export const Scene3: FC<SceneProps> = ({
           className={s.devtools}
         />
       </AnimatedPanel>
-
-      <AnimatedPanel>
-        <div ref={storeRef}>
-          <OverboardStore
-            inspectMode="react"
-            overboardColor={overboardColor}
-            onOverboardColorChange={setOverboardColor}
-            mode="color-picker"
-            className={s.overboard}
-            ref={overboardRef}
-            colorPicker
-          />
-        </div>
-      </AnimatedPanel>
+      {!short && (
+        <AnimatedPanel>
+          <div ref={storeRef}>
+            <OverboardStore
+              inspectMode="react"
+              overboardColor={overboardColor}
+              onOverboardColorChange={setOverboardColor}
+              mode="color-picker"
+              className={s.overboard}
+              ref={overboardRef}
+              colorPicker
+            />
+          </div>
+        </AnimatedPanel>
+      )}
     </>
   )
 }
