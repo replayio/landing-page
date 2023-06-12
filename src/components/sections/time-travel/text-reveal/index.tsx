@@ -96,7 +96,7 @@ export const TextReveal = () => {
         <div ref={containerRef} className={s['textContainer']}>
           <h4 ref={textRef} className={s['text']}>
             Time travel debugging changes the way we see and understand our
-            software and collaborate with our team.
+            software and collaborate with our teams.
           </h4>
         </div>
       </div>
