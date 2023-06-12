@@ -1,9 +1,8 @@
-import clsx from 'clsx'
-import Image from 'next/image'
-
-import { ButtonLink } from '~/components/primitives/button'
-import { useDeviceDetect } from '~/hooks/use-device-detect'
-import { useHasRendered } from '~/hooks/use-has-rendered'
+import AppleIcon from '~/components/icons/apple'
+import { LinuxIcon } from '~/components/icons/linux'
+import { WindowsIcon } from '~/components/icons/windows'
+import { ButtonLink, ButtonLinkProps } from '~/components/primitives/cta'
+import { NavLink, NavLinkProps } from '~/components/primitives/nav-link'
 import { isServer } from '~/lib/constants'
 
 import s from './download-button.module.scss'
@@ -11,17 +10,17 @@ import s from './download-button.module.scss'
 const availablePlatforms = {
   windows: {
     label: 'Windows',
-    imageSource: '/images/logos/windows.svg',
+    icon: WindowsIcon,
     downloadSource: '/downloads/windows-replay.zip'
   },
   mac: {
     label: 'Mac',
-    imageSource: '/images/logos/apple.svg',
+    icon: AppleIcon,
     downloadSource: '/downloads/replay.dmg'
   },
   linux: {
     label: 'Linux',
-    imageSource: '/images/logos/linux.svg',
+    icon: LinuxIcon,
     downloadSource: '/downloads/linux-replay.tar.bz2'
   }
 }
@@ -39,46 +38,39 @@ const getPlatform = () => {
   )
 }
 
-export function DownloadButton({
-  title = 'Record your first replay',
-  variant = 'primary'
-}: {
-  title?: string
-  variant?: 'primary' | 'tertiary-inverted' | 'tertiary'
-}) {
-  const rendered = useHasRendered()
+export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({
+  children,
+  ...rest
+}) => {
   const platform = availablePlatforms[getPlatform()]
-
-  const { isDesktop } = useDeviceDetect()
-
-  if (!isDesktop || !rendered) {
-    return <></>
-  }
+  const PlatformIcon = platform.icon
 
   return (
-    <div
-      className={clsx(s['cta'], {
-        [s['visible'] as string]: rendered
-      })}
+    <ButtonLink
+      {...rest}
+      href={platform.downloadSource}
+      target="_blank"
+      download
     >
-      <ButtonLink
-        href={platform.downloadSource}
-        target="_blank"
-        variant={variant}
-        download
-      >
-        {title}{' '}
-        <Image
-          width={20}
-          height={20}
-          alt={platform.label}
-          src={platform.imageSource}
-          style={{
-            marginLeft: 8,
-            filter: variant === 'primary' ? 'invert(100%)' : undefined
-          }}
-        />
-      </ButtonLink>
-    </div>
+      {children}
+
+      <PlatformIcon className={s['platform']} />
+    </ButtonLink>
+  )
+}
+
+export const DownloadLink: React.FC<Partial<NavLinkProps>> = ({
+  children,
+  ...rest
+}) => {
+  const platform = availablePlatforms[getPlatform()]
+  const PlatformIcon = platform.icon
+
+  return (
+    <NavLink {...rest} href={platform.downloadSource} target="_blank" download>
+      {children}
+
+      <PlatformIcon className={s['platform']} />
+    </NavLink>
   )
 }

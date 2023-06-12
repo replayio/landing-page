@@ -53,7 +53,7 @@
 
   @include respond-to('tablet') {
     padding: 24px 0;
-    height: 360px;
+    height: 430px;
   }
 
   .organizations-wrapper {
@@ -175,8 +175,12 @@
     background: #111827;
     border-radius: 20px;
     padding: 16px;
-    max-width: 400px;
+    max-width: 680px;
     margin: auto 0;
+
+    @include respond-to('tablet') {
+      max-width: 400px;
+    }
   }
 
   .author {

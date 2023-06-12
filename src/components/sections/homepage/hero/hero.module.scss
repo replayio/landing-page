@@ -57,6 +57,12 @@
         margin-bottom: 16px;
       }
 
+      &:hover {
+        .arrowIcon {
+          transform: translateX(2px);
+        }
+      }
+
       .announcementInner {
         display: flex;
         align-items: center;
@@ -72,6 +78,7 @@
         }
 
         .arrowIcon {
+          transition: transform var(--duration-moderate) var(--ease-out-soft);
           margin-left: 8px;
         }
       }

@@ -79,35 +79,36 @@ type DataType = {
 const data: DataType[] = [
   {
     id: 0,
-    quote: '"Replay.io is galaxy brain tooling. Real gamechanger."',
+    quote:
+      '“If a picture is worth a thousand words, a replay is worth a thousand pictures”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/zack-rosen.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Zack Rosen',
       jobPosition: (
         <p className={s.position}>
           CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          <Image
+            alt="pantheon"
+            src="/images/homepage/testimonials/pantheon.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Pantheon
         </p>
       )
     }
   },
   {
     id: 1,
-    quote: '"Replay.io is galaxy brain tooling. Real gamechanger."',
+    quote:
+      '“I think Replay has a very good chance of creating a new category around collaborative debugging”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/guillermo-rauch.jpg'
       },
       name: 'Guillermo Rauch',
       jobPosition: (
@@ -130,25 +131,24 @@ const data: DataType[] = [
   {
     id: 2,
     quote:
-      '“I think Replay has a very good chance of creating a new category around collaborative debugging”',
+      '“Before Replay.io, we spent somewhere between 1–2 hours per day per dev in this reproducibility purgatory”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/mark-probst.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Mark Probst',
       jobPosition: (
         <p className={s.position}>
-          CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          CTO,{' '}
+          <Image
+            alt="glide apps"
+            src="/images/homepage/testimonials/glide-apps.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Glide apps
         </p>
       )
     }
@@ -156,25 +156,24 @@ const data: DataType[] = [
   {
     id: 3,
     quote:
-      '“Replay.io is the obvious next step for the future of collaborative debugging applications...”',
+      '“Replay.io is the most significant leap forward for debugging since we introduced the step debugger”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/kenneth.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Kenneth Auchenberg',
       jobPosition: (
         <p className={s.position}>
-          CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          Developer Products,{' '}
+          <Image
+            alt="Stripe"
+            src="/images/homepage/testimonials/stripe.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Stripe
         </p>
       )
     }
@@ -182,25 +181,24 @@ const data: DataType[] = [
   {
     id: 4,
     quote:
-      '"Awesome to see time-travel debugging in such a usable, intuitive form!". "Awesome to see time-travel debugging in such a usable, intuitive form!"',
+      '“Replay.io is one of these experiences that first feels like magic – but after squashing your first bugs with it, you will quickly wonder how you ever worked without it”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/harald.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Harald Kirschner',
       jobPosition: (
         <p className={s.position}>
-          CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          Product Manager,{' '}
+          <Image
+            alt="vscode"
+            src="/images/homepage/testimonials/vs-code.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          VS Code
         </p>
       )
     }
@@ -208,25 +206,24 @@ const data: DataType[] = [
   {
     id: 5,
     quote:
-      '"Replay first feels like magic, but you quickly wonder how you ever worked without it."',
+      '“With Replay.io, we no longer need to drop everything to fix the issue because we have the replay so the bug is reproduced forever.”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/simeon.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Simeon Cheeseman',
       jobPosition: (
         <p className={s.position}>
-          CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          Principal Engineer,{' '}
+          <Image
+            alt="tablecheck"
+            src="/images/homepage/testimonials/tablecheck.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Tablecheck
         </p>
       )
     }
@@ -234,25 +231,24 @@ const data: DataType[] = [
   {
     id: 6,
     quote:
-      '“Replay.io is the obvious next step for the future of collaborative debugging applications...”',
+      '“Haven’t been blown away by a dev tool since… well, browser devtools. Incredible DX that makes debugging the gnarliest problems a breeze”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/jacob.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Jacob Zhang',
       jobPosition: (
         <p className={s.position}>
-          CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          Founder,{' '}
+          <Image
+            alt="Algodaily"
+            src="/images/homepage/testimonials/algodaily.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Algodaily
         </p>
       )
     }
@@ -260,25 +256,24 @@ const data: DataType[] = [
   {
     id: 7,
     quote:
-      '“Awesome to see time-travel debugging in such a usable, intuitive form!”',
+      '“Recording and debugging flaky tests with Replay.io feels like hopping in Doc Brown’s DeLorean and flying back to the time of the crash!”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/gleb.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Gleb Bahmutov',
       jobPosition: (
         <p className={s.position}>
-          CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          Distinguished Engineer,{' '}
+          <Image
+            alt="cypress"
+            src="/images/homepage/testimonials/cypress.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Cypress
         </p>
       )
     }
@@ -286,25 +281,24 @@ const data: DataType[] = [
   {
     id: 8,
     quote:
-      "What the fuck is this, is it the future? Is it the past? Is it now? Don't care this is just freaking amazing!'",
+      "“Replay.io is a huge improvement in state-of-the-art debugging that's easy to use. It's worth your time to get familiar with it ASAP.”",
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/guillermo-rauch.png'
+        url: '/images/homepage/testimonials/tim-haines.jpg'
       },
-      name: 'Guillermo Rauch',
+      name: 'Tim Haines',
       jobPosition: (
         <p className={s.position}>
-          CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="6" cy="6.5" r="6" fill="#000" />
-            <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
-          </svg>
-          Vercel
+          Founder,{' '}
+          <Image
+            alt="Percy"
+            src="/images/homepage/testimonials/percy.png"
+            quality={100}
+            width={12}
+            height={12}
+            role="icon"
+          />
+          Percy
         </p>
       )
     }

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
+import { DownloadButton } from '~/components/common/download-button'
 import Video from '~/components/common/video-modal'
 import { IconsLibrary } from '~/components/icons'
 import { Container } from '~/components/layout/container'
@@ -75,7 +76,7 @@ export const Hero = () => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: '60% top',
+        end: '500px top',
         scrub: true
       }
     })
@@ -131,7 +132,7 @@ export const Hero = () => {
           <div className={s['ctas']}>
             <Video.Modal
               poster="/images/homepage/hero-video-placeholder.png"
-              url="https://stream.mux.com/j4HHD01eAGd01vFBPyQhfpWuDWSlXKsGep1o2dbDAlE2s.m3u8"
+              url="https://stream.mux.com/RfpT026NiAnQTWXP4BKsBBUHjFReABrAO01ltzQxmOVQE.m3u8"
             >
               <Video.Trigger asChild>
                 <Button mode="secondary" size="big" aria-label="Watch video">
@@ -139,9 +140,9 @@ export const Hero = () => {
                 </Button>
               </Video.Trigger>
             </Video.Modal>
-            <Button mode="primary" size="big" aria-label="Get started">
+            <DownloadButton mode="primary" size="big" aria-label="Get started">
               Get started
-            </Button>
+            </DownloadButton>
           </div>
         </Container>
       </div>

@@ -3,11 +3,14 @@
 .section {
   position: relative;
   margin-top: 72px;
+  margin-bottom: -120px;
+
+  @include respond-to('tablet') {
+    margin-bottom: 0;
+  }
 }
 
 .pin {
-  top: 0;
-  position: sticky;
   height: 100vh;
   width: 100%;
 }
