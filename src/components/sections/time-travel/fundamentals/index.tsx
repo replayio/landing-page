@@ -70,7 +70,7 @@ export const Fundamentals = () => {
       data-sitemap
       data-sitemap-icon="fundamentals"
       data-sitemap-short-title="Fundamentals"
-      data-sitemap-complete-title="Fundamentals of time travel"
+      data-sitemap-complete-title="Features of time travel"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}

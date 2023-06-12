@@ -6,13 +6,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: clip;
+
+  .titleAndSubtitle {
+    margin-bottom: -80px;
+    @include respond-to('tablet-lg') {
+      padding: 0 var(--container-sides-space);
+      margin-bottom: -48px;
+    }
+  }
 
   .pin {
     top: 0;
     height: 100vh;
+    overflow: hidden;
     position: sticky;
     padding: calc(var(--header-height) * 2) var(--container-sides-space);
-    overflow: hidden;
   }
 
   .container {
@@ -20,7 +29,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
     mask: linear-gradient(180deg, black 0%, black 92.5%, transparent);
 
     .item {

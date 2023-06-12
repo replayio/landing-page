@@ -1,8 +1,6 @@
 @import 'css/variables';
 
 .section {
-  margin-top: 60px;
-
   .container {
     padding: 0;
     max-width: 1208px;
@@ -81,7 +79,7 @@
     display: grid;
     gap: 16px;
     grid-template-columns: repeat(4, 1fr);
-    margin-top: 64px;
+    margin-top: 12px;
 
     &__mobile {
       display: none;
@@ -103,7 +101,7 @@
       display: unset;
 
       .slider {
-        margin-top: 64px;
+        margin-top: 12px;
         height: 100%;
 
         .slide {
