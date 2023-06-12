@@ -3,8 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+import { DownloadLink } from '~/components/common/download-button'
 import { ButtonLink } from '~/components/primitives/cta'
-import { NavLink } from '~/components/primitives/nav-link'
 import { useAppStore } from '~/context/use-app-store'
 import { useToggleState } from '~/hooks/use-toggle-state'
 import { SITEMAP } from '~/lib/sitemap'
@@ -98,9 +98,9 @@ export const Header = () => {
             <MobileMenu burgerClassName={s['burgerButton']} {...toggle} />
 
             <div className={s['ctas']}>
-              <NavLink href="/" aria-label="Get started" invertedHover>
+              <DownloadLink href="/" aria-label="Get started" invertedHover>
                 Get started
-              </NavLink>
+              </DownloadLink>
               <ButtonLink
                 size="big"
                 href={SITEMAP.login.href || '/'}

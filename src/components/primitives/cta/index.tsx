@@ -84,8 +84,8 @@ export const Button = forwardRef(
   ButtonProps & JSX.IntrinsicElements['button']
 >
 
-type ButtonLinkProps = ButtonProps &
-  Omit<JSX.IntrinsicElements['a'], 'href'> &
+export type ButtonLinkProps = ButtonProps &
+  Omit<JSX.IntrinsicElements['a'], 'href' | 'ref'> &
   NextLinkProps & { notExternal?: boolean }
 
 export const ButtonLink = forwardRef<'a', ButtonLinkProps>(

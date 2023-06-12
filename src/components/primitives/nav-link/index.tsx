@@ -6,16 +6,16 @@ import { IconNames, IconsLibrary } from '~/components/icons'
 
 import s from './nav-link.module.scss'
 
-type Props = {
+export type NavLinkProps = {
   active?: boolean
   invertedHover?: boolean
   disabled?: boolean
   iconPrefix?: IconNames
   iconSuffix?: IconNames
 } & LinkProps &
-  JSX.IntrinsicElements['a']
+  Omit<JSX.IntrinsicElements['a'], 'ref'>
 
-export const NavLink = forwardRef<HTMLAnchorElement, Props>(
+export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
   ({ active, invertedHover = false, iconPrefix, iconSuffix, ...rest }, ref) => {
     return (
       <Link
