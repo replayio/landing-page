@@ -1,0 +1,35 @@
+.title {
+  margin-top: 2rem;
+}
+
+.tabs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+.tabList {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tab {
+  padding: 0.25em 0.75em;
+  flex-grow: 1;
+  text-align: center;
+  background-color: #fff;
+  color: #111;
+  transition: background-color 0.2s;
+}
+
+.tab:hover {
+  background-color: var(--color-white);
+}
+
+.tab[data-state='active'] {
+  background-color: var(--color-pink-crayon);
+  color: var(--color-white);
+}
