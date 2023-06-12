@@ -180,9 +180,6 @@ export const MobileMenu = ({
             </ul>
 
             <div className={s.bottomCtasWrapper}>
-              <ButtonLink size="big" mode="secondary" href="/" aria-label="">
-                Get started
-              </ButtonLink>
               <ButtonLink
                 size="big"
                 href={SITEMAP.login.href || '/'}

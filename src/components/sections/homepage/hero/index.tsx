@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
+import { DownloadButton } from '~/components/common/download-button'
 import Video from '~/components/common/video-modal'
 import { IconsLibrary } from '~/components/icons'
 import { Container } from '~/components/layout/container'
@@ -139,9 +140,9 @@ export const Hero = () => {
                 </Button>
               </Video.Trigger>
             </Video.Modal>
-            <Button mode="primary" size="big" aria-label="Get started">
+            <DownloadButton mode="primary" size="big" aria-label="Get started">
               Get started
-            </Button>
+            </DownloadButton>
           </div>
         </Container>
       </div>

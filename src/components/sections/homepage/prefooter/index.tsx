@@ -24,7 +24,7 @@ const Grid3D = dynamic(
 
 import dynamic, { LoaderComponent } from 'next/dynamic'
 
-import { Button } from '~/components/primitives/cta'
+import { DownloadButton } from '~/components/common/download-button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 
 import s from './prefooter.module.scss'
@@ -122,9 +122,9 @@ const Prefooter = () => {
           </Title>
 
           <div className={s['cta']} ref={ctaRef}>
-            <Button mode="primary" size="big" aria-label="Start now">
+            <DownloadButton mode="primary" size="big" aria-label="Start now">
               Start now
-            </Button>
+            </DownloadButton>
           </div>
         </div>
       </div>
