@@ -42,7 +42,7 @@ const Pricing = () => {
             Bug Reporting
           </TabsPrimitive.Trigger>
           <TabsPrimitive.Trigger value="tests" className={styles.tab}>
-            Testsuites
+            Test Suites
           </TabsPrimitive.Trigger>
         </TabsPrimitive.List>
       </TabsPrimitive.Root>

@@ -1,3 +1,4 @@
+import { PopupButton } from '@typeform/embed-react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { FC, useEffect, useRef, useState } from 'react'
@@ -378,16 +379,14 @@ export const Plans: FC<{ selectedTab: string }> = ({ selectedTab }) => {
                     {plan.cta}
                   </ButtonLink>
                 ) : (
-                  <Button
-                    className={s.cta}
-                    data-tf-popup="jTudlerL"
-                    data-tf-iframe-props="title=Test Suites"
-                    data-tf-medium="snippet"
-                    aria-label="Learn more about Test Suites"
-                    variant="tertiary-inverted-alt"
-                  >
-                    {plan.cta}
-                  </Button>
+                  <PopupButton id="jTudlerL" className={s.cta}>
+                    <Button
+                      variant="tertiary-inverted-alt"
+                      aria-label="Learn more about Test Suites"
+                    >
+                      {plan.cta}
+                    </Button>
+                  </PopupButton>
                 )}{' '}
               </div>
               <div>
