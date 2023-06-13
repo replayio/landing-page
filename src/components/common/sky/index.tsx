@@ -100,7 +100,7 @@ export const Sky = ({
   useEffect(() => {
     const t = setTimeout(() => {
       setRender(true)
-    }, 300)
+    }, 500)
 
     return () => {
       clearTimeout(t)
