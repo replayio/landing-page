@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { OnRenderFadeIn } from '~/components/common/on-render-fade-in'
@@ -6,6 +7,7 @@ import { Container } from '~/components/layout/container'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 import { useHasRendered } from '~/hooks/use-has-rendered'
 import { useViewportSize } from '~/hooks/use-viewport-size'
+import scrollytellingMobileImg from '~/public/images/time-travel/fundamentals/time-travel-hero-mobile.png'
 
 import { Code } from './code'
 import { Debugger } from './debugger'
@@ -36,26 +38,12 @@ export function OverboardStory() {
         if (rendered && (isDesktop == false || !canFitScrollytelling)) {
           return (
             <OnRenderFadeIn>
-              {(animationEnded: boolean) => {
-                return (
-                  <AspectBox
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}
-                    ratio={1593 / 1080}
-                  >
-                    <video
-                      style={{ borderRadius: 12, zIndex: 10 }}
-                      muted
-                      playsInline
-                      src={animationEnded ? '/video/hero-video.mp4' : undefined}
-                      controls
-                      poster="/video/hero-video-thumbnail.png"
-                    />
-                  </AspectBox>
-                )
-              }}
+              <Image
+                src={scrollytellingMobileImg}
+                quality={100}
+                priority
+                alt="timetraveling screenshot"
+              />
             </OnRenderFadeIn>
           )
         }
