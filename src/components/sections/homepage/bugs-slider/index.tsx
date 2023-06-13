@@ -571,7 +571,7 @@ const data: DataType[] = [
       <>
         Want to get replays from your CEO?
         <br />
-        <Link href="/" aria-label="Create a team">
+        <Link href="https://app.replay.io/team/new" aria-label="Create a team">
           Create a team
         </Link>{' '}
         and start a free 30 day trial.
@@ -579,7 +579,7 @@ const data: DataType[] = [
     ),
     Asset: AssetSideBugs,
     cta: {
-      href: '/',
+      href: 'https://docs.replay.io/bug-reports',
       label: 'Bug reports'
     },
     videoPoster:
@@ -612,7 +612,7 @@ const data: DataType[] = [
     ),
     Asset: AssetSideBrowser,
     cta: {
-      href: '/',
+      href: 'https://docs.replay.io/test-suites',
       label: 'Test suites'
     },
     videoPoster:
