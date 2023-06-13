@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useState } from 'react'
 
 import gridPng from '~/public/images/homepage/grid.png'
 
@@ -25,24 +25,18 @@ const Grid = () => {
   )
 }
 
-export const Grid3D = forwardRef<HTMLDivElement, { onMount?: () => void }>(
-  ({ onMount }, ref) => {
-    useEffect(() => {
-      onMount?.()
-    }, [onMount])
-
-    return (
-      /* Gives perspective */
-      <div className={s['container']}>
-        {/* Gives rotation */}
-        <div className={s['rotate']}>
-          {/* Gives y displace control */}
-          <div className={s['y-group-control']} ref={ref}>
-            <Grid />
-            <Grid />
-          </div>
+export const Grid3D = forwardRef<HTMLDivElement, unknown>((_, ref) => {
+  return (
+    /* Gives perspective */
+    <div className={s['container']}>
+      {/* Gives rotation */}
+      <div className={s['rotate']}>
+        {/* Gives y displace control */}
+        <div className={s['y-group-control']} ref={ref}>
+          <Grid />
+          <Grid />
         </div>
       </div>
-    )
-  }
-)
+    </div>
+  )
+})
