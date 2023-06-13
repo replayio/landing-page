@@ -174,8 +174,7 @@ export const testsuitePlans: Plan[] = [
   {
     type: 'Free',
     icon: individual,
-    description:
-      'Designed for side projects where it is nice to have a few end-to-end projects that run on PRs.',
+    description: 'For side projects with a few end-to-end tests',
     cta: 'Get in touch',
     content: [
       {
@@ -195,21 +194,20 @@ export const testsuitePlans: Plan[] = [
     type: 'Starter',
     icon: team,
     description:
-      'Designed for small teams with less than 50 end-to-end tests which run on PRs several times a day.',
+      'For small teams with fewer than 50 end-to-end tests running in CI',
     cta: 'Get in touch',
     content: [
       {
         title: 'Fast start times',
         description:
-          'The primary difference between the free and starter tier is the number of recordings which will be processed and start faster.'
+          'Everything in the free tier but faster and with more recordings.'
       }
     ]
   },
   {
     type: 'Pro',
     icon: organization,
-    description:
-      'Designed for mature teams with between 20-200 tests that are run in CI. ',
+    description: 'For mature teams with between 20-200 tests running in CI',
     cta: 'Get in touch',
     content: [
       {
@@ -218,12 +216,10 @@ export const testsuitePlans: Plan[] = [
         description: (
           <div>
             <p>
-              Pro plans are able to decide which recordings are uploaded and
-              processed based on commit and merge strategies.
-            </p>
-            <p>
-              This is most useful once you have a large suite and want to more
-              control over which recordings start quickly.
+              Decide which recordings are uploaded and processed based on commit
+              and merge strategies. This is most useful once you have a large
+              suite and want to more control over which recordings start
+              quickly.
             </p>
           </div>
         )
@@ -234,24 +230,24 @@ export const testsuitePlans: Plan[] = [
     type: 'Enterprise',
     icon: enterprise,
     description:
-      'Designed for side projects where it is nice to have a few end-to-end projects that run on PRs.',
+      'For large engineering teams looking to manage their test suite at scale.',
     cta: 'Email Us',
     link: 'mailto:sales@replay.io',
     content: [
       {
         title: 'Custom Upload + Processing Strategies',
         description:
-          'Enterprise plans are able to design their own upload + processing strategies. This is only necessary for the largest test suites + teams that run hundreds of thousands of tests a day.'
+          'Design your own upload + processing strategies. This is only necessary for the largest test suites + teams that run hundreds of thousands of tests a day.'
       },
       {
         title: 'Bring your own storage',
         description:
-          'Enterprise plans are able to store their recordings in the storage provider of their choice (typically S3). This is most useful for access controls, but can also be helpful for additional cost controls.'
+          'Store your recordings in the storage provider of their choice (typically S3). This is most useful for access controls, but can also be helpful for additional cost controls.'
       },
       {
         title: 'Integrations into your own dashboard',
         description:
-          'Enterprise plans are able to use our GraphQL apis to integrate Replay.io recording metadata into their in house dashboards.'
+          'Use Replay’s GraphQL APIs to integrate Replay.io recording metadata into their in house dashboards.'
       }
     ]
   }
