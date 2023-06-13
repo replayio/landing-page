@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { ColaborationIcon } from '~/components/icons/colaboration'
@@ -157,26 +156,22 @@ const Item = ({
   const linkRef = useRef<HTMLAnchorElement>(null)
   const completeTitleRef = useRef<HTMLDivElement>(null)
   const shortTitleRef = useRef<HTMLDivElement>(null)
-  const { asPath } = useRouter()
-  const activeByUrl: boolean = asPath === `/#${id}`
-  const isActive = activeByUrl || active
 
+  // set initial css vars
   useEffect(() => {
     linkRef.current?.style.setProperty(
       '--closed',
       shortTitleRef.current?.getBoundingClientRect().width + 'px'
     )
 
-    if (isActive) {
-      linkRef.current?.style.setProperty(
-        '--open',
-        Number(shortTitleRef.current?.getBoundingClientRect().width) +
-          Number(completeTitleRef.current?.getBoundingClientRect().width) +
-          12 +
-          'px'
-      )
-    }
-  }, [isActive])
+    linkRef.current?.style.setProperty(
+      '--open',
+      Number(shortTitleRef.current?.getBoundingClientRect().width) +
+        Number(completeTitleRef.current?.getBoundingClientRect().width) +
+        12 +
+        'px'
+    )
+  }, [])
 
   const renderIcon = useCallback(() => {
     switch (icon) {
