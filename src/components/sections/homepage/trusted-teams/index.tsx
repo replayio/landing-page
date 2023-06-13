@@ -166,7 +166,7 @@ type HighlightedType = {
 const highlighted: HighlightedType[] = [
   {
     id: 0,
-    href: 'https://www.glideapps.com/',
+    href: 'https://medium.com/replay-io/glide-saves-40-hours-weekly-by-eliminating-the-reproducibility-problem-8a06e6330263',
     title: (
       <svg
         width="72"
@@ -194,7 +194,7 @@ const highlighted: HighlightedType[] = [
   },
   {
     id: 1,
-    href: 'https://www.tablecheck.com/',
+    href: 'https://medium.com/replay-io/tablecheck-transforms-qa-dev-communication-to-support-thousands-of-restaurants-and-hotel-chains-df5d4a940c58',
     title: (
       <svg
         width="158"
@@ -228,7 +228,7 @@ const highlighted: HighlightedType[] = [
   },
   {
     id: 2,
-    href: 'https://pantheon.io/',
+    href: 'https://medium.com/@pennepitstop/pantheon-solves-performance-bottlenecks-improving-load-time-by-5x-fed6f02e8106',
     title: (
       <svg
         width="140"
