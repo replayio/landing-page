@@ -21,6 +21,7 @@ const Grid = () => {
         opacity: loaded ? 1 : 0,
         transition: 'opacity .3s ease-in'
       }}
+      draggable={false}
     />
   )
 }
