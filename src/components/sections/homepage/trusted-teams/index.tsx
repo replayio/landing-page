@@ -166,7 +166,7 @@ type HighlightedType = {
 const highlighted: HighlightedType[] = [
   {
     id: 0,
-    href: '/',
+    href: 'https://www.glideapps.com/',
     title: (
       <svg
         width="72"
@@ -194,7 +194,7 @@ const highlighted: HighlightedType[] = [
   },
   {
     id: 1,
-    href: '/',
+    href: 'https://www.tablecheck.com/',
     title: (
       <svg
         width="158"
@@ -228,7 +228,7 @@ const highlighted: HighlightedType[] = [
   },
   {
     id: 2,
-    href: '/',
+    href: 'https://pantheon.io/',
     title: (
       <svg
         width="140"
