@@ -71,6 +71,7 @@ const chunks: {
   title: string
   shortTitle: string
   description: string
+  link: string
 }[] = [
   {
     mobilePanel: ({ className, ...props }) => (
@@ -125,7 +126,8 @@ const chunks: {
     title: 'Inspect React components',
     shortTitle: 'React DevTools',
     description:
-      'Whether you’re using context, state, or hooks, Replay gives you the tools to inspect your components and see why they rendered.'
+      'Whether you’re using context, state, or hooks, Replay gives you the tools to inspect your components and see why they rendered.',
+    link: 'https://docs.replay.io/reference-guide/react'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -180,7 +182,8 @@ const chunks: {
     title: 'Retroactive console logs',
     shortTitle: 'Console logs',
     description:
-      'Adding console logs is as simple as clicking on a line of code and adding an expression.'
+      'Adding console logs is as simple as clicking on a line of code and adding an expression.',
+    link: 'https://docs.replay.io/reference-guide/print-statements'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -248,7 +251,8 @@ const chunks: {
     title: 'De-flake your tests',
     shortTitle: 'Test panel',
     description:
-      'With built-in support for Cypress and Playwright coming soon, you can jump to steps and into your application event handlers.'
+      'With built-in support for Cypress and Playwright coming soon, you can jump to steps and into your application event handlers.',
+    link: 'https://docs.replay.io/reference-guide/cypress-panel'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -316,7 +320,8 @@ const chunks: {
     title: 'Time travel to any point',
     shortTitle: 'Time travel',
     description:
-      'When you start jumping to Console logs, React events, and Redux actions, you become a time traveler.'
+      'When you start jumping to Console logs, React events, and Redux actions, you become a time traveler.',
+    link: 'https://docs.replay.io/reference-guide/events#b1a0e7f432f5426888b80e9b00e7b226'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -371,7 +376,8 @@ const chunks: {
     title: 'Powerful Browser DevTools',
     shortTitle: 'DevTools',
     description:
-      'Inspect UI elements, Network events, Console logs, Call Stacks, and Scopes at any point in time.'
+      'Inspect UI elements, Network events, Console logs, Call Stacks, and Scopes at any point in time.',
+    link: 'https://docs.replay.io/reference-guide'
   }
 ]
 
@@ -628,7 +634,7 @@ export const DeveloperTools = () => {
                       <p className={s['description']}>{chunk.description}</p>
                       <NavLink
                         invertedHover
-                        href="/"
+                        href={chunk.link}
                         aria-label=""
                         className={s['learn-more']}
                         tabIndex={activeChunk === idx ? undefined : -1}
