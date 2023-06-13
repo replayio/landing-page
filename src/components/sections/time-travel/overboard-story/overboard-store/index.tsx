@@ -108,7 +108,7 @@ export const OverboardStore = memo(
           >
             <div className={s['underlay']}>
               <div className={s['layer']}>
-                <Sky withAsteroids={false} count={30} />
+                <Sky withAsteroids={false} count={20} />
               </div>
               <div className={s['layer']}>
                 <AnimatedGrid ref={gridRef} />
