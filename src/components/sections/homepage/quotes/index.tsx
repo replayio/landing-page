@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Image from 'next/image'
 import { ReactNode, useState } from 'react'
 
 import { Container } from '~/components/layout/container'
@@ -23,12 +24,13 @@ export const Quotes = () => {
             {isTablet && <MainCta selectedQuote={selectedQuote as DataType} />}
 
             <div className={s.author} style={{ height: 56 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={String(selectedQuote?.author.avatar.url)}
                 alt={`${selectedQuote?.author.name}'s avatar`}
                 width={56}
                 height={56}
+                loading="eager"
+                quality={100}
               />
               <div>
                 <p className={s.name}>{selectedQuote?.author.name}</p>
