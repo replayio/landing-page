@@ -1,3 +1,4 @@
+import { PopupButton } from '@typeform/embed-react'
 import clsx from 'clsx'
 import { FC } from 'react'
 
@@ -52,16 +53,14 @@ export const Card: FC<Props> = ({ mode, data }) => {
           {data.cta}
         </ButtonLink>
       ) : (
-        <Button
-          variant={data.type === 'Pro' ? 'tertiary' : 'primary'}
-          className={s.cta}
-          data-tf-popup="jTudlerL"
-          data-tf-iframe-props="title=Test Suites"
-          data-tf-medium="snippet"
-          aria-label="Learn more about Test Suites"
-        >
-          {data.cta}
-        </Button>
+        <PopupButton id="jTudlerL" className={s.cta}>
+          <Button
+            variant={data.type === 'Pro' ? 'tertiary' : 'primary'}
+            aria-label="Learn more about Test Suites"
+          >
+            {data.cta}
+          </Button>
+        </PopupButton>
       )}
 
       <ul>
