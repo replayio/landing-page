@@ -61,7 +61,7 @@ export const Hero = () => {
             }}
             subtitle={{
               className: s.subtitle,
-              children: `Time travel enables entirely new debugging experiences such as instant console logs.`
+              children: `Time travel lets you inspect your application and evaluate Console logs as if it is running live.`
             }}
           />
         </Container>
