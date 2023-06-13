@@ -65,9 +65,11 @@
 
         @include respond-to('min-tablet-lg') {
           transform: scale(0.95);
+          filter: blur(5px);
 
           &.active {
             transform: scale(1);
+            filter: blur(0px);
           }
         }
 
