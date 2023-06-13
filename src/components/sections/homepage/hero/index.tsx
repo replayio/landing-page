@@ -3,7 +3,7 @@ import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { DownloadButton } from '~/components/common/download-button'
@@ -96,10 +96,11 @@ export const Hero = () => {
     <Section id="homepage-hero" className={s['section']} ref={sectionRef}>
       <div className={s['bg-container']}>
         <div className={s['child']}>
-          {/* @ts-ignore */}
           <Sky />
         </div>
-        <GridWithFadeIn />
+        <div className={clsx(s['child'], s['grid'])}>
+          <Grid3D />
+        </div>
       </div>
       <div className={s['first']} ref={firstRef}>
         <Link passHref href="" className={s['announcement']}>
@@ -219,22 +220,5 @@ export const Hero = () => {
         </Container>
       </div>
     </Section>
-  )
-}
-
-const GridWithFadeIn = () => {
-  const [isGridMounted, setGridIsMounted] = useState(false)
-
-  return (
-    <div
-      className={clsx(s['child'], s['grid'])}
-      style={{
-        opacity: isGridMounted ? 1 : 0,
-        transition: 'opacity .3s ease-in'
-      }}
-    >
-      {/* @ts-ignore */}
-      <Grid3D onMount={() => setGridIsMounted(true)} />
-    </div>
   )
 }
