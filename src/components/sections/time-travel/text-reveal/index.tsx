@@ -1,4 +1,3 @@
-import dynamic, { LoaderComponent } from 'next/dynamic'
 import React, { useRef } from 'react'
 
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
@@ -7,18 +6,11 @@ import { gsap, SplitText } from '~/lib/gsap'
 
 import s from './text-reveal.module.scss'
 
-const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
-  {
-    ssr: false
-  }
-)
 export const TextReveal = () => {
   const { height } = useViewportSize()
   const textRef = useRef<HTMLHeadingElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const backgroundRef = useRef<HTMLDivElement>(null)
   const spacerRef = useRef<HTMLDivElement>(null)
 
   const tl = useRef<GSAPTimeline>()
@@ -26,9 +18,10 @@ export const TextReveal = () => {
   useIsomorphicLayoutEffect(() => {
     const txt = textRef.current
     const section = sectionRef.current
-    const bg = backgroundRef.current
     const pin = spacerRef.current
-    if (!txt || !section || !bg || !pin) return
+
+    if (!txt || !section || !pin) return
+
     const words = new SplitText(txt, {
       type: 'words'
     })
@@ -43,11 +36,17 @@ export const TextReveal = () => {
             scrub: true
           }
         })
-        .from(words.words, {
-          duration: 2,
-          opacity: 0.2,
-          stagger: 1.5
-        })
+        .fromTo(
+          words.words,
+          {
+            opacity: 0.2
+          },
+          {
+            duration: 2,
+            opacity: 1,
+            stagger: 1.5
+          }
+        )
         .to(
           txt,
           {
@@ -55,14 +54,6 @@ export const TextReveal = () => {
             rotateX: 15
           },
           '<+10'
-        )
-        .to(
-          bg,
-          {
-            duration: 20,
-            autoAlpha: 0
-          },
-          '<'
         )
         .to(
           txt,
@@ -80,6 +71,7 @@ export const TextReveal = () => {
       ctx.kill()
     }
   }, [height])
+
   return (
     <div
       ref={spacerRef}
@@ -89,10 +81,6 @@ export const TextReveal = () => {
       }}
     >
       <div ref={sectionRef} className={s['section']}>
-        <div ref={backgroundRef} className={s['bg-container']}>
-          <Sky />
-          <span className={s['groundLight']} />
-        </div>
         <div ref={containerRef} className={s['textContainer']}>
           <h4 ref={textRef} className={s['text']}>
             More fundamentally, time travel changes the way we see our software

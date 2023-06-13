@@ -1,8 +1,10 @@
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import mergeRefs from 'react-merge-refs'
 
-import { useViewportSize } from '~/hooks/use-viewport-size'
+import { useMeasure } from '~/hooks/use-measure'
+import { isClient } from '~/lib/constants'
 
 import s from './sky.module.scss'
 
@@ -22,15 +24,53 @@ type SkyElement =
 
 export const Sky = ({
   withGradient = true,
-  count = 40,
+  /* per 100px of height */
+  count = 5,
   withAsteroids = true
 }) => {
-  const { width: viewportWidth, height: viewportHeight } = useViewportSize()
   const skyRef = useRef<HTMLDivElement>(null)
+  const [measureRef, bounds] = useMeasure()
   const [render, setRender] = useState(false)
 
+  const generated = useMemo(() => {
+    if (!isClient) return null
+
+    const starCount = Math.round(count * (bounds.height / 100))
+
+    const gen: SkyElement[] = [...Array(starCount)].map((_) => {
+      const isAsteroid = withAsteroids ? gsap.utils.random(0, 1) > 0.95 : false // 5% chance of being an asteroid
+
+      if (isAsteroid) {
+        const x1 = gsap.utils.random(-1, 1)
+        const x2 = gsap.utils.random(
+          ...(x1 < 0
+            ? ([0, 1] as [number, number])
+            : ([-1, 0] as [number, number]))
+        )
+
+        return {
+          type: 'asteroid',
+          x1,
+          x2
+        }
+      }
+
+      const isSmall = gsap.utils.random(0, 1) > 0.6 // 40% chance of being small
+
+      return {
+        type: 'star',
+        x: gsap.utils.random(-1, 1),
+        y: gsap.utils.random(-1, 1),
+        delayFactor: gsap.utils.random(0, 1),
+        isSmall
+      }
+    })
+
+    return gen
+  }, [count, withAsteroids, bounds.height])
+
   useEffect(() => {
-    if (!skyRef.current || !render) return
+    if (!skyRef.current || !render || generated === null) return
 
     const asteroids = skyRef.current.querySelectorAll(
       `.${s['asteroid-wrapper']}`
@@ -61,40 +101,7 @@ export const Sky = ({
     return () => {
       tl.kill()
     }
-  }, [render])
-
-  const generated = useMemo(() => {
-    const gen: SkyElement[] = [...Array(count)].map((_) => {
-      const isAsteroid = withAsteroids ? gsap.utils.random(0, 1) > 0.95 : false // 5% chance of being an asteroid
-
-      if (isAsteroid) {
-        const x1 = gsap.utils.random(-1, 1)
-        const x2 = gsap.utils.random(
-          ...(x1 < 0
-            ? ([0, 1] as [number, number])
-            : ([-1, 0] as [number, number]))
-        )
-
-        return {
-          type: 'asteroid',
-          x1,
-          x2
-        }
-      }
-
-      const isSmall = gsap.utils.random(0, 1) > 0.6 // 40% chance of being small
-
-      return {
-        type: 'star',
-        x: gsap.utils.random(-1, 1),
-        y: gsap.utils.random(-1, 1),
-        delayFactor: gsap.utils.random(0, 1),
-        isSmall
-      }
-    })
-
-    return gen
-  }, [count, withAsteroids])
+  }, [render, generated])
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -113,12 +120,12 @@ export const Sky = ({
       className={clsx(s['sky'], {
         [s['with-gradient'] as string]: withGradient
       })}
-      ref={skyRef}
+      ref={mergeRefs([skyRef, measureRef])}
     >
-      {generated.map((g, i) => {
+      {generated?.map((g, i) => {
         if (g.type === 'asteroid') {
-          const vpw = viewportWidth || window.innerWidth
-          const vph = viewportHeight || window.innerHeight
+          const vpw = bounds.width
+          const vph = bounds.height
           const hvpw = vpw / 2
           const x1px = hvpw + g.x1 * hvpw
           const x2px = hvpw + g.x2 * hvpw
