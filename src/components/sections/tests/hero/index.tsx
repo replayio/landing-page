@@ -157,7 +157,6 @@ export const Hero: FC = () => {
             <div className={s['cta']}>
               <Button
                 variant="primary"
-                // href="/"
                 data-tf-popup="qO3e6G6N"
                 data-tf-iframe-props="title=Test Suites"
                 data-tf-medium="snippet"
@@ -172,7 +171,6 @@ export const Hero: FC = () => {
                 {' '}
                 View Docs
               </ButtonLink>
-              {/* <Typeform /> */}
             </div>
           </div>
         </div>

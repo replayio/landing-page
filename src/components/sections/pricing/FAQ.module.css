@@ -30,7 +30,12 @@
 }
 
 .accordionContent {
-  padding-left: 48px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.accordionContent p {
+  margin-top: 16px;
 }
 
 .accordionButtonActive {
