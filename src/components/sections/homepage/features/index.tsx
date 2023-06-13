@@ -139,7 +139,7 @@ export const Features = () => {
                     src={item.asset.url}
                     width={40}
                     height={40}
-                    alt={item.title}
+                    alt={item.label}
                   />
                   <div>
                     <p className={s.title}>{item.title}</p>
@@ -236,8 +236,8 @@ const Arrows = ({
 type DataType = {
   id: string
   label: string
-  title: string
-  description: string
+  title: React.ReactNode
+  description: React.ReactNode
   cta: {
     label: string
     href: string
@@ -252,8 +252,12 @@ const data: DataType[] = [
     id: 'reporting-label',
     label: 'Reporting',
     title: 'SOC2 Type II reporting',
-    description:
-      'Replay.io continuously monitors and reports primarily using System and Organization Controls (SOC) 2 Type 2.',
+    description: (
+      <>
+        Replay.io continuously monitors and reports primarily using System and
+        Organization Controls (SOC) 2 Type&nbsp;2.
+      </>
+    ),
     cta: {
       label: 'Learn more',
       href: '/'
@@ -265,7 +269,7 @@ const data: DataType[] = [
   {
     id: 'encryptions-label',
     label: 'Encryptions',
-    title: 'Encryption in transit and at rest',
+    title: <>Encryption in transit and at&nbsp;rest</>,
     description:
       'Replay.io databases and their client communications are AES encrypted throughout the PlanetScale platform.',
     cta: {

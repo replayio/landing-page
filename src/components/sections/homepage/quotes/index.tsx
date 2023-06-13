@@ -23,12 +23,13 @@ export const Quotes = () => {
           <div className={s.top}>
             {isTablet && <MainCta selectedQuote={selectedQuote as DataType} />}
 
-            <div className={s.author}>
+            <div className={s.author} style={{ height: 56 }}>
               <Image
                 src={String(selectedQuote?.author.avatar.url)}
                 alt={`${selectedQuote?.author.name}'s avatar`}
                 width={56}
                 height={56}
+                loading="eager"
                 quality={100}
               />
               <div>
