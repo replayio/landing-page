@@ -66,17 +66,17 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: '/',
+              href: 'https://medium.com/replay-io/glide-saves-40-hours-weekly-by-eliminating-the-reproducibility-problem-8a06e6330263',
               label: 'Application builder'
             },
             {
               id: 1,
-              href: '/',
+              href: 'https://medium.com/@pennepitstop/pantheon-solves-performance-bottlenecks-improving-load-time-by-5x-fed6f02e8106',
               label: 'Hyper growth'
             },
             {
               id: 2,
-              href: '/',
+              href: 'https://medium.com/replay-io/tablecheck-transforms-qa-dev-communication-to-support-thousands-of-restaurants-and-hotel-chains-df5d4a940c58',
               label: 'E-Commerce'
             }
           ]
@@ -87,17 +87,17 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: '/',
+              href: 'https://docs.replay.io/case-studies-and-comparisons/replay-vs.-session-replay',
               label: 'Session Replay'
             },
             {
               id: 1,
-              href: '/',
+              href: 'https://docs.replay.io/case-studies-and-comparisons/replay-vs.-chrome-recorder',
               label: 'Crash Reporting'
             },
             {
               id: 2,
-              href: '/',
+              href: 'https://docs.replay.io/case-studies-and-comparisons/replay-vs.-loom',
               label: 'Screen Recorders'
             }
           ]
@@ -130,7 +130,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: '/',
+              href: 'https://docs.replay.io/recording-a-web-app/recording-a-replay',
               label: 'Record a replay',
               icon: (
                 <svg
@@ -149,7 +149,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 1,
-              href: '/',
+              href: 'https://docs.replay.io/recording-a-web-app/sharing-your-replay',
               label: 'Share a replay',
               icon: (
                 <svg
@@ -169,7 +169,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 2,
-              href: '/',
+              href: 'https://docs.replay.io/recording-a-web-app/viewing-and-collaborating',
               label: 'Collaborate on a replay',
               icon: (
                 <svg
@@ -190,7 +190,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 3,
-              href: '/',
+              href: 'https://docs.replay.io/recording-browser-tests-(beta)',
               label: 'Debug a replay',
               icon: (
                 <svg
@@ -236,7 +236,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: '/',
+              href: 'https://docs.replay.io/recording-browser-tests-(beta)/cypress-instructions',
               label: 'Record Cypress tests',
               icon: (
                 <svg
@@ -255,7 +255,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 1,
-              href: '/',
+              href: 'https://docs.replay.io/recording-browser-tests-(beta)/pull-request-comments',
               label: 'Add GitHub Comments',
               icon: (
                 <svg
@@ -275,7 +275,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 2,
-              href: '/',
+              href: 'https://docs.replay.io/recording-browser-tests-(beta)/test-suite-dashboard',
               label: 'Test Suite Insights',
               icon: (
                 <svg
@@ -295,7 +295,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 3,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/cypress-panel',
               label: 'Debug with Cypress Panel',
               icon: (
                 <svg
@@ -328,27 +328,27 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: '/',
+              href: 'https://docs.replay.io/resources-and-examples',
               label: 'Resources'
             },
             {
               id: 1,
-              href: '/',
+              href: 'https://docs.replay.io/resources-and-examples#7375c6180b8848f48be37c4bf1026007',
               label: 'Examples'
             },
             {
               id: 2,
-              href: '/',
+              href: 'https://docs.replay.io/case-studies-and-comparisons',
               label: 'Case studies'
             },
             {
               id: 3,
-              href: '/',
+              href: 'https://docs.replay.io/case-studies-and-comparisons#ff284e483831445ba1a6928c24afc2b5',
               label: 'Comparisons'
             },
             {
               id: 4,
-              href: '/',
+              href: 'https://docs.replay.io/contribute',
               label: 'Contribute'
             }
           ]
@@ -385,7 +385,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/console',
               label: 'Console',
               icon: (
                 <svg
@@ -405,7 +405,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 1,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/print-statements',
               label: 'Print statements',
               icon: (
                 <svg
@@ -425,7 +425,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 2,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/react',
               label: 'React DevTools',
               icon: (
                 <svg
@@ -450,7 +450,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 3,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/elements',
               label: 'Elements Panel',
               icon: (
                 <svg
@@ -470,7 +470,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 4,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/breakpoints',
               label: 'JS Debugger',
               icon: (
                 <svg
@@ -488,7 +488,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 5,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/events',
               label: 'Events Timeline',
               icon: (
                 <svg
@@ -508,7 +508,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 6,
-              href: '/',
+              href: 'https://docs.replay.io/reference-guide/network',
               label: 'Network Monitor',
               icon: (
                 <svg
@@ -523,31 +523,6 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                </svg>
-              )
-            },
-            {
-              id: 7,
-              href: '/',
-              label: 'Redux DevTools',
-              icon: (
-                <svg
-                  width="12"
-                  height="12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clipPath="url(#a)">
-                    <path
-                      d="M8.31699 8.252c.435-.0375.7715-.42.75-.877-.0235-.457-.398-.824-.8545-.824h-.0305a.85502.85502 0 0 0-.824.8845c.015.2395.113.4345.247.5765-.524 1.019-1.3105 1.768-2.5025 2.3975-.8015.419-1.648.577-2.472.465-.689-.0975-1.228-.405-1.558-.8995-.494-.7495-.539-1.558-.1275-2.367.3-.585.7495-1.0115 1.0495-1.2215a4.98063 4.98063 0 0 1-.21-.7715c-2.2185 1.589-1.9925 3.761-1.3185 4.7875.502.749 1.5285 1.228 2.652 1.228.3 0 .615-.022.9215-.097 1.9485-.3745 3.424-1.543 4.2705-3.266l.007-.0155ZM10.991 6.379C9.83099 5.015 8.12199 4.266 6.17399 4.266h-.255c-.1265-.277-.4185-.4495-.749-.4495h-.0225c-.4715 0-.839.405-.8235.8765.015.449.397.824.854.824h.037a.84498.84498 0 0 0 .7495-.5245h.2775c1.1545 0 2.2475.337 3.244.996C10.2495 6.491 10.797 7.15 11.1045 7.937c.269.644.2545 1.2735-.0225 1.7985-.4275.8235-1.14701 1.2585-2.09801 1.2585-.5995 0-1.1835-.1875-1.4835-.322-.18.149-.48.3965-.697.5465.659.299 1.326.4715 1.97.4715 1.46101 0 2.54701-.8235 2.95951-1.618.449-.899.412-2.412-.735-3.708l-.007.015ZM3.24499 8.521c.015.4495.3965.824.854.824h.03a.84401.84401 0 0 0 .824-.884c0-.45-.3895-.8235-.8465-.8235h-.03c-.03 0-.075 0-.113.0145-.6215-1.049-.884-2.1735-.786-3.386.06-.914.36-1.7085.8985-2.3675.45-.562 1.2965-.84 1.8735-.854 1.618-.0305 2.2925 1.9855 2.3445 2.787l.749.225c-.1725-2.458-1.7-3.7465-3.161-3.7465-1.372 0-2.637.9965-3.147 2.4575-.6965 1.9475-.2395 3.821.615 5.3195-.075.0975-.12.2695-.105.434Z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="a">
-                      <path fill="#fff" d="M0 0h12v12H0z" />
-                    </clipPath>
-                  </defs>
                 </svg>
               )
             }
@@ -571,27 +546,27 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: 'https://discord.gg/',
+              href: 'https://www.replay.io/discord',
               label: 'Discord'
             },
             {
               id: 1,
-              href: 'https://github.com/',
+              href: 'https://github.com/replayio',
               label: 'GitHub'
             },
             {
               id: 2,
-              href: 'https://twitter.com/',
+              href: 'https://twitter.com/replayio',
               label: 'Twitter'
             },
             {
               id: 3,
-              href: 'https://linkedin.com/',
+              href: 'https://www.linkedin.com/company/replayio/',
               label: 'Linkedin'
             },
             {
               id: 4,
-              href: 'https://gmail.com/',
+              href: 'mailto:hey@replay.io',
               label: 'Email'
             }
           ]
@@ -617,7 +592,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: '/',
+              href: '/about#embedded-values',
               label: 'Mission + Values',
               icon: (
                 <svg
@@ -637,7 +612,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 1,
-              href: '/',
+              href: '/about#jobs',
               label: 'Open roles',
               icon: (
                 <svg
@@ -657,7 +632,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 2,
-              href: '/',
+              href: '/about#about-team',
               label: 'Our team',
               icon: (
                 <svg
@@ -677,7 +652,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 3,
-              href: '/',
+              href: 'https://docs.replay.io/get-help',
               label: 'Support',
               icon: (
                 <svg
@@ -697,7 +672,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 4,
-              href: '/',
+              href: 'https://blog.replay.io/',
               label: 'Blog',
               icon: (
                 <svg
@@ -717,7 +692,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 5,
-              href: '/',
+              href: 'https://blog.replay.io/',
               label: 'Changelog',
               icon: (
                 <svg
@@ -737,7 +712,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 6,
-              href: '/',
+              href: 'https://docs.replay.io/case-studies-and-comparisons',
               label: 'Case Studies',
               icon: (
                 <svg
@@ -748,26 +723,6 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
                 >
                   <path
                     d="M9.75 7.125V5.8125A1.6875 1.6875 0 0 0 8.0625 4.125h-.75a.5625.5625 0 0 1-.5625-.5625v-.75A1.68748 1.68748 0 0 0 5.0625 1.125H4.125m2.6155 6.7405L7.5 8.625m-.7595-.7595a1.31239 1.31239 0 0 0 .28459-.42573A1.31248 1.31248 0 0 0 5.8125 5.625a1.3125 1.3125 0 1 0 .50227 2.52509 1.31239 1.31239 0 0 0 .42573-.28459ZM5.25 1.125H2.8125c-.3105 0-.5625.252-.5625.5625v8.25c0 .3105.252.5625.5625.5625h6.375c.3105 0 .5625-.252.5625-.5625V5.625a4.50002 4.50002 0 0 0-4.5-4.5Z"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              )
-            },
-            {
-              id: 7,
-              href: '/',
-              label: 'Replay Stories',
-              icon: (
-                <svg
-                  width="12"
-                  height="12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.591 7.591A2.2501 2.2501 0 0 1 6 8.25002 2.25004 2.25004 0 0 1 4.409 7.591M10.5 6a4.50086 4.50086 0 0 1-.3425 1.72208 4.50087 4.50087 0 0 1-.97552 1.4599 4.50087 4.50087 0 0 1-1.4599.97552A4.50086 4.50086 0 0 1 6 10.5a4.50086 4.50086 0 0 1-1.72208-.3425 4.50087 4.50087 0 0 1-1.4599-.97552 4.50012 4.50012 0 0 1-.97548-1.4599 4.50002 4.50002 0 0 1 7.33944-4.90406A4.49997 4.49997 0 0 1 10.5 6ZM4.875 4.875c0 .207-.084.375-.1875.375S4.5 5.082 4.5 4.875s.084-.375.1875-.375.1875.168.1875.375Zm-.1875 0h.004v.0075h-.004V4.875Zm2.8125 0c0 .207-.084.375-.1875.375s-.1875-.168-.1875-.375.084-.375.1875-.375.1875.168.1875.375Zm-.1875 0h.004v.0075h-.004V4.875Z"
                     stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -793,39 +748,39 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     label: 'About Us'
   },
   hiring: {
-    href: '/about',
+    href: '/about#jobs',
     label: 'We’re Hiring'
   },
   values: {
-    href: '/about',
+    href: '/about#embedded-values',
     label: 'Values'
   },
   docs: {
-    href: '/',
+    href: 'https://docs.replay.io/',
     label: 'Docs'
   },
   githubIssues: {
-    href: '/',
+    href: 'https://github.com/replayio',
     label: 'GitHub Issues'
   },
   contactUs: {
-    href: '/',
+    href: 'hey@replay.io',
     label: 'Contact us'
   },
   privacyPolicy: {
-    href: '/',
+    href: '/privacy-policy',
     label: 'Privacy Policy'
   },
   termsService: {
-    href: '/',
+    href: '/terms-of-service',
     label: 'Terms of Service'
   },
   blog: {
-    href: '/',
+    href: 'https://blog.replay.io/',
     label: 'Blog'
   },
   securityPrivacy: {
-    href: '/',
+    href: '/security-and-privacy',
     label: 'Security & Privacy'
   }
 }
