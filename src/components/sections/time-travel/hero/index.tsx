@@ -49,7 +49,12 @@ export const Hero = () => {
             }}
             subtitle={{
               className: s.subtitle,
-              children: `Time travel lets you inspect your application and evaluate Console logs as if it is running live.`
+              children: (
+                <>
+                  Time travel lets you inspect your application and evaluate
+                  Console logs as if it is&nbsp;running&nbsp;live.
+                </>
+              )
             }}
           />
         </Container>
