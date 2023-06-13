@@ -4,7 +4,12 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  height: 39px;
+  height: 40px;
+  overflow: unset;
+
+  @include respond-to('tablet-lg') {
+    overflow: scroll hidden;
+  }
 
   .activeBar {
     position: absolute;
@@ -16,6 +21,10 @@
     transition-property: left, width;
     transition-duration: var(--duration-normal);
     transition-timing-function: var(--ease-1);
+
+    @include respond-to('tablet-lg') {
+      bottom: 0px;
+    }
   }
 
   .labelsWrapper {
@@ -31,6 +40,7 @@
       height: 100%;
       display: flex;
       padding-top: 4px;
+      white-space: nowrap;
 
       &:first-child {
         padding-right: 16px;
