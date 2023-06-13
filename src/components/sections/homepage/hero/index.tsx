@@ -199,6 +199,7 @@ export const Hero = () => {
             <Image
               src={heroImage}
               quality={100}
+              loading="eager"
               priority
               alt="Replay dashboard"
             />

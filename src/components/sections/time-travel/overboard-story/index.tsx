@@ -41,8 +41,9 @@ export function OverboardStory() {
               <Image
                 src={scrollytellingMobileImg}
                 quality={100}
+                loading="eager"
                 priority
-                alt="timetraveling screenshot"
+                alt="timetraveling dashboard"
               />
             </OnRenderFadeIn>
           )
