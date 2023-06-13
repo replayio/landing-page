@@ -25,7 +25,7 @@ export const Team: FC = () => {
   }
 
   return (
-    <Section className={s.section}>
+    <Section id="about-team" className={s.section}>
       <Container className={s.container}>
         <div className={s.heading}>
           <TitleAndSubtitle
