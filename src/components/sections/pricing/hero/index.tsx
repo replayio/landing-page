@@ -26,10 +26,10 @@ const bugreportingPlans = [
     type: 'Team',
     price: 20,
     mode: 'per month / per developer',
-    cta: 'Get in touch',
+    cta: 'Create team',
     link: 'https://app.replay.io/team/new',
     features: [
-      '1000 recordings per month',
+      '200 recordings per month',
       'Up to 10 users + developers',
       'Source map uploads',
       'Record automated tests'
@@ -42,7 +42,7 @@ const bugreportingPlans = [
     cta: 'Create Organization',
     link: 'https://app.replay.io/org/new',
     features: [
-      '10,000 recordings per month',
+      '1,000 recordings per month',
       'Up to 100 users + developers',
       'Account-level access controls',
       'Additional organizational settings',
@@ -54,7 +54,7 @@ const bugreportingPlans = [
     cta: 'Email Us',
     link: 'mailto:sales@replay.io',
     features: [
-      'Unlimited recordings',
+      '1,000 recordings',
       'Ability to host your own storage',
       'Custom contract',
       'Dedicated support',

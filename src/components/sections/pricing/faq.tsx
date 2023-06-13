@@ -16,9 +16,9 @@ const faqs = [
           that’s processes. Cypress runs each spec in its own tab, so a Replay
           recording will include all of the test cases in the spec. Playwright
           will often open a new page per test case, so it is typical for
-          recordings to map 1.1. to test cases however it’s possible for a
-          single test case to open multiple pages at which point one test case
-          might have multiple recordings.
+          recordings to map 1-to-1 to test cases. However, it’s possible for a
+          single Playwright test case to open multiple pages at which point one
+          test case might have multiple recordings.
         </p>
       </div>
     )
@@ -31,9 +31,9 @@ const faqs = [
         <p>
           Replay gets its name because recordings are replayed in their original
           runtime after the fact. In order to be able to start debugging a
-          recording quickly, we need to be able to be able to process it which
-          simply means, replay it once and gather assets that’ll help us start
-          the replay efficiently the next time.{' '}
+          recording quickly, we need to be able to process it beforehand. That
+          means replaying it once and gather assets that’ll help us start the
+          replay efficiently the next time.
         </p>
         <p>
           Because it takes approximately as long to replay a recording as to
@@ -61,7 +61,7 @@ const faqs = [
       <div>
         <p>
           Absolutely. Replay is a Cypress plugin and can be used with other
-          plugins and the Cypress Cloud. In fact we encourage you too. We think
+          plugins and the Cypress Cloud. In fact we encourage you to. We think
           that it is helpful to use Replay for debugging and a dashboard
           provider for suite-level insights and orchestration.
         </p>
@@ -105,7 +105,7 @@ const faqs = [
         <p>
           No - when you create a team you are starting a free trial for 30 days.
           You’ll only need to add a credit card if you’d like to continue using
-          the team beyond the 30 day limit.{' '}
+          the team beyond the 30 day limit.
         </p>
       </div>
     )

@@ -53,8 +53,9 @@ export const Card: FC<Props> = ({ mode, data }) => {
           {data.cta}
         </ButtonLink>
       ) : (
-        <PopupButton id="jTudlerL" className={s.cta}>
+        <PopupButton id="jTudlerL" className={s.cta} as="a">
           <Button
+            as="a"
             variant={data.type === 'Pro' ? 'tertiary' : 'primary'}
             aria-label="Learn more about Test Suites"
           >

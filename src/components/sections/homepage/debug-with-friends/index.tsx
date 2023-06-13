@@ -129,7 +129,7 @@ export const DebugWithFriends = () => {
       className={s.section}
       data-sitemap
       data-sitemap-icon="colaboration"
-      data-sitemap-short-title="Colaboration"
+      data-sitemap-short-title="Collaboration"
       data-sitemap-complete-title="Debug with Friends."
     >
       <div className={s.container}>
@@ -492,7 +492,7 @@ const data: DataType[] = [
   {
     id: 5,
     title: 'Issue tracking.',
-    subtitle: 'Track bugs with formatted and linked GitHub issues.',
+    subtitle: 'Track bugs with linked GitHub issues.',
     icon: (
       <svg
         width="20"
