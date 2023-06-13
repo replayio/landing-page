@@ -202,6 +202,7 @@ export const Hero = () => {
               loading="eager"
               priority
               alt="Replay dashboard"
+              draggable={false}
             />
 
             <div className={s['cta']}>
