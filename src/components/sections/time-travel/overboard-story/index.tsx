@@ -29,13 +29,15 @@ export function OverboardStory() {
   const canFitScrollytelling = height >= SCROLLYTELLING_MIN_HEIGHT
 
   return (
-    <Container size="lg">
+    <Container
+      size="lg"
+      style={{ opacity: rendered ? 1 : 0, transition: 'opacity 0.3s ease-in' }}
+    >
       {(() => {
-        if (rendered && isDesktop == true && canFitScrollytelling) {
-          return <ReplayApplication />
-        }
-
-        if (rendered && (isDesktop == false || !canFitScrollytelling)) {
+        if (rendered) {
+          if (isDesktop === true && canFitScrollytelling) {
+            return <ReplayApplication />
+          }
           return (
             <OnRenderFadeIn>
               <Image
