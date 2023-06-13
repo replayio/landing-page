@@ -107,6 +107,8 @@ export const Hero = () => {
           passHref
           href="https://blog.replay.io/replay.io-a-new-dimension"
           className={s['announcement']}
+          target="_blank"
+          rel="noopener"
         >
           <div className={s['announcementInner']}>
             <p className={s['announcementText']}>
