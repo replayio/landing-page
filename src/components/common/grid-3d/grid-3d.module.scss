@@ -34,7 +34,6 @@
   width: 100%;
   animation: displace 20s linear infinite;
   animation-play-state: var(--section-play-state);
-  backface-visibility: hidden;
 }
 
 @keyframes displace {
