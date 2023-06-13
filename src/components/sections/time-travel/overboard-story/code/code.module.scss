@@ -120,6 +120,8 @@
 
     .tutorial-popup {
       display: flex;
+      align-items: center;
+      gap: 12px;
       opacity: 0;
       color: var(--color-white);
       padding: 8px 16px 8px 10px;
@@ -132,20 +134,23 @@
       transform: translateY(-100%);
       font-family: sans-serif;
       transition-duration: var(--duration-fast);
+      text-align: left;
 
-      .sparkles {
-        margin-right: 10px;
-      }
+      .hits-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
 
-      .text {
-        font-weight: 800;
-      }
+        .text {
+          font-weight: 800;
+        }
 
-      .hits {
-        display: inline-block;
-        margin-top: 4px;
-        font-size: 14px;
-        font-weight: 400;
+        .hits {
+          display: inline-block;
+          margin-top: 4px;
+          font-size: 14px;
+          font-weight: 400;
+        }
       }
     }
   }

@@ -180,7 +180,7 @@ const chunks: {
     title: 'Retroactive console logs',
     shortTitle: 'Console logs',
     description:
-      'Simply click on a line of code, type an expression, and see the logs in the Console.'
+      'Adding console logs is as simple as clicking on a line of code and adding an expression.'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -313,10 +313,10 @@ const chunks: {
         ]
       }
     ],
-    title: 'Time travel to any point in time',
+    title: 'Time travel to any point',
     shortTitle: 'Time travel',
     description:
-      'Experience the magic of time travel by jumping to any Console log, React onClick, Redux dispatch, and React setState.'
+      'When you start jumping to Console logs, React events, and Redux actions, you become a time traveler.'
   },
   {
     mobilePanel: ({ className, ...props }) => (
@@ -644,6 +644,10 @@ export const DeveloperTools = () => {
 }
 
 const BackLines = () => {
+  const { isDesktop, isChrome } = useDeviceDetect()
+
+  const loadHeavyFilters = isDesktop && isChrome
+
   return (
     <svg
       className={s['back-lines']}
@@ -651,10 +655,10 @@ const BackLines = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g filter="url(#filter0_ddd_2677_88836)">
+      <g filter={loadHeavyFilters ? 'url(#filter0_ddd_2677_88836)' : undefined}>
         <path d="M1440 357.437L1 357.437" stroke="#F41C52" />
       </g>
-      <g filter="url(#filter1_ddd_2677_88836)">
+      <g filter={loadHeavyFilters ? 'url(#filter1_ddd_2677_88836)' : undefined}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -662,7 +666,7 @@ const BackLines = () => {
           fill="#F41C52"
         />
       </g>
-      <g filter="url(#filter2_ddd_2677_88836)">
+      <g filter={loadHeavyFilters ? 'url(#filter2_ddd_2677_88836)' : undefined}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -670,7 +674,7 @@ const BackLines = () => {
           fill="#F41C52"
         />
       </g>
-      <g filter="url(#filter3_ddd_2677_88836)">
+      <g filter={loadHeavyFilters ? 'url(#filter3_ddd_2677_88836)' : undefined}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -678,7 +682,7 @@ const BackLines = () => {
           fill="#F41C52"
         />
       </g>
-      <g filter="url(#filter4_ddd_2677_88836)">
+      <g filter={loadHeavyFilters ? 'url(#filter4_ddd_2677_88836)' : undefined}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -686,7 +690,7 @@ const BackLines = () => {
           fill="#F41C52"
         />
       </g>
-      <g filter="url(#filter5_ddd_2677_88836)">
+      <g filter={loadHeavyFilters ? 'url(#filter5_ddd_2677_88836)' : undefined}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -694,7 +698,7 @@ const BackLines = () => {
           fill="#F41C52"
         />
       </g>
-      <g filter="url(#filter6_ddd_2677_88836)">
+      <g filter={loadHeavyFilters ? 'url(#filter6_ddd_2677_88836)' : undefined}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"

@@ -217,11 +217,22 @@ export const DebugSpeed = () => {
       data-sitemap
       data-sitemap-icon="debugging"
       data-sitemap-short-title="Methodology"
-      data-sitemap-complete-title="Debug at the speed of thought"
+      data-sitemap-complete-title="Retroactive console logs"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Debug with instant console logs.', as: 'h2' }}
+        title={{
+          children: (
+            <div>
+              A new way to <span>console.log</span>
+            </div>
+          ),
+          as: 'h2'
+        }}
+        subtitle={{
+          children: `We asked ourselves, "what would console logging from the future look like?" Here's what we came up with.`,
+          className: s.subtitle
+        }}
       />
       <div
         style={{ height: isTablet ? 'auto' : SCROLL_TRIGGER_DURATION }}
@@ -311,7 +322,7 @@ const data: dataType[] = [
     title: 'Add logs with a single click.',
     subtitle: 'Console logs',
     description:
-      'Add a Console log to a line of code and see the logs automagically appear in the console.',
+      'First, you should be able to retroactively add a print statement and see the logs as if they were always there.',
 
     icon: (
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -334,7 +345,7 @@ const data: dataType[] = [
     title: 'Jump to any console log.',
     subtitle: 'console',
     description:
-      'Fast forward and rewind to any console log and inspect your application state.',
+      'Second, you should be able to jump to a console log, inspect the state, and stop guessing.',
 
     icon: (
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -354,7 +365,7 @@ const data: dataType[] = [
     title: 'Stay in the state of flow.',
     subtitle: 'DevTools',
     description:
-      'Stay in the state of flow with great code search, instant console logs, and Browser DevTools.',
+      'Lastly, you should be able to inspect your app with Browser DevTools at any point in time stay in the state of flow.',
     icon: (
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

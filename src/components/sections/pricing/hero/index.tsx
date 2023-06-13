@@ -26,7 +26,7 @@ const bugreportingPlans = [
     type: 'Team',
     price: 20,
     mode: 'per month / per developer',
-    cta: 'Create Team',
+    cta: 'Get in touch',
     link: 'https://app.replay.io/team/new',
     features: [
       '1000 recordings per month',
@@ -68,52 +68,55 @@ const testsuitePlans = [
     type: 'Free',
     price: 'Free',
     mode: 'forever',
-    cta: 'Sign Up',
-    link: 'https://app.replay.io/',
+    cta: 'Get in touch',
     features: [
-      '➡️ Update these!',
-      'GitHub PR Comments',
-      'GitHub Action',
-      'Test Suite Dashboard',
-      'Cypress + Playwright DevTools'
+      '10 Recordings processed',
+      '1,000 Recordings uploaded',
+      '7 day retention',
+      'Unlimited seats'
     ]
   },
   {
     type: 'Starter',
-    price: 20,
-    mode: 'per month / per developer',
-    cta: 'Create Team',
-    link: 'https://app.replay.io/team/new',
-    features: ['➡️ Update these!', 'GitHub Integration', 'Fast start times']
+    price: 50,
+    mode: 'per month ',
+    cta: 'Get in touch',
+    features: [
+      '100 Recordings processed',
+      '1,000 Recordings uploaded',
+      '7 day retention',
+      'Unlimited seats'
+    ]
   },
   {
     type: 'Pro',
-    price: 75,
-    mode: 'per month / per developer',
-    cta: 'Create Organization',
-    link: 'https://app.replay.io/org/new',
+    price: 500,
+    mode: 'per month',
+    cta: 'Get in touch',
     features: [
-      '➡️ Definitely update these!',
-      'Upload + Processing Strategies: With the ability to decide which recordings are uploaded and processed on commit and merge, you’re in control of which recordings your team can debug efficiently.'
+      '1,000 Recordings processed',
+      '10,000 Recordings uploaded',
+      '14 day retention',
+      'Unlimited seats'
     ]
   },
 
   {
     type: 'Enterprise',
-    cta: 'Email Us',
+    cta: 'Email us',
     link: 'mailto:sales@replay.io',
     features: [
-      '➡️ Update these!',
-      'Custom Upload + Processing Strategies',
-      'Bring your own storage',
-      'Integrations into your own dashboard'
+      '10,000 Recordings processed',
+      '100,000 Recordings uploaded',
+      '30 day retention',
+      'Unlimited seats'
     ]
   }
 ]
 
 export const Hero: FC<{ selectedTab: string }> = ({ selectedTab }) => {
   const selectedPlans =
-    selectedTab === 'testsuite' ? testsuitePlans : bugreportingPlans
+    selectedTab === 'tests' ? testsuitePlans : bugreportingPlans
 
   return (
     <Section className={s.section}>
@@ -122,10 +125,7 @@ export const Hero: FC<{ selectedTab: string }> = ({ selectedTab }) => {
           <ul className={s.plans}>
             {selectedPlans.map((item, i) => (
               <li key={i}>
-                <Card
-                  variant={item.type === 'Organization' ? 'primary' : 'default'}
-                  data={item}
-                />
+                <Card mode={selectedTab} data={item} />
               </li>
             ))}
           </ul>
@@ -133,8 +133,9 @@ export const Hero: FC<{ selectedTab: string }> = ({ selectedTab }) => {
             <Carousel className={s.slider} slideClassName={s['slide']}>
               {selectedPlans.map((item, i) => (
                 <Card
-                  variant={item.type === 'Organization' ? 'primary' : 'default'}
+                  variant={item.type === 'Pro' ? 'primary' : 'default'}
                   key={i}
+                  mode={selectedTab}
                   data={item}
                 />
               ))}

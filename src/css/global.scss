@@ -24,6 +24,7 @@
   --color-pink-light: #ff5f87;
   --color-pink-lighter: #ffb7c8;
   --color-white: #fff;
+  --color-black: #000;
   --color-gray-lightest: #f5f5f5;
   --color-gray-lighter: #dcdcdc;
   --color-gray-light: #bebebe;
@@ -137,7 +138,8 @@ html {
 
   // tweak if site is light mode.
   color-scheme: dark;
-  background-color: black;
+  background-color: var(--color-black);
+  color: var(--color-white);
   scroll-padding-top: calc(var(--header-height) + 66px);
 }
 

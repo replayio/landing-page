@@ -17,6 +17,14 @@
     width: 100% !important;
   }
 
+  .cta {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 143%;
+    margin: 56px 0 64px;
+    width: 100% !important;
+  }
+
   > div {
     display: flex;
     flex-direction: column;
@@ -73,6 +81,11 @@
         height: 18px;
       }
     }
+  }
+
+  .waitlist {
+    margin: 32px 0;
+    width: 100%;
   }
 
   &.primary {

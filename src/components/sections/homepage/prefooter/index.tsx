@@ -4,8 +4,6 @@ import React, { useEffect, useRef } from 'react'
 import { Section } from '~/components/layout/section'
 import { Title } from '~/components/primitives/texts'
 
-const SCROLL_HEIGHT = 2250
-
 const Sky = dynamic(
   () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
   {
@@ -55,15 +53,11 @@ const Prefooter = () => {
     }
 
     if (isDesktop) {
-      gsap.set(sectionRef.current, {
-        marginBottom: -120
-      })
-
       timelineConfig.scrollTrigger = {
         scrub: 1.2,
         trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom bottom'
+        start: 'top 30%',
+        end: '95% bottom'
       }
     }
 
@@ -96,14 +90,7 @@ const Prefooter = () => {
   }, [isDesktop])
 
   return (
-    <Section
-      style={{
-        height: isDesktop ? SCROLL_HEIGHT : 'auto'
-      }}
-      className={s['section']}
-      id="prefooter"
-      ref={sectionRef}
-    >
+    <Section className={s['section']} id="prefooter" ref={sectionRef}>
       <div className={s['pin']} ref={pinRef}>
         <div className={s['stars']}>
           <Sky />

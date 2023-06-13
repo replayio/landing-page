@@ -8,6 +8,7 @@
   justify-content: center;
   padding: 1rem;
   margin-top: 3rem;
+  font-size: 14px;
 }
 
 .tabList {
@@ -17,19 +18,20 @@
 }
 
 .tab {
-  padding: 0.25em 0.75em;
+  padding: 0.5rem 1rem;
   flex-grow: 1;
   text-align: center;
-  background-color: #fff;
-  color: #111;
+  color: var(--color-gray-light);
   transition: background-color 0.2s;
+  background-color: var(--color-gray-darker);
 }
 
 .tab:hover {
-  background-color: var(--color-white);
+  background-color: var(--color-gray-dark);
 }
 
 .tab[data-state='active'] {
   background-color: var(--color-pink-crayon);
   color: var(--color-white);
+  border: none;
 }

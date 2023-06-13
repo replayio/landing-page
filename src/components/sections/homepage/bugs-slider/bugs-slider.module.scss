@@ -778,3 +778,12 @@
     filter: brightness(0.5);
   }
 }
+
+.waitlist {
+  display: inline-flex;
+  color: var(--white);
+}
+
+.waitlist:hover {
+  text-decoration: underline;
+}

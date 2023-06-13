@@ -76,7 +76,7 @@ export const Hero = () => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: '60% top',
+        end: '500px top',
         scrub: true
       }
     })
@@ -132,7 +132,7 @@ export const Hero = () => {
           <div className={s['ctas']}>
             <Video.Modal
               poster="/images/homepage/hero-video-placeholder.png"
-              url="https://stream.mux.com/j4HHD01eAGd01vFBPyQhfpWuDWSlXKsGep1o2dbDAlE2s.m3u8"
+              url="https://stream.mux.com/RfpT026NiAnQTWXP4BKsBBUHjFReABrAO01ltzQxmOVQE.m3u8"
             >
               <Video.Trigger asChild>
                 <Button mode="secondary" size="big" aria-label="Watch video">
@@ -151,7 +151,7 @@ export const Hero = () => {
         {/* This is done like this, to prevent a scroll-x when the svg overflows the width of the "dashboard" image */}
         <div className={s['outline-container']}>
           <Container>
-            <AspectBox ratio={1060 / 607}>
+            <AspectBox ratio={2548 / 1348}>
               <svg
                 viewBox={`0 0 ${outlineSvgSize.width} ${outlineSvgSize.height}`}
                 fill="none"

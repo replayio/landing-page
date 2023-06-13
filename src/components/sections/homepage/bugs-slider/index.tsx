@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 
 import { Timeline } from '~/components/common/progress-bar'
+import Video from '~/components/common/video-modal'
 import { Section } from '~/components/layout/section'
 import { ButtonLink, ButtonTimer } from '~/components/primitives/cta'
 import { NavLink } from '~/components/primitives/nav-link'
@@ -122,7 +123,7 @@ export const BugsSlider = () => {
               [s['active'] as string]: currentSlide === 1
             })}
           />
-          Browser tests
+          Test suites
         </ButtonTimer>
       </div>
     </Section>
@@ -135,6 +136,7 @@ const InfoSide = ({
   Asset,
   description,
   cta,
+  videoPoster,
   videoHref
 }: DataType & { isTablet: boolean }) => {
   return (
@@ -155,9 +157,18 @@ const InfoSide = ({
           >
             {cta.label}
           </ButtonLink>
-          <NavLink className={s['link']} href={videoHref} invertedHover>
-            Watch video
-          </NavLink>
+          <Video.Modal poster={videoPoster} url={videoHref}>
+            <Video.Trigger asChild>
+              <NavLink
+                className={s['link']}
+                href="#"
+                scroll={false}
+                invertedHover
+              >
+                Watch video
+              </NavLink>
+            </Video.Trigger>
+          </Video.Modal>
         </div>
       </div>
     </div>
@@ -543,6 +554,7 @@ type DataType = {
     href: string
     label: string
   }
+  videoPoster: string
   videoHref: string
 }
 
@@ -570,7 +582,10 @@ const data: DataType[] = [
       href: '/',
       label: 'Bug reports'
     },
-    videoHref: '/'
+    videoPoster:
+      'https://image.mux.com/OirCesKgI2uAA01r9AvrO1Vh6VaJ46sf00tozLJNbAWrY/thumbnail.png?width=1440',
+    videoHref:
+      'https://stream.mux.com/OirCesKgI2uAA01r9AvrO1Vh6VaJ46sf00tozLJNbAWrY.m3u8'
   },
   {
     id: 1,
@@ -582,11 +597,17 @@ const data: DataType[] = [
     ),
     description: (
       <>
-        Want green test runs?{' '}
-        <Link href="/" aria-label="Join our waitlist">
-          Join our waitlist
-        </Link>{' '}
-        and we will help you deflake your Cypress tests.
+        Want green test runs that finish quickly?{' '}
+        <button
+          className={s.waitlist}
+          data-tf-popup="jTudlerL"
+          data-tf-iframe-props="title=Test Suites"
+          data-tf-medium="snippet"
+          aria-label="Learn more about Test Suites"
+        >
+          Join the waitlist
+        </button>{' '}
+        and start recording and fixing your worst browser tests.
       </>
     ),
     Asset: AssetSideBrowser,
@@ -594,6 +615,9 @@ const data: DataType[] = [
       href: '/',
       label: 'Test suites'
     },
-    videoHref: '/'
+    videoPoster:
+      'https://image.mux.com/M8pzl7FMFEocw3LEZ523ylfk3Db8019hNP2yfB018JUmI/thumbnail.png?width=1440',
+    videoHref:
+      'https://stream.mux.com/M8pzl7FMFEocw3LEZ523ylfk3Db8019hNP2yfB018JUmI.m3u8'
   }
 ]
