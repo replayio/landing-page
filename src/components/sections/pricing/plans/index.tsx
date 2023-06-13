@@ -4,7 +4,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
-import { ButtonLink } from '~/components/primitives/button'
+import { Button, ButtonLink } from '~/components/primitives/button'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import enterprise from '~/public/images/pricing/enterprise.svg'
 import individual from '~/public/images/pricing/individual.svg'
@@ -13,7 +13,23 @@ import team from '~/public/images/pricing/team.svg'
 
 import s from './plans.module.scss'
 
-export const bugreportingPlans = [
+type Plan = {
+  type: string
+  icon: any
+  description: string | Element
+  cta: string
+  link?: string
+  content: Array<{
+    title?: string
+    description?: string | Element
+    features?: {
+      title: string
+      items: string[]
+    }
+  }>
+}
+
+export const bugreportingPlans: Plan[] = [
   {
     type: 'Individual',
     icon: individual,
@@ -153,32 +169,24 @@ export const bugreportingPlans = [
   }
 ]
 
-export const testsuitePlans = [
+export const testsuitePlans: Plan[] = [
   {
     type: 'Free',
     icon: individual,
     description:
       'Designed for side projects where it is nice to have a few end-to-end projects that run on PRs.',
-    cta: 'Sign Up',
-    link: 'https://app.replay.io/',
+    cta: 'Get in touch',
     content: [
       {
         features: {
-          title: 'GitHub PR Comments',
-          items: ['FILL THIS IN', 'FILL THIS IN ALSO']
+          title: 'Workflow integrations',
+          items: ['GitHub PR Comments', 'GitHub Action', 'Test Suite Dashboard']
         }
       },
       {
-        title: 'GitHub Action',
-        description: 'Fill this in'
-      },
-      {
-        title: 'Test Suite Dashboard',
-        description: 'Fill this in'
-      },
-      {
         title: 'Cypress + Playwright DevTools',
-        description: 'Fill this in'
+        description:
+          'Replays recorded with our Cypress and Playwright plugins will include a testing panel with ability to play to test steps, view step details, and jump into application event handlers.'
       }
     ]
   },
@@ -187,24 +195,12 @@ export const testsuitePlans = [
     icon: team,
     description:
       'Designed for small teams with less than 50 end-to-end tests which run on PRs several times a day.',
-    cta: 'Create Team',
-    link: 'https://app.replay.io/team/new',
+    cta: 'Get in touch',
     content: [
       {
-        title: 'GitHub Integration',
-        description: 'Fill this in'
-      },
-      {
         title: 'Fast start times',
-        description: 'Fill this in'
-      },
-      {
-        title: 'FILL THIS IN',
-        description: 'Fill this in'
-      },
-      {
-        title: 'FILL THIS IN',
-        description: 'Fill this in'
+        description:
+          'The primary difference between the free and starter tier is the number of recordings which will be processed and start faster.'
       }
     ]
   },
@@ -213,21 +209,23 @@ export const testsuitePlans = [
     icon: organization,
     description:
       'Designed for mature teams with between 20-200 tests that are run in CI. ',
-    cta: 'Create Organization',
-    link: 'https://app.replay.io/org/new',
+    cta: 'Get in touch',
     content: [
       {
         title: 'Upload + Processing Strategies',
-        description:
-          'With the ability to decide which recordings are uploaded and processed on commit and merge, you’re in control of which recordings your team can debug efficiently.'
-      },
-      {
-        title: 'FILL THIS IN',
-        description: 'Fill this in'
-      },
-      {
-        title: 'FILL THIS IN',
-        description: 'Fill this in'
+        // @ts-ignore
+        description: (
+          <div>
+            <p>
+              Pro plans are able to decide which recordings are uploaded and
+              processed based on commit and merge strategies.
+            </p>
+            <p>
+              This is most useful once you have a large suite and want to more
+              control over which recordings start quickly.
+            </p>
+          </div>
+        )
       }
     ]
   },
@@ -241,15 +239,18 @@ export const testsuitePlans = [
     content: [
       {
         title: 'Custom Upload + Processing Strategies',
-        description: 'Fill this in'
+        description:
+          'Enterprise plans are able to design their own upload + processing strategies. This is only necessary for the largest test suites + teams that run hundreds of thousands of tests a day.'
       },
       {
         title: 'Bring your own storage',
-        description: 'Fill this in'
+        description:
+          'Enterprise plans are able to store their recordings in the storage provider of their choice (typically S3). This is most useful for access controls, but can also be helpful for additional cost controls.'
       },
       {
         title: 'Integrations into your own dashboard',
-        description: 'Fill this in'
+        description:
+          'Enterprise plans are able to use our GraphQL apis to integrate Replay.io recording metadata into their in house dashboards.'
       }
     ]
   }
@@ -268,8 +269,8 @@ export const Plans: FC<{ selectedTab: string }> = ({ selectedTab }) => {
   const [activeKey, setActiveKey] = useState(0)
   const [isStuck, setIsStuck] = useState(false)
   const selectedPlans =
-    selectedTab === 'testsuite' ? testsuitePlans : bugreportingPlans
-  const tabs = selectedTab === 'testsuite' ? testsuiteTabs : bugreportingTabs
+    selectedTab === 'tests' ? testsuitePlans : bugreportingPlans
+  const tabs = selectedTab === 'tests' ? testsuiteTabs : bugreportingTabs
 
   const tabsRef = useRef<HTMLDivElement>(null)
   const plansRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -372,9 +373,22 @@ export const Plans: FC<{ selectedTab: string }> = ({ selectedTab }) => {
                 <Image src={plan.icon} alt={plan.type} />
                 <span>{plan.type}</span>
                 <span>{plan.description}</span>
-                <ButtonLink href={plan.link} variant="tertiary-inverted-alt">
-                  {plan.cta}
-                </ButtonLink>
+                {plan.link ? (
+                  <ButtonLink href={plan.link} variant="tertiary-inverted-alt">
+                    {plan.cta}
+                  </ButtonLink>
+                ) : (
+                  <Button
+                    className={s.cta}
+                    data-tf-popup="jTudlerL"
+                    data-tf-iframe-props="title=Test Suites"
+                    data-tf-medium="snippet"
+                    aria-label="Learn more about Test Suites"
+                    variant="tertiary-inverted-alt"
+                  >
+                    {plan.cta}
+                  </Button>
+                )}{' '}
               </div>
               <div>
                 {plan.content.map((item, i) => (

@@ -33,16 +33,16 @@ const Pricing = () => {
       />
 
       <TabsPrimitive.Root
-        defaultValue="testsuite"
+        defaultValue="bugs"
         onValueChange={handleTabChange}
         className={styles.tabs}
       >
         <TabsPrimitive.List className={styles.tabList}>
-          <TabsPrimitive.Trigger value="testsuite" className={styles.tab}>
-            Testsuites
-          </TabsPrimitive.Trigger>
-          <TabsPrimitive.Trigger value="bugreporting" className={styles.tab}>
+          <TabsPrimitive.Trigger value="bugs" className={styles.tab}>
             Bug Reporting
+          </TabsPrimitive.Trigger>
+          <TabsPrimitive.Trigger value="tests" className={styles.tab}>
+            Testsuites
           </TabsPrimitive.Trigger>
         </TabsPrimitive.List>
       </TabsPrimitive.Root>
