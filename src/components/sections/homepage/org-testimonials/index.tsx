@@ -409,75 +409,7 @@ const testimonials: {
       }
     ]
   },
-  {
-    org: 'CodeSandbox',
-    icon: (
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clipPath="url(#clip0_4060_172646)">
-          <g filter="url(#filter0_d_4060_172646)">
-            <path
-              d="M2 46H46V2H2V6.50001H41.5001V41.5001H6.50001V2H2V46Z"
-              fill="white"
-            />
-          </g>
-        </g>
-        <defs>
-          <filter
-            id="filter0_d_4060_172646"
-            x="-2"
-            y="-2"
-            width="52"
-            height="52"
-            filterUnits="userSpaceOnUse"
-            colorInterpolationFilters="sRGB"
-          >
-            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-            <feColorMatrix
-              in="SourceAlpha"
-              type="matrix"
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-              result="hardAlpha"
-            />
-            <feOffset />
-            <feGaussianBlur stdDeviation="2" />
-            <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
-            <feBlend
-              mode="normal"
-              in2="BackgroundImageFix"
-              result="effect1_dropShadow_4060_172646"
-            />
-            <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="effect1_dropShadow_4060_172646"
-              result="shape"
-            />
-          </filter>
-          <clipPath id="clip0_4060_172646">
-            <rect width="48" height="48" fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
-    ),
-    testimonials: [
-      {
-        name: 'Ives',
-        title: 'Co-Founder CodeSandbox',
-        quote: `“Replay.io is so great! Today I had a hard-to-repro flow in development, so I recorded a replay to see how it works. I didn’t only find the bug, I discovered a performance improvement using Replay.”`,
-        image: '/images/homepage/testimonials/ives.png'
-      }
-    ]
-  },
+
   {
     org: 'RedwoodJS',
     icon: (

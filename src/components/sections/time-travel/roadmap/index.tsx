@@ -152,10 +152,10 @@ export const Roadmap = () => {
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'The time travel  roadmap.', as: 'h2' }}
+        title={{ children: "Time travel's roadmap.", as: 'h2' }}
         subtitle={{
           children:
-            'Time travel is an old idea that most assumed was impossible. We believe that it is finally time for it to take off.',
+            'Time travel is an idea that is as old as computer science itself that most people dismissed as too difficult. Today it is finally time for it to take off!',
           className: s.subtitle
         }}
       />
@@ -228,20 +228,21 @@ const data: DataType[] = [
     year: '2022',
     title: 'Browser DevTools',
     description:
-      'We released the first browser recorder with Replayable Print Statements, Graphics, Networking, and React DevTools.',
+      'Replay.io released the first browser recorder with Replayable Print Statements, Graphics, Networking, and React DevTools.',
     icon: ToolIcon
   },
   {
     year: '2024',
     title: 'Fullstack Debugging',
     description:
-      'We will release the first time-travel enabled debugger for full stack JS web applications.',
+      'We will release the first Full Stack time-travel enabled debugger for JS web applications in 2024.',
     icon: TerminalIcon
   },
   {
     year: '2025',
     title: 'Replayability',
-    description: 'We will release control and data flow dynamic analysis APIs',
+    description:
+      'Time travel ushers in a new era of replayability that enables dynamic analysis at scale.',
     icon: ForwardIcon
   }
 ]

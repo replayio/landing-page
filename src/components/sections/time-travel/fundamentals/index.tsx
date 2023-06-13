@@ -70,16 +70,11 @@ export const Fundamentals = () => {
       data-sitemap
       data-sitemap-icon="fundamentals"
       data-sitemap-short-title="Fundamentals"
-      data-sitemap-complete-title="Features of time travel"
+      data-sitemap-complete-title="What is time travel?"
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'The fundamentals of time travel', as: 'h2' }}
-        subtitle={{
-          children:
-            'Time travel is a fundamentally different way to analyze software.',
-          className: s.subtitle
-        }}
+        title={{ children: 'Time travel fundamentals.', as: 'h2' }}
       />
 
       <TabsWithArrows
@@ -199,7 +194,7 @@ type DataType = {
 const data: DataType[] = [
   {
     id: 'record-runtime',
-    label: 'What it means?',
+    label: 'What is time travel?',
     title: (
       <>
         Don't record your app. <span>Record your runtime.</span>
@@ -229,7 +224,7 @@ const data: DataType[] = [
   },
   {
     id: 'Record-randomness',
-    label: 'How it works?',
+    label: 'How does it work?',
     title: (
       <>
         Record the randomness. <span> Replay the rest.</span>
