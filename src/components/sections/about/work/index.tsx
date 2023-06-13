@@ -46,7 +46,7 @@ export const Work: FC = () => {
               Learn more
             </ButtonLink>
           </div>
-          <div className={s['work-item']}>
+          <div id="embedded-values" className={s['work-item']}>
             <Image src={valuesImg} alt="Values icon" />
             <h2>Embedded values</h2>
             <p>
