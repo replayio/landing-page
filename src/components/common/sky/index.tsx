@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import mergeRefs from 'react-merge-refs'
 
 import { useMeasure } from '~/hooks/use-measure'
-import { isClient } from '~/lib/constants'
 
 import s from './sky.module.scss'
 
@@ -24,8 +23,7 @@ type SkyElement =
 
 export const Sky = ({
   withGradient = true,
-  /* per 100px of height */
-  count = 5,
+  count = 40,
   withAsteroids = true
 }) => {
   const skyRef = useRef<HTMLDivElement>(null)
@@ -33,11 +31,7 @@ export const Sky = ({
   const [render, setRender] = useState(false)
 
   const generated = useMemo(() => {
-    if (!isClient) return null
-
-    const starCount = Math.round(count * (bounds.height / 100))
-
-    const gen: SkyElement[] = [...Array(starCount)].map((_) => {
+    const gen: SkyElement[] = [...Array(count)].map((_) => {
       const isAsteroid = withAsteroids ? gsap.utils.random(0, 1) > 0.95 : false // 5% chance of being an asteroid
 
       if (isAsteroid) {
@@ -67,7 +61,7 @@ export const Sky = ({
     })
 
     return gen
-  }, [count, withAsteroids, bounds.height])
+  }, [count, withAsteroids])
 
   useEffect(() => {
     if (!skyRef.current || !render || generated === null) return

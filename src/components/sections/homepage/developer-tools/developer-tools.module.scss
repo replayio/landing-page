@@ -69,8 +69,9 @@
   --global-rotation-x: 0deg;
   --global-rotation-y: 0deg;
   --base-rotation-x: 10deg;
+  --max-height: 75vh;
 
-  margin-top: 64px;
+  margin: 64px auto 0;
   transform-style: preserve-3d;
   transform: rotateX(
       calc(
@@ -81,6 +82,7 @@
     rotateY(calc(var(--global-rotation-y) + var(--local-rotation-y)));
   backface-visibility: hidden;
   will-change: transform;
+  max-width: calc((var(--max-height)) * var(--raw-ratio));
 }
 
 .section {
@@ -231,7 +233,7 @@
 }
 
 .chunks {
-  margin-top: 64px;
+  margin-top: 54px;
 
   .chunk {
     transition: flex-grow 0.25s var(--ease-out-soft);
@@ -269,6 +271,7 @@
     }
 
     .idx {
+      margin-right: 6px;
       font-size: 14px;
       color: #4b5563;
     }
