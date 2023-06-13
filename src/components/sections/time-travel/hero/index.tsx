@@ -1,4 +1,3 @@
-import dynamic, { LoaderComponent } from 'next/dynamic'
 import React, { useEffect, useRef } from 'react'
 
 import { Container } from '~/components/layout/container'
@@ -10,12 +9,6 @@ import { gsap } from '~/lib/gsap'
 import { OverboardStory } from '../overboard-story'
 import s from './hero.module.scss'
 
-const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
-  {
-    ssr: false
-  }
-)
 export const Hero = () => {
   const firstRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -47,11 +40,6 @@ export const Hero = () => {
 
   return (
     <Section id="time-travel-hero" className={s['section']} ref={sectionRef}>
-      <div className={s['bg-container']}>
-        <div className={s['child']}>
-          <Sky />
-        </div>
-      </div>
       <div className={s['first']} ref={firstRef}>
         <Container>
           <TitleAndSubtitle
