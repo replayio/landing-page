@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import { DownloadLink } from '~/components/common/download-button'
 import { ButtonLink } from '~/components/primitives/cta'
+import { NavLink } from '~/components/primitives/nav-link'
 import { useAppStore } from '~/context/use-app-store'
 import { useToggleState } from '~/hooks/use-toggle-state'
 import { SITEMAP } from '~/lib/sitemap'
@@ -56,7 +56,7 @@ export const Header = () => {
         })}
       >
         <NavigationWrapper>
-          <Link
+          <NavLink
             passHref
             href={SITEMAP.home.href || '/'}
             aria-label={`Go to ${SITEMAP.home.label}`}
@@ -71,7 +71,7 @@ export const Header = () => {
               priority
               sizes={getImageSizes(2, 2, 2)}
             />
-          </Link>
+          </NavLink>
 
           <NavigationList quantity={links.length}>
             {links.map((link, index) => (
@@ -86,9 +86,9 @@ export const Header = () => {
                     />
                   </>
                 ) : (
-                  <Link href={link.href || '/'} aria-label={link.label}>
+                  <NavLink href={link.href || '/'} aria-label={link.label}>
                     {link.label}
-                  </Link>
+                  </NavLink>
                 )}
               </NavigationItem>
             ))}

@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
-import Link from 'next/link'
 import {
   CSSProperties,
   ReactNode,
@@ -18,6 +17,7 @@ import { MidniteIcon } from '~/components/icons/midnite'
 import { SubsetIcon } from '~/components/icons/subset'
 import { VercelIcon } from '~/components/icons/vercel'
 import { Section } from '~/components/layout/section'
+import { NavLink } from '~/components/primitives/nav-link'
 import { Title } from '~/components/primitives/texts'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 
@@ -73,9 +73,9 @@ const HighlightedSection = () => {
       <div className={s.emblaContainer}>
         {highlighted.map((item) => (
           <div className={s.emblaSlide} key={item.id}>
-            <Link passHref href={item.href}>
+            <NavLink passHref href={item.href}>
               <HighlightCard {...item} />
-            </Link>
+            </NavLink>
           </div>
         ))}
       </div>
@@ -126,9 +126,9 @@ const TeamSection = () => {
         <div className={s.teams}>
           {teams.map((item) => (
             <div className={s.card} key={item.id}>
-              <Link href={item.href} aria-label={item.label}>
+              <NavLink href={item.href} aria-label={item.label}>
                 {item.logo}
-              </Link>
+              </NavLink>
             </div>
           ))}
         </div>
@@ -143,9 +143,9 @@ const TeamSection = () => {
     >
       {teams.map((item) => (
         <div className={s.card} key={item.id}>
-          <Link href={item.href} aria-label={item.label}>
+          <NavLink href={item.href} aria-label={item.label}>
             {item.logo}
-          </Link>
+          </NavLink>
         </div>
       ))}
     </div>

@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
+import { NavLink } from '~/components/primitives/nav-link'
 import { SITEMAP } from '~/lib/sitemap'
 import { getImageSizes } from '~/lib/utils/image'
 
@@ -58,13 +58,13 @@ export const Footer = () => {
 
               <ul>
                 {item.links.map((link) => (
-                  <Link
+                  <NavLink
                     key={link.label}
                     href={link.href || '/'}
                     aria-label={link.label}
                   >
                     {link.label}
-                  </Link>
+                  </NavLink>
                 ))}
               </ul>
             </div>
