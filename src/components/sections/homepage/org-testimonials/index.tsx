@@ -24,7 +24,7 @@ export const OrganizationTestimonials = () => {
   const prevActiveOrgRef = useRef<number | undefined>(undefined)
   const organizationsRef = useRef<HTMLDivElement>(null)
   const activeOrgRef = useRef<Element>()
-  const [inViewRef, inView] = useIntersectionObserver<HTMLDivElement>({})
+  const [inViewRef, { inView }] = useIntersectionObserver<HTMLDivElement>({})
 
   const [emblaRef, embla] = useEmblaCarousel({
     align: 'center',
@@ -66,8 +66,6 @@ export const OrganizationTestimonials = () => {
   }, [embla, time])
 
   useIsomorphicLayoutEffect(() => {
-    if (!inView) return
-
     const elms = organizationsRef.current?.querySelectorAll(
       `.${s['organization']}`
     )
@@ -119,11 +117,13 @@ export const OrganizationTestimonials = () => {
       delayedStartTween?.kill()
       showGradientTween?.kill()
     }
-  }, [activeOrg, time, inView])
+  }, [activeOrg, time])
 
   useEffect(() => {
     if (!inView) {
       time.pause()
+    } else {
+      time.resume()
     }
   }, [inView, time])
 

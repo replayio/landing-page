@@ -6,7 +6,7 @@ import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 type Marquee = typeof FastMarquee
 
 const Marquee: Marquee = (props) => {
-  const [ref, inView] = useIntersectionObserver<HTMLDivElement>({
+  const [ref, { inView }] = useIntersectionObserver<HTMLDivElement>({
     triggerOnce: false
   })
   const [play, setPlay] = useState<boolean>(true)

@@ -103,7 +103,11 @@ export const Hero = () => {
         </div>
       </div>
       <div className={s['first']} ref={firstRef}>
-        <Link passHref href="" className={s['announcement']}>
+        <Link
+          passHref
+          href="https://blog.replay.io/replay.io-a-new-dimension"
+          className={s['announcement']}
+        >
           <div className={s['announcementInner']}>
             <p className={s['announcementText']}>
               Introducing Replay for Cypress
@@ -202,6 +206,7 @@ export const Hero = () => {
               loading="eager"
               priority
               alt="Replay dashboard"
+              draggable={false}
             />
 
             <div className={s['cta']}>
