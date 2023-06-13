@@ -5,7 +5,7 @@ import gridPng from '~/public/images/homepage/grid.png'
 
 import s from './grid-3d.module.scss'
 
-const GridSvg = () => {
+const Grid = () => {
   return (
     <Image
       loading="eager"
@@ -13,7 +13,7 @@ const GridSvg = () => {
       src={gridPng}
       className={s['grid']}
       quality={100}
-      alt="haha"
+      alt="grid"
     />
   )
 }
@@ -26,8 +26,8 @@ export const Grid3D = forwardRef<HTMLDivElement, unknown>((_, ref) => {
       <div className={s['rotate']}>
         {/* Gives y displace control */}
         <div className={s['y-group-control']} ref={ref}>
-          <GridSvg />
-          <GridSvg />
+          <Grid />
+          <Grid />
         </div>
       </div>
     </div>
