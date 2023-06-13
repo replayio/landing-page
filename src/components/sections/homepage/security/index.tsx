@@ -129,7 +129,12 @@ export const Security = () => {
               <BackgroundSvg isTablet={!!isTablet} />
             </div>
 
-            <Link passHref href="/" aria-label="Go to" className={s.cta}>
+            <Link
+              passHref
+              href="/security-and-privacy#authentication"
+              aria-label="Go to"
+              className={s.cta}
+            >
               <svg
                 width="20"
                 height="20"
@@ -209,6 +214,24 @@ export const Security = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
+                      d="M8.0115 4.67421H10.5075L8.917 3.08271C8.40495 2.57065 7.76711 2.20241 7.06761 2.01502C6.36811 1.82762 5.63161 1.82768 4.93214 2.01518C4.23267 2.20267 3.59489 2.57101 3.0829 3.08315C2.57092 3.59529 2.20279 4.23319 2.0155 4.93271M1.4925 9.82221V7.32621M1.4925 7.32621H3.9885M1.4925 7.32621L3.0825 8.91771C3.59456 9.42978 4.2324 9.79802 4.9319 9.98541C5.6314 10.1728 6.3679 10.1728 7.06737 9.98525C7.76684 9.79776 8.40462 9.42942 8.9166 8.91728C9.42859 8.40514 9.79672 7.76724 9.984 7.06771M10.5075 2.17821V4.67321"
+                      stroke="white"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <p>Chrome for Mac and Windows in progress</p>
+                </li>
+                <li>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
                       d="M10.5 3.6766V8.3236C10.5 8.37717 10.4857 8.42976 10.4585 8.47592C10.4314 8.52208 10.3923 8.56013 10.3455 8.5861L6.1455 10.9191C6.10098 10.9438 6.05091 10.9567 6 10.9567C5.94909 10.9567 5.89902 10.9438 5.8545 10.9191L1.6545 8.5861C1.60766 8.56013 1.56863 8.52208 1.54146 8.47592C1.51429 8.42976 1.49997 8.37717 1.5 8.3236V3.6766C1.50006 3.62312 1.51442 3.57064 1.54158 3.52457C1.56875 3.47851 1.60773 3.44054 1.6545 3.4146L5.8545 1.0811C5.89902 1.05641 5.94909 1.04346 6 1.04346C6.05091 1.04346 6.10098 1.05641 6.1455 1.0811L10.3455 3.4146C10.3923 3.44054 10.4313 3.47851 10.4584 3.52457C10.4856 3.57064 10.4999 3.62312 10.5 3.6766Z"
                       stroke="white"
                       strokeLinecap="round"
@@ -265,7 +288,12 @@ export const Security = () => {
               </Marquee>
             </div>
 
-            <Link passHref href="/" aria-label="Go to" className={s.cta}>
+            <Link
+              passHref
+              href="https://medium.com/replay-io/how-replay-works-5c9c29580c58"
+              aria-label="Go to"
+              className={s.cta}
+            >
               <svg
                 width="20"
                 height="20"
