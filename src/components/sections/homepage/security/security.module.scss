@@ -222,6 +222,7 @@
           transition-property: box-shadow, transform;
           transition-duration: var(--duration-normal);
           transition-timing-function: var(--ease-1);
+          z-index: var(--z-index-10);
 
           @include respond-to('tablet-lg') {
             top: unset;

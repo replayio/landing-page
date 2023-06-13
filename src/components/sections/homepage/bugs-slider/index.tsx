@@ -25,7 +25,7 @@ export const BugsSlider = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [emblaRef, embla] = useEmblaCarousel({ align: 'center' })
   const isTablet = useTabletLgBreakpoint()
-  const [inViewRef, inView] = useIntersectionObserver<HTMLDivElement>({})
+  const [inViewRef, { inView }] = useIntersectionObserver<HTMLDivElement>({})
   const [interacting, setInteracting] = useState<boolean>(false)
 
   const onSelect = useCallback(() => {

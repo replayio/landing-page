@@ -13,7 +13,7 @@ export type Props = {
 
 export const Section = forwardRef<HTMLDivElement, Props>(
   ({ className, as = 'section', ...rest }, fwrdRef) => {
-    const [ref, inView] = useIntersectionObserver<HTMLDivElement>({
+    const [ref, { inView }] = useIntersectionObserver<HTMLDivElement>({
       triggerOnce: false
     })
     const Element: ElementType = as
