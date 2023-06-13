@@ -263,31 +263,31 @@ const teams: TeamType = [
   {
     id: 0,
     logo: <MidniteIcon />,
-    href: '/',
+    href: 'https://www.midnite.com/',
     label: 'Midnite'
   },
   {
     id: 1,
     logo: <SubsetIcon />,
-    href: '/',
+    href: 'https://subset.so/',
     label: 'Subset'
   },
   {
     id: 2,
     logo: <CodesandboxIcon />,
-    href: '/',
+    href: 'https://codesandbox.io/',
     label: 'CodeSandobx'
   },
   {
     id: 3,
     logo: <VercelIcon />,
-    href: '/',
+    href: 'https://vercel.com/',
     label: 'Vercel'
   },
   {
     id: 4,
     logo: <ArizeIcon />,
-    href: '/',
+    href: 'https://arize.com/',
     label: 'Arize'
   }
 ]
