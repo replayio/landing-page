@@ -260,7 +260,7 @@ const data: DataType[] = [
     ),
     cta: {
       label: 'Learn more',
-      href: 'https://www.replay.io/security-and-privacy#compliance'
+      href: '/security-and-privacy#compliance'
     },
     asset: {
       url: '/images/homepage/features/reporting.png'
@@ -274,7 +274,7 @@ const data: DataType[] = [
       'Replay.io databases and their client communications are AES encrypted throughout the PlanetScale platform.',
     cta: {
       label: 'Learn more',
-      href: 'https://www.replay.io/security-and-privacy#encryption'
+      href: '/security-and-privacy#encryption'
     },
     asset: {
       url: '/images/homepage/features/encryptions.svg'
@@ -288,7 +288,7 @@ const data: DataType[] = [
       'Replay.io supports single sign-on via Google SAML 2.0, Multi Factor Authentication, and automated account provisioning.',
     cta: {
       label: 'Learn more',
-      href: 'https://www.replay.io/security-and-privacy#authentication'
+      href: '/security-and-privacy#authentication'
     },
     asset: {
       url: '/images/homepage/features/saml.svg'
