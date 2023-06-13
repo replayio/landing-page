@@ -556,7 +556,12 @@ export const DeveloperTools = () => {
             className={s['perspective-container']}
             ref={mouseTrackedElementRef}
           >
-            <div className={s['wrapper']} ref={devtoolsRef}>
+            <div
+              className={s['wrapper']}
+              // @ts-ignore
+              style={{ '--raw-ratio': 1264 / 674 }}
+              ref={devtoolsRef}
+            >
               <AspectBox ratio={1264 / 674} className={s['devtools']}>
                 <SVGDashbaord className={s['dashboard']} />
 
@@ -611,8 +616,10 @@ export const DeveloperTools = () => {
                         />
                       </div>
 
-                      <span className={s['idx']}>{padZeroes(idx + 1, 2)}.</span>
                       <h3 className={s['title']}>
+                        <span className={s['idx']}>
+                          {padZeroes(idx + 1, 2)}.
+                        </span>
                         {isActive ? chunk.title : chunk.shortTitle}
                       </h3>
                     </button>
