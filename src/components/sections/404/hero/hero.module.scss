@@ -1,125 +1,63 @@
-@import 'css/variables';
 @import 'css/helpers';
 
 .section {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  min-height: calc(100vh - var(--header-height) - 57px);
+  min-height: 100vh;
+  margin-top: calc(var(--header-height) * -1);
+  background: linear-gradient(
+    251.84deg,
+    #111827 -24.23%,
+    #111826 -18.4%,
+    #101726 -13.17%,
+    #101725 -8.33%,
+    #101624 -3.65%,
+    #0f1523 1.08%,
+    #0f1421 6.08%,
+    #0e1420 11.58%,
+    #0d121e 17.81%,
+    #0c111c 24.96%,
+    #0b1019 33.28%,
+    #0a0e16 42.98%,
+    #080c13 54.28%,
+    #070a10 67.41%,
+    #000 82.57%,
+    #000 100%
+  );
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 5%;
+  .container {
     width: 100%;
-    background: linear-gradient(to bottom, transparent, var(--color-white));
-  }
 
-  .illustration {
-    position: absolute;
-    top: 190px;
-    right: 0;
-    transform: translateX(12%);
-    width: 300%;
-    max-width: 1100px;
+    .title {
+      position: relative;
+      max-width: 1040px;
+      width: 100%;
+      height: 140px;
+      user-select: none;
 
-    .marker {
-      position: absolute;
-      right: 40%;
-      top: 51.8%;
-      z-index: var(--z-index-10);
-    }
-  }
-
-  .hero {
-    position: relative;
-    margin-top: 32px;
-
-    .heading {
-      max-width: 810px;
-
-      h1 {
-        margin-bottom: 16px;
+      img {
+        object-fit: contain;
       }
-
-      span {
-        display: block;
-        max-width: 250px;
-      }
-
-      .heading-highlight {
-        color: var(--color-pink-crayon);
-      }
-
-      .cta {
-        margin-top: 56px;
-      }
-    }
-  }
-}
-
-@media (min-width: $screen-md) {
-  .section {
-    margin: auto;
-    align-items: center;
-    max-width: 1440px;
-    min-height: calc(100vh - var(--header-height) - 37px);
-
-    &::after {
-      all: unset;
-    }
-
-    .hero {
-      .heading {
-        h1 {
-          margin-bottom: 32px;
-        }
-
-        span {
-          max-width: unset;
-        }
+      @include respond-to(‘tablet’) {
+        width: 100%;
+        height: 46px;
       }
     }
 
-    .illustration {
-      left: -120px;
-      bottom: unset;
-      top: 50%;
-      transform: translateY(-52.5%) translateX(-6%);
-      width: 110%;
-      min-width: 1580px;
+    .text {
+      font-size: 18px;
+      line-height: 24px;
+      text-align: center;
+      margin: 24px 0 32px;
+    }
 
-      .marker {
-        top: 52.65%;
+    a {
+      margin: auto;
+      @include respond-to(‘tablet’) {
+        width: 100%;
       }
-    }
-  }
-}
-
-@media (min-width: $screen-lg) {
-  .section {
-    &::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      width: 15%;
-      height: 100%;
-      background: linear-gradient(
-        to right,
-        rgb(255 255 255 / 0) 0%,
-        rgb(255 255 255) 100%
-      );
-    }
-
-    .illustration {
-      transform: translateY(-52.5%) translateX(2%);
-    }
-
-    .hero {
-      margin-top: unset;
     }
   }
 }
