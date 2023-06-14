@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 import { Footer } from '~/components/layout/footer'
 import { Header } from '~/components/layout/header'
 
@@ -7,16 +9,27 @@ import s from './page.module.scss'
 type Props = {
   meta?: MetaProps
   children?: React.ReactNode
+  showHeader?: boolean
+  showFooter?: boolean
 }
-
-export const PageLayout = ({ meta, children }: Props) => {
+export const PageLayout = ({
+  meta,
+  children,
+  showHeader = true,
+  showFooter = true
+}: Props) => {
   return (
     <>
       <Meta {...meta} />
-
-      <Header />
-      <main className={s.main}>{children}</main>
-      <Footer />
+      {showHeader && <Header />}
+      <main
+        className={clsx(s.main, {
+          [s.showHeader as string]: showHeader
+        })}
+      >
+        {children}
+      </main>
+      {showFooter && <Footer />}
     </>
   )
 }

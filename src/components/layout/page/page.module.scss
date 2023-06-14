@@ -1,3 +1,5 @@
 .main {
-  padding-top: var(--header-height);
+  &.showHeader {
+    padding-top: var(--header-height);
+  }
 }
