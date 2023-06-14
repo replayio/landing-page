@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import AppleIcon from '~/components/icons/apple'
 import { LinuxIcon } from '~/components/icons/linux'
 import { WindowsIcon } from '~/components/icons/windows'
@@ -7,7 +9,15 @@ import { isServer } from '~/lib/constants'
 
 import s from './download-button.module.scss'
 
-const availablePlatforms = {
+type PlatformIcon = {
+  label: string
+  icon: React.FC<JSX.IntrinsicElements['svg']>
+  downloadSource: string
+}
+
+type Platform = 'windows' | 'mac' | 'linux'
+
+const availablePlatforms: { [platform: string]: PlatformIcon } = {
   windows: {
     label: 'Windows',
     icon: WindowsIcon,
@@ -25,8 +35,8 @@ const availablePlatforms = {
   }
 }
 
-const getPlatform = () => {
-  if (isServer) return 'mac'
+const getPlatform = (): Platform | null => {
+  if (isServer) return null
 
   const uAgent = navigator.userAgent
 
@@ -42,23 +52,28 @@ export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({
   children,
   ...rest
 }) => {
-  if (isServer) {
-    return null
-  }
+  const [platform, setPlatform] = useState<Platform | null>(null)
 
-  const platform = availablePlatforms[getPlatform()]
-  const PlatformIcon = platform.icon
+  useEffect(() => {
+    if (!isServer) {
+      setPlatform(getPlatform())
+    }
+  }, [])
+
+  if (!platform) return null
+  const platformIcon = availablePlatforms[platform]
+  if (!platformIcon) return null
 
   return (
     <ButtonLink
       {...rest}
-      href={platform.downloadSource}
+      href={platformIcon.downloadSource}
       target="_blank"
       download
     >
       {children}
 
-      <PlatformIcon className={s['platform']} />
+      <platformIcon.icon className={s['platform']} />
     </ButtonLink>
   )
 }
@@ -67,18 +82,28 @@ export const DownloadLink: React.FC<Partial<NavLinkProps>> = ({
   children,
   ...rest
 }) => {
-  if (isServer) {
-    return null
-  }
+  const [platform, setPlatform] = useState<string | null>(null)
 
-  const platform = availablePlatforms[getPlatform()]
-  const PlatformIcon = platform.icon
+  useEffect(() => {
+    if (!isServer) {
+      setPlatform(getPlatform())
+    }
+  }, [])
+
+  if (!platform) return null
+  const platformIcon = availablePlatforms[platform]
+  if (!platformIcon) return null
 
   return (
-    <NavLink {...rest} href={platform.downloadSource} target="_blank" download>
+    <NavLink
+      {...rest}
+      href={platformIcon.downloadSource}
+      target="_blank"
+      download
+    >
       {children}
 
-      <PlatformIcon className={s['platform']} />
+      <platformIcon.icon className={s['platform']} />
     </NavLink>
   )
 }
