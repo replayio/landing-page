@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
-import { Heading } from '~/components/common/heading'
 import Modal from '~/components/common/modal'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useMedia } from '~/hooks/use-media'
 import { useToggleState } from '~/hooks/use-toggle-state'
 
@@ -25,19 +25,20 @@ export const Team: FC = () => {
   }
 
   return (
-    <Section className={s.section}>
+    <Section id="about-team" className={s.section}>
       <Container className={s.container}>
         <div className={s.heading}>
-          <Heading as="h2" size="lg">
-            Meet the team
-          </Heading>
-          <p>
-            We're a distributed company, founded by people who have spent years
-            working on fully distributed teams at companies like Mozilla. We
-            work across the globe, so we focus less on hours and more on
-            building a great product. We build for the long term: it's a relay,
-            not a sprint.
-          </p>
+          <TitleAndSubtitle
+            title={{
+              children: <>Meet the Team</>,
+              hero: true
+            }}
+            subtitle={{
+              className: s.subtitle,
+              children:
+                "We're a distributed company, founded by people who have spent years working on fully distributed teams at companies like Mozilla. We work across the globe, so we focus less on hours and more on building a great product. We build for the long term: it's a relay, not a sprint."
+            }}
+          />
         </div>
       </Container>
       <div className={s['fade-container']}>
@@ -49,6 +50,7 @@ export const Team: FC = () => {
               className={s.slider}
               config={{
                 align: 'center',
+                /* @ts-ignore */
                 containScroll: isDesktop ? 'trimSnaps' : '',
                 skipSnaps: true
               }}

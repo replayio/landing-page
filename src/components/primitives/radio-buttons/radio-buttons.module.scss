@@ -1,0 +1,71 @@
+@import 'css/helpers';
+
+.button {
+  position: relative;
+  border-radius: 8px;
+  background: rgb(17 24 39 / 0.56);
+  width: max-content;
+  padding: 0 16px;
+  height: 32px;
+  border: 1px solid rgb(31 41 55 / 0.6);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: calc(20 / 14);
+  overflow: hidden;
+  transition: color var(--duration-normal) var(--ease-1);
+
+  @include respond-to('tablet') {
+    padding: 0 12px;
+  }
+
+  &[data-state='checked'] {
+    color: var(--white);
+
+    .indicator {
+      animation: fade-in 0.5s ease-out forwards;
+    }
+  }
+
+  &[data-state='unchecked'] {
+    color: var(--grey-400);
+
+    .indicator {
+      animation: fade-out var(--duration-normal) var(--ease-1) forwards;
+    }
+  }
+
+  .indicator {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background: radial-gradient(
+      88.75% 52.94% at 50% 47.06%,
+      #1f2937 38.54%,
+      rgb(31 41 55 / 0.24) 100%
+    );
+  }
+
+  .content {
+    position: relative;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

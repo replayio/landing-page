@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Image, { ImageProps } from 'next/future/image'
+import Image, { ImageProps } from 'next/image'
 import { FC } from 'react'
 
 import s from './heading-set.module.scss'
@@ -29,7 +29,10 @@ export const HeadingSet: FC<HeadingSetProps> = ({
     <div
       className={clsx(
         s['heading-set'],
-        { [s['centered']]: centered, [s['disabled']]: disabled },
+        {
+          [s['centered'] as string]: centered,
+          [s['disabled'] as string]: disabled
+        },
         className
       )}
     >

@@ -1,7 +1,8 @@
+import { PopupButton } from '@typeform/embed-react'
 import clsx from 'clsx'
 import { FC } from 'react'
 
-import { ButtonLink } from '~/components/primitives/button'
+import { Button, ButtonLink } from '~/components/primitives/button'
 
 import s from './card.module.scss'
 
@@ -10,16 +11,25 @@ interface Props {
     type: string
     price?: string | number
     mode?: string
-    link: string
+    link?: string
     cta: string
     features: string[]
   }
   variant?: 'primary' | 'default'
+  mode: string
 }
 
-export const Card: FC<Props> = ({ data, variant = 'default' }) => {
+export const Card: FC<Props> = ({ mode, data }) => {
+  const variant =
+    (mode === 'bugs' && data.type === 'Organization') ||
+    (mode === 'tests' && data.type == 'Pro')
+      ? 'primary'
+      : 'default'
+
   return (
-    <div className={clsx(s.card, { [s.primary]: variant === 'primary' })}>
+    <div
+      className={clsx(s.card, { [s.primary as string]: variant === 'primary' })}
+    >
       <h2>{data.type}</h2>
       <div>
         {data?.price ? (
@@ -34,12 +44,26 @@ export const Card: FC<Props> = ({ data, variant = 'default' }) => {
           <span>Let's chat</span>
         )}
       </div>
-      <ButtonLink
-        href={data.link}
-        variant={data.type === 'Organization' ? 'tertiary' : 'primary'}
-      >
-        {data.cta}
-      </ButtonLink>
+
+      {data.link ? (
+        <ButtonLink
+          href={data.link}
+          variant={data.type === 'Organization' ? 'tertiary' : 'primary'}
+        >
+          {data.cta}
+        </ButtonLink>
+      ) : (
+        <PopupButton id="jTudlerL" className={s.cta} as="a">
+          <Button
+            as="a"
+            variant={data.type === 'Pro' ? 'tertiary' : 'primary'}
+            aria-label="Learn more about Test Suites"
+          >
+            {data.cta}
+          </Button>
+        </PopupButton>
+      )}
+
       <ul>
         {data.features.map((feature: string, i: number) => (
           <li key={i}>{feature}</li>

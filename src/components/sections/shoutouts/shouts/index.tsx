@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
 import Masonry from 'react-masonry-css'
 
@@ -44,7 +44,7 @@ export const Shouts: FC = () => {
         <Masonry
           breakpointCols={3}
           className={clsx(s.masonry, {
-            [s['faded']]: visibleShoutsLength < shouts.length
+            [s['faded'] as string]: visibleShoutsLength < shouts.length
           })}
           columnClassName={s.masonry__column}
         >
@@ -55,7 +55,7 @@ export const Shouts: FC = () => {
         <Masonry
           breakpointCols={2}
           className={clsx(s.masonry__md, {
-            [s['faded']]: visibleShoutsLength < shouts.length
+            [s['faded'] as string]: visibleShoutsLength < shouts.length
           })}
           columnClassName={s.masonry__md__column}
         >
@@ -65,7 +65,7 @@ export const Shouts: FC = () => {
         </Masonry>
         <div
           className={clsx(s['mobile-list'], {
-            [s['faded']]: visibleShoutsLength < shouts.length
+            [s['faded'] as string]: visibleShoutsLength < shouts.length
           })}
         >
           {visibleShouts.map((member, i) => (

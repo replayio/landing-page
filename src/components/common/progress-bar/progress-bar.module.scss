@@ -1,6 +1,8 @@
 .progress-bar {
-  --color-primary: var(--color-pink-crayon);
-  --color-secondary: #f41c5266;
+  --color-primary: var(--white);
+  --color-secondary: var(--blue-800);
+  --color-transparent: transparent;
+  --thickness: 2px;
 
   position: relative;
   width: var(--progress-bar-width);
@@ -10,7 +12,7 @@
 
   &.vertical {
     --progress-bar-height: 100%;
-    --progress-bar-width: 3px;
+    --progress-bar-width: var(--thickness);
 
     .progress {
       --width: 3px;
@@ -28,12 +30,12 @@
   }
 
   &.horizontal {
-    --progress-bar-height: 3px;
+    --progress-bar-height: var(--thickness);
     --progress-bar-width: 100%;
 
     .progress {
       --width: 30%;
-      --height: 3px;
+      --height: var(--thickness);
       --translate-x: -100%;
       --translate-y: -50%;
       --gradient-direction: to right;
@@ -127,6 +129,9 @@
       background: var(--color);
       border-radius: var(--border-radius-full);
       animation: 4s linear infinite none;
+      animation-play-state: var(--section-play-state);
+      transform-origin: center;
+      left: 0;
     }
   }
 }

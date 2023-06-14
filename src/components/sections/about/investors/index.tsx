@@ -1,11 +1,11 @@
 import clsx from 'clsx'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { FC } from 'react'
 
 import { Carousel } from '~/components/common/carousel'
-import { Heading } from '~/components/common/heading'
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
+import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useMedia } from '~/hooks/use-media'
 
 import styles from '../team/team.module.scss'
@@ -21,15 +21,17 @@ export const Investors: FC = () => {
     <Section className={styles.section}>
       <Container className={styles.container}>
         <div className={styles.heading}>
-          <Heading as="h2" size="lg">
-            Our investors
-          </Heading>
-          <p>
-            We are grateful for the support and guidance we are receiving from
-            our institutional investors and angels. Their experience of leading
-            and advising companies such as GitHub, Figma, DataDog, Replit, and
-            Sourcegraph is helping us become even better.
-          </p>
+          <TitleAndSubtitle
+            title={{
+              children: <>Our Investors</>,
+              hero: true
+            }}
+            subtitle={{
+              className: s.subtitle,
+              children:
+                'We are grateful for the support and guidance we are receiving from our institutional investors and angels. Their experience of leading and advising companies such as GitHub, Figma, DataDog, Replit, and Sourcegraph is helping us become even better.'
+            }}
+          />
         </div>
       </Container>
 
@@ -52,6 +54,7 @@ export const Investors: FC = () => {
               arrows={!isMobile}
               className={styles.slider}
               config={{
+                /* @ts-ignore */
                 containScroll: isDesktop ? 'trimSnaps' : '',
                 skipSnaps: true
               }}

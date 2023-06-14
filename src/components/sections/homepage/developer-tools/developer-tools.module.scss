@@ -1,0 +1,352 @@
+@import 'css/helpers';
+
+.perspective-container {
+  perspective: 200em;
+
+  @include respond-to('tablet') {
+    display: none;
+  }
+}
+
+.wrapper,
+.mobile-wrapper {
+  --border-radius: 24px;
+  --padding: 8px;
+  --border: 1px solid rgb(31 41 55 / 0.86);
+
+  padding: var(--padding);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  background: linear-gradient(
+    256.14deg,
+    #111827 0%,
+    #111826 4.7%,
+    #101726 8.9%,
+    #101725 12.8%,
+    #101624 16.56%,
+    #0f1523 20.37%,
+    #0f1421 24.4%,
+    #0e1420 28.83%,
+    #0d121e 33.84%,
+    #0c111c 39.6%,
+    #0b1019 46.3%,
+    #0a0e16 54.1%,
+    #080c13 63.2%,
+    #070a10 73.76%,
+    #05070c 85.97%,
+    #030407 100%
+  );
+
+  @include respond-to('mobile') {
+    --border-radius: 14px;
+    --padding: 4px;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.mobile-wrapper {
+  display: none;
+  position: relative;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
+
+  .inner {
+    position: relative;
+  }
+
+  @include respond-to('tablet') {
+    display: block;
+  }
+}
+
+.wrapper {
+  --local-rotation-x: 0deg;
+  --local-rotation-y: 0deg;
+  --global-rotation-x: 0deg;
+  --global-rotation-y: 0deg;
+  --base-rotation-x: 10deg;
+  --max-height: 75vh;
+
+  margin: 64px auto 0;
+  transform-style: preserve-3d;
+  transform: rotateX(
+      calc(
+        var(--global-rotation-x) + var(--local-rotation-x) +
+          var(--base-rotation-x)
+      )
+    )
+    rotateY(calc(var(--global-rotation-y) + var(--local-rotation-y)));
+  backface-visibility: hidden;
+  will-change: transform;
+  max-width: calc((var(--max-height)) * var(--raw-ratio));
+}
+
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 150px;
+
+  @include respond-to('tablet-lg') {
+    padding-bottom: 80px;
+  }
+}
+
+.back-lines {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100vw;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1360px;
+  width: calc(100% - 80px);
+  margin: auto;
+  padding: 0 40px;
+
+  @include respond-to('tablet-lg') {
+    width: 100%;
+    padding: 0 var(--container-sides-space);
+  }
+}
+
+.mobile-panel {
+  width: 100%;
+  object-position: top;
+  object-fit: cover;
+  aspect-ratio: calc(335 / 191);
+  border-radius: calc(var(--border-radius) - var(--padding));
+  position: absolute;
+  min-width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-out 0.25s;
+  will-change: opacity;
+  border: var(--border);
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.main {
+  position: relative;
+}
+
+.devtools {
+  position: relative;
+  align-items: center;
+  justify-items: center;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+
+  .dashboard {
+    position: absolute;
+    inset: 0;
+    border: var(--border);
+    border-radius: calc(var(--border-radius) - var(--padding));
+  }
+
+  .overlay {
+    position: absolute;
+    border-radius: calc(var(--border-radius) - var(--padding));
+    background: var(--black);
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--animation-duration) ease-out
+      calc(var(--base-delay) + var(--z-animation-delay));
+    margin-left: unset !important;
+  }
+
+  .panels {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 4% 0.7% 5.5% 4%;
+
+    --z-animation-delay: 0s;
+    --base-delay: 0s;
+    --animation-duration: 0.25s;
+    --delay: 0s;
+
+    &.active {
+      --z-animation-delay: 0.5s;
+      --base-delay: 0.25s;
+      --animation-duration: 0.75s;
+
+      .panel {
+        --delay: calc(0.1s * var(--delay-factor));
+
+        opacity: 1;
+      }
+
+      .panel.highlight-panel {
+        box-shadow: 0 20px 40px rgb(0 0 0 / 0.5);
+        transform: translate3d(0, 0, 80px);
+      }
+
+      .overlay {
+        opacity: 0.55;
+      }
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      transform-style: preserve-3d;
+    }
+  }
+
+  .panel {
+    --delay: calc(0.075s * var(--delay-factor));
+
+    opacity: 0;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 0);
+    transition: transform var(--animation-duration) ease-out
+        calc(var(--delay) + var(--base-delay) + var(--z-animation-delay)),
+      box-shadow var(--animation-duration) ease-out
+        calc(var(--delay) + var(--base-delay)),
+      opacity var(--animation-duration) ease-out
+        calc(var(--delay) + var(--base-delay));
+    backface-visibility: hidden;
+
+    &.highlight-panel {
+      transform: translate3d(0, 0, 1px);
+    }
+  }
+
+  img {
+    user-select: none;
+  }
+}
+
+.chunks {
+  margin-top: 54px;
+
+  .chunk {
+    transition: flex-grow 0.25s var(--ease-out-soft);
+
+    .head {
+      width: 100%;
+      text-align: left;
+      display: block;
+      cursor: pointer;
+      text-overflow: ellipsis;
+    }
+
+    .body {
+      opacity: 0;
+      user-select: none;
+    }
+
+    &.active {
+      flex-grow: 1.75;
+
+      .title {
+        color: var(--white);
+      }
+
+      .body {
+        transition: opacity 0.25s var(--ease-out-soft) 0.25s;
+        animation-delay: 0.5s;
+        opacity: 1;
+        user-select: unset;
+      }
+    }
+
+    .timeline {
+      margin-bottom: 32px;
+    }
+
+    .idx {
+      margin-right: 6px;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .title {
+      transition: color 0.25s ease-out;
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--grey-400);
+    }
+
+    .description {
+      color: var(--grey-400);
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .learn-more {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 12px;
+
+      .arrow {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+.embla {
+  --slide-spacing: 16px;
+  --slide-flex-size: 1;
+
+  @include respond-to('tablet') {
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    --slide-spacing: 16px;
+    --slide-flex-size: 0 0 min(100%, 80vw);
+  }
+}
+
+.embla-container {
+  will-change: transform;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla-slide {
+  box-sizing: content-box;
+  flex: var(--slide-flex-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+  position: relative;
+
+  @include respond-to('tablet') {
+    &:last-child {
+      flex: 0 0 calc(100% - var(--slide-spacing));
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

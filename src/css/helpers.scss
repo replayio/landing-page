@@ -58,3 +58,55 @@
     margin-top: $px;
   }
 }
+
+$breakpoints: (
+  'mobile': (
+    max-width: 480px
+  ),
+  'min-mobile-lg': (
+    min-width: 540px
+  ),
+  'mobile-lg': (
+    max-width: 539px
+  ),
+  'min-tablet': (
+    min-width: 769px
+  ),
+  'tablet': (
+    max-width: 768px
+  ),
+  'min-tablet-lg': (
+    min-width: 1025px
+  ),
+  'tablet-lg': (
+    max-width: 1024px
+  ),
+  'desktop-sm': (
+    max-width: 1280px
+  ),
+  'min-desktop-sm': (
+    min-width: 1281px
+  ),
+  'desktop': (
+    max-width: 1440px
+  ),
+  'desktop-xl': (
+    min-width: 1920px
+  )
+);
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. ' + 'Available breakpoints are: #{map-keys($breakpoints)}.';
+  }
+}
+
+@mixin hoverable-mouse {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

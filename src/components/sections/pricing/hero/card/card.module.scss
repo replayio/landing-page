@@ -6,10 +6,18 @@
   flex-direction: column;
   align-items: center;
   border-radius: var(--border-radius-2xl);
-  border: 1px solid var(--color-gray-lighter);
+  border: 1px solid var(--color-gray-darker);
   padding: 48px 24px;
 
   a {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 143%;
+    margin: 24px 0 32px;
+    width: 100% !important;
+  }
+
+  .cta {
     font-size: 14px;
     font-weight: 500;
     line-height: 143%;
@@ -73,6 +81,11 @@
         height: 18px;
       }
     }
+  }
+
+  .waitlist {
+    margin: 32px 0;
+    width: 100%;
   }
 
   &.primary {

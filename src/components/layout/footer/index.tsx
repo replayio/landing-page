@@ -1,223 +1,80 @@
-import clsx from 'clsx'
-import { ScrollTrigger } from 'lib/gsap'
-import Image from 'next/future/image'
-import { useRouter } from 'next/router'
-import { FC, useEffect, useMemo, useRef } from 'react'
+import Image from 'next/image'
 
-import { DownloadButton } from '~/components/common/download-button'
-import { Heading } from '~/components/common/heading'
-import { ProgressAPI, ProgressBar } from '~/components/common/progress-bar'
-import { Discord, Linkedin, Twitter } from '~/components/icons/social'
-import { Link } from '~/components/primitives/link'
-import { IsoLogo } from '~/components/primitives/logo'
-import { useDeviceDetect } from '~/hooks/use-device-detect'
-import { useMedia } from '~/hooks/use-media'
-import { breakpoints } from '~/lib/constants'
-import footerBgSvg from '~/public/images/home/footer-bg.svg'
+import { NavLink } from '~/components/primitives/nav-link'
+import { SITEMAP } from '~/lib/sitemap'
+import { getImageSizes } from '~/lib/utils/image'
 
-import { Container } from '../container'
 import s from './footer.module.scss'
 
-const links = {
-  about: [
-    {
-      label: 'About',
-      href: '/about'
-    },
-    {
-      label: 'Pricing',
-      href: '/pricing'
-    },
-    {
-      label: "We're Hiring",
-      href: '/about#jobs'
-    },
-    {
-      label: 'Values',
-      href: '/about#values'
-    }
-  ],
-  'get help': [
-    {
-      label: 'Docs',
-      href: 'https://docs.replay.io/'
-    },
-    {
-      label: 'Github Issues',
-      href: 'https://github.com/replayio'
-    },
-    {
-      label: 'Contact Us',
-      href: 'mailto:hey@replay.io'
-    }
-  ],
-  legal: [
-    {
-      label: 'Privacy Policy',
-      href: '/privacy-policy'
-    },
-    {
-      label: 'Terms of Service',
-      href: '/terms-of-service'
-    }
-  ],
-  resources: [
-    {
-      label: 'Blog',
-      href: 'https://blog.replay.io'
-    },
-    {
-      label: 'Security & Privacy',
-      href: '/security-and-privacy'
-    }
-  ]
-}
-
-const social = {
-  discord: {
-    icon: <Discord />,
-    href: '/discord'
+const links = [
+  {
+    section: 'About',
+    links: [SITEMAP.aboutUs, SITEMAP.pricing, SITEMAP.hiring, SITEMAP.values]
   },
-  twitter: {
-    icon: <Twitter />,
-    href: 'https://twitter.com/replayio'
+  {
+    section: 'Get Help',
+    links: [SITEMAP.docs, SITEMAP.githubIssues, SITEMAP.contactUs]
   },
-  linkedIn: {
-    icon: <Linkedin />,
-    href: 'https://www.linkedin.com/company/replayio/'
+  {
+    section: 'Legal',
+    links: [SITEMAP.privacyPolicy, SITEMAP.termsService]
+  },
+  {
+    section: 'Resources',
+    links: [SITEMAP.blog, SITEMAP.securityPrivacy]
   }
-}
+]
 
-export const Footer: FC = () => {
-  const router = useRouter()
-  const progressRef = useRef<ProgressAPI>(null)
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isDesktopSize = useMedia(`(min-width: ${breakpoints.screenLg}px)`)
-  const { isDesktop } = useDeviceDetect()
-
-  useEffect(() => {
-    if (!sectionRef.current || !progressRef.current) return
-
-    const trigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      markers: false,
-      scrub: 1,
-      start: 'top bottom',
-      end: `${isDesktopSize ? 'bottom' : '+=600px'} bottom`,
-      onUpdate: (stState) => {
-        if (progressRef.current) {
-          progressRef.current.update(stState.progress * 70)
-        }
-      }
-    })
-
-    return () => {
-      trigger.kill()
-    }
-  }, [isDesktop, isDesktopSize])
-
-  const { overflowed, hidden } = useMemo(() => {
-    let overflowed = false
-    let hidden = false
-    switch (router.pathname) {
-      case '/about':
-      case '/pricing':
-        overflowed = true
-        break
-      case '/shoutouts':
-      case '/privacy-policy':
-      case '/security-and-privacy':
-      case '/terms-of-service':
-        hidden = true
-        break
-      default:
-        break
-    }
-
-    return { overflowed, hidden }
-  }, [router.pathname])
-
+export const Footer = () => {
   return (
-    <footer
-      className={clsx(s['section'], 'inverted-selection', {
-        [s.overflowed]: overflowed,
-        [s.hidden]: hidden
-      })}
-    >
-      <div className={s['bg']}>
-        <Image src={footerBgSvg} alt="footer bg" />
-      </div>
-      <Container size="lg">
-        <div className={s['footer']} ref={sectionRef}>
-          <div className={s['top']}>
-            <div className={s['head']}>
-              <div className={s['logo']}>
-                <span className={s['iso']}>
-                  <IsoLogo />
-                </span>
-                <Heading as="h4" className={s.heading} size="lg">
-                  Start Replaying now
-                </Heading>
-              </div>
-              <div className={s['cta']}>
-                <DownloadButton variant="tertiary" title="Download Replay" />
-              </div>
-            </div>
-            <div className={s['timeline']}>
-              <ProgressBar
-                markers={[{ position: 70 }]}
-                primaryColor="#FFF"
-                secondaryColor="#FFFFFF4D"
-                progress={70}
-                direction="horizontal"
-                animated={false}
-                ref={progressRef}
-              />
-            </div>
-          </div>
-
-          <div className={s['middle']}>
-            <div className={s['get-in-touch']}>
-              <h4 className={s['title']}>
-                Time-travel debugging is the best way to see and understand
-                software. This is why Replay will always be free for
-                individuals.
-              </h4>
-            </div>
-            <div className={s['nav']}>
-              {Object.entries(links).map(([key, items]) => (
-                <div key={key} className={s['nav-group']}>
-                  <h4 id={`footer-${key}`} className={s['title']}>
-                    {key}
-                  </h4>
-                  <ul aria-labelledby={`footer-${key}`} className={s['list']}>
-                    {items.map(({ label, href }) => (
-                      <li key={label}>
-                        <Link href={href}>{label}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={s['bottom']}>
-            <div className={s['rights']}>
-              <p>© {new Date().getFullYear()} Replay, All rights reserved.</p>
-            </div>
-            <ul className={s['social']}>
-              {Object.entries(social).map(([key, link]) => (
-                <li key={key} title={key}>
-                  <Link href={link.href} aria-label={key}>
-                    {link.icon}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <footer className={s.footer}>
+      <div className={s.titleWrapper}>
+        <div className={s.isotypeWrapper}>
+          <Image
+            src="/images/isotype.png"
+            alt="Replay's isotype"
+            fill
+            quality={100}
+            priority
+            sizes={getImageSizes(2, 2, 2)}
+          />
         </div>
-      </Container>
+        <h2 className={s.title}>Start Replaying now</h2>
+      </div>
+
+      <div className={s.mainContent}>
+        <p className={s.info}>
+          Time travel debugging is the best way to see and understand software.{' '}
+          <span>
+            That’s why Replay will always be free for individuals and open
+            source.
+          </span>
+        </p>
+
+        <div className={s.links}>
+          {links.map((item) => (
+            <div key={item.section}>
+              <p className={s.title}>{item.section}</p>
+
+              <ul>
+                {item.links.map((link) => (
+                  <NavLink
+                    key={link.label}
+                    href={link.href || '/'}
+                    aria-label={link.label}
+                  >
+                    {link.label}
+                  </NavLink>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <p className={s.copyright}>
+        &copy; {new Date().getFullYear()} Replay, All rights reserved.
+      </p>
     </footer>
   )
 }

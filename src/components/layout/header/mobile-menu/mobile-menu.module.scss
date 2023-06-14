@@ -1,0 +1,127 @@
+@import '~/css/helpers';
+
+.burgerButton {
+  padding-left: 1px;
+  display: block;
+}
+
+.mobileMenuContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin-top: var(--header-height);
+  z-index: var(--mobile-menu-z-index);
+  opacity: 0;
+  height: 0;
+  visibility: hidden;
+
+  &::before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      256.14deg,
+      #111827 0%,
+      #111826 4.7%,
+      #101726 8.9%,
+      #101725 12.8%,
+      #101624 16.56%,
+      #0f1523 20.37%,
+      #0f1421 24.4%,
+      #0e1420 28.83%,
+      #0d121e 33.84%,
+      #0c111c 39.6%,
+      #0b1019 46.3%,
+      #0a0e16 54.1%,
+      #080c13 63.2%,
+      #070a10 73.76%,
+      #05070c 85.97%,
+      #030407 100%
+    );
+    top: 0;
+    left: 0;
+    z-index: -10;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .mobileMenuInner {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    overflow: auto;
+    padding: 0 var(--container-sides-space);
+
+    .menuLinksContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      height: 100%;
+
+      > li {
+        &:first-child {
+          padding-top: 24px;
+        }
+
+        &:last-child {
+          padding-bottom: 24px;
+        }
+      }
+
+      .menuListItem {
+        .menuLink {
+          font-size: 24px;
+          line-height: 32px;
+          letter-spacing: -0.04em;
+          color: var(--grey-400);
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          transition: color var(--duration-normal) var(--ease-1);
+
+          &.active {
+            color: var(--white);
+
+            svg {
+              transform: rotate(-90deg);
+            }
+          }
+
+          svg {
+            width: 20px;
+            height: 20px;
+            transform: rotate(90deg);
+            transition: transform var(--duration-normal) var(--ease-1);
+          }
+        }
+
+        .dropdownContentWrapper {
+          padding: 24px 0;
+        }
+      }
+    }
+
+    .bottomCtasWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #06090e;
+      border-top: 1px solid rgb(31 41 55 / 0.86);
+      padding: 24px var(--container-sides-space);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+
+      a {
+        width: 100%;
+      }
+    }
+  }
+}

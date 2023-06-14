@@ -17,7 +17,21 @@ export const Security: FC = () => {
           </Heading>
           <span>Efective date: 28 MAR 2023</span>
         </div>
-        <Heading as="h2">Our Approach to Secure Development</Heading>
+        <Heading id="compliance" as="h2">
+          Compliance reporting
+        </Heading>
+        <div className={s.content}>
+          <p>
+            Replay.io continuously monitors and reports primarily using System
+            and Organization Controls (SOC) 2 Type 2. To receive a copy of the
+            report please contact <a href="mailto:support@replay.io">Support</a>
+            .
+          </p>
+        </div>
+
+        <Heading id="secure-development" as="h2">
+          Our Approach to Secure Development
+        </Heading>
         <div className={s.content}>
           <p>
             Replay employs a secure Software Development Lifecycle ("SDLC") to
@@ -32,8 +46,9 @@ export const Security: FC = () => {
             <li>Separated testing and production environments</li>
           </ul>
         </div>
-
-        <Heading as="h2">Our Approach to Encryption</Heading>
+        <Heading id="encryption" as="h2">
+          Our Approach to Encryption
+        </Heading>
         <div className={s.content}>
           <p>
             We maintain strict encryption standards and you can rest assured
@@ -49,8 +64,9 @@ export const Security: FC = () => {
             <li>AES 256 encryption used for data at rest.</li>
           </ul>
         </div>
-
-        <Heading as="h2">Our Approach to Authentication</Heading>
+        <Heading id="authentication" as="h2">
+          Our Approach to Authentication
+        </Heading>
         <div className={s.content}>
           <p>
             We support single sign-on via Google SAML 2.0, which includes Multi
@@ -58,8 +74,9 @@ export const Security: FC = () => {
             other features. We leave the controls in the hands of our users.
           </p>
         </div>
-
-        <Heading as="h2">Our Approach to Access Control</Heading>
+        <Heading id="access-control" as="h2">
+          Our Approach to Access Control
+        </Heading>
         <div className={s.content}>
           <p>
             Replay follows the principle of least privilege to all access
@@ -70,8 +87,9 @@ export const Security: FC = () => {
             infrastructure.
           </p>
         </div>
-
-        <Heading as="h2">Our Approach to Network Security</Heading>
+        <Heading id="network" as="h2">
+          Our Approach to Network Security
+        </Heading>
         <div className={s.content}>
           <p>
             Replay takes network security very seriously and has worked hard to
@@ -86,8 +104,9 @@ export const Security: FC = () => {
             </li>
           </ul>
         </div>
-
-        <Heading as="h2">Our Approach to Privacy</Heading>
+        <Heading id="privacy" as="h2">
+          Our Approach to Privacy
+        </Heading>
         <div className={s.content}>
           <p>
             The privacy of everyone who uses our software must be respected.
@@ -110,8 +129,9 @@ export const Security: FC = () => {
             </li>
           </ul>
         </div>
-
-        <Heading as="h2">Our Approach to Session Replay</Heading>
+        <Heading id="session-replay" as="h2">
+          Our Approach to Session Replay
+        </Heading>
         <div className={s.content}>
           <p>
             Replay uses <Link href="https://logrocket.com/">LogRocket</Link> to
@@ -135,7 +155,6 @@ export const Security: FC = () => {
             </li>
           </ul>
         </div>
-
         <Heading as="h2">Additional Information</Heading>
         <div className={s.content}>
           <p>

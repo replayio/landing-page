@@ -1,0 +1,11 @@
+@import '~/css/helpers';
+
+.section {
+  position: relative;
+
+  --section-play-state: running;
+
+  &.not-in-view {
+    --section-play-state: paused;
+  }
+}

@@ -98,16 +98,16 @@ export const Carousel = forwardRef<
             {scrollSnaps.map((_, index) => (
               <button
                 className={clsx(s['embla__dot'], {
-                  [s['is-selected']]: index === selectedIndex,
-                  [s['scaled-90']]:
+                  [s['is-selected'] as string]: index === selectedIndex,
+                  [s['scaled-90'] as string]:
                     index === selectedIndex + 3 || index === selectedIndex - 3,
-                  [s['scaled-80']]:
+                  [s['scaled-80'] as string]:
                     index === selectedIndex + 4 || index === selectedIndex - 4,
-                  [s['scaled-70']]:
+                  [s['scaled-70'] as string]:
                     index === selectedIndex + 5 || index === selectedIndex - 5,
-                  [s['scaled-60']]:
+                  [s['scaled-60'] as string]:
                     index === selectedIndex + 6 || index === selectedIndex - 6,
-                  [s['scaled-50']]:
+                  [s['scaled-50'] as string]:
                     index >= selectedIndex + 7 || index <= selectedIndex - 7
                 })}
                 type="button"

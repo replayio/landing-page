@@ -39,8 +39,8 @@ export const OnRenderFadeIn: FC<OnRenderFadeInProps> = ({
   return (
     <div
       className={clsx(s['container'], className, {
-        [s['translate']]: animateTranslate,
-        [s['visible']]: rendered
+        [s['translate'] as string]: animateTranslate,
+        [s['visible'] as string]: rendered
       })}
       {...rest}
       ref={containerRef}

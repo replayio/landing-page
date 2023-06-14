@@ -17,8 +17,10 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
+    "noUncheckedIndexedAccess": true,
     "baseUrl": "./src",
     "paths": {
+      "~/images/*": ["../public/images/*"],
       "~/public/*": ["../public/*"],
       "~/*": ["./*"]
     },

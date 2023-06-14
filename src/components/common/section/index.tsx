@@ -36,7 +36,9 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
       </Heading>
       {subtitle && (
         <DescriptionElm
-          className={clsx(s['subtitle'], { [s['centered']]: centered })}
+          className={clsx(s['subtitle'], {
+            [s['centered'] as string]: centered
+          })}
         >
           {subtitle}
         </DescriptionElm>

@@ -51,6 +51,7 @@ export type ProgressProps = {
   markerVisible?: boolean
   markerColor?: string
   markerActiveColor?: string
+  thickness?: number
   /*
     If progress bar is animated we use
     gsap.timeline if not, just use gsap.set
@@ -97,7 +98,8 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
       markerActiveColor,
       onMarkerUpdate,
       direction = 'horizontal',
-      animated = true
+      animated = true,
+      thickness = 2
     },
     ref
   ) => {
@@ -116,7 +118,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
     const [internalMarkers, setInternalMarkers] = useState<InternalMarker[]>([])
 
     const update = useCallback(
-      (progress) => {
+      (progress: number) => {
         const duration = ANIMATION_UPDATE_INTERVAL_SEC
         const gsapFunc =
           progress < prevProgress.current || !animated ? 'set' : 'to'
@@ -251,17 +253,20 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
         style={{
           // @ts-ignore
           '--color-primary': primaryColor,
-          '--color-secondary': secondaryColor
+          '--color-secondary': secondaryColor,
+          '--thickness': thickness + 'px'
         }}
         className={clsx(s['progress-bar'], {
-          [s['vertical']]: direction === 'vertical',
-          [s['horizontal']]: direction === 'horizontal'
+          [s['vertical'] as string]: direction === 'vertical',
+          [s['horizontal'] as string]: direction === 'horizontal'
         })}
         ref={barRef}
       >
         <div className={s['progress']} ref={progressRef}>
           <div
-            className={clsx(s['progress-gradient'], { [s['solid']]: solid })}
+            className={clsx(s['progress-gradient'], {
+              [s['solid'] as string]: solid
+            })}
           />
         </div>
         {markerVisible &&
@@ -287,6 +292,7 @@ export const ProgressBar = forwardRef<ProgressAPI, ProgressProps>(
                   activeColor={activeColor || markerActiveColor}
                   active={
                     lastActiveMarker !== undefined &&
+                    // @ts-ignore
                     position <= lastActiveMarker.position
                   }
                   current={
@@ -326,6 +332,8 @@ type ProgressMarkerProp = {
   color?: string
   active?: boolean
   current?: boolean
+  style?: React.CSSProperties
+  className?: string
   activeColor?: string
 } & JSX.IntrinsicElements['span']
 
@@ -347,15 +355,10 @@ export const ProgressMarker = forwardRef<HTMLSpanElement, ProgressMarkerProp>(
     <span
       // @ts-ignore
       style={{ '--color': active ? activeColor || color : color, ...style }}
-      className={clsx(
-        s['marker'],
-        s['animated'],
-        {
-          [s['active']]: active,
-          [s['current']]: current
-        },
-        className
-      )}
+      className={clsx(s['marker'], s['animated'], className, {
+        [s['active'] as string]: active,
+        [s['current'] as string]: current
+      })}
       {...props}
       ref={ref}
     >

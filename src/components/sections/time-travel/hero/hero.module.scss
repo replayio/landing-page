@@ -1,0 +1,46 @@
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
+@import 'css/helpers';
+
+.section {
+  position: relative;
+  margin-top: calc(-1 * var(--header-height));
+  text-align: center;
+
+  @include respond-to('tablet') {
+    min-height: unset;
+  }
+
+  .first {
+    position: sticky;
+    top: 0;
+    padding-top: calc(var(--header-height) + 48px);
+    margin-bottom: 96px;
+
+    @include respond-to('tablet') {
+      position: relative;
+      top: unset;
+      margin-bottom: 48px;
+    }
+
+    .highlight {
+      color: var(--red-400);
+    }
+
+    .subtitle {
+      max-width: 430px;
+    }
+
+    .ctas {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+
+      @include space-x(16px);
+
+      @include respond-to('tablet') {
+        margin-top: 32px;
+      }
+    }
+  }
+}

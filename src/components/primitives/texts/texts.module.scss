@@ -1,0 +1,43 @@
+@import '~/css/helpers';
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-align: center;
+
+  &.hero {
+    font-size: 64px;
+    line-height: 84px;
+  }
+
+  &:not(&.hero) {
+    font-size: 48px;
+    line-height: 64px;
+  }
+
+  @include respond-to('tablet') {
+    font-size: 32px !important;
+    line-height: 40px !important;
+  }
+}
+
+.subtitle {
+  line-height: 22px;
+  letter-spacing: -0.02em;
+  color: var(--grey-400);
+  text-align: center;
+  max-width: 620px;
+  margin: auto;
+}
+
+.titleSubtitleWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+
+  @include respond-to('tablet') {
+    gap: 16px;
+  }
+}
