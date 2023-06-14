@@ -230,7 +230,7 @@ const data: DataType[] = [
     }
   },
   {
-    id: 6,
+    id: 7,
     quote:
       '“Before Replay.io, we spent somewhere between 1–2 hours per day per dev in this reproducibility purgatory”',
     author: {
