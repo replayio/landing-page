@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import { DownloadLink } from '~/components/common/download-button'
@@ -33,6 +34,7 @@ export const Header = () => {
   const [scrolled, setScrolled] = useState<boolean>(false)
   const { navigationSitemapShowing } = useAppStore()
   const toggle = useToggleState()
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,7 +88,13 @@ export const Header = () => {
                     />
                   </>
                 ) : (
-                  <NavLink href={link.href || '/'} aria-label={link.label}>
+                  <NavLink
+                    style={{
+                      color: router.pathname === link.href ? '#fff' : 'inherit'
+                    }}
+                    href={link.href || '/'}
+                    aria-label={link.label}
+                  >
                     {link.label}
                   </NavLink>
                 )}
