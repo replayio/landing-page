@@ -44,6 +44,7 @@
 
   .container {
     width: 100%;
+    transition: opacity 0.5s var(--ease-out-soft);
 
     .title {
       position: relative;

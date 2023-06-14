@@ -1,6 +1,6 @@
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { Section } from '~/components/common/section'
 import { Container } from '~/components/layout/container'
@@ -17,6 +17,8 @@ const Sky = dynamic(
 )
 
 export const Hero: FC = () => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   return (
     <Section className={s.section}>
       <div className={s['bg-container']}>
@@ -24,7 +26,12 @@ export const Hero: FC = () => {
           <Sky />
         </div>
       </div>
-      <Container className={s.container}>
+      <Container
+        style={{
+          opacity: imageLoaded ? 1 : 0
+        }}
+        className={s.container}
+      >
         <h1 className="screen-reader-only">Page Not Found</h1>
         <div className={s.title}>
           <Image
@@ -32,6 +39,9 @@ export const Hero: FC = () => {
             fill
             alt="Page Not Found"
             draggable={false}
+            onLoadingComplete={() => {
+              setImageLoaded(true)
+            }}
           />
         </div>
         <p className={s.text}>
@@ -42,7 +52,7 @@ export const Hero: FC = () => {
           href={SITEMAP.home.href || '/'}
           aria-label={SITEMAP.home.label}
         >
-          Go back {SITEMAP.home.label}
+          Go Back {SITEMAP.home.label}
         </ButtonLink>
       </Container>
     </Section>
