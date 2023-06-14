@@ -11,7 +11,7 @@ import s from './download-button.module.scss'
 
 type PlatformIcon = {
   label: string
-  icon: React.FC
+  icon: React.FC<JSX.IntrinsicElements['svg']>
   downloadSource: string
 }
 
