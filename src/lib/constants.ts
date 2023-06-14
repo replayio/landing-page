@@ -37,7 +37,7 @@ export const basementLog = `
 export const defaultMeta = {
   title: 'Replay - The time-travel debugger from the future.',
   description: `Record and replay your application with DevTools.`,
-  ogImage: `${siteOrigin}/og.png`,
+  ogImage: `${siteOrigin}/og-image.png`,
   twitter: {
     handle: '@replayio',
     site: '@replayio'
