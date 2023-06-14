@@ -764,7 +764,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     label: 'GitHub Issues'
   },
   contactUs: {
-    href: 'hey@replay.io',
+    href: 'mailto:hey@replay.io',
     label: 'Contact us'
   },
   privacyPolicy: {
