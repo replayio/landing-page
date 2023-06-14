@@ -14,12 +14,7 @@ const bugreportingPlans = [
     mode: 'forever',
     cta: 'Sign Up',
     link: 'https://app.replay.io/',
-    features: [
-      'GitHub PR Comments',
-      'GitHub Action',
-      'Test Suite Dashboard',
-      ''
-    ]
+    features: ['GitHub PR Comments', 'GitHub Action', 'Test Suite Dashboard']
   },
 
   {
