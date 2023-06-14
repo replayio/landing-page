@@ -213,12 +213,12 @@ const testimonials: {
         name: 'Tim Neutkins',
         title: 'Co-author of Next.js',
         quote:
-          '“Next.js App Router is now stable in 13.4. Wouldn’t have been possible with Replay, we investigated so many (over 20) super complicated bugs that using traditional debugging would have cost us days to investigate.”',
+          '“Next.js App Router is now stable in 13.4. Wouldn’t have been possible without Replay, we investigated so many (over 20) super complicated bugs that using traditional debugging would have cost us days to investigate.”',
         image: '/images/homepage/testimonials/tim-neutkins.png'
       },
       {
         name: 'JJ Kasper',
-        title: 'Next',
+        title: 'Next.js Maintainer',
         quote:
           '“When I see a hard-to-reproduce issue in GitHub, I ask for a replay.”',
         image: '/images/homepage/testimonials/jj-kasper.png'
@@ -231,13 +231,13 @@ const testimonials: {
     testimonials: [
       {
         name: 'Sebastian Markbåge',
-        title: 'React Maintener',
+        title: 'React Maintainer',
         quote: `“If I don't immediately know the answer to a bug, I immediately reach for replay.io. It's like HMR for repros.”`,
         image: '/images/homepage/testimonials/sebastian.png'
       },
       {
         name: 'Dan Abramov',
-        title: 'React Maintener',
+        title: 'React Maintainer',
         quote: '“Replay.io is galaxy brain tooling. Real gamechanger”',
         image: '/images/homepage/testimonials/dan-abramov.png'
       }
