@@ -220,7 +220,7 @@
         animation: skateboard 2s infinite;
         transform-origin: center;
         z-index: 1;
-        height: 75px;
+        height: 95px;
         width: auto;
 
         @include respond-to('tablet') {
