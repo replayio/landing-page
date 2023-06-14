@@ -42,6 +42,10 @@ export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({
   children,
   ...rest
 }) => {
+  if (isServer) {
+    return null
+  }
+
   const platform = availablePlatforms[getPlatform()]
   const PlatformIcon = platform.icon
 
@@ -63,6 +67,10 @@ export const DownloadLink: React.FC<Partial<NavLinkProps>> = ({
   children,
   ...rest
 }) => {
+  if (isServer) {
+    return null
+  }
+
   const platform = availablePlatforms[getPlatform()]
   const PlatformIcon = platform.icon
 
