@@ -76,7 +76,7 @@ const RecordRuntime = () => {
             className={s.skateboardShadow}
           />
           <Image
-            src="/images/bugs-slider/skateboard.png"
+            src="/images/bugs-slider/skateboard.svg"
             alt="Skateboard"
             height={75}
             width={186}
