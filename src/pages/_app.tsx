@@ -1,5 +1,6 @@
 import '~/css/global.scss'
 
+import { Analytics } from '@vercel/analytics/react'
 import type { NextComponentType, NextPageContext } from 'next'
 import type { AppProps } from 'next/app'
 import { Inter, Roboto_Mono } from 'next/font/google'
@@ -143,6 +144,8 @@ const App = ({ Component, pageProps, ...rest }: AppProps) => {
   return (
     <>
       {gaTrackingId && <GAScripts />}
+      <Analytics />
+
       <Head>
         <style
           type="text/css"
