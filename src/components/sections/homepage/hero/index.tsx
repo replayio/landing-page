@@ -112,7 +112,7 @@ export const Hero = () => {
         >
           <div className={s['announcementInner']}>
             <p className={s['announcementText']}>
-              Introducing Replay for Cypress
+              Introducing Replay for Test Suites
             </p>
             <span className={s.arrowIcon}>{IconsLibrary['arrow']}</span>
           </div>
