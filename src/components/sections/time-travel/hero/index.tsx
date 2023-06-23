@@ -51,8 +51,9 @@ export const Hero = () => {
               className: s.subtitle,
               children: (
                 <>
-                  Time travel lets you inspect your application and evaluate
-                  Console logs as if it is&nbsp;running&nbsp;live.
+                  Time travel has been the holy grail for the past 60 years
+                  because if you can replay your application, you can inspect it
+                  as if it is live.
                 </>
               )
             }}

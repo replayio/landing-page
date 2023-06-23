@@ -65,8 +65,8 @@ const testsuitePlans = [
     mode: 'forever',
     cta: 'Get in touch',
     features: [
-      '10 Recordings processed',
-      '1,000 Recordings uploaded',
+      '10 recordings processed',
+      '1,000 recordings uploaded',
       '7 day retention',
       'Unlimited seats'
     ]
@@ -77,8 +77,8 @@ const testsuitePlans = [
     mode: 'per month ',
     cta: 'Get in touch',
     features: [
-      '100 Recordings processed',
-      '1,000 Recordings uploaded',
+      '100 recordings processed',
+      '1,000 recordings uploaded',
       '7 day retention',
       'Unlimited seats'
     ]
@@ -89,10 +89,12 @@ const testsuitePlans = [
     mode: 'per month',
     cta: 'Get in touch',
     features: [
-      '1,000 Recordings processed',
-      '10,000 Recordings uploaded',
+      '1,000 recordings processed',
+      '10,000 recordings uploaded',
       '14 day retention',
-      'Unlimited seats'
+      'Unlimited seats',
+      'Account-level access controls',
+      'Additional SSO integrations'
     ]
   },
 
@@ -101,10 +103,14 @@ const testsuitePlans = [
     cta: 'Email us',
     link: 'mailto:sales@replay.io',
     features: [
-      '10,000 Recordings processed',
-      '100,000 Recordings uploaded',
+      '10,000 recordings processed',
+      '100,000 recordings uploaded',
       '30 day retention',
-      'Unlimited seats'
+      'Unlimited seats',
+      'Ability to host your own storage',
+      'Custom contract',
+      'Dedicated support',
+      'SLAs'
     ]
   }
 ]
