@@ -63,7 +63,7 @@ export const BugsSlider = () => {
         title={{ children: 'Freeze bugs in time.', as: 'h2' }}
         subtitle={{
           children:
-            'Record and replay the web whenever and wherever you’d like. Once you’ve captured the bug, you never have to worry about replicating it again.'
+            'Say goodbye to screenshots, videos, and repro steps. Now you can inspect the bug as if you were there when it happened.'
         }}
       />
 
@@ -209,11 +209,7 @@ const AssetSideBugs = () => {
         avatar="/images/bugs-slider/elaine-avatar.jpg"
         commentedAt="on Apr 21"
       >
-        <p className={s.commentText}>
-          The AnimatedBoard is accidentally rendered really often.
-          <br />
-          <span>Here’s the replay:</span>
-        </p>
+        <p className={s.commentText}>The Hoverboard should not flip twice.</p>
         <div
           onPointerEnter={() => setTimelineHover(true)}
           onPointerLeave={handleMouseOut}
@@ -226,7 +222,7 @@ const AssetSideBugs = () => {
         >
           <div className={s.replayHeader}>
             <span className={s.recordBtn} />
-            <p>form, response</p>
+            <p>"board", flip</p>
             <span className={s.commentBtn}>
               <svg
                 viewBox="0 0 8 7"
@@ -319,11 +315,7 @@ const AssetSideBrowser = () => {
           width={186}
           className={s.skateboard}
         />
-        <Warning
-          play={playOne}
-          className={s.warningOne}
-          text="Rendering too fast"
-        />
+        <Warning play={playOne} className={s.warningOne} text="About to flip" />
         <span className={s.warningLineOne} />
         <Warning play={playTwo} className={s.warningTwo} text="Wrong color" />
         <span className={s.warningLineTwo} />

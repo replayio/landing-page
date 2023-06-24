@@ -203,15 +203,12 @@ const data: DataType[] = [
     description: (
       <>
         <p>
-          Time travel is not about recording user actions. Time travel is about
-          recording and deterministically replaying the runtime down to the
-          event loop and microtask queue.
+          Time travel refers to the ability to record and deterministically
+          replay the runtime down to the event loop and microtask queue.
         </p>
         <p>
-          Put another way, the runtime needs to think it’s running on the
-          original computer and at the original time. When in reality, it’s
-          running in a docker container where its library calls are intercepted
-          and replayed.
+          In order to pull this off, the runtime needs to think it’s running on
+          the original computer at the original time.
         </p>
       </>
     ),
@@ -233,24 +230,21 @@ const data: DataType[] = [
     description: (
       <>
         <p>
-          Fibonacci is deterministic so it does not need to be recorded. It can
-          be simply be re-run. The challenge with recording and replaying a
-          program like Chrome is knowing how to record the essential randomness
-          and replay it later.
+          99.9% of compute is deterministic and does not need to be recorded.
+          The challenge with recording Chrome is knowing how to capture the .1%
+          that's non-deterministic.
         </p>
         <p>
-          Time travel has three non-intuitive benefits. First, it’s really
-          light-weight because 99.9% of compute is deterministic. Second, it’s
-          lossless because the entire execution trace and application state is
-          available. Third, it’s repayable so it’s possible to perform dynamic
-          analysis.
+          Because 99.9% of compute is deterministic, time travel has the ability
+          to be incredibly lightweight, lossless, and capable of post-hoc
+          dynamic analysis.
         </p>
       </>
     ),
     Asset: RecordRandomness,
     cta: {
       href: 'https://medium.com/replay-io/the-replayability-roadmap-c1d674fee576',
-      label: 'See our replayability roadmap'
+      label: 'Replayability roadmap'
     },
     videoHref: '/'
   },
