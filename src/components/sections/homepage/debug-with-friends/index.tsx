@@ -129,7 +129,7 @@ export const DebugWithFriends = () => {
       className={s.section}
       data-sitemap
       data-sitemap-icon="colaboration"
-      data-sitemap-short-title="Collaboration"
+      data-sitemap-short-title="Collaborate"
       data-sitemap-complete-title="Debug with Friends."
     >
       <div className={s.container}>

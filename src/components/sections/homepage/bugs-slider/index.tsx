@@ -54,7 +54,7 @@ export const BugsSlider = () => {
       className={s.section}
       data-sitemap
       data-sitemap-icon="workflow"
-      data-sitemap-short-title="Workflow"
+      data-sitemap-short-title="Record"
       data-sitemap-complete-title="Freeze bugs in time."
       ref={inViewRef}
     >

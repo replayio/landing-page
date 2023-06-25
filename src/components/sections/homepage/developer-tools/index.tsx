@@ -528,7 +528,7 @@ export const DeveloperTools = () => {
       className={s['section']}
       data-sitemap
       data-sitemap-icon="debugging"
-      data-sitemap-short-title="Debugging"
+      data-sitemap-short-title="Replay"
       data-sitemap-complete-title="Explore the 4th dimension."
     >
       <div className={s['container']}>
