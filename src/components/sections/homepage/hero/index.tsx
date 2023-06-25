@@ -146,8 +146,12 @@ export const Hero = () => {
                 </Button>
               </Video.Trigger>
             </Video.Modal>
-            <DownloadButton mode="primary" size="big" aria-label="Get started">
-              Get started
+            <DownloadButton
+              mode="primary"
+              size="big"
+              aria-label="Download Replay"
+            >
+              Download Replay
             </DownloadButton>
           </div>
         </Container>

@@ -167,6 +167,14 @@ export const OrganizationTestimonials = () => {
                 height={64}
                 alt={'Author Image'}
               />
+              <Image
+                className={s['badge']}
+                src={'/images/homepage/time-travel-badge.png'}
+                width={16}
+                height={18}
+                alt={'Author Image'}
+              />
+
               <div className={s['info']}>
                 <p className={s['name']}>{testimonial?.name}</p>
                 <p className={s['title']}>{testimonial?.title}</p>
@@ -540,7 +548,7 @@ const testimonials: {
     ),
     testimonials: [
       {
-        name: 'Ives',
+        name: 'Ives van Hoorne',
         title: 'Co-Founder CodeSandbox',
         quote: `“Replay.io is so great! Today I had a hard-to-repro flow in development, so I recorded a replay to see how it works. I didn’t only find the bug, I discovered a performance improvement using Replay.”`,
         image: '/images/homepage/testimonials/ives.png'

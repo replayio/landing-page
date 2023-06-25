@@ -106,8 +106,8 @@ export const Header = () => {
             <MobileMenu burgerClassName={s['burgerButton']} {...toggle} />
 
             <div className={s['ctas']}>
-              <DownloadLink href="/" aria-label="Get started" invertedHover>
-                Get started
+              <DownloadLink href="/" aria-label="Download" invertedHover>
+                Download
               </DownloadLink>
               <ButtonLink
                 size="big"
