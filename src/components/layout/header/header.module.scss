@@ -7,6 +7,24 @@
   }
 }
 
+.ctas {
+  .discord {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    a:first-child {
+      font-size: 14px;
+      padding-right: 8px !important; 
+    }
+    svg {
+      fill: white;
+      width: 23px;
+    }
+  }
+
+
+}
+
 .header {
   height: var(--header-height);
   padding: 0 var(--container-sides-space);

@@ -1,9 +1,11 @@
 import clsx from 'clsx'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import { DownloadLink } from '~/components/common/download-button'
+import { Discord } from '~/components/icons/social'
 import { ButtonLink } from '~/components/primitives/cta'
 import { NavLink } from '~/components/primitives/nav-link'
 import { useAppStore } from '~/context/use-app-store'
@@ -106,6 +108,13 @@ export const Header = () => {
             <MobileMenu burgerClassName={s['burgerButton']} {...toggle} />
 
             <div className={s['ctas']}>
+              <div className={s['discord']}>
+                <Link href={'/discord'} aria-label={'Discord'}>
+                  Discord
+                </Link>
+                <Discord />
+              </div>
+
               <DownloadLink href="/" aria-label="Download" invertedHover>
                 Download
               </DownloadLink>
