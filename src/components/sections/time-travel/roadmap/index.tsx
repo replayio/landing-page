@@ -144,6 +144,7 @@ export const Roadmap = () => {
   return (
     <Section
       ref={sectionRef}
+      id="time-travel-roadmap"
       data-sitemap
       data-sitemap-icon="roadmap"
       data-sitemap-short-title="History"
