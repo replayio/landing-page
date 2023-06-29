@@ -1,6 +1,7 @@
 import '~/css/global.scss'
 
 import { Analytics } from '@vercel/analytics/react'
+import LogRocket from 'logrocket'
 import type { NextComponentType, NextPageContext } from 'next'
 import type { AppProps } from 'next/app'
 import { Inter, Roboto_Mono } from 'next/font/google'
@@ -115,6 +116,11 @@ const App = ({ Component, pageProps, ...rest }: AppProps) => {
   useUserIsTabbing()
   useMobileVh()
   usePauseAnimationOnTabChange()
+
+  // Initialize LogRocket
+  React.useEffect(() => {
+    LogRocket.init('4sdo4i/replay-landing-page')
+  }, [])
 
   React.useEffect(() => {
     function onReady() {
