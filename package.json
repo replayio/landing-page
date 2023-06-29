@@ -32,6 +32,7 @@
     "gsap": "./src/lib/gsap/gsap-bonus.tgz",
     "hls.js": "1.1.5",
     "lodash": "^4.17.21",
+    "logrocket": "^4.0.3",
     "mousetrap": "1.6.5",
     "next": "13.4",
     "prismjs": "^1.28.0",

@@ -3469,6 +3469,11 @@ log-update@^4.0.0:
     slice-ansi "^4.0.0"
     wrap-ansi "^6.2.0"
 
+logrocket@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/logrocket/-/logrocket-4.0.3.tgz#49cd63ec3db8039ec36ddadc12e67eff1090fdc9"
+  integrity sha512-xtjGCjuB9hW+zVkTC1Pfp3woWXQS5vTXWEiMje2MpRPt63z7CgytUK70ACeBaWbsoWi3XhvTIN6E66ALmTxtBw==
+
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
