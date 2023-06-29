@@ -145,7 +145,6 @@ const App = ({ Component, pageProps, ...rest }: AppProps) => {
     <>
       {gaTrackingId && <GAScripts />}
       <Analytics />
-
       <Head>
         <style
           type="text/css"
@@ -160,6 +159,11 @@ const App = ({ Component, pageProps, ...rest }: AppProps) => {
         `
           }}
         />
+        <script
+          async
+          src="https://redux-docs-umami.up.railway.app/script.js"
+          data-website-id="a689d9c9-5402-41e6-8bea-73f4cc160f19"
+        ></script>
       </Head>
       {getLayout({ Component, pageProps, ...rest })}
     </>
