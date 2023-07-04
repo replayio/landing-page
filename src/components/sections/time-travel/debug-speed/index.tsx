@@ -230,8 +230,7 @@ export const DebugSpeed = () => {
           as: 'h2'
         }}
         subtitle={{
-          children: `
-          Time travel makes anything possible, so we asked ourselves, "what would console logging from the future look like?"`,
+          children: `What would console logging from the future look like?`,
           className: s.subtitle
         }}
       />

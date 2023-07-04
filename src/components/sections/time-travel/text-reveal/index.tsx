@@ -83,8 +83,8 @@ export const TextReveal = () => {
       <div ref={sectionRef} className={s['section']}>
         <div ref={containerRef} className={s['textContainer']}>
           <h4 ref={textRef} className={s['text']}>
-            Fundamentally, Time travel changes the way we see our software and
-            collaborate with our teams.
+            Time travel changes the way we see our software and collaborate with
+            our teams.
           </h4>
         </div>
       </div>
