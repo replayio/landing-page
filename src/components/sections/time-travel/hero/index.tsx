@@ -53,8 +53,9 @@ export const Hero = () => {
               className: s.subtitle,
               children: (
                 <>
-                  Time travel is the holy grail because if you can replay your
-                  app, you can inspect it and add console logs after the fact.
+                  Time travel has been the holy grail for the past 60 years
+                  because if you can capture the bug, you can see it, and
+                  understand it.
                 </>
               )
             }}
