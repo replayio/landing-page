@@ -122,8 +122,7 @@ export const Hero = () => {
             title={{
               children: (
                 <>
-                  <span className={s['highlight']}>Get a replay.</span> Not a
-                  repro.
+                  <span className={s['highlight']}>Record.</span> Replay. Fix.
                 </>
               ),
               hero: true
@@ -131,7 +130,7 @@ export const Hero = () => {
             subtitle={{
               className: s.subtitle,
               children:
-                'Meet Replay, the browser that captures bugs in a capsule and the next-gen DevTools that replays them.'
+                'Replay lets you inspect your application after the fact with retroactive console logs and Browser DevTools.'
             }}
           />
 
