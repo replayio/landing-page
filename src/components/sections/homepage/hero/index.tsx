@@ -120,11 +120,7 @@ export const Hero = () => {
         <Container>
           <TitleAndSubtitle
             title={{
-              children: (
-                <>
-                  <span className={s['highlight']}>Record.</span> Replay. Fix.
-                </>
-              ),
+              children: <>Record. Replay. Fix.</>,
               hero: true
             }}
             subtitle={{
