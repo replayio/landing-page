@@ -116,6 +116,12 @@ export const Meta = (props: MetaProps) => {
           property="og:image:height"
           content={resolvedMetadata.ogImage.height + ''}
         />
+
+        <meta
+          name="ahrefs-site-verification"
+          content="d6acf1324602b320f37276d0f77e3e8ced24a91e2298c91fdcb79f2143e73bc6"
+        />
+
         <link rel="canonical" href={resolvedMetadata.canonical} />
 
         <script src="//embed.typeform.com/next/embed.js" />
