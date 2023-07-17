@@ -100,7 +100,7 @@ export const Hero = () => {
 
     const tl = gsap.timeline({
       ease: 'power2.out',
-      duration: 4,
+      duration: 6,
       repeat: -1
     })
 
@@ -116,16 +116,17 @@ export const Hero = () => {
       {
         opacity: 0
       },
-      0.8
+      1
     )
 
     tl.to(
       [headingTexts[0]],
       {
-        x: -46,
-        opacity: 0.3
+        x: -48,
+        opacity: 0.3,
+        duration: 0.8
       },
-      '<'
+      '>-0.3'
     )
 
     tl.to(
@@ -137,20 +138,21 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[1]],
-      {
-        x: -46,
-        opacity: 0.3
-      },
-      '<+0.8'
-    )
-
-    tl.to(
       [headingIcons[1]],
       {
         opacity: 0
       },
-      '<'
+      '>+1'
+    )
+
+    tl.to(
+      [headingTexts[1]],
+      {
+        x: -48,
+        opacity: 0.3,
+        duration: 0.8
+      },
+      '>-0.3'
     )
 
     tl.to(
@@ -162,19 +164,20 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[0], headingTexts[1]],
-      {
-        x: 0
-      },
-      '<+0.8'
-    )
-
-    tl.to(
       [headingIcons[2]],
       {
         opacity: 0
       },
-      '<'
+      '>+1'
+    )
+
+    tl.to(
+      [headingTexts[0], headingTexts[1]],
+      {
+        x: 0,
+        duration: 0.8
+      },
+      '>-0.3'
     )
 
     tl.to(
@@ -186,9 +189,18 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[0], headingIcons[0]],
+      [headingTexts[0]],
       {
         opacity: 1
+      },
+      '>'
+    )
+
+    tl.to(
+      [headingIcons[0]],
+      {
+        opacity: 1,
+        duration: 0.8
       },
       '<'
     )
