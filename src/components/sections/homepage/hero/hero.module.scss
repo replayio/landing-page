@@ -118,8 +118,10 @@
         position: absolute;
         top: 0;
 
-        > span > span {
-          opacity: 0.3 !important;
+        .title-section {
+          > span {
+            opacity: 0.4;
+          }
         }
       }
 
@@ -157,10 +159,6 @@
       }
 
       &:not(:first-child) {
-        > span {
-          opacity: 0.3;
-        }
-
         img {
           opacity: 0;
         }
@@ -244,9 +242,9 @@
   .mask {
     --bg: black;
 
-    opacity: 0.3;
+    opacity: 0.4;
     position: absolute;
-    transition: opacity 0.8s ease-in-out, background-image 0.5s ease-in-out;
+    transition: background-image 0.5s ease-in-out;
     will-change: background-image, opacity;
     backface-visibility: hidden;
     width: 100%;

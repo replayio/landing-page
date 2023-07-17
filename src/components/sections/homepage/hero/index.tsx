@@ -125,13 +125,22 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[0], doubleHeadingTexts[0]],
+      [headingTexts[0]],
       {
         x: -48,
-        opacity: 0.3,
+        opacity: 0,
         duration: 0.8
       },
       '>-0.3'
+    )
+
+    tl.to(
+      [doubleHeadingTexts[0]],
+      {
+        x: -48,
+        duration: 0.8
+      },
+      '<'
     )
 
     tl.to(
@@ -151,13 +160,22 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[1], doubleHeadingTexts[1]],
+      [headingTexts[1]],
       {
         x: -48,
-        opacity: 0.3,
+        opacity: 0,
         duration: 0.8
       },
       '>-0.3'
+    )
+
+    tl.to(
+      [doubleHeadingTexts[1]],
+      {
+        x: -48,
+        duration: 0.8
+      },
+      '<'
     )
 
     tl.to(
@@ -191,9 +209,9 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[2], doubleHeadingTexts[2]],
+      [headingTexts[2]],
       {
-        opacity: 0.3
+        opacity: 0
       },
       '<'
     )
@@ -228,12 +246,13 @@ export const Hero = () => {
 
       gsap.set(maskElement, { opacity: 1 })
 
-      const webkitMaskImage = `radial-gradient(circle var(--radius) at ${x}px ${y}px, rgba(0,0,0,0.1) 35%, var(--bg))`
+      const webkitMaskImage = `radial-gradient(circle var(--radius) at ${x}px ${y}px, var(--bg) 35%, rgba(0,0,0,0.4))`
 
       if (first) {
         gsap.set(maskElement, { webkitMaskImage })
         gsap.to(maskElement, {
           '--radius': '250px',
+          webkitMaskImage,
           duration: 0.45
         })
       } else {
