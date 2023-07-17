@@ -14,6 +14,9 @@ import { Section } from '~/components/layout/section'
 import { Button, ButtonLink } from '~/components/primitives/cta'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
+import fixImg from '~/images/home/fix.svg'
+import recordImg from '~/images/home/record.svg'
+import replayImg from '~/images/home/replay.svg'
 import heroImage from '~/images/homepage/hero-image.jpg'
 
 import s from './hero.module.scss'
@@ -92,6 +95,76 @@ export const Hero = () => {
     }
   }, [isDesktop])
 
+  useEffect(() => {
+    if (!isDesktop || !firstRef.current) return
+
+    const tl = gsap.timeline({
+      ease: 'power2.out',
+      duration: 1
+    })
+
+    const selector = gsap.utils.selector(firstRef.current)
+    const headingIcons = selector(`#heading-container img`)
+    // const headingSegments = selector(`#heading-container > span`)
+    const headingTexts = selector(`#heading-container > span > span`)
+
+    // console.log(headingContainer)
+    console.log(headingTexts[0])
+
+    tl.to(
+      [headingIcons[0]],
+      {
+        opacity: 0
+      },
+      0
+    )
+
+    tl.to(
+      [headingTexts[0]],
+      {
+        x: -40
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingIcons[1]],
+      {
+        opacity: 1
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingTexts[1]],
+      {
+        x: -40
+      },
+      '<+0.8'
+    )
+
+    tl.to(
+      [headingIcons[1]],
+      {
+        opacity: 0
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingIcons[2]],
+      {
+        opacity: 1
+      },
+      '<'
+    )
+
+    return () => {
+      tl.revert()
+      tl.kill()
+    }
+  }, [isDesktop])
+
   return (
     <Section id="homepage-hero" className={s['section']} ref={sectionRef}>
       <div className={s['bg-container']}>
@@ -120,7 +193,40 @@ export const Hero = () => {
         <Container>
           <TitleAndSubtitle
             title={{
-              children: <>Record. Replay. Fix.</>,
+              children: (
+                <div className={s['heading-container']} id="heading-container">
+                  <span className={s['title-section']}>
+                    <Image
+                      priority
+                      alt=""
+                      src={recordImg}
+                      width={40}
+                      height={40}
+                    />
+                    <span>Record. </span>
+                  </span>
+                  <span className={s['title-section']}>
+                    <Image
+                      priority
+                      alt=""
+                      src={replayImg}
+                      width={40}
+                      height={40}
+                    />
+                    <span>Replay. </span>
+                  </span>
+                  <span className={s['title-section']}>
+                    <Image
+                      priority
+                      alt=""
+                      src={fixImg}
+                      width={40}
+                      height={40}
+                    />
+                    <span>Fix.</span>
+                  </span>
+                </div>
+              ),
               hero: true
             }}
             subtitle={{

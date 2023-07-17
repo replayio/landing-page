@@ -104,6 +104,33 @@
         margin-top: 32px;
       }
     }
+
+    .heading-container {
+      display: flex;
+      gap: 14px;
+    }
+
+    .title-section {
+      display: block;
+      position: relative;
+
+      > span {
+        display: block;
+      }
+
+      img {
+        position: absolute;
+        left: -46px;
+        top: 25px;
+        z-index: -1;
+      }
+
+      &:not(:first-child) {
+        img {
+          opacity: 0;
+        }
+      }
+    }
   }
 
   .last {
