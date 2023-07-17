@@ -123,6 +123,13 @@
         left: -48px;
         top: 25px;
         z-index: -1;
+
+        @include respond-to('tablet') {
+          width: 20px;
+          height: 20px;
+          left: -26px;
+          top: 12px;
+        }
       }
 
       &:not(:first-child) {
