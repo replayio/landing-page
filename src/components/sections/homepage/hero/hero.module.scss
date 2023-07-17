@@ -107,7 +107,7 @@
 
     .heading-container {
       display: flex;
-      gap: 14px;
+      gap: 8px;
     }
 
     .title-section {
@@ -120,12 +120,16 @@
 
       img {
         position: absolute;
-        left: -46px;
+        left: -48px;
         top: 25px;
         z-index: -1;
       }
 
       &:not(:first-child) {
+        > span {
+          opacity: 0.3;
+        }
+
         img {
           opacity: 0;
         }

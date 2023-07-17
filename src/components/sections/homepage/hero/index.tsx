@@ -100,7 +100,8 @@ export const Hero = () => {
 
     const tl = gsap.timeline({
       ease: 'power2.out',
-      duration: 1
+      duration: 4,
+      repeat: -1
     })
 
     const selector = gsap.utils.selector(firstRef.current)
@@ -109,26 +110,26 @@ export const Hero = () => {
     const headingTexts = selector(`#heading-container > span > span`)
 
     // console.log(headingContainer)
-    console.log(headingTexts[0])
 
     tl.to(
       [headingIcons[0]],
       {
         opacity: 0
       },
-      0
+      0.8
     )
 
     tl.to(
       [headingTexts[0]],
       {
-        x: -40
+        x: -46,
+        opacity: 0.3
       },
       '<'
     )
 
     tl.to(
-      [headingIcons[1]],
+      [headingIcons[1], headingTexts[1]],
       {
         opacity: 1
       },
@@ -138,7 +139,8 @@ export const Hero = () => {
     tl.to(
       [headingTexts[1]],
       {
-        x: -40
+        x: -46,
+        opacity: 0.3
       },
       '<+0.8'
     )
@@ -152,7 +154,39 @@ export const Hero = () => {
     )
 
     tl.to(
+      [headingIcons[2], headingTexts[2]],
+      {
+        opacity: 1
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingTexts[0], headingTexts[1]],
+      {
+        x: 0
+      },
+      '<+0.8'
+    )
+
+    tl.to(
       [headingIcons[2]],
+      {
+        opacity: 0
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingTexts[2]],
+      {
+        opacity: 0.3
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingTexts[0], headingIcons[0]],
       {
         opacity: 1
       },
