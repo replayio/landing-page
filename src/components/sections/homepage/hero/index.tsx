@@ -3,7 +3,7 @@ import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { Ref, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { DownloadButton } from '~/components/common/download-button'
@@ -14,6 +14,7 @@ import { Section } from '~/components/layout/section'
 import { Button, ButtonLink } from '~/components/primitives/cta'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
+import { useMouseTracker } from '~/hooks/use-mouse-tracker'
 import fixImg from '~/images/home/fix.svg'
 import recordImg from '~/images/home/record.svg'
 import replayImg from '~/images/home/replay.svg'
@@ -106,8 +107,12 @@ export const Hero = () => {
 
     const selector = gsap.utils.selector(firstRef.current)
     const headingIcons = selector(`#heading-container img`)
+
     // const headingSegments = selector(`#heading-container > span`)
     const headingTexts = selector(`#heading-container > span > span`)
+    const doubleHeadingTexts = selector(
+      `#heading-container-double > div > span > span`
+    )
 
     // console.log(headingContainer)
 
@@ -120,7 +125,7 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[0]],
+      [headingTexts[0], doubleHeadingTexts[0]],
       {
         x: -48,
         opacity: 0.3,
@@ -146,7 +151,7 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[1]],
+      [headingTexts[1], doubleHeadingTexts[1]],
       {
         x: -48,
         opacity: 0.3,
@@ -172,7 +177,12 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[0], headingTexts[1]],
+      [
+        headingTexts[0],
+        headingTexts[1],
+        doubleHeadingTexts[0],
+        doubleHeadingTexts[1]
+      ],
       {
         x: 0,
         duration: 0.8
@@ -181,7 +191,7 @@ export const Hero = () => {
     )
 
     tl.to(
-      [headingTexts[2]],
+      [headingTexts[2], doubleHeadingTexts[2]],
       {
         opacity: 0.3
       },
@@ -211,6 +221,33 @@ export const Hero = () => {
     }
   }, [isDesktop])
 
+  const { elementRef } = useMouseTracker({
+    onChange: ({ x, y, first }) => {
+      const maskElement = elementRef.current?.querySelector(`.${s.mask}`)
+      if (!maskElement) return
+
+      gsap.set(maskElement, { opacity: 1 })
+
+      const webkitMaskImage = `radial-gradient(circle var(--radius) at ${x}px ${y}px, rgba(0,0,0,0.1) 35%, var(--bg))`
+
+      if (first) {
+        gsap.set(maskElement, { webkitMaskImage })
+        gsap.to(maskElement, {
+          '--radius': '250px',
+          duration: 0.45
+        })
+      } else {
+        gsap.to(maskElement, {
+          '--radius': '250px',
+          webkitMaskImage,
+          duration: 0.45
+        })
+      }
+    },
+    windowAsProxy: true,
+    enableOnlyWhenHovering: false
+  })
+
   return (
     <Section id="homepage-hero" className={s['section']} ref={sectionRef}>
       <div className={s['bg-container']}>
@@ -236,42 +273,68 @@ export const Hero = () => {
             <span className={s.arrowIcon}>{IconsLibrary['arrow']}</span>
           </div>
         </Link>
-        <Container>
+        <Container
+          className={s['hero-container']}
+          ref={elementRef as Ref<HTMLDivElement> | undefined}
+        >
           <TitleAndSubtitle
             title={{
               children: (
-                <div className={s['heading-container']} id="heading-container">
-                  <span className={s['title-section']}>
-                    <Image
-                      priority
-                      alt=""
-                      src={recordImg}
-                      width={40}
-                      height={40}
-                    />
-                    <span>Record. </span>
-                  </span>
-                  <span className={s['title-section']}>
-                    <Image
-                      priority
-                      alt=""
-                      src={replayImg}
-                      width={40}
-                      height={40}
-                    />
-                    <span>Replay. </span>
-                  </span>
-                  <span className={s['title-section']}>
-                    <Image
-                      priority
-                      alt=""
-                      src={fixImg}
-                      width={40}
-                      height={40}
-                    />
-                    <span>Fix.</span>
-                  </span>
-                </div>
+                <>
+                  <div
+                    className={s['heading-container']}
+                    id="heading-container"
+                  >
+                    <span className={s['title-section']}>
+                      <Image
+                        priority
+                        alt=""
+                        src={recordImg}
+                        width={40}
+                        height={40}
+                      />
+                      <span>Record. </span>
+                    </span>
+                    <span className={s['title-section']}>
+                      <Image
+                        priority
+                        alt=""
+                        src={replayImg}
+                        width={40}
+                        height={40}
+                      />
+                      <span>Replay. </span>
+                    </span>
+                    <span className={s['title-section']}>
+                      <Image
+                        priority
+                        alt=""
+                        src={fixImg}
+                        width={40}
+                        height={40}
+                      />
+                      <span>Fix.</span>
+                    </span>
+                  </div>
+                  <div className={s.mask} id="heading-container-double">
+                    <div
+                      className={clsx(
+                        s['heading-container'],
+                        s['heading-container-double']
+                      )}
+                    >
+                      <span className={s['title-section']}>
+                        <span>Record. </span>
+                      </span>
+                      <span className={s['title-section']}>
+                        <span>Replay. </span>
+                      </span>
+                      <span className={s['title-section']}>
+                        <span>Fix.</span>
+                      </span>
+                    </div>
+                  </div>
+                </>
               ),
               hero: true
             }}

@@ -105,9 +105,33 @@
       }
     }
 
+    .hero-container {
+      width: 100%;
+      margin: 0;
+    }
+
     .heading-container {
       display: flex;
       gap: 8px;
+
+      &-double {
+        position: absolute;
+        top: 0;
+
+        > span > span {
+          opacity: 0.3 !important;
+        }
+      }
+
+      &:not(.heading-container-double) {
+        .title-section {
+          &:not(:first-child) {
+            > span {
+              opacity: 0;
+            }
+          }
+        }
+      }
     }
 
     .title-section {
@@ -213,5 +237,24 @@
         }
       }
     }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mask {
+    --bg: black;
+
+    opacity: 0.3;
+    position: absolute;
+    transition: opacity 0.8s ease-in-out, background-image 0.5s ease-in-out;
+    will-change: background-image, opacity;
+    backface-visibility: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    z-index: -2;
   }
 }
