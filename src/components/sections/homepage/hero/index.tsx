@@ -226,7 +226,7 @@ export const Hero = () => {
         opacity: 1,
         duration: 1
       },
-      '>'
+      '>+0.1'
     )
 
     tl.to(
