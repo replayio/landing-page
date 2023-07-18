@@ -99,7 +99,7 @@ export const Hero = () => {
   }, [isDesktop])
 
   useEffect(() => {
-    if (!isDesktop || !firstRef.current) return
+    if (!firstRef.current) return
 
     const tl = gsap.timeline({
       ease: 'power2.out',
@@ -242,7 +242,7 @@ export const Hero = () => {
       tl.revert()
       tl.kill()
     }
-  }, [isDesktop, isSm])
+  }, [isSm])
 
   const { elementRef } = useMouseTracker({
     onChange: ({ x, y, first }) => {

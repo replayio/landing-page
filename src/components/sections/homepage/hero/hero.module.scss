@@ -113,6 +113,11 @@
     .heading-container {
       display: flex;
       gap: 8px;
+      margin-left: 48px;
+
+      @include respond-to('tablet') {
+        margin-left: 26px;
+      }
 
       &-double {
         position: absolute;
