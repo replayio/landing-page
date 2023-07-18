@@ -119,7 +119,8 @@ export const Hero = () => {
     tl.to(
       [headingIcons[0]],
       {
-        opacity: 0
+        opacity: 0,
+        duration: 0.8
       },
       1
     )
@@ -129,16 +130,16 @@ export const Hero = () => {
       {
         x: -48,
         opacity: 0,
-        duration: 0.8
+        duration: 1
       },
-      '>-0.3'
+      '>-0.5'
     )
 
     tl.to(
       [doubleHeadingTexts[0]],
       {
         x: -48,
-        duration: 0.8
+        duration: 1
       },
       '<'
     )
@@ -146,7 +147,8 @@ export const Hero = () => {
     tl.to(
       [headingIcons[1], headingTexts[1]],
       {
-        opacity: 1
+        opacity: 1,
+        duration: 1
       },
       '<'
     )
@@ -154,7 +156,8 @@ export const Hero = () => {
     tl.to(
       [headingIcons[1]],
       {
-        opacity: 0
+        opacity: 0,
+        duration: 0.8
       },
       '>+1'
     )
@@ -164,16 +167,16 @@ export const Hero = () => {
       {
         x: -48,
         opacity: 0,
-        duration: 0.8
+        duration: 1
       },
-      '>-0.3'
+      '>-0.5'
     )
 
     tl.to(
       [doubleHeadingTexts[1]],
       {
         x: -48,
-        duration: 0.8
+        duration: 1
       },
       '<'
     )
@@ -181,7 +184,8 @@ export const Hero = () => {
     tl.to(
       [headingIcons[2], headingTexts[2]],
       {
-        opacity: 1
+        opacity: 1,
+        duration: 1
       },
       '<'
     )
@@ -189,7 +193,8 @@ export const Hero = () => {
     tl.to(
       [headingIcons[2]],
       {
-        opacity: 0
+        opacity: 0,
+        duration: 0.8
       },
       '>+1'
     )
@@ -203,9 +208,9 @@ export const Hero = () => {
       ],
       {
         x: 0,
-        duration: 0.8
+        duration: 1
       },
-      '>-0.3'
+      '>-0.5'
     )
 
     tl.to(
@@ -219,7 +224,8 @@ export const Hero = () => {
     tl.to(
       [headingTexts[0]],
       {
-        opacity: 1
+        opacity: 1,
+        duration: 1
       },
       '>'
     )
@@ -228,7 +234,7 @@ export const Hero = () => {
       [headingIcons[0]],
       {
         opacity: 1,
-        duration: 0.8
+        duration: 1
       },
       '<'
     )
