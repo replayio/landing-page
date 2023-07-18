@@ -123,7 +123,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      1.6
+      1.8
     )
 
     tl.to(
@@ -160,7 +160,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      '>+1.6'
+      '>+1.8'
     )
 
     tl.to(
@@ -197,7 +197,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      '>+1.6'
+      '>+1.8'
     )
 
     tl.to(
