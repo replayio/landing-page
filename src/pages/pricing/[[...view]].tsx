@@ -1,5 +1,5 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 import { Meta } from '~/components/common/meta'
 import { PageLayout } from '~/components/layout/page'
@@ -10,10 +10,19 @@ import { Plans } from '~/components/sections/pricing/plans'
 import styles from '~/components/sections/pricing/pricing.module.css'
 
 const Pricing = () => {
-  const [selectedTab, setSelectedTab] = useState('testsuite')
+  const router = useRouter()
+  const selectedTab = router.query.view?.[0] || 'bugs'
+
+  if (!router.isReady) {
+    return null
+  }
 
   const handleTabChange = (tabValue: string) => {
-    setSelectedTab(tabValue)
+    router.replace({
+      query: {
+        view: tabValue
+      }
+    })
   }
 
   return (
@@ -32,23 +41,26 @@ const Pricing = () => {
         }}
       />
 
-      <TabsPrimitive.Root
-        defaultValue="bugs"
-        onValueChange={handleTabChange}
-        className={styles.tabs}
-      >
-        <TabsPrimitive.List className={styles.tabList}>
-          <TabsPrimitive.Trigger value="bugs" className={styles.tab}>
-            Bug Reporting
-          </TabsPrimitive.Trigger>
-          <TabsPrimitive.Trigger value="tests" className={styles.tab}>
-            Test Suites
-          </TabsPrimitive.Trigger>
-        </TabsPrimitive.List>
-      </TabsPrimitive.Root>
-
-      <Hero selectedTab={selectedTab} />
-      <Plans selectedTab={selectedTab} />
+      {router.isReady ? (
+        <>
+          <TabsPrimitive.Root
+            defaultValue={selectedTab}
+            onValueChange={handleTabChange}
+            className={styles.tabs}
+          >
+            <TabsPrimitive.List className={styles.tabList}>
+              <TabsPrimitive.Trigger value="bugs" className={styles.tab}>
+                Bug Reporting
+              </TabsPrimitive.Trigger>
+              <TabsPrimitive.Trigger value="tests" className={styles.tab}>
+                Test Suites
+              </TabsPrimitive.Trigger>
+            </TabsPrimitive.List>
+          </TabsPrimitive.Root>
+          <Hero selectedTab={selectedTab} />
+          <Plans selectedTab={selectedTab} />{' '}
+        </>
+      ) : null}
       <FAQ />
       <br />
       <br />
