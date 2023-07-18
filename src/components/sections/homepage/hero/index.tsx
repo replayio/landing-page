@@ -253,7 +253,7 @@ export const Hero = () => {
 
       gsap.set(maskElement, { opacity: 1 })
 
-      const webkitMaskImage = `radial-gradient(circle var(--radius) at ${x}px ${y}px, var(--bg) 35%, rgba(0,0,0,0.4))`
+      const webkitMaskImage = `radial-gradient(circle var(--radius) at ${x}px ${y}px, var(--bg) 30%, rgba(0,0,0,0.4))`
 
       if (first) {
         gsap.set(maskElement, { webkitMaskImage })
