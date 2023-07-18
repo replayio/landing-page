@@ -123,7 +123,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      1
+      1.6
     )
 
     tl.to(
@@ -160,7 +160,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      '>+1.5'
+      '>+1.6'
     )
 
     tl.to(
@@ -197,7 +197,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      '>+1.5'
+      '>+1.6'
     )
 
     tl.to(
@@ -217,7 +217,8 @@ export const Hero = () => {
     tl.to(
       [headingTexts[2]],
       {
-        opacity: 0
+        opacity: 0,
+        duration: 1.2
       },
       '<'
     )
@@ -228,7 +229,7 @@ export const Hero = () => {
         opacity: 1,
         duration: 1
       },
-      '>+0.1'
+      '<'
     )
 
     tl.to(
@@ -237,7 +238,7 @@ export const Hero = () => {
         opacity: 1,
         duration: 1
       },
-      '<'
+      '>-0.5'
     )
 
     return () => {
