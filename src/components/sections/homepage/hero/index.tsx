@@ -98,6 +98,7 @@ export const Hero = () => {
     }
   }, [isDesktop])
 
+  // hero text steps timeline
   useEffect(() => {
     if (!firstRef.current) return
 
@@ -244,6 +245,7 @@ export const Hero = () => {
     }
   }, [isSm])
 
+  // lantern handler
   const { elementRef } = useMouseTracker({
     onChange: ({ x, y, first }) => {
       const maskElement = elementRef.current?.querySelector(`.${s.mask}`)
