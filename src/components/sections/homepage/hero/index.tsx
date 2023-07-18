@@ -106,7 +106,6 @@ export const Hero = () => {
       defaults: {
         ease: 'power2.inOut'
       },
-      duration: 7,
       repeat: -1
     })
 
@@ -161,7 +160,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      '>+1'
+      '>+1.5'
     )
 
     tl.to(
@@ -198,7 +197,7 @@ export const Hero = () => {
         opacity: 0,
         duration: 0.8
       },
-      '>+1'
+      '>+1.5'
     )
 
     tl.to(
