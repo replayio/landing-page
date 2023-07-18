@@ -103,7 +103,9 @@ export const Hero = () => {
     if (!firstRef.current) return
 
     const tl = gsap.timeline({
-      ease: 'power2.out',
+      defaults: {
+        ease: 'power2.inOut'
+      },
       duration: 7,
       repeat: -1
     })
@@ -130,7 +132,7 @@ export const Hero = () => {
       {
         x: !isSm ? -48 : -24,
         opacity: 0,
-        duration: 1
+        duration: 1.2
       },
       '>-0.5'
     )
@@ -139,7 +141,7 @@ export const Hero = () => {
       [doubleHeadingTexts[0]],
       {
         x: !isSm ? -48 : -24,
-        duration: 1
+        duration: 1.2
       },
       '<'
     )
@@ -167,7 +169,7 @@ export const Hero = () => {
       {
         x: !isSm ? -48 : -24,
         opacity: 0,
-        duration: 1
+        duration: 1.2
       },
       '>-0.5'
     )
@@ -176,7 +178,7 @@ export const Hero = () => {
       [doubleHeadingTexts[1]],
       {
         x: !isSm ? -48 : -24,
-        duration: 1
+        duration: 1.2
       },
       '<'
     )
@@ -208,7 +210,7 @@ export const Hero = () => {
       ],
       {
         x: 0,
-        duration: 1
+        duration: 1.2
       },
       '>-0.5'
     )

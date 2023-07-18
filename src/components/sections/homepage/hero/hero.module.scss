@@ -126,6 +126,7 @@
         .title-section {
           > span {
             opacity: 0.4;
+            will-change: transform;
           }
         }
       }
@@ -135,6 +136,7 @@
           &:not(:first-child) {
             > span {
               opacity: 0;
+              will-change: transform;
             }
           }
         }
