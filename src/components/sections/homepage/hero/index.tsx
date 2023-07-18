@@ -14,6 +14,7 @@ import { Section } from '~/components/layout/section'
 import { Button, ButtonLink } from '~/components/primitives/cta'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
+import { useMedia } from '~/hooks/use-media'
 import { useMouseTracker } from '~/hooks/use-mouse-tracker'
 import fixImg from '~/images/home/fix.svg'
 import recordImg from '~/images/home/record.svg'
@@ -72,6 +73,7 @@ export const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
 
   const { isDesktop } = useDeviceDetect()
+  const isSm = useMedia('(max-width: 768px)')
 
   useEffect(() => {
     if (!isDesktop) return
@@ -108,13 +110,10 @@ export const Hero = () => {
     const selector = gsap.utils.selector(firstRef.current)
     const headingIcons = selector(`#heading-container img`)
 
-    // const headingSegments = selector(`#heading-container > span`)
     const headingTexts = selector(`#heading-container > span > span`)
     const doubleHeadingTexts = selector(
       `#heading-container-double > div > span > span`
     )
-
-    // console.log(headingContainer)
 
     tl.to(
       [headingIcons[0]],
@@ -128,7 +127,7 @@ export const Hero = () => {
     tl.to(
       [headingTexts[0]],
       {
-        x: -48,
+        x: !isSm ? -48 : -24,
         opacity: 0,
         duration: 1
       },
@@ -138,7 +137,7 @@ export const Hero = () => {
     tl.to(
       [doubleHeadingTexts[0]],
       {
-        x: -48,
+        x: !isSm ? -48 : -24,
         duration: 1
       },
       '<'
@@ -165,7 +164,7 @@ export const Hero = () => {
     tl.to(
       [headingTexts[1]],
       {
-        x: -48,
+        x: !isSm ? -48 : -24,
         opacity: 0,
         duration: 1
       },
@@ -175,7 +174,7 @@ export const Hero = () => {
     tl.to(
       [doubleHeadingTexts[1]],
       {
-        x: -48,
+        x: !isSm ? -48 : -24,
         duration: 1
       },
       '<'
@@ -243,7 +242,7 @@ export const Hero = () => {
       tl.revert()
       tl.kill()
     }
-  }, [isDesktop])
+  }, [isDesktop, isSm])
 
   const { elementRef } = useMouseTracker({
     onChange: ({ x, y, first }) => {
