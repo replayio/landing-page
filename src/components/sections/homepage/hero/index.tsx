@@ -103,7 +103,7 @@ export const Hero = () => {
 
     const tl = gsap.timeline({
       ease: 'power2.out',
-      duration: 6,
+      duration: 7,
       repeat: -1
     })
 
@@ -256,13 +256,13 @@ export const Hero = () => {
       if (first) {
         gsap.set(maskElement, { webkitMaskImage })
         gsap.to(maskElement, {
-          '--radius': '250px',
+          '--radius': '180px',
           webkitMaskImage,
           duration: 0.45
         })
       } else {
         gsap.to(maskElement, {
-          '--radius': '250px',
+          '--radius': '180px',
           webkitMaskImage,
           duration: 0.45
         })
