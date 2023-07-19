@@ -167,8 +167,8 @@ const App = ({ Component, pageProps, ...rest }: AppProps) => {
         />
         <script
           async
-          src="https://redux-docs-umami.up.railway.app/script.js"
-          data-website-id="a689d9c9-5402-41e6-8bea-73f4cc160f19"
+          src="https://analytics.umami.is/script.js"
+          data-website-id="ded9f3fb-cc9d-4c80-844a-742787b8b9db"
         ></script>
       </Head>
       {getLayout({ Component, pageProps, ...rest })}
