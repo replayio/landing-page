@@ -70,6 +70,9 @@ export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({
       href={platformIcon.downloadSource}
       target="_blank"
       download
+      onClick={() =>
+        (window as any).umami?.track(`hero download click (${platform})`)
+      }
     >
       {children}
 
@@ -100,6 +103,9 @@ export const DownloadLink: React.FC<Partial<NavLinkProps>> = ({
       href={platformIcon.downloadSource}
       target="_blank"
       download
+      onClick={() =>
+        (window as any).umami?.track(`nav download click (${platform})`)
+      }
     >
       {children}
 
