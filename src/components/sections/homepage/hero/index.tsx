@@ -3,7 +3,7 @@ import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { Ref, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { DownloadButton } from '~/components/common/download-button'
@@ -14,6 +14,11 @@ import { Section } from '~/components/layout/section'
 import { Button, ButtonLink } from '~/components/primitives/cta'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
+import { useMedia } from '~/hooks/use-media'
+import { useMouseTracker } from '~/hooks/use-mouse-tracker'
+import fixImg from '~/images/home/fix.svg'
+import recordImg from '~/images/home/record.svg'
+import replayImg from '~/images/home/replay.svg'
 import heroImage from '~/images/homepage/hero-image.jpg'
 
 import s from './hero.module.scss'
@@ -68,6 +73,7 @@ export const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
 
   const { isDesktop } = useDeviceDetect()
+  const isSm = useMedia('(max-width: 768px)')
 
   useEffect(() => {
     if (!isDesktop) return
@@ -91,6 +97,184 @@ export const Hero = () => {
       t.kill()
     }
   }, [isDesktop])
+
+  // hero text steps timeline
+  useEffect(() => {
+    if (!firstRef.current) return
+
+    const tl = gsap.timeline({
+      defaults: {
+        ease: 'power2.inOut'
+      },
+      repeat: -1
+    })
+
+    const selector = gsap.utils.selector(firstRef.current)
+    const headingIcons = selector(`#heading-container img`)
+
+    const headingTexts = selector(`#heading-container > span > span`)
+    const doubleHeadingTexts = selector(
+      `#heading-container-double > div > span > span`
+    )
+
+    tl.to(
+      [headingIcons[0]],
+      {
+        opacity: 0,
+        duration: 0.8
+      },
+      1.8
+    )
+
+    tl.to(
+      [headingTexts[0]],
+      {
+        x: !isSm ? -48 : -24,
+        opacity: 0,
+        duration: 1.2
+      },
+      '>-0.5'
+    )
+
+    tl.to(
+      [doubleHeadingTexts[0]],
+      {
+        x: !isSm ? -48 : -24,
+        duration: 1.2
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingIcons[1], headingTexts[1]],
+      {
+        opacity: 1,
+        duration: 1
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingIcons[1]],
+      {
+        opacity: 0,
+        duration: 0.8
+      },
+      '>+1.8'
+    )
+
+    tl.to(
+      [headingTexts[1]],
+      {
+        x: !isSm ? -48 : -24,
+        opacity: 0,
+        duration: 1.2
+      },
+      '>-0.5'
+    )
+
+    tl.to(
+      [doubleHeadingTexts[1]],
+      {
+        x: !isSm ? -48 : -24,
+        duration: 1.2
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingIcons[2], headingTexts[2]],
+      {
+        opacity: 1,
+        duration: 1
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingIcons[2]],
+      {
+        opacity: 0,
+        duration: 0.8
+      },
+      '>+1.8'
+    )
+
+    tl.to(
+      [
+        headingTexts[0],
+        headingTexts[1],
+        doubleHeadingTexts[0],
+        doubleHeadingTexts[1]
+      ],
+      {
+        x: 0,
+        duration: 1.2
+      },
+      '>-0.5'
+    )
+
+    tl.to(
+      [headingTexts[2]],
+      {
+        opacity: 0,
+        duration: 1.2
+      },
+      '<'
+    )
+
+    tl.to(
+      [headingTexts[0]],
+      {
+        opacity: 1,
+        duration: 1
+      },
+      '>-0.8'
+    )
+
+    tl.to(
+      [headingIcons[0]],
+      {
+        opacity: 1,
+        duration: 1
+      },
+      '<'
+    )
+
+    return () => {
+      tl.revert()
+      tl.kill()
+    }
+  }, [isSm])
+
+  // lantern handler
+  const { elementRef } = useMouseTracker({
+    onChange: ({ x, y, first }) => {
+      const maskElement = elementRef.current?.querySelector(`.${s.mask}`)
+      if (!maskElement) return
+
+      gsap.set(maskElement, { opacity: 1 })
+
+      const webkitMaskImage = `radial-gradient(circle var(--radius) at ${x}px ${y}px, var(--bg) 30%, rgba(0,0,0,0.4))`
+
+      if (first) {
+        gsap.set(maskElement, { webkitMaskImage })
+        gsap.to(maskElement, {
+          '--radius': '180px',
+          webkitMaskImage,
+          duration: 0.45
+        })
+      } else {
+        gsap.to(maskElement, {
+          '--radius': '180px',
+          webkitMaskImage,
+          duration: 0.45
+        })
+      }
+    },
+    windowAsProxy: true,
+    enableOnlyWhenHovering: false
+  })
 
   return (
     <Section id="homepage-hero" className={s['section']} ref={sectionRef}>
@@ -117,10 +301,69 @@ export const Hero = () => {
             <span className={s.arrowIcon}>{IconsLibrary['arrow']}</span>
           </div>
         </Link>
-        <Container>
+        <Container
+          className={s['hero-container']}
+          ref={elementRef as Ref<HTMLDivElement> | undefined}
+        >
           <TitleAndSubtitle
             title={{
-              children: <>Record. Replay. Fix.</>,
+              children: (
+                <>
+                  <div
+                    className={s['heading-container']}
+                    id="heading-container"
+                  >
+                    <span className={s['title-section']}>
+                      <Image
+                        priority
+                        alt=""
+                        src={recordImg}
+                        width={40}
+                        height={40}
+                      />
+                      <span className={s['text-segment']}>Record. </span>
+                    </span>
+                    <span className={s['title-section']}>
+                      <Image
+                        priority
+                        alt=""
+                        src={replayImg}
+                        width={40}
+                        height={40}
+                      />
+                      <span className={s['text-segment']}>Replay. </span>
+                    </span>
+                    <span className={s['title-section']}>
+                      <Image
+                        priority
+                        alt=""
+                        src={fixImg}
+                        width={40}
+                        height={40}
+                      />
+                      <span className={s['text-segment']}>Fix.</span>
+                    </span>
+                  </div>
+                  <div className={s.mask} id="heading-container-double">
+                    <div
+                      className={clsx(
+                        s['heading-container'],
+                        s['heading-container-double']
+                      )}
+                    >
+                      <span className={s['title-section']}>
+                        <span className={s['text-segment']}>Record. </span>
+                      </span>
+                      <span className={s['title-section']}>
+                        <span className={s['text-segment']}>Replay. </span>
+                      </span>
+                      <span className={s['title-section']}>
+                        <span className={s['text-segment']}>Fix.</span>
+                      </span>
+                    </div>
+                  </div>
+                </>
+              ),
               hero: true
             }}
             subtitle={{
