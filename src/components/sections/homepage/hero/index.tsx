@@ -321,7 +321,7 @@ export const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <span>Record. </span>
+                      <span className={s['text-segment']}>Record. </span>
                     </span>
                     <span className={s['title-section']}>
                       <Image
@@ -331,7 +331,7 @@ export const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <span>Replay. </span>
+                      <span className={s['text-segment']}>Replay. </span>
                     </span>
                     <span className={s['title-section']}>
                       <Image
@@ -341,7 +341,7 @@ export const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <span>Fix.</span>
+                      <span className={s['text-segment']}>Fix.</span>
                     </span>
                   </div>
                   <div className={s.mask} id="heading-container-double">
@@ -352,13 +352,13 @@ export const Hero = () => {
                       )}
                     >
                       <span className={s['title-section']}>
-                        <span>Record. </span>
+                        <span className={s['text-segment']}>Record. </span>
                       </span>
                       <span className={s['title-section']}>
-                        <span>Replay. </span>
+                        <span className={s['text-segment']}>Replay. </span>
                       </span>
                       <span className={s['title-section']}>
-                        <span>Fix.</span>
+                        <span className={s['text-segment']}>Fix.</span>
                       </span>
                     </div>
                   </div>

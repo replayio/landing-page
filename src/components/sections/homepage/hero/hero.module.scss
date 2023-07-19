@@ -124,7 +124,7 @@
         top: 0;
 
         .title-section {
-          > span {
+          > .text-segment {
             opacity: 0.4;
             will-change: transform;
           }
@@ -134,7 +134,7 @@
       &:not(.heading-container-double) {
         .title-section {
           &:not(:first-child) {
-            > span {
+            > .text-segment {
               opacity: 0;
               will-change: transform;
             }
