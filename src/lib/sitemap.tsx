@@ -44,6 +44,7 @@ type SitemapKeys =
   | 'hiring'
   | 'values'
   | 'docs'
+  | 'discord'
   | 'githubIssues'
   | 'contactUs'
   | 'privacyPolicy'
@@ -762,6 +763,10 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
   githubIssues: {
     href: 'https://github.com/replayio',
     label: 'GitHub Issues'
+  },
+  discord: {
+    href: 'https://discord.gg/replayio',
+    label: 'Discord'
   },
   contactUs: {
     href: 'mailto:hey@replay.io',

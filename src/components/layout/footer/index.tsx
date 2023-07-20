@@ -13,7 +13,12 @@ const links = [
   },
   {
     section: 'Get Help',
-    links: [SITEMAP.docs, SITEMAP.githubIssues, SITEMAP.contactUs]
+    links: [
+      SITEMAP.discord,
+      SITEMAP.docs,
+      SITEMAP.githubIssues,
+      SITEMAP.contactUs
+    ]
   },
   {
     section: 'Legal',
