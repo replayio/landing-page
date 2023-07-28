@@ -404,7 +404,7 @@ const testimonials: {
     testimonials: [
       {
         name: 'Mark Erikson',
-        title: 'Redux Maintener',
+        title: 'Redux Maintainer',
         quote:
           '“Replay.io gives me the tools I need to solve seemingly impossible bugs. It’s like the Redux DevTools, but for every line of code in your app. It’s so good I joined the team to help build out the future of debugging.”',
         image: '/images/homepage/testimonials/mark-erikson.png'
