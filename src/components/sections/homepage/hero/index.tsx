@@ -369,7 +369,7 @@ export const Hero = () => {
             subtitle={{
               className: s.subtitle,
               children:
-                'Replay lets you retroactively inspect your application with Browser DevTools and print statements.'
+                'Retroactively inspect your application with print statements and Browser DevTools.'
             }}
           />
 
