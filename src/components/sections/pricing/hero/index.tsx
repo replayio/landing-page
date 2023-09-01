@@ -49,7 +49,6 @@ const bugreportingPlans = [
     cta: 'Email Us',
     link: 'mailto:sales@replay.io',
     features: [
-      '1,000 recordings',
       'Ability to host your own storage',
       'Custom contract',
       'Dedicated support',
@@ -103,14 +102,11 @@ const testsuitePlans = [
     cta: 'Email us',
     link: 'mailto:sales@replay.io',
     features: [
-      '10,000 recordings processed',
-      '100,000 recordings uploaded',
       '30 day retention',
       'Unlimited seats',
       'Ability to host your own storage',
       'Custom contract',
-      'Dedicated support',
-      'SLAs'
+      'Dedicated support'
     ]
   }
 ]
