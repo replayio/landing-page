@@ -65,7 +65,7 @@ const testsuitePlans = [
     cta: 'Get in touch',
     features: [
       '10 recordings processed',
-      '1,000 recordings uploaded',
+      '100 recordings uploaded',
       '7 day retention',
       'Unlimited seats'
     ]
