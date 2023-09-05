@@ -21,13 +21,13 @@
   padding: 0.5rem 1rem;
   flex-grow: 1;
   text-align: center;
-  color: var(--color-gray-light);
+  background-color: #fff;
+  color: #111;
   transition: background-color 0.2s;
-  background-color: var(--color-gray-darker);
 }
 
 .tab:hover {
-  background-color: var(--color-gray-dark);
+  color: var(--color-pink-crayon);
 }
 
 .tab[data-state='active'] {
