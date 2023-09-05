@@ -36,8 +36,7 @@ const Pricing = () => {
           hero: true
         }}
         subtitle={{
-          children:
-            'Individuals and open source communities will always be able to use Replay for free.'
+          children: ''
         }}
       />
 
