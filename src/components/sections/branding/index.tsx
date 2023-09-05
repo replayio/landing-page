@@ -6,29 +6,31 @@ import s from './branding.module.scss'
 
 const downloadSVG = () => {
   const svgElement = document.getElementById('downloadableSVG')
-  const svgData = new XMLSerializer().serializeToString(svgElement)
-  const blob = new Blob([svgData], { type: 'image/svg+xml' })
-  const url = URL.createObjectURL(blob)
+  if (svgElement) {
+    const svgData = new XMLSerializer().serializeToString(svgElement)
+    const blob = new Blob([svgData], { type: 'image/svg+xml' })
+    const url = URL.createObjectURL(blob)
 
-  const a = document.createElement('a')
-  a.href = url
+    const a = document.createElement('a')
+    a.href = url
 
-  // Check current theme and set the download name accordingly
-  const logoContainer = document.querySelector(`.${s['logo-container']}`)
-  const isDarkTheme =
-    logoContainer && logoContainer.classList.contains(s['dark'])
-  a.download = isDarkTheme ? 'replay-logo-dark.svg' : 'replay-logo-light.svg'
+    const logoContainer = document.querySelector(`.${s['logo-container']}`)
+    const isDarkTheme =
+      logoContainer && logoContainer.classList.contains(s['dark'])
+    a.download = isDarkTheme ? 'replay-logo-dark.svg' : 'replay-logo-light.svg'
 
-  a.click()
+    a.click()
 
-  URL.revokeObjectURL(url)
+    URL.revokeObjectURL(url)
+  } else {
+    console.error('SVG Element not found')
+  }
 }
 
 const BrandingDownloadWidget: FC = () => {
   const [theme, setTheme] = useState('light')
   const [svgOption, setSvgOption] = useState('wordmark')
 
-  // A side effect that updates the theme
   useEffect(() => {
     const elements = document.querySelectorAll('.theme-toggle')
     const logoContainer = document.querySelector(`.${s['logo-container']}`)
