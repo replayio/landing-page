@@ -1,0 +1,106 @@
+@import 'css/variables';
+
+.section {
+  margin: auto;
+  overflow: hidden;
+  max-width: 1500px;
+
+  .container {
+    .heading {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      place-content: center;
+      max-width: 620px;
+      margin: auto;
+      margin-bottom: 112px;
+      text-align: center;
+
+      p {
+        line-height: 138%;
+      }
+    }
+
+    .container {
+      width: 66.67%;
+      margin: auto;
+    }
+
+    .replay-svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .widgetWrapper {
+    border-radius: 12px;
+    max-width: 1360px;
+    margin-bottom: 160px;
+    width: calc(100% - 80px);
+    padding: 40px;
+    position: relative;
+  }
+
+  .title {
+    font-size: 32px;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.04em;
+    font-family: var(--font-heading);
+  }
+
+  .widget {
+    background-color: #fff;
+    margin-bottom: 300px;
+    border-radius: 6px;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    color: black;
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .logo-container {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #efefef;
+    padding: 2rem;
+    border-radius: 6px;
+
+    .logo {
+      width: 100%;
+    }
+  }
+
+  .options-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+    margin-left: 24px;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .dark {
+    background-color: #333; // You can set this to whatever darker color you prefer
+  }
+
+  button {
+    margin-top: 2rem;
+    background-color: var(--color-pink-crayon);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+}
