@@ -46,7 +46,7 @@ const BrandingDownloadWidget: FC = () => {
       })
       logoContainer && s['dark'] && logoContainer.classList.remove(s['dark'])
     }
-  }, [theme])
+  }, [theme, svgOption])
 
   return (
     <Section className={s.section}>
@@ -129,7 +129,7 @@ const BrandingDownloadWidget: FC = () => {
               </div>
             </div>
             <div className={s['options-container']}>
-              <h1 className={s['title']}>Download options</h1>
+              <h2 className={s['subtitle']}>Theme</h2>
 
               <label>
                 <input
@@ -150,6 +150,9 @@ const BrandingDownloadWidget: FC = () => {
                 />
                 Dark theme
               </label>
+
+              <hr className={s['hr-styled']} />
+              <h2 className={s['subtitle']}>Style</h2>
 
               <label>
                 <input
