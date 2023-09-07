@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Section } from '~/components/common/section'
 
 import s from './branding.module.scss'
