@@ -58,6 +58,7 @@ const LogoDownloadWidget: FC = () => {
               <div className={s['logo']}>
                 <svg
                   id="downloadableSVG"
+                  className={s['responsive-svg']}
                   width="422"
                   height="115"
                   viewBox="0 0 422 115"

@@ -3,7 +3,7 @@
 .section {
   margin: auto;
   overflow: hidden;
-  width: 900px;
+  max-width: 900px;
 
   .container {
     .heading {
@@ -27,7 +27,7 @@
     }
 
     .replay-svg {
-      width: 100%;
+      max-width: 480px;
       height: auto;
     }
   }
@@ -46,12 +46,12 @@
   }
 
   .widget {
-    background-color: #fff;
+    background-color: #333;
     border-radius: 6px;
     padding: 2rem;
     display: flex;
     justify-content: space-between;
-    color: black;
+    color: #fff;
 
     .title {
       font-size: 18px;
@@ -89,7 +89,7 @@
   }
 
   .dark {
-    background-color: #333;
+    background-color: #444;
   }
 
   button {
@@ -108,22 +108,14 @@
   .hr-styled {
     height: 1px;
     width: 100%;
-    background: #fdfdfd;
     margin: 16px 0;
+    border: none;
+    border-bottom: 1px solid #555;
   }
 
   .subtitle {
     font-weight: 600;
   }
-}
-
-.doubleWideContainer {
-  display: flex;
-  width: 100%;
-  margin: auto;
-  overflow: hidden;
-  max-width: 1422px;
-  margin-bottom: 200px;
 }
 
 .flexItem {
@@ -151,35 +143,26 @@
   color: var(--color-pink-crayon);
 }
 
-@media screen and (max-width: 900px) {
-  .widget {
-    flex-direction: column;
-    align-items: center;
-    margin: 0 20px;
-  }
-
-  .logo-container,
-  .options-container {
-    margin: 0;
-    width: calc(100% - 40px);
-  }
-
-  .options-container {
-    margin: 0;
-    margin-top: 24px;
-    padding-right: 30px;
-  }
-}
-
 @media screen and (max-width: 800px) {
   .widget {
-    max-width: 800px;
     margin: 0 20px;
   }
 
-  .logo-container,
   .options-container {
-    min-width: 480px;
+    margin-left: 0 !important;
+  }
+
+  .logo-container {
+    border: 10px solid red;
+    display: none !important;
+  }
+
+  .title {
+    margin-left: 20px;
+  }
+
+  .copy-table {
     margin: 0 20px;
+    width: 90%;
   }
 }
