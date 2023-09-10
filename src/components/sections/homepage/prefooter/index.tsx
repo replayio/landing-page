@@ -105,7 +105,7 @@ const Prefooter = () => {
         <div className={s['content']}>
           {/* split chars but not spaces */}
           <Title className={s['title']} ref={titleRef}>
-            Record your own replay
+            Record your first replay
           </Title>
 
           <div className={s['cta']} ref={ctaRef}>

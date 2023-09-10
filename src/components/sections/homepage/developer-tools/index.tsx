@@ -251,7 +251,7 @@ const chunks: {
     title: 'De-flake your tests',
     shortTitle: 'Test panel',
     description:
-      'With built-in support for Cypress and Playwright coming soon, you can jump to steps and into your application event handlers.',
+      'With built-in support for Cypress and Playwright, you can jump to steps and into your application event handlers.',
     link: 'https://docs.replay.io/reference-guide/cypress-panel'
   },
   {
@@ -529,17 +529,21 @@ export const DeveloperTools = () => {
       data-sitemap
       data-sitemap-icon="debugging"
       data-sitemap-short-title="Replay"
-      data-sitemap-complete-title="Explore the 4th dimension."
+      data-sitemap-complete-title="Next Gen Browser DevTools."
     >
       <div className={s['container']}>
         <TitleAndSubtitle
           title={{
             as: 'h2',
-            children: 'Explore the 4th dimension.'
+            children: 'Next Gen Browser DevTools.'
           }}
           subtitle={{
-            children:
-              'Travel through time and inspect your application with supercharged DevTools. '
+            children: (
+              <span>
+                <b>Built on top of our Time Travel Protocol</b>, Replay DevTools is the debugging experience you've always wanted, but never believed was possible.
+              </span>
+
+            )
           }}
         />
 
