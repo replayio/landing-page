@@ -85,11 +85,16 @@ export const Features = () => {
           className={s.titleAndSubtitle}
           title={{
             as: 'h2',
-            children: 'Universal & Secure'
+            children: 'Enterprise ready'
           }}
           subtitle={{
-            children:
-              'We’ve focused on modern collaboration features that make it easy to lend a hand and an extra set of eyes because it hurts to be stuck and alone.'
+            children: (
+              <span>
+                Designed with enterprise grade security, reliability, and
+                privacy controls from the start because earning your trust is
+                our top priority.
+              </span>
+            )
           }}
         />
 
