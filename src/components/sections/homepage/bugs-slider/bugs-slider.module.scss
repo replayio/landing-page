@@ -117,7 +117,7 @@
           }
 
           .infoSide {
-            padding: 36px 0;
+            padding: 18px 0 36px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -126,9 +126,14 @@
               padding: 0;
             }
 
+            .header {
+              font-size: 10px;
+              line-height: 4em;
+            }
+
             .title {
-              font-size: 18px;
-              line-height: 32px;
+              font-size: 16px;
+              line-height: 26px;
               letter-spacing: -0.02em;
 
               @include respond-to('tablet-lg') {

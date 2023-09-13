@@ -60,14 +60,15 @@ export const BugsSlider = () => {
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Freeze bugs in time.', as: 'h2' }}
+        title={{ children: 'Hate reproducing issues?', as: 'h2' }}
         subtitle={{
           children: (
-            <span>
-              <b>Hate reproducing issues?</b> Replay is a new kind of browser
-              that's able to record and deterministically replay web
-              applications so that you only need to capture bugs once.
-            </span>
+            <>
+              <span>
+                Replay is a new kind of browser that's able to record and replay
+                web applications so that bugs only need to be captured once.
+              </span>
+            </>
           )
         }}
       />
@@ -137,6 +138,7 @@ export const BugsSlider = () => {
 
 const InfoSide = ({
   isTablet,
+  header,
   title,
   Asset,
   description,
@@ -146,7 +148,10 @@ const InfoSide = ({
 }: DataType & { isTablet: boolean }) => {
   return (
     <div className={s.infoSide}>
-      <p className={s.title}>{title}</p>
+      <div>
+        <span className={s.header}>{header}</span>
+        <p className={s.title}>{title}</p>
+      </div>
 
       {isTablet && <Asset />}
 
@@ -544,6 +549,7 @@ const AssetSideComment: React.FC<AssetSideCommentProps> = ({
 
 type DataType = {
   id: number
+  header: string
   title: ReactNode
   description: ReactNode
   Asset: React.FC
@@ -558,23 +564,25 @@ type DataType = {
 const data: DataType[] = [
   {
     id: 0,
+    header: 'Fix user issues. Fast.'.toUpperCase(),
     title: (
       <>
-        Getting replays in your bug reports is like getting a video{' '}
+        File the perfect bug report.{' '}
         <span>
-          that you can inspect with Browser DevTools and debug with print
-          statements.
+          {' '}
+          Sharing a replay with the team lets anyone debug the issue as if they
+          were there when it happened and get to the bottom of the hardest
+          issues.
         </span>
       </>
     ),
     description: (
       <>
-        Want to get bug reports with replays?
         <br />
         <Link href="https://app.replay.io/team/new" aria-label="Create a team">
           Create a team
         </Link>{' '}
-        and start a free 30 day trial.
+        and start sharing replays with your team.
       </>
     ),
     Asset: AssetSideBugs,
@@ -589,18 +597,19 @@ const data: DataType[] = [
   },
   {
     id: 1,
+    header: 'Fix failing tests. Fast.'.toUpperCase(),
     title: (
       <>
-        Recording your browser tests in CI{' '}
+        Take control of your test suite.
         <span>
-          lets you find and fix the timing issues in your application that are
-          causing your tests to be flaky.
+          {' '}
+          Recording your tests in CI takes the pain out of fixing flaky tests
+          and lets you experience the benefits of fast and reliable tests.
         </span>
       </>
     ),
     description: (
       <>
-        Want green test runs that finish quickly?{' '}
         <button
           className={s.waitlist}
           data-tf-popup="jTudlerL"
@@ -608,9 +617,9 @@ const data: DataType[] = [
           data-tf-medium="snippet"
           aria-label="Learn more about Test Suites"
         >
-          Join our waitlist
+          Get in touch
         </button>{' '}
-        and start fixing your tests.
+        to start recording your test suite.
       </>
     ),
     Asset: AssetSideBrowser,

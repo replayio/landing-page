@@ -44,7 +44,7 @@ export const Footer = () => {
             sizes={getImageSizes(2, 2, 2)}
           />
         </div>
-        <h2 className={s.title}>Start Replaying now</h2>
+        <h2 className={s.title}>Start replaying now</h2>
       </div>
 
       <div className={s.mainContent}>

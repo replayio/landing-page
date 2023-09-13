@@ -535,14 +535,15 @@ export const DeveloperTools = () => {
         <TitleAndSubtitle
           title={{
             as: 'h2',
-            children: 'Next Gen Browser DevTools.'
+            children: 'Zero in on the root cause.'
           }}
           subtitle={{
             children: (
               <span>
-                <b>Built on top of our Time Travel Protocol</b>, Replay DevTools is the debugging experience you've always wanted, but never believed was possible.
+                Add console logs with a single click and inspect your app at any
+                point. Replay is the debugging experience you've always wanted,
+                but never believed was possible.
               </span>
-
             )
           }}
         />
