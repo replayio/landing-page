@@ -368,8 +368,12 @@ export const Hero = () => {
             }}
             subtitle={{
               className: s.subtitle,
-              children:
-                'Retroactively inspect your application with print statements and Browser DevTools.'
+              children: (
+                <span>
+                  Record and retroactively debug your application with{' '}
+                  <b>print statements</b> and <b>Browser DevTools</b>.
+                </span>
+              )
             }}
           />
 

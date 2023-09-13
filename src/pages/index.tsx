@@ -27,9 +27,9 @@ const HomePage = () => {
         <Quotes />
         <DebugWithFriends />
         <Features />
-        <Testimonials />
         <Security />
         <TrustedTeams />
+        <Testimonials />
         <Prefooter />
       </div>
     </PageLayout>

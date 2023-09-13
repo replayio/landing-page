@@ -62,8 +62,13 @@ export const BugsSlider = () => {
         className={s.titleAndSubtitle}
         title={{ children: 'Freeze bugs in time.', as: 'h2' }}
         subtitle={{
-          children:
-            'Say goodbye to screenshots, videos, and repro steps. Now you can inspect the bug as if you were there when it happened.'
+          children: (
+            <span>
+              <b>Hate reproducing issues?</b> Replay is a new kind of browser
+              that's able to record and deterministically replay web
+              applications so that you only need to capture bugs once.
+            </span>
+          )
         }}
       />
 
@@ -555,13 +560,16 @@ const data: DataType[] = [
     id: 0,
     title: (
       <>
-        Start getting replays in your bug reports{' '}
-        <span>instead of repro steps.</span>
+        Getting replays in your bug reports is like getting a video{' '}
+        <span>
+          that you can inspect with Browser DevTools and debug with print
+          statements.
+        </span>
       </>
     ),
     description: (
       <>
-        Want to get replays from your CEO?
+        Want to get bug reports with replays?
         <br />
         <Link href="https://app.replay.io/team/new" aria-label="Create a team">
           Create a team
@@ -583,8 +591,11 @@ const data: DataType[] = [
     id: 1,
     title: (
       <>
-        Start getting replays of flaky browser tests{' '}
-        <span>in GitHub PR comments.</span>
+        Recording your browser tests in CI{' '}
+        <span>
+          lets you find and fix the timing issues in your application that are
+          causing your tests to be flaky.
+        </span>
       </>
     ),
     description: (
@@ -597,9 +608,9 @@ const data: DataType[] = [
           data-tf-medium="snippet"
           aria-label="Learn more about Test Suites"
         >
-          Join the waitlist
+          Join our waitlist
         </button>{' '}
-        and start recording and fixing your worst browser tests.
+        and start fixing your tests.
       </>
     ),
     Asset: AssetSideBrowser,
