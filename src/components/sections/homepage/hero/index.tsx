@@ -370,8 +370,7 @@ export const Hero = () => {
               className: s.subtitle,
               children: (
                 <span>
-                  Record and retroactively debug your application with{' '}
-                  <b>print statements</b> and <b>Browser DevTools</b>.
+                  Replay is a time travel debugger here to make building web apps a breeze.
                 </span>
               )
             }}
