@@ -391,7 +391,7 @@ export const Hero = () => {
             target="_blank"
             rel="noopener"
           >
-            <span>Zero in on the Cause of Every Problem</span>
+            <span>Zero in on Every Root Cause</span>
             <br></br>
           </Link>
 
