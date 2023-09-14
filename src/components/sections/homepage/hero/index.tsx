@@ -370,6 +370,7 @@ export const Hero = () => {
           >
             <br></br>
             <span>Stop Reproducing Bugs</span>
+            <br></br>
           </Link>
 
           <Link
@@ -380,6 +381,7 @@ export const Hero = () => {
             rel="noopener"
           >
             <span>Fix all your Flaky Tests</span>
+            <br></br>
           </Link>
 
           <Link
@@ -390,6 +392,7 @@ export const Hero = () => {
             rel="noopener"
           >
             <span>Zero in on the Cause of Every Problem</span>
+            <br></br>
           </Link>
 
           <Link
