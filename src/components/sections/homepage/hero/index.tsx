@@ -361,8 +361,6 @@ export const Hero = () => {
             }}
           />
 
-          <br></br>
-
           <Link
             passHref
             href="https://blog.replay.io/replay.io-a-new-dimension"
@@ -370,9 +368,9 @@ export const Hero = () => {
             target="_blank"
             rel="noopener"
           >
+            <br></br>
             <span>Stop Reproducing Bugs</span>
           </Link>
-          <br></br>
 
           <Link
             passHref
@@ -383,7 +381,6 @@ export const Hero = () => {
           >
             <span>Fix all your Flaky Tests</span>
           </Link>
-          <br></br>
 
           <Link
             passHref
@@ -394,7 +391,6 @@ export const Hero = () => {
           >
             <span>Zero in on the Cause of Every Problem</span>
           </Link>
-          <br></br>
 
           <Link
             passHref
