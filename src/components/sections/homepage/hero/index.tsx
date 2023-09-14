@@ -287,20 +287,6 @@ export const Hero = () => {
         </div>
       </div>
       <div className={s['first']} ref={firstRef}>
-        <Link
-          passHref
-          href="https://blog.replay.io/replay.io-a-new-dimension"
-          className={s['announcement']}
-          target="_blank"
-          rel="noopener"
-        >
-          <div className={s['announcementInner']}>
-            <p className={s['announcementText']}>
-              Introducing Replay for Test Suites
-            </p>
-            <span className={s.arrowIcon}>{IconsLibrary['arrow']}</span>
-          </div>
-        </Link>
         <Container
           className={s['hero-container']}
           ref={elementRef as Ref<HTMLDivElement> | undefined}
@@ -375,6 +361,46 @@ export const Hero = () => {
               )
             }}
           />
+
+          <Link
+            passHref
+            href="https://blog.replay.io/replay.io-a-new-dimension"
+            className={s.subtitle}
+            target="_blank"
+            rel="noopener"
+          >
+            <span>Stop Reproducing Bugs</span>
+          </Link>
+
+          <Link
+            passHref
+            href="https://blog.replay.io/replay.io-a-new-dimension"
+            className={s.subtitle}
+            target="_blank"
+            rel="noopener"
+          >
+            <span>Fix all your Flaky Tests</span>
+          </Link>
+
+          <Link
+            passHref
+            href="https://blog.replay.io/replay.io-a-new-dimension"
+            className={s.subtitle}
+            target="_blank"
+            rel="noopener"
+          >
+            <span>Zero in on the Cause of Every Problem</span>
+          </Link>
+
+          <Link
+            passHref
+            href="https://blog.replay.io/replay.io-a-new-dimension"
+            className={s.subtitle}
+            target="_blank"
+            rel="noopener"
+          >
+            <span>Debug Test Failures Remotely</span>
+          </Link>
 
           <div className={s['ctas']}>
             <Video.Modal
