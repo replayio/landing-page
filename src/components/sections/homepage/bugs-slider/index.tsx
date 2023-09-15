@@ -17,10 +17,6 @@ import { gsap } from '~/lib/gsap'
 
 import s from './bugs-slider.module.scss'
 
-const timersConfig = {
-  duration: 8
-}
-
 export const BugsSlider = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [emblaRef, embla] = useEmblaCarousel({ align: 'center' })
