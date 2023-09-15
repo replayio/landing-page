@@ -535,14 +535,15 @@ export const DeveloperTools = () => {
         <TitleAndSubtitle
           title={{
             as: 'h2',
-            children: 'Next Gen Browser DevTools.'
+            children: 'Zero in on Every Root Cause'
           }}
           subtitle={{
             children: (
               <span>
-                <b>Built on top of our Time Travel Protocol</b>, Replay DevTools is the debugging experience you've always wanted, but never believed was possible.
+                Replay DevTools is the debugging experience you've always wanted, but never believed was possible.
+                Stop constantly adding logs and retrying.  Never step past the point you wanted to stop at.
+                You can easily trace any problem back to its root cause, no matter how complex or timing sensitive.
               </span>
-
             )
           }}
         />
@@ -656,7 +657,26 @@ export const DeveloperTools = () => {
           </div>
         </div>
       </div>
-    </Section>
+
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Debug Test Failures Remotely', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Stop trying to locally reproduce test failures that happened in CI.
+              With Replay you can directly debug test failures as if they happened on your own machine.
+            <br></br>
+            <br></br>
+            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+              Learn More
+            </Link>
+            </span>
+          )
+        }}
+      />
+
+     </Section>
   )
 }
 
