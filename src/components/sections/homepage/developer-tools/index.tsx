@@ -659,6 +659,10 @@ export const DeveloperTools = () => {
         </div>
       </div>
 
+            <br></br>
+            <br></br>
+            <br></br>
+
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
         title={{ children: 'Debug Test Failures Remotely', as: 'h2' }}
