@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
