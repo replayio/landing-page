@@ -65,11 +65,38 @@ export const BugsSlider = () => {
               Say goodbye to screenshots, videos, and repro steps.
               Never close an issue again because you couldn’t reproduce it.
               Replay is a new kind of browser
-              that's able to record and deterministically replay web
+              that records and deterministically replays web
               applications so that you only need to capture bugs once.
+              <br>
+              <br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Using Replay to File Bug Reports
+              </Link>
+              <br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Improving QA with Replay
+              </Link>
+            </span>
+          )
+        }}
+      />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Fix all your Flaky Tests', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Take control of your test suite and make it rock solid no matter its size.
+              Fixing a flaky test failure with Replay is just as easy as any other bug.
+            <br>
+            <br>
             <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-              Using Replay to File Bug Reports
-            </Link>{' '}
+              Debugging a Flaky Test with Replay
+            </Link>
+            <br>
+            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+              Fix Flaky Tests to Deploy With Confidence
+            </Link>
             </span>
           )
         }}
