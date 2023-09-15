@@ -543,7 +543,7 @@ export const DeveloperTools = () => {
               <span>
                 Replay DevTools is the debugging experience you've always wanted, but never believed was possible.
                 Stop constantly adding logs and retrying.  Never step past the point you wanted to stop at.
-                You can trace any problem back to its root cause, no matter how complex or timing sensitive.
+                Trace any problem back to its root cause, no matter how complex or timing sensitive.
               </span>
             )
           }}
