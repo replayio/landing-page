@@ -1,4 +1,4 @@
-z/* eslint-disable */
+/* eslint-disable */
 
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
