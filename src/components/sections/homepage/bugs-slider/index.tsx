@@ -80,27 +80,6 @@ export const BugsSlider = () => {
           )
         }}
       />
-      <TitleAndSubtitle
-        className={s.titleAndSubtitle}
-        title={{ children: 'Fix all your Flaky Tests', as: 'h2' }}
-        subtitle={{
-          children: (
-            <span>
-              Take control of your test suite and make it rock solid no matter its size.
-              Fixing a flaky test failure with Replay is just as easy as any other bug.
-            <br>
-            <br>
-            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-              Debugging a Flaky Test with Replay
-            </Link>
-            <br>
-            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-              Fix Flaky Tests to Deploy With Confidence
-            </Link>
-            </span>
-          )
-        }}
-      />
     </Section>
   )
 }
