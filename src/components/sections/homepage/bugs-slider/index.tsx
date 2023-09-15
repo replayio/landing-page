@@ -60,77 +60,22 @@ export const BugsSlider = () => {
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Freeze bugs in time.', as: 'h2' }}
+        title={{ children: 'Stop Reproducing Bugs', as: 'h2' }}
         subtitle={{
           children: (
             <span>
-              <b>Hate reproducing issues?</b> Replay is a new kind of browser
+              Say goodbye to screenshots, videos, and repro steps.
+              Never close an issue again because you couldn’t reproduce it.
+              Replay is a new kind of browser
               that's able to record and deterministically replay web
               applications so that you only need to capture bugs once.
             </span>
+            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+              Using Replay to File Bug Reports
+            </Link>{' '}
           )
         }}
       />
-
-      <div className={s.embla} ref={emblaRef}>
-        <div className={s.emblaContainer}>
-          {data.map((item, index) => (
-            <div
-              key={item.id}
-              className={clsx(s.emblaSlide, {
-                [s.active as string]: index === currentSlide
-              })}
-            >
-              <div
-                className={s.card}
-                onPointerEnter={() => setInteracting(true)}
-                onPointerLeave={() => setInteracting(false)}
-              >
-                <InfoSide isTablet={Boolean(isTablet)} {...item} />
-
-                {!isTablet && <item.Asset />}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className={s.ctasWrapper}>
-        <ButtonTimer
-          mode="secondary"
-          onClick={() => scrollTo(0)}
-          aria-label="Bug reports"
-          timer={{
-            ...timersConfig,
-            playing: inView && currentSlide === 0 && !interacting,
-            onComplete: () => scrollTo(1)
-          }}
-        >
-          <div
-            className={clsx(s['indicator'], {
-              [s['active'] as string]: currentSlide === 0
-            })}
-          />
-          Bug reports
-        </ButtonTimer>
-        <ButtonTimer
-          mode="secondary"
-          onClick={() => scrollTo(1)}
-          aria-label="Browser tests"
-          timer={{
-            ...timersConfig,
-            playing: inView && currentSlide === 1 && !interacting,
-            onComplete: () => scrollTo(0)
-          }}
-        >
-          <div
-            className={clsx(s['indicator'], {
-              [s['active'] as string]: currentSlide === 1
-            })}
-          />
-          Test suites
-        </ButtonTimer>
-      </div>
     </Section>
   )
 }
