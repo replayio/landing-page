@@ -67,12 +67,12 @@ export const BugsSlider = () => {
               Replay is a new kind of browser
               that records and deterministically replays web
               applications so that you only need to capture bugs once.
-              <br>
-              <br>
+              <br></br>
+              <br></br>
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
                 Using Replay to File Bug Reports
               </Link>
-              <br>
+              <br></br>
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
                 Improving QA with Replay
               </Link>
