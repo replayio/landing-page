@@ -1,4 +1,4 @@
-/* eslint-disable */
+z/* eslint-disable */
 
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -67,10 +67,10 @@ export const BugsSlider = () => {
               Replay is a new kind of browser
               that's able to record and deterministically replay web
               applications so that you only need to capture bugs once.
-            </span>
             <Link href="https://app.replay.io/team/new" aria-label="Create a team">
               Using Replay to File Bug Reports
             </Link>{' '}
+            </span>
           )
         }}
       />
