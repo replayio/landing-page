@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Ref, useEffect, useRef } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
@@ -355,7 +354,10 @@ export const Hero = () => {
               className: s.subtitle,
               children: (
                 <span>
-                  Replay is a specialized browser and time travel debugger that lets you record, retroactively debug, and fix the hardest issues as a team.  Take control of your support process and test suite, so you can build faster and more efficiently.
+                  Replay is a specialized browser and time travel debugger
+                  that lets you record, retroactively debug, and fix the hardest issues as a team.
+                  Take control of your support process and test suite,
+                  so you can build faster and more efficiently.
                 </span>
               )
             }}
