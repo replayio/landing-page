@@ -355,56 +355,11 @@ export const Hero = () => {
               className: s.subtitle,
               children: (
                 <span>
-                  Replay is a time travel debugger here to make building web apps a breeze.
+                  Replay is a specialized browser and time travel debugger that lets you record, retroactively debug, and fix the hardest issues as a team.  Take control of your support process and test suite, so you can build faster and more efficiently.
                 </span>
               )
             }}
           />
-
-          <Link
-            passHref
-            href="https://blog.replay.io/replay.io-a-new-dimension"
-            className={s.subtitle}
-            target="_blank"
-            rel="noopener"
-          >
-            <br></br>
-            <span>Stop Reproducing Bugs</span>
-            <br></br>
-          </Link>
-
-          <Link
-            passHref
-            href="https://blog.replay.io/replay.io-a-new-dimension"
-            className={s.subtitle}
-            target="_blank"
-            rel="noopener"
-          >
-            <span>Fix all your Flaky Tests</span>
-            <br></br>
-          </Link>
-
-          <Link
-            passHref
-            href="https://blog.replay.io/replay.io-a-new-dimension"
-            className={s.subtitle}
-            target="_blank"
-            rel="noopener"
-          >
-            <span>Zero in on Every Root Cause</span>
-            <br></br>
-          </Link>
-
-          <Link
-            passHref
-            href="https://blog.replay.io/replay.io-a-new-dimension"
-            className={s.subtitle}
-            target="_blank"
-            rel="noopener"
-          >
-            <span>Debug Test Failures Remotely</span>
-          </Link>
-
           <div className={s['ctas']}>
             <Video.Modal
               poster="/images/homepage/hero-video-placeholder.png"
