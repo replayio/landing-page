@@ -354,7 +354,7 @@ export const Hero = () => {
               className: s.subtitle,
               children: (
                 <span>
-                  Replay is a specialized browser and time travel debugger
+                  Replay is the only browser
                   that lets you record, retroactively debug, and fix the hardest issues as a team.
                   Take control of your support process and test suite,
                   so you can build faster and more efficiently.
