@@ -356,6 +356,8 @@ export const Hero = () => {
                 <span>
                   Replay is the only browser
                   that lets you record, retroactively debug, and fix the hardest issues as a team.
+                  <br></br>
+                  <br></br>
                   Take control of your support process and test suite,
                   so you can build faster and more efficiently.
                 </span>
