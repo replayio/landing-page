@@ -4,7 +4,6 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { gsap } from 'lib/gsap'
 import { omit } from 'lodash'
 import Image, { ImageProps } from 'next/image'
-import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 import { AspectBox } from '~/components/common/aspect-box'
