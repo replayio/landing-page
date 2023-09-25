@@ -108,21 +108,121 @@ export const BugsSlider = () => {
       />
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
+        title={{ children: 'Handle QA and User Issues with Ease', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Bugs reported with Replay are fully actionable and quickly
+              understood by developers.  Never close issues again for a lack
+              of information, or because the problem was transient or user specific.
+              <br></br>
+              <br></br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Learn More
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
         title={{ children: 'Fix all your Flaky Tests', as: 'h2' }}
         subtitle={{
           children: (
             <span>
-              Take control of your test suite and make it rock solid no matter its size.
-              Fixing a flaky test failure with Replay is just as easy as any other bug.
-            <br></br>
-            <br></br>
-            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-              Debugging a Flaky Test with Replay
-            </Link>
-            <br></br>
-            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-              Fix Flaky Tests to Deploy With Confidence
-            </Link>
+              Debugging a flaky test failure with Replay is just as easy as any other bug.
+              Stop wasting time looking at failures you can’t figure out,
+              or suppressing tests because they don’t pass reliably.
+              <br></br>
+              <br></br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Learn More
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Deploy with Confidence', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Building a thorough and rock solid test suite is easy with Replay
+              and almost impossible without it.  Deploy whenever you want and
+              catch issues before they hit users.
+              <br></br>
+              <br></br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Learn More
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Debug Test Failures Remotely', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Stop trying to locally reproduce test failures that happened in CI,
+              or looking at logs or videos to get a vague idea of what happened.
+              With Replay you can directly debug test failures as if they happened
+              on your own machine.
+              <br></br>
+              <br></br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Learn More
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Instantly Modernize your Test Suite', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Replay is easy to integrate with any test suite regardless of its framework.
+              Get the best debugging experience in the world without rewriting
+              any of your tests.
+              <br></br>
+              <br></br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Learn More
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
             </span>
           )
         }}
