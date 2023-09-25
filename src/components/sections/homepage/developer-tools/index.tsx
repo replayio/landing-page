@@ -658,29 +658,6 @@ export const DeveloperTools = () => {
           </div>
         </div>
       </div>
-
-            <br></br>
-            <br></br>
-            <br></br>
-
-      <TitleAndSubtitle
-        className={s.titleAndSubtitle}
-        title={{ children: 'Debug Test Failures Remotely', as: 'h2' }}
-        subtitle={{
-          children: (
-            <span>
-              Stop trying to locally reproduce test failures that happened in CI.
-              With Replay you can directly debug test failures as if they happened on your own machine.
-            <br></br>
-            <br></br>
-            <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-              Learn More
-            </Link>
-            </span>
-          )
-        }}
-      />
-
      </Section>
   )
 }
