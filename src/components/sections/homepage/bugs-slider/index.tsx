@@ -217,12 +217,6 @@ export const BugsSlider = () => {
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
                 Learn More
               </Link>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
             </span>
           )
         }}
