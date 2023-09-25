@@ -65,7 +65,7 @@ export const BugsSlider = () => {
               Replay’s browser is a next generation debugging tool
               like nothing you’ve seen before.
               The browser’s inputs and non-determinism are recorded
-              with remarkably low overhead, and replayed later with the exact
+              with low overhead, and replayed later to produce the exact
               same behavior you can inspect down to the finest detail.
               <br></br>
               <br></br>
