@@ -62,7 +62,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Replay’s browser is a next generation debugging tool
+              Replay is a next generation debugging tool
               like nothing you’ve seen before.
               The browser’s inputs and non-determinism are recorded
               with low overhead, and replayed later to produce the exact
