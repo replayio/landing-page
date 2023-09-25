@@ -58,23 +58,43 @@ export const BugsSlider = () => {
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
+        title={{ children: 'Travel Back Through Time', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Replay’s browser is a next generation debugging tool
+              like nothing you’ve seen before.
+              The browser’s inputs and non-determinism are recorded
+              with remarkably low overhead, and replayed later with the exact
+              same behavior you can inspect down to the finest detail.
+              <br></br>
+              <br></br>
+              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+                Learn More
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
         title={{ children: 'Stop Reproducing Bugs', as: 'h2' }}
         subtitle={{
           children: (
             <span>
               Say goodbye to screenshots, videos, and repro steps.
-              Never close an issue again because you couldn’t reproduce it.
-              Replay is a new kind of browser
-              that records and deterministically replays web
-              applications so that you only need to capture bugs once.
+              Recording a bug with Replay lets anyone debug it
+              as if they were there when it happened.
               <br></br>
               <br></br>
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-                Using Replay to File Bug Reports
-              </Link>
-              <br></br>
-              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
-                Improving QA with Replay
+                Learn More
               </Link>
               <br></br>
               <br></br>
