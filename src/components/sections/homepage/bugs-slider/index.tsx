@@ -156,7 +156,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Building a thorough and rock solid test suite is easy with Replay and incredibly hard without it.  With this you can deploy whenever you want and catch more issues before they hit users.
+              Building a thorough and rock solid test suite is easy with Replay and incredibly hard without it.  This lets you deploy whenever you want and catch more issues before they hit users.
               <br></br>
               <br></br>
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
