@@ -58,15 +58,11 @@ export const BugsSlider = () => {
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Travel Back Through Time', as: 'h2' }}
+        title={{ children: 'Travel Back in Time', as: 'h2' }}
         subtitle={{
           children: (
             <span>
-              Replay is a next generation debugging tool
-              like nothing you’ve seen before.
-              The browser’s inputs and non-determinism are recorded
-              with low overhead, and replayed later to produce the exact
-              same behavior you can inspect down to the finest detail.
+              Replay is a next generation time travel debugger like nothing you’ve seen before.  The chrome based browser’s inputs and non-determinism are recorded with low overhead, and replayed later to produce the exact same behavior you can inspect down to the finest detail.
               <br></br>
               <br></br>
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
@@ -160,9 +156,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Building a thorough and rock solid test suite is easy with Replay
-              and almost impossible without it.  Deploy whenever you want and
-              catch issues before they hit users.
+              Building a thorough and rock solid test suite is easy with Replay and incredibly hard without it.  With this you can deploy whenever you want and catch more issues before they hit users.
               <br></br>
               <br></br>
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
