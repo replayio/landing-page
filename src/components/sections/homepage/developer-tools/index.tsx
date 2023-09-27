@@ -540,9 +540,7 @@ export const DeveloperTools = () => {
           subtitle={{
             children: (
               <span>
-                Replay DevTools is the debugging experience you've always wanted, but never believed was possible.
-                Stop constantly adding logs and retrying.  Never step past the point you wanted to stop at.
-                Trace any problem back to its root cause, no matter how complex or timing sensitive.
+                Replay DevTools is the debugging experience you've always wanted, but never believed was possible. Trace any problem directly back to its root cause, no matter how complex or timing sensitive.
               </span>
             )
           }}
