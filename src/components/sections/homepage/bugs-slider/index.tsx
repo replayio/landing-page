@@ -62,7 +62,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Replay is a next generation time travel debugger like nothing you’ve seen before.  The chrome based browser’s inputs and non-determinism are recorded with low overhead, and replayed later to produce the exact same behavior you can inspect down to the finest detail.
+              Replay is a next generation time travel debugger like nothing you’ve seen before.  With low overhead the chrome based browser records just enough so it can be replayed exactly and inspected down to the finest detail.
               <br></br>
               <br></br>
               <Link href="https://app.replay.io/team/new" aria-label="Create a team">
