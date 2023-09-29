@@ -89,7 +89,7 @@ export const BugsSlider = () => {
               as if they were there when it happened.
               <br></br>
               <br></br>
-              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+              <Link href="/overview#stop-reproducing" aria-label="Create a team">
                 Learn More
               </Link>
               <br></br>

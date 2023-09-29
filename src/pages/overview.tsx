@@ -52,6 +52,32 @@ The main benefit of using Replay is that recording a bug or any other problem on
           )
         }}
       />
+      <div id="stop-reproducing" />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Stop Reproducing Bugs', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Filing bug reports with enough information for developers to fix the problem is often pretty difficult.  Screenshots, videos, console logs, and so forth can indicate where the problem occurred but not the underlying reason needed for fixing it.  Figuring out that reason requires the developer to reproduce the bug themselves, but writing down repro steps is challenging or even impossible and can require extensive back-and-forths.
+              <br></br>
+              <br></br>
+Bug reports filed using Replay have a perfect reproduction of the bug.  Whoever is filing the report just has to create a recording of the problem and add a link to the recording to the report with a comment or two pointing out where things went wrong.  This gives developers what they need to fix the problem, and is better than any bug report filed without using Replay.
+              <br></br>
+              <br></br>
+              <Link href="https://docs.replay.io/getting-started" aria-label="Getting Started with Bug Reports">
+                Getting Started with Bug Reports
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
     </Section>
     </PageLayout>
   )
