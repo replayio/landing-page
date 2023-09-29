@@ -15,7 +15,6 @@ const Overview = () => {
       data-sitemap-icon="workflow"
       data-sitemap-short-title="Record"
       data-sitemap-complete-title="Freeze bugs in time."
-      ref={inViewRef}
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
