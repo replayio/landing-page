@@ -65,7 +65,7 @@ export const BugsSlider = () => {
               Replay is a next generation time travel debugger like nothing you’ve seen before.  With low overhead the chrome based browser records just enough so it can be replayed exactly and inspected down to the finest detail.
               <br></br>
               <br></br>
-              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+              <Link href="/overview#travel-back" aria-label="Create a team">
                 Learn More
               </Link>
               <br></br>
