@@ -146,6 +146,35 @@ With Replay, debugging a flaky test failure is no different from any other bug. 
           )
         }}
       />
+      <div id="deploy-with-confidence" />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Deploy with Confidence', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Teams which can deploy changes to production frequently and with a low rate of incidents are significantly more likely to meet their organizational performance goals than other teams.  This is one of the key findings of the DevOps Research and Assessment (DORA) team at Google.
+              <br></br>
+              <br></br>
+Deploying on demand without causing regressions for users is almost impossible without a thorough test suite that passes reliably.  Building a test suite like this requires care and diligence and normally requires a lot of work to maintain.  When tests start failing intermittently it is hard to figure out what change led to the problem, and because intermittent failures are so hard to fix these tend to creep in over time and degrade the suite’s effectiveness.  Even if a new failure happens consistently it can still be hard to debug and understand what happened, creating a major drag for developers.
+              <br></br>
+              <br></br>
+Using Replay to record your test suite effectively eliminates these problems.  As described above it is easy to get to the bottom of a flaky test that starts appearing in the suite, and as described below when a test starts failing consistently it is easy for developers to debug and identify the problem.  With Replay a team can get all the benefits of a solid test suite, without the downsides.
+              <br></br>
+              <br></br>
+              <Link href="https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance" aria-label="Getting Started with Bug Reports">
+                DORA: Are you an Elite DevOps performer?
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
     </Section>
     </PageLayout>
   )
