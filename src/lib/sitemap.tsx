@@ -39,6 +39,7 @@ type SitemapKeys =
   | 'timeTravel'
   | 'company'
   | 'pricing'
+  | 'overview'
   | 'login'
   | 'aboutUs'
   | 'hiring'
@@ -739,6 +740,10 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
   pricing: {
     href: '/pricing',
     label: 'Pricing'
+  },
+  overview: {
+    href: '/overview',
+    label: 'Overview'
   },
   login: {
     href: 'https://app.replay.io/',
