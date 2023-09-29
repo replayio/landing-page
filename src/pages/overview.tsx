@@ -6,16 +6,16 @@ import { TitleAndSubtitle } from '~/components/primitives/texts'
 const Overview = () => {
   return (
     <PageLayout>
-      <Meta title="Overview | Replay" />
-      <Section
-        id="homepage-overview"
-        className={s.section}
-        data-sitemap
-        data-sitemap-icon="workflow"
-        data-sitemap-short-title="Record"
-        data-sitemap-complete-title="Freeze bugs in time."
-        ref={inViewRef}
-      >
+    <Meta title="Overview | Replay" />
+    <Section
+      id="homepage-overview"
+      className={s.section}
+      data-sitemap
+      data-sitemap-icon="workflow"
+      data-sitemap-short-title="Record"
+      data-sitemap-complete-title="Freeze bugs in time."
+      ref={inViewRef}
+    >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
         title={{ children: 'Travel Back in Time', as: 'h2' }}
@@ -38,6 +38,7 @@ const Overview = () => {
           )
         }}
       />
+    </Section>
     </PageLayout>
   )
 }
