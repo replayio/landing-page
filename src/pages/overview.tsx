@@ -4,7 +4,7 @@ import { Meta } from '~/components/common/meta'
 import { PageLayout } from '~/components/layout/page'
 import { Section } from '~/components/layout/section'
 import { TitleAndSubtitle } from '~/components/primitives/texts'
-import s from './developer-tools.module.scss'
+import s from '~/components/sections/homepage/developer-tools/developer-tools.module.scss'
 import Link from 'next/link'
 
 const Overview = () => {
