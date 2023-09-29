@@ -175,6 +175,48 @@ Using Replay to record your test suite effectively eliminates these problems.  A
           )
         }}
       />
+      <div id="debug-remotely" />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Debug Test Failures Remotely', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Understanding what went wrong when a test starts failing is a troublesome process for developers in many organizations.  With a well oiled test environment developers can figure out some problems based on videos taken of the test and other information like console logs, and figure out the rest by reproducing the failure on their own machine so they can debug it.  This works but is somewhat time consuming, and difficult to set up especially when tests in CI run in a bespoke environment.
+              <br></br>
+              <br></br>
+Using Replay streamlines this process considerably.  Instead of gathering several kinds of artifacts when a test runs and supporting a reliable environment for developers to locally reproduce failures, recording the test gives developers a perfect reproduction of the failure which they can debug as if it happened on their own machine.
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
+      <div id="modernize-suite" />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Instantly Modernize your Test Suite', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Modern testing frameworks like Cypress and Playwright make it easier to understand and debug test failures compared to legacy frameworks like Selenium and Puppeteer.  Tests written in these legacy frameworks are perfectly good, however, and there is a lot of inertia involved in porting them to a more modern framework.
+              <br></br>
+              <br></br>
+Replay works great when used with test suites developed using modern frameworks, but it works equally well with older test suites.  Because Replay is a specialized browser rather than a dedicated framework, integrating it with a suite simply requires using the Replay browser instead of Chrome, and uploading the generated recordings when the suite finishes.
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
     </Section>
     </PageLayout>
   )
