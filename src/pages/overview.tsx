@@ -78,6 +78,48 @@ Bug reports filed using Replay have a perfect reproduction of the bug.  Whoever 
           )
         }}
       />
+      <div id="handle-issues" />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Handle QA and User Issues with Ease', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Handling bugs reported by QA and users is a difficult and time consuming process for many organizations.  This results from the difficulty developers have reproducing these bugs, as described above.  When a developer isn’t able to reliably reproduce a bug it becomes very time consuming to investigate and speculate about possible fixes, and quite often these issues will be closed as not actionable.  This problem is especially difficult when the issue is transient and may disappear after a few minutes or hours – requiring the developer to drop everything to work on a fix – or when the issue is related to a user’s data – requiring the developer to work closely with that user to track down what is going wrong.
+              <br></br>
+              <br></br>
+With Replay bug reports have a perfect reproduction which developers can use to investigate the bug as if it was happening on their own machine.  This takes out the guesswork and the time involved in dealing with these reports, and simplifies things for the reporter because all they have to do is create a recording, without concern for repro steps or all the other documentation that otherwise accompanies a bug report.
+              <br></br>
+              <br></br>
+Across the board, companies we’ve worked with to write case studies have seen dramatic improvements in their QA and related support processes by adopting Replay and consistently using it when filing bug reports.
+              <br></br>
+              <br></br>
+              <Link href="https://medium.com/replay-io/glide-saves-40-hours-weekly-by-eliminating-the-reproducibility-problem-8a06e6330263" aria-label="Glide Case Study">
+                Glide
+              </Link>
+              : Getting replays from QA "has completely revolutionized how we deal with bugs that come in.  Now, we can’t even get a report from support unless it comes with a replay."
+              <br></br>
+              <br></br>
+              <Link href="https://docs.replay.io/resources/replay.io-case-studies/midnite-builds-time-travel-workflows-for-its-fast-paced-betting-platform" aria-label="Midnite Case Study">
+                Midnite
+              </Link>
+              : "Replay has been instrumental in building our bug reporting system and it’s been a game-changer allowing us to land changes and fix bugs immediately."
+              <br></br>
+              <br></br>
+              <Link href="https://medium.com/@pennepitstop/pantheon-solves-performance-bottlenecks-improving-load-time-by-5x-fed6f02e8106" aria-label="Pantheon Case Study">
+                Pantheon
+              </Link>
+              : Across the org, "from PMs to Engineers, to Customer Support and our CEO, we use Replay to track down bugs with so much more ease and save so much time diagnosing what went wrong."
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
     </Section>
     </PageLayout>
   )
