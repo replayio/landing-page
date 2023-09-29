@@ -120,6 +120,32 @@ Across the board, companies we’ve worked with to write case studies have seen 
           )
         }}
       />
+      <div id="fix-flakes" />
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Fix all your Flaky Tests', as: 'h2' }}
+        subtitle={{
+          children: (
+            <span>
+              Flaky test failures are one of the most common, difficult, and annoying things which developers have to deal with.  A test that only fails 1% of the time is super difficult to understand and fix, and yet a test suite with 100 tests like this will have one failure on average every time it runs.  Waiting some amount of time during the test might fix the problem, but can mask real issues and steadily increases the time it takes for the test suite to run.  More often tests failing intermittently are suppressed so they don’t run or their results aren’t reported, which increases the suite’s stability but makes the test basically worthless.
+              <br></br>
+              <br></br>
+With Replay, debugging a flaky test failure is no different from any other bug.  A recording of the failure has a perfect reproduction of what went wrong and can be studied by developers to identify the root cause without regard for how infrequently the failure happens.  Actually, flakes are even easier to understand than other bugs, as a recording of the failure can be compared with a recording of the same test passing to identify discrepancies between the two recordings which end up leading to the failure.  We’re working on automating this process by the way, schedule a call if you’d like to learn more.
+              <br></br>
+              <br></br>
+              <Link href="https://blog.replay.io/debugging-a-flaky-test-with-replay" aria-label="Getting Started with Bug Reports">
+                Debugging a Flaky Test with Replay
+              </Link>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </span>
+          )
+        }}
+      />
     </Section>
     </PageLayout>
   )

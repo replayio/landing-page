@@ -137,7 +137,7 @@ export const BugsSlider = () => {
               or suppressing tests because they don’t pass reliably.
               <br></br>
               <br></br>
-              <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+              <Link href="/overview#fix-flakes" aria-label="Create a team">
                 Learn More
               </Link>
               <br></br>
