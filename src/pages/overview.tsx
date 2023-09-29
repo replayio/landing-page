@@ -23,9 +23,9 @@ const Overview = () => {
       <br></br>
       <br></br>
       <br></br>
+      <div id=travel-back />
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        id={travel-back}
         title={{ children: 'Travel Back in Time', as: 'h2' }}
         subtitle={{
           children: (
