@@ -41,14 +41,16 @@ export const Subtitle = forwardRef<HTMLParagraphElement, SubtitleProps>(
 export const TitleAndSubtitle = ({
   title,
   subtitle,
-  className
+  className,
+  id
 }: {
   title: TitleProps
   subtitle?: SubtitleProps
   className?: string
+  id?: string
 }) => {
   return (
-    <div className={clsx(s.titleSubtitleWrapper, className)}>
+    <div className={clsx(s.titleSubtitleWrapper, className)} id=id>
       <Title {...title} />
       {subtitle && <Subtitle {...subtitle} />}
     </div>
