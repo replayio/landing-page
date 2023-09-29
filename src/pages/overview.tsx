@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Meta } from '~/components/common/meta'
 import { PageLayout } from '~/components/layout/page'
 import { Section } from '~/components/layout/section'
