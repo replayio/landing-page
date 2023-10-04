@@ -131,7 +131,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: 'https://docs.replay.io/recording-a-web-app/recording-a-replay',
+              href: 'https://docs.replay.io/getting-started/recording-your-first-replay',
               label: 'Record a replay',
               icon: (
                 <svg
