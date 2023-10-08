@@ -199,7 +199,7 @@ Using Replay streamlines this process considerably.  Instead of gathering variou
       <div id="modernize-suite" />
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Instantly Modernize your Test Suite', as: 'h2' }}
+        title={{ children: 'Modernize your Test Suite', as: 'h2' }}
         subtitle={{
           children: (
             <span>
