@@ -192,13 +192,11 @@ export const BugsSlider = () => {
       />
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Instantly Modernize your Test Suite', as: 'h2' }}
+        title={{ children: 'Modernize your Test Suite', as: 'h2' }}
         subtitle={{
           children: (
             <span>
-              Replay is easy to integrate with any test suite regardless of its framework.
-              Get the best debugging experience in the world without rewriting
-              any of your tests.
+              Replay is easy to integrate with any test suite regardless of its framework.  Get the best debugging experience in the world without rewriting any of your tests.
               <br></br>
               <br></br>
               <Link href="/overview#modernize-suite" aria-label="Create a team">

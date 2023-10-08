@@ -36,7 +36,7 @@ const Overview = () => {
 Instead, the Replay browser records the inputs it gets from the system – network data, user events like mouse clicks, and so on – and non-determinism resulting from interactions between threads.  There isn’t very much of this and it can be recorded with little overhead.  When replaying, the same browser runs and uses that recorded data to ensure it behaves in the exact same way as it did when recording. The state at any point in time can be reconstructed simply by replaying the browser to that point.
               <br />
               <br />
-The main benefit of using Replay is that recording a bug or any other problem on a website is enough for a developer looking at the recording to fully understand the bug and what is needed to fix it.  The developer has a perfect reproduction of the bug, as if it happened on their own machine.  This enables many improvements both to developer productivity and to the overall efficiency and effectiveness of a software development organization.
+The main benefit of using Replay is that recording a bug or any other problem on a website is enough for a developer looking at the recording to fully understand the bug and what is needed to fix it.  The developer has a perfect reproduction of the bug, as if it happened on their own machine.  This enables many improvements to productivity and the overall effectiveness of a software development organization.
               <br></br>
               <br></br>
               <Link href="https://medium.com/replay-io/how-replay-works-5c9c29580c58" aria-label="How Replay Works">
@@ -59,10 +59,10 @@ The main benefit of using Replay is that recording a bug or any other problem on
         subtitle={{
           children: (
             <span>
-              Filing bug reports with enough information for developers to fix the problem is often pretty difficult.  Screenshots, videos, console logs, and so forth can indicate where the problem occurred but not the underlying reason needed for fixing it.  Figuring out that reason requires the developer to reproduce the bug themselves, but writing down repro steps is challenging or even impossible and can require extensive back-and-forths.
+              Filing bug reports with the right information is hard.  Screenshots, videos, console logs, and so forth can indicate where the problem occurred but not the underlying reason needed to fix it.  Figuring out that reason often requires the developer to reproduce the bug themselves, but writing down repro steps is challenging or impossible and can require extensive back-and-forths.
               <br></br>
               <br></br>
-Bug reports filed using Replay have a perfect reproduction of the bug.  Whoever is filing the report just has to create a recording of the problem and add a link to the recording to the report with a comment or two pointing out where things went wrong.  This gives developers what they need to fix the problem, and is better than any bug report filed without using Replay.
+Bug reports filed using Replay have a perfect reproduction of the bug.  The reporter just has to record the problem and add a link to that recording with a comment or two pointing out where things went wrong.  This gives developers what they need to understand and fix the problem, and is better than any bug report filed without using Replay.
               <br></br>
               <br></br>
               <Link href="https://docs.replay.io/getting-started" aria-label="Getting Started with Bug Reports">
@@ -85,7 +85,7 @@ Bug reports filed using Replay have a perfect reproduction of the bug.  Whoever 
         subtitle={{
           children: (
             <span>
-              Handling bugs reported by QA and users is a difficult and time consuming process for many organizations.  This results from the difficulty developers have reproducing these bugs.  When a developer isn’t able to reliably reproduce a bug it becomes very time consuming to investigate and speculate about possible fixes, and quite often these issues will be closed as not actionable.
+              Handling bugs reported by QA and users is a difficult and time consuming process for many organizations.  This results from the difficulty developers have reproducing these bugs.  When a developer isn’t able to reliably reproduce a bug it becomes very time consuming to investigate and speculate about possible fixes, and often these issues will be closed as not actionable.
               <br></br>
               <br></br>
 With Replay, bug reports have a perfect reproduction which developers can use to investigate the bug as if it was happening on their own machine.  This takes out the guesswork and the time involved in dealing with these reports, and the need for detailed documentation from the reporter.
@@ -130,7 +130,7 @@ Companies that consistently use Replay for their support have seen dramatic impr
               Flaky test failures are one of the most common and annoying things which developers have to deal with.  A test that fails infrequently is very difficult to understand and fix, and yet a suite with many tests like this will frequently have failures, keeping changes from landing and requiring manual investigation.  Most often these tests end up being suppressed so they don’t run or their results aren’t reported, making them worthless.
               <br></br>
               <br></br>
-With Replay, debugging a flaky test failure is no different from any other bug.  A recording of the failure has a perfect reproduction of what went wrong and can be studied by developers to identify the root cause without regard for how infrequently the failure happens.  Actually, flakes are even easier to understand than other bugs, as a recording of the failure can be compared with a recording of the same test passing to identify discrepancies between the two recordings which end up leading to the failure.  We’re working on automating this process by the way, schedule a call if you’d like to learn more.
+With Replay, debugging a flaky test failure is no different from any other bug.  A recording of the failure has a perfect reproduction of what went wrong and can be studied by developers to identify the root cause without regard for how infrequently the failure happens.  Flakes are actually even easier to understand than other bugs, as a recording of the failure can be compared with a recording of the same test passing to identify discrepancies between the two recordings which end up leading to the failure.  We’re working on automating this process by the way, schedule a call if you’d like to learn more.
               <br></br>
               <br></br>
               <Link href="https://blog.replay.io/debugging-a-flaky-test-with-replay" aria-label="Getting Started with Bug Reports">
@@ -153,13 +153,13 @@ With Replay, debugging a flaky test failure is no different from any other bug. 
         subtitle={{
           children: (
             <span>
-              Teams which can deploy changes to production frequently and with a low rate of incidents are significantly more likely to meet their organizational performance goals than other teams.  This is one of the key findings of the DevOps Research and Assessment (DORA) team at Google.
+              Teams which deploy changes to production frequently and with a low rate of incidents are significantly more likely to meet their organizational performance goals.  This is one of the key findings of the DevOps Research and Assessment (DORA) team at Google.
               <br></br>
               <br></br>
-Deploying on demand without causing regressions for users is almost impossible without a thorough test suite that passes reliably.  Building a test suite like this requires care and diligence and normally requires a lot of work to maintain.  When tests start failing intermittently it is hard to figure out what change led to the problem, and because intermittent failures are so hard to fix these tend to creep in over time and degrade the suite’s effectiveness.  Even if a new failure happens consistently it can still be hard to debug and understand what happened, creating a major drag for developers.
+Deploying on demand without causing regressions for users is almost impossible without a thorough test suite that passes reliably.  The hardest part of building a test suite like this is maintaining it.  When tests start failing intermittently it is hard to figure out what change led to the problem, and because intermittent failures are so hard to fix they tend to creep in over time and degrade the suite.  Even if a new failure happens consistently it can still be hard to debug and understand why, creating a major drag for developers.
               <br></br>
               <br></br>
-Using Replay to record your test suite effectively eliminates these problems.  It is easy to get to the bottom of a flaky test that starts appearing in the suite, and when a test starts failing consistently it is easy for developers to debug and identify the problem.  With Replay a team can get all the benefits of a solid test suite, without the downsides.
+Using Replay to record your test suite effectively eliminates these problems.  It is easy to debug and understand failing tests, whether they are happening intermittently or consistently.  With Replay a team can get all the benefits of a solid test suite, without the downsides.
               <br></br>
               <br></br>
               <Link href="https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance" aria-label="Getting Started with Bug Reports">
@@ -182,10 +182,10 @@ Using Replay to record your test suite effectively eliminates these problems.  I
         subtitle={{
           children: (
             <span>
-              Understanding what went wrong when a test starts failing is a troublesome process for developers in many organizations.  With a well oiled test environment developers can figure out some problems based on videos taken of the test and other information like console logs, and figure out the rest by reproducing the failure on their own machine so they can debug it.  This works but is somewhat time consuming, and difficult to set up especially when tests in CI run in a bespoke environment.
+              Understanding what went wrong when a test starts failing in CI is a troublesome process for many development organizations.  Saving things like console logs and videos helps, along with supporting an environment for locally reproducing the failure.  This process can be slow, doesn’t always work, and is time consuming to set up and maintain.
               <br></br>
               <br></br>
-Using Replay streamlines this process considerably.  Instead of gathering several kinds of artifacts when a test runs and supporting a reliable environment for developers to locally reproduce failures, recording the test gives developers a perfect reproduction of the failure which they can debug as if it happened on their own machine.
+Using Replay streamlines this process considerably.  Instead of gathering various artifacts when a test runs and supporting a reliable environment for developers to locally reproduce failures, recording the test gives developers a perfect reproduction of the failure which they can debug as if it happened on their own machine.
               <br></br>
               <br></br>
               <br></br>
