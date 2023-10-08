@@ -102,13 +102,11 @@ export const BugsSlider = () => {
       />
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Handle QA and User Issues with Ease', as: 'h2' }}
+        title={{ children: 'Support your Users with Ease', as: 'h2' }}
         subtitle={{
           children: (
             <span>
-              Bugs reported with Replay are fully actionable and quickly
-              understood by developers.  Never close issues again for a lack
-              of information, or because the problem was transient or user specific.
+              Bugs reported by QA and users with Replay are fully actionable and quickly understood by developers.  Never close issues again for a lack of information.
               <br></br>
               <br></br>
               <Link href="/overview#handle-issues" aria-label="Create a team">
@@ -176,10 +174,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Stop trying to locally reproduce test failures that happened in CI,
-              or looking at logs or videos to get a vague idea of what happened.
-              With Replay you can directly debug test failures as if they happened
-              on your own machine.
+              With Replay you can directly debug test failures that happened in CI as if they happened on your own machine.  There is no need to locally reproduce the failure, or pore over logs or videos.
               <br></br>
               <br></br>
               <Link href="/overview#debug-remotely" aria-label="Create a team">

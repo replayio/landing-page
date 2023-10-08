@@ -81,7 +81,7 @@ Bug reports filed using Replay have a perfect reproduction of the bug.  Whoever 
       <div id="handle-issues" />
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Handle QA and User Issues with Ease', as: 'h2' }}
+        title={{ children: 'Support your Users with Ease', as: 'h2' }}
         subtitle={{
           children: (
             <span>
@@ -127,7 +127,7 @@ Companies that consistently use Replay for their support have seen dramatic impr
         subtitle={{
           children: (
             <span>
-              Flaky test failures are one of the most common and annoying things which developers have to deal with.  A test that fails infrequently is very difficult to understand and fix, and yet a suite with many tests like this will frequently have failures, keeping changes from landing and requiring manual investigation.  Most often these tests end up being suppressed so they don’t run or their results aren’t reported, making them basically worthless.
+              Flaky test failures are one of the most common and annoying things which developers have to deal with.  A test that fails infrequently is very difficult to understand and fix, and yet a suite with many tests like this will frequently have failures, keeping changes from landing and requiring manual investigation.  Most often these tests end up being suppressed so they don’t run or their results aren’t reported, making them worthless.
               <br></br>
               <br></br>
 With Replay, debugging a flaky test failure is no different from any other bug.  A recording of the failure has a perfect reproduction of what went wrong and can be studied by developers to identify the root cause without regard for how infrequently the failure happens.  Actually, flakes are even easier to understand than other bugs, as a recording of the failure can be compared with a recording of the same test passing to identify discrepancies between the two recordings which end up leading to the failure.  We’re working on automating this process by the way, schedule a call if you’d like to learn more.
