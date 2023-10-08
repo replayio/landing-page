@@ -62,7 +62,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Replay is a next generation time travel debugger like nothing you’ve seen before.  With low overhead the chrome based browser records just enough so it can be replayed exactly and inspected down to the finest detail.
+              Replay is a next generation time travel debugger.  With low overhead, the browser records just enough so it can be replayed exactly and inspected down to the finest detail.
               <br></br>
               <br></br>
               <Link href="/overview#travel-back" aria-label="Create a team">
@@ -84,9 +84,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Say goodbye to screenshots, videos, and repro steps.
-              Recording a bug with Replay lets anyone debug it
-              as if they were there when it happened.
+              Say goodbye to screenshots, videos, and repro steps.  Recording a bug with Replay lets anyone debug it as if it happened on their own machine.
               <br></br>
               <br></br>
               <Link href="/overview#stop-reproducing" aria-label="Create a team">

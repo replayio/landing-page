@@ -30,13 +30,13 @@ const Overview = () => {
         subtitle={{
           children: (
             <span>
-              Replay is a time travel debugger.  Unlike a conventional debugger, which can only show a program’s state at the current point in time, a time travel debugger can show that program’s state at all points in time.  Recording the right information to be able to do this is tricky.  Surface level details like changes to the DOM, network requests, and console logs won’t let you see important information like JavaScript state, but trying to record changes to that JavaScript state causes a flood of millions or even billions of operations that will slow things down hugely if recorded directly.
+              Replay is a time travel debugger.  Unlike a conventional debugger, which can only show a program’s state at the current point in time, a time travel debugger can show that program’s state at all points in time.  Recording changes to this state to reconstruct it later doesn’t work well.  JavaScript can change the state millions or even billions of times while viewing a page, and the browser will slow down hugely if these changes are recorded directly.
               <br />
               <br />
 Instead, the Replay browser records the inputs it gets from the system – network data, user events like mouse clicks, and so on – and non-determinism resulting from interactions between threads.  There isn’t very much of this and it can be recorded with little overhead.  When replaying, the same browser runs and uses that recorded data to ensure it behaves in the exact same way as it did when recording. The state at any point in time can be reconstructed simply by replaying the browser to that point.
               <br />
               <br />
-The main benefit of using Replay is that recording a bug or any other problem on a website is enough for a developer looking at the recording to fully understand the bug and what is needed to fix it.  The developer has a perfect reproduction of the bug, as if it happened on their own machine.  This enables many improvements both to developer productivity and to the overall efficiency and effectiveness of a software development organization, which we describe in more detail below.
+The main benefit of using Replay is that recording a bug or any other problem on a website is enough for a developer looking at the recording to fully understand the bug and what is needed to fix it.  The developer has a perfect reproduction of the bug, as if it happened on their own machine.  This enables many improvements both to developer productivity and to the overall efficiency and effectiveness of a software development organization.
               <br></br>
               <br></br>
               <Link href="https://medium.com/replay-io/how-replay-works-5c9c29580c58" aria-label="How Replay Works">
@@ -85,13 +85,13 @@ Bug reports filed using Replay have a perfect reproduction of the bug.  Whoever 
         subtitle={{
           children: (
             <span>
-              Handling bugs reported by QA and users is a difficult and time consuming process for many organizations.  This results from the difficulty developers have reproducing these bugs, as described above.  When a developer isn’t able to reliably reproduce a bug it becomes very time consuming to investigate and speculate about possible fixes, and quite often these issues will be closed as not actionable.  This problem is especially difficult when the issue is transient and may disappear after a few minutes or hours – requiring the developer to drop everything to work on a fix – or when the issue is related to a user’s data – requiring the developer to work closely with that user to track down what is going wrong.
+              Handling bugs reported by QA and users is a difficult and time consuming process for many organizations.  This results from the difficulty developers have reproducing these bugs.  When a developer isn’t able to reliably reproduce a bug it becomes very time consuming to investigate and speculate about possible fixes, and quite often these issues will be closed as not actionable.
               <br></br>
               <br></br>
-With Replay bug reports have a perfect reproduction which developers can use to investigate the bug as if it was happening on their own machine.  This takes out the guesswork and the time involved in dealing with these reports, and simplifies things for the reporter because all they have to do is create a recording, without concern for repro steps or all the other documentation that otherwise accompanies a bug report.
+With Replay, bug reports have a perfect reproduction which developers can use to investigate the bug as if it was happening on their own machine.  This takes out the guesswork and the time involved in dealing with these reports, and the need for detailed documentation from the reporter.
               <br></br>
               <br></br>
-Across the board, companies we’ve worked with to write case studies have seen dramatic improvements in their QA and related support processes by adopting Replay and consistently using it when filing bug reports.
+Companies that consistently use Replay for their support have seen dramatic improvements in the ease and speed with which they can resolve issues.
               <br></br>
               <br></br>
               <Link href="https://medium.com/replay-io/glide-saves-40-hours-weekly-by-eliminating-the-reproducibility-problem-8a06e6330263" aria-label="Glide Case Study">
@@ -127,7 +127,7 @@ Across the board, companies we’ve worked with to write case studies have seen 
         subtitle={{
           children: (
             <span>
-              Flaky test failures are one of the most common, difficult, and annoying things which developers have to deal with.  A test that only fails 1% of the time is super difficult to understand and fix, and yet a test suite with 100 tests like this will have one failure on average every time it runs.  Waiting some amount of time during the test might fix the problem, but can mask real issues and steadily increases the time it takes for the test suite to run.  More often tests failing intermittently are suppressed so they don’t run or their results aren’t reported, which increases the suite’s stability but makes the test basically worthless.
+              Flaky test failures are one of the most common and annoying things which developers have to deal with.  A test that fails infrequently is very difficult to understand and fix, and yet a suite with many tests like this will frequently have failures, keeping changes from landing and requiring manual investigation.  Most often these tests end up being suppressed so they don’t run or their results aren’t reported, making them basically worthless.
               <br></br>
               <br></br>
 With Replay, debugging a flaky test failure is no different from any other bug.  A recording of the failure has a perfect reproduction of what went wrong and can be studied by developers to identify the root cause without regard for how infrequently the failure happens.  Actually, flakes are even easier to understand than other bugs, as a recording of the failure can be compared with a recording of the same test passing to identify discrepancies between the two recordings which end up leading to the failure.  We’re working on automating this process by the way, schedule a call if you’d like to learn more.
@@ -159,7 +159,7 @@ With Replay, debugging a flaky test failure is no different from any other bug. 
 Deploying on demand without causing regressions for users is almost impossible without a thorough test suite that passes reliably.  Building a test suite like this requires care and diligence and normally requires a lot of work to maintain.  When tests start failing intermittently it is hard to figure out what change led to the problem, and because intermittent failures are so hard to fix these tend to creep in over time and degrade the suite’s effectiveness.  Even if a new failure happens consistently it can still be hard to debug and understand what happened, creating a major drag for developers.
               <br></br>
               <br></br>
-Using Replay to record your test suite effectively eliminates these problems.  As described above it is easy to get to the bottom of a flaky test that starts appearing in the suite, and as described below when a test starts failing consistently it is easy for developers to debug and identify the problem.  With Replay a team can get all the benefits of a solid test suite, without the downsides.
+Using Replay to record your test suite effectively eliminates these problems.  It is easy to get to the bottom of a flaky test that starts appearing in the suite, and when a test starts failing consistently it is easy for developers to debug and identify the problem.  With Replay a team can get all the benefits of a solid test suite, without the downsides.
               <br></br>
               <br></br>
               <Link href="https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance" aria-label="Getting Started with Bug Reports">
