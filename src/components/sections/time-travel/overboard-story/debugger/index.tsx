@@ -182,7 +182,7 @@ export const Debugger = forwardRef<HTMLDivElement, DebuggerProps>(
 
       Object.entries(snapshot.variables).map(([key, value]) => {
         if (value === '^') {
-          snapshot.variables[key] = pathInfo?.prev.variables[key]
+          snapshot.variables[key] = pathInfo?.prev?.variables[key]
         }
       })
 
