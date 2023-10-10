@@ -128,9 +128,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Debugging a flaky test failure with Replay is just as easy as any other bug.
-              Stop wasting time looking at failures you can’t figure out,
-              or suppressing tests because they don’t pass reliably.
+              Debugging a flaky test failure with Replay is just as easy as any other bug.  Stop struggling to understand these failures, or suppressing tests because they don’t pass reliably.
               <br></br>
               <br></br>
               <Link href="/overview#fix-flakes" aria-label="Create a team">
@@ -152,7 +150,7 @@ export const BugsSlider = () => {
         subtitle={{
           children: (
             <span>
-              Building a thorough and rock solid test suite is easy with Replay and incredibly hard without it.  This lets you deploy whenever you want and catch more issues before they hit users.
+              Building a thorough and rock solid test suite is easy with Replay and really hard without it.  This lets you deploy whenever you want and catch more issues before they hit users.
               <br></br>
               <br></br>
               <Link href="/overview#deploy-with-confidence" aria-label="Create a team">
