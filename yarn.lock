@@ -4333,6 +4333,11 @@ react-style-singleton@^2.2.1:
     invariant "^2.2.4"
     tslib "^2.0.0"
 
+react-use-intercom@^5.1.4:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/react-use-intercom/-/react-use-intercom-5.1.4.tgz#c4677dad230b3f2013b48fb6c341b735dbaf3bb9"
+  integrity sha512-37dMuCg3H5KgMqpUMiZiu7Ni1LcRAkO8T7F1Zg4Xc+hL89j8OYFHzWWBy29EFgRsTdvCEJ2X8J5wAXerU9uuqw==
+
 react-use-measure@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-use-measure/-/react-use-measure-2.1.1.tgz#5824537f4ee01c9469c45d5f7a8446177c6cc4ba"

@@ -4,6 +4,7 @@ import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Ref, useEffect, useRef } from 'react'
+import { useIntercom } from 'react-use-intercom'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { DownloadButton } from '~/components/common/download-button'
@@ -69,6 +70,7 @@ const outlineSvgSize = {
 }
 
 export const Hero = () => {
+  const { boot } = useIntercom()
   const firstRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -246,6 +248,10 @@ export const Hero = () => {
       tl.kill()
     }
   }, [isSm])
+
+  useEffect(() => {
+    boot()
+  }, [boot])
 
   // lantern handler
   const { elementRef } = useMouseTracker({
