@@ -22,13 +22,13 @@
     margin-top: 72px;
 
     @include respond-to('min-tablet-lg') {
-      mask-image: linear-gradient(
-        to left,
-        rgb(0 0 0 / 0) 0,
-        var(--white),
-        var(--white),
-        rgb(0 0 0 / 0) 100%
-      );
+      // mask-image: linear-gradient(
+      //   to left,
+      //   rgb(0 0 0 / 0) 0,
+      //   var(--white),
+      //   var(--white),
+      //   rgb(0 0 0 / 0) 100%
+      // );
     }
 
     @include respond-to('tablet-lg') {
