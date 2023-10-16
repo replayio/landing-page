@@ -3,7 +3,8 @@ import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Ref, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
+import { Ref, useEffect, useMemo, useRef } from 'react'
 import { useIntercom } from 'react-use-intercom'
 
 import { AspectBox } from '~/components/common/aspect-box'
@@ -69,6 +70,29 @@ const outlineSvgSize = {
   height: 876
 }
 
+const subheroes = [
+  <span key="variant-4">
+    Replay is the only browser that lets you record and retroactively debug your
+    application. Fix the hardest issues as a team and take control of your
+    support process and test suite.
+  </span>,
+  <span key="variant-3">
+    Replay is the only browser that lets you record and retroactively debug your
+    application with <b>print statements</b> and <b>Browser DevTools</b> so that
+    you can file the perfect bug report and fix failing flaky tests.
+  </span>,
+
+  <span key="variant-2">
+    Replay is the only browser that lets you record, retroactively debug, and
+    fix the hardest issues as a team with perfect reproducibility.
+  </span>,
+
+  <span key="variant-1">
+    Replay is the only browser that lets you record and retroactively debug your
+    application with <b>print statements</b> and <b>Browser DevTools</b>.
+  </span>
+]
+
 export const Hero = () => {
   const { boot } = useIntercom()
   const firstRef = useRef<HTMLDivElement>(null)
@@ -76,6 +100,14 @@ export const Hero = () => {
 
   const { isDesktop } = useDeviceDetect()
   const isSm = useMedia('(max-width: 768px)')
+  const router = useRouter()
+
+  const subhero = useMemo(() => {
+    const variant = router.query.variant
+      ? parseInt(router.query.variant as string)
+      : 0
+    return subheroes[variant]
+  }, [router.query])
 
   useEffect(() => {
     if (!isDesktop) return
@@ -374,16 +406,18 @@ export const Hero = () => {
             }}
             subtitle={{
               className: s.subtitle,
-              children: (
-                <span>
-                  Record and retroactively debug your application with{' '}
-                  <b>print statements</b> and <b>Browser DevTools</b>.
-                </span>
-              )
+              children: subhero
             }}
           />
 
           <div className={s['ctas']}>
+            <DownloadButton
+              mode="primary"
+              size="big"
+              aria-label="Download Replay"
+            >
+              Download Replay
+            </DownloadButton>
             <Video.Modal
               poster="/images/homepage/hero-video-placeholder.png"
               url="https://stream.mux.com/RfpT026NiAnQTWXP4BKsBBUHjFReABrAO01ltzQxmOVQE.m3u8"
@@ -394,13 +428,6 @@ export const Hero = () => {
                 </Button>
               </Video.Trigger>
             </Video.Modal>
-            <DownloadButton
-              mode="primary"
-              size="big"
-              aria-label="Download Replay"
-            >
-              Download Replay
-            </DownloadButton>
           </div>
         </Container>
       </div>

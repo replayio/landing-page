@@ -117,7 +117,7 @@
           }
 
           .infoSide {
-            padding: 36px 0;
+            padding: 18px 0 36px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -126,9 +126,14 @@
               padding: 0;
             }
 
+            .header {
+              font-size: 10px;
+              line-height: 4em;
+            }
+
             .title {
-              font-size: 18px;
-              line-height: 32px;
+              font-size: 16px;
+              line-height: 26px;
               letter-spacing: -0.02em;
 
               @include respond-to('tablet-lg') {
@@ -776,6 +781,29 @@
   100% {
     transform: translate(0, 14px) scale(1);
     filter: brightness(0.5);
+  }
+}
+
+.featureList {
+  margin-top: 20px;
+
+  li {
+    font-size: 14px;
+    line-height: 26px;
+    color: var(--grey-400);
+    filter: brightness(0.9);
+    list-style-type: disc;
+
+    &:hover {
+      // text-decoration: underline;
+      cursor: pointer;
+      filter: brightness(1);
+
+      &::after {
+        content: '➔';
+        margin-left: 5px;
+      }
+    }
   }
 }
 
