@@ -27,7 +27,7 @@
     "@typeform/embed-react": "^2.22.0",
     "@vercel/analytics": "^1.0.1",
     "clsx": "1.1.1",
-    "embla-carousel-react": "^8.0.0-rc05",
+    "embla-carousel-react": "8.0.0-rc05",
     "global": "^4.4.0",
     "gsap": "./src/lib/gsap/gsap-bonus.tgz",
     "hls.js": "1.1.5",
