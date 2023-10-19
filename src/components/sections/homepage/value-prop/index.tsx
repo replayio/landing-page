@@ -72,8 +72,7 @@ const ValueProp = () => {
           <TitleAndSubtitle
             title={{
               as: 'h2',
-              children: item.title,
-              style: { fontSize: '30px' }
+              children: item.title
             }}
             subtitle={{
               children: <span>{item.description}</span>
