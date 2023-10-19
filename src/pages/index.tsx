@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { IntercomProvider } from 'react-use-intercom'
 
 import { PageLayout } from '~/components/layout/page'
