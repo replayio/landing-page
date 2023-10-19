@@ -65,7 +65,9 @@ const ValueProp = () => {
               <span className={s.timeTravelText}>
                 Replay is a next-generation time travel debugger. With low
                 overhead, the browser records just enough so it can be replayed
-                exactly and inspected down to the finest detail.
+                exactly and inspected down to the finest detail. <br />
+                <br />
+                <Link href="/overview">Learn more</Link>
               </span>
             )
           }}
