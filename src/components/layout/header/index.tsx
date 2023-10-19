@@ -120,8 +120,6 @@ export const Header = () => {
           </div>
         </NavigationWrapper>
       </header>
-
-      <NavigationSitemap />
     </>
   )
 }

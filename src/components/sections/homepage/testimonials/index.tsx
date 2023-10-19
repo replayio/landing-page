@@ -26,17 +26,6 @@ export const Testimonials = () => {
       </div>
 
       <div className={s.container}>
-        <TitleAndSubtitle
-          title={{
-            as: 'h2',
-            children: 'Time travelers use Replay'
-          }}
-          subtitle={{
-            children:
-              'Replay is one of those rare experiences that feels incredibly simple and obvious, and at the same time, profoundly deep and complex.'
-          }}
-        />
-
         <div className={s.wrapper}>
           <div className={s.testimonialsWrapper}>
             {data.slice(0, isTablet ? 6 : data.length).map((item) => (

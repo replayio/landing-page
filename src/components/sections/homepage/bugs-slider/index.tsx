@@ -615,25 +615,27 @@ const data: DataType[] = [
         </span>
       </>
     ),
-    body: (<div>
-      <ul className={s.featureList}>
-        <li>
-          <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#eebc67a3047148b0a293d6e2182ff0bc">
-            Deploy with confidence
-          </Link>{' '}
-        </li>
-        <li>
-          <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#93a08392f81b4bf08b82c028a93eae6f">
-            Debug failures remotely
-          </Link>{' '}
-        </li>
-        <li>
-          <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#bff7da3bfc7b4a44958e09692df9ee6d">
-            Modernize your Test Suite
-          </Link>{' '}
-        </li>
-      </ul>
-    </div>),
+    body: (
+      <div>
+        <ul className={s.featureList}>
+          <li>
+            <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#eebc67a3047148b0a293d6e2182ff0bc">
+              Deploy with confidence
+            </Link>{' '}
+          </li>
+          <li>
+            <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#93a08392f81b4bf08b82c028a93eae6f">
+              Debug failures remotely
+            </Link>{' '}
+          </li>
+          <li>
+            <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#bff7da3bfc7b4a44958e09692df9ee6d">
+              Modernize your Test Suite
+            </Link>{' '}
+          </li>
+        </ul>
+      </div>
+    ),
     description: (
       <>
         <button

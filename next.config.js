@@ -10,7 +10,7 @@ const config = {
   swcMinify: true,
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['dummyimage.com']
+    domains: ['dummyimage.com', 'image.mux.com']
   },
   redirects() {
     return [

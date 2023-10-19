@@ -1,36 +1,56 @@
+import React, { useState } from 'react'
 import { IntercomProvider } from 'react-use-intercom'
 
 import { PageLayout } from '~/components/layout/page'
-import { BugsSlider } from '~/components/sections/homepage/bugs-slider'
-import { DebugWithFriends } from '~/components/sections/homepage/debug-with-friends'
 import { DeveloperTools } from '~/components/sections/homepage/developer-tools'
 import { Features } from '~/components/sections/homepage/features'
 import { Hero } from '~/components/sections/homepage/hero'
-import { OrganizationTestimonials } from '~/components/sections/homepage/org-testimonials'
 import Prefooter from '~/components/sections/homepage/prefooter'
-import { Quotes } from '~/components/sections/homepage/quotes'
 import { Security } from '~/components/sections/homepage/security'
 import { Testimonials } from '~/components/sections/homepage/testimonials'
 import { TrustedTeams } from '~/components/sections/homepage/trusted-teams'
+import UseCases from '~/components/sections/homepage/use-cases'
+import ValueProp from '~/components/sections/homepage/value-prop' // Import your new ValueProp component
 
 const INTERCOM_APP_ID = 'k7f741xx'
 
 const HomePage = () => {
+  const [showUseCases, setShowUseCases] = useState(true)
+
   return (
     <IntercomProvider appId={INTERCOM_APP_ID}>
       <PageLayout>
+        <button
+          style={{
+            zIndex: 9999,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            backgroundColor: 'pink',
+            color: 'black',
+            padding: '4px'
+          }}
+          onClick={() => {
+            console.log('Button clicked. Current showUseCases:', showUseCases)
+            setShowUseCases(!showUseCases)
+          }}
+          onMouseDown={(e) => {
+            e.preventDefault() // Prevent any default action
+            console.log('Mouse down on button')
+          }}
+        >
+          Click here to toggle story arcs
+        </button>
         <Hero />
-        <OrganizationTestimonials />
         <div
           style={{
+            paddingTop: '45px',
             background:
               'linear-gradient(180deg, #000000 0%, rgba(13, 18, 29, 0.4) 12.28%, #0D121D 38.48%, #000000 54.71%, #000000 62.85%, #0D121D 72.4%, #000000 98.2%)'
           }}
         >
-          <BugsSlider />
+          {showUseCases ? <UseCases /> : <ValueProp />}
           <DeveloperTools />
-          <Quotes />
-          <DebugWithFriends />
           <Features />
           <Security />
           <TrustedTeams />
