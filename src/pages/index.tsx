@@ -14,8 +14,6 @@ import ValueProp from '~/components/sections/homepage/value-prop'
 const INTERCOM_APP_ID = 'k7f741xx'
 
 const HomePage = () => {
-  const [showUseCases, setShowUseCases] = useState(true)
-
   return (
     <IntercomProvider appId={INTERCOM_APP_ID}>
       <PageLayout>
