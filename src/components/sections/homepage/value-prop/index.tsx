@@ -3,6 +3,8 @@ import React from 'react'
 
 import { TitleAndSubtitle } from '~/components/primitives/texts'
 
+import s from './value-prop.module.scss'
+
 const ValueProp = () => {
   const valuePropsData = [
     {
@@ -50,46 +52,52 @@ const ValueProp = () => {
   ]
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        maxWidth: '1000px',
-        margin: 'auto'
-      }}
-    >
-      {valuePropsData.map((item, index) => (
-        <div
-          key={index}
-          style={{
-            flex: '0 48%',
-            fontSize: '16px',
-            padding: '30px',
-            marginBottom: '20px'
+    <div className={s.componentWrapper}>
+      <div className={s.timeTravelHero}>
+        <TitleAndSubtitle
+          title={{
+            as: 'h2',
+            children: 'Travel Back in Time',
+            className: s.timeTravelHero
           }}
-        >
-          <TitleAndSubtitle
-            title={{
-              as: 'h2',
-              children: item.title
-            }}
-            subtitle={{
-              children: <span>{item.description}</span>
-            }}
-          />
-          <div
-            style={{
-              textAlign: 'center',
-              marginTop: '10px',
-              color: '#9ca3af',
-              textDecoration: 'underline'
-            }}
-          >
-            <Link href={item.link}>{item.linkText}</Link>
+          subtitle={{
+            children: (
+              <span className={s.timeTravelText}>
+                Replay is a next-generation time travel debugger. With low
+                overhead, the browser records just enough so it can be replayed
+                exactly and inspected down to the finest detail.
+              </span>
+            )
+          }}
+        />
+      </div>
+
+      <div className={s.columns}>
+        {valuePropsData.map((item, index) => (
+          <div key={index} className={s.valueProp}>
+            <TitleAndSubtitle
+              title={{
+                as: 'h2',
+                children: item.title,
+                className: s.header
+              }}
+              subtitle={{
+                children: <span>{item.description}</span>
+              }}
+            />
+            <div
+              style={{
+                textAlign: 'center',
+                marginTop: '10px',
+                color: '#9ca3af',
+                textDecoration: 'underline'
+              }}
+            >
+              <Link href={item.link}>{item.linkText}</Link>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }
