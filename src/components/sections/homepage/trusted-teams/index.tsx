@@ -18,7 +18,7 @@ import { SubsetIcon } from '~/components/icons/subset'
 import { VercelIcon } from '~/components/icons/vercel'
 import { Section } from '~/components/layout/section'
 import { NavLink } from '~/components/primitives/nav-link'
-import { Title } from '~/components/primitives/texts'
+import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 
 import s from './trusted-teams.module.scss'
@@ -27,7 +27,16 @@ export const TrustedTeams = () => {
   return (
     <Section id="homepage-trusted-teams" className={s.section}>
       <div className={s.container}>
-        <Title as="h2">Trusted by top teams</Title>
+        <TitleAndSubtitle
+          title={{
+            as: 'h2',
+            children: 'Trusted by top teams'
+          }}
+          subtitle={{
+            children:
+              'Replay is one of those rare experiences that feels incredibly simple and obvious, and at the same time, profoundly deep and complex.'
+          }}
+        />
 
         <HighlightedSection />
 

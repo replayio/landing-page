@@ -60,40 +60,26 @@ export const BugsSlider = () => {
     >
       <TitleAndSubtitle
         className={s.titleAndSubtitle}
-        title={{ children: 'Freeze bugs in time.', as: 'h2' }}
+        title={{ children: 'Stop reproducing bugs', as: 'h2' }}
         subtitle={{
           children: (
-            <span>
-              <b>Hate reproducing issues?</b> Replay is a new kind of browser
-              that's able to record and deterministically replay web
-              applications so that you only need to capture bugs once.
-            </span>
+            <>
+              <span>
+                Say goodbye to screenshots, videos, and repro steps. Recording a
+                bug with Replay lets anyone debug it as if they were there when
+                it happened.
+              </span>{' '}
+              <Link
+                style={{ textDecoration: 'underline' }}
+                href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#0f7aa30ac9e548bfb6e5329da12acc50"
+                aria-label="Create a team"
+              >
+                Learn More
+              </Link>
+            </>
           )
         }}
       />
-
-      <div className={s.embla} ref={emblaRef}>
-        <div className={s.emblaContainer}>
-          {data.map((item, index) => (
-            <div
-              key={item.id}
-              className={clsx(s.emblaSlide, {
-                [s.active as string]: index === currentSlide
-              })}
-            >
-              <div
-                className={s.card}
-                onPointerEnter={() => setInteracting(true)}
-                onPointerLeave={() => setInteracting(false)}
-              >
-                <InfoSide isTablet={Boolean(isTablet)} {...item} />
-
-                {!isTablet && <item.Asset />}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       <div className={s.ctasWrapper}>
         <ButtonTimer
@@ -131,13 +117,38 @@ export const BugsSlider = () => {
           Test suites
         </ButtonTimer>
       </div>
+
+      <div className={s.embla} ref={emblaRef}>
+        <div className={s.emblaContainer}>
+          {data.map((item, index) => (
+            <div
+              key={item.id}
+              className={clsx(s.emblaSlide, {
+                [s.active as string]: index === currentSlide
+              })}
+            >
+              <div
+                className={s.card}
+                onPointerEnter={() => setInteracting(true)}
+                onPointerLeave={() => setInteracting(false)}
+              >
+                <InfoSide isTablet={Boolean(isTablet)} {...item} />
+
+                {!isTablet && <item.Asset />}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </Section>
   )
 }
 
 const InfoSide = ({
   isTablet,
+  header,
   title,
+  body,
   Asset,
   description,
   cta,
@@ -146,7 +157,11 @@ const InfoSide = ({
 }: DataType & { isTablet: boolean }) => {
   return (
     <div className={s.infoSide}>
-      <p className={s.title}>{title}</p>
+      <div>
+        <span className={s.header}>{header}</span>
+        <p className={s.title}>{title}</p>
+        <div>{body}</div>
+      </div>
 
       {isTablet && <Asset />}
 
@@ -544,7 +559,9 @@ const AssetSideComment: React.FC<AssetSideCommentProps> = ({
 
 type DataType = {
   id: number
+  header: string
   title: ReactNode
+  body: ReactNode
   description: ReactNode
   Asset: React.FC
   cta: {
@@ -558,28 +575,28 @@ type DataType = {
 const data: DataType[] = [
   {
     id: 0,
+    header: 'File the perfect bug report.'.toUpperCase(),
     title: (
       <>
-        Getting replays in your bug reports is like getting a video{' '}
         <span>
-          that you can inspect with Browser DevTools and debug with print
-          statements.
+          Bugs reported with Replay are fully actionable and quickly understood
+          by developers. Never close issues again for a lack of information.
         </span>
       </>
     ),
+    body: <></>,
     description: (
       <>
-        Want to get bug reports with replays?
         <br />
         <Link href="https://app.replay.io/team/new" aria-label="Create a team">
           Create a team
         </Link>{' '}
-        and start a free 30 day trial.
+        and start sharing replays with your team.
       </>
     ),
     Asset: AssetSideBugs,
     cta: {
-      href: 'https://docs.replay.io/bug-reports',
+      href: 'https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#0e1c031fd5004dc58c4bf9256226a0c9',
       label: 'Bug reports'
     },
     videoPoster:
@@ -589,18 +606,38 @@ const data: DataType[] = [
   },
   {
     id: 1,
+    header: 'Fix all your Flaky Tests.'.toUpperCase(),
     title: (
       <>
-        Recording your browser tests in CI{' '}
         <span>
-          lets you find and fix the timing issues in your application that are
-          causing your tests to be flaky.
+          Stop wasting time looking at failures you can’t figure out, or
+          suppressing tests because they don’t pass reliably.
         </span>
       </>
     ),
+    body: (
+      <div>
+        <ul className={s.featureList}>
+          <li>
+            <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#eebc67a3047148b0a293d6e2182ff0bc">
+              Deploy with confidence
+            </Link>{' '}
+          </li>
+          <li>
+            <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#93a08392f81b4bf08b82c028a93eae6f">
+              Debug failures remotely
+            </Link>{' '}
+          </li>
+          <li>
+            <Link href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#bff7da3bfc7b4a44958e09692df9ee6d">
+              Modernize your Test Suite
+            </Link>{' '}
+          </li>
+        </ul>
+      </div>
+    ),
     description: (
       <>
-        Want green test runs that finish quickly?{' '}
         <button
           className={s.waitlist}
           data-tf-popup="jTudlerL"
@@ -608,14 +645,14 @@ const data: DataType[] = [
           data-tf-medium="snippet"
           aria-label="Learn more about Test Suites"
         >
-          Join our waitlist
+          Get in touch
         </button>{' '}
-        and start fixing your tests.
+        to start recording your test suite.
       </>
     ),
     Asset: AssetSideBrowser,
     cta: {
-      href: 'https://docs.replay.io/test-suites',
+      href: 'https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#5f861bb962aa40e5a9365e6c78391435',
       label: 'Test suites'
     },
     videoPoster:

@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import useEmblaCarousel, { EmblaCarouselType } from 'embla-carousel-react'
 import { gsap } from 'lib/gsap'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 import { NextIcon } from '~/components/icons/next'
@@ -10,6 +11,7 @@ import { SolidIcon } from '~/components/icons/solid'
 import { Container } from '~/components/layout/container'
 import { Section } from '~/components/layout/section'
 import { RadioButtons } from '~/components/primitives/radio-buttons'
+import { TitleAndSubtitle } from '~/components/primitives/texts'
 import { useGsapTime } from '~/hooks/use-gsap-time'
 import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
@@ -132,6 +134,28 @@ export const OrganizationTestimonials = () => {
 
   return (
     <Section id="homepage-organization-testimonials" className={s['section']}>
+      <TitleAndSubtitle
+        className={s.titleAndSubtitle}
+        title={{ children: 'Travel back in time', as: 'h2' }}
+        subtitle={{
+          children: (
+            <>
+              <span>
+                Replay is a next generation time travel debugger. The browser
+                records just enough so that you can retroactively inspect your
+                application.
+              </span>{' '}
+              <Link
+                style={{ textDecoration: 'underline' }}
+                href="https://www.notion.so/replayio/Replay-io-Overview-05d8d8ae2a9045b682c19a1ae2de9f76?pvs=4#dd66af0c13694f2e9f8ccadbb19258c1"
+                aria-label="Time travel debugging"
+              >
+                Learn More
+              </Link>
+            </>
+          )
+        }}
+      />
       <Container className={s['container']}>
         <div className={clsx(s['root'])} ref={inViewRef}>
           <div className={clsx(s['embla'], s['organizations-wrapper'])}>

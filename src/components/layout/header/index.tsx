@@ -13,7 +13,6 @@ import { getImageSizes } from '~/lib/utils/image'
 
 import s from './header.module.scss'
 import { MobileMenu } from './mobile-menu'
-import { NavigationSitemap } from './nav-sitemap'
 import {
   NavigationContent,
   NavigationItem,
@@ -120,8 +119,6 @@ export const Header = () => {
           </div>
         </NavigationWrapper>
       </header>
-
-      <NavigationSitemap />
     </>
   )
 }

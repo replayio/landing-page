@@ -85,7 +85,7 @@ export const Features = () => {
           className={s.titleAndSubtitle}
           title={{
             as: 'h2',
-            children: 'Enterprise ready'
+            children: 'Enterprise grade'
           }}
           subtitle={{
             children: (

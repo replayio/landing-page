@@ -143,7 +143,9 @@ export const DebugWithFriends = () => {
             subtitle={{
               children: (
                 <span>
-                  Replay DevTools has modern collaboration features that make it easier to share context, integrate with tools, and squash bugs as a team.
+                  Replay DevTools has modern collaboration features that make it
+                  easier to share context, integrate with tools, and squash bugs
+                  as a team.
                 </span>
               )
             }}

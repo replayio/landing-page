@@ -3,7 +3,8 @@ import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Ref, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
+import { Ref, useEffect, useMemo, useRef } from 'react'
 import { useIntercom } from 'react-use-intercom'
 
 import { AspectBox } from '~/components/common/aspect-box'
@@ -69,6 +70,29 @@ const outlineSvgSize = {
   height: 876
 }
 
+const subheroes = [
+  <span key="variant-4">
+    Replay is the only browser that lets you record and retroactively debug your
+    application. Fix the hardest issues as a team and take control of your
+    support process and test suite.
+  </span>,
+  <span key="variant-3">
+    Replay is the only browser that lets you record and retroactively debug your
+    application with <b>print statements</b> and <b>Browser DevTools</b> so that
+    you can file the perfect bug report and fix failing flaky tests.
+  </span>,
+
+  <span key="variant-2">
+    Replay is the only browser that lets you record, retroactively debug, and
+    fix the hardest issues as a team with perfect reproducibility.
+  </span>,
+
+  <span key="variant-1">
+    Replay is the only browser that lets you record and retroactively debug your
+    application with <b>print statements</b> and <b>Browser DevTools</b>.
+  </span>
+]
+
 export const Hero = () => {
   const { boot } = useIntercom()
   const firstRef = useRef<HTMLDivElement>(null)
@@ -76,6 +100,14 @@ export const Hero = () => {
 
   const { isDesktop } = useDeviceDetect()
   const isSm = useMedia('(max-width: 768px)')
+  const router = useRouter()
+
+  const subhero = useMemo(() => {
+    const variant = router.query.variant
+      ? parseInt(router.query.variant as string)
+      : 0
+    return subheroes[variant]
+  }, [router.query])
 
   useEffect(() => {
     if (!isDesktop) return
@@ -374,16 +406,18 @@ export const Hero = () => {
             }}
             subtitle={{
               className: s.subtitle,
-              children: (
-                <span>
-                  Record and retroactively debug your application with{' '}
-                  <b>print statements</b> and <b>Browser DevTools</b>.
-                </span>
-              )
+              children: subhero
             }}
           />
 
           <div className={s['ctas']}>
+            <DownloadButton
+              mode="primary"
+              size="big"
+              aria-label="Download Replay"
+            >
+              Download Replay
+            </DownloadButton>
             <Video.Modal
               poster="/images/homepage/hero-video-placeholder.png"
               url="https://stream.mux.com/RfpT026NiAnQTWXP4BKsBBUHjFReABrAO01ltzQxmOVQE.m3u8"
@@ -394,13 +428,6 @@ export const Hero = () => {
                 </Button>
               </Video.Trigger>
             </Video.Modal>
-            <DownloadButton
-              mode="primary"
-              size="big"
-              aria-label="Download Replay"
-            >
-              Download Replay
-            </DownloadButton>
           </div>
         </Container>
       </div>
@@ -415,15 +442,6 @@ export const Hero = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M1227 1H215C197.327 1 183 15.3269 183 33V618.449C183 625.302 180.8 631.973 176.725 637.482L1 875H1441L1265.28 637.482C1261.2 631.973 1259 625.302 1259 618.449V33C1259 15.3269 1244.67 1 1227 1Z"
-                  fill="url(#paint0_linear_1457_456)"
-                />
-                <path
-                  d="M1441 875L1265.31 638.497C1261.21 632.979 1259 626.288 1259 619.415V33.0149C1259 15.336 1244.66 1.00666 1226.99 1.01488L214.985 1.48514C197.318 1.49335 183 15.8178 183 33.4851V620.38C183 627.275 180.773 633.986 176.65 639.513L1 875"
-                  stroke="#111827"
-                  strokeDasharray="6 6"
-                />
                 <defs>
                   <linearGradient
                     id="paint0_linear_1457_456"

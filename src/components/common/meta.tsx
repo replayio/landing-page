@@ -124,6 +124,7 @@ export const Meta = (props: MetaProps) => {
 
         <link rel="canonical" href={resolvedMetadata.canonical} />
 
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="//embed.typeform.com/next/embed.js" />
 
         {props.preload?.map(({ href, as }) => (

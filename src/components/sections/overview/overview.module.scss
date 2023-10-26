@@ -1,0 +1,26 @@
+.container {
+  margin: 0 auto;
+  width: 700px;
+}
+
+.section {
+  margin: 100px 0;
+}
+
+.header {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.body p {
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.container a {
+  text-decoration: underline;
+}
+
+.container a:hover {
+  color: #f41c52;
+}
