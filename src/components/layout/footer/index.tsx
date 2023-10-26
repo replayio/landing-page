@@ -26,7 +26,7 @@ const links = [
   },
   {
     section: 'Resources',
-    links: [SITEMAP.blog, SITEMAP.securityPrivacy]
+    links: [SITEMAP.blog, SITEMAP.securityPrivacy, SITEMAP.branding]
   }
 ]
 
