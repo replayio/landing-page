@@ -12,6 +12,13 @@
   margin-top: 30px;
 }
 
+.divider {
+  width: 80%;
+  border: 0;
+  border-top: 1px solid #424242;
+  margin: 8px 0;
+}
+
 .timeTravelHero a {
   text-decoration: underline;
   font-size: 16px;
@@ -37,10 +44,7 @@
   max-width: 1000px;
   border-top: 2px solid #1b1f26;
   border-bottom: 2px solid #1b1f26;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 40px auto;
   @media (max-width: 900px) {
     margin: 0 0 20px;
   }
@@ -68,7 +72,6 @@
   @media (max-width: 900px) {
     flex: 0 100%;
     font-size: 16px;
-    padding: 0;
     max-width: 100%;
     padding: 0 32px;
   }

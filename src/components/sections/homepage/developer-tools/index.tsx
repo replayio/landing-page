@@ -535,7 +535,7 @@ export const DeveloperTools = () => {
         <TitleAndSubtitle
           title={{
             as: 'h2',
-            children: 'Zero in on the root cause.'
+            children: 'Zero in on the root cause'
           }}
           subtitle={{
             children: (

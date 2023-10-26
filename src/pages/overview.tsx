@@ -50,7 +50,7 @@ const sections = [
         )
     },
     {
-        title: 'Stop Reproducing Bugs',
+        title: 'Stop reproducing bugs',
         anchor: 'stop-reproducing-bugs',
         description: (
             <>
@@ -81,7 +81,7 @@ const sections = [
         )
     },
     {
-        title: 'Support your Users with Ease',
+        title: 'Support your users with ease',
         anchor: 'support-your-users',
         description: (
             <>
@@ -142,7 +142,7 @@ const sections = [
         )
     },
     {
-        title: 'Fix all your Flaky Tests',
+        title: 'Fix all your flaky tests',
         anchor: 'fix-all-your-flaky-tests',
         description: (
             <>
@@ -178,7 +178,7 @@ const sections = [
         )
     },
     {
-        title: 'Deploy with Confidence',
+        title: 'Deploy with confidence',
         anchor: 'deploy-with-confidence',
         description: (
             <>
@@ -216,7 +216,7 @@ const sections = [
         )
     },
     {
-        title: 'Debug Test Failures Remotely',
+        title: 'Debug test failures remotely',
         anchor: 'debug-test-failures-remotely',
         description: (
             <>
@@ -239,7 +239,7 @@ const sections = [
         )
     },
     {
-        title: 'Modernize your Test Suite',
+        title: 'Modernize your test suite',
         anchor: 'modernize-your-test-suite',
         description: (
             <>
