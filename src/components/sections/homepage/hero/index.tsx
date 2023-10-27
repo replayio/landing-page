@@ -388,8 +388,12 @@ export const Hero = () => {
               href="https://docs.replay.io/getting-started/what-is-replay-io"
               rel="noopener"
             >
-              <Button mode="secondary" size="big" aria-label="Get started">
-                Get started
+              <Button
+                mode="secondary"
+                size="big"
+                aria-label="Get started with docs"
+              >
+                Get started with docs
               </Button>
             </Link>
           </div>
