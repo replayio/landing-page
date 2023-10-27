@@ -52,6 +52,7 @@ type SitemapKeys =
   | 'termsService'
   | 'blog'
   | 'securityPrivacy'
+  | 'branding'
 
 export const SITEMAP: Record<SitemapKeys, SitemapType> = {
   home: {
@@ -792,5 +793,9 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
   securityPrivacy: {
     href: '/security-and-privacy',
     label: 'Security & Privacy'
+  },
+  branding: {
+    href: '/branding',
+    label: 'Branding'
   }
 }
