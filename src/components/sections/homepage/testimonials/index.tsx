@@ -66,7 +66,7 @@ type DataType = {
 
 const data: DataType[] = [
   {
-    id: 1,
+    id: 3,
     quote:
       '“If a picture is worth a thousand words, a replay is worth a thousand pictures”',
     author: {
@@ -117,28 +117,15 @@ const data: DataType[] = [
     }
   },
   {
-    id: 3,
+    id: 1,
     quote:
-      '“Haven’t been blown away by a dev tool since… well, browser devtools. Incredible DX that makes debugging the gnarliest problems a breeze”',
+      '“Next.js App Router is now stable in 13.4. Wouldn’t have been possible without Replay, we investigated so many (over 20) super complicated bugs that using traditional debugging would have cost us days to investigate.”',
     author: {
       avatar: {
-        url: '/images/homepage/testimonials/jacob.jpg'
+        url: '/images/homepage/testimonials/tim-neutkins.png'
       },
-      name: 'Jacob Zhang',
-      jobPosition: (
-        <p className={s.position}>
-          Founder,{' '}
-          <Image
-            alt="Algodaily"
-            src="/images/homepage/testimonials/algodaily.png"
-            quality={100}
-            width={12}
-            height={12}
-            role="icon"
-          />
-          Algodaily
-        </p>
-      )
+      name: 'Tim Neutkins',
+      jobPosition: <p className={s.position}>Co-author of Next.js</p>
     }
   },
   {
@@ -270,7 +257,7 @@ const data: DataType[] = [
   {
     id: 9,
     quote:
-      "“Replay.io is a huge improvement in state-of-the-art debugging that's easy to use. It's worth your time to get familiar with it ASAP.”",
+      "“REMOVE REMOVE REMOVE Replay.io is a huge improvement in state-of-the-art debugging that's easy to use. It's worth your time to get familiar with it ASAP.”",
     author: {
       avatar: {
         url: '/images/homepage/testimonials/tim-haines.jpg'

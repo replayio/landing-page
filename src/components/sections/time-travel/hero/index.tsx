@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 
 import Video from '~/components/common/video-modal'
@@ -64,14 +65,24 @@ export const Hero = () => {
           <div className={s['ctas']}>
             <Video.Modal
               poster="/images/homepage/hero-video-placeholder.png"
-              url="https://stream.mux.com/RfpT026NiAnQTWXP4BKsBBUHjFReABrAO01ltzQxmOVQE.m3u8"
+              url="https://stream.mux.com/Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg.m3u8"
             >
               <Video.Trigger asChild>
-                <Button mode="secondary" size="big" aria-label="Watch video">
+                <Button mode="primary" size="big" aria-label="Watch video">
                   Watch video
                 </Button>
               </Video.Trigger>
             </Video.Modal>
+
+            <Link
+              passHref
+              href="https://docs.replay.io/getting-started/what-is-replay-io"
+              rel="noopener"
+            >
+              <Button mode="secondary" size="big" aria-label="Read docs">
+                Read docs
+              </Button>
+            </Link>
           </div>
         </Container>
       </div>
