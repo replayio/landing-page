@@ -257,7 +257,7 @@ const data: DataType[] = [
   {
     id: 9,
     quote:
-      "“REMOVE REMOVE REMOVE Replay.io is a huge improvement in state-of-the-art debugging that's easy to use. It's worth your time to get familiar with it ASAP.”",
+      "“Replay.io is a huge improvement in state-of-the-art debugging that's easy to use. It's worth your time to get familiar with it ASAP.”",
     author: {
       avatar: {
         url: '/images/homepage/testimonials/tim-haines.jpg'
