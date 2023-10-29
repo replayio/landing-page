@@ -97,7 +97,7 @@ export const Hero = () => {
     })
 
     t.to([firstRef.current], {
-      opacity: 0.4,
+      opacity: 0.0,
       scale: 0.85
     })
 
@@ -372,28 +372,23 @@ export const Hero = () => {
           />
 
           <div className={s['ctas']}>
-            <Video.Modal
-              poster="/images/homepage/hero-video-placeholder.png"
-              url="https://stream.mux.com/Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg.m3u8"
-            >
-              <Video.Trigger asChild>
-                <Button mode="primary" size="big" aria-label="Watch video">
-                  Watch video
-                </Button>
-              </Video.Trigger>
-            </Video.Modal>
-
             <Link
               passHref
               href="https://docs.replay.io/getting-started/what-is-replay-io"
               rel="noopener"
             >
-              <Button
-                mode="secondary"
-                size="big"
-                aria-label="Get started with docs"
-              >
-                Get started with docs
+              <Button mode="secondary" size="big" aria-label="Read the docs">
+                Read the docs
+              </Button>
+            </Link>
+
+            <Link
+              passHref
+              href="https://docs.replay.io/resources/get-help/contact-community"
+              rel="noopener"
+            >
+              <Button mode="secondary" size="big" aria-label="Contact us">
+                Contact us
               </Button>
             </Link>
           </div>
@@ -448,6 +443,18 @@ export const Hero = () => {
               alt="Replay dashboard"
               draggable={false}
             />
+          </div>
+          <div className={s['videoLink']}>
+            <Video.Modal
+              poster="/images/homepage/hero-video-placeholder.png"
+              url="https://stream.mux.com/Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg.m3u8"
+            >
+              <Video.Trigger asChild>
+                <Button mode="primary" size="big" aria-label="Watch video">
+                  Watch introductory video
+                </Button>
+              </Video.Trigger>
+            </Video.Modal>
           </div>
         </Container>
       </div>
