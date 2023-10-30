@@ -24,7 +24,6 @@ const Grid3D = dynamic(
 
 import dynamic, { LoaderComponent } from 'next/dynamic'
 
-import { DownloadButton } from '~/components/common/download-button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 
 import s from './prefooter.module.scss'
@@ -110,19 +109,23 @@ const Prefooter = () => {
           </Title>
 
           <div className={s['ctas']}>
-            <div className={s['cta']} ref={ctaRef}>
-              <DownloadButton mode="primary" size="big" aria-label="Start now">
-                Download Replay
-              </DownloadButton>
-            </div>
-
             <Link
               passHref
               href="https://docs.replay.io/getting-started/what-is-replay-io"
               rel="noopener"
             >
-              <Button mode="secondary" size="big" aria-label="Read the docs">
+              <Button mode="secondary" size="big" aria-label="Contact us">
                 Read the docs
+              </Button>
+            </Link>
+
+            <Link
+              passHref
+              href="https://docs.replay.io/resources/get-help/contact-community"
+              rel="noopener"
+            >
+              <Button mode="secondary" size="big" aria-label="Contact us">
+                Contact us
               </Button>
             </Link>
           </div>
