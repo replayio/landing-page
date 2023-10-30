@@ -110,6 +110,7 @@ export const Header = () => {
               </DownloadLink>
               <ButtonLink
                 size="big"
+                mode="secondary"
                 href={SITEMAP.login.href || '/'}
                 aria-label={SITEMAP.login.label}
               >

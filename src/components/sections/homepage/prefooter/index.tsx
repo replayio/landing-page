@@ -1,7 +1,9 @@
 import { gsap, SplitText } from 'lib/gsap'
+import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 
 import { Section } from '~/components/layout/section'
+import { Button } from '~/components/primitives/cta'
 import { Title } from '~/components/primitives/texts'
 
 const Sky = dynamic(
@@ -22,7 +24,6 @@ const Grid3D = dynamic(
 
 import dynamic, { LoaderComponent } from 'next/dynamic'
 
-import { DownloadButton } from '~/components/common/download-button'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
 
 import s from './prefooter.module.scss'
@@ -103,15 +104,30 @@ const Prefooter = () => {
         </div>
 
         <div className={s['content']}>
-          {/* split chars but not spaces */}
           <Title className={s['title']} ref={titleRef}>
-            Record your first replay
+            Get started
           </Title>
 
-          <div className={s['cta']} ref={ctaRef}>
-            <DownloadButton mode="primary" size="big" aria-label="Start now">
-              Start now
-            </DownloadButton>
+          <div className={s['ctas']}>
+            <Link
+              passHref
+              href="https://docs.replay.io/getting-started/what-is-replay-io"
+              rel="noopener"
+            >
+              <Button mode="secondary" size="big" aria-label="Contact us">
+                Read the docs
+              </Button>
+            </Link>
+
+            <Link
+              passHref
+              href="https://docs.replay.io/resources/get-help/contact-community"
+              rel="noopener"
+            >
+              <Button mode="secondary" size="big" aria-label="Contact us">
+                Contact us
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

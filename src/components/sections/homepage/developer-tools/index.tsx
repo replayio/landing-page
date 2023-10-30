@@ -73,313 +73,313 @@ const chunks: {
   description: string
   link: string
 }[] = [
-    {
-      mobilePanel: ({ className, ...props }) => (
-        <Image
-          {...props}
-          className={clsx(s['mobile-panel'], className)}
-          src={reactInspectorMobile}
-          quality={100}
-          alt="code panel"
-        />
-      ),
-      panels: [
-        {
-          style: { width: topanelperc(522) },
-          children: (props) => (
+  {
+    mobilePanel: ({ className, ...props }) => (
+      <Image
+        {...props}
+        className={clsx(s['mobile-panel'], className)}
+        src={reactInspectorMobile}
+        quality={100}
+        alt="code panel"
+      />
+    ),
+    panels: [
+      {
+        style: { width: topanelperc(522) },
+        children: (props) => (
+          <Image
+            {...props}
+            className={s['panel']}
+            src={reactInspectorCode}
+            alt="code panel"
+            quality={100}
+            draggable={false}
+          />
+        )
+      },
+      {
+        style: { width: topanelperc(681) },
+        children: [
+          ({ ...props }) => (
             <Image
               {...props}
               className={s['panel']}
-              src={reactInspectorCode}
-              alt="code panel"
-              quality={100}
-              draggable={false}
-            />
-          )
-        },
-        {
-          style: { width: topanelperc(681) },
-          children: [
-            ({ ...props }) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={reactInspectorReplay}
-                alt="app panel"
-                quality={100}
-                draggable={false}
-              />
-            ),
-            (props) => (
-              <Image
-                {...props}
-                className={clsx(s['panel'], s['highlight-panel'])}
-                src={reactInspectorInspector}
-                alt="code panel"
-                quality={100}
-                draggable={false}
-              />
-            )
-          ]
-        }
-      ],
-      title: 'Inspect React components',
-      shortTitle: 'React DevTools',
-      description:
-        'Whether you’re using context, state, or hooks, Replay gives you the tools to inspect your components and see why they rendered.',
-      link: 'https://docs.replay.io/reference-guide/react'
-    },
-    {
-      mobilePanel: ({ className, ...props }) => (
-        <Image
-          {...props}
-          className={clsx(s['mobile-panel'], className)}
-          quality={100}
-          src={consoleLogsMobile}
-          alt="code panel"
-        />
-      ),
-      panels: [
-        {
-          style: { width: topanelperc(585) },
-          children: (props) => (
-            <Image
-              {...props}
-              className={clsx(s['panel'], s['highlight-panel'])}
-              src={consoleLogsCode}
-              alt="code panel"
-              quality={100}
-              draggable={false}
-            />
-          )
-        },
-        {
-          style: { width: topanelperc(618) },
-          children: [
-            ({ ...props }) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={consoleLogsReplay}
-                alt="app panel"
-                quality={100}
-                draggable={false}
-              />
-            ),
-            (props) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={consoleLogsConsole}
-                alt="code panel"
-                quality={100}
-                draggable={false}
-              />
-            )
-          ]
-        }
-      ],
-      title: 'Retroactive console logs',
-      shortTitle: 'Console logs',
-      description:
-        'Adding console logs is as simple as clicking on a line of code and adding an expression.',
-      link: 'https://docs.replay.io/reference-guide/print-statements'
-    },
-    {
-      mobilePanel: ({ className, ...props }) => (
-        <Image
-          {...props}
-          className={clsx(s['mobile-panel'], className)}
-          src={testsMobile}
-          quality={100}
-          alt="code panel"
-        />
-      ),
-      panels: [
-        {
-          style: { width: topanelperc(270) },
-          children: (props) => (
-            <Image
-              {...props}
-              className={clsx(s['panel'], s['highlight-panel'])}
-              src={testsSuite}
-              alt="code panel"
-              quality={100}
-              draggable={false}
-            />
-          )
-        },
-        {
-          style: { width: topanelperc(448) },
-          children: (props) => (
-            <Image
-              {...props}
-              className={s['panel']}
-              src={testsCode}
+              src={reactInspectorReplay}
               alt="app panel"
               quality={100}
               draggable={false}
             />
-          )
-        },
-        {
-          style: { width: topanelperc(474) },
-          children: [
-            (props) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={testsReplay}
-                alt="app panel"
-                quality={100}
-                draggable={false}
-              />
-            ),
-            (props) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={testsInspector}
-                alt="code panel"
-                quality={100}
-                draggable={false}
-              />
-            )
-          ]
-        }
-      ],
-      title: 'De-flake your tests',
-      shortTitle: 'Test panel',
-      description:
-        'With built-in support for Cypress and Playwright, you can jump to steps and into your application event handlers.',
-      link: 'https://docs.replay.io/reference-guide/cypress-panel'
-    },
-    {
-      mobilePanel: ({ className, ...props }) => (
-        <Image
-          {...props}
-          className={clsx(s['mobile-panel'], className)}
-          src={eventsMobile}
-          quality={100}
-          alt="code panel"
-        />
-      ),
-      panels: [
-        {
-          style: { width: topanelperc(242) },
-          children: (props) => (
+          ),
+          (props) => (
             <Image
               {...props}
               className={clsx(s['panel'], s['highlight-panel'])}
-              src={eventsEvents}
+              src={reactInspectorInspector}
               alt="code panel"
               quality={100}
               draggable={false}
             />
           )
-        },
-        {
-          style: { width: topanelperc(412) },
-          children: (props) => (
+        ]
+      }
+    ],
+    title: 'Inspect React components',
+    shortTitle: 'React DevTools',
+    description:
+      'Whether you’re using context, state, or hooks, Replay gives you the tools to inspect your components and see why they rendered.',
+    link: 'https://docs.replay.io/reference-guide/react'
+  },
+  {
+    mobilePanel: ({ className, ...props }) => (
+      <Image
+        {...props}
+        className={clsx(s['mobile-panel'], className)}
+        quality={100}
+        src={consoleLogsMobile}
+        alt="code panel"
+      />
+    ),
+    panels: [
+      {
+        style: { width: topanelperc(585) },
+        children: (props) => (
+          <Image
+            {...props}
+            className={clsx(s['panel'], s['highlight-panel'])}
+            src={consoleLogsCode}
+            alt="code panel"
+            quality={100}
+            draggable={false}
+          />
+        )
+      },
+      {
+        style: { width: topanelperc(618) },
+        children: [
+          ({ ...props }) => (
             <Image
               {...props}
               className={s['panel']}
-              src={eventsCode}
-              alt="code panel"
+              src={consoleLogsReplay}
+              alt="app panel"
               quality={100}
               draggable={false}
             />
-          )
-        },
-        {
-          style: { width: topanelperc(540) },
-          children: [
-            ({ ...props }) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={eventsReplay}
-                alt="code panel"
-                quality={100}
-                draggable={false}
-              />
-            ),
-            (props) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={eventsInspector}
-                alt="code panel"
-                quality={100}
-                draggable={false}
-              />
-            )
-          ]
-        }
-      ],
-      title: 'Time travel to any point',
-      shortTitle: 'Time travel',
-      description:
-        'When you start jumping to Console logs, React events, and Redux actions, you become a time traveler.',
-      link: 'https://docs.replay.io/reference-guide/events#b1a0e7f432f5426888b80e9b00e7b226'
-    },
-    {
-      mobilePanel: ({ className, ...props }) => (
-        <Image
-          {...props}
-          className={clsx(s['mobile-panel'], className)}
-          src={networkMobile}
-          quality={100}
-          alt="code panel"
-        />
-      ),
-      panels: [
-        {
-          style: { width: topanelperc(521) },
-          children: (props) => (
+          ),
+          (props) => (
             <Image
               {...props}
               className={s['panel']}
-              src={networkCode}
+              src={consoleLogsConsole}
               alt="code panel"
               quality={100}
               draggable={false}
             />
           )
-        },
-        {
-          style: { width: topanelperc(683) },
-          children: [
-            ({ ...props }) => (
-              <Image
-                {...props}
-                className={s['panel']}
-                src={networkReplay}
-                alt="app panel"
-                quality={100}
-                draggable={false}
-              />
-            ),
-            (props) => (
-              <Image
-                {...props}
-                className={clsx(s['panel'], s['highlight-panel'])}
-                src={networkInspector}
-                alt="code panel"
-                quality={100}
-                draggable={false}
-              />
-            )
-          ]
-        }
-      ],
-      title: 'Powerful Browser DevTools',
-      shortTitle: 'DevTools',
-      description:
-        'Inspect UI elements, Network events, Console logs, Call Stacks, and Scopes at any point in time.',
-      link: 'https://docs.replay.io/reference-guide'
-    }
-  ]
+        ]
+      }
+    ],
+    title: 'Retroactive console logs',
+    shortTitle: 'Console logs',
+    description:
+      'Adding console logs is as simple as clicking on a line of code and adding an expression.',
+    link: 'https://docs.replay.io/reference-guide/print-statements'
+  },
+  {
+    mobilePanel: ({ className, ...props }) => (
+      <Image
+        {...props}
+        className={clsx(s['mobile-panel'], className)}
+        src={testsMobile}
+        quality={100}
+        alt="code panel"
+      />
+    ),
+    panels: [
+      {
+        style: { width: topanelperc(270) },
+        children: (props) => (
+          <Image
+            {...props}
+            className={clsx(s['panel'], s['highlight-panel'])}
+            src={testsSuite}
+            alt="code panel"
+            quality={100}
+            draggable={false}
+          />
+        )
+      },
+      {
+        style: { width: topanelperc(448) },
+        children: (props) => (
+          <Image
+            {...props}
+            className={s['panel']}
+            src={testsCode}
+            alt="app panel"
+            quality={100}
+            draggable={false}
+          />
+        )
+      },
+      {
+        style: { width: topanelperc(474) },
+        children: [
+          (props) => (
+            <Image
+              {...props}
+              className={s['panel']}
+              src={testsReplay}
+              alt="app panel"
+              quality={100}
+              draggable={false}
+            />
+          ),
+          (props) => (
+            <Image
+              {...props}
+              className={s['panel']}
+              src={testsInspector}
+              alt="code panel"
+              quality={100}
+              draggable={false}
+            />
+          )
+        ]
+      }
+    ],
+    title: 'De-flake your tests',
+    shortTitle: 'Test panel',
+    description:
+      'With built-in support for Cypress and Playwright, you can jump to steps and into your application event handlers.',
+    link: 'https://docs.replay.io/reference-guide/cypress-panel'
+  },
+  {
+    mobilePanel: ({ className, ...props }) => (
+      <Image
+        {...props}
+        className={clsx(s['mobile-panel'], className)}
+        src={eventsMobile}
+        quality={100}
+        alt="code panel"
+      />
+    ),
+    panels: [
+      {
+        style: { width: topanelperc(242) },
+        children: (props) => (
+          <Image
+            {...props}
+            className={clsx(s['panel'], s['highlight-panel'])}
+            src={eventsEvents}
+            alt="code panel"
+            quality={100}
+            draggable={false}
+          />
+        )
+      },
+      {
+        style: { width: topanelperc(412) },
+        children: (props) => (
+          <Image
+            {...props}
+            className={s['panel']}
+            src={eventsCode}
+            alt="code panel"
+            quality={100}
+            draggable={false}
+          />
+        )
+      },
+      {
+        style: { width: topanelperc(540) },
+        children: [
+          ({ ...props }) => (
+            <Image
+              {...props}
+              className={s['panel']}
+              src={eventsReplay}
+              alt="code panel"
+              quality={100}
+              draggable={false}
+            />
+          ),
+          (props) => (
+            <Image
+              {...props}
+              className={s['panel']}
+              src={eventsInspector}
+              alt="code panel"
+              quality={100}
+              draggable={false}
+            />
+          )
+        ]
+      }
+    ],
+    title: 'Time travel to any point',
+    shortTitle: 'Time travel',
+    description:
+      'When you start jumping to Console logs, React events, and Redux actions, you become a time traveler.',
+    link: 'https://docs.replay.io/reference-guide/events#b1a0e7f432f5426888b80e9b00e7b226'
+  },
+  {
+    mobilePanel: ({ className, ...props }) => (
+      <Image
+        {...props}
+        className={clsx(s['mobile-panel'], className)}
+        src={networkMobile}
+        quality={100}
+        alt="code panel"
+      />
+    ),
+    panels: [
+      {
+        style: { width: topanelperc(521) },
+        children: (props) => (
+          <Image
+            {...props}
+            className={s['panel']}
+            src={networkCode}
+            alt="code panel"
+            quality={100}
+            draggable={false}
+          />
+        )
+      },
+      {
+        style: { width: topanelperc(683) },
+        children: [
+          ({ ...props }) => (
+            <Image
+              {...props}
+              className={s['panel']}
+              src={networkReplay}
+              alt="app panel"
+              quality={100}
+              draggable={false}
+            />
+          ),
+          (props) => (
+            <Image
+              {...props}
+              className={clsx(s['panel'], s['highlight-panel'])}
+              src={networkInspector}
+              alt="code panel"
+              quality={100}
+              draggable={false}
+            />
+          )
+        ]
+      }
+    ],
+    title: 'Powerful Browser DevTools',
+    shortTitle: 'DevTools',
+    description:
+      'Inspect UI elements, Network events, Console logs, Call Stacks, and Scopes at any point in time.',
+    link: 'https://docs.replay.io/reference-guide'
+  }
+]
 
 export const DeveloperTools = () => {
   const isTablet = useTabletBreakpoint()
