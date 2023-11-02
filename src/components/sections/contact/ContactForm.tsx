@@ -30,7 +30,6 @@ const ContactForm: FC = () => {
             </article>
           </div>
         </div>
-        {/* Second column */}
         <div className={s.secondColumn}>
           <iframe
             src="https://tally.so/embed/wApXpz?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"

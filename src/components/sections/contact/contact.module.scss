@@ -91,3 +91,26 @@
 .content a {
   text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+  .twoColumnLayout {
+    flex-direction: column;
+  }
+
+  .firstColumn,
+  .secondColumn {
+    flex-basis: 100%;
+    flex-grow: 0;
+  }
+
+  .firstColumn {
+    padding-top: 0;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .section {
+    margin: 40px;
+  }
+}
