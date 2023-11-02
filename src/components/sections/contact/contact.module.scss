@@ -44,7 +44,7 @@
     color: var(--color-gray-lighter);
     margin-bottom: 0.375rem;
     padding-right: 40px;
-    margin-top: 80px;
+    margin-top: 40px;
     font-style: italic;
     line-height: 1.5;
     @media (min-width: 1024px) {
@@ -106,6 +106,10 @@
   .firstColumn {
     padding-top: 0;
     padding-bottom: 40px;
+  }
+
+  .testimonial {
+    margin-top: 0;
   }
 }
 
