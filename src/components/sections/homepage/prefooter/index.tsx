@@ -119,11 +119,7 @@ const Prefooter = () => {
               </Button>
             </Link>
 
-            <Link
-              passHref
-              href="https://docs.replay.io/resources/get-help/contact-community"
-              rel="noopener"
-            >
+            <Link passHref href="/contact" rel="noopener">
               <Button mode="secondary" size="big" aria-label="Contact us">
                 Contact us
               </Button>
