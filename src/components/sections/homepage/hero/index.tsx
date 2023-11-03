@@ -374,19 +374,15 @@ export const Hero = () => {
           <div className={s['ctas']}>
             <Link
               passHref
-              href="https://docs.replay.io/getting-started/what-is-replay-io"
+              href="https://docs.replay.io/getting-started/recording-your-first-replay"
               rel="noopener"
             >
-              <Button mode="secondary" size="big" aria-label="Get started">
+              <Button mode="primary" size="big" aria-label="Get started">
                 Get started
               </Button>
             </Link>
 
-            <Link
-              passHref
-              href="https://docs.replay.io/resources/get-help/contact-community"
-              rel="noopener"
-            >
+            <Link passHref href="contact/" rel="noopener">
               <Button mode="secondary" size="big" aria-label="Contact us">
                 Contact us
               </Button>
