@@ -569,8 +569,8 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 4,
-              href: 'mailto:hey@replay.io',
-              label: 'Email'
+              href: '/contact',
+              label: 'Contact form'
             }
           ]
         }
@@ -775,7 +775,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     label: 'Discord'
   },
   contactUs: {
-    href: 'mailto:hey@replay.io',
+    href: '/contact',
     label: 'Contact us'
   },
   privacyPolicy: {
