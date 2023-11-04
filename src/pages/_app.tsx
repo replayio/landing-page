@@ -4,7 +4,6 @@ import { Analytics } from '@vercel/analytics/react'
 import LogRocket from 'logrocket'
 import type { NextComponentType, NextPageContext } from 'next'
 import type { AppProps } from 'next/app'
-import { Inter, Roboto_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import Head from 'next/head'
 import * as React from 'react'
@@ -29,17 +28,30 @@ if (isProd && isClient) {
 
 /* CUSTOM APP */
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  display: 'swap',
+export const GeistSans = localFont({
+  src: [
+    {
+      path: '../../public/fonts/geist-sans/Geist-Regular.woff2',
+      weight: '400',
+      style: 'normal'
+    },
+    {
+      path: '../../public/fonts/geist-sans/Geist-Medium.woff2',
+      weight: '500',
+      style: 'normal'
+    }
+  ],
   preload: true
 })
 
-const robotoMono = Roboto_Mono({
-  weight: ['400'],
-  subsets: ['latin'],
-  display: 'swap'
+export const GeistMono = localFont({
+  src: [
+    {
+      path: '../../public/fonts/geist-mono/GeistMono-Regular.woff2',
+      weight: '400',
+      style: 'normal'
+    }
+  ]
 })
 
 const roobert = localFont({
@@ -157,9 +169,9 @@ const App = ({ Component, pageProps, ...rest }: AppProps) => {
           dangerouslySetInnerHTML={{
             __html: `
         :root {
-          --font-inter: ${inter.style.fontFamily};
+          --font-geist: ${GeistSans.style.fontFamily};
           --font-roobert: ${roobert.style.fontFamily};
-          --font-roboto-mono: ${robotoMono.style.fontFamily};
+          --font-geist-mono: ${GeistMono.style.fontFamily};
 
         }
         `
