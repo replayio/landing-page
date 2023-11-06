@@ -1,3 +1,4 @@
+import { RichText } from 'basehub/react'
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
@@ -24,10 +25,8 @@ import heroImage from '~/images/homepage/hero-image.jpg'
 import s from './hero.module.scss'
 
 const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
-  {
-    ssr: false
-  }
+  () => import('~/components/common/sky').then((m) => m.Sky),
+  { ssr: false }
 )
 
 const Grid3D = dynamic(
@@ -35,9 +34,7 @@ const Grid3D = dynamic(
     import('~/components/common/grid-3d').then(
       (m) => m.Grid3D
     ) as LoaderComponent,
-  {
-    ssr: false
-  }
+  { ssr: false }
 )
 
 const outlineSvgSize = {
@@ -45,30 +42,22 @@ const outlineSvgSize = {
   height: 876
 }
 
-const subheroes = [
-  <span key="variant-4">
-    Replay is the only browser that lets you record and retroactively debug your
-    application. Fix the hardest issues as a team and take control of your
-    support process and test suite.
-  </span>,
-  <span key="variant-3">
-    Replay is the only browser that lets you record and retroactively debug your
-    application with <b>print statements</b> and <b>Browser DevTools</b> so that
-    you can file the perfect bug report and fix failing flaky tests.
-  </span>,
+type HeroProps = {
+  title: {
+    one: string
+    two: string
+    three: string
+  }
+  subtitleVariants: Array<{ content: unknown; key: string }>
+  ctas: Array<{
+    label: string
+    href: string
+    type: 'primary' | 'secondary'
+    key: string
+  }>
+}
 
-  <span key="variant-2">
-    Replay is the only browser that lets you record, retroactively debug, and
-    fix the hardest issues as a team with perfect reproducibility.
-  </span>,
-
-  <span key="variant-1">
-    Replay is the only browser that lets you record and retroactively debug your
-    application with <b>print statements</b> and <b>Browser DevTools</b>.
-  </span>
-]
-
-export const Hero = () => {
+export const Hero = ({ title, ctas, subtitleVariants }: HeroProps) => {
   const { boot } = useIntercom()
   const firstRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -81,8 +70,8 @@ export const Hero = () => {
     const variant = router.query.variant
       ? parseInt(router.query.variant as string)
       : 0
-    return subheroes[variant]
-  }, [router.query])
+    return subtitleVariants[variant]
+  }, [router.query, subtitleVariants])
 
   useEffect(() => {
     if (!isDesktop) return
@@ -320,7 +309,7 @@ export const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <span className={s['text-segment']}>Record. </span>
+                      <span className={s['text-segment']}>{title.one} </span>
                     </span>
                     <span className={s['title-section']}>
                       <Image
@@ -330,7 +319,7 @@ export const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <span className={s['text-segment']}>Replay. </span>
+                      <span className={s['text-segment']}>{title.two} </span>
                     </span>
                     <span className={s['title-section']}>
                       <Image
@@ -340,7 +329,7 @@ export const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <span className={s['text-segment']}>Fix.</span>
+                      <span className={s['text-segment']}>{title.three}</span>
                     </span>
                   </div>
                   <div className={s.mask} id="heading-container-double">
@@ -351,13 +340,13 @@ export const Hero = () => {
                       )}
                     >
                       <span className={s['title-section']}>
-                        <span className={s['text-segment']}>Record. </span>
+                        <span className={s['text-segment']}>{title.one} </span>
                       </span>
                       <span className={s['title-section']}>
-                        <span className={s['text-segment']}>Replay. </span>
+                        <span className={s['text-segment']}>{title.two} </span>
                       </span>
                       <span className={s['title-section']}>
-                        <span className={s['text-segment']}>Fix.</span>
+                        <span className={s['text-segment']}>{title.three}</span>
                       </span>
                     </div>
                   </div>
@@ -367,26 +356,29 @@ export const Hero = () => {
             }}
             subtitle={{
               className: s.subtitle,
-              children: subhero
+              children: (
+                <RichText
+                  components={{
+                    p: (props) => <span {...props} />,
+                    a: (props) => <Link {...props} />
+                  }}
+                >
+                  {subhero?.content}
+                </RichText>
+              )
             }}
           />
 
           <div className={s['ctas']}>
-            <Link
-              passHref
-              href="https://docs.replay.io/getting-started/recording-your-first-replay"
-              rel="noopener"
-            >
-              <Button mode="primary" size="big" aria-label="Get started">
-                Get started
-              </Button>
-            </Link>
-
-            <Link passHref href="contact/" rel="noopener">
-              <Button mode="secondary" size="big" aria-label="Contact us">
-                Contact us
-              </Button>
-            </Link>
+            {ctas.map((cta) => {
+              return (
+                <Link passHref href={cta.href} rel="noopener" key={cta.key}>
+                  <Button mode={cta.type} size="big" aria-label={cta.label}>
+                    {cta.label}
+                  </Button>
+                </Link>
+              )
+            })}
           </div>
         </Container>
       </div>

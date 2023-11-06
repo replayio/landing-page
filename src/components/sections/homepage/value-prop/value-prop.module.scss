@@ -30,12 +30,16 @@
 
 .timeTravelText {
   max-width: 440px;
-  margin-bottom: 30px;
   display: block;
+  margin-bottom: 12px;
 
   @media (max-width: 900px) {
     padding: 0 32px 32px;
     border-bottom: 1px solid #1b1f26;
+  }
+
+  &:last-child {
+    margin-bottom: 0px;
   }
 }
 

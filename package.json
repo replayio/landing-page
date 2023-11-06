@@ -13,7 +13,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint && stylelint '**/*.{css,scss}'",
-    "tsc": "tsc --pretty --noEmit"
+    "tsc": "tsc --pretty --noEmit",
+    "postinstall": "basehub"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
@@ -26,6 +27,7 @@
     "@replayio/overboard": "^0.4.1",
     "@typeform/embed-react": "^2.22.0",
     "@vercel/analytics": "^1.0.1",
+    "basehub": "^1.2.8",
     "clsx": "1.1.1",
     "embla-carousel-react": "8.0.0-rc05",
     "global": "^4.4.0",
