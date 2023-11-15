@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
+    "@mux/mux-player-react": "^2.2.0",
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-navigation-menu": "^1.1.2",
     "@radix-ui/react-polymorphic": "^0.0.14",

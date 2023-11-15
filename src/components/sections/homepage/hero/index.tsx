@@ -1,3 +1,4 @@
+import MuxPlayer from '@mux/mux-player-react'
 import clsx from 'clsx'
 import { gsap } from 'lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
@@ -19,7 +20,6 @@ import { useMouseTracker } from '~/hooks/use-mouse-tracker'
 import fixImg from '~/images/home/fix.svg'
 import recordImg from '~/images/home/record.svg'
 import replayImg from '~/images/home/replay.svg'
-import heroImage from '~/images/homepage/hero-image.jpg'
 
 import s from './hero.module.scss'
 
@@ -431,13 +431,14 @@ export const Hero = () => {
 
         <Container>
           <div className={s['dashboard']}>
-            <Image
-              src={heroImage}
-              quality={100}
-              loading="eager"
-              priority
-              alt="Replay dashboard"
-              draggable={false}
+            <MuxPlayer
+              streamType="on-demand"
+              playbackId="j4BppBKJuL5ZxorgS1yuD1Mt2XId5G1doLb4hiGQZhI"
+              primaryColor="#FFFFFF"
+              secondaryColor="#000000"
+              muted={true}
+              autoPlay={true}
+              style={{ '--controls': 'none' }}
             />
           </div>
           <div className={s['videoLink']}>

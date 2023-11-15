@@ -215,7 +215,7 @@
 
     .dashboard {
       --raw-ratio: calc(2548 / 1348);
-      --radius: 2.4%;
+      --radius: 1%;
 
       position: relative;
       overflow: hidden;
@@ -227,7 +227,6 @@
         calc(var(--radius) * var(--raw-ratio));
       border-bottom-right-radius: var(--radius)
         calc(var(--radius) * var(--raw-ratio));
-      border: 2px solid rgb(55 65 81 / 0.48);
       box-shadow: 0px 4px 8px -2px rgb(31 41 55 / 0.1),
         0px 2px 4px -2px rgb(31 41 55 / 0.06);
 
