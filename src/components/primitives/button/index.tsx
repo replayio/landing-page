@@ -15,6 +15,7 @@ import s from './button.module.scss'
 type VideoControlProps = {
   isVideoButton?: boolean
   isPlaying?: boolean
+  loadingProgress?: number
   onTogglePlay?: () => void
 }
 
@@ -46,6 +47,7 @@ export const Button = forwardRef(
       size = 'md',
       rounded = false,
       className,
+      loadingProgress,
       noHover = false,
       isVideoButton = false,
       isPlaying = false,
@@ -95,12 +97,43 @@ export const Button = forwardRef(
       >
         <span className={s['content']}>
           {isVideoButton && (isPlaying ? <PauseIcon /> : <PlayIcon />)}
+          {loadingProgress !== undefined && renderCircularProgress()}
           {children}
         </span>
       </Comp>
     )
   }
 )
+
+const renderCircularProgress = () => {
+  if (loadingProgress !== undefined) {
+    // Calculate the strokeDashoffset based on the progress
+    const radius = 20
+    const circumference = 2 * Math.PI * radius
+    const strokeDashoffset =
+      circumference - (loadingProgress / 100) * circumference
+
+    return (
+      <svg height="50" width="50" className="circular-progress">
+        <circle
+          stroke="#01ACFD"
+          strokeWidth="8"
+          fill="transparent"
+          r={radius}
+          cx="25"
+          cy="25"
+          style={{
+            strokeDasharray: `${circumference} ${circumference}`,
+            strokeDashoffset: strokeDashoffset,
+            transform: 'rotate(-90deg)',
+            transformOrigin: '50% 50%'
+          }}
+        />
+      </svg>
+    )
+  }
+  return null
+}
 
 type NextLinkProps = Pick<
   LinkProps,

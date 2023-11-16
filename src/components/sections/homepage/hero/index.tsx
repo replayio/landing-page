@@ -110,31 +110,6 @@ export const Hero = () => {
     }
   }
 
-  const CircularProgress = ({ progress }) => {
-    const radius = 20
-    const circumference = 2 * Math.PI * radius
-    const strokeDashoffset = circumference - (progress / 100) * circumference
-
-    return (
-      <svg height="50" width="50" className="circular-progress">
-        <circle
-          stroke="#01ACFD"
-          strokeWidth="8"
-          fill="transparent"
-          r={radius}
-          cx="25"
-          cy="25"
-          style={{
-            strokeDasharray: `${circumference} ${circumference}`,
-            strokeDashoffset: strokeDashoffset,
-            transform: 'rotate(-90deg)',
-            transformOrigin: '50% 50%'
-          }}
-        />
-      </svg>
-    )
-  }
-
   const updateVideoProgress = (
     videoNumber: number,
     currentTime: number,
@@ -550,32 +525,11 @@ export const Hero = () => {
 
           <div
             style={{
+              marginTop: '24px',
               display: 'flex',
               justifyContent: 'center',
-              marginTop: '24px',
-              marginBottom: '24px'
+              gap: '14px'
             }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '24px',
-                marginBottom: '24px'
-              }}
-            >
-              <CircularProgress
-                progress={
-                  (videoProgress[activeVideo].currentTime /
-                    videoProgress[activeVideo].duration) *
-                  100
-                }
-              />
-            </div>
-          </div>
-
-          <div
-            style={{ display: 'flex', justifyContent: 'center', gap: '14px' }}
           >
             <Button
               mode={activeVideo === 1 ? 'primary' : 'secondary'}
@@ -583,8 +537,15 @@ export const Hero = () => {
               aria-label="Overview (0:28)"
               onClick={() => handleTogglePlay(1)}
               isPlaying={activeVideo === 1 && isPlaying}
+              isVideoButton={true}
+              loadingProgress={
+                activeVideo === 1
+                  ? (videoProgress[1].currentTime / videoProgress[1].duration) *
+                  100
+                  : undefined
+              }
             >
-              {activeVideo === 1 && isPlaying ? 'Pause' : 'Play'} Overview
+              {activeVideo === 1 ? (isPlaying ? '⏸️' : '▶️') : '▶️'} Overview
               (0:28)
             </Button>
 
@@ -594,8 +555,15 @@ export const Hero = () => {
               aria-label="Guided tour (2:39)"
               onClick={() => handleTogglePlay(2)}
               isPlaying={activeVideo === 2 && isPlaying}
+              isVideoButton={true}
+              loadingProgress={
+                activeVideo === 2
+                  ? (videoProgress[2].currentTime / videoProgress[2].duration) *
+                  100
+                  : undefined
+              }
             >
-              {activeVideo === 2 && isPlaying ? 'Pause' : 'Play'} Guided tour
+              {activeVideo === 2 ? (isPlaying ? '⏸️' : '▶️') : '▶️'} Guided Tour
               (2:39)
             </Button>
           </div>
