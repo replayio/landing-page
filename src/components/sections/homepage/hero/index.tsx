@@ -76,6 +76,8 @@ export const Hero = () => {
   const isSm = useMedia('(max-width: 768px)')
   const router = useRouter()
 
+  const [isPlaying, setIsPlaying] = useState(true)
+
   const subhero = useMemo(() => {
     const variant = router.query.variant
       ? parseInt(router.query.variant as string)
@@ -89,6 +91,49 @@ export const Hero = () => {
     1: { currentTime: 0, duration: 0 },
     2: { currentTime: 0, duration: 0 }
   })
+
+  const muxPlayerRef = useRef(null)
+
+  const handleTogglePlay = (videoNumber: number) => {
+    if (activeVideo === videoNumber) {
+      // Toggle play/pause on the current video
+      if (isPlaying) {
+        muxPlayerRef.current.pause()
+        setIsPlaying(false)
+      } else {
+        muxPlayerRef.current.play()
+        setIsPlaying(true)
+      }
+    } else {
+      // Switch to a different video
+      switchVideo(videoNumber)
+    }
+  }
+
+  const CircularProgress = ({ progress }) => {
+    const radius = 20
+    const circumference = 2 * Math.PI * radius
+    const strokeDashoffset = circumference - (progress / 100) * circumference
+
+    return (
+      <svg height="50" width="50" className="circular-progress">
+        <circle
+          stroke="#01ACFD"
+          strokeWidth="8"
+          fill="transparent"
+          r={radius}
+          cx="25"
+          cy="25"
+          style={{
+            strokeDasharray: `${circumference} ${circumference}`,
+            strokeDashoffset: strokeDashoffset,
+            transform: 'rotate(-90deg)',
+            transformOrigin: '50% 50%'
+          }}
+        />
+      </svg>
+    )
+  }
 
   const updateVideoProgress = (
     videoNumber: number,
@@ -118,9 +163,14 @@ export const Hero = () => {
 
   const [currentVideo, setCurrentVideo] = useState(videoDetails[1])
 
-  const switchVideo = (videoNumber) => {
+  const switchVideo = (videoNumber: number) => {
+    // Set the new active video and its details
     setActiveVideo(videoNumber)
     setCurrentVideo(videoDetails[videoNumber])
+
+    // Ensure the player is playing the new video
+    muxPlayerRef.current.play()
+    setIsPlaying(true)
   }
 
   const handleVideoEnd = () => {
@@ -477,6 +527,7 @@ export const Hero = () => {
         <Container>
           <div className={s['dashboard']}>
             <MuxPlayer
+              ref={muxPlayerRef}
               streamType="on-demand"
               playbackId={currentVideo.playbackId}
               poster={currentVideo.poster}
@@ -507,24 +558,19 @@ export const Hero = () => {
           >
             <div
               style={{
-                width: '300px',
-                height: '4px',
-                backgroundColor: '#d1d5db',
-
-                borderRadius: '4px'
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '24px',
+                marginBottom: '24px'
               }}
             >
-              <div
-                style={{
-                  height: '100%',
-                  backgroundColor: '#01ACFD',
-                  borderRadius: '4px',
-                  width: `${(videoProgress[activeVideo].currentTime /
-                      videoProgress[activeVideo].duration) *
-                    100
-                    }%`
-                }}
-              ></div>
+              <CircularProgress
+                progress={
+                  (videoProgress[activeVideo].currentTime /
+                    videoProgress[activeVideo].duration) *
+                  100
+                }
+              />
             </div>
           </div>
 
@@ -535,17 +581,22 @@ export const Hero = () => {
               mode={activeVideo === 1 ? 'primary' : 'secondary'}
               size="big"
               aria-label="Overview (0:28)"
-              onClick={() => switchVideo(1)}
+              onClick={() => handleTogglePlay(1)}
+              isPlaying={activeVideo === 1 && isPlaying}
             >
-              Overview (0:28)
+              {activeVideo === 1 && isPlaying ? 'Pause' : 'Play'} Overview
+              (0:28)
             </Button>
+
             <Button
               mode={activeVideo === 2 ? 'primary' : 'secondary'}
               size="big"
               aria-label="Guided tour (2:39)"
-              onClick={() => switchVideo(2)}
+              onClick={() => handleTogglePlay(2)}
+              isPlaying={activeVideo === 2 && isPlaying}
             >
-              Guided tour (2:39)
+              {activeVideo === 2 && isPlaying ? 'Pause' : 'Play'} Guided tour
+              (2:39)
             </Button>
           </div>
         </Container>
