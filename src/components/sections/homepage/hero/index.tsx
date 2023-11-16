@@ -5,11 +5,10 @@ import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Ref, useEffect, useMemo, useRef } from 'react'
+import React, { Ref, useEffect, useMemo, useRef, useState } from 'react'
 import { useIntercom } from 'react-use-intercom'
 
 import { AspectBox } from '~/components/common/aspect-box'
-import Video from '~/components/common/video-modal'
 import { Container } from '~/components/layout/container'
 import { Section } from '~/components/layout/section'
 import { Button } from '~/components/primitives/cta'
@@ -83,6 +82,52 @@ export const Hero = () => {
       : 0
     return subheroes[variant]
   }, [router.query])
+
+  const [activeVideo, setActiveVideo] = useState(1) // Default to the first video
+
+  const [videoProgress, setVideoProgress] = useState({
+    1: { currentTime: 0, duration: 0 },
+    2: { currentTime: 0, duration: 0 }
+  })
+
+  const updateVideoProgress = (
+    videoNumber: number,
+    currentTime: number,
+    duration: number
+  ) => {
+    setVideoProgress((prevState) => ({
+      ...prevState,
+      [videoNumber]: { currentTime, duration }
+    }))
+  }
+
+  const videoDetails = {
+    1: {
+      playbackId: 'pgs02AyA59TfKakQRtoR2pQUTIX1qvR6UTyC63iqj4GI',
+      muted: true,
+      poster:
+        'https://image.mux.com/GvAgJUtjUQ8i2O3fX4J6X8ahjo7ASLOAYrBu01VtP1Hw/thumbnail.png?width=214&height=121&time=0&fit_mode=preserve'
+    },
+    2: {
+      playbackId: 'Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg',
+      muted: false,
+      poster:
+        'https://image.mux.com/Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg/thumbnail.png?width=214&height=121&time=0&fit_mode=preserve'
+    }
+  }
+
+  const [currentVideo, setCurrentVideo] = useState(videoDetails[1])
+
+  const switchVideo = (videoNumber) => {
+    setActiveVideo(videoNumber)
+    setCurrentVideo(videoDetails[videoNumber])
+  }
+
+  const handleVideoEnd = () => {
+    if (activeVideo === 1) {
+      switchVideo(2)
+    }
+  }
 
   useEffect(() => {
     if (!isDesktop) return
@@ -433,25 +478,75 @@ export const Hero = () => {
           <div className={s['dashboard']}>
             <MuxPlayer
               streamType="on-demand"
-              playbackId="j4BppBKJuL5ZxorgS1yuD1Mt2XId5G1doLb4hiGQZhI"
+              playbackId={currentVideo.playbackId}
+              poster={currentVideo.poster}
               primaryColor="#FFFFFF"
               secondaryColor="#000000"
-              muted={true}
+              onTimeUpdate={(event: any) => {
+                const target = event.target as HTMLVideoElement
+                updateVideoProgress(
+                  activeVideo,
+                  target.currentTime,
+                  target.duration
+                )
+              }}
+              muted={currentVideo.muted}
               autoPlay={true}
+              onEnded={handleVideoEnd} // Add this event handler
               style={{ '--controls': 'none' }}
             />
           </div>
-          <div className={s['videoLink']}>
-            <Video.Modal
-              poster="/images/homepage/hero-video-placeholder.png"
-              url="https://stream.mux.com/Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg.m3u8"
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '24px',
+              marginBottom: '24px'
+            }}
+          >
+            <div
+              style={{
+                width: '300px',
+                height: '4px',
+                backgroundColor: '#d1d5db',
+
+                borderRadius: '4px'
+              }}
             >
-              <Video.Trigger asChild>
-                <Button mode="primary" size="big" aria-label="Watch video">
-                  Watch introductory video
-                </Button>
-              </Video.Trigger>
-            </Video.Modal>
+              <div
+                style={{
+                  height: '100%',
+                  backgroundColor: '#01ACFD',
+                  borderRadius: '4px',
+                  width: `${(videoProgress[activeVideo].currentTime /
+                      videoProgress[activeVideo].duration) *
+                    100
+                    }%`
+                }}
+              ></div>
+            </div>
+          </div>
+
+          <div
+            style={{ display: 'flex', justifyContent: 'center', gap: '14px' }}
+          >
+            <Button
+              mode={activeVideo === 1 ? 'primary' : 'secondary'}
+              size="big"
+              aria-label="Overview (0:28)"
+              onClick={() => switchVideo(1)}
+            >
+              Overview (0:28)
+            </Button>
+            <Button
+              mode={activeVideo === 2 ? 'primary' : 'secondary'}
+              size="big"
+              aria-label="Guided tour (2:39)"
+              onClick={() => switchVideo(2)}
+            >
+              Guided tour (2:39)
+            </Button>
           </div>
         </Container>
       </div>
