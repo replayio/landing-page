@@ -109,7 +109,7 @@ export const Hero = () => {
       }
     } else {
       // If a different video is selected, switch to it
-      switchVideo(videoNumber)
+      switchVideo(videoNumber as 1 | 2)
     }
   }
 
