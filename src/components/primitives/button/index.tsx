@@ -27,6 +27,7 @@ type ButtonProps<C extends ElementType> = {
   | 'tertiary'
   | 'tertiary-inverted'
   | 'tertiary-inverted-alt'
+  isPlaying?: boolean
   unstyled?: boolean
   rounded?: boolean
   noHover?: boolean
@@ -47,7 +48,7 @@ export const Button = forwardRef(
       size = 'md',
       rounded = false,
       className,
-      loadingProgress,
+
       noHover = false,
       isVideoButton = false,
       isPlaying = false,
@@ -73,12 +74,10 @@ export const Button = forwardRef(
       <Comp
         className={clsx(
           s['button'],
-          {
-            [s['rounded']]: rounded,
-            [s['unstyled']]: unstyled,
-            [s['no-hover']]: noHover,
-            [s['video-button']]: isVideoButton // Additional class for styling video button
-          },
+          rounded && s['rounded'],
+          unstyled && s['unstyled'],
+          noHover && s['no-hover'],
+          isVideoButton && s['video-button'],
           s[variant],
           s[size],
           className
@@ -87,53 +86,22 @@ export const Button = forwardRef(
         ref={ref}
         onClick={(e) => {
           if (isVideoButton) {
-            e.stopPropagation() // Prevent the event from bubbling if it's a video button
+            e.stopPropagation()
             handleTogglePlay()
           }
           if (rest.onClick) {
-            rest.onClick(e) // If there's an onClick prop, call it
+            rest.onClick(e)
           }
         }}
       >
         <span className={s['content']}>
           {isVideoButton && (isPlaying ? <PauseIcon /> : <PlayIcon />)}
-          {loadingProgress !== undefined && renderCircularProgress()}
           {children}
         </span>
       </Comp>
     )
   }
 )
-
-const renderCircularProgress = () => {
-  if (loadingProgress !== undefined) {
-    // Calculate the strokeDashoffset based on the progress
-    const radius = 20
-    const circumference = 2 * Math.PI * radius
-    const strokeDashoffset =
-      circumference - (loadingProgress / 100) * circumference
-
-    return (
-      <svg height="50" width="50" className="circular-progress">
-        <circle
-          stroke="#01ACFD"
-          strokeWidth="8"
-          fill="transparent"
-          r={radius}
-          cx="25"
-          cy="25"
-          style={{
-            strokeDasharray: `${circumference} ${circumference}`,
-            strokeDashoffset: strokeDashoffset,
-            transform: 'rotate(-90deg)',
-            transformOrigin: '50% 50%'
-          }}
-        />
-      </svg>
-    )
-  }
-  return null
-}
 
 type NextLinkProps = Pick<
   LinkProps,

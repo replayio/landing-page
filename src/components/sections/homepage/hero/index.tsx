@@ -92,23 +92,26 @@ export const Hero = () => {
     2: { currentTime: 0, duration: 0 }
   })
 
-  const muxPlayerRef = useRef(null)
+  const muxPlayerRef = useRef<MuxPlayerElement>(null)
 
   const handleTogglePlay = (videoNumber: number) => {
     // If a different video is selected, switch to it
-    if (activeVideo !== videoNumber) {
+    if (videoNumber === 1 || videoNumber === 2) {
       switchVideo(videoNumber)
     } else {
       // If the same video is clicked
       if (isPlaying) {
-        // If it's playing, pause it
-        muxPlayerRef.current.pause()
-        setIsPlaying(false)
+        if (muxPlayerRef.current) {
+          muxPlayerRef.current.pause()
+          setIsPlaying(false)
+        }
       } else {
         // If it's not playing, play it
-        muxPlayerRef.current.play()
-        setIsPlaying(true)
-        setVideoEnded({ ...videoEnded, [videoNumber]: false })
+        if (muxPlayerRef.current) {
+          muxPlayerRef.current.play()
+          setIsPlaying(true)
+          setVideoEnded({ ...videoEnded, [videoNumber]: false })
+        }
       }
     }
   }
@@ -140,7 +143,7 @@ export const Hero = () => {
   const [currentVideo, setCurrentVideo] = useState(videoDetails[1])
   const [videoEnded, setVideoEnded] = useState({ 1: false, 2: false })
 
-  const switchVideo = (videoNumber: number) => {
+  const switchVideo = (videoNumber: 1 | 2) => {
     // Update the active video
     setActiveVideo(videoNumber)
     // Set the details for the new active video
@@ -148,8 +151,10 @@ export const Hero = () => {
     // A small timeout to ensure state updates have been flushed to the DOM
     setTimeout(() => {
       // Play the new active video
-      muxPlayerRef.current.play()
-      setIsPlaying(true)
+      if (muxPlayerRef.current) {
+        muxPlayerRef.current.play()
+        setIsPlaying(true)
+      }
     }, 0)
   }
 
@@ -524,7 +529,7 @@ export const Hero = () => {
               muted={currentVideo.muted}
               autoPlay={true}
               onEnded={handleVideoEnd} // Add this event handler
-              style={{ '--controls': 'none' }}
+              style={{ '--controls': 'none' } as any}
             />
           </div>
 
