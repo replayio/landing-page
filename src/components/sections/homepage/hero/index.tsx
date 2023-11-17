@@ -95,24 +95,21 @@ export const Hero = () => {
   const muxPlayerRef = useRef<any>(null)
 
   const handleTogglePlay = (videoNumber: number) => {
-    // If a different video is selected, switch to it
-    if (videoNumber === 1 || videoNumber === 2) {
-      switchVideo(videoNumber)
-    } else {
-      // If the same video is clicked
+    // Check if the clicked video is currently active
+    if (activeVideo === videoNumber) {
+      // Toggle the playing state
       if (isPlaying) {
-        if (muxPlayerRef.current) {
-          muxPlayerRef.current.pause()
-          setIsPlaying(false)
-        }
+        // If the video is playing, pause it
+        muxPlayerRef.current.pause()
+        setIsPlaying(false)
       } else {
-        // If it's not playing, play it
-        if (muxPlayerRef.current) {
-          muxPlayerRef.current.play()
-          setIsPlaying(true)
-          setVideoEnded({ ...videoEnded, [videoNumber]: false })
-        }
+        // If the video is paused, play it
+        muxPlayerRef.current.play()
+        setIsPlaying(true)
       }
+    } else {
+      // If a different video is selected, switch to it
+      switchVideo(videoNumber)
     }
   }
 
@@ -542,9 +539,7 @@ export const Hero = () => {
             }}
           >
             <Button
-              mode={
-                activeVideo === 1 && !videoEnded[1] ? 'primary' : 'secondary'
-              }
+              mode="secondary" // Replace 'primary' or 'secondary' with 'gray'
               size="big"
               aria-label="Overview (0:28)"
               onClick={() => handleTogglePlay(1)}
@@ -553,9 +548,7 @@ export const Hero = () => {
             </Button>
 
             <Button
-              mode={
-                activeVideo === 2 && !videoEnded[2] ? 'secondary' : 'secondary'
-              }
+              mode="secondary" // Same as above
               size="big"
               aria-label="Guided tour (2:39)"
               onClick={() => handleTogglePlay(2)}
