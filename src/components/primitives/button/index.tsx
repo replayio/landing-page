@@ -30,6 +30,7 @@ type ButtonProps<C extends ElementType> = {
   isPlaying?: boolean
   unstyled?: boolean
   rounded?: boolean
+  isVideoButton?: boolean
   noHover?: boolean
   children?: React.ReactNode
   as?: C
@@ -48,7 +49,6 @@ export const Button = forwardRef(
       size = 'md',
       rounded = false,
       className,
-
       noHover = false,
       isVideoButton = false,
       isPlaying = false,

@@ -92,7 +92,7 @@ export const Hero = () => {
     2: { currentTime: 0, duration: 0 }
   })
 
-  const muxPlayerRef = useRef<MuxPlayerElement>(null)
+  const muxPlayerRef = useRef<any>(null)
 
   const handleTogglePlay = (videoNumber: number) => {
     // If a different video is selected, switch to it
@@ -529,7 +529,7 @@ export const Hero = () => {
               muted={currentVideo.muted}
               autoPlay={true}
               onEnded={handleVideoEnd} // Add this event handler
-              style={{ '--controls': 'none' } as any}
+              style={{ '--controls': 'none' } as React.CSSProperties}
             />
           </div>
 
@@ -543,13 +543,11 @@ export const Hero = () => {
           >
             <Button
               mode={
-                activeVideo === 1 && !videoEnded[1] ? 'secondary' : 'secondary'
+                activeVideo === 1 && !videoEnded[1] ? 'primary' : 'secondary'
               }
               size="big"
               aria-label="Overview (0:28)"
               onClick={() => handleTogglePlay(1)}
-              isPlaying={activeVideo === 1 && isPlaying}
-              isVideoButton={true}
             >
               {activeVideo === 1 && isPlaying ? '⏸️ ' : '▶️ '} Overview (0:28)
             </Button>
@@ -561,8 +559,6 @@ export const Hero = () => {
               size="big"
               aria-label="Guided tour (2:39)"
               onClick={() => handleTogglePlay(2)}
-              isPlaying={activeVideo === 2 && isPlaying}
-              isVideoButton={true}
             >
               {activeVideo === 2 && isPlaying ? '⏸️ ' : '▶️ '} Guided Tour
               (2:39)
