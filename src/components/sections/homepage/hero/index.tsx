@@ -95,18 +95,21 @@ export const Hero = () => {
   const muxPlayerRef = useRef(null)
 
   const handleTogglePlay = (videoNumber: number) => {
-    if (activeVideo === videoNumber) {
-      // Toggle play/pause on the current video
+    // If a different video is selected, switch to it
+    if (activeVideo !== videoNumber) {
+      switchVideo(videoNumber)
+    } else {
+      // If the same video is clicked
       if (isPlaying) {
+        // If it's playing, pause it
         muxPlayerRef.current.pause()
         setIsPlaying(false)
       } else {
+        // If it's not playing, play it
         muxPlayerRef.current.play()
         setIsPlaying(true)
+        setVideoEnded({ ...videoEnded, [videoNumber]: false })
       }
-    } else {
-      // Switch to a different video
-      switchVideo(videoNumber)
     }
   }
 
@@ -125,33 +128,34 @@ export const Hero = () => {
     1: {
       playbackId: 'pgs02AyA59TfKakQRtoR2pQUTIX1qvR6UTyC63iqj4GI',
       muted: true,
-      poster:
-        'https://image.mux.com/GvAgJUtjUQ8i2O3fX4J6X8ahjo7ASLOAYrBu01VtP1Hw/thumbnail.png?width=214&height=121&time=0&fit_mode=preserve'
+      poster: ''
     },
     2: {
       playbackId: 'Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg',
       muted: false,
-      poster:
-        'https://image.mux.com/Z00FHys4XTdt01f01yoi9Mr100014dnrwGIHZV502shtvx02tg/thumbnail.png?width=214&height=121&time=0&fit_mode=preserve'
+      poster: ''
     }
   }
 
   const [currentVideo, setCurrentVideo] = useState(videoDetails[1])
+  const [videoEnded, setVideoEnded] = useState({ 1: false, 2: false })
 
   const switchVideo = (videoNumber: number) => {
-    // Set the new active video and its details
+    // Update the active video
     setActiveVideo(videoNumber)
+    // Set the details for the new active video
     setCurrentVideo(videoDetails[videoNumber])
-
-    // Ensure the player is playing the new video
-    muxPlayerRef.current.play()
-    setIsPlaying(true)
+    // A small timeout to ensure state updates have been flushed to the DOM
+    setTimeout(() => {
+      // Play the new active video
+      muxPlayerRef.current.play()
+      setIsPlaying(true)
+    }, 0)
   }
 
   const handleVideoEnd = () => {
-    if (activeVideo === 1) {
-      switchVideo(2)
-    }
+    setIsPlaying(false)
+    setVideoEnded({ ...videoEnded, [activeVideo]: true })
   }
 
   useEffect(() => {
@@ -502,6 +506,7 @@ export const Hero = () => {
         <Container>
           <div className={s['dashboard']}>
             <MuxPlayer
+              key={currentVideo.playbackId}
               ref={muxPlayerRef}
               streamType="on-demand"
               playbackId={currentVideo.playbackId}
@@ -532,40 +537,45 @@ export const Hero = () => {
             }}
           >
             <Button
-              mode={activeVideo === 1 ? 'primary' : 'secondary'}
+              mode={
+                activeVideo === 1 && !videoEnded[1] ? 'secondary' : 'secondary'
+              }
               size="big"
               aria-label="Overview (0:28)"
               onClick={() => handleTogglePlay(1)}
               isPlaying={activeVideo === 1 && isPlaying}
               isVideoButton={true}
-              loadingProgress={
-                activeVideo === 1
-                  ? (videoProgress[1].currentTime / videoProgress[1].duration) *
-                  100
-                  : undefined
-              }
             >
-              {activeVideo === 1 ? (isPlaying ? '⏸️' : '▶️') : '▶️'} Overview
-              (0:28)
+              {activeVideo === 1 && isPlaying ? '⏸️ ' : '▶️ '} Overview (0:28)
             </Button>
 
             <Button
-              mode={activeVideo === 2 ? 'primary' : 'secondary'}
+              mode={
+                activeVideo === 2 && !videoEnded[2] ? 'secondary' : 'secondary'
+              }
               size="big"
               aria-label="Guided tour (2:39)"
               onClick={() => handleTogglePlay(2)}
               isPlaying={activeVideo === 2 && isPlaying}
               isVideoButton={true}
-              loadingProgress={
-                activeVideo === 2
-                  ? (videoProgress[2].currentTime / videoProgress[2].duration) *
-                  100
-                  : undefined
-              }
             >
-              {activeVideo === 2 ? (isPlaying ? '⏸️' : '▶️') : '▶️'} Guided Tour
+              {activeVideo === 2 && isPlaying ? '⏸️ ' : '▶️ '} Guided Tour
               (2:39)
             </Button>
+          </div>
+          <div className={s['progressDetails']}>
+            Video 1 progress:{' '}
+            {Math.round(
+              (videoProgress[1].currentTime / videoProgress[1].duration) * 100
+            )}
+            %
+          </div>
+          <div className={s['progressDetails']}>
+            Video 2 progress:{' '}
+            {Math.round(
+              (videoProgress[2].currentTime / videoProgress[2].duration) * 100
+            )}
+            %
           </div>
         </Container>
       </div>
