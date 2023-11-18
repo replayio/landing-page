@@ -274,6 +274,24 @@
   }
 }
 
-.progressDetails {
-  display: none;
+.buttonWithLoader {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radialProgress {
+  position: absolute;
+  top: 50%;
+  left: 28px;
+  transform: translate(-50%, -50%) rotate(-90deg); /* Adjust for the rotation */
+  width: 3.3rem;
+  height: 3.3rem;
+  transform-origin: center;
+}
+
+.buttonText {
+  margin-left: 15px;
+  margin-top: 5px;
 }
