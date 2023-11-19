@@ -205,7 +205,7 @@ export const Hero = () => {
 
   const videoDetails = {
     1: {
-      playbackId: 'pgs02AyA59TfKakQRtoR2pQUTIX1qvR6UTyC63iqj4GI',
+      playbackId: 'QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4',
       muted: true,
       poster: ''
     },
@@ -630,8 +630,8 @@ export const Hero = () => {
                       : playIconSVG}
                     <span className={s.buttonText}>
                       {videoNumber === 1
-                        ? 'Summary (0:28)'
-                        : 'Narrated demo (2:39)'}
+                        ? '20 second summary'
+                        : 'Narrated walkthrough (2:39)'}
                     </span>
                     <svg
                       className={s.radialProgress}
