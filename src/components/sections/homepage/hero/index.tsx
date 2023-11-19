@@ -603,14 +603,7 @@ export const Hero = () => {
             />
           </div>
 
-          <div
-            style={{
-              marginTop: '24px',
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '14px'
-            }}
-          >
+          <div className={s.videoButtons}>
             {[1, 2].map((videoNumber) => {
               const video = videoProgress[videoNumber]
               const progress = video
