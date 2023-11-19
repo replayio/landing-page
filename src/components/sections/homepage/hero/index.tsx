@@ -161,8 +161,8 @@ export const Hero = () => {
   const [activeVideo, setActiveVideo] = useState(1) // Default to the first video
 
   const [videoProgress, setVideoProgress] = useState<VideoProgress>({
-    1: { currentTime: 0, duration: 0 },
-    2: { currentTime: 0, duration: 0 }
+    1: { currentTime: 0, duration: 1 },
+    2: { currentTime: 0, duration: 1 }
   })
 
   const muxPlayerRef = useRef<any>(null)
@@ -172,16 +172,22 @@ export const Hero = () => {
     if (activeVideo === videoNumber) {
       // Toggle the playing state
       if (isPlaying) {
-        // If the video is playing, pause it
         muxPlayerRef.current.pause()
         setIsPlaying(false)
       } else {
-        // If the video is paused, play it
         muxPlayerRef.current.play()
         setIsPlaying(true)
       }
     } else {
-      // If a different video is selected, switch to it
+      // Reset the progress of the currently active video
+      setVideoProgress((prevState) => ({
+        ...prevState,
+        [activeVideo]: {
+          currentTime: 0,
+          duration: prevState[activeVideo].duration
+        }
+      }))
+      // Switch to the new video
       switchVideo(videoNumber as 1 | 2)
     }
   }
