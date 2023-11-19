@@ -184,7 +184,7 @@ export const Hero = () => {
         ...prevState,
         [activeVideo]: {
           currentTime: 0,
-          duration: prevState[activeVideo].duration
+          duration: prevState[activeVideo]?.duration || 0
         }
       }))
       // Switch to the new video
