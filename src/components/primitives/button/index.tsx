@@ -12,20 +12,27 @@ import { checkIsExternal } from '~/lib/utils/router'
 import { Link, LinkProps } from '../link'
 import s from './button.module.scss'
 
+type VideoControlProps = {
+  isVideoButton?: boolean
+  loadingProgress?: number
+  onTogglePlay?: () => void
+}
+
 type ButtonProps<C extends ElementType> = {
   size?: 'sm' | 'md'
   variant?:
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'tertiary-inverted'
-    | 'tertiary-inverted-alt'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'tertiary-inverted'
+  | 'tertiary-inverted-alt'
   unstyled?: boolean
   rounded?: boolean
+  isVideoButton?: boolean
   noHover?: boolean
-  children?: React.ReactNode
   as?: C
-} & React.ComponentPropsWithoutRef<C>
+} & VideoControlProps &
+  React.ComponentPropsWithoutRef<C>
 
 type PolymorphicRef<C extends ElementType> = ComponentPropsWithRef<C>['ref']
 
@@ -33,37 +40,51 @@ export const Button = forwardRef(
   <C extends ElementType>(
     {
       as,
-      children,
       variant = 'secondary',
       unstyled = false,
       size = 'md',
       rounded = false,
       className,
       noHover = false,
+      isVideoButton = false,
+      onTogglePlay,
       ...rest
     }: ButtonProps<C>,
     ref: PolymorphicRef<C>
   ) => {
     const Comp = as || 'button'
 
+    // Event handler for the video button
+    const handleTogglePlay = () => {
+      if (onTogglePlay) {
+        onTogglePlay()
+      }
+    }
+
     return (
       <Comp
         className={clsx(
           s['button'],
-          {
-            [s['rounded'] as string]: rounded,
-            [s['unstyled'] as string]: unstyled,
-            [s['no-hover'] as string]: noHover
-          },
+          rounded && s['rounded'],
+          unstyled && s['unstyled'],
+          noHover && s['no-hover'],
+          isVideoButton && s['video-button'],
           s[variant],
           s[size],
           className
         )}
         {...rest}
         ref={ref}
-      >
-        <span className={s['content']}>{children}</span>
-      </Comp>
+        onClick={(e) => {
+          if (isVideoButton) {
+            e.stopPropagation()
+            handleTogglePlay()
+          }
+          if (rest.onClick) {
+            rest.onClick(e)
+          }
+        }}
+      ></Comp>
     )
   }
 )
