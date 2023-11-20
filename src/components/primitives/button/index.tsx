@@ -14,7 +14,6 @@ import s from './button.module.scss'
 
 type VideoControlProps = {
   isVideoButton?: boolean
-  isPlaying?: boolean
   loadingProgress?: number
   onTogglePlay?: () => void
 }
@@ -27,12 +26,10 @@ type ButtonProps<C extends ElementType> = {
   | 'tertiary'
   | 'tertiary-inverted'
   | 'tertiary-inverted-alt'
-  isPlaying?: boolean
   unstyled?: boolean
   rounded?: boolean
   isVideoButton?: boolean
   noHover?: boolean
-  children?: React.ReactNode
   as?: C
 } & VideoControlProps &
   React.ComponentPropsWithoutRef<C>
@@ -43,7 +40,6 @@ export const Button = forwardRef(
   <C extends ElementType>(
     {
       as,
-      children,
       variant = 'secondary',
       unstyled = false,
       size = 'md',
@@ -51,17 +47,12 @@ export const Button = forwardRef(
       className,
       noHover = false,
       isVideoButton = false,
-      isPlaying = false,
       onTogglePlay,
       ...rest
     }: ButtonProps<C>,
     ref: PolymorphicRef<C>
   ) => {
     const Comp = as || 'button'
-
-    // Play/Pause Icon Elements
-    const PlayIcon = () => <span>▶️</span> // Replace with actual play icon
-    const PauseIcon = () => <span>⏸️</span> // Replace with actual pause icon
 
     // Event handler for the video button
     const handleTogglePlay = () => {
@@ -93,12 +84,7 @@ export const Button = forwardRef(
             rest.onClick(e)
           }
         }}
-      >
-        <span className={s['content']}>
-          {isVideoButton && (isPlaying ? <PauseIcon /> : <PlayIcon />)}
-          {children}
-        </span>
-      </Comp>
+      ></Comp>
     )
   }
 )

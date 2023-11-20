@@ -124,21 +124,3 @@
     width: auto;
   }
 }
-
-.progress-bar-container {
-  margin-top: 4px;
-  height: 4px;
-  background-color: #ddd; /* Background color of the progress bar */
-  width: 100%;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: blue; /* Color of the progress */
-}
-
-.circular-progress circle {
-  transition: stroke-dashoffset 0.35s;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
