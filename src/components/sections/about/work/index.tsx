@@ -14,9 +14,9 @@ import s from './work.module.scss'
 
 const positions = [
   {
-    title: 'Runtime Engineer',
-    skills: 'Engineering',
-    href: 'https://replayio.notion.site/replayio/Runtime-Engineer-47b715e382264dd5bc32d3ab1de14753'
+    title: 'Founding GTM Member',
+    skills: 'GTM',
+    href: 'https://replayio.notion.site/Founding-GTM-Member-44008e5bcbe141eb9bf68c08f71980a4'
   }
 ]
 
