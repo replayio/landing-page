@@ -35,7 +35,7 @@ const availablePlatforms: { [platform: string]: PlatformIcon } = {
   }
 }
 
-const getPlatform = (): Platform | null => {
+export const getPlatform = (): Platform | null => {
   if (isServer) return null
 
   const uAgent = navigator.userAgent
