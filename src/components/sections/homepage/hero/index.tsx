@@ -205,7 +205,7 @@ export const Hero = () => {
 
   const videoDetails = {
     1: {
-      playbackId: 'QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4',
+      playbackId: 'Depao01zs006N01sxcX5CNkt007q6gbF3YvGLPT01wZrz27k',
       muted: true,
       poster: ''
     },
@@ -604,7 +604,7 @@ export const Hero = () => {
               }}
               muted={currentVideo.muted}
               autoPlay={true}
-              onEnded={handleVideoEnd} // Add this event handler
+              onEnded={handleVideoEnd}
               style={{ '--controls': 'none' } as React.CSSProperties}
             />
           </div>
