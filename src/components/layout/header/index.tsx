@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { DownloadLink } from '~/components/common/download-button'
+import { DownloadLink, getPlatform } from '~/components/common/download-button'
 import { ButtonLink } from '~/components/primitives/cta'
 import { NavLink } from '~/components/primitives/nav-link'
 import { useAppStore } from '~/context/use-app-store'
@@ -34,7 +34,11 @@ export const Header = () => {
   const { navigationSitemapShowing } = useAppStore()
   const toggle = useToggleState()
   const router = useRouter()
+  const [platform, setPlatform] = useState<string | null>(null)
 
+  useEffect(() => {
+    setPlatform(getPlatform())
+  }, [])
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -106,7 +110,7 @@ export const Header = () => {
 
             <div className={s['ctas']}>
               <DownloadLink href="/" aria-label="Download" invertedHover>
-                Download
+                {platform === 'windows' ? 'Download the beta' : 'Download'}
               </DownloadLink>
               <ButtonLink
                 size="big"
