@@ -795,7 +795,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0, // Assuming that IDs are unique and sequential
-              href: 'https://download.replay.io/mac',
+              href: '/downloads/replay.dmg',
               label: 'macOS',
               icon: (
                 <svg
@@ -814,7 +814,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 1, // Assuming that IDs are unique and sequential
-              href: 'https://download.replay.io/windows',
+              href: '/downloads/windows-replay.zip',
               label: 'Windows Beta',
               icon: (
                 <svg
@@ -833,7 +833,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
             },
             {
               id: 2, // Assuming that IDs are unique and sequential
-              href: 'https://download.replay.io/linux',
+              href: '/downloads/linux-replay.tar.bz2',
               label: 'Linux',
               icon: (
                 <svg

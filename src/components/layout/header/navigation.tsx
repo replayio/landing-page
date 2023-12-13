@@ -41,9 +41,18 @@ export const NavigationList = ({
   )
 }
 
-export const NavigationItem = ({ children }: ChildrenProps) => {
+type NavigationItemProps = {
+  className?: string
+}
+
+export const NavigationItem: React.FC<NavigationItemProps> = ({
+  className,
+  children
+}) => {
   return (
-    <NavigationMenu.Item className={s.itemList}>{children}</NavigationMenu.Item>
+    <NavigationMenu.Item className={clsx(s.itemList, className)}>
+      {children}
+    </NavigationMenu.Item>
   )
 }
 
