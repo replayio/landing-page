@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { DownloadLink, getPlatform } from '~/components/common/download-button'
 import { ButtonLink } from '~/components/primitives/cta'
 import { NavLink } from '~/components/primitives/nav-link'
 import { useAppStore } from '~/context/use-app-store'
@@ -26,7 +25,8 @@ export const links = [
   SITEMAP.devTools,
   SITEMAP.timeTravel,
   SITEMAP.company,
-  SITEMAP.pricing
+  SITEMAP.pricing,
+  SITEMAP.download
 ]
 
 export const Header = () => {
@@ -34,11 +34,7 @@ export const Header = () => {
   const { navigationSitemapShowing } = useAppStore()
   const toggle = useToggleState()
   const router = useRouter()
-  const [platform, setPlatform] = useState<string | null>(null)
 
-  useEffect(() => {
-    setPlatform(getPlatform())
-  }, [])
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -80,7 +76,10 @@ export const Header = () => {
 
           <NavigationList quantity={links.length}>
             {links.map((link, index) => (
-              <NavigationItem key={link.label}>
+              <NavigationItem
+                key={link.label}
+                className={s[`headerLink-${index + 1}`]}
+              >
                 {link.dropdown ? (
                   <>
                     <NavigationTrigger>{link.label}</NavigationTrigger>
@@ -109,9 +108,6 @@ export const Header = () => {
             <MobileMenu burgerClassName={s['burgerButton']} {...toggle} />
 
             <div className={s['ctas']}>
-              <DownloadLink href="/" aria-label="Download" invertedHover>
-                {platform === 'windows' ? 'Download the beta' : 'Download'}
-              </DownloadLink>
               <ButtonLink
                 size="big"
                 mode="secondary"

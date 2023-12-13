@@ -92,6 +92,10 @@
     width: 457px;
   }
 
+  &-6 {
+    width: 480px;
+  }
+
   &[data-motion='from-start'] {
     animation-name: kf-enter-from-left;
   }
