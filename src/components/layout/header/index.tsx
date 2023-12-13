@@ -26,7 +26,8 @@ export const links = [
   SITEMAP.devTools,
   SITEMAP.timeTravel,
   SITEMAP.company,
-  SITEMAP.pricing
+  SITEMAP.pricing,
+  SITEMAP.download
 ]
 
 export const Header = () => {
