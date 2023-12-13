@@ -84,7 +84,9 @@ export const Button = forwardRef(
             rest.onClick(e)
           }
         }}
-      ></Comp>
+      >
+        <span style={{ position: 'relative', zIndex: 1 }}>{rest.children}</span>
+      </Comp>
     )
   }
 )
