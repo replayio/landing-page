@@ -1,0 +1,68 @@
+@import 'css/variables';
+
+.container {
+  background: linear-gradient(
+    256.14deg,
+    #111827 0%,
+    #111826 4.7%,
+    #101726 8.9%,
+    #101725 12.8%,
+    #101624 16.56%,
+    #0f1523 20.37%,
+    #0f1421 24.4%,
+    #0e1420 28.83%,
+    #0d121e 33.84%,
+    #0c111c 39.6%,
+    #0b1019 46.3%,
+    #0a0e16 54.1%,
+    #080c13 63.2%,
+    #070a10 73.76%,
+    #05070c 85.97%,
+    #030407 100%
+  );
+  border: 1px solid rgb(31 41 55 / 0.86);
+  border-radius: 32px;
+  max-width: 1360px;
+  width: calc(100% - 80px);
+  margin: auto;
+  margin-bottom: 120px;
+  margin-top: 120px;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.column {
+  flex: 1;
+  text-align: center;
+  margin: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .downloadButton {
+    margin-top: 24px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #05374e;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    border-radius: 8px;
+  }
+
+  .downloadButton:hover {
+    background-color: #0b4c6b;
+  }
+}
