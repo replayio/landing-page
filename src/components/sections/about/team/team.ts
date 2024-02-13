@@ -5,12 +5,9 @@ import domi from '~/public/images/about/team/domi.png'
 import holger from '~/public/images/about/team/holger.png'
 import jason from '~/public/images/about/team/jason.png'
 import jon from '~/public/images/about/team/jon.png'
-import kannan from '~/public/images/about/team/kannan.png'
-import logan from '~/public/images/about/team/logan.jpeg'
 import mark from '~/public/images/about/team/mark.png'
 import miriam from '~/public/images/about/team/miriam.png'
 import ryan from '~/public/images/about/team/ryan.png'
-import sophie from '~/public/images/about/team/sophie.png'
 import vaughn from '~/public/images/about/team/vaughn.jpeg'
 
 export const team = [
@@ -42,16 +39,6 @@ export const team = [
   },
 
   {
-    image: logan,
-    position: 'Software engineer',
-    name: 'Logan Smyth',
-    bio: `Logan loves diving into complex systems, and before Replay they helped maintain BabelJS, and worked on Firefox's developer tools at Mozilla. Outside work they love playing games, reading, and finding interesting new things to learn about.`,
-    socials: {
-      twitter: 'https://twitter.com/loganfsmyth',
-      linkedin: 'https://www.linkedin.com/in/logan-smyth-82a98012/'
-    }
-  },
-  {
     image: dan,
     position: 'Software engineer',
     name: 'Dan Miller',
@@ -71,24 +58,7 @@ export const team = [
       linkedin: 'https://www.linkedin.com/in/markerikson/'
     }
   },
-  {
-    image: kannan,
-    position: 'Software engineer',
-    name: 'Kannan Vijayan',
-    bio: `Kannan has implemented everything from an IrDA stack for Blackberry devices, to an mRNA sequence analysis platform for biology researchers, to a Javascript JIT for Firefox. Outside of work hours, he is learning his way around creating a nature preserve and small personal farm in a 100-acre patch of exploited land in rural Canada. He has always had his feet in two different worlds at any given time and aims to keep it that way.`,
-    socials: {
-      linkedin: 'https://www.linkedin.com/in/kannan-vijayan-30695622/'
-    }
-  },
-  {
-    image: sophie,
-    position: 'Infrastructure contractor',
-    name: 'Sophie Haskins',
-    bio: `Sophie helps build the backend infrastructure of Replay. Through her career on infra teams at Etsy, Yelp, and GitHub, she's found the most joy in building systems that focus on the people they support, rather than pure technology. If she gets to share evocative colorful graphs along the way, all the better.`,
-    socials: {
-      twitter: 'https://twitter.com/sophaskins'
-    }
-  },
+
   {
     image: jon,
     position: 'Designer',
