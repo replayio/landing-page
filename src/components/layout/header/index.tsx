@@ -23,10 +23,9 @@ import {
 export const links = [
   SITEMAP.solutions,
   SITEMAP.devTools,
-  SITEMAP.timeTravel,
+  SITEMAP.docs,
   SITEMAP.company,
-  SITEMAP.pricing,
-  SITEMAP.download
+  SITEMAP.pricing
 ]
 
 export const Header = () => {
@@ -115,6 +114,14 @@ export const Header = () => {
                 aria-label={SITEMAP.login.label}
               >
                 {SITEMAP.login.label}
+              </ButtonLink>
+              <ButtonLink
+                size="big"
+                mode="primary"
+                href={SITEMAP.getStarted.href || '/'}
+                aria-label={SITEMAP.getStarted.label}
+              >
+                {SITEMAP.getStarted.label}
               </ButtonLink>
             </div>
           </div>
