@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { Ref, useEffect, useMemo, useRef, useState } from 'react'
-import { useIntercom } from 'react-use-intercom'
 
 import { AspectBox } from '~/components/common/aspect-box'
 import { Container } from '~/components/layout/container'
@@ -141,7 +140,6 @@ const pauseIconSVG = (
 )
 
 export const Hero = () => {
-  const { boot } = useIntercom()
   const firstRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -410,10 +408,6 @@ export const Hero = () => {
       tl.kill()
     }
   }, [isSm])
-
-  useEffect(() => {
-    boot()
-  }, [boot])
 
   // lantern handler
   const { elementRef } = useMouseTracker({
