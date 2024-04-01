@@ -16,6 +16,7 @@ export const Policy: FC = () => {
             Privacy Policy
           </Heading>
           <span>Effective date: 8 Feb 2023</span>
+          <span>Last reviewed: 2 Apr 2024</span>
         </div>
         <div className={s.content}>
           <p>
