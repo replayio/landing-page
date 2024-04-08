@@ -18,6 +18,5 @@ export const useAppStore = create<AppStore>((set) => ({
   setNavigationSitemapShowing: (navigationSitemapShowing: boolean) =>
     set((s) => ({ ...s, navigationSitemapShowing })),
   tabIsFocused: true,
-  setTabIsFocused: (tabIsFocused: boolean) =>
-    set((s) => ({ ...s, tabIsFocused }))
+  setTabIsFocused: (tabIsFocused: boolean) => set((s) => ({ ...s, tabIsFocused }))
 }))

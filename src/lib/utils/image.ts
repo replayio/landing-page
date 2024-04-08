@@ -3,7 +3,7 @@ const imageWidths = [
   16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840
 ] as const
 
-export type NextImageWidth = typeof imageWidths[number]
+export type NextImageWidth = (typeof imageWidths)[number]
 
 export const getNextImageSrc = ({
   src,
@@ -19,16 +19,11 @@ export const getNextImageSrc = ({
 
 export const findClosestNextImageWidth = (width: number): NextImageWidth => {
   return (
-    imageWidths.find((w) => w >= width) ||
-    (imageWidths[imageWidths.length - 1] as NextImageWidth)
+    imageWidths.find((w) => w >= width) || (imageWidths[imageWidths.length - 1] as NextImageWidth)
   )
 }
 
-export const getImageSizes = (
-  desktop: number,
-  tablet?: number,
-  mobile?: number
-) => {
+export const getImageSizes = (desktop: number, tablet?: number, mobile?: number) => {
   let str = ''
 
   if (mobile) {

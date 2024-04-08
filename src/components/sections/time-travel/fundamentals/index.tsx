@@ -17,9 +17,7 @@ export const Fundamentals = () => {
   const [selectedFeatureId, setSelectedFeatureId] = useState<string>(
     data[0]?.id || 'record-runtime'
   )
-  const currentTabIndex = data.findIndex(
-    (item) => item.id === selectedFeatureId
-  )
+  const currentTabIndex = data.findIndex((item) => item.id === selectedFeatureId)
   const [emblaRef, embla] = useEmblaCarousel({ align: 'center' })
   const isTablet = useTabletLgBreakpoint()
 
@@ -28,10 +26,7 @@ export const Fundamentals = () => {
     setSelectedFeatureId(data[embla.selectedScrollSnap()]?.id as string)
   }, [embla])
 
-  const scrollTo = useCallback(
-    (index: number) => embla && embla.scrollTo(index),
-    [embla]
-  )
+  const scrollTo = useCallback((index: number) => embla && embla.scrollTo(index), [embla])
 
   useEffect(() => {
     if (!embla) return
@@ -44,9 +39,7 @@ export const Fundamentals = () => {
   }, [isTablet, embla])
 
   const prevCard = () => {
-    const findFeatureIndex: number = data.findIndex(
-      (item) => item.id === selectedFeatureId
-    )
+    const findFeatureIndex: number = data.findIndex((item) => item.id === selectedFeatureId)
 
     if (data[findFeatureIndex - 1]) {
       setSelectedFeatureId(data[findFeatureIndex - 1]?.id as string)
@@ -54,9 +47,7 @@ export const Fundamentals = () => {
   }
 
   const nextCard = () => {
-    const findFeatureIndex: number = data.findIndex(
-      (item) => item.id === selectedFeatureId
-    )
+    const findFeatureIndex: number = data.findIndex((item) => item.id === selectedFeatureId)
 
     if (data[findFeatureIndex + 1] !== undefined) {
       setSelectedFeatureId(data[findFeatureIndex + 1]?.id as string)
@@ -164,12 +155,7 @@ const InfoSide = ({
             {cta.label}
           </ButtonLink>
         ) : (
-          <NavLink
-            className={s['link']}
-            href={cta.href}
-            iconSuffix="arrow"
-            invertedHover
-          >
+          <NavLink className={s['link']} href={cta.href} iconSuffix="arrow" invertedHover>
             {cta.label}
           </NavLink>
         )}
@@ -197,18 +183,18 @@ const data: DataType[] = [
     label: 'What is time travel?',
     title: (
       <>
-        Don't record your app. <span>Record your runtime.</span>
+        Don&apos;t record your app. <span>Record your runtime.</span>
       </>
     ),
     description: (
       <>
         <p>
-          Time travel refers to the ability to record and deterministically
-          replay the runtime down to the event loop and microtask queue.
+          Time travel refers to the ability to record and deterministically replay the runtime down
+          to the event loop and microtask queue.
         </p>
         <p>
-          In order to pull this off, the runtime needs to think it’s running on
-          the original computer at the original time.
+          In order to pull this off, the runtime needs to think it’s running on the original
+          computer at the original time.
         </p>
       </>
     ),
@@ -230,14 +216,12 @@ const data: DataType[] = [
     description: (
       <>
         <p>
-          99.9% of compute is deterministic and does not need to be recorded.
-          The challenge with recording Chrome is knowing how to capture the .1%
-          that's non-deterministic.
+          99.9% of compute is deterministic and does not need to be recorded. The challenge with
+          recording Chrome is knowing how to capture the .1% that&apos;s non-deterministic.
         </p>
         <p>
-          Because 99.9% of compute is deterministic, time travel has the ability
-          to be incredibly lightweight, lossless, and capable of post-hoc
-          dynamic analysis.
+          Because 99.9% of compute is deterministic, time travel has the ability to be incredibly
+          lightweight, lossless, and capable of post-hoc dynamic analysis.
         </p>
       </>
     ),
@@ -259,14 +243,13 @@ const data: DataType[] = [
     description: (
       <>
         <p>
-          Breakpoint debugging lets you pause a program at a point in time and
-          explore the current state. Time travel debugging lets you pause at any
-          point in time and explore.
+          Breakpoint debugging lets you pause a program at a point in time and explore the current
+          state. Time travel debugging lets you pause at any point in time and explore.
         </p>
         <p>
-          At a higher-level, time travel lets you query the state of the program
-          across time. This is how we build Replay DevTools and how anyone can
-          extend our protocol to build even more futuristic DevTools.
+          At a higher-level, time travel lets you query the state of the program across time. This
+          is how we build Replay DevTools and how anyone can extend our protocol to build even more
+          futuristic DevTools.
         </p>
       </>
     ),

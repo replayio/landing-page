@@ -305,7 +305,10 @@
           gap: 6px;
           border-radius: var(--border-radius-8);
           padding: 4px;
-          transition: color, background, var(--duration-normal) var(--ease-1);
+          transition:
+            color,
+            background,
+            var(--duration-normal) var(--ease-1);
 
           @include respond-to('tablet-lg') {
             gap: 8px;
@@ -462,11 +465,15 @@
     #05070c 85.97%,
     #030407 100%
   );
-  box-shadow: 0px 4px 8px -2px rgb(31 41 55 / 0.1),
+  box-shadow:
+    0px 4px 8px -2px rgb(31 41 55 / 0.1),
     0px 2px 4px -2px rgb(31 41 55 / 0.06);
   border-radius: 24px;
   overflow: hidden;
-  transition: width, height, var(--duration-normal) var(--ease-1);
+  transition:
+    width,
+    height,
+    var(--duration-normal) var(--ease-1);
   height: var(--radix-navigation-menu-viewport-height);
   width: var(--radix-navigation-menu-viewport-width);
   will-change: transform;

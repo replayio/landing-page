@@ -29,10 +29,7 @@ export function OverboardStory() {
   const canFitScrollytelling = height >= SCROLLYTELLING_MIN_HEIGHT
 
   return (
-    <Container
-      size="lg"
-      style={{ opacity: rendered ? 1 : 0, transition: 'opacity 0.3s ease-in' }}
-    >
+    <Container size="lg" style={{ opacity: rendered ? 1 : 0, transition: 'opacity 0.3s ease-in' }}>
       {(() => {
         if (rendered) {
           if (isDesktop === true && canFitScrollytelling) {

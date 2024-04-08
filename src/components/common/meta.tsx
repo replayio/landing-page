@@ -64,23 +64,9 @@ export const Meta = (props: MetaProps) => {
         <meta name="theme-color" content={props.themeColor ?? '#000000'} />
 
         {/* Favicon */}
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#da532c" />
@@ -95,27 +81,15 @@ export const Meta = (props: MetaProps) => {
         <meta name="twitter:site" content={resolvedMetadata.twitter.site} />
         <meta name="twitter:creator" content={resolvedMetadata.twitter.site} />
         <meta name="twitter:title" content={resolvedMetadata.title} />
-        <meta
-          name="twitter:description"
-          content={resolvedMetadata.description}
-        />
+        <meta name="twitter:description" content={resolvedMetadata.description} />
         <meta name="twitter:image" content={resolvedMetadata.ogImage.url} />
         <meta property="og:title" content={resolvedMetadata.title} />
-        <meta
-          property="og:description"
-          content={resolvedMetadata.description}
-        />
+        <meta property="og:description" content={resolvedMetadata.description} />
         <meta property="og:url" content={resolvedMetadata.canonical} />
         <meta property="og:image" content={resolvedMetadata.ogImage.url} />
         <meta property="og:image:alt" content={resolvedMetadata.ogImage.alt} />
-        <meta
-          property="og:image:width"
-          content={resolvedMetadata.ogImage.width + ''}
-        />
-        <meta
-          property="og:image:height"
-          content={resolvedMetadata.ogImage.height + ''}
-        />
+        <meta property="og:image:width" content={resolvedMetadata.ogImage.width + ''} />
+        <meta property="og:image:height" content={resolvedMetadata.ogImage.height + ''} />
 
         <meta
           name="ahrefs-site-verification"

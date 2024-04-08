@@ -1,15 +1,6 @@
 import clsx from 'clsx'
-import useEmblaCarousel, {
-  EmblaCarouselType,
-  EmblaOptionsType
-} from 'embla-carousel-react'
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useState
-} from 'react'
+import useEmblaCarousel, { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel-react'
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react'
 
 import s from './carousel.module.scss'
 
@@ -22,10 +13,7 @@ type CarouselProps = {
   arrows?: boolean
 } & JSX.IntrinsicElements['div']
 
-export const Carousel = forwardRef<
-  EmblaCarouselType | undefined,
-  CarouselProps
->(
+export const Carousel = forwardRef<EmblaCarouselType | undefined, CarouselProps>(
   (
     {
       children,
@@ -46,10 +34,7 @@ export const Carousel = forwardRef<
       ...config
     })
 
-    const scrollTo = useCallback(
-      (index) => embla && embla.scrollTo(index),
-      [embla]
-    )
+    const scrollTo = useCallback((index: number) => embla && embla.scrollTo(index), [embla])
 
     const onSelect = useCallback(() => {
       if (!embla) return
@@ -77,16 +62,10 @@ export const Carousel = forwardRef<
     return (
       <>
         <div className={clsx(s['embla'], className)}>
-          <div
-            className={clsx(s['embla__viewport'], viewportClassname)}
-            ref={viewportRef}
-          >
+          <div className={clsx(s['embla__viewport'], viewportClassname)} ref={viewportRef}>
             <ul className={clsx(s['embla__container'], containerClassname)}>
               {slides.map((child, idx) => (
-                <li
-                  className={clsx(s['embla__slide'], slideClassName)}
-                  key={idx}
-                >
+                <li className={clsx(s['embla__slide'], slideClassName)} key={idx}>
                   <div className={s['embla__slide__inner']}>{child}</div>
                 </li>
               ))}
@@ -168,3 +147,5 @@ export const Carousel = forwardRef<
     )
   }
 )
+
+Carousel.displayName = 'Carousel'

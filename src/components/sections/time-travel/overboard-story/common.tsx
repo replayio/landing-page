@@ -1,6 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
 import clsx from 'clsx'
-import { gsap } from 'lib/gsap'
+import { gsap } from '~/lib/gsap'
 import Prism, { Grammar } from 'prismjs'
 import { FC, forwardRef, MutableRefObject, useEffect, useMemo } from 'react'
 
@@ -9,11 +9,7 @@ Prism.manual = true
 
 import s from './overboard-story.module.scss'
 
-export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({
-  children,
-  style,
-  ...rest
-}) => (
+export const SearchBar: FC<JSX.IntrinsicElements['div']> = ({ children, style, ...rest }) => (
   <div
     style={{
       display: 'flex',
@@ -39,7 +35,7 @@ export const logContent = (content: any) => {
   }
 
   if (kind === 'string') {
-    return <>"{content}"</>
+    return <>&quot;{content}&quot;</>
   }
 
   if (kind === 'boolean') {
@@ -50,11 +46,7 @@ export const logContent = (content: any) => {
     return (
       <span
         dangerouslySetInnerHTML={{
-          __html: Prism.highlight(
-            JSON.stringify(content),
-            Prism.languages?.jsx as Grammar,
-            'jsx'
-          )
+          __html: Prism.highlight(JSON.stringify(content), Prism.languages?.jsx as Grammar, 'jsx')
         }}
       />
     )
@@ -93,11 +85,7 @@ export type IdentifiedNode<T> = T & {
   children?: IdentifiedNode<T>[]
 }
 
-export function identifyNodes<T>(
-  node: T,
-  path?: string,
-  key?: string | number
-): IdentifiedNode<T> {
+export function identifyNodes<T>(node: T, path?: string, key?: string | number): IdentifiedNode<T> {
   return {
     ...node,
     path,
@@ -128,10 +116,13 @@ export function buildUuids(
 export const getStyles = function (elm: Element, stylesProps: string[]) {
   const styles = window.getComputedStyle(elm)
 
-  const stylesObj = stylesProps.reduce((acc, v) => {
-    acc[v] = styles.getPropertyValue(v)
-    return acc
-  }, {} as { [x: string]: string })
+  const stylesObj = stylesProps.reduce(
+    (acc, v) => {
+      acc[v] = styles.getPropertyValue(v)
+      return acc
+    },
+    {} as { [x: string]: string }
+  )
 
   return stylesObj
 }
@@ -141,13 +132,9 @@ export const useInspectElement = (
   scopedInspect?: HTMLElement | null
 ) => {
   useEffect(() => {
-    const storeSelector = gsap.utils.selector(
-      scopedInspect || document.documentElement
-    )
+    const storeSelector = gsap.utils.selector(scopedInspect || document.documentElement)
 
-    const targetInspect = storeSelector(
-      `*[data-box-id='${hoveredComponentBlockId}']`
-    )
+    const targetInspect = storeSelector(`*[data-box-id='${hoveredComponentBlockId}']`)
 
     gsap.set(targetInspect, {
       '--inspect': 1
@@ -161,11 +148,7 @@ export const useInspectElement = (
   }, [hoveredComponentBlockId, scopedInspect])
 }
 
-export const Header: FC<JSX.IntrinsicElements['div']> = ({
-  children,
-  style,
-  ...rest
-}) => (
+export const Header: FC<JSX.IntrinsicElements['div']> = ({ children, style, ...rest }) => (
   <div
     style={{
       display: 'flex',
@@ -181,14 +164,15 @@ export const Header: FC<JSX.IntrinsicElements['div']> = ({
   </div>
 )
 
-export const PanelContainer = forwardRef<
-  HTMLDivElement,
-  JSX.IntrinsicElements['div']
->(({ children, className, ...rest }, ref) => (
-  <div className={clsx(s['panel-container'], className)} {...rest} ref={ref}>
-    {children}
-  </div>
-))
+export const PanelContainer = forwardRef<HTMLDivElement, JSX.IntrinsicElements['div']>(
+  ({ children, className, ...rest }, ref) => (
+    <div className={clsx(s['panel-container'], className)} {...rest} ref={ref}>
+      {children}
+    </div>
+  )
+)
+
+PanelContainer.displayName = 'PanelContainer'
 
 export const useTimeline = (
   active: boolean,

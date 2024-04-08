@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import get from 'lodash/get'
-import { FC, forwardRef, useMemo } from 'react'
+import { FC, forwardRef, ReactNode, useMemo } from 'react'
 
 import { Header, IdentifiedNode, logContent, PanelContainer } from '../common'
 import s from './debugger.module.scss'
@@ -36,9 +36,7 @@ const process = (
   })
 
   const lastIdx = parsedPath[parsedPath.length - 1] as number
-  let prevPath: string | undefined = parsedPath
-    .slice(0, parsedPath.length - 2)
-    .join('.')
+  let prevPath: string | undefined = parsedPath.slice(0, parsedPath.length - 2).join('.')
   const currentScope = prevPath
     ? (get(snapshotTree, prevPath + '.children') as IdentifiedNode<Snapshot>[])
     : snapshotTree
@@ -73,35 +71,24 @@ const process = (
     prevBreakpoint: prevBreakpoint,
     nextBreakpoint: nextBreakpoint,
     next:
-      get(
-        snapshotTree,
-        `${prevPath ? `${prevPath}.children.` : ''}${(lastIdx as number) + 1}`
-      ) || prev,
+      get(snapshotTree, `${prevPath ? `${prevPath}.children.` : ''}${(lastIdx as number) + 1}`) ||
+      prev,
     prev:
-      get(
-        snapshotTree,
-        `${prevPath ? `${prevPath}.children.` : ''}${(lastIdx as number) - 1}`
-      ) || prev
+      get(snapshotTree, `${prevPath ? `${prevPath}.children.` : ''}${(lastIdx as number) - 1}`) ||
+      prev
   }
 }
 
 const DebuggerSection: FC<{
   title: string
+  children?: ReactNode
 }> = ({ title, children }) => {
   return (
     <div className={s['section']}>
       <div className={s['title']}>
         <span>
-          <svg
-            width="12"
-            viewBox="0 0 7 3"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3.66667 3L0.779915 1.19209e-07H6.55342L3.66667 3Z"
-              fill="#7C7C7C"
-            />
+          <svg width="12" viewBox="0 0 7 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.66667 3L0.779915 1.19209e-07H6.55342L3.66667 3Z" fill="#7C7C7C" />
           </svg>
         </span>
         <span>{title}</span>
@@ -114,13 +101,7 @@ const DebuggerSection: FC<{
 
 export const Debugger = forwardRef<HTMLDivElement, DebuggerProps>(
   (
-    {
-      breakpoints,
-      snapshotTree,
-      currentSnapshotPath,
-      onCurrentSnapshotPathChange,
-      ...rest
-    },
+    { breakpoints, snapshotTree, currentSnapshotPath, onCurrentSnapshotPathChange, ...rest },
     ref
   ) => {
     const pathInfo = useMemo(() => {
@@ -161,17 +142,13 @@ export const Debugger = forwardRef<HTMLDivElement, DebuggerProps>(
             const prevPathInfo = process(pathInfo?.prevPath, snapshotTree)
 
             const nextIdx =
-              (prevPathInfo?.parsedPath[
-                prevPathInfo?.parsedPath.length - 1
-              ] as number) + 1
+              (prevPathInfo?.parsedPath[prevPathInfo?.parsedPath.length - 1] as number) + 1
 
             const _prevPath = prevPathInfo?.parsedPath
               .slice(0, prevPathInfo?.parsedPath.length - 2)
               .join('.')
 
-            onCurrentSnapshotPathChange(
-              _prevPath ? _prevPath + '.' : '' + nextIdx
-            )
+            onCurrentSnapshotPathChange(_prevPath ? _prevPath + '.' : '' + nextIdx)
           }
         }
       }
@@ -380,16 +357,11 @@ export const Debugger = forwardRef<HTMLDivElement, DebuggerProps>(
               )}
             </div>
             <ul className={s['variables']}>
-              {Object.entries(currentSnapshot.variables || {}).map(
-                ([key, value]) => (
-                  <li key={key}>
-                    {key}:{' '}
-                    <span style={{ color: '#314EB2' }}>
-                      {logContent(value)}
-                    </span>
-                  </li>
-                )
-              )}
+              {Object.entries(currentSnapshot.variables || {}).map(([key, value]) => (
+                <li key={key}>
+                  {key}: <span style={{ color: '#314EB2' }}>{logContent(value)}</span>
+                </li>
+              ))}
             </ul>
           </DebuggerSection>
         </div>
@@ -397,3 +369,5 @@ export const Debugger = forwardRef<HTMLDivElement, DebuggerProps>(
     )
   }
 )
+
+Debugger.displayName = 'Debugger'

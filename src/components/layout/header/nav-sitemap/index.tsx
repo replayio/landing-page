@@ -35,9 +35,7 @@ export const NavigationSitemap = () => {
 
   // Collect all sections with data-sitemap attr and store it on a state
   useEffect(() => {
-    const sections: any[] = Array.from(
-      document.querySelectorAll('section[data-sitemap]')
-    )
+    const sections: any[] = Array.from(document.querySelectorAll('section[data-sitemap]'))
 
     setSitemap(
       sections.map((item) => {
@@ -79,9 +77,7 @@ export const NavigationSitemap = () => {
         }
       })
 
-      setActiveItem(
-        Object.values(sectionsIntersecting).find((item) => item.isIntersecting)
-      )
+      setActiveItem(Object.values(sectionsIntersecting).find((item) => item.isIntersecting))
     }
 
     const options: IntersectionObserverInit & { triggerOnce?: boolean } = {
@@ -101,17 +97,12 @@ export const NavigationSitemap = () => {
 
   // On mobile it slides the view of the list to the selected item
   useEffect(() => {
-    if (
-      !isTablet ||
-      document.querySelector(`#sitemap-${activeItem?.id}-item`) === undefined
-    ) {
+    if (!isTablet || document.querySelector(`#sitemap-${activeItem?.id}-item`) === undefined) {
       return
     }
 
     const leftPositionOfElement =
-      document
-        .querySelector(`#sitemap-${activeItem?.id}-item`)
-        ?.getBoundingClientRect().left || 0
+      document.querySelector(`#sitemap-${activeItem?.id}-item`)?.getBoundingClientRect().left || 0
 
     listRef.current?.scrollBy(leftPositionOfElement - 16, 0)
   }, [isTablet, activeItem])

@@ -15,8 +15,7 @@ const downloadSVG = () => {
     a.href = url
 
     const logoContainer = document.querySelector(`.${s['logo-container']}`)
-    const isDarkTheme =
-      logoContainer && s['dark'] && logoContainer.classList.contains(s['dark'])
+    const isDarkTheme = logoContainer && s['dark'] && logoContainer.classList.contains(s['dark'])
     a.download = isDarkTheme ? 'replay-logo-dark.svg' : 'replay-logo-light.svg'
 
     a.click()

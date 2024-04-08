@@ -17,9 +17,7 @@ export const Shouts: FC = () => {
   const isMobileSm = useMedia('(max-width: 435px)')
 
   const [visibleShoutsLength, setVisibleShoutsLength] = useState(9)
-  const [visibleShouts, setVisibleShouts] = useState(
-    shouts.slice(0, visibleShoutsLength)
-  )
+  const [visibleShouts, setVisibleShouts] = useState(shouts.slice(0, visibleShoutsLength))
 
   const remainingItemsLength = shouts?.length - visibleShoutsLength
 
@@ -37,8 +35,8 @@ export const Shouts: FC = () => {
             <span className={s.highlighted}> Replay is actually magical!</span>
           </Heading>
           <span>
-            Replay is one of those rare experiences that feels incredibly simple
-            and obvious, and at the same time, profoundly deep and complex.
+            Replay is one of those rare experiences that feels incredibly simple and obvious, and at
+            the same time, profoundly deep and complex.
           </span>
         </div>
         <Masonry
@@ -75,9 +73,7 @@ export const Shouts: FC = () => {
         {visibleShoutsLength < shouts.length && (
           <button
             onClick={() =>
-              setVisibleShoutsLength(
-                visibleShoutsLength + (remainingItemsLength > 14 ? 9 : 14)
-              )
+              setVisibleShoutsLength(visibleShoutsLength + (remainingItemsLength > 14 ? 9 : 14))
             }
           >
             Show more
@@ -93,13 +89,7 @@ export const Shouts: FC = () => {
 }
 
 const ArrowDown = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12.75 3.75L12.75 3L11.25 3L11.25 3.75L12.75 3.75ZM11.25 20.25C11.25 20.6642 11.5858 21 12 21C12.4142 21 12.75 20.6642 12.75 20.25L11.25 20.25ZM11.25 3.75L11.25 20.25L12.75 20.25L12.75 3.75L11.25 3.75Z" />
     <path
       d="M18.75 13.5L12 20.25L5.25 13.5"

@@ -21,15 +21,12 @@ interface Props {
 
 export const Card: FC<Props> = ({ mode, data }) => {
   const variant =
-    (mode === 'bugs' && data.type === 'Organization') ||
-    (mode === 'tests' && data.type == 'Pro')
+    (mode === 'bugs' && data.type === 'Organization') || (mode === 'tests' && data.type == 'Pro')
       ? 'primary'
       : 'default'
 
   return (
-    <div
-      className={clsx(s.card, { [s.primary as string]: variant === 'primary' })}
-    >
+    <div className={clsx(s.card, { [s.primary as string]: variant === 'primary' })}>
       <h2>{data.type}</h2>
       <div>
         {data?.price ? (
@@ -41,7 +38,7 @@ export const Card: FC<Props> = ({ mode, data }) => {
             <span>{data.mode}</span>
           </>
         ) : (
-          <span>Let's chat</span>
+          <span>Let&apos;s chat</span>
         )}
       </div>
 

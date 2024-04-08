@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { gsap } from 'lib/gsap'
+import { gsap } from '~/lib/gsap'
 
 import { useMouseTracker } from '~/hooks/use-mouse-tracker'
 
@@ -9,12 +9,7 @@ type RootProps = {
   radius?: string
 } & JSX.IntrinsicElements['div']
 
-export const Root = ({
-  children,
-  className,
-  radius = '4em',
-  ...rest
-}: RootProps) => {
+export const Root = ({ children, className, radius = '4em', ...rest }: RootProps) => {
   const { elementRef } = useMouseTracker<HTMLDivElement>({
     onChange: ({ x, y }) => {
       elementRef.current?.classList.add(s.hovering as string)
@@ -46,11 +41,7 @@ export const Root = ({
   )
 }
 
-export const ContentWrapper = ({
-  children,
-  className,
-  ...rest
-}: JSX.IntrinsicElements['div']) => {
+export const ContentWrapper = ({ children, className, ...rest }: JSX.IntrinsicElements['div']) => {
   return (
     <div className={clsx(s['content-wrapper'], className)} {...rest}>
       <div className={s['light']} />

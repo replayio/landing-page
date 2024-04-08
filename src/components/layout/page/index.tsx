@@ -12,12 +12,7 @@ type Props = {
   showHeader?: boolean
   showFooter?: boolean
 }
-export const PageLayout = ({
-  meta,
-  children,
-  showHeader = true,
-  showFooter = true
-}: Props) => {
+export const PageLayout = ({ meta, children, showHeader = true, showFooter = true }: Props) => {
   return (
     <>
       <Meta {...meta} />

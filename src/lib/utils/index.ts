@@ -1,10 +1,10 @@
 import { ReactNode } from 'react'
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 import { isClient } from '~/lib/constants'
 
-export const formatError = (
-  error: unknown
-): { message: string; name?: string } => {
+export const formatError = (error: unknown): { message: string; name?: string } => {
   try {
     if (error instanceof Error) {
       return { message: error.message, name: error.name }
@@ -18,9 +18,7 @@ export const formatError = (
 export const isApiSupported = (api: string) => isClient && api in window
 
 /* Builds responsive sizes string for images */
-export const getSizes = (
-  entries: ({ breakpoint: string; width: string } | string | number)[]
-) => {
+export const getSizes = (entries: ({ breakpoint: string; width: string } | string | number)[]) => {
   const sizes = entries.map((entry) => {
     if (!entry) {
       return ''
@@ -59,9 +57,7 @@ export const rangeMap = (
   inputEnd: number,
   outputStart: number,
   outputEnd: number
-) =>
-  ((input - inputStart) / (inputEnd - inputStart)) * (outputEnd - outputStart) +
-  outputStart
+) => ((input - inputStart) / (inputEnd - inputStart)) * (outputEnd - outputStart) + outputStart
 
 export const userTagRegex = /(@\w+)/g
 export const mdCodeRegex = /`(\w+)`/g
@@ -110,16 +106,14 @@ export const processString = (options: Option[]) => {
 
     options.forEach(
       (option: Option) =>
-        ((input as ReturnType<typeof processInputWithRegex>) =
-          processInputWithRegex(option, input))
+        ((input as ReturnType<typeof processInputWithRegex>) = processInputWithRegex(option, input))
     )
 
     return input
   }
 }
 
-export const padZeroes = (number: number, digits: number) =>
-  number.toString().padStart(digits, '0')
+export const padZeroes = (number: number, digits: number) => number.toString().padStart(digits, '0')
 
 export const dummyImage = (config: {
   width: number
@@ -128,4 +122,8 @@ export const dummyImage = (config: {
   foreground: string
 }) => {
   return `https://dummyimage.com/${config.width}x${config.height}/${config.background}/${config.foreground}`
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }

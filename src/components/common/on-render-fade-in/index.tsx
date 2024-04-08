@@ -7,6 +7,7 @@ import s from './on-render-fade-in.module.scss'
 
 type OnRenderFadeInProps = JSX.IntrinsicElements['div'] & {
   animateTranslate?: boolean
+  children: ((animationEnded: boolean) => JSX.Element) | JSX.Element
 }
 
 export const OnRenderFadeIn: FC<OnRenderFadeInProps> = ({

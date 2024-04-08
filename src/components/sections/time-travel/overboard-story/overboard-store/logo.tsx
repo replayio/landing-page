@@ -1,9 +1,6 @@
 import { FC } from 'react'
 
-export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
-  className,
-  ...rest
-}) => (
+export const Logo: FC<JSX.IntrinsicElements['svg']> = ({ className, ...rest }) => (
   <svg
     className={className}
     viewBox="0 0 1024 266"
@@ -128,60 +125,20 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
       />
     </g>
     <defs>
-      <pattern
-        id="overboard-d"
-        patternContentUnits="objectBoundingBox"
-        width={1}
-        height={1}
-      >
-        <use
-          xlinkHref="#overboard-n"
-          transform="matrix(.00435 0 0 .00435 -.178 -2.891)"
-        />
+      <pattern id="overboard-d" patternContentUnits="objectBoundingBox" width={1} height={1}>
+        <use xlinkHref="#overboard-n" transform="matrix(.00435 0 0 .00435 -.178 -2.891)" />
       </pattern>
-      <pattern
-        id="overboard-f"
-        patternContentUnits="objectBoundingBox"
-        width={1}
-        height={1}
-      >
-        <use
-          xlinkHref="#overboard-n"
-          transform="matrix(.00435 0 0 .00435 -.178 -2.891)"
-        />
+      <pattern id="overboard-f" patternContentUnits="objectBoundingBox" width={1} height={1}>
+        <use xlinkHref="#overboard-n" transform="matrix(.00435 0 0 .00435 -.178 -2.891)" />
       </pattern>
-      <pattern
-        id="overboard-h"
-        patternContentUnits="objectBoundingBox"
-        width={1}
-        height={1}
-      >
-        <use
-          xlinkHref="#overboard-n"
-          transform="matrix(.00435 0 0 .00435 -.178 -2.891)"
-        />
+      <pattern id="overboard-h" patternContentUnits="objectBoundingBox" width={1} height={1}>
+        <use xlinkHref="#overboard-n" transform="matrix(.00435 0 0 .00435 -.178 -2.891)" />
       </pattern>
-      <pattern
-        id="overboard-j"
-        patternContentUnits="objectBoundingBox"
-        width={1}
-        height={1}
-      >
-        <use
-          xlinkHref="#overboard-n"
-          transform="matrix(.00435 0 0 .00435 -.178 -2.891)"
-        />
+      <pattern id="overboard-j" patternContentUnits="objectBoundingBox" width={1} height={1}>
+        <use xlinkHref="#overboard-n" transform="matrix(.00435 0 0 .00435 -.178 -2.891)" />
       </pattern>
-      <pattern
-        id="overboard-l"
-        patternContentUnits="objectBoundingBox"
-        width={1}
-        height={1}
-      >
-        <use
-          xlinkHref="#overboard-n"
-          transform="matrix(.00435 0 0 .00435 -.178 -2.891)"
-        />
+      <pattern id="overboard-l" patternContentUnits="objectBoundingBox" width={1} height={1}>
+        <use xlinkHref="#overboard-n" transform="matrix(.00435 0 0 .00435 -.178 -2.891)" />
       </pattern>
       <filter
         id="overboard-a"
@@ -202,10 +159,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feGaussianBlur stdDeviation={5} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
-        <feBlend
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_1731_992"
-        />
+        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -214,10 +168,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feOffset dy={22} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-        <feBlend
-          in2="effect1_dropShadow_1731_992"
-          result="effect2_dropShadow_1731_992"
-        />
+        <feBlend in2="effect1_dropShadow_1731_992" result="effect2_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -226,10 +177,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feOffset dy={19} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-        <feBlend
-          in2="effect2_dropShadow_1731_992"
-          result="effect3_dropShadow_1731_992"
-        />
+        <feBlend in2="effect2_dropShadow_1731_992" result="effect3_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -238,10 +186,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feOffset dy={16} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-        <feBlend
-          in2="effect3_dropShadow_1731_992"
-          result="effect4_dropShadow_1731_992"
-        />
+        <feBlend in2="effect3_dropShadow_1731_992" result="effect4_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -250,10 +195,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feOffset dy={13} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-        <feBlend
-          in2="effect4_dropShadow_1731_992"
-          result="effect5_dropShadow_1731_992"
-        />
+        <feBlend in2="effect4_dropShadow_1731_992" result="effect5_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -262,10 +204,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feOffset dy={10} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-        <feBlend
-          in2="effect5_dropShadow_1731_992"
-          result="effect6_dropShadow_1731_992"
-        />
+        <feBlend in2="effect5_dropShadow_1731_992" result="effect6_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -274,10 +213,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feOffset dy={7} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-        <feBlend
-          in2="effect6_dropShadow_1731_992"
-          result="effect7_dropShadow_1731_992"
-        />
+        <feBlend in2="effect6_dropShadow_1731_992" result="effect7_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -286,15 +222,8 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feOffset dy={4} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-        <feBlend
-          in2="effect7_dropShadow_1731_992"
-          result="effect8_dropShadow_1731_992"
-        />
-        <feBlend
-          in="SourceGraphic"
-          in2="effect8_dropShadow_1731_992"
-          result="shape"
-        />
+        <feBlend in2="effect7_dropShadow_1731_992" result="effect8_dropShadow_1731_992" />
+        <feBlend in="SourceGraphic" in2="effect8_dropShadow_1731_992" result="shape" />
       </filter>
       <filter
         id="overboard-m"
@@ -315,10 +244,7 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feGaussianBlur stdDeviation={6} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.75 0" />
-        <feBlend
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow_1731_992"
-        />
+        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1731_992" />
         <feColorMatrix
           in="SourceAlpha"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -328,15 +254,8 @@ export const Logo: FC<JSX.IntrinsicElements['svg']> = ({
         <feGaussianBlur stdDeviation={16} />
         <feComposite in2="hardAlpha" operator="out" />
         <feColorMatrix values="0 0 0 0 0.872167 0 0 0 0 0.508333 0 0 0 0 1 0 0 0 1 0" />
-        <feBlend
-          in2="effect1_dropShadow_1731_992"
-          result="effect2_dropShadow_1731_992"
-        />
-        <feBlend
-          in="SourceGraphic"
-          in2="effect2_dropShadow_1731_992"
-          result="shape"
-        />
+        <feBlend in2="effect1_dropShadow_1731_992" result="effect2_dropShadow_1731_992" />
+        <feBlend in="SourceGraphic" in2="effect2_dropShadow_1731_992" result="shape" />
       </filter>
       <linearGradient
         id="overboard-b"

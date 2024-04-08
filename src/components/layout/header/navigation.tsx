@@ -25,10 +25,7 @@ export const NavigationWrapper = ({ children }: ChildrenProps) => {
   )
 }
 
-export const NavigationList = ({
-  quantity,
-  children
-}: { quantity: number } & ChildrenProps) => {
+export const NavigationList = ({ quantity, children }: { quantity: number } & ChildrenProps) => {
   return (
     <div className={s.listWrapper}>
       <NavigationMenu.List
@@ -41,18 +38,13 @@ export const NavigationList = ({
   )
 }
 
-type NavigationItemProps = {
+type NavigationItemProps = ChildrenProps & {
   className?: string
 }
 
-export const NavigationItem: React.FC<NavigationItemProps> = ({
-  className,
-  children
-}) => {
+export const NavigationItem: React.FC<NavigationItemProps> = ({ className, children }) => {
   return (
-    <NavigationMenu.Item className={clsx(s.itemList, className)}>
-      {children}
-    </NavigationMenu.Item>
+    <NavigationMenu.Item className={clsx(s.itemList, className)}>{children}</NavigationMenu.Item>
   )
 }
 
@@ -163,12 +155,7 @@ export const NavigationContent = ({
                     {subitem.label}
 
                     {checkIsExternal(subitem.href) && (
-                      <svg
-                        width="12"
-                        height="12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                      <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="m3.34881 8.65164 5.3033-5.3033m0 0H3.87914m4.77297 0v4.77297"
                           stroke="currentColor"

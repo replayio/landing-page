@@ -1,4 +1,4 @@
-import { gsap, SplitText } from 'lib/gsap'
+import { gsap, SplitText } from '~/lib/gsap'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 
@@ -6,17 +6,11 @@ import { Section } from '~/components/layout/section'
 import { Button } from '~/components/primitives/cta'
 import { Title } from '~/components/primitives/texts'
 
-const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
-  {
-    ssr: false
-  }
-)
+const Sky = dynamic(() => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent, {
+  ssr: false
+})
 const Grid3D = dynamic(
-  () =>
-    import('~/components/common/grid-3d').then(
-      (m) => m.Grid3D
-    ) as LoaderComponent,
+  () => import('~/components/common/grid-3d').then((m) => m.Grid3D) as LoaderComponent,
   {
     ssr: false
   }

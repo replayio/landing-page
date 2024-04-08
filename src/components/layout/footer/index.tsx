@@ -13,12 +13,7 @@ const links = [
   },
   {
     section: 'Get Help',
-    links: [
-      SITEMAP.discord,
-      SITEMAP.docs,
-      SITEMAP.githubIssues,
-      SITEMAP.contactUs
-    ]
+    links: [SITEMAP.discord, SITEMAP.docs, SITEMAP.githubIssues, SITEMAP.contactUs]
   },
   {
     section: 'Legal',
@@ -50,10 +45,7 @@ export const Footer = () => {
       <div className={s.mainContent}>
         <p className={s.info}>
           Time travel debugging is the best way to see and understand software.{' '}
-          <span>
-            That’s why Replay will always be free for individuals and open
-            source.
-          </span>
+          <span>That’s why Replay will always be free for individuals and open source.</span>
         </p>
 
         <div className={s.links}>
@@ -63,11 +55,7 @@ export const Footer = () => {
 
               <ul>
                 {item.links.map((link) => (
-                  <NavLink
-                    key={link.label}
-                    href={link.href || '/'}
-                    aria-label={link.label}
-                  >
+                  <NavLink key={link.label} href={link.href || '/'} aria-label={link.label}>
                     {link.label}
                   </NavLink>
                 ))}
@@ -77,9 +65,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <p className={s.copyright}>
-        &copy; {new Date().getFullYear()} Replay, All rights reserved.
-      </p>
+      <p className={s.copyright}>&copy; {new Date().getFullYear()} Replay, All rights reserved.</p>
     </footer>
   )
 }

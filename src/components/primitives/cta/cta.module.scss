@@ -162,7 +162,8 @@
     width: calc(100% + 2px);
     height: calc(100% + 2px);
     transition: opacity var(--duration-normal) var(--ease-1);
-    background: linear-gradient(
+    background:
+      linear-gradient(
         0deg,
         rgb(var(--secondary-color-rgb) / var(--inv-gradient-opacity)),
         rgb(var(--secondary-color-rgb) / var(--inv-gradient-opacity))

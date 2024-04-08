@@ -15,11 +15,7 @@ export const Hero: FC = () => {
         <span className={s['marker']}>
           <ProgressMarker active />
         </span>
-        <svg
-          viewBox="0 0 1440 772"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg viewBox="0 0 1440 772" fill="none" xmlns="http://www.w3.org/2000/svg">
           <mask
             id="mask0_2073_6914"
             style={{ maskType: 'alpha' }}
@@ -32,31 +28,11 @@ export const Hero: FC = () => {
             <rect width="1440" height="772" fill="url(#a)" />
           </mask>
           <g mask="url(#b)">
-            <path
-              d="M2030.06 157L521.358 1028.05"
-              stroke="url(#c)"
-              strokeDasharray="8 8"
-            />
-            <path
-              d="M1809.13 964.16L134 -2.97461"
-              stroke="url(#d)"
-              strokeDasharray="8 8"
-            />
-            <path
-              d="M2030.06 612.051L521.358 -259"
-              stroke="url(#e)"
-              strokeDasharray="8 8"
-            />
-            <path
-              d="M1809.13 -195.109L134 772.026"
-              stroke="url(#f)"
-              strokeDasharray="8 8"
-            />
-            <path
-              d="M1220.31 1352L1220.31 -582"
-              stroke="url(#g)"
-              strokeDasharray="8 8"
-            />
+            <path d="M2030.06 157L521.358 1028.05" stroke="url(#c)" strokeDasharray="8 8" />
+            <path d="M1809.13 964.16L134 -2.97461" stroke="url(#d)" strokeDasharray="8 8" />
+            <path d="M2030.06 612.051L521.358 -259" stroke="url(#e)" strokeDasharray="8 8" />
+            <path d="M1809.13 -195.109L134 772.026" stroke="url(#f)" strokeDasharray="8 8" />
+            <path d="M1220.31 1352L1220.31 -582" stroke="url(#g)" strokeDasharray="8 8" />
           </g>
           <defs>
             <linearGradient
@@ -149,9 +125,8 @@ export const Hero: FC = () => {
               <span className={s['heading-highlight']}>your test suite.</span>
             </Heading>
             <p>
-              <b>Hate debugging browser tests? </b>Reach out and we'll help set
-              you up which is basically as easy as swapping vanilla Chrome for
-              our fork of Chromium.
+              <b>Hate debugging browser tests? </b>Reach out and we&apos;ll help set you up which is
+              basically as easy as swapping vanilla Chrome for our fork of Chromium.
             </p>
 
             <div className={s['cta']}>

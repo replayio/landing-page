@@ -12,15 +12,11 @@ export const Container = forwardRef<HTMLDivElement, Props>(
   ({ className, as = 'div', size = 'md', ...props }, ref) => {
     const Element: ElementType = as
 
-    return (
-      <Element
-        {...props}
-        className={clsx(s.container, s[size], className)}
-        ref={ref}
-      />
-    )
+    return <Element {...props} className={clsx(s.container, s[size], className)} ref={ref} />
   }
 )
+
+Container.displayName = 'Container'
 
 export const containerStyles = s
 

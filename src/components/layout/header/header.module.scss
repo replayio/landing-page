@@ -23,7 +23,9 @@
   right: 0;
   width: 100%;
   z-index: var(--header-z-index);
-  transition: background 0.3s var(--ease-1), transform 0.3s var(--ease-1),
+  transition:
+    background 0.3s var(--ease-1),
+    transform 0.3s var(--ease-1),
     opacity 0.3s var(--ease-out-soft);
   backdrop-filter: blur(12px);
 

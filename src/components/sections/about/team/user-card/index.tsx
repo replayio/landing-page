@@ -24,31 +24,19 @@ export interface UserCardProps {
   }
 }
 
-export const UserCard: FC<UserCardProps> = ({
-  member,
-  modalIsOn,
-  handleModal
-}) => {
+export const UserCard: FC<UserCardProps> = ({ member, modalIsOn, handleModal }) => {
   return (
     <div className={s.card}>
-      <Image
-        src={member.image}
-        placeholder="blur"
-        alt={`${member.name} image`}
-      />
+      <Image src={member.image} placeholder="blur" alt={`${member.name} image`} />
       {member.shout && <p className={s.shout}>{member.shout}</p>}
       {member.position && <h4 className={s.position}>{member.position}</h4>}
       <h3 className={s.name}>{member.name}</h3>
       {member.job && <span className={s.job}>{member.job}</span>}
       {member.bio && (
         <p className={s.bio}>
-          {member.bio.length > 195 && !modalIsOn
-            ? member.bio.slice(0, 195) + '... '
-            : member.bio}
+          {member.bio.length > 195 && !modalIsOn ? member.bio.slice(0, 195) + '... ' : member.bio}
           {member.bio.length > 195 && !modalIsOn && (
-            <button onClick={() => handleModal && handleModal(member)}>
-              See more
-            </button>
+            <button onClick={() => handleModal && handleModal(member)}>See more</button>
           )}
         </p>
       )}

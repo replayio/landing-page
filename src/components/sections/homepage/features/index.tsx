@@ -20,18 +20,13 @@ export const Features = () => {
   const isTablet = useTabletLgBreakpoint()
   const activeBarRef = useRef<HTMLDivElement>(null)
 
-  const scrollTo = useCallback(
-    (index: number) => embla && embla.scrollTo(index),
-    [embla]
-  )
+  const scrollTo = useCallback((index: number) => embla && embla.scrollTo(index), [embla])
 
   useEffect(() => {
     if (!activeBarRef.current) return
 
     const findFeature = data.find((item) => item.id === selectedFeatureId)
-    const findFeatureIndex = data.findIndex(
-      (item) => item.id === selectedFeatureId
-    )
+    const findFeatureIndex = data.findIndex((item) => item.id === selectedFeatureId)
 
     if (!findFeature) return
 
@@ -49,8 +44,7 @@ export const Features = () => {
       activeBarRef.current.style.left = `${findLabelElement.offsetLeft}px`
     } else {
       activeBarRef.current.style.left = `${
-        findLabelElement.offsetLeft +
-        parseFloat(labelElementComputedStyle.paddingLeft)
+        findLabelElement.offsetLeft + parseFloat(labelElementComputedStyle.paddingLeft)
       }px`
     }
 
@@ -90,9 +84,8 @@ export const Features = () => {
           subtitle={{
             children: (
               <span>
-                Designed with enterprise grade security, reliability, and
-                privacy controls from the start because earning your trust is
-                our top priority.
+                Designed with enterprise grade security, reliability, and privacy controls from the
+                start because earning your trust is our top priority.
               </span>
             )
           }}
@@ -140,20 +133,12 @@ export const Features = () => {
                     }
                   }}
                 >
-                  <Image
-                    src={item.asset.url}
-                    width={40}
-                    height={40}
-                    alt={item.label}
-                  />
+                  <Image src={item.asset.url} width={40} height={40} alt={item.label} />
                   <div>
                     <p className={s.title}>{item.title}</p>
                     <p className={s.description}>{item.description}</p>
 
-                    <CardLink
-                      item={item}
-                      disabled={item.id !== selectedFeatureId}
-                    />
+                    <CardLink item={item} disabled={item.id !== selectedFeatureId} />
                   </div>
                 </div>
               </div>
@@ -172,13 +157,7 @@ export const Features = () => {
   )
 }
 
-const CardLink = ({
-  item,
-  disabled
-}: {
-  item: DataType
-  disabled: boolean
-}) => {
+const CardLink = ({ item, disabled }: { item: DataType; disabled: boolean }) => {
   return (
     <NavLink
       invertedHover
@@ -207,9 +186,7 @@ const Arrows = ({
         aria-label="Previous feature"
         disabled={selectedFeatureId === data[0]?.id}
         onClick={() => {
-          const findFeatureIndex: number = data.findIndex(
-            (item) => item.id === selectedFeatureId
-          )
+          const findFeatureIndex: number = data.findIndex((item) => item.id === selectedFeatureId)
 
           if (data[findFeatureIndex - 1]) {
             handleSelctedFeature(data[findFeatureIndex - 1]?.id as string)
@@ -223,9 +200,7 @@ const Arrows = ({
         aria-label="Next feature"
         disabled={selectedFeatureId === data[data.length - 1]?.id}
         onClick={() => {
-          const findFeatureIndex: number = data.findIndex(
-            (item) => item.id === selectedFeatureId
-          )
+          const findFeatureIndex: number = data.findIndex((item) => item.id === selectedFeatureId)
 
           if (data[findFeatureIndex + 1] !== undefined) {
             handleSelctedFeature(data[findFeatureIndex + 1]?.id as string)
@@ -259,8 +234,8 @@ const data: DataType[] = [
     title: 'SOC2 Type II reporting',
     description: (
       <>
-        Replay.io continuously monitors and reports primarily using System and
-        Organization Controls (SOC) 2 Type&nbsp;2.
+        Replay.io continuously monitors and reports primarily using System and Organization Controls
+        (SOC) 2 Type&nbsp;2.
       </>
     ),
     cta: {

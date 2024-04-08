@@ -1,15 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
-// eslint-disable-next-line simple-import-sort/imports
 import clsx from 'clsx'
 import Prism, { Grammar } from 'prismjs'
-import {
-  forwardRef,
-  Fragment,
-  RefObject,
-  useImperativeHandle,
-  useMemo,
-  useRef
-} from 'react'
+import { forwardRef, Fragment, RefObject, useImperativeHandle, useMemo, useRef } from 'react'
 
 import 'prismjs/components/prism-jsx'
 
@@ -39,10 +31,7 @@ type PrintPanelProps = {
     currentMarker?: ConsoleMarker
     currentHit?: number
     onComplete?: () => void
-    onChangeMarker?: (
-      marker: ConsoleMarker,
-      paused?: boolean
-    ) => GSAPTimeline | void
+    onChangeMarker?: (marker: ConsoleMarker, paused?: boolean) => GSAPTimeline | void
     onHit?: (idx: number) => void
     printLineTarget: number
     comments?: CommentModuleProps['comments']
@@ -71,12 +60,7 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
                   <button
                     onClick={() => printPanelConfig?.onChangeMarker?.(color)}
                     data-marker={color}
-                    className={clsx(
-                      commonS['marker'],
-                      commonS[color],
-                      s['marker'],
-                      s['hoverable']
-                    )}
+                    className={clsx(commonS['marker'], commonS[color], s['marker'], s['hoverable'])}
                     key={color}
                   />
                 ))}
@@ -84,8 +68,7 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
               <span
                 className={clsx(
                   s['toggle'],
-                  printPanelConfig.currentMarker &&
-                    s[printPanelConfig.currentMarker]
+                  printPanelConfig.currentMarker && s[printPanelConfig.currentMarker]
                 )}
               />
             </div>
@@ -100,14 +83,8 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
               {printPanelConfig?.print}
             </p>
             {printPanelConfig.comments && (
-              <div
-                id="scrollytelling-second-comment"
-                style={{ position: 'relative', width: 32 }}
-              >
-                <CommentModule
-                  side="side-left"
-                  comments={printPanelConfig.comments}
-                />
+              <div id="scrollytelling-second-comment" style={{ position: 'relative', width: 32 }}>
+                <CommentModule side="side-left" comments={printPanelConfig.comments} />
               </div>
             )}
           </div>
@@ -136,12 +113,7 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
                 d="M4.68231 7.17859L7.22809 5.60423L9.7739 4.02988C9.88432 3.96166 10.0095 3.92576 10.137 3.92578C10.2645 3.92581 10.3897 3.96176 10.5001 4.03002C10.6105 4.09829 10.7021 4.19646 10.7659 4.31469C10.8296 4.43291 10.8632 4.56702 10.8633 4.70355V11.0009C10.8632 11.1375 10.8297 11.2716 10.7659 11.3898C10.7022 11.508 10.6105 11.6062 10.5001 11.6745C10.3897 11.7427 10.2645 11.7787 10.137 11.7787C10.0095 11.7787 9.88432 11.7428 9.7739 11.6746L7.22809 10.1003L4.68231 8.52595C4.5719 8.45767 4.48021 8.35948 4.41647 8.24122C4.35272 8.12296 4.31916 7.98882 4.31916 7.85227C4.31916 7.71572 4.35272 7.58157 4.41647 7.46332C4.48021 7.34506 4.5719 7.24686 4.68231 7.17859Z"
                 fill="white"
               />
-              <circle
-                cx="29.185"
-                cy="7.85294"
-                r="7.85294"
-                fill="var(--grey-600)"
-              />
+              <circle cx="29.185" cy="7.85294" r="7.85294" fill="var(--grey-600)" />
               <path
                 d="M32.7474 7.17859L30.2016 5.60423L27.6558 4.02988C27.5454 3.96166 27.4201 3.92576 27.2927 3.92578C27.1652 3.92581 27.04 3.96176 26.9296 4.03002C26.8192 4.09829 26.7275 4.19646 26.6638 4.31469C26.6 4.43291 26.5665 4.56702 26.5664 4.70355V11.0009C26.5664 11.1375 26.6 11.2716 26.6638 11.3898C26.7275 11.508 26.8192 11.6062 26.9296 11.6745C27.04 11.7427 27.1652 11.7787 27.2927 11.7787C27.4201 11.7787 27.5454 11.7428 27.6558 11.6746L30.2016 10.1003L32.7474 8.52595C32.8578 8.45767 32.9495 8.35948 33.0132 8.24122C33.077 8.12296 33.1105 7.98882 33.1105 7.85227C33.1105 7.71572 33.077 7.58157 33.0132 7.46332C32.9495 7.34506 32.8578 7.24686 32.7474 7.17859Z"
                 fill="white"
@@ -183,8 +155,7 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
             <span
               className={clsx(
                 s['hit-counter'],
-                printPanelConfig.currentMarker &&
-                  s[printPanelConfig.currentMarker]
+                printPanelConfig.currentMarker && s[printPanelConfig.currentMarker]
               )}
             >
               {printPanelConfig?.currentHit}/{timelineProps?.markers?.length}
@@ -195,6 +166,8 @@ const PrintPanel = forwardRef<UseGsapTimeAPI | ProgressAPI, PrintPanelProps>(
     )
   }
 )
+
+PrintPanel.displayName = 'PrintPanel'
 
 const CodeLine = ({
   children,
@@ -207,10 +180,7 @@ const CodeLine = ({
   children: React.ReactNode
 }) => {
   return (
-    <div
-      className={s['code-line']}
-      style={{ background: debug ? '#e0f7ff' : 'transparent' }}
-    >
+    <div className={s['code-line']} style={{ background: debug ? '#e0f7ff' : 'transparent' }}>
       <pre>
         <code
           className="language-jsx"
@@ -224,6 +194,8 @@ const CodeLine = ({
     </div>
   )
 }
+
+CodeLine.displayName = 'CodeLine'
 
 type CodeProps = {
   filename?: string
@@ -242,13 +214,7 @@ export type CodeRef = {
   timeline: UseGsapTimeAPI | ProgressAPI | null
 }
 
-const availableMarkers: ConsoleMarker[] = [
-  'unicorn',
-  'green',
-  'red',
-  'yellow',
-  'purple'
-]
+const availableMarkers: ConsoleMarker[] = ['unicorn', 'green', 'red', 'yellow', 'purple']
 
 export const Code = forwardRef<CodeRef, CodeProps>(
   (
@@ -275,8 +241,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
           onInactive: () => printPanelConfig?.onHit?.(idx)
         })),
         markerSize: 12,
-        markerActiveColor:
-          printPanelConfig?.markerActiveColor || 'var(--color-pink-crayon)',
+        markerActiveColor: printPanelConfig?.markerActiveColor || 'var(--color-pink-crayon)',
         onStart: () => {
           printPanelConfig?.onHit?.(0)
         },
@@ -315,9 +280,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
         {...rest}
         ref={elmRef}
       >
-        <Header>
-          {filename && <div className={s['file-tab']}>{filename}</div>}
-        </Header>
+        <Header>{filename && <div className={s['file-tab']}>{filename}</div>}</Header>
 
         <div className={s['code']}>
           <div />
@@ -346,9 +309,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                 <span
                   style={{
                     display: 'inline-block',
-                    color: hasBreakpoint
-                      ? 'var(--color-white)'
-                      : 'var(--grey-600)',
+                    color: hasBreakpoint ? 'var(--color-white)' : 'var(--grey-600)',
                     textAlign: 'right',
                     paddingRight: '4px',
                     fontVariantNumeric: 'tabular-nums',
@@ -362,23 +323,15 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                   className={s['print-indicator']}
                   style={{
                     background:
-                      (printIndicators?.[codeLine] === 'not-available' &&
-                        'var(--red-400)') ||
-                      (printIndicators?.[codeLine] === 'available' &&
-                        'var(--editor-500)') ||
+                      (printIndicators?.[codeLine] === 'not-available' && 'var(--red-400)') ||
+                      (printIndicators?.[codeLine] === 'available' && 'var(--editor-500)') ||
                       'var(--editor-600)'
                   }}
                 >
                   {isTargetLine && (
                     <>
-                      <span
-                        id="dev-tools-add-print"
-                        className={clsx(s['add-print'])}
-                      />
-                      <div
-                        id="dev-tools-print-tutorial"
-                        className={s['tutorial-popup']}
-                      >
+                      <span id="dev-tools-add-print" className={clsx(s['add-print'])} />
+                      <div id="dev-tools-print-tutorial" className={s['tutorial-popup']}>
                         <div>
                           <svg
                             width="32"
@@ -414,9 +367,7 @@ export const Code = forwardRef<CodeRef, CodeProps>(
                           </svg>
                         </div>
                         <div className={s['hits-container']}>
-                          <p className={s['text']}>
-                            Click to add a print statement
-                          </p>
+                          <p className={s['text']}>Click to add a print statement</p>
                           <span className={s['hits']}>1 hit</span>
                         </div>
                       </div>
@@ -445,3 +396,5 @@ export const Code = forwardRef<CodeRef, CodeProps>(
     )
   }
 )
+
+Code.displayName = 'Code'

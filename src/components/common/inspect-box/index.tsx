@@ -10,22 +10,11 @@ type InspectBoxProps = {
   name: string
 } & JSX.IntrinsicElements['div']
 
-export const InspectBox: FC<InspectBoxProps> = ({
-  boxId,
-  name,
-  className,
-  children,
-  ...rest
-}) => {
+export const InspectBox: FC<InspectBoxProps> = ({ boxId, name, className, children, ...rest }) => {
   const [ref, bounds] = useMeasure({ polyfill: ResizeObserver })
 
   return (
-    <div
-      data-box-id={boxId}
-      className={clsx(s['inspect-box'], className)}
-      {...rest}
-      ref={ref}
-    >
+    <div data-box-id={boxId} className={clsx(s['inspect-box'], className)} {...rest} ref={ref}>
       {children}
       <span className={s['info']}>
         {name} | {bounds.width.toFixed(0)}px x {bounds.height.toFixed(0)}px

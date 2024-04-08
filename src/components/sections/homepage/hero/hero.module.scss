@@ -227,7 +227,8 @@
         calc(var(--radius) * var(--raw-ratio));
       border-bottom-right-radius: var(--radius)
         calc(var(--radius) * var(--raw-ratio));
-      box-shadow: 0px 4px 8px -2px rgb(31 41 55 / 0.1),
+      box-shadow:
+        0px 4px 8px -2px rgb(31 41 55 / 0.1),
         0px 2px 4px -2px rgb(31 41 55 / 0.06);
 
       img {

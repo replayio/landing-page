@@ -8,14 +8,7 @@ import s from './devtools.module.scss'
 
 const rewind = (
   <svg viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect
-      x="0.582031"
-      y="0.583984"
-      width="1.16667"
-      height="5.83333"
-      rx="0.583333"
-      fill="white"
-    />
+    <rect x="0.582031" y="0.583984" width="1.16667" height="5.83333" rx="0.583333" fill="white" />
     <path
       d="M2.75973 3.089C2.47272 3.28784 2.47272 3.71216 2.75973 3.911L5.75676 5.9874C6.08836 6.21714 6.5415 5.97981 6.5415 5.5764V1.4236C6.5415 1.02019 6.08836 0.78286 5.75676 1.0126L2.75973 3.089Z"
       fill="white"
@@ -25,14 +18,7 @@ const rewind = (
 
 const forward = (
   <svg viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect
-      x="0.582031"
-      y="0.583984"
-      width="1.16667"
-      height="5.83333"
-      rx="0.583333"
-      fill="white"
-    />
+    <rect x="0.582031" y="0.583984" width="1.16667" height="5.83333" rx="0.583333" fill="white" />
     <path
       d="M6.40678 3.089C6.69378 3.28784 6.69378 3.71216 6.40678 3.911L3.40975 5.9874C3.07815 6.21714 2.625 5.97981 2.625 5.5764V1.4236C2.625 1.02019 3.07815 0.78286 3.40975 1.0126L6.40678 3.089Z"
       fill="white"
@@ -40,13 +26,7 @@ const forward = (
   </svg>
 )
 
-export type Marker =
-  | 'yellow'
-  | 'purple'
-  | 'green'
-  | 'red'
-  | 'unicorn'
-  | 'transparent'
+export type Marker = 'yellow' | 'purple' | 'green' | 'red' | 'unicorn' | 'transparent'
 
 export type ConsoleProps = {
   disableTravel?: boolean
@@ -64,10 +44,7 @@ export type ConsoleProps = {
 }
 
 export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
-  (
-    { currentHit = 0, disableTravel = false, logs, onCurrentHitChange },
-    ref
-  ) => {
+  ({ currentHit = 0, disableTravel = false, logs, onCurrentHitChange }, ref) => {
     const fullLogs = logs
       .map(({ hits, content, ...rest }) =>
         range(hits).map((i) => ({
@@ -121,9 +98,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                     disabled={i === currentHit}
                     id="icon"
                   >
-                    <span className={s['icon']}>
-                      {i > currentHit ? forward : rewind}
-                    </span>
+                    <span className={s['icon']}>{i > currentHit ? forward : rewind}</span>
                     {i > currentHit ? 'Forward' : 'Rewind'}
                   </button>
                 )}
@@ -132,12 +107,7 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
                   <span
                     data-marker={log.marker}
                     data-line={log.line}
-                    className={clsx(
-                      'marker',
-                      commonS['marker'],
-                      commonS[log.marker],
-                      s['marker']
-                    )}
+                    className={clsx('marker', commonS['marker'], commonS[log.marker], s['marker'])}
                   />
                 </div>
 
@@ -173,3 +143,5 @@ export const Console = forwardRef<HTMLDivElement, ConsoleProps>(
     )
   }
 )
+
+Console.displayName = 'Console'

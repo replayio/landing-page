@@ -15,16 +15,14 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
     const Comp = as
 
     return (
-      <Comp
-        {...rest}
-        className={clsx(s.title, className, { [s.hero as string]: hero })}
-        ref={ref}
-      >
+      <Comp {...rest} className={clsx(s.title, className, { [s.hero as string]: hero })} ref={ref}>
         {children}
       </Comp>
     )
   }
 )
+
+Title.displayName = 'Title'
 
 type SubtitleProps = { children: ReactNode; className?: string }
 
@@ -37,6 +35,8 @@ export const Subtitle = forwardRef<HTMLParagraphElement, SubtitleProps>(
     )
   }
 )
+
+Subtitle.displayName = 'Subtitle'
 
 export const TitleAndSubtitle = ({
   title,

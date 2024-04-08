@@ -22,7 +22,7 @@ const bugreportingPlans = [
     price: 20,
     mode: 'per month / per developer',
     cta: 'Create team',
-    link: 'https://app.replay.io/team/new',
+    link: 'https://replayio.typeform.com/to/jTudlerL',
     features: [
       '200 recordings per month',
       'Up to 10 users + developers',
@@ -35,7 +35,7 @@ const bugreportingPlans = [
     price: 75,
     mode: 'per month / per developer',
     cta: 'Create Organization',
-    link: 'https://app.replay.io/org/new',
+    link: 'https://replayio.typeform.com/to/jTudlerL',
     features: [
       '1,000 recordings per month',
       'Up to 100 users + developers',
@@ -48,12 +48,7 @@ const bugreportingPlans = [
     type: 'Enterprise',
     cta: 'Email Us',
     link: 'mailto:sales@replay.io',
-    features: [
-      'Ability to host your own storage',
-      'Custom contract',
-      'Dedicated support',
-      'SLAs'
-    ]
+    features: ['Ability to host your own storage', 'Custom contract', 'Dedicated support', 'SLAs']
   }
 ]
 
@@ -112,8 +107,7 @@ const testsuitePlans = [
 ]
 
 export const Hero: FC<{ selectedTab: string }> = ({ selectedTab }) => {
-  const selectedPlans =
-    selectedTab === 'tests' ? testsuitePlans : bugreportingPlans
+  const selectedPlans = selectedTab === 'tests' ? testsuitePlans : bugreportingPlans
 
   return (
     <Section className={s.section}>

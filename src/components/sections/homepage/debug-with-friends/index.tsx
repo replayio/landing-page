@@ -143,20 +143,15 @@ export const DebugWithFriends = () => {
             subtitle={{
               children: (
                 <span>
-                  Replay DevTools has modern collaboration features that make it
-                  easier to share context, integrate with tools, and squash bugs
-                  as a team.
+                  Replay DevTools has modern collaboration features that make it easier to share
+                  context, integrate with tools, and squash bugs as a team.
                 </span>
               )
             }}
           />
 
           <div ref={uglyTitle} className={s.uglyTitle}>
-            <svg
-              viewBox="0 0 379 43"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg viewBox="0 0 379 43" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -314,14 +309,14 @@ const Card = ({
     const interval = setInterval(() => {
       Array.from({ length: tileCount }).forEach((_, index) => {
         if (index % 2 === (invertedPattern ? 0 : 1)) {
-          const tile: HTMLElement | null | undefined =
-            gridRef.current?.querySelector(`[data-index="${index}"]`)
+          const tile: HTMLElement | null | undefined = gridRef.current?.querySelector(
+            `[data-index="${index}"]`
+          )
 
           if (!tile) return
 
           // Pick a random next state
-          const nextState =
-            tileStates[Math.floor(Math.random() * tileStates.length)]
+          const nextState = tileStates[Math.floor(Math.random() * tileStates.length)]
           const currentState = tile.dataset.state
 
           const pulse =
@@ -361,12 +356,7 @@ const Card = ({
           ref={gridRef}
         >
           {Array.from({ length: tileCount }).map((_, index) => (
-            <div
-              className={s.tile}
-              key={index}
-              data-index={index}
-              data-state="off"
-            />
+            <div className={s.tile} key={index} data-index={index} data-state="off" />
           ))}
         </div>
 
@@ -393,12 +383,7 @@ const data: DataType[] = [
     title: 'Time-Travel.',
     subtitle: 'Warp to the comment’s execution context.',
     icon: (
-      <svg
-        width="20"
-        height="20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M10 5v5h3.75m3.75 0a7.49996 7.49996 0 0 1-2.1967 5.3033 7.49996 7.49996 0 0 1-10.6066 0 7.49907 7.49907 0 0 1-1.6258-2.4332A7.49977 7.49977 0 0 1 2.5 10c0-1.98912.79018-3.89678 2.1967-5.3033S8.01088 2.5 10 2.5c1.9891 0 3.8968.79018 5.3033 2.1967C16.7098 6.10322 17.5 8.01088 17.5 10Z"
           stroke="currentColor"
@@ -414,12 +399,7 @@ const data: DataType[] = [
     title: 'Contextual comments.',
     subtitle: 'Jump to  the video frame or network request.',
     icon: (
-      <svg
-        width="20"
-        height="20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M6.25 6.875h7.5m-7.5 2.5H10m-8.125 1.2583c0 1.3334.93583 2.495 2.25583 2.6892.94084.1383 1.89167.2442 2.8525.3158.29167.0217.55834.175.72084.4175L10 17.5l2.2958-3.4442a.9507.9507 0 0 1 .3122-.2919.95051.95051 0 0 1 .4087-.1256 40.1444 40.1444 0 0 0 2.8525-.3158c1.32-.1942 2.2558-1.355 2.2558-2.69v-5.015c0-1.335-.9358-2.49583-2.2558-2.69A40.32865 40.32865 0 0 0 10 2.5c-1.99333 0-3.95333.14584-5.86917.4275-1.32.19417-2.25583 1.35584-2.25583 2.69v5.0158Z"
           stroke="currentColor"
@@ -435,12 +415,7 @@ const data: DataType[] = [
     title: 'Shared print statement.',
     subtitle: 'Get on the same page with synced Console logs.',
     icon: (
-      <svg
-        width="20"
-        height="20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M11.875 8.125 13.75 10l-1.875 1.875m-3.75 0L6.25 10l1.875-1.875M5 16.875h10c.4973 0 .9742-.1975 1.3258-.5492.3517-.3516.5492-.8285.5492-1.3258V5c0-.49728-.1975-.97419-.5492-1.32583A1.87485 1.87485 0 0 0 15 3.125H5a1.87503 1.87503 0 0 0-1.32583.54917A1.87503 1.87503 0 0 0 3.125 5v10c0 .4973.19754.9742.54917 1.3258A1.87476 1.87476 0 0 0 5 16.875Z"
           stroke="currentColor"

@@ -27,11 +27,7 @@ export const checkIsExternal = (href: string) => {
 /**
  * Returns href with query parameters and hash. Handles overrides or deletions appropriately.
  */
-export const getHrefWithQuery = (
-  href: string,
-  newQueryParams?: QueryParams,
-  override = true
-) => {
+export const getHrefWithQuery = (href: string, newQueryParams?: QueryParams, override = true) => {
   const uri = new URL(href, siteOrigin)
 
   if (newQueryParams) {

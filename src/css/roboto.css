@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Roboto Mono';
-  src: url('/fonts/roboto/RobotoMono-Regular.woff2') format('woff2'),
+  src:
+    url('/fonts/roboto/RobotoMono-Regular.woff2') format('woff2'),
     url('/fonts/roboto/RobotoMono-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
