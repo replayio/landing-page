@@ -1,9 +1,6 @@
-import { CheckIcon, MinusIcon } from '@heroicons/react/20/solid'
-import { tiers, sections, Tier, Section, FEATURES } from './sections/comparison'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import { CheckIcon } from '@heroicons/react/20/solid'
+import { Tier, Section } from './sections/comparison'
+import { classNames } from '~/lib/utils'
 
 export function XSTable({ tiers, sections }: { tiers: Record<string, Tier>; sections: Section[] }) {
   return (

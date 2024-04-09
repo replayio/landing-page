@@ -2,10 +2,7 @@ import { CheckIcon, MinusIcon } from '@heroicons/react/20/solid'
 import { Fragment } from 'react'
 
 import { Tier, Section } from './sections/comparison'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import { classNames } from '~/lib/utils'
 
 export function LGTable({ tiers, sections }: { tiers: Record<string, Tier>; sections: Section[] }) {
   const tierEntries = Object.entries(tiers)

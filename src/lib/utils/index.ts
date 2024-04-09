@@ -127,3 +127,7 @@ export const dummyImage = (config: {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
+}

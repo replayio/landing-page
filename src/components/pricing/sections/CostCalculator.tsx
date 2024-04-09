@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { CreditCardIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
+import { classNames } from '~/lib/utils'
 
 const daysInTheMonth = 20
 
@@ -60,10 +61,6 @@ const fields: Record<string, FieldType> = {
   numRuns: { label: 'Number of test runs', calculated: true, defaultValue: 0 },
   autoUploaded: { label: 'Automatically uploaded recordings', calculated: true, defaultValue: 0 },
   autoProcessed: { label: 'Automatically processed recordings', calculated: true, defaultValue: 0 }
-}
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
 }
 
 const Emphasis = ({

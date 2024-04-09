@@ -4,10 +4,10 @@ import { Fragment } from 'react'
 import Link from 'next/link'
 import { Popover, Transition } from '@headlessui/react'
 
-import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { Logo } from '~/components/FullLogo'
 import { NavLink } from '~/components/NavLink'
+import { classNames } from '~/lib/utils'
 
 function MobileNavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -82,10 +82,6 @@ function MobileNavigation() {
       </Transition.Root>
     </Popover>
   )
-}
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
 }
 
 export function Header({ variant }: { variant?: 'dark' | 'light' }) {

@@ -1,7 +1,5 @@
 import Link from 'next/link'
-function classNames(...classes: (boolean | string | undefined)[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import { classNames } from '~/lib/utils'
 
 export function NavLink({
   variant,
@@ -22,7 +20,7 @@ export function NavLink({
         variant === 'dark'
           ? 'text-slate-200 hover:bg-slate-800 hover:text-slate-100'
           : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900',
-        className
+        className || ''
       )}
     >
       {children}
