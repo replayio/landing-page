@@ -24,10 +24,7 @@ export default function Home() {
         return (
           <>
             <main>
-              <div
-                className="bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: 'url(/images/hyperspace.svg)' }}
-              >
+              <div>
                 <Header />
                 <Hero {...landingPage} />
               </div>
