@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { RichText } from 'basehub/react-rich-text'
 import vamsi from '~/images/vamsi.jpeg'
+import styles from './Carousel.module.css'
 
 const images = { vamsi }
 
@@ -11,29 +12,25 @@ export function Carousel({
   testimonials: LandingPageFragment['hero']['testimonials']['items']
 }) {
   const testimonial = testimonials[0].testimonial
+  console.log(testimonial.quote.json.content) // Check the content
+
   return (
-    <section className="overflow-hiddenpx-6 isolate lg:px-8">
-      <div className="relative mx-auto max-w-2xl py-4 text-left sm:py-0 lg:max-w-xl ">
-        <figure className="grid grid-cols-1 items-center gap-x-6 gap-y-4 lg:gap-x-6">
-          <div className="relative col-span-2 lg:col-start-1 lg:row-start-2">
-            <blockquote className="text-md font-light leading-8 text-gray-900 sm:text-sm sm:leading-5">
-              <RichText>{testimonial.quote.json.content}</RichText>
-            </blockquote>
+    <section
+      className={`relative flex items-center justify-center rounded-lg bg-white p-6 shadow lg:p-8 lg:pl-10 ${styles.testimonialSection}`}
+      style={{ width: '320px' }}
+    >
+      <div className="w-full max-w-4xl">
+        <blockquote
+          className={`leading-2 relative text-sm font-normal italic text-gray-900 ${styles.testimonialQuote}`}
+        >
+          <RichText>{testimonial.quote.json.content}</RichText>
+        </blockquote>
+        <figcaption className="mt-4 flex items-center">
+          <div>
+            <div className="text-md font-semibold text-gray-900">{testimonial.name}</div>
+            <div className="text-sm text-gray-500">{testimonial.title}</div>
           </div>
-          <div className="col-end-1 w-16 lg:row-span-4 lg:w-16">
-            <Image
-              src={images.vamsi}
-              alt=""
-              className="rounded-full bg-indigo-50 lg:rounded-full"
-            />
-          </div>
-          <figcaption className="text-sm lg:col-start-1 lg:row-start-3">
-            <div className="mb-0 pb-0 font-medium leading-tight text-gray-900">
-              {testimonial.name}
-            </div>
-            <div className="mt-0 pt-0 leading-tight text-gray-500">{testimonial.title}</div>
-          </figcaption>
-        </figure>
+        </figcaption>
       </div>
     </section>
   )
