@@ -123,7 +123,11 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <div className="hidden md:block">
-              <NavLink variant={variant} href="https://app.replay.io">
+              <NavLink
+                variant="dark"
+                href="https://app.replay.io"
+                className=" bg-black px-4 text-white"
+              >
                 Sign in
               </NavLink>
             </div>
