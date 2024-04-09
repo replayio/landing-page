@@ -1,0 +1,10 @@
+.testimonialQuote::before {
+  content: '“';
+  font-size: 8rem;
+  position: absolute;
+  top: 16px;
+  left: -30px;
+  color: rgba(0, 0, 0, 0.059); /* Increased opacity for testing */
+  font-family: 'Helvetica Neue', sans-serif;
+  z-index: 1; /* Changed to positive for testing */
+}

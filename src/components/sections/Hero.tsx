@@ -39,10 +39,8 @@ export function Hero({ hero }: LandingPageFragment) {
             <Cal link={hero.contactUsLink} />
           </div>
         </div>
-        <div className="flex-none p-4">
-          <div className="border p-2">
-            <Carousel testimonials={hero.testimonials.items} />
-          </div>
+        <div className="flex-none p-0">
+          <Carousel testimonials={hero.testimonials.items} />
         </div>
       </Container>
       <div className="my-12 w-full rounded-lg px-4 py-0">
