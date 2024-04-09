@@ -1,5 +1,5 @@
 import Link from 'next/link'
-function classNames(...classes: (boolean | string)[]) {
+function classNames(...classes: (boolean | string | undefined)[]) {
   return classes.filter(Boolean).join(' ')
 }
 
