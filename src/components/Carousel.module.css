@@ -3,8 +3,8 @@
   font-size: 8rem;
   position: absolute;
   top: 16px;
-  left: -30px;
-  color: rgba(0, 0, 0, 0.059); /* Increased opacity for testing */
+  left: -36px;
+  color: rgba(0, 0, 0, 0.06);
   font-family: 'Helvetica Neue', sans-serif;
-  z-index: 1; /* Changed to positive for testing */
+  z-index: 1;
 }
