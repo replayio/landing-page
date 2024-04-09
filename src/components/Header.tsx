@@ -103,7 +103,6 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
             <Link href="/" aria-label="Home">
               <Logo
                 className={classNames(variant === 'dark' ? 'fill-slate-100' : 'fill-slate-800')}
-                style={{ height: '20px' }}
               />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
