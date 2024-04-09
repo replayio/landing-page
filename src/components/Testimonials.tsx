@@ -1,6 +1,7 @@
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import Image from 'next/image'
 import Link from 'next/link'
+import TestimonialForSmallScreen from './TestimonialForSmallScreen'
 
 import styles from '../styles/Landingpage.module.css'
 import alex from '~/images/testimonials/alex.png'
@@ -34,6 +35,7 @@ import timn from '~/images/testimonials/tim-neutkins.png'
 import zack from '~/images/testimonials/zack-rosen.jpg'
 import pantheon from '~/images/testimonials/pantheon.png'
 import tablecheck from '~/images/testimonials/tablecheck.png'
+import { classNames } from '~/lib/utils'
 
 const images = {
   alex,
@@ -69,12 +71,23 @@ const images = {
   zack
 }
 
+type CaseStudy = {
+  body: string
+  author: {
+    name: string
+    handle: string
+    image: any
+    logo: any
+  }
+  url: string
+}
+
 function CaseStudy({
   testimonial,
   colStart,
   rowEnd
 }: {
-  testimonial: any
+  testimonial: CaseStudy
   colStart: number
   rowEnd: number
 }) {
@@ -109,16 +122,43 @@ function CaseStudy({
   )
 }
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+export type TestimonialItem = {
+  body: string
+  author: {
+    name: string
+    handle: string
+    image: any
+  }
+  featured: boolean
 }
 
-function Testimonial({
+function FeaturedTestimonial({ testimonial }: { testimonial: TestimonialItem }) {
+  return (
+    <figure className="rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 sm:col-span-2 xl:col-start-2 xl:row-end-1">
+      <blockquote className="p-6 text-lg font-semibold leading-7 tracking-tight text-gray-900 sm:p-12 sm:text-xl sm:leading-8">
+        <p>{`“${testimonial.body}”`}</p>
+      </blockquote>
+      <figcaption className="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
+        <Image
+          src={testimonial.author.image}
+          className="h-10 w-10 rounded-full bg-gray-50"
+          alt=""
+        />
+        <div className="flex-auto">
+          <div className="font-semibold">{testimonial.author.name}</div>
+          <div className="text-gray-600">{`@${testimonial.author.handle}`}</div>
+        </div>
+      </figcaption>
+    </figure>
+  )
+}
+
+export function Testimonial({
   testimonial,
   columnIdx,
   columnGroupIdx
 }: {
-  testimonial: any
+  testimonial: TestimonialItem
   columnIdx: number
   columnGroupIdx: number
 }) {
@@ -145,40 +185,37 @@ function Testimonial({
   )
 }
 
-function FeaturedTestimonial({ testimonial }: { testimonial: any }) {
+function TestimonialForLargeScreen({ testimonials }: { testimonials: TestimonialItem[][][] }) {
   return (
-    <figure className="rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 sm:col-span-2 xl:col-start-2 xl:row-end-1">
-      <blockquote className="p-6 text-lg font-semibold leading-7 tracking-tight text-gray-900 sm:p-12 sm:text-xl sm:leading-8">
-        <p>{`“${testimonial.body}”`}</p>
-      </blockquote>
-      <figcaption className="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
-        <Image
-          src={testimonial.author.image}
-          className="h-10 w-10 rounded-full bg-gray-50"
-          alt=""
-        />
-        <div className="flex-auto">
-          <div className="font-semibold">{testimonial.author.name}</div>
-          <div className="text-gray-600">{`@${testimonial.author.handle}`}</div>
+    <>
+      {testimonials.map((columnGroup, columnGroupIdx) => (
+        <div key={columnGroupIdx} className="hidden space-y-8 xl:visible xl:contents xl:space-y-0">
+          {columnGroup.map((column, columnIdx) => (
+            <div
+              key={columnIdx}
+              className={classNames(
+                (columnGroupIdx === 0 && columnIdx === 0) ||
+                  (columnGroupIdx === testimonials.length - 1 &&
+                    columnIdx === columnGroup.length - 1)
+                  ? 'xl:row-span-2'
+                  : 'xl:row-start-1',
+                'space-y-8'
+              )}
+            >
+              {column.map((testimonial, i) => (
+                <Testimonial
+                  key={i}
+                  testimonial={testimonial}
+                  columnIdx={i}
+                  columnGroupIdx={columnGroupIdx}
+                />
+              ))}
+            </div>
+          ))}
         </div>
-        {testimonial.author.logo && (
-          <Image src={testimonial.author.logo} className="h-10 w-auto flex-none" alt="" />
-        )}
-      </figcaption>
-    </figure>
+      ))}
+    </>
   )
-}
-
-type Testimonial = {
-  body: string
-  author: {
-    name: string
-    handle: string
-    image: any
-    logo: any
-  }
-  featured: boolean
-  url: string
 }
 
 export function Testimonials({ testimonials }: LandingPageFragment) {
@@ -267,32 +304,8 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
           {<FeaturedTestimonial testimonial={featuredTestimonial} />}
-          {baseHubTestimonials.map((columnGroup, columnGroupIdx) => (
-            <div key={columnGroupIdx} className="space-y-8 xl:contents xl:space-y-0">
-              {columnGroup.map((column, columnIdx) => (
-                <div
-                  key={columnIdx}
-                  className={classNames(
-                    (columnGroupIdx === 0 && columnIdx === 0) ||
-                      (columnGroupIdx === baseHubTestimonials.length - 1 &&
-                        columnIdx === columnGroup.length - 1)
-                      ? 'xl:row-span-2'
-                      : 'xl:row-start-1',
-                    'space-y-8'
-                  )}
-                >
-                  {column.map((testimonial, i) => (
-                    <Testimonial
-                      key={i}
-                      testimonial={testimonial}
-                      columnIdx={i}
-                      columnGroupIdx={columnGroupIdx}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          ))}
+          <TestimonialForSmallScreen testimonials={baseHubTestimonials} />
+          <TestimonialForLargeScreen testimonials={baseHubTestimonials} />
         </div>
       </div>
     </div>
