@@ -95,8 +95,8 @@ function CaseStudy({
     <figure
       className={`flex min-h-[desiredHeight] flex-col justify-between rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 xl:col-start-${colStart} xl:row-end-${rowEnd}`}
     >
-      <blockquote className="flex flex-col px-12 pt-6 text-lg font-semibold leading-7 tracking-tight text-gray-900 sm:pb-6 sm:pt-12 sm:text-xl sm:leading-8">
-        <p>{`“${testimonial.body}”`}</p>
+      <blockquote className="flex grow flex-col px-12 pt-6 text-lg font-semibold leading-7 tracking-tight text-gray-900 sm:pb-6 sm:pt-12 sm:text-xl sm:leading-8">
+        <p className="flex grow">{`“${testimonial.body}”`}</p>
         <p className="mt-8 grow">
           <Link target="blank" className="" href={testimonial.url}>
             Read more
@@ -232,7 +232,7 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
   const newCaseStudies = testimonials.caseStudies.items.map((testimonial) => ({
     body: testimonial.quote,
     author: {
-      name: testimonial._title,
+      name: testimonial.name,
       handle: testimonial.handle,
       image: images[testimonial.image as keyof typeof images],
       logo: images[testimonial.logo as keyof typeof images]

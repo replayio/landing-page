@@ -14,6 +14,7 @@ import { RichText } from 'basehub/react-rich-text'
 import styles from '../../styles/Landingpage.module.css'
 import Cal from './hero/Cal'
 import { Carousel } from '~/components/Carousel'
+import { featureFlags } from '~/lib/feature-flags'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
@@ -24,11 +25,11 @@ export function Hero({ hero }: LandingPageFragment) {
       >
         <div className="flex-1 text-left">
           <h1 className=" font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-            Move fast{' '}
+            Fix flakes with{' '}
             <span className="relative whitespace-nowrap">
-              <span className={`${styles.colorPrimaryAccent} relative`}>without</span>
+              <span className={`${styles.colorPrimaryAccent} relative`}>perfect</span>
             </span>{' '}
-            breaking things.
+            playback.
           </h1>
           <div className="mt-4 max-w-3xl rounded-lg bg-white/75 p-2 text-lg tracking-tight text-slate-700">
             <RichText>{hero.subtitle.json.content}</RichText>
@@ -40,7 +41,9 @@ export function Hero({ hero }: LandingPageFragment) {
           </div>
         </div>
         <div className="hidden p-0 lg:flex">
-          <Carousel testimonials={hero.testimonials.items} />
+          {featureFlags.showTestSuiteTestimonials && (
+            <Carousel testimonials={hero.testimonials.items} />
+          )}
         </div>
       </Container>
       <div className="my-12 w-full rounded-lg px-4 py-0">

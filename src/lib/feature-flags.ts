@@ -1,3 +1,4 @@
 export const featureFlags = {
-  showCalculator: false
+  showCalculator: false,
+  showTestSuiteTestimonials: false
 }
