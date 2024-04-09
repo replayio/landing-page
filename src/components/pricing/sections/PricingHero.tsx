@@ -125,7 +125,7 @@ function Plan({ tier }: { tier: Tier }) {
         className="mt-8"
         aria-label={`Get started with the ${tier.name} plan for ${tier.price}`}
       >
-        Get started
+        {tier.name == 'Enterprise' ? 'Reach out' : 'Get started'}
       </Button>
     </section>
   )

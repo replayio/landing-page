@@ -237,6 +237,27 @@ const allTrue = {
   enterprise: true
 }
 
+const teamPlus = {
+  free: false,
+  team: true,
+  pro: true,
+  enterprise: true
+}
+
+const proPlus = {
+  free: false,
+  team: false,
+  pro: true,
+  enterprise: true
+}
+
+const enterprisePlus = {
+  free: true,
+  team: true,
+  pro: false,
+  enterprise: true
+}
+
 export type Section = {
   name?: string
   subtitle?: string
@@ -279,11 +300,12 @@ export const sections: Section[] = [
     name: 'Test Suite Analytics',
     subtitle: 'Maintain the health of your suite at scale',
     features: [
-      { name: 'Recent test runs dashboard', values: allTrue },
-      { name: 'Failing test dashboard', values: allTrue },
-      { name: 'Flaky test dashboard', values: allTrue },
-      { name: 'GitHub PR Comments', values: allTrue },
-      { name: 'Loom integration', values: allTrue }
+      { name: 'Loom integration', values: allTrue },
+      { name: 'GitHub PR Comments', values: teamPlus },
+      { name: 'Recent test runs dashboard', values: teamPlus },
+      { name: 'Failing test dashboard', values: proPlus },
+      { name: 'Flaky test dashboard', values: proPlus },
+      { name: 'Test Suite analytics', values: proPlus }
     ]
   }
 ]

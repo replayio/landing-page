@@ -72,9 +72,12 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight  shadow-xl ring-1 ring-slate-900/5"
           >
-            <MobileNavLink href="#devtools">Browser DevTools</MobileNavLink>
+            <MobileNavLink href="#devtools">DevTools</MobileNavLink>
             <MobileNavLink href="#test-suites">Test Suites</MobileNavLink>
             <MobileNavLink href="/pricing">Pricing</MobileNavLink>
+            <MobileNavLink href="https://docs.replay.io">Docs</MobileNavLink>
+            <MobileNavLink href="https://blog.replay.io">Changelog</MobileNavLink>
+            <MobileNavLink href="/about">Company</MobileNavLink>
             <hr className="m-2 border-slate-300/40" />
             <MobileNavLink href="https://app.replay.io">Sign in</MobileNavLink>
           </Popover.Panel>
@@ -95,7 +98,7 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
     >
       <Container>
         <nav className="relative z-50 flex justify-between">
-          <div className="flex items-center md:gap-x-12">
+          <div className="flex items-center ">
             <Link href="/" aria-label="Home">
               <Logo
                 className={classNames(variant === 'dark' ? 'fill-slate-100' : 'fill-slate-800')}
@@ -103,16 +106,23 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
             </Link>
             <div className="hidden md:flex md:gap-x-6">
               <NavLink variant={variant} href="/#devtools">
-                Browser DevTools
+                DevTools
               </NavLink>
               <NavLink variant={variant} href="/#test-suites">
                 Test Suites
               </NavLink>
-              <NavLink variant={variant} href="/#test-suites">
-                Resources
-              </NavLink>
               <NavLink variant={variant} href="/pricing">
                 Pricing
+              </NavLink>
+              <NavLink variant={variant} href="https://docs.replay.io">
+                Docs
+              </NavLink>
+
+              <NavLink variant={variant} href="https://blog.replay.io">
+                Changelog
+              </NavLink>
+              <NavLink variant={variant} href="/about">
+                Company
               </NavLink>
             </div>
           </div>

@@ -40,7 +40,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
 
   return (
     <section
-      id="get-started-today"
+      id="devtools"
       className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-left shadow-2xl"
     >
       <Container className="relative">

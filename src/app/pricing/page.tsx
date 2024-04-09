@@ -7,6 +7,7 @@ import { Header } from '~/components/Header'
 import { Footer } from '~/components/Footer'
 import { PricingFAQ } from '~/components/pricing/PricingFAQ'
 import { CostCalculator } from '~/components/pricing/sections/CostCalculator'
+import { featureFlags } from '~/lib/feature-flags'
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
             <main>
               <Header variant="dark" />
               <PricingHero {...pricingPage} />
-              <CostCalculator />
+              {featureFlags.showCalculator && <CostCalculator />}
               <PricingTable />
               <PricingFAQ {...pricingPage} />
             </main>
