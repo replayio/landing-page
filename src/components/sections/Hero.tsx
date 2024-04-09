@@ -17,22 +17,27 @@ import { Carousel } from '~/components/Carousel'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
-    <div className="relative overflow-hidden ">
-      <Container className="relative z-10 max-w-4xl pt-20 text-center lg:pt-20">
-        <h1 className="mx-auto max-w-4xl font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-          Move fast{' '}
-          <span className="relative whitespace-nowrap">
-            <span className={`${styles.colorPrimaryAccent} relative`}>without</span>
-          </span>{' '}
-          breaking things.
-        </h1>
-        <div className="mx-auto mt-4 max-w-3xl rounded-lg bg-white/75 p-2 text-lg tracking-tight text-slate-700">
-          <RichText>{hero.subtitle.json.content}</RichText>
-        </div>
+    <div className="relative overflow-hidden">
+      <Container
+        className="relative z-10 flex max-w-7xl items-center"
+        style={{ height: 'calc(100vh - 300px)' }}
+      >
+        <div className="flex-1 text-left">
+          <h1 className=" font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+            Move fast{' '}
+            <span className="relative whitespace-nowrap">
+              <span className={`${styles.colorPrimaryAccent} relative`}>without</span>
+            </span>{' '}
+            breaking things.
+          </h1>
+          <div className="mt-4 max-w-3xl rounded-lg bg-white/75 p-2 text-lg tracking-tight text-slate-700">
+            <RichText>{hero.subtitle.json.content}</RichText>
+          </div>
 
-        <div className="mb-32 mt-10 flex justify-center gap-x-6">
-          <BaseHubButton {...hero.getStartedLink} />
-          <Cal link={hero.contactUsLink} />
+          <div className="mt-10 flex justify-start gap-x-6">
+            <BaseHubButton {...hero.getStartedLink} />
+            <Cal link={hero.contactUsLink} />
+          </div>
         </div>
         <div className="hidden p-0 lg:flex">
           <Carousel testimonials={hero.testimonials.items} />
