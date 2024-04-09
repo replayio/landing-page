@@ -13,6 +13,7 @@ import { LandingPageFragment } from '~/lib/basehub-queries'
 import { RichText } from 'basehub/react-rich-text'
 import styles from '../../styles/Landingpage.module.css'
 import Cal from './hero/Cal'
+import { Carousel } from '~/components/Carousel'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
@@ -38,8 +39,10 @@ export function Hero({ hero }: LandingPageFragment) {
             <Cal link={hero.contactUsLink} />
           </div>
         </div>
-        <div className="flex-none rounded-md bg-blue-100 p-4">
-          <div className="h-32 bg-white p-2">Here is where a testimonial can go.</div>
+        <div className="flex-none p-4">
+          <div className="border p-2">
+            <Carousel testimonials={hero.testimonials.items} />
+          </div>
         </div>
       </Container>
       <div className="my-12 w-full rounded-lg px-4 py-0">
@@ -71,7 +74,6 @@ export function Hero({ hero }: LandingPageFragment) {
           ))}
         </ul>
       </div>
-      {/* <Carousel testimonials={hero.testimonials.items} /> */}
     </div>
   )
 }
