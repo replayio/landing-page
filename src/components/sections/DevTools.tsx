@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Tab } from '@headlessui/react'
+import MuxPlayer from '@mux/mux-player-react'
 import clsx from 'clsx'
 
 import { Container } from '~/components/Container'
-// import backgroundImage from '~/images/background-features.jpg'
 import console from '~/images/screenshots/add-console-logs.png'
 import react from '~/images/screenshots/inspect-react-components.png'
 import testSteps from '~/images/screenshots/jump-to-test-steps.png'
@@ -14,10 +14,22 @@ import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 
 const images = {
-  console: console,
-  react: react,
-  testSteps: testSteps,
-  network: network
+  console: {
+    type: 'image',
+    src: console
+  },
+  react: {
+    type: 'image',
+    src: react
+  },
+  testSteps: {
+    type: 'mux-video',
+    src: 'QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4'
+  },
+  network: {
+    type: 'image',
+    src: network
+  }
 }
 
 export function DevTools({ devTools }: LandingPageFragment) {
@@ -99,25 +111,49 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 </Tab.List>
               </div>
               <Tab.Panels className="hidden lg:col-span-7 lg:block">
-                {devTools.features.items.map((feature) => (
-                  <Tab.Panel key={feature._title} unmount={false}>
-                    <div className="relative text-white hover:text-white sm:px-6 lg:hidden">
-                      <div className="absolute -inset-x-4 bottom-[-4.25rem] top-[-6.5rem] bg-white/10 ring-1 ring-inset ring-white/10 sm:inset-x-0 sm:rounded-t-xl" />
-                      <p className="relative mx-auto max-w-2xl text-base text-white sm:text-center">
-                        {feature.subTitle}
-                      </p>
-                    </div>
-                    <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
-                      <Image
-                        className="w-full"
-                        src={images[(feature.image as keyof typeof images) || 'console']}
-                        alt=""
-                        priority
-                        sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
-                      />
-                    </div>
-                  </Tab.Panel>
-                ))}
+                {devTools.features.items.map((feature) => {
+                  const featureImage = images[(feature.image as keyof typeof images) || 'console']
+                  return (
+                    <Tab.Panel key={feature._title} unmount={false}>
+                      <div className="relative text-white hover:text-white sm:px-6 lg:hidden">
+                        <div className="absolute -inset-x-4 bottom-[-4.25rem] top-[-6.5rem] bg-white/10 ring-1 ring-inset ring-white/10 sm:inset-x-0 sm:rounded-t-xl" />
+                        <p className="relative mx-auto max-w-2xl text-base text-white sm:text-center">
+                          {feature.subTitle}
+                        </p>
+                      </div>
+                      <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
+                        {featureImage.type === 'image' && (
+                          <Image
+                            className="w-full"
+                            src={featureImage.src}
+                            alt=""
+                            priority
+                            sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
+                          />
+                        )}
+
+                        {featureImage.type === 'mux-video' && (
+                          <MuxPlayer
+                            streamType="on-demand"
+                            playbackId="QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4"
+                            primaryColor="#FFFFFF"
+                            secondaryColor="#000000"
+                            muted={true}
+                            autoPlay={true}
+                            style={
+                              {
+                                display: 'block',
+                                '--controls': 'none',
+                                '--media-object-fit': 'cover',
+                                '--media-object-position': 'center'
+                              } as React.CSSProperties
+                            }
+                          />
+                        )}
+                      </div>
+                    </Tab.Panel>
+                  )
+                })}
               </Tab.Panels>
             </>
           )}
@@ -126,30 +162,55 @@ export function DevTools({ devTools }: LandingPageFragment) {
         <>
           <div className="-mx-4 flex  overflow-x-hidden pb-4 sm:mx-0  sm:pb-0  lg:hidden">
             <div className="relative z-10 flex flex-col gap-x-4  px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-              {devTools.features.items.map((feature) => (
-                <div
-                  key={feature._title}
-                  className={clsx('relative my-2 mt-16 flex flex-col rounded-full px-4 text-white')}
-                >
-                  <h3>
-                    <div
-                      className={clsx(
-                        'font-display text-lg font-semibold ui-not-focus-visible:outline-none'
-                      )}
-                    >
-                      {feature._title}
-                    </div>
-                  </h3>
-                  <p className={clsx('mb-8 mt-2 text-sm')}>{feature.subTitle}</p>
-                  <Image
-                    className="w-full"
-                    src={images[(feature.image as keyof typeof images) || 'console']}
-                    alt=""
-                    priority
-                    sizes="(min-width: 1024px) 67.8125rem, (min-width: 500px) 100vw, 30rem"
-                  />
-                </div>
-              ))}
+              {devTools.features.items.map((feature) => {
+                const featureImage = images[(feature.image as keyof typeof images) || 'console']
+                return (
+                  <div
+                    key={feature._title}
+                    className={clsx(
+                      'relative my-2 mt-16 flex flex-col rounded-full px-4 text-white'
+                    )}
+                  >
+                    <h3>
+                      <div
+                        className={clsx(
+                          'font-display text-lg font-semibold ui-not-focus-visible:outline-none'
+                        )}
+                      >
+                        {feature._title}
+                      </div>
+                    </h3>
+                    <p className={clsx('mb-8 mt-2 text-sm')}>{feature.subTitle}</p>
+                    {featureImage.type === 'image' && (
+                      <Image
+                        className="w-full"
+                        src={featureImage.src}
+                        alt=""
+                        priority
+                        sizes="(min-width: 1024px) 67.8125rem, (min-width: 500px) 100vw, 30rem"
+                      />
+                    )}
+                    {featureImage.type === 'mux-video' && (
+                      <MuxPlayer
+                        streamType="on-demand"
+                        playbackId="QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4"
+                        primaryColor="#FFFFFF"
+                        secondaryColor="#000000"
+                        muted={true}
+                        autoPlay={true}
+                        style={
+                          {
+                            display: 'block',
+                            '--controls': 'none',
+                            '--media-object-fit': 'cover',
+                            '--media-object-position': 'center'
+                          } as React.CSSProperties
+                        }
+                      />
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </>
