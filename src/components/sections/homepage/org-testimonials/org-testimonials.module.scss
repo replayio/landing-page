@@ -43,7 +43,8 @@
   );
   height: 450px;
   border: 1px solid rgb(31 41 55 / 0.86);
-  box-shadow: 0px 4px 8px -2px rgb(31 41 55 / 0.1),
+  box-shadow:
+    0px 4px 8px -2px rgb(31 41 55 / 0.1),
     0px 2px 4px -2px rgb(31 41 55 / 0.06);
   border-radius: 24px;
   display: flex;
@@ -139,7 +140,8 @@
       Overlay gradient, controls the opacity, we need it bc otherwise the
       two bottom gradients will blend together when opacity != 1
     */
-    background: linear-gradient(
+    background:
+      linear-gradient(
         0deg,
         rgb(var(--secondary-color-rgb) / var(--inv-gradient-opacity)),
         rgb(var(--secondary-color-rgb) / var(--inv-gradient-opacity))

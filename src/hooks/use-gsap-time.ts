@@ -1,15 +1,11 @@
-import { gsap } from 'lib/gsap'
+import { gsap } from '~/lib/gsap'
 import clamp from 'lodash/clamp'
 import { useMemo, useRef } from 'react'
 
 import { msToSecs, secsToMs } from '~/lib/utils'
 
 export type UseGsapTimeArgs = {
-  onUpdate?: (progress: {
-    time: number
-    percentage: number
-    normalizedTime: number
-  }) => void
+  onUpdate?: (progress: { time: number; percentage: number; normalizedTime: number }) => void
   onStart?: () => void
   onComplete?: () => void
   onInterrupt?: () => void

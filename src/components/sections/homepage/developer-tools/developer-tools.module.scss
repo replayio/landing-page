@@ -214,7 +214,8 @@
     opacity: 0;
     transform-style: preserve-3d;
     transform: translate3d(0, 0, 0);
-    transition: transform var(--animation-duration) ease-out
+    transition:
+      transform var(--animation-duration) ease-out
         calc(var(--delay) + var(--base-delay) + var(--z-animation-delay)),
       box-shadow var(--animation-duration) ease-out
         calc(var(--delay) + var(--base-delay)),

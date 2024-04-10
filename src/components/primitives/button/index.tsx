@@ -1,11 +1,5 @@
 import clsx from 'clsx'
-import React, {
-  ComponentPropsWithRef,
-  ElementType,
-  FC,
-  forwardRef,
-  useMemo
-} from 'react'
+import React, { ComponentPropsWithRef, ElementType, FC, forwardRef, useMemo } from 'react'
 
 import { checkIsExternal } from '~/lib/utils/router'
 
@@ -20,12 +14,7 @@ type VideoControlProps = {
 
 type ButtonProps<C extends ElementType> = {
   size?: 'sm' | 'md'
-  variant?:
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'tertiary-inverted'
-  | 'tertiary-inverted-alt'
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'tertiary-inverted' | 'tertiary-inverted-alt'
   unstyled?: boolean
   rounded?: boolean
   isVideoButton?: boolean
@@ -91,13 +80,14 @@ export const Button = forwardRef(
   }
 )
 
+Button.displayName = 'Button'
+
 type NextLinkProps = Pick<
   LinkProps,
   'href' | 'locale' | 'prefetch' | 'replace' | 'scroll' | 'shallow'
 >
 
-export type ButtonLinkProps = ButtonProps<'a'> &
-  NextLinkProps & { notExternal?: boolean }
+export type ButtonLinkProps = ButtonProps<'a'> & NextLinkProps & { notExternal?: boolean }
 
 export const ButtonLink: FC<ButtonLinkProps> = ({ href, ...rest }) => {
   const externalProps = useMemo(() => {

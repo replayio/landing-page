@@ -32,9 +32,7 @@ export const TabsWithArrows = ({
 
     if (currentTabIndex === undefined) return
 
-    const findLabelElement: any = document.querySelector(
-      `#${tabs[currentTabIndex]?.id}`
-    )
+    const findLabelElement: any = document.querySelector(`#${tabs[currentTabIndex]?.id}`)
     const labelElementComputedStyle = getComputedStyle(findLabelElement)
 
     const labelElementWithoutPadding =
@@ -48,8 +46,7 @@ export const TabsWithArrows = ({
       activeBarRef.current.style.left = `${findLabelElement.offsetLeft}px`
     } else {
       activeBarRef.current.style.left = `${
-        findLabelElement.offsetLeft +
-        parseFloat(labelElementComputedStyle.paddingLeft)
+        findLabelElement.offsetLeft + parseFloat(labelElementComputedStyle.paddingLeft)
       }px`
     }
 

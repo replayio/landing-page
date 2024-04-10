@@ -44,10 +44,7 @@ export const Investors: FC = () => {
       </Container>
 
       <div className={styles['fade-container']}>
-        <Container
-          size="md"
-          className={clsx(styles['slider-container'], s['individuals'])}
-        >
+        <Container size="md" className={clsx(styles['slider-container'], s['individuals'])}>
           <div className={styles['team']}>
             <Carousel
               dots={isMobile}

@@ -14,11 +14,7 @@ export const RadioButtons = ({
   return (
     <RadioGroup.Root {...rest}>
       {options.map((option) => (
-        <RadioGroup.Item
-          className={s['button']}
-          value={option.value}
-          key={option.value}
-        >
+        <RadioGroup.Item className={s['button']} value={option.value} key={option.value}>
           <RadioGroup.Indicator className={s['indicator']} />
           <span className={s['content']}>{option.label}</span>
         </RadioGroup.Item>

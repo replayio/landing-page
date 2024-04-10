@@ -33,4 +33,6 @@ export const Section = forwardRef<HTMLDivElement, Props>(
   }
 )
 
+Section.displayName = 'Section'
+
 export type SectionProps = ComponentProps<typeof Section>

@@ -21,11 +21,7 @@ type MobileMenuProps = ToggleState & {
   burgerClassName?: string
 }
 
-const MobileDropdown = ({
-  label,
-  dropdown,
-  index
-}: SitemapType & { index: number }) => {
+const MobileDropdown = ({ label, dropdown, index }: SitemapType & { index: number }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const dropdownContentWrapperRef = useRef<HTMLDivElement>(null)
 
@@ -70,10 +66,7 @@ const MobileDropdown = ({
       </button>
 
       {dropdown && (
-        <div
-          className={s.dropdownContentWrapper}
-          ref={dropdownContentWrapperRef}
-        >
+        <div className={s.dropdownContentWrapper} ref={dropdownContentWrapperRef}>
           <NavigationContent
             sidebar={dropdown.sidebar}
             mainContent={dropdown.mainContent}
@@ -86,12 +79,7 @@ const MobileDropdown = ({
   )
 }
 
-export const MobileMenu = ({
-  isOn,
-  handleToggle,
-  handleOff,
-  burgerClassName
-}: MobileMenuProps) => {
+export const MobileMenu = ({ isOn, handleToggle, handleOff, burgerClassName }: MobileMenuProps) => {
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const mobileMenuInnerRef = useRef<HTMLDivElement>(null)
   const isTablet = useTabletLgBreakpoint()

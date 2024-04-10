@@ -47,11 +47,7 @@ const Burger = ({
     timelineRef.current.add('rotate')
     timelineRef.current.to(topRef.current, { y: 6 }, 'rotate')
     timelineRef.current.to(bottomRef.current, { y: -6 }, 'rotate')
-    timelineRef.current.to(
-      topRef.current,
-      { rotationZ: 45, transformOrigin: '50% 50%' },
-      'rotate'
-    )
+    timelineRef.current.to(topRef.current, { rotationZ: 45, transformOrigin: '50% 50%' }, 'rotate')
     timelineRef.current.to(
       bottomRef.current,
       { rotationZ: -45, transformOrigin: '50% 50%' },

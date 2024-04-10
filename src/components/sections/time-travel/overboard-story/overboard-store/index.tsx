@@ -1,10 +1,4 @@
-import {
-  Color,
-  Colors,
-  colorways,
-  Hoverboard,
-  HoverboardControls
-} from '@replayio/overboard'
+import { Color, Colors, colorways, Hoverboard, HoverboardControls } from '@replayio/overboard'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { forwardRef, memo, useImperativeHandle, useRef } from 'react'
@@ -27,12 +21,9 @@ export type OverboardStoreProps = {
   colorPicker?: boolean
 } & JSX.IntrinsicElements['div']
 
-const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky),
-  {
-    ssr: false
-  }
-)
+const Sky = dynamic(() => import('~/components/common/sky').then((m) => m.Sky), {
+  ssr: false
+})
 
 import { Grid3D } from '~/components/common/grid-3d'
 import { useDeviceDetect } from '~/hooks/use-device-detect'
@@ -103,9 +94,7 @@ export const OverboardStore = memo(
           className={className}
           {...rest}
         >
-          <div
-            className={clsx('store', s['overboard-store'], s['mode-' + mode])}
-          >
+          <div className={clsx('store', s['overboard-store'], s['mode-' + mode])}>
             <div className={s['underlay']}>
               <div className={s['layer']}>
                 <Sky withAsteroids={false} count={20} />
@@ -117,10 +106,7 @@ export const OverboardStore = memo(
 
             <div style={{ width: '100%', maxWidth: '700px', margin: '0 auto' }}>
               <InspectBox name={inspectNames[inspectMode]['main']} boxId="main">
-                <div
-                  id={buildId('overboard-store-inner')}
-                  className={s['store-inner']}
-                >
+                <div id={buildId('overboard-store-inner')} className={s['store-inner']}>
                   <InspectBox
                     name={inspectNames[inspectMode]['hoverboard-container']}
                     boxId="hoverboard-container"
@@ -131,11 +117,7 @@ export const OverboardStore = memo(
                       className={s['overboard-wrapper']}
                     >
                       <AspectBox style={{ width: '100%' }} ratio={700 / 340}>
-                        <Hoverboard
-                          wave={0}
-                          ref={hoverboardRef}
-                          color={overboardColor}
-                        />
+                        <Hoverboard wave={0} ref={hoverboardRef} color={overboardColor} />
                       </AspectBox>
                     </InspectBox>
                   </InspectBox>
@@ -159,24 +141,22 @@ export const OverboardStore = memo(
                             onOverboardColorChange(color)
                           }}
                         >
-                          {Object.entries(colorways).map(
-                            ([name, [start, end]]) => (
-                              <InspectBox
-                                name={inspectNames[inspectMode]['color']}
-                                boxId={`color-${name}`}
-                                key={name}
-                              >
-                                <Color
-                                  onChange={() => undefined}
-                                  checked={overboardColor === name}
-                                  label={name}
-                                  value={name.toLowerCase()}
-                                  startColor={start}
-                                  endColor={end}
-                                />
-                              </InspectBox>
-                            )
-                          )}
+                          {Object.entries(colorways).map(([name, [start, end]]) => (
+                            <InspectBox
+                              name={inspectNames[inspectMode]['color']}
+                              boxId={`color-${name}`}
+                              key={name}
+                            >
+                              <Color
+                                onChange={() => undefined}
+                                checked={overboardColor === name}
+                                label={name}
+                                value={name.toLowerCase()}
+                                startColor={start}
+                                endColor={end}
+                              />
+                            </InspectBox>
+                          ))}
                         </Colors>
                       </InspectBox>
                     )}
@@ -251,68 +231,23 @@ const AnimatedGrid = forwardRef<AnimatedGridProps, unknown>((_, ref) => {
           width="1440"
           height="648"
         >
-          <path
-            fill="url(#paint0_linear_1641_739)"
-            d="M-248 0h1440v648H-248z"
-          />
+          <path fill="url(#paint0_linear_1641_739)" d="M-248 0h1440v648H-248z" />
         </mask>
         <g mask="url(#mask0_1641_739)" stroke="#F41C52">
-          <path
-            transform="matrix(.8927 -.45065 .3167 .94852 -286 402.079)"
-            d="M0-.5h381.988"
-          />
-          <path
-            transform="matrix(.86059 -.5093 .3645 .9312 -286 467.248)"
-            d="M0-.5h465.96"
-          />
-          <path
-            transform="matrix(.82331 -.5676 .41488 .90987 -286 559.469)"
-            d="M0-.5h580.583"
-          />
-          <path
-            transform="matrix(.73924 -.67344 .5161 .85653 -274 704.561)"
-            d="M0-.5h704.777"
-          />
-          <path
-            transform="matrix(.60652 -.79507 .65508 .75556 -148 825.062)"
-            d="M0-.5h748.527"
-          />
-          <path
-            transform="matrix(.40763 -.91314 .82888 .55943 94 845.966)"
-            d="M0-.5h674.625"
-          />
-          <path
-            transform="matrix(.15476 -.98795 .97308 .23045 342 861.95)"
-            d="M0-.5h639.722"
-          />
-          <path
-            transform="matrix(-.12473 -.99219 .98241 -.18673 601 874.246)"
-            d="M0-.5h649.383"
-          />
-          <path
-            transform="matrix(-.40843 -.91279 .82827 -.56033 874 891.461)"
-            d="M0-.5h724.729"
-          />
-          <path
-            transform="matrix(-.60455 -.79656 .657 -.75389 1131 874.246)"
-            d="M0-.5h808.862"
-          />
-          <path
-            transform="matrix(-.73 -.68344 .52646 -.8502 1359 845.966)"
-            d="M0-.5h901.364"
-          />
-          <path
-            transform="matrix(-.81345 -.58164 .42752 -.904 1587 817.685)"
-            d="M0-.5h1010.51"
-          />
-          <path
-            transform="matrix(-.85823 -.51326 .36782 -.9299 1746 778.338)"
-            d="M0-.5h1068.47"
-          />
-          <path
-            transform="matrix(-.8944 -.44725 .31401 -.94942 1905 738.99)"
-            d="M0-.5h1138.18"
-          />
+          <path transform="matrix(.8927 -.45065 .3167 .94852 -286 402.079)" d="M0-.5h381.988" />
+          <path transform="matrix(.86059 -.5093 .3645 .9312 -286 467.248)" d="M0-.5h465.96" />
+          <path transform="matrix(.82331 -.5676 .41488 .90987 -286 559.469)" d="M0-.5h580.583" />
+          <path transform="matrix(.73924 -.67344 .5161 .85653 -274 704.561)" d="M0-.5h704.777" />
+          <path transform="matrix(.60652 -.79507 .65508 .75556 -148 825.062)" d="M0-.5h748.527" />
+          <path transform="matrix(.40763 -.91314 .82888 .55943 94 845.966)" d="M0-.5h674.625" />
+          <path transform="matrix(.15476 -.98795 .97308 .23045 342 861.95)" d="M0-.5h639.722" />
+          <path transform="matrix(-.12473 -.99219 .98241 -.18673 601 874.246)" d="M0-.5h649.383" />
+          <path transform="matrix(-.40843 -.91279 .82827 -.56033 874 891.461)" d="M0-.5h724.729" />
+          <path transform="matrix(-.60455 -.79656 .657 -.75389 1131 874.246)" d="M0-.5h808.862" />
+          <path transform="matrix(-.73 -.68344 .52646 -.8502 1359 845.966)" d="M0-.5h901.364" />
+          <path transform="matrix(-.81345 -.58164 .42752 -.904 1587 817.685)" d="M0-.5h1010.51" />
+          <path transform="matrix(-.85823 -.51326 .36782 -.9299 1746 778.338)" d="M0-.5h1068.47" />
+          <path transform="matrix(-.8944 -.44725 .31401 -.94942 1905 738.99)" d="M0-.5h1138.18" />
           <path d="m-248 315.508 1440-.001m-1440 49.185 1440-.001m-1440 49.185h1440M-248 463.06l1440-.001m-1440 49.185h1440m-1440 49.184h1440m-1440 49.184h1440" />
         </g>
       </g>
@@ -340,3 +275,5 @@ const AnimatedGrid = forwardRef<AnimatedGridProps, unknown>((_, ref) => {
     <Grid3D ref={gridRef} />
   )
 })
+
+AnimatedGrid.displayName = 'AnimatedGrid'

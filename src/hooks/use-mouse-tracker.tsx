@@ -37,9 +37,7 @@ export const useMouseTracker = <T extends HTMLElement>(config?: {
     isHovering: false
   })
 
-  const [enableTracking, setEnableTracking] = useState(
-    !config?.enableOnlyWhenHovering
-  )
+  const [enableTracking, setEnableTracking] = useState(!config?.enableOnlyWhenHovering)
 
   // enable / disable tracking if enableOnlyWhenHovering === true
   useEffect(() => {

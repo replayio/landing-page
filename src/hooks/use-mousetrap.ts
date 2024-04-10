@@ -12,9 +12,7 @@ export type Traps = {
 export const useMousetrap = (traps: Traps, bind = true) => {
   React.useEffect(() => {
     if (bind) {
-      traps.forEach(({ keys, callback, action }) =>
-        mousetrap.bind(keys, callback, action)
-      )
+      traps.forEach(({ keys, callback, action }) => mousetrap.bind(keys, callback, action))
       return () => {
         traps.forEach(({ keys }) => mousetrap.unbind(keys))
       }

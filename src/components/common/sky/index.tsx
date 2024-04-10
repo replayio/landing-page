@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { gsap } from 'lib/gsap'
+import { gsap } from '~/lib/gsap'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import mergeRefs from 'react-merge-refs'
 
@@ -21,11 +21,7 @@ type SkyElement =
       x2: number
     }
 
-export const Sky = ({
-  withGradient = true,
-  count = 40,
-  withAsteroids = true
-}) => {
+export const Sky = ({ withGradient = true, count = 40, withAsteroids = true }) => {
   const skyRef = useRef<HTMLDivElement>(null)
   const [measureRef, bounds] = useMeasure()
   const [render, setRender] = useState(false)
@@ -37,9 +33,7 @@ export const Sky = ({
       if (isAsteroid) {
         const x1 = gsap.utils.random(-1, 1)
         const x2 = gsap.utils.random(
-          ...(x1 < 0
-            ? ([0, 1] as [number, number])
-            : ([-1, 0] as [number, number]))
+          ...(x1 < 0 ? ([0, 1] as [number, number]) : ([-1, 0] as [number, number]))
         )
 
         return {
@@ -66,9 +60,7 @@ export const Sky = ({
   useEffect(() => {
     if (!skyRef.current || !render || generated === null) return
 
-    const asteroids = skyRef.current.querySelectorAll(
-      `.${s['asteroid-wrapper']}`
-    )
+    const asteroids = skyRef.current.querySelectorAll(`.${s['asteroid-wrapper']}`)
 
     const tl = gsap.timeline({
       repeat: -1,

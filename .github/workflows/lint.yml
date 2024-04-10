@@ -1,0 +1,42 @@
+name: Lint
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  trunk_check_runner:
+    name: Trunk Check runner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: volta-cli/action@v1
+        with:
+          node-version: 20.12.0
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "{dir}={$(yarn config get cacheFolder)}" >> $GITHUB_OUTPUT
+      - name: Restore yarn cache
+        uses: useblacksmith/cache@v5
+        id: yarn-cache
+        with:
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            **/node_modules
+          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
+          restore-keys: "yarn-cache-folder-"
+      # Actually install packages with Yarn
+      - name: Install packages
+        run: yarn install
+        env:
+          YARN_CHECKSUM_BEHAVIOR: "update"
+      - name: Lint
+        run: yarn lint
+      - name: Next Build (because it's more strict)
+        run: yarn build
+        env: 
+          NEXT_PUBLIC_SITE_URL: "https://replay.io"
+          BASEHUB_TOKEN: ${{ secrets.BASEHUB_TOKEN }}
+          BASEHUB_DRAFT: true

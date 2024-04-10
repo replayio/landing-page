@@ -66,8 +66,7 @@ export const Network = forwardRef<HTMLDivElement, NetworkProps>(
     useEffect(() => {
       if (!callsContainerRef.current) return
 
-      callsContainerRef.current.scrollTop =
-        callsContainerRef.current.scrollHeight
+      callsContainerRef.current.scrollTop = callsContainerRef.current.scrollHeight
     }, [calls])
 
     return (
@@ -75,11 +74,7 @@ export const Network = forwardRef<HTMLDivElement, NetworkProps>(
         <div style={{ width: activeCallIdx != undefined ? '55%' : '100%' }}>
           <SearchBar>Search for requests</SearchBar>
 
-          <div
-            className={s['calls']}
-            style={{ padding: '8px 0' }}
-            ref={callsContainerRef}
-          >
+          <div className={s['calls']} style={{ padding: '8px 0' }} ref={callsContainerRef}>
             {calls.map((call, idx) => {
               return (
                 <button
@@ -110,10 +105,7 @@ export const Network = forwardRef<HTMLDivElement, NetworkProps>(
               width: '45%'
             }}
           >
-            <CallInfoSection
-              title="Request"
-              data={calls[activeCallIdx]?.request}
-            />
+            <CallInfoSection title="Request" data={calls[activeCallIdx]?.request} />
             {!calls[activeCallIdx]?.pending && (
               <CallInfoSection
                 title="Response"
@@ -127,3 +119,5 @@ export const Network = forwardRef<HTMLDivElement, NetworkProps>(
     )
   }
 )
+
+Network.displayName = 'Network'

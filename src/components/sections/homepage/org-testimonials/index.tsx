@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import useEmblaCarousel, { EmblaCarouselType } from 'embla-carousel-react'
-import { gsap } from 'lib/gsap'
+import { gsap } from '~/lib/gsap'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
@@ -68,9 +68,7 @@ export const OrganizationTestimonials = () => {
   }, [embla, time])
 
   useIsomorphicLayoutEffect(() => {
-    const elms = organizationsRef.current?.querySelectorAll(
-      `.${s['organization']}`
-    )
+    const elms = organizationsRef.current?.querySelectorAll(`.${s['organization']}`)
 
     if (!elms) return
 
@@ -141,9 +139,8 @@ export const OrganizationTestimonials = () => {
           children: (
             <>
               <span>
-                Replay is a next generation time travel debugger. The browser
-                records just enough so that you can retroactively inspect your
-                application.
+                Replay is a next generation time travel debugger. The browser records just enough so
+                that you can retroactively inspect your application.
               </span>{' '}
               <Link
                 style={{ textDecoration: 'underline' }}
@@ -251,8 +248,7 @@ const testimonials: {
       {
         name: 'JJ Kasper',
         title: 'Next.js Maintainer',
-        quote:
-          '“When I see a hard-to-reproduce issue in GitHub, I ask for a replay.”',
+        quote: '“When I see a hard-to-reproduce issue in GitHub, I ask for a replay.”',
         image: '/images/homepage/testimonials/jj-kasper.png'
       }
     ]
@@ -313,10 +309,7 @@ const testimonials: {
             <feOffset />
             <feGaussianBlur stdDeviation="2" />
             <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0" />
             <feBlend
               mode="normal"
               in2="BackgroundImageFix"
@@ -346,8 +339,7 @@ const testimonials: {
       {
         name: 'Alex Kotliarskyi',
         title: 'Senior engineer at Replit',
-        quote:
-          '“Morning! Saved another 10 to 20 minutes finding a bug using Replay!”',
+        quote: '“Morning! Saved another 10 to 20 minutes finding a bug using Replay!”',
         image: '/images/homepage/testimonials/alex.png'
       }
     ]
@@ -403,10 +395,7 @@ const testimonials: {
             <feOffset />
             <feGaussianBlur stdDeviation="2" />
             <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0" />
             <feBlend
               mode="normal"
               in2="BackgroundImageFix"
@@ -479,10 +468,7 @@ const testimonials: {
             <feOffset />
             <feGaussianBlur stdDeviation="2" />
             <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0" />
             <feBlend
               mode="normal"
               in2="BackgroundImageFix"
@@ -522,10 +508,7 @@ const testimonials: {
       >
         <g clipPath="url(#clip0_4060_172646)">
           <g filter="url(#filter0_d_4060_172646)">
-            <path
-              d="M2 46H46V2H2V6.50001H41.5001V41.5001H6.50001V2H2V46Z"
-              fill="currentColor"
-            />
+            <path d="M2 46H46V2H2V6.50001H41.5001V41.5001H6.50001V2H2V46Z" fill="currentColor" />
           </g>
         </g>
         <defs>
@@ -548,10 +531,7 @@ const testimonials: {
             <feOffset />
             <feGaussianBlur stdDeviation="2" />
             <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0" />
             <feBlend
               mode="normal"
               in2="BackgroundImageFix"
@@ -617,10 +597,7 @@ const testimonials: {
             <feOffset />
             <feGaussianBlur stdDeviation="2" />
             <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0" />
             <feBlend
               mode="normal"
               in2="BackgroundImageFix"
@@ -697,10 +674,7 @@ const testimonials: {
             <feOffset />
             <feGaussianBlur stdDeviation="2" />
             <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0" />
             <feBlend
               mode="normal"
               in2="BackgroundImageFix"
@@ -746,13 +720,7 @@ const testimonials: {
       >
         <g clipPath="url(#clip0_4061_173110)">
           <g filter="url(#filter0_d_4061_173110)">
-            <rect
-              y="10"
-              width="48"
-              height="28"
-              fill="url(#pattern0)"
-              shapeRendering="crispEdges"
-            />
+            <rect y="10" width="48" height="28" fill="url(#pattern0)" shapeRendering="crispEdges" />
           </g>
         </g>
         <defs>
@@ -775,10 +743,7 @@ const testimonials: {
             <feOffset />
             <feGaussianBlur stdDeviation="2" />
             <feComposite in2="hardAlpha" operator="out" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"
-            />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0" />
             <feBlend
               mode="normal"
               in2="BackgroundImageFix"
@@ -791,12 +756,7 @@ const testimonials: {
               result="shape"
             />
           </filter>
-          <pattern
-            id="pattern0"
-            patternContentUnits="objectBoundingBox"
-            width="1"
-            height="1"
-          >
+          <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
             <use
               xlinkHref="#image0_4061_173110"
               transform="matrix(0.00166667 0 0 0.00285714 0 -0.0171429)"

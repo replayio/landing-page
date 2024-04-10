@@ -34,13 +34,7 @@ const RECIPROCAL_GR = 1 / GOLDEN_RATIO
 const DURATION = RECIPROCAL_GR * 0.8
 const ease = CustomEase.create('custom', 'M0,0 C0.30,0.35 0.40,1 1,1')
 
-export type RegisteredEffects =
-  | 'fadeIn'
-  | 'fadeInScale'
-  | 'in'
-  | 'out'
-  | 'pulse'
-  | 'flash'
+export type RegisteredEffects = 'fadeIn' | 'fadeInScale' | 'in' | 'out' | 'pulse' | 'flash'
 
 gsap.config({
   autoSleep: 60,

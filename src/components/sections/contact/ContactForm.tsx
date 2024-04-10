@@ -13,19 +13,15 @@ const ContactForm: FC = () => {
           <div className={s.content}>
             <article>
               <p>
-                We'd love to hear from you. Please reach out via this form,{' '}
-                <a href="http://replay.io/discord">say hi on Discord</a> , or
-                check out our{' '}
+                We&apos;d love to hear from you. Please reach out via this form,{' '}
+                <a href="http://replay.io/discord">say hi on Discord</a> , or check out our{' '}
                 <a href="https://docs.replay.io">documentation.</a>
               </p>
               <p className={s.testimonial}>
-                "Next.js App Router is now stable in 13.4. Wouldn’t have been
-                possible without Replay, we investigated so many (over 20) super
-                complicated bugs that using traditional debugging would have
-                cost us days to investigate."
-                <span className={s.author}>
-                  – Tim Neutkins, Co-author of Next.js
-                </span>
+                &quot;Next.js App Router is now stable in 13.4. Wouldn’t have been possible without
+                Replay, we investigated so many (over 20) super complicated bugs that using
+                traditional debugging would have cost us days to investigate.&quot;
+                <span className={s.author}>– Tim Neutkins, Co-author of Next.js</span>
               </p>
             </article>
           </div>

@@ -1,6 +1,6 @@
 import MuxPlayer from '@mux/mux-player-react'
 import clsx from 'clsx'
-import { gsap } from 'lib/gsap'
+import { gsap } from '~/lib/gsap'
 import dynamic, { LoaderComponent } from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -21,18 +21,12 @@ import replayImg from '~/images/home/replay.svg'
 
 import s from './hero.module.scss'
 
-const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
-  {
-    ssr: false
-  }
-)
+const Sky = dynamic(() => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent, {
+  ssr: false
+})
 
 const Grid3D = dynamic(
-  () =>
-    import('~/components/common/grid-3d').then(
-      (m) => m.Grid3D
-    ) as LoaderComponent,
+  () => import('~/components/common/grid-3d').then((m) => m.Grid3D) as LoaderComponent,
   {
     ssr: false
   }
@@ -62,24 +56,23 @@ const calculateStrokeDashoffset = (progress: number) => {
 
 const subheroes = [
   <span key="variant-4">
-    Replay is the only browser that lets you record and retroactively debug your
-    application. Fix the hardest issues as a team and take control of your
-    support process and test suite.
+    Replay is the only browser that lets you record and retroactively debug your application. Fix
+    the hardest issues as a team and take control of your support process and test suite.
   </span>,
   <span key="variant-3">
-    Replay is the only browser that lets you record and retroactively debug your
-    application with <b>print statements</b> and <b>Browser DevTools</b> so that
-    you can file the perfect bug report and fix failing flaky tests.
+    Replay is the only browser that lets you record and retroactively debug your application with{' '}
+    <b>print statements</b> and <b>Browser DevTools</b> so that you can file the perfect bug report
+    and fix failing flaky tests.
   </span>,
 
   <span key="variant-2">
-    Replay is the only browser that lets you record, retroactively debug, and
-    fix the hardest issues as a team with perfect reproducibility.
+    Replay is the only browser that lets you record, retroactively debug, and fix the hardest issues
+    as a team with perfect reproducibility.
   </span>,
 
   <span key="variant-1">
-    Replay is the only browser that lets you record and retroactively debug your
-    application with <b>print statements</b> and <b>Browser DevTools</b>.
+    Replay is the only browser that lets you record and retroactively debug your application with{' '}
+    <b>print statements</b> and <b>Browser DevTools</b>.
   </span>
 ]
 
@@ -150,9 +143,7 @@ export const Hero = () => {
   const [isPlaying, setIsPlaying] = useState(true)
 
   const subhero = useMemo(() => {
-    const variant = router.query.variant
-      ? parseInt(router.query.variant as string)
-      : 0
+    const variant = router.query.variant ? parseInt(router.query.variant as string) : 0
     return subheroes[variant]
   }, [router.query])
 
@@ -190,11 +181,7 @@ export const Hero = () => {
     }
   }
 
-  const updateVideoProgress = (
-    videoNumber: number,
-    currentTime: number,
-    duration: number
-  ) => {
+  const updateVideoProgress = (videoNumber: number, currentTime: number, duration: number) => {
     setVideoProgress((prevState) => ({
       ...prevState,
       [videoNumber]: { currentTime, duration }
@@ -275,9 +262,7 @@ export const Hero = () => {
     const headingIcons = selector(`#heading-container img`)
 
     const headingTexts = selector(`#heading-container > span > span`)
-    const doubleHeadingTexts = selector(
-      `#heading-container-double > div > span > span`
-    )
+    const doubleHeadingTexts = selector(`#heading-container-double > div > span > span`)
 
     tl.to(
       [headingIcons[0]],
@@ -363,12 +348,7 @@ export const Hero = () => {
     )
 
     tl.to(
-      [
-        headingTexts[0],
-        headingTexts[1],
-        doubleHeadingTexts[0],
-        doubleHeadingTexts[1]
-      ],
+      [headingTexts[0], headingTexts[1], doubleHeadingTexts[0], doubleHeadingTexts[1]],
       {
         x: 0,
         duration: 1.2
@@ -457,48 +437,22 @@ export const Hero = () => {
             title={{
               children: (
                 <>
-                  <div
-                    className={s['heading-container']}
-                    id="heading-container"
-                  >
+                  <div className={s['heading-container']} id="heading-container">
                     <span className={s['title-section']}>
-                      <Image
-                        priority
-                        alt=""
-                        src={recordImg}
-                        width={40}
-                        height={40}
-                      />
+                      <Image priority alt="" src={recordImg} width={40} height={40} />
                       <span className={s['text-segment']}>Record. </span>
                     </span>
                     <span className={s['title-section']}>
-                      <Image
-                        priority
-                        alt=""
-                        src={replayImg}
-                        width={40}
-                        height={40}
-                      />
+                      <Image priority alt="" src={replayImg} width={40} height={40} />
                       <span className={s['text-segment']}>Replay. </span>
                     </span>
                     <span className={s['title-section']}>
-                      <Image
-                        priority
-                        alt=""
-                        src={fixImg}
-                        width={40}
-                        height={40}
-                      />
+                      <Image priority alt="" src={fixImg} width={40} height={40} />
                       <span className={s['text-segment']}>Fix.</span>
                     </span>
                   </div>
                   <div className={s.mask} id="heading-container-double">
-                    <div
-                      className={clsx(
-                        s['heading-container'],
-                        s['heading-container-double']
-                      )}
-                    >
+                    <div className={clsx(s['heading-container'], s['heading-container-double'])}>
                       <span className={s['title-section']}>
                         <span className={s['text-segment']}>Record. </span>
                       </span>
@@ -560,16 +514,8 @@ export const Hero = () => {
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stopColor="#111827" stopOpacity="0" />
-                    <stop
-                      offset="0.317708"
-                      stopColor="#111827"
-                      stopOpacity="0.48"
-                    />
-                    <stop
-                      offset="0.682292"
-                      stopColor="#111827"
-                      stopOpacity="0.86"
-                    />
+                    <stop offset="0.317708" stopColor="#111827" stopOpacity="0.48" />
+                    <stop offset="0.682292" stopColor="#111827" stopOpacity="0.86" />
                     <stop offset="1" stopColor="#111827" stopOpacity="0" />
                   </linearGradient>
                 </defs>
@@ -590,11 +536,7 @@ export const Hero = () => {
               secondaryColor="#000000"
               onTimeUpdate={(event: any) => {
                 const target = event.target as HTMLVideoElement
-                updateVideoProgress(
-                  activeVideo,
-                  target.currentTime,
-                  target.duration
-                )
+                updateVideoProgress(activeVideo, target.currentTime, target.duration)
               }}
               muted={currentVideo.muted}
               autoPlay={true}
@@ -606,9 +548,7 @@ export const Hero = () => {
           <div className={s.videoButtons}>
             {[1, 2].map((videoNumber) => {
               const video = videoProgress[videoNumber]
-              const progress = video
-                ? Math.round((video.currentTime / video.duration) * 100)
-                : 0
+              const progress = video ? Math.round((video.currentTime / video.duration) * 100) : 0
               const strokeDashoffset = calculateStrokeDashoffset(progress)
 
               return (
@@ -619,13 +559,9 @@ export const Hero = () => {
                     mode="secondary"
                     size="big"
                   >
-                    {activeVideo === videoNumber && isPlaying
-                      ? pauseIconSVG
-                      : playIconSVG}
+                    {activeVideo === videoNumber && isPlaying ? pauseIconSVG : playIconSVG}
                     <span className={s.buttonText}>
-                      {videoNumber === 1
-                        ? '20 second summary'
-                        : 'Narrated walkthrough (2:39)'}
+                      {videoNumber === 1 ? '20 second summary' : 'Narrated walkthrough (2:39)'}
                     </span>
                     <svg
                       className={s.radialProgress}

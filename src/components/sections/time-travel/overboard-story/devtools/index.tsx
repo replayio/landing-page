@@ -130,11 +130,7 @@ export function DevTools<T extends keyof typeof tabs>({
 
   return (
     <div className={clsx(s['dev-tools'], className)} {...rest}>
-      <TabNav
-        tabs={availableTabs}
-        activeTab={panel}
-        setActivePanel={onPanelTabChange}
-      />
+      <TabNav tabs={availableTabs} activeTab={panel} setActivePanel={onPanelTabChange} />
       <div {...panelWrapperProps}>
         {/* @ts-ignore */}
         <ActiveTabPanel {...panelProps} />

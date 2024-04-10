@@ -1,11 +1,6 @@
 export const CodesandboxIcon = (props: JSX.IntrinsicElements['svg']) => {
   return (
-    <svg
-      {...props}
-      viewBox="0 0 180 26"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg {...props} viewBox="0 0 180 26" fill="none" xmlns="http://www.w3.org/2000/svg">
       <title>CodeSandobx</title>
       <path
         fillRule="evenodd"

@@ -4,9 +4,7 @@ import { isClient } from '~/lib/constants'
 
 const CALL_THRESHOLD_MS = 500
 
-export const useViewportSize = (
-  { callTreshhold } = { callTreshhold: CALL_THRESHOLD_MS }
-) => {
+export const useViewportSize = ({ callTreshhold } = { callTreshhold: CALL_THRESHOLD_MS }) => {
   const resizeTimeout = useRef<NodeJS.Timeout | null>(null)
   const [windowSize, setWindowSize] = useState<{
     width: number

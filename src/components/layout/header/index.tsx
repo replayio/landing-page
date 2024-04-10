@@ -75,10 +75,7 @@ export const Header = () => {
 
           <NavigationList quantity={links.length}>
             {links.map((link, index) => (
-              <NavigationItem
-                key={link.label}
-                className={s[`headerLink-${index + 1}`]}
-              >
+              <NavigationItem key={link.label} className={s[`headerLink-${index + 1}`]}>
                 {link.dropdown ? (
                   <>
                     <NavigationTrigger>{link.label}</NavigationTrigger>

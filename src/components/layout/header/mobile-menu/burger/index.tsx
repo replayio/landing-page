@@ -32,16 +32,8 @@ export const Burger = ({ isOpen }: { isOpen: boolean }) => {
       .add('rotate')
       .to(topRef.current, { y: 6 }, 'rotate')
       .to(bottomRef.current, { y: -6 }, 'rotate')
-      .to(
-        topRef.current,
-        { rotationZ: 45, transformOrigin: '50% 50%' },
-        'rotate'
-      )
-      .to(
-        bottomRef.current,
-        { rotationZ: -45, transformOrigin: '50% 50%' },
-        'rotate'
-      )
+      .to(topRef.current, { rotationZ: 45, transformOrigin: '50% 50%' }, 'rotate')
+      .to(bottomRef.current, { rotationZ: -45, transformOrigin: '50% 50%' }, 'rotate')
       .timeScale(2.6)
 
     return () => {
@@ -58,13 +50,7 @@ export const Burger = ({ isOpen }: { isOpen: boolean }) => {
   }, [isOpen])
 
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M3 18H21"
         stroke="var(--white)"

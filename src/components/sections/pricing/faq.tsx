@@ -12,37 +12,33 @@ const faqs = [
     answer: (
       <div>
         <p>
-          Replay records content processes. For browsers, that’s tabs. For Node,
-          that’s processes. Cypress runs each spec in its own tab, so a Replay
-          recording will include all of the test cases in the spec. Playwright
-          will often open a new page per test case, so it is typical for
-          recordings to map 1-to-1 to test cases. However, it’s possible for a
-          single Playwright test case to open multiple pages at which point one
-          test case might have multiple recordings.
+          Replay records content processes. For browsers, that’s tabs. For Node, that’s processes.
+          Cypress runs each spec in its own tab, so a Replay recording will include all of the test
+          cases in the spec. Playwright will often open a new page per test case, so it is typical
+          for recordings to map 1-to-1 to test cases. However, it’s possible for a single Playwright
+          test case to open multiple pages at which point one test case might have multiple
+          recordings.
         </p>
       </div>
     )
   },
   {
-    question:
-      'What is the difference between uploading and processing a recording?',
+    question: 'What is the difference between uploading and processing a recording?',
     answer: (
       <div>
         <p>
-          Replay gets its name because recordings are replayed in their original
-          runtime after the fact. In order to be able to start debugging a
-          recording quickly, we need to be able to process it beforehand. That
-          means replaying it once and gather assets that’ll help us start the
-          replay efficiently the next time.
+          Replay gets its name because recordings are replayed in their original runtime after the
+          fact. In order to be able to start debugging a recording quickly, we need to be able to
+          process it beforehand. That means replaying it once and gather assets that’ll help us
+          start the replay efficiently the next time.
         </p>
         <p>
-          Because it takes approximately as long to replay a recording as to
-          record it in the first place, we try to be selective about which
-          recordings are processed. We also count recording processings in
-          increments of 3 minutes as a way to normalize costs across teams. The
-          typical recording is 52 seconds, so this should not come into play,
-          but we don’t want the typical team to “pay” for the processing costs
-          of teams with exceptionally long recordings.
+          Because it takes approximately as long to replay a recording as to record it in the first
+          place, we try to be selective about which recordings are processed. We also count
+          recording processings in increments of 3 minutes as a way to normalize costs across teams.
+          The typical recording is 52 seconds, so this should not come into play, but we don’t want
+          the typical team to “pay” for the processing costs of teams with exceptionally long
+          recordings.
         </p>
       </div>
     )
@@ -60,10 +56,9 @@ const faqs = [
     answer: (
       <div>
         <p>
-          Absolutely. Replay is a Cypress plugin and can be used with other
-          plugins and the Cypress Cloud. In fact we encourage you to. We think
-          that it is helpful to use Replay for debugging and a dashboard
-          provider for suite-level insights and orchestration.
+          Absolutely. Replay is a Cypress plugin and can be used with other plugins and the Cypress
+          Cloud. In fact we encourage you to. We think that it is helpful to use Replay for
+          debugging and a dashboard provider for suite-level insights and orchestration.
         </p>
       </div>
     )
@@ -73,9 +68,9 @@ const faqs = [
     answer: (
       <div>
         <p>
-          Recordings are private by default. You own your own recordings. We
-          will not sell or use your recording data in any way. Moreover we do
-          not have access to view the recordings unless they are shared with us.
+          Recordings are private by default. You own your own recordings. We will not sell or use
+          your recording data in any way. Moreover we do not have access to view the recordings
+          unless they are shared with us.
         </p>
       </div>
     )
@@ -85,15 +80,15 @@ const faqs = [
     answer: (
       <div>
         <p>
-          Replay.io uses standard end-to-end encryption and networking security
-          practices and has achieved SOC2 Type II. Replay.io is also architected
-          with both a safe-by-design and minimal-blast-radius approach. See our
+          Replay.io uses standard end-to-end encryption and networking security practices and has
+          achieved SOC2 Type II. Replay.io is also architected with both a safe-by-design and
+          minimal-blast-radius approach. See our
           <Link href="https://docs.replay.io/resources-and-examples/security-practices">
             security practices
           </Link>{' '}
           and <Link href="/security-and-privacy">policies</Link>
-          for more information and don’t hesitate to reach out to
-          security@replay.io if you have additional questions.
+          for more information and don’t hesitate to reach out to security@replay.io if you have
+          additional questions.
         </p>
       </div>
     )
@@ -103,9 +98,8 @@ const faqs = [
     answer: (
       <div>
         <p>
-          No - when you create a team you are starting a free trial for 30 days.
-          You’ll only need to add a credit card if you’d like to continue using
-          the team beyond the 30 day limit.
+          No - when you create a team you are starting a free trial for 30 days. You’ll only need to
+          add a credit card if you’d like to continue using the team beyond the 30 day limit.
         </p>
       </div>
     )
@@ -115,10 +109,9 @@ const faqs = [
     answer: (
       <div>
         <p>
-          We ask for a credit card. Your credit card information will never
-          touch our servers as we use <a href="https://stripe.com/">Stripe</a>{' '}
-          our payments processor. For Enterprise customers we can do ACH and
-          custom invoices if requested.
+          We ask for a credit card. Your credit card information will never touch our servers as we
+          use <a href="https://stripe.com/">Stripe</a> our payments processor. For Enterprise
+          customers we can do ACH and custom invoices if requested.
         </p>
       </div>
     )
@@ -128,8 +121,8 @@ const faqs = [
     answer: (
       <div>
         <p>
-          Definitely! You can cancel or downgrade your subscription at anytime.
-          You can also delete your workplace in the settings page at anytime.
+          Definitely! You can cancel or downgrade your subscription at anytime. You can also delete
+          your workplace in the settings page at anytime.
         </p>
       </div>
     )
@@ -145,15 +138,11 @@ export const FAQ = () => {
       <div key={index}>
         <button
           onClick={() => setActiveIndex(index)}
-          className={
-            isActive ? styles.accordionButtonActive : styles.accordionButton
-          }
+          className={isActive ? styles.accordionButtonActive : styles.accordionButton}
         >
           {faq.question}
         </button>
-        {isActive && (
-          <div className={styles.accordionContent}>{faq.answer} </div>
-        )}
+        {isActive && <div className={styles.accordionContent}>{faq.answer} </div>}
       </div>
     )
   })

@@ -15,12 +15,9 @@ import { gsap } from '~/lib/gsap'
 import s from './debug.module.scss'
 import { SceneProps } from './scenes'
 
-const PrintStatements = dynamic(
-  () => import('./scenes').then((m) => m.Scene1),
-  {
-    ssr: false
-  }
-)
+const PrintStatements = dynamic(() => import('./scenes').then((m) => m.Scene1), {
+  ssr: false
+})
 // @ts-ignore
 const Console = dynamic(() => import('./scenes').then((m) => m.Scene2), {
   ssr: false
@@ -164,9 +161,7 @@ export const DebugSpeed = () => {
   }, [height, isTablet, offsetTop])
 
   useEffect(() => {
-    const textsContainer = containerRef.current?.querySelector(
-      `.${s.sideTextsContainer}`
-    )
+    const textsContainer = containerRef.current?.querySelector(`.${s.sideTextsContainer}`)
 
     const texts = containerRef.current?.querySelectorAll(`.${s.sideText}`)
 
@@ -234,10 +229,7 @@ export const DebugSpeed = () => {
           className: s.subtitle
         }}
       />
-      <div
-        style={{ height: isTablet ? 'auto' : SCROLL_TRIGGER_DURATION }}
-        ref={spacerRef}
-      >
+      <div style={{ height: isTablet ? 'auto' : SCROLL_TRIGGER_DURATION }} ref={spacerRef}>
         <Container ref={containerRef} className={s.container}>
           <div className={s.sideTextsContainer}>
             {data.map((d, i) => (
@@ -290,13 +282,7 @@ const SideText = ({ title, subtitle, description, icon, asset }: dataType) => {
   )
 }
 
-const AssetCard = ({
-  children,
-  show
-}: {
-  show?: boolean
-  children: React.ReactNode
-}) => {
+const AssetCard = ({ children, show }: { show?: boolean; children: React.ReactNode }) => {
   return (
     <div
       className={clsx(s.card, {

@@ -48,10 +48,7 @@ export const getPlatform = (): Platform | null => {
   )
 }
 
-export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({
-  children,
-  ...rest
-}) => {
+export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({ children, ...rest }) => {
   const [platform, setPlatform] = useState<Platform | null>(null)
 
   useEffect(() => {
@@ -70,9 +67,7 @@ export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({
       href={platformIcon.downloadSource}
       target="_blank"
       download
-      onClick={() =>
-        (window as any).umami?.track(`hero download click (${platform})`)
-      }
+      onClick={() => (window as any).umami?.track(`hero download click (${platform})`)}
     >
       {children}
 
@@ -81,10 +76,7 @@ export const DownloadButton: React.FC<Partial<ButtonLinkProps>> = ({
   )
 }
 
-export const DownloadLink: React.FC<Partial<NavLinkProps>> = ({
-  children,
-  ...rest
-}) => {
+export const DownloadLink: React.FC<Partial<NavLinkProps>> = ({ children, ...rest }) => {
   const [platform, setPlatform] = useState<string | null>(null)
 
   useEffect(() => {
@@ -103,9 +95,7 @@ export const DownloadLink: React.FC<Partial<NavLinkProps>> = ({
       href={platformIcon.downloadSource}
       target="_blank"
       download
-      onClick={() =>
-        (window as any).umami?.track(`nav download click (${platform})`)
-      }
+      onClick={() => (window as any).umami?.track(`nav download click (${platform})`)}
     >
       {children}
 

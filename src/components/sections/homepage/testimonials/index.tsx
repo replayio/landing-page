@@ -4,12 +4,9 @@ import Image from 'next/image'
 import { Section } from '~/components/layout/section'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import { getImageSizes } from '~/lib/utils/image'
-const Sky = dynamic(
-  () => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent,
-  {
-    ssr: false
-  }
-)
+const Sky = dynamic(() => import('~/components/common/sky').then((m) => m.Sky) as LoaderComponent, {
+  ssr: false
+})
 
 import s from './testimonials.module.scss'
 
@@ -67,8 +64,7 @@ type DataType = {
 const data: DataType[] = [
   {
     id: 3,
-    quote:
-      '“If a picture is worth a thousand words, a replay is worth a thousand pictures”',
+    quote: '“If a picture is worth a thousand words, a replay is worth a thousand pictures”',
     author: {
       avatar: {
         url: '/images/homepage/testimonials/zack-rosen.jpg'
@@ -140,12 +136,7 @@ const data: DataType[] = [
       jobPosition: (
         <p className={s.position}>
           CEO,{' '}
-          <svg
-            width="12"
-            height="13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="12" height="13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="6" cy="6.5" r="6" fill="#000" />
             <path d="M6 3.5 9 8H3l3-4.5Z" fill="#fff" />
           </svg>

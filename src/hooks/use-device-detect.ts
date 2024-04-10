@@ -27,8 +27,7 @@ function getDD() {
     // @ts-ignore
     navigator.msMaxTouchPoints > 0
 
-  const isIpadPro =
-    ReactDeviceDetect.isDesktop && ReactDeviceDetect.isSafari && isTouchDevice
+  const isIpadPro = ReactDeviceDetect.isDesktop && ReactDeviceDetect.isSafari && isTouchDevice
 
   return {
     isDesktop: ReactDeviceDetect.isDesktop && !isIpadPro,

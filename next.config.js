@@ -1,16 +1,12 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')
-const withTM = require('next-transpile-modules')
+const path = require('path')
 
-/**
- * @type {import('next').NextConfig}
- */
-const config = {
-  reactStrictMode: false,
-  productionBrowserSourceMaps: true,
-  swcMinify: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    formats: ['image/avif', 'image/webp'],
-    domains: ['dummyimage.com', 'image.mux.com']
+    remotePatterns: [{ hostname: 'basehub.earth' }, { hostname: '"image-forwarder.notaku.so"' }]
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'src')]
   },
   redirects() {
     return [
@@ -82,8 +78,7 @@ const config = {
       },
       {
         source: '/oss',
-        destination:
-          'https://docs.replay.io/docs/replay-oss-751fc053a0a14c32812c4766d7c65e4d',
+        destination: 'https://docs.replay.io/docs/replay-oss-751fc053a0a14c32812c4766d7c65e4d',
         permanent: true
       },
       {
@@ -142,8 +137,7 @@ const config = {
       },
       {
         source: '/billing',
-        destination:
-          'https://docs.replay.io/docs/billing-e01f0740cd9548f1b8725c9773b217f6',
+        destination: 'https://docs.replay.io/docs/billing-e01f0740cd9548f1b8725c9773b217f6',
         permanent: true
       },
       {
@@ -163,19 +157,7 @@ const config = {
         permanent: true
       }
     ]
-  },
-  experimental: { images: { allowFutureImage: true } },
-  webpack: (config) => {
-    /** Fix yarn linked dependencies that use react */
-    config.resolve.alias.react = require('path').resolve('./node_modules/react')
-    return config
   }
 }
 
-module.exports = (_phase, { defaultConfig: _ }) => {
-  const plugins = [
-    withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
-    withTM([]) // add modules you want to transpile here
-  ]
-  return plugins.reduce((acc, plugin) => plugin(acc), { ...config })
-}
+module.exports = nextConfig

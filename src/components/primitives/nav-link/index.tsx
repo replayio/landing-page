@@ -18,17 +18,7 @@ export type NavLinkProps = {
   Omit<JSX.IntrinsicElements['a'], 'href' | 'ref'>
 
 export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
-  (
-    {
-      active,
-      notExternal,
-      invertedHover = false,
-      iconPrefix,
-      iconSuffix,
-      ...rest
-    },
-    ref
-  ) => {
+  ({ active, notExternal, invertedHover = false, iconPrefix, iconSuffix, ...rest }, ref) => {
     const externalProps = useMemo(() => {
       const p = { target: '_blank', rel: 'noopener' }
       if (typeof rest.href === 'string') {
@@ -47,16 +37,14 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         {...(notExternal ? undefined : externalProps)}
         ref={ref}
       >
-        {iconPrefix && (
-          <span className={s.iconPrefix}>{IconsLibrary[iconPrefix]}</span>
-        )}
+        {iconPrefix && <span className={s.iconPrefix}>{IconsLibrary[iconPrefix]}</span>}
 
         {rest.children}
 
-        {iconSuffix && (
-          <span className={s.iconSuffix}>{IconsLibrary[iconSuffix]}</span>
-        )}
+        {iconSuffix && <span className={s.iconSuffix}>{IconsLibrary[iconSuffix]}</span>}
       </Link>
     )
   }
 )
+
+NavLink.displayName = 'NavLink'

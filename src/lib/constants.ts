@@ -4,7 +4,10 @@ export const isProd = process.env.NODE_ENV === 'production'
 export const isClient = typeof document !== 'undefined'
 export const isServer = !isClient
 
-if (typeof process.env.NEXT_PUBLIC_SITE_URL !== 'string') {
+if (
+  typeof process.env.NEXT_PUBLIC_SITE_URL !== 'string' &&
+  typeof process.env.NEXT_PUBLIC_VERCEL_URL !== 'string'
+) {
   throw new Error(
     `Please set the NEXT_PUBLIC_SITE_URL environment variable to your site's URL.
     
@@ -15,7 +18,9 @@ if (typeof process.env.NEXT_PUBLIC_SITE_URL !== 'string') {
   )
 }
 
-export const siteURL = new URL(process.env.NEXT_PUBLIC_SITE_URL)
+export const siteURL = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ?? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+)
 export const siteOrigin = siteURL.origin
 
 // we like putting this in the JavaScript console,

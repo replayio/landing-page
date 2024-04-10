@@ -1,14 +1,6 @@
 // @ts-nocheck
 import get from 'lodash/get'
-import {
-  ComponentRef,
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react'
+import { ComponentRef, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { ProgressAPI, ProgressProps } from '~/components/common/progress-bar'
 import { clearProps, DURATION, gsap } from '~/lib/gsap'
@@ -57,9 +49,7 @@ export const Scene1: FC<SceneProps> = ({
   resumeTimeline,
   devtoolsProps
 }) => {
-  const timeline = useRef(
-    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
-  )
+  const timeline = useRef(gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY }))
   const [markersType, setMarkersType] = useState<Marker>('transparent')
   const [showPrints, setShowPrints] = useState(true)
   const codeRef = useRef<ComponentRef<typeof Code>>(null)
@@ -154,9 +144,7 @@ export const Scene1: FC<SceneProps> = ({
     const addPrintButton = codeSelector('#dev-tools-add-print')
     const printPanel = codeSelector('#dev-tools-print-panel')
     const consoleMarkers = codeSelector('#dev-tools-console-markers')
-    const yellowMarker = codeSelector(
-      '#dev-tools-console-markers [data-marker="yellow"]'
-    )
+    const yellowMarker = codeSelector('#dev-tools-console-markers [data-marker="yellow"]')
     gsap.set(printPanel, {
       height: 'auto',
       opacity: 1,
@@ -330,9 +318,7 @@ export const Scene2: FC<SceneProps> = ({
   devtoolsProps,
   hoverTooltipComponent
 }) => {
-  const timeline = useRef(
-    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
-  )
+  const timeline = useRef(gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY }))
   const consoleRef = useRef<any>(null)
   const hoverboardRef = useRef<StoreRef>(null)
   const [currentHit, setCurrentHit] = useState(0)
@@ -343,9 +329,7 @@ export const Scene2: FC<SceneProps> = ({
       floorDisplacement: steps.displacement[currentHit],
       ease: 'linear',
       onUpdate: () => {
-        hoverboardRef.current?.grid?.move(
-          storeState.floorDisplacement as number
-        ),
+        hoverboardRef.current?.grid?.move(storeState.floorDisplacement as number),
           hoverboardRef.current?.hoverboard?.flip(
             rangeMap(
               storeState.overboardRotation as number,
@@ -479,11 +463,7 @@ export const Scene2: FC<SceneProps> = ({
 
   useTimeline(active, timeline, resetAnimation)
 
-  const events = useAnimationHover(
-    wrapedPauseTimeline,
-    resumeTimeline,
-    timeline
-  )
+  const events = useAnimationHover(wrapedPauseTimeline, resumeTimeline, timeline)
 
   return (
     <>
@@ -532,19 +512,13 @@ export const Scene3: FC<SceneProps> = ({
   devtoolsProps,
   hoverTooltipComponent
 }) => {
-  const timeline = useRef(
-    gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY })
-  )
+  const timeline = useRef(gsap.timeline({ paused: true, delay: TIMELINE_PLAY_DELAY }))
   const devToolsRef = useRef(null)
   const storeRef = useRef(null)
   const overboardRef = useRef<StoreRef>(null)
-  const [activeComponent, setActiveComponent] =
-    useState<IdentifiedNode<ReactNode> | null>()
-  const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<
-    string | null
-  >(null)
-  const [overboardColor, setOverboardColor] =
-    useState<OverboardColors>(initialColor)
+  const [activeComponent, setActiveComponent] = useState<IdentifiedNode<ReactNode> | null>()
+  const [hoveredComponentBlockId, setHoveredComponentBlockId] = useState<string | null>(null)
+  const [overboardColor, setOverboardColor] = useState<OverboardColors>(initialColor)
   const [rotation] = useState(initialRotation)
 
   const tree = useMemo<IdentifiedNode<ReactNode>>(() => {
@@ -765,9 +739,7 @@ export const Scene3: FC<SceneProps> = ({
     <>
       <AnimatedPanel>
         {hoverTooltipComponent &&
-          hoverTooltipComponent(
-            'You can interact with windows now. Try inspecting any component.'
-          )}
+          hoverTooltipComponent('You can interact with windows now. Try inspecting any component.')}
         <DevTools
           {...devtoolsProps}
           {...events}

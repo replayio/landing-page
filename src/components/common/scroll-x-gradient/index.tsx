@@ -71,3 +71,5 @@ export const ScrollXGradient = forwardRef<HTMLDivElement, ScrollXGradientProps>(
     )
   }
 )
+
+ScrollXGradient.displayName = 'ScrollXGradient'

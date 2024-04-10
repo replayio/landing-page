@@ -1,41 +1,56 @@
 {
-  "name": "next-typescript",
-  "version": "1.0.0",
-  "description": "A minimalist boilerplate — Next.js with TypeScript.",
-  "repository": "https://github.com/basementstudio/next-typescript",
-  "author": "basement.studio",
+  "name": "replay-landing-page",
+  "version": "7.0.0",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
-    "dev": "next",
-    "build": "next build",
-    "build:analyze": "cross-env ANALYZE=true yarn build",
-    "postbuild": "next-sitemap",
-    "start": "next start",
-    "lint": "next lint && stylelint '**/*.{css,scss}'",
-    "tsc": "tsc --pretty --noEmit"
+    "basehub-gen": "basehub --output .basehub",
+    "dev": "yarn basehub dev --output .basehub & next dev",
+    "build": "yarn basehub-gen && next build",
+    "start": "yarn basehub-gen && next start",
+    "lint": "next lint",
+    "playwright": "playwright test --project chromium",
+    "playwright:replay": "playwright test --project replay-chromium"
   },
+  "browserslist": "defaults, not ie <= 11",
   "dependencies": {
+    "@calcom/embed-react": "^1.3.2",
+    "@headlessui/react": "^1.7.18",
+    "@headlessui/tailwindcss": "^0.2.0",
+    "@heroicons/react": "^2.1.3",
     "@juggle/resize-observer": "^3.4.0",
     "@mux/mux-player-react": "^2.2.0",
+    "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-dialog": "^0.1.7",
+    "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-navigation-menu": "^1.1.2",
     "@radix-ui/react-polymorphic": "^0.0.14",
     "@radix-ui/react-radio-group": "^1.1.2",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^0.1.5",
     "@radix-ui/react-tabs": "^1.0.0",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@replayio/overboard": "^0.4.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "github:tailwindcss/typography",
     "@typeform/embed-react": "^2.22.0",
-    "@vercel/analytics": "^1.0.1",
-    "clsx": "1.1.1",
+    "@types/node": "^20.10.8",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "@vercel/analytics": "^1.2.2",
+    "autoprefixer": "^10.4.12",
+    "basehub": "^4.0.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "embla-carousel-react": "8.0.0-rc05",
     "global": "^4.4.0",
     "gsap": "./src/lib/gsap/gsap-bonus.tgz",
     "hls.js": "1.1.5",
     "lodash": "^4.17.21",
     "logrocket": "^4.0.3",
+    "lucide-react": "^0.363.0",
     "mousetrap": "1.6.5",
-    "next": "13.4",
+    "next": "^14.1.4",
     "prismjs": "^1.28.0",
     "react": "^18.2.0",
     "react-device-detect": "2.1.2",
@@ -45,232 +60,30 @@
     "react-merge-refs": "1.1.0",
     "react-use-intercom": "^5.1.4",
     "react-use-measure": "^2.1.1",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.3.3",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^12.1.2",
-    "@types/css-font-loading-module": "0.0.7",
-    "@types/lodash": "^4.14.182",
-    "@types/mousetrap": "1.6.9",
-    "@types/node": "17.0.21",
-    "@types/prismjs": "^1.26.0",
-    "@types/react": "^17.0.43",
-    "@types/react-dom": "^17.0.14",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "babel-plugin-optimize-clsx": "^2.6.2",
-    "cross-env": "^7.0.3",
-    "eslint": "^7.32.0",
-    "eslint-config-next": "12.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-typescript": "^3.5.5",
-    "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-jsx-a11y": "6.5.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "7.29.2",
-    "eslint-plugin-react-hooks": "4.3.0",
-    "eslint-plugin-simple-import-sort": "7.0.0",
-    "husky": "^7.0.4",
-    "inquirer-directory": "^2.2.0",
-    "inspx": "^0.0.1-alpha.6",
-    "lint-staged": "^11.2.6",
-    "next-sitemap": "^2.5.14",
-    "next-transpile-modules": "^9.0.0",
-    "plop": "^3.1.1",
-    "prettier": "2.5.1",
-    "sass": "1.49.9",
-    "stylelint": "14.5.3",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^23.0.0",
-    "stylelint-config-standard-scss": "^2.0.1",
-    "stylelint-prettier": "^1.2.0",
-    "typescript": "^4.8.4",
-    "use-indexed-children": "0.2.0"
+    "@playwright/test": "^1.37.0",
+    "@replayio/playwright": "2.0.0-alpha.10",
+    "@types/lodash": "^4.17.0",
+    "@types/mousetrap": "^1.6.15",
+    "@types/prismjs": "^1.26.3",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "sass": "^1.72.0",
+    "sharp": "0.33.1"
   },
-  "engines": {
-    "node": "18.x",
-    "yarn": "1.x"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "arrowParens": "always",
-    "tabWidth": 2,
-    "printWidth": 80,
-    "trailingComma": "none",
-    "endOfLine": "auto"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "react",
-      "react-hooks",
-      "simple-import-sort",
-      "@typescript-eslint"
-    ],
-    "ignorePatterns": [],
-    "extends": [
-      "eslint:recommended",
-      "plugin:import/recommended",
-      "plugin:import/typescript",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "prettier",
-      "plugin:prettier/recommended",
-      "plugin:@next/next/recommended"
-    ],
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": true
-    },
-    "rules": {
-      "react/react-in-jsx-scope": 0,
-      "react/display-name": 0,
-      "react/prop-types": 0,
-      "@typescript-eslint/explicit-function-return-type": 0,
-      "@typescript-eslint/explicit-member-accessibility": 0,
-      "@typescript-eslint/indent": 0,
-      "@typescript-eslint/member-delimiter-style": 0,
-      "@typescript-eslint/no-explicit-any": 0,
-      "@typescript-eslint/no-var-requires": 0,
-      "@typescript-eslint/no-use-before-define": 0,
-      "@typescript-eslint/ban-ts-comment": 0,
-      "simple-import-sort/imports": "warn",
-      "simple-import-sort/exports": "warn",
-      "react-hooks/exhaustive-deps": [
-        "warn",
-        {
-          "additionalHooks": "(useIsomorphicLayoutEffect)"
-        }
-      ],
-      "react/no-unescaped-entities": 0,
-      "curly": [
-        "error",
-        "multi-line"
-      ],
-      "react/jsx-no-target-blank": [
-        2,
-        {
-          "allowReferrer": true
-        }
-      ],
-      "@typescript-eslint/no-unused-vars": [
-        2,
-        {
-          "argsIgnorePattern": "^_"
-        }
-      ],
-      "no-console": [
-        1,
-        {
-          "allow": [
-            "warn",
-            "error"
-          ]
-        }
-      ],
-      "prettier/prettier": [
-        "warn",
-        {
-          "endOfLine": "auto"
-        }
-      ],
-      "@typescript-eslint/explicit-module-boundary-types": "off"
-    },
-    "settings": {
-      "import/parsers": {
-        "@typescript-eslint/parser": [
-          ".ts",
-          ".tsx"
-        ]
-      },
-      "import/resolver": {
-        "typescript": {
-          "alwaysTryTypes": true,
-          "project": "."
-        }
-      },
-      "react": {
-        "version": "detect"
-      }
-    }
-  },
-  "stylelint": {
-    "ignoreFiles": [
-      "**/*.{ts,tsx,js,jsx}"
-    ],
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-config-standard-scss",
-      "stylelint-prettier/recommended"
-    ],
-    "plugins": [
-      "stylelint-prettier"
-    ],
-    "rules": {
-      "scss/at-rule-no-unknown": [
-        true,
-        {
-          "ignoreAtRules": [
-            "tailwind",
-            "layer",
-            "apply",
-            "variants",
-            "responsive",
-            "screen",
-            "include",
-            "for",
-            "mixin",
-            "if",
-            "else",
-            "warn",
-            "return",
-            "function",
-            "use",
-            "each"
-          ]
-        }
-      ],
-      "selector-pseudo-class-no-unknown": [
-        true,
-        {
-          "ignorePseudoClasses": [
-            "global"
-          ]
-        }
-      ],
-      "property-no-unknown": [
-        true,
-        {
-          "ignoreProperties": [
-            "font-named-instance"
-          ]
-        }
-      ],
-      "declaration-block-trailing-semicolon": null,
-      "no-descending-specificity": null,
-      "number-leading-zero": null,
-      "length-zero-no-unit": null,
-      "alpha-value-notation": null,
-      "selector-id-pattern": null,
-      "selector-class-pattern": null,
-      "property-no-vendor-prefix": null,
-      "value-no-vendor-prefix": null,
-      "scss/no-global-function-names": null,
-      "scss/double-slash-comment-empty-line-before": null,
-      "scss/operator-no-newline-after": null
-    }
-  },
-  "lint-staged": {
-    "*.@(ts|tsx|css|scss)": [
-      "yarn lint --fix"
-    ]
+  "packageManager": "yarn@4.1.1",
+  "volta": {
+    "node": "20.12.0",
+    "yarn": "4.1.1"
   }
 }

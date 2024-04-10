@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { gsap } from 'lib/gsap'
+import { gsap } from '~/lib/gsap'
 import React, { forwardRef, Fragment, useMemo } from 'react'
 
 import { isClient } from '~/lib/constants'
@@ -64,8 +64,8 @@ function renderHtmlTree({
             {node.attributes &&
               Object.entries(node.attributes).map(([key, value]) => (
                 <span style={{ color: '#FF9640' }} key={key}>
-                  &nbsp;{key}="
-                  <span style={{ color: '#3734D3' }}>{value}</span>"
+                  &nbsp;{key}=&quot;
+                  <span style={{ color: '#3734D3' }}>{value}</span>&quot;
                 </span>
               ))}
 
@@ -135,9 +135,7 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
     const activeStyles = useMemo(() => {
       if (!isClient || !activeElement) return {}
 
-      const elm = document.querySelector(
-        `*[data-box-id="${activeElement.inspectBlockId}"]`
-      )
+      const elm = document.querySelector(`*[data-box-id="${activeElement.inspectBlockId}"]`)
 
       if (!elm) return {}
 
@@ -191,10 +189,7 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
               {Object.entries(activeStyles || {}).map(([key, value]) => (
                 <li key={key}>
                   {key}:{' '}
-                  <span
-                    id="hoverboard-rotate"
-                    style={{ color: 'var(--editor-variable)' }}
-                  >
+                  <span id="hoverboard-rotate" style={{ color: 'var(--editor-variable)' }}>
                     {logStyleContent(key, value)}
                   </span>
                 </li>
@@ -206,3 +201,5 @@ export const Elements = forwardRef<HTMLDivElement, ElementsProps>(
     )
   }
 )
+
+Elements.displayName = 'Elements'

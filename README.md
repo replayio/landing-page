@@ -1,42 +1,35 @@
-# Replay Landing Page
+# Salient
 
-![cover](https://replay.io/images/bugslayer.jpeg)
+Salient is a [Tailwind UI](https://tailwindui.com) site template built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
 
-Welcome to BugSlayer -- Replay's official landing page. We teamed up with our friends from Basement to create the craziest GSAP based scrolly-telling hero we've ever seen.
+## Getting started
 
-Here's a [replay](https://app.replay.io/recording/cannot-purchase-bugslayer--76c9f375-ccc9-4af9-a431-6e69e5f6e053) of the experience. We hope you enjoy!
+To get started with this template, first install the npm dependencies:
 
-## Get Started
+```bash
+npm install
+```
 
-1. Install yarn:
+Next, run the development server:
 
-   ```
-   npm install -g yarn
-   ```
+```bash
+npm run dev
+```
 
-2. Install the dependencies with:
+Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
 
-   ```
-   yarn
-   ```
+## Customizing
 
-3. Start developing and watch for code changes:
+You can start editing this template by modifying the files in the `/src` folder. The site will auto-update as you edit these files.
 
-   ```
-   yarn dev
-   ```
+## License
 
-## Important Things to Do
+This site template is a commercial product and is licensed under the [Tailwind UI license](https://tailwindui.com/license).
 
-- [ ] Check out `.env.example` for required environment variables to run the project.
-- [ ] Add favicons. (Re)Place in `./public`: _32x32_ `favicon.ico`, _perfect square_ `favicon.svg` and `favicon-dark.svg` (_dark theme_), _512x512_ `icon-512.png`, _192x192_ `icon-192.png`, _180x180_ `apple-touch-icon.png`. You can use something [like this](https://realfavicongenerator.net/) for some (better to use Gimp, Photoshop, or any graphics editor; read more about it [here](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)).
-- [ ] Delete `console.log(basementLog)` if not wanted — it's under `_app.tsx`.
-- [ ] Replace the contents of this file (`README.md`) with the contents of the `README.example.md` file — make sure to adapt it to your project's specific needs. Finally, delete the old `README.example.md` file.
+## Learn more
 
----
+To learn more about the technologies used in this site template, see the following resources:
 
-If you find you need to make extra config to make this work more seamlessly, feel free to submit a PR suggesting your changes. Our focus is to get you up and running with the least steps and burden as possible.
-
----
-
-![cover image](https://github.com/basementstudio/next-typescript/raw/main/public/og-image.png 'We Make Cool Sh*t That Performs')
+- [Tailwind CSS](https://tailwindcss.com/docs) - the official Tailwind CSS documentation
+- [Next.js](https://nextjs.org/docs) - the official Next.js documentation
+- [Headless UI](https://headlessui.dev) - the official Headless UI documentation

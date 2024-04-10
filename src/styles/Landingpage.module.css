@@ -1,0 +1,40 @@
+.slate {
+  background-color: #4b5563;
+}
+
+.colorPrimaryAccent {
+  color: #f02d5e;
+}
+
+.bgPrimaryAccent {
+  background-color: #f02d5e;
+}
+
+.ringPrimaryAccent {
+  border: 1px solid #f02d5e;
+  color: #f02d5e;
+  box-shadow: none;
+  transition: color 0.1s ease;
+}
+
+.bgPrimaryAccent {
+  background-color: #f02d5e;
+  transition: background-color 0.1s ease;
+}
+
+.bgPrimaryAccent:hover {
+  background-color: #c61351;
+}
+
+.sectionSubhead {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 2rem;
+  letter-spacing: 0.025em;
+  color: #f02d5e;
+}
+
+.quoteCallout {
+  font-size: 24px;
+  font-style: italic;
+}

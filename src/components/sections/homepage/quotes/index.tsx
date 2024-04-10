@@ -10,9 +10,7 @@ import { useTabletBreakpoint } from '~/hooks/use-media'
 import s from './quotes.module.scss'
 
 export const Quotes = () => {
-  const [selectedQuoteId, setSelectedQuoteId] = useState<number>(
-    data[0]?.id || 0
-  )
+  const [selectedQuoteId, setSelectedQuoteId] = useState<number>(data[0]?.id || 0)
   const selectedQuote = data.find((item) => item.id === selectedQuoteId)
   const isTablet = useTabletBreakpoint()
 
@@ -34,9 +32,7 @@ export const Quotes = () => {
               />
               <div>
                 <p className={s.name}>{selectedQuote?.author.name}</p>
-                <p className={s.position}>
-                  {selectedQuote?.author.jobPosition}
-                </p>
+                <p className={s.position}>{selectedQuote?.author.jobPosition}</p>
               </div>
             </div>
 
@@ -208,20 +204,10 @@ const data: DataType[] = [
         </g>
         <defs>
           <clipPath id="clip0_3938_170184">
-            <rect
-              width="18"
-              height="18"
-              fill="white"
-              transform="translate(0 0.5)"
-            />
+            <rect width="18" height="18" fill="white" transform="translate(0 0.5)" />
           </clipPath>
           <clipPath id="clip1_3938_170184">
-            <rect
-              width="132"
-              height="20"
-              fill="white"
-              transform="translate(27.5 0.5)"
-            />
+            <rect width="132" height="20" fill="white" transform="translate(27.5 0.5)" />
           </clipPath>
         </defs>
       </svg>

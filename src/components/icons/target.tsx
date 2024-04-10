@@ -1,11 +1,6 @@
 export const TargetIcon = (props: JSX.IntrinsicElements['svg']) => {
   return (
-    <svg
-      viewBox="0 0 18 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

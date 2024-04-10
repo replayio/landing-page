@@ -126,22 +126,14 @@ const RecordRandomness = () => {
 const Debugging = () => {
   return (
     <AssetSideBox className={s.debugging}>
-      <Marquee
-        direction="right"
-        autoFill
-        className={clsx(s.binaryIconsMarquee, s.marquee)}
-      >
+      <Marquee direction="right" autoFill className={clsx(s.binaryIconsMarquee, s.marquee)}>
         {binaryIcons.map((Icon, idx) => (
           <div className={s.iconWrapper} key={idx}>
             <Icon className={s.icon as string} />
           </div>
         ))}
       </Marquee>
-      <Marquee
-        direction="right"
-        autoFill
-        className={clsx(s.iconsMarquee, s.marquee)}
-      >
+      <Marquee direction="right" autoFill className={clsx(s.iconsMarquee, s.marquee)}>
         {icons.map((Icon, idx) => (
           <div className={s.iconWrapper} key={idx}>
             <Icon className={s.icon} />

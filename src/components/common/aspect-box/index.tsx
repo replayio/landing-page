@@ -22,3 +22,5 @@ export const AspectBox = React.forwardRef<
     </div>
   )
 })
+
+AspectBox.displayName = 'AspectBox'

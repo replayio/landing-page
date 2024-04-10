@@ -119,7 +119,9 @@
         padding: 12px;
         min-width: 120px;
         border-radius: var(--border-radius-full);
-        box-shadow: 0 0 16px var(--glow), 0 0 15px var(--glow),
+        box-shadow:
+          0 0 16px var(--glow),
+          0 0 15px var(--glow),
           0 0 5px var(--glow);
         transition-property: transform, background;
         transition-duration: var(--duration-fast);

@@ -41,3 +41,5 @@ export const Grid3D = forwardRef<HTMLDivElement, unknown>((_, ref) => {
     </div>
   )
 })
+
+Grid3D.displayName = 'Grid3D'
