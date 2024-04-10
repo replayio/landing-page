@@ -24,7 +24,7 @@ const images = {
   },
   testSteps: {
     type: 'mux-video',
-    src: 'QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4'
+    src: '3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg'
   },
   network: {
     type: 'image',
@@ -135,7 +135,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         {featureImage.type === 'mux-video' && (
                           <MuxPlayer
                             streamType="on-demand"
-                            playbackId="QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4"
+                            playbackId="3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg"
                             primaryColor="#FFFFFF"
                             secondaryColor="#000000"
                             muted={true}
@@ -193,7 +193,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                     {featureImage.type === 'mux-video' && (
                       <MuxPlayer
                         streamType="on-demand"
-                        playbackId="QkSFKUrsBI00NzaCuiUelsPsekl6miPCDfC102qLvNxK4"
+                        playbackId="3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg"
                         primaryColor="#FFFFFF"
                         secondaryColor="#000000"
                         muted={true}
