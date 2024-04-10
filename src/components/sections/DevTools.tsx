@@ -133,22 +133,30 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         )}
 
                         {featureImage.type === 'mux-video' && (
-                          <MuxPlayer
-                            streamType="on-demand"
-                            playbackId="3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg"
-                            primaryColor="#FFFFFF"
-                            secondaryColor="#000000"
-                            muted={true}
-                            autoPlay={true}
-                            style={
-                              {
-                                display: 'block',
-                                '--controls': 'none',
-                                '--media-object-fit': 'cover',
-                                '--media-object-position': 'center'
-                              } as React.CSSProperties
-                            }
-                          />
+                          <div
+                            style={{
+                              position: 'relative',
+                              width: '100%'
+                            }}
+                          >
+                            <MuxPlayer
+                              streamType="on-demand"
+                              playbackId="3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg"
+                              primaryColor="#FFFFFF"
+                              secondaryColor="#000000"
+                              muted={true}
+                              autoPlay={true}
+                              style={
+                                {
+                                  display: 'block',
+                                  margin: '15px 0',
+                                  '--controls': 'none',
+                                  '--media-object-fit': 'cover',
+                                  '--media-object-position': 'center'
+                                } as React.CSSProperties
+                              }
+                            />
+                          </div>
                         )}
                       </div>
                     </Tab.Panel>
@@ -195,12 +203,14 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         streamType="on-demand"
                         playbackId="3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg"
                         primaryColor="#FFFFFF"
-                        secondaryColor="#000000"
+                        secondaryColor="#ff00ff"
                         muted={true}
                         autoPlay={true}
                         style={
                           {
                             display: 'block',
+                            padding: '50px 0',
+                            margin: '50px 0',
                             '--controls': 'none',
                             '--media-object-fit': 'cover',
                             '--media-object-position': 'center'
