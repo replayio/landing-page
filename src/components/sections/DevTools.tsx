@@ -7,17 +7,28 @@ import MuxPlayer from '@mux/mux-player-react'
 import clsx from 'clsx'
 
 import { Container } from '~/components/Container'
-import console from '~/images/screenshots/add-console-logs.png'
 import react from '~/images/screenshots/inspect-react-components.png'
 import testSteps from '~/images/screenshots/jump-to-test-steps.png'
 import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 
 const images = {
-  testSteps,
-  console,
-  react,
-  network
+  testSteps: {
+    type: 'image',
+    src: testSteps
+  },
+  console: {
+    type: 'mux-video',
+    src: 'duyGJ3YhpPbZSQS5IuNo9IrqBR95LeZv5T01nOs4HZMk'
+  },
+  react: {
+    type: 'image',
+    src: react
+  },
+  network: {
+    type: 'image',
+    src: network
+  }
 }
 
 export function DevTools({ devTools }: LandingPageFragment) {
@@ -113,7 +124,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         {feature.type === 'image' ? (
                           <Image
                             className="w-full"
-                            src={featureImage}
+                            src={featureImage.src}
                             alt=""
                             priority
                             sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
@@ -121,7 +132,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         ) : (
                           <MuxPlayer
                             streamType="on-demand"
-                            playbackId="duyGJ3YhpPbZSQS5IuNo9IrqBR95LeZv5T01nOs4HZMk"
+                            playbackId={featureImage.src as string}
                             primaryColor="#FFFFFF"
                             secondaryColor="#000000"
                             muted={true}
@@ -182,16 +193,16 @@ export function DevTools({ devTools }: LandingPageFragment) {
                     {featureImage.type === 'mux-video' && (
                       <MuxPlayer
                         streamType="on-demand"
-                        playbackId="3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg"
+                        playbackId={featureImage.src as string}
                         primaryColor="#FFFFFF"
                         secondaryColor="#ff00ff"
                         muted={true}
                         autoPlay={true}
                         style={
                           {
+                            aspectRatio: '554/327',
+                            borderRadius: '18px',
                             display: 'block',
-                            padding: '50px 0',
-                            margin: '50px 0',
                             '--controls': 'none',
                             '--media-object-fit': 'cover',
                             '--media-object-position': 'center'
