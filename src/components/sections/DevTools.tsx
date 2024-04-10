@@ -224,17 +224,6 @@ export function DevTools({ devTools }: LandingPageFragment) {
           }}
         />
       </div>
-      <div className="absolute right-32 hidden pt-1 lg:flex">
-        <a href={devTools.replayUrl} target="_blank" rel="noopener noreferrer">
-          <Image
-            className="transition-colors duration-500 ease-in-out hover:brightness-90 hover:filter"
-            src="/images/homepage/check-out-this-replay.svg"
-            alt="Check out this replay"
-            width={230}
-            height={29}
-          />
-        </a>
-      </div>
     </section>
   )
 }
