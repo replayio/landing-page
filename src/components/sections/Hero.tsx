@@ -19,7 +19,7 @@ import { featureFlags } from '~/lib/feature-flags'
 export function Hero({ hero }: LandingPageFragment) {
   return (
     <div className="relative mt-32 overflow-hidden">
-      <Container className="relative z-10 flex max-w-7xl items-center">
+      <Container className="relative z-10 flex max-w-7xl items-baseline">
         <div className="flex-1 text-left">
           <h1 className=" font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Fix flakes with{' '}
