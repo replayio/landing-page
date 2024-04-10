@@ -119,30 +119,25 @@ export function DevTools({ devTools }: LandingPageFragment) {
                             sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
                           />
                         ) : (
-                          <div
-                            style={{
-                              position: 'relative',
-                              width: '100%'
-                            }}
-                          >
-                            <MuxPlayer
-                              streamType="on-demand"
-                              playbackId="duyGJ3YhpPbZSQS5IuNo9IrqBR95LeZv5T01nOs4HZMk"
-                              primaryColor="#FFFFFF"
-                              secondaryColor="#000000"
-                              muted={true}
-                              autoPlay={true}
-                              style={
-                                {
-                                  borderRadius: '18px',
-                                  display: 'block',
-                                  '--controls': 'none',
-                                  '--media-object-fit': 'cover',
-                                  '--media-object-position': 'center'
-                                } as React.CSSProperties
-                              }
-                            />
-                          </div>
+                          <MuxPlayer
+                            streamType="on-demand"
+                            playbackId="duyGJ3YhpPbZSQS5IuNo9IrqBR95LeZv5T01nOs4HZMk"
+                            primaryColor="#FFFFFF"
+                            secondaryColor="#000000"
+                            muted={true}
+                            autoPlay={true}
+                            loop={true}
+                            style={
+                              {
+                                aspectRatio: '554/327',
+                                borderRadius: '18px',
+                                display: 'block',
+                                '--controls': 'none',
+                                '--media-object-fit': 'cover',
+                                '--media-object-position': 'center'
+                              } as React.CSSProperties
+                            }
+                          />
                         )}
                       </div>
                     </Tab.Panel>
