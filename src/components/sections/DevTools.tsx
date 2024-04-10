@@ -14,22 +14,10 @@ import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 
 const images = {
-  console: {
-    type: 'image',
-    src: console
-  },
-  react: {
-    type: 'image',
-    src: react
-  },
-  testSteps: {
-    type: 'mux-video',
-    src: '3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg'
-  },
-  network: {
-    type: 'image',
-    src: network
-  }
+  testSteps,
+  console,
+  react,
+  network
 }
 
 export function DevTools({ devTools }: LandingPageFragment) {
@@ -122,17 +110,15 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         </p>
                       </div>
                       <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
-                        {featureImage.type === 'image' && (
+                        {feature.type === 'image' ? (
                           <Image
                             className="w-full"
-                            src={featureImage.src}
+                            src={featureImage}
                             alt=""
                             priority
                             sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
                           />
-                        )}
-
-                        {featureImage.type === 'mux-video' && (
+                        ) : (
                           <div
                             style={{
                               position: 'relative',
