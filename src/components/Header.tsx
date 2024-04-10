@@ -100,9 +100,7 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">
             <Link href="/" aria-label="Home">
-              <Logo
-                className={classNames(variant === 'dark' ? 'fill-slate-100' : 'fill-slate-800')}
-              />
+              <Logo variant={variant} />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
               <NavLink variant={variant} href="/#devtools">
@@ -128,11 +126,7 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <div className="hidden md:block">
-              <NavLink
-                variant="dark"
-                href="https://app.replay.io"
-                className=" bg-black px-4 text-white"
-              >
+              <NavLink href="https://app.replay.io" variant={variant} type="solid">
                 Sign in
               </NavLink>
             </div>
