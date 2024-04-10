@@ -136,20 +136,21 @@ export function DevTools({ devTools }: LandingPageFragment) {
                           <div
                             style={{
                               position: 'relative',
-                              width: '100%'
+                              width: '100%',
+                              marginBottom: '15px'
                             }}
                           >
                             <MuxPlayer
                               streamType="on-demand"
-                              playbackId="3OZMn3uq3dlTfHO19bGjaBO8JXXbPduqCx2RqDG5jIg"
+                              playbackId="duyGJ3YhpPbZSQS5IuNo9IrqBR95LeZv5T01nOs4HZMk"
                               primaryColor="#FFFFFF"
                               secondaryColor="#000000"
                               muted={true}
                               autoPlay={true}
                               style={
                                 {
+                                  borderRadius: '18px',
                                   display: 'block',
-                                  margin: '15px 0',
                                   '--controls': 'none',
                                   '--media-object-fit': 'cover',
                                   '--media-object-position': 'center'
