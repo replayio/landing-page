@@ -1,14 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from './Button'
 import { Testimonial, TestimonialItem } from './Testimonials'
 
 function TestimonialForSmallScreen({ testimonials }: { testimonials: TestimonialItem[][][] }) {
   const [showAll, setShowAll] = useState(false)
 
-  const allTestimonials = testimonials.flatMap((columnGroup) =>
-    columnGroup.flatMap((column) => column)
+  const allTestimonials = useMemo(
+    () => testimonials.flatMap((columnGroup) => columnGroup.flatMap((column) => column)),
+    [testimonials]
   )
   const testimonialsToShow = showAll ? allTestimonials : allTestimonials.slice(0, 4)
   return (
@@ -16,7 +17,7 @@ function TestimonialForSmallScreen({ testimonials }: { testimonials: Testimonial
       {testimonialsToShow.map((testimonial, i) => (
         <Testimonial key={i} testimonial={testimonial} columnIdx={i} columnGroupIdx={0} />
       ))}
-      {!showAll && <Button onClick={() => setShowAll(!showAll)}>Load More</Button>}
+      {!showAll && <Button onClick={() => setShowAll(!showAll)}>Show more</Button>}
     </div>
   )
 }

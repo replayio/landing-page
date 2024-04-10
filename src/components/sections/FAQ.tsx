@@ -1,3 +1,5 @@
+'use client'
+
 import { LandingPageFragment } from '~/lib/basehub-queries'
 
 import circle from '~/images/faq/circle.png'
@@ -12,6 +14,9 @@ import semaphore from '~/images/faq/semaphore.png'
 import soc2 from '~/images/faq/soc2.png'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useMemo, useState } from 'react'
+import { Button } from '../Button'
+import { useTabletBreakpoint } from '~/hooks/use-media'
 
 const logos = {
   'test-runner': [
@@ -66,6 +71,16 @@ const logos = {
 }
 
 export default function FAQ({ faq }: LandingPageFragment) {
+  const isBiggerThanTablet = !useTabletBreakpoint()
+  const [showAll, setShowAll] = useState(false)
+
+  const questions = useMemo(() => {
+    if (isBiggerThanTablet) {
+      return faq.questions.items
+    }
+    return showAll ? faq.questions.items : faq.questions.items.slice(0, 4)
+  }, [showAll, isBiggerThanTablet, faq.questions.items])
+
   return (
     <div className="border-t border-slate-300 bg-slate-100 py-24 sm:py-32">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6 lg:px-8">
@@ -76,7 +91,7 @@ export default function FAQ({ faq }: LandingPageFragment) {
           <p className="mt-4 text-lg leading-8 text-gray-600">{faq.subTitle}</p>
         </div>
         <dl className="ext-base mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16  text-left leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {faq.questions.items.map((question) => (
+          {questions.map((question) => (
             <div key={question._title} className="flex flex-col">
               <dt className="font-semibold text-gray-900">{question._title}</dt>
               <dd className="mt-1 flex-grow text-gray-600">
@@ -106,6 +121,11 @@ export default function FAQ({ faq }: LandingPageFragment) {
             </div>
           ))}
         </dl>
+        {!isBiggerThanTablet && !showAll && (
+          <Button className="mt-6" onClick={() => setShowAll(!showAll)}>
+            Show more
+          </Button>
+        )}
       </div>
     </div>
   )
