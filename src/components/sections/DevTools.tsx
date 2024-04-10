@@ -44,7 +44,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
       className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-left shadow-2xl"
     >
       <Container className="relative">
-        <div className="justfify-center flex max-w-2xl flex-col items-center md:mx-auto md:text-center xl:max-w-none">
+        <div className="flex max-w-2xl flex-col items-center justify-center md:mx-auto md:text-center xl:max-w-none">
           <h2 className="font-display text-2xl tracking-tight text-white sm:text-3xl md:text-4xl">
             {devTools.title}
           </h2>
@@ -59,7 +59,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
         >
           {({ selectedIndex }) => (
             <>
-              <div className="-mx-4 flex hidden overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5 lg:block">
+              <div className="-mx-4 hidden overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5 lg:block">
                 <Tab.List className="relative z-10 flex gap-x-4 whitespace-nowrap px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
                   {devTools.features.items.map((feature, featureIndex) => (
                     <div
@@ -101,7 +101,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
               <Tab.Panels className="hidden lg:col-span-7 lg:block">
                 {devTools.features.items.map((feature) => (
                   <Tab.Panel key={feature._title} unmount={false}>
-                    <div className="relative text-blue-100 text-white hover:text-white sm:px-6 lg:hidden">
+                    <div className="relative text-white hover:text-white sm:px-6 lg:hidden">
                       <div className="absolute -inset-x-4 bottom-[-4.25rem] top-[-6.5rem] bg-white/10 ring-1 ring-inset ring-white/10 sm:inset-x-0 sm:rounded-t-xl" />
                       <p className="relative mx-auto max-w-2xl text-base text-white sm:text-center">
                         {feature.subTitle}
@@ -125,8 +125,8 @@ export function DevTools({ devTools }: LandingPageFragment) {
 
         <>
           <div className="-mx-4 flex  overflow-x-hidden pb-4 sm:mx-0  sm:pb-0  lg:hidden">
-            <div className="relative z-10 flex flex flex-col gap-x-4  px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-              {devTools.features.items.map((feature, featureIndex) => (
+            <div className="relative z-10 flex flex-col gap-x-4  px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
+              {devTools.features.items.map((feature) => (
                 <div
                   key={feature._title}
                   className={clsx('relative my-2 mt-16 flex flex-col rounded-full px-4 text-white')}
