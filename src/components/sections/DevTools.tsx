@@ -198,6 +198,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         secondaryColor="#ff00ff"
                         muted={true}
                         autoPlay={true}
+                        loop={true}
                         style={
                           {
                             aspectRatio: '554/327',
