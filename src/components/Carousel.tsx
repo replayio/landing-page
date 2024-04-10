@@ -16,16 +16,16 @@ export function Carousel({
 
   return (
     <section
-      className={`relative flex items-center justify-center rounded-lg bg-white p-6 shadow lg:p-8 lg:pl-10 ${styles.testimonialSection}`}
+      className={`relative flex items-center justify-center rounded-lg bg-white shadow ${styles.testimonialSection}`}
       style={{ width: '320px' }}
     >
       <div className="w-full max-w-4xl">
         <blockquote
-          className={`leading-2 relative text-sm font-normal italic text-gray-900 ${styles.testimonialQuote}`}
+          className={` leading-2 relative p-6  text-sm font-normal italic text-gray-900 lg:p-8 lg:pl-10 ${styles.testimonialQuote}`}
         >
           <RichText>{testimonial.quote.json.content}</RichText>
         </blockquote>
-        <figcaption className="mt-4 flex items-center">
+        <figcaption className=" flex items-center border-t  border-gray-100 py-3 lg:px-8 lg:pl-10">
           <div>
             <div className="text-md font-semibold text-gray-900">{testimonial.name}</div>
             <div className="text-sm text-gray-500">{testimonial.title}</div>
