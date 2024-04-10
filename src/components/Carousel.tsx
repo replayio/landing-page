@@ -12,7 +12,6 @@ export function Carousel({
   testimonials: LandingPageFragment['hero']['testimonials']['items']
 }) {
   const testimonial = testimonials[0].testimonial
-  console.log(testimonial.quote.json.content) // Check the content
 
   return (
     <section

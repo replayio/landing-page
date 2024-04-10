@@ -38,7 +38,6 @@ const AnimateSquare = ({
     <div
       className={` flex h-32 items-center justify-center rounded-xl bg-gray-300 transition-all duration-500 ${featured ? 'sm:col-span-3' : 'sm:col-span-1'}`}
       onClick={() => {
-        console.log(caseStudy.company)
         setFeatured(caseStudy.company)
       }}
     >
