@@ -11,7 +11,7 @@ import { Header } from '~/components/Header'
 import FAQ from '~/components/sections/FAQ'
 import DynamicAnalysis from '~/components/sections/DynamicAnalysis'
 import { Content } from '~/components/sections/Content'
-
+import { HyperSpace } from '~/components/Hyper'
 export default function Home() {
   return (
     <Pump
@@ -24,15 +24,21 @@ export default function Home() {
         return (
           <>
             <main>
-              <div
-                className="bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: 'url(/images/hyperspace.svg)',
-                  backgroundPosition: '-290px center'
-                }}
-              >
+              <div className="relative">
                 <Header />
                 <Hero {...landingPage} />
+                <div style={{ zIndex: -1 }} className=" absolute inset-0 w-full">
+                  <HyperSpace
+                    cx={-10}
+                    cy={75}
+                    radiusX={60}
+                    radiusY={30}
+                    lines={250}
+                    strokeWidth={0.1}
+                    extensionLength={500}
+                    stroke="#f3f3f3"
+                  />
+                </div>
               </div>
               <DevTools {...landingPage} />
               <TestSuites {...landingPage} />

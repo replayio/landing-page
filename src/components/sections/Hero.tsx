@@ -18,11 +18,8 @@ import { featureFlags } from '~/lib/feature-flags'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
-    <div className="relative overflow-hidden">
-      <Container
-        className="relative z-10 flex max-w-7xl items-center"
-        style={{ height: 'calc(100vh - 300px)' }}
-      >
+    <div className="relative mt-32 overflow-hidden">
+      <Container className="relative z-10 flex max-w-7xl items-center">
         <div className="flex-1 text-left">
           <h1 className=" font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Fix flakes with{' '}
@@ -31,11 +28,11 @@ export function Hero({ hero }: LandingPageFragment) {
             </span>{' '}
             playback.
           </h1>
-          <div className="mt-4 max-w-3xl rounded-lg bg-white/75 p-2 text-lg tracking-tight text-slate-700">
+          <div className="mt-4 max-w-3xl rounded-lg bg-white/20 p-2 text-lg tracking-tight text-slate-700">
             <RichText>{hero.subtitle.json.content}</RichText>
           </div>
 
-          <div className="mt-10 flex justify-start gap-x-6">
+          <div className=" mb-32 mt-16 flex justify-start gap-x-6">
             <BaseHubButton {...hero.getStartedLink} />
             <Cal link={hero.contactUsLink} />
           </div>
@@ -46,7 +43,7 @@ export function Hero({ hero }: LandingPageFragment) {
           )}
         </div>
       </Container>
-      <div className="my-12 w-full rounded-lg px-4 py-0">
+      <div className="z-10 my-12 w-full rounded-lg px-4 py-0">
         <p className="hidden font-display text-base text-slate-900">{hero.logosTitle}</p>
         <ul role="list" className="flex flex-wrap items-center justify-center gap-x-8">
           {[
