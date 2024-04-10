@@ -136,8 +136,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                           <div
                             style={{
                               position: 'relative',
-                              width: '100%',
-                              marginBottom: '15px'
+                              width: '100%'
                             }}
                           >
                             <MuxPlayer
