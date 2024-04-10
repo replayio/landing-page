@@ -1,4 +1,6 @@
-export function Logo(props: React.ComponentPropsWithoutRef<'svg'> & { variant: 'dark' | 'light' }) {
+export function Logo(
+  props: React.ComponentPropsWithoutRef<'svg'> & { variant?: 'dark' | 'light' }
+) {
   const fill = props.variant === 'dark' ? 'white' : 'black'
   return (
     <svg

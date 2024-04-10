@@ -100,7 +100,7 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">
             <Link href="/" aria-label="Home">
-              <Logo variant={variant} />
+              <Logo variant={variant || 'dark'} />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
               <NavLink variant={variant} href="/#devtools">
