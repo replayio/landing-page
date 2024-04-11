@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 
 import { BaseHubButton } from '~/components/Button'
@@ -17,13 +19,15 @@ import { Carousel } from '~/components/Carousel'
 import { featureFlags } from '~/lib/feature-flags'
 import { HyperSpace } from '../Hyper'
 import Marquee from 'react-fast-marquee'
+import { useMinTabletBreakpoint } from '~/hooks/use-media'
 
 export function Hero({ hero }: LandingPageFragment) {
+  const isMinTablet = useMinTabletBreakpoint()
   return (
     <section className="relative mt-[calc(var(--header-height)*-1)] flex min-h-[100dvh] sm:min-h-[90dvh] lg:max-h-[1080px] xl:min-h-[100dvh]">
-      <div className="relative flex flex-1 flex-col pt-[180px] lg:pt-[280px]">
-        <Container className="relative z-10 flex w-full max-w-7xl items-baseline">
-          <div className="flex-1 text-left">
+      <div className="relative flex flex-1 flex-col pt-[180px] lg:pt-[220px] 2xl:pt-[280px]">
+        <Container className="relative z-10 flex w-full max-w-7xl ">
+          <div className="flex-1">
             <div className="max-w-lg">
               <h1 className=" font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
                 Fix flakes with{' '}
@@ -42,7 +46,7 @@ export function Hero({ hero }: LandingPageFragment) {
               <Cal link={hero.contactUsLink} />
             </div>
           </div>
-          <div className="hidden p-0 lg:flex">
+          <div className="hidden h-fit p-0 lg:flex">
             {featureFlags.showTestSuiteTestimonials && (
               <Carousel testimonials={hero.testimonials.items} />
             )}
@@ -52,7 +56,7 @@ export function Hero({ hero }: LandingPageFragment) {
           <p className="hidden font-display text-base text-slate-900">{hero.logosTitle}</p>
 
           <div className="min-h-[40px]">
-            <Marquee autoFill gradient speed={20}>
+            <Marquee autoFill gradient gradientWidth={isMinTablet ? 200 : 60} speed={20}>
               {[
                 { name: 'React', logo: logoReact },
                 { name: 'WeightsBiases', logo: logoWeightsAndBiases },

@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Tab } from '@headlessui/react'
-import MuxPlayer from '@mux/mux-player-react'
+import MuxPlayer from '@mux/mux-player-react/lazy'
 import clsx from 'clsx'
 
 import { Container } from '~/components/Container'
@@ -11,6 +10,7 @@ import react from '~/images/screenshots/inspect-react-components.png'
 import testSteps from '~/images/screenshots/jump-to-test-steps.png'
 import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
+import { getImageSizes } from '~/lib/utils/image'
 
 const images = {
   testSteps: {
@@ -32,41 +32,37 @@ const images = {
 }
 
 export function DevTools({ devTools }: LandingPageFragment) {
-  let [tabOrientation, setTabOrientation] = useState<'horizontal' | 'vertical'>('horizontal')
-
-  useEffect(() => {
-    let lgMediaQuery = window.matchMedia('(min-width: 1024px)')
-
-    function onMediaQueryChange({ matches }: { matches: boolean }) {
-      setTabOrientation(matches ? 'vertical' : 'horizontal')
-    }
-
-    onMediaQueryChange(lgMediaQuery)
-    lgMediaQuery.addEventListener('change', onMediaQueryChange)
-
-    return () => {
-      lgMediaQuery.removeEventListener('change', onMediaQueryChange)
-    }
-  }, [])
-
   return (
     <section
       id="devtools"
-      className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-left shadow-2xl"
+      className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-8 text-left shadow-2xl md:pb-44 md:pt-20"
     >
       <Container className="relative">
-        <div className="flex max-w-2xl flex-col items-center justify-center md:mx-auto md:text-center xl:max-w-none">
-          <h2 className="font-display text-2xl tracking-tight text-white sm:text-3xl md:text-4xl">
+        <div className="flex max-w-2xl flex-col justify-center text-center md:mx-auto xl:max-w-none">
+          <div className="mx-auto">
+            <svg
+              width="77"
+              height="75"
+              viewBox="0 0 77 75"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g fill="#fff" fillOpacity=".28">
+                <path d="m39.3959 22.7608-5.6608-3.2744-5.6608-3.2743c-.2455-.1419-.524-.2165-.8074-.2165-.2834.0001-.5619.0748-.8073.2168-.2455.142-.4493.3462-.5911.592-.1417.2459-.2164.5249-.2165.8088v13.0972c.0001.284.0747.5629.2165.8088.1418.2459.3456.4501.5911.5921.2454.142.5238.2167.8073.2168.2834.0001.5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3462.5911-.5922.1418-.2459.2164-.5249.2164-.8089 0-.284-.0746-.563-.2164-.809-.1417-.2459-.3456-.4501-.5911-.5921ZM39.3959 41l-5.6608-3.2743-5.6608-3.2743c-.2455-.1419-.524-.2166-.8074-.2165-.2835 0-.5619.0748-.8073.2168-.2455.142-.4494.3462-.5911.592-.1418.2459-.2164.5249-.2165.8088v13.0972c.0001.2839.0747.5629.2165.8088.1417.2459.3456.4501.5911.592.2454.142.5238.2168.8073.2169.2834 0 .5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3463.5912-.5922.1417-.246.2163-.525.2163-.809 0-.284-.0746-.563-.2163-.809-.1418-.2459-.3457-.4501-.5912-.5921ZM55.5411 31.8828l-5.6608-3.2744-5.6608-3.2742c-.2455-.1419-.524-.2166-.8074-.2165-.2834 0-.5619.0748-.8073.2168-.2455.142-.4493.3461-.5911.592-.1418.2459-.2164.5248-.2166.8088v13.0972c.0002.284.0748.5629.2166.8088.1418.2458.3456.45.5911.592.2454.142.5239.2168.8073.2168.2834.0001.5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3462.5911-.5922.1418-.2459.2164-.5249.2164-.8089 0-.284-.0746-.563-.2164-.809-.1417-.2459-.3456-.4501-.5911-.5921Z" />
+              </g>
+            </svg>
+          </div>
+          <h2 className="text-pretty font-display text-2xl tracking-tight text-white sm:text-3xl md:text-5xl">
             {devTools.title}
           </h2>
-          <p className="mt-6 text-lg tracking-tight text-blue-100 md:max-w-3xl">
+          <p className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7] md:text-lg">
             {devTools.subTitle}
           </p>
         </div>
+
         <Tab.Group
           as="div"
-          className="mt-16 grid grid-cols-1 items-center gap-y-2 pt-10 sm:gap-y-6 md:mt-20 lg:grid-cols-12 lg:pt-0"
-          vertical={tabOrientation === 'vertical'}
+          className="mt-16 hidden grid-cols-1 items-center gap-y-2 pt-10 sm:gap-y-6 md:mt-32 lg:grid lg:grid-cols-12 lg:pt-0"
         >
           {({ selectedIndex }) => (
             <>
@@ -131,6 +127,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                           />
                         ) : (
                           <MuxPlayer
+                            loading="viewport"
                             streamType="on-demand"
                             playbackId={featureImage.src as string}
                             primaryColor="#FFFFFF"
@@ -141,7 +138,6 @@ export function DevTools({ devTools }: LandingPageFragment) {
                             style={
                               {
                                 aspectRatio: '554/327',
-                                borderRadius: '18px',
                                 display: 'block',
                                 '--controls': 'none',
                                 '--media-object-fit': 'cover',
@@ -159,39 +155,32 @@ export function DevTools({ devTools }: LandingPageFragment) {
           )}
         </Tab.Group>
 
-        <>
-          <div className="-mx-4 flex  overflow-x-hidden pb-4 sm:mx-0  sm:pb-0  lg:hidden">
-            <div className="relative z-10 flex flex-col gap-x-4  px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-              {devTools.features.items.map((feature) => {
-                const featureImage = images[(feature.image as keyof typeof images) || 'console']
-                return (
-                  <div
-                    key={feature._title}
-                    className={clsx(
-                      'relative my-2 mt-16 flex flex-col rounded-full px-4 text-white'
-                    )}
-                  >
-                    <h3>
-                      <div
-                        className={clsx(
-                          'font-display text-lg font-semibold ui-not-focus-visible:outline-none'
-                        )}
-                      >
-                        {feature._title}
-                      </div>
-                    </h3>
-                    <p className={clsx('mb-8 mt-2 text-sm')}>{feature.subTitle}</p>
-                    {featureImage.type === 'image' && (
-                      <Image
-                        className="w-full"
-                        src={featureImage.src}
-                        alt=""
-                        priority
-                        sizes="(min-width: 1024px) 67.8125rem, (min-width: 500px) 100vw, 30rem"
-                      />
-                    )}
-                    {featureImage.type === 'mux-video' && (
+        <div className="mt-4 flex overflow-x-hidden pb-4 sm:mx-0 sm:pb-0 lg:hidden">
+          <div className="relative z-10 flex flex-col gap-x-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
+            {devTools.features.items.map((feature) => {
+              const featureImage = images[(feature.image as keyof typeof images) || 'console']
+              return (
+                <div
+                  key={feature._title}
+                  className={'relative my-2 mt-12 flex flex-col rounded-full text-white'}
+                >
+                  <h3 className="font-display text-lg font-semibold ui-not-focus-visible:outline-none">
+                    {feature._title}
+                  </h3>
+                  <p className="mb-8 mt-2">{feature.subTitle}</p>
+                  {featureImage.type === 'image' && (
+                    <Image
+                      className="w-full"
+                      src={featureImage.src}
+                      alt={`${feature._title} screenshot`}
+                      placeholder="blur"
+                      sizes={getImageSizes(67, 100, 100)}
+                    />
+                  )}
+                  {featureImage.type === 'mux-video' && (
+                    <div className="overflow-hidden rounded-[8px]">
                       <MuxPlayer
+                        loading="viewport"
                         streamType="on-demand"
                         playbackId={featureImage.src as string}
                         primaryColor="#FFFFFF"
@@ -202,7 +191,6 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         style={
                           {
                             aspectRatio: '554/327',
-                            borderRadius: '18px',
                             display: 'block',
                             '--controls': 'none',
                             '--media-object-fit': 'cover',
@@ -210,13 +198,13 @@ export function DevTools({ devTools }: LandingPageFragment) {
                           } as React.CSSProperties
                         }
                       />
-                    )}
-                  </div>
-                )
-              })}
-            </div>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
-        </>
+        </div>
       </Container>
       <div className="absolute -top-24 right-0 -z-10 transform-gpu blur-3xl" aria-hidden="true">
         <div
