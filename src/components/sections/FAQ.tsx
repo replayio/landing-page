@@ -16,7 +16,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { Button } from '../Button'
-import { useTabletBreakpoint } from '~/hooks/use-media'
+import { useMinTabletBreakpoint, useTabletBreakpoint } from '~/hooks/use-media'
 
 const logos = {
   'test-runner': [
@@ -71,29 +71,27 @@ const logos = {
 }
 
 export default function FAQ({ faq }: LandingPageFragment) {
-  const isBiggerThanTablet = !useTabletBreakpoint()
+  const isTablet = useMinTabletBreakpoint()
   const [showAll, setShowAll] = useState(false)
 
   const questions = useMemo(() => {
-    if (isBiggerThanTablet) {
+    if (isTablet) {
       return faq.questions.items
     }
     return showAll ? faq.questions.items : faq.questions.items.slice(0, 4)
-  }, [showAll, isBiggerThanTablet, faq.questions.items])
+  }, [showAll, isTablet, faq.questions.items])
 
   return (
-    <div className="border-t border-slate-300 bg-slate-100 py-24 sm:py-32">
+    <section className="border-t border-slate-300 bg-slate-100 py-20 sm:py-32">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center lg:mx-0 ">
-          <h2 className="text-3xl  font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {faq.title}
-          </h2>
+          <h2 className="text-3xl  tracking-tight text-gray-900 sm:text-4xl">{faq.title}</h2>
           <p className="mt-4 text-lg leading-8 text-gray-600">{faq.subTitle}</p>
         </div>
-        <dl className="ext-base mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16  text-left leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-20 gap-y-12 text-left leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {questions.map((question) => (
             <div key={question._title} className="flex flex-col">
-              <dt className="font-semibold text-gray-900">{question._title}</dt>
+              <dt className="text-lg font-semibold text-gray-900">{question._title}</dt>
               <dd className="mt-1 flex-grow text-gray-600">
                 {question.summary}
                 {question.href && (
@@ -121,12 +119,15 @@ export default function FAQ({ faq }: LandingPageFragment) {
             </div>
           ))}
         </dl>
-        {!isBiggerThanTablet && !showAll && (
-          <Button className="mt-6" onClick={() => setShowAll(!showAll)}>
+        {!isTablet && !showAll && (
+          <Button
+            className="mt-12 min-w-[200px] bg-slate-900 text-white hover:bg-slate-800 hover:text-slate-100"
+            onClick={() => setShowAll(!showAll)}
+          >
             Show more
           </Button>
         )}
       </div>
-    </div>
+    </section>
   )
 }

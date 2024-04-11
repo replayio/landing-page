@@ -17,7 +17,14 @@ function TestimonialForSmallScreen({ testimonials }: { testimonials: Testimonial
       {testimonialsToShow.map((testimonial, i) => (
         <Testimonial key={i} testimonial={testimonial} columnIdx={i} columnGroupIdx={0} />
       ))}
-      {!showAll && <Button onClick={() => setShowAll(!showAll)}>Show more</Button>}
+      {!showAll && (
+        <Button
+          className="mx-auto mt-12 min-w-[200px] bg-slate-900 text-white hover:bg-slate-800 hover:text-slate-100"
+          onClick={() => setShowAll(!showAll)}
+        >
+          Show more
+        </Button>
+      )}
     </div>
   )
 }
