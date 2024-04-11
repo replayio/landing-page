@@ -69,7 +69,7 @@ export const Header = () => {
               alt="Replay's logo"
               quality={100}
               priority
-              sizes={getImageSizes(2, 2, 2)}
+              sizes={getImageSizes(10, 10, 15)}
             />
           </NavLink>
 

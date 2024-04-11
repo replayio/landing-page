@@ -7,7 +7,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { Container } from '~/components/Container'
 import { Logo } from '~/components/FullLogo'
 import { NavLink } from '~/components/NavLink'
-import { classNames } from '~/lib/utils'
+import { clsx } from 'clsx'
 
 function MobileNavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -28,11 +28,11 @@ function MobileNavIcon({ open }: { open: boolean }) {
     >
       <path
         d="M0 1H14M0 7H14M0 13H14"
-        className={classNames('origin-center transition', open ? 'scale-90 opacity-0' : '')}
+        className={clsx('origin-center transition', open && 'scale-90 opacity-0')}
       />
       <path
         d="M2 2L12 12M12 2L2 12"
-        className={classNames('origin-center transition', !open ? 'scale-90 opacity-0' : '')}
+        className={clsx('origin-center transition', !open && 'scale-90 opacity-0')}
       />
     </svg>
   )
@@ -90,18 +90,18 @@ function MobileNavigation() {
 export function Header({ variant }: { variant?: 'dark' | 'light' }) {
   return (
     <header
-      className={classNames(
-        'sticky top-0 z-50 flex h-[var(--header-height)]',
+      className={clsx(
+        'sticky top-0 z-50 flex h-[var(--header-height)] lg:-top-4',
         variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900'
       )}
     >
-      <Container className="my-auto flex-1">
+      <Container className="mt-auto flex-1">
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">
             <Link href="/" aria-label="Home">
-              <Logo variant={variant || 'light'} />
+              <Logo className="h-auto w-[144px]" variant={variant || 'light'} />
             </Link>
-            <div className="hidden md:flex md:gap-x-6">
+            <div className="hidden md:flex md:gap-x-4">
               <NavLink variant={variant} href="/#devtools">
                 DevTools
               </NavLink>
