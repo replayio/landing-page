@@ -91,11 +91,11 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
   return (
     <header
       className={classNames(
-        'sticky top-0 z-50 py-10 backdrop-blur-md backdrop-saturate-150 backdrop-filter',
+        'sticky top-0 z-50 flex h-[var(--header-height)]',
         variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900'
       )}
     >
-      <Container>
+      <Container className="my-auto flex-1">
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">
             <Link href="/" aria-label="Home">

@@ -26,21 +26,7 @@ export default function Home() {
           <>
             <Header />
             <main>
-              <div className="relative">
-                <Hero {...landingPage} />
-                <div style={{ zIndex: -1 }} className="absolute inset-0 w-full">
-                  <HyperSpace
-                    cx={-10}
-                    cy={75}
-                    radiusX={60}
-                    radiusY={30}
-                    lines={250}
-                    strokeWidth={0.1}
-                    extensionLength={500}
-                    stroke="#f3f3f3"
-                  />
-                </div>
-              </div>
+              <Hero {...landingPage} />
               <DevTools {...landingPage} />
               <TestSuites {...landingPage} />
               <FAQ {...landingPage} />
