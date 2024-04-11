@@ -19,7 +19,7 @@ const images = {
   },
   console: {
     type: 'mux-video',
-    src: '4Ivk8KnD9UTstl19JEus9Vk02FPXm02k00SZH6uTvaquig'
+    src: '9ERwx5ymPqmmqMeRIhVqCvnhyy009017y00mtdvISQF6fI'
   },
   react: {
     type: 'image',
