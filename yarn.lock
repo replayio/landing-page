@@ -2860,8 +2860,8 @@ graphql@^16.6.0:
   integrity sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==
 
 gsap@./src/lib/gsap/gsap-bonus.tgz:
-  version "3.11.3"
-  resolved "./src/lib/gsap/gsap-bonus.tgz#0a10e71686f39ae3b76d259a85305454b65933f2"
+  version "3.11.0"
+  resolved "./src/lib/gsap/gsap-bonus.tgz#dc3e03fad09d86608d76841ca16456138a77fb84"
 
 has-bigints@^1.0.1, has-bigints@^1.0.2:
   version "1.0.2"
