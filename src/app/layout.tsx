@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <Analytics />
       </head>
-      <body className="flex h-full flex-col">{children}</body>
+      <body>{children}</body>
     </html>
   )
 }

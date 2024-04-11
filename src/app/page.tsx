@@ -12,6 +12,7 @@ import FAQ from '~/components/sections/FAQ'
 import DynamicAnalysis from '~/components/sections/DynamicAnalysis'
 import { Content } from '~/components/sections/Content'
 import { HyperSpace } from '~/components/Hyper'
+
 export default function Home() {
   return (
     <Pump
@@ -23,11 +24,11 @@ export default function Home() {
         'use server'
         return (
           <>
+            <Header />
             <main>
               <div className="relative">
-                <Header />
                 <Hero {...landingPage} />
-                <div style={{ zIndex: -1 }} className=" absolute inset-0 w-full">
+                <div style={{ zIndex: -1 }} className="absolute inset-0 w-full">
                   <HyperSpace
                     cx={-10}
                     cy={75}

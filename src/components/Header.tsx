@@ -90,9 +90,8 @@ function MobileNavigation() {
 export function Header({ variant }: { variant?: 'dark' | 'light' }) {
   return (
     <header
-      aria-label="Header"
       className={classNames(
-        'py-10',
+        'sticky top-0 z-50 py-10 backdrop-blur-md backdrop-saturate-150 backdrop-filter',
         variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900'
       )}
     >
