@@ -19,7 +19,7 @@ import { HyperSpace } from '../Hyper'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
-    <section className="relative mt-[calc(var(--header-height)*-1)] flex lg:min-h-[100dvh]">
+    <section className="relative mt-[calc(var(--header-height)*-1)] flex lg:max-h-[1080px] lg:min-h-[100dvh]">
       <div className="relative flex flex-1 flex-col pt-[280px]">
         <Container className="relative z-10 flex w-full max-w-7xl items-baseline">
           <div className="flex-1 text-left">
@@ -47,7 +47,7 @@ export function Hero({ hero }: LandingPageFragment) {
         </Container>
         <div className="z-10 mb-12 mt-auto w-full rounded-lg px-4 py-0">
           <p className="hidden font-display text-base text-slate-900">{hero.logosTitle}</p>
-          <ul role="list" className="flex flex-wrap items-center justify-center gap-x-8">
+          <ul role="list" className="flex h-[44px] flex-wrap items-center justify-center gap-x-8">
             {[
               [
                 { name: 'WeightsBiases', logo: logoWeightsAndBiases },
@@ -66,7 +66,12 @@ export function Hero({ hero }: LandingPageFragment) {
                 >
                   {group.map((company) => (
                     <li key={company.name} className="mb-1">
-                      <Image src={company.logo} alt={company.name} unoptimized />
+                      <Image
+                        src={company.logo}
+                        alt={company.name}
+                        aria-label={`${company.name} logo`}
+                        unoptimized
+                      />
                     </li>
                   ))}
                 </ul>
