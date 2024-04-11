@@ -16,25 +16,28 @@ import Cal from './hero/Cal'
 import { Carousel } from '~/components/Carousel'
 import { featureFlags } from '~/lib/feature-flags'
 import { HyperSpace } from '../Hyper'
+import Marquee from 'react-fast-marquee'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
-    <section className="relative mt-[calc(var(--header-height)*-1)] flex lg:max-h-[1080px] lg:min-h-[100dvh]">
-      <div className="relative flex flex-1 flex-col pt-[280px]">
+    <section className="relative mt-[calc(var(--header-height)*-1)] flex min-h-[100dvh] sm:min-h-[90dvh] lg:max-h-[1080px] xl:min-h-[100dvh]">
+      <div className="relative flex flex-1 flex-col pt-[180px] lg:pt-[280px]">
         <Container className="relative z-10 flex w-full max-w-7xl items-baseline">
           <div className="flex-1 text-left">
-            <h1 className=" font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-              Fix flakes with{' '}
-              <span className="relative whitespace-nowrap">
-                <span className={`${styles.colorPrimaryAccent} relative`}>perfect</span>
-              </span>{' '}
-              playback.
-            </h1>
-            <div className="mt-4 max-w-3xl rounded-lg bg-white/20 p-2 text-lg tracking-tight text-slate-700">
-              <RichText>{hero.subtitle.json.content}</RichText>
+            <div className="max-w-lg">
+              <h1 className=" font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+                Fix flakes with{' '}
+                <span className="relative whitespace-nowrap">
+                  <span className={`${styles.colorPrimaryAccent} relative`}>perfect</span>
+                </span>{' '}
+                playback.
+              </h1>
+              <div className="mt-6 max-w-3xl rounded-lg bg-white/20 text-lg tracking-tight text-slate-700">
+                <RichText>{hero.subtitle.json.content}</RichText>
+              </div>
             </div>
 
-            <div className=" mb-32 mt-16 flex justify-start gap-x-6">
+            <div className="mx-auto my-12 flex max-w-[320px] flex-col justify-start gap-x-6 gap-y-4 lg:max-w-full lg:flex-row">
               <BaseHubButton {...hero.getStartedLink} />
               <Cal link={hero.contactUsLink} />
             </div>
@@ -45,39 +48,30 @@ export function Hero({ hero }: LandingPageFragment) {
             )}
           </div>
         </Container>
-        <div className="z-10 mb-12 mt-auto w-full rounded-lg px-4 py-0">
+        <div className="z-10 mx-auto mb-12 mt-auto w-full max-w-7xl rounded-lg py-0">
           <p className="hidden font-display text-base text-slate-900">{hero.logosTitle}</p>
-          <ul role="list" className="flex h-[44px] flex-wrap items-center justify-center gap-x-8">
-            {[
-              [
+
+          <div className="min-h-[40px]">
+            <Marquee autoFill gradient speed={20}>
+              {[
+                { name: 'React', logo: logoReact },
                 { name: 'WeightsBiases', logo: logoWeightsAndBiases },
                 { name: 'Vercel', logo: logoVercel },
+                { name: 'Code Sandbox', logo: logoCodeSandbox },
                 { name: 'Metabase', logo: logoMetabase },
                 { name: 'Glide', logo: logoGlide },
-                { name: 'Code Sandbox', logo: logoCodeSandbox },
-                { name: 'React', logo: logoReact },
                 { name: 'Apollo GraphQL', logo: logoApolloGraphql }
-              ]
-            ].map((group, groupIndex) => (
-              <li key={groupIndex}>
-                <ul
-                  role="list"
-                  className="flex items-center gap-y-8 sm:flex-row sm:gap-x-12 sm:gap-y-0"
-                >
-                  {group.map((company) => (
-                    <li key={company.name} className="mb-1">
-                      <Image
-                        src={company.logo}
-                        alt={company.name}
-                        aria-label={`${company.name} logo`}
-                        unoptimized
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
+              ].map((company) => (
+                <Image
+                  key={company.name}
+                  src={company.logo}
+                  alt={company.name}
+                  aria-label={`${company.name} logo`}
+                  className="mx-1"
+                />
+              ))}
+            </Marquee>
+          </div>
         </div>
       </div>
 
