@@ -98,8 +98,8 @@ const Prefooter = () => {
         </div>
 
         <div className={s['content']}>
-          <Title className={s['title']} ref={titleRef}>
-            Get started
+          <Title className={s['title']}>
+            <span ref={titleRef}>Get started</span>
           </Title>
 
           <div className={s['ctas']}>
