@@ -49,33 +49,33 @@ export const Eyebrow: FC<EyebrowProps> = ({ children, className, ...rest }) => {
 
 Eyebrow.displayName = 'Eyebrow'
 
-// type SubtitleProps = { children: ReactNode; className?: string }
+type SubtitleProps = { children: ReactNode; className?: string }
 
-// export const Subtitle = forwardRef<HTMLParagraphElement, SubtitleProps>(
-//   ({ children, className, ...rest }, ref) => {
-//     return (
-//       <p {...rest} className={clsx(s.subtitle, className)} ref={ref}>
-//         {children}
-//       </p>
-//     )
-//   }
-// )
+export const Subtitle = forwardRef<HTMLParagraphElement, SubtitleProps>(
+  ({ children, className, ...rest }, ref) => {
+    return (
+      <p {...rest} className={clsx(s.subtitle, className)} ref={ref}>
+        {children}
+      </p>
+    )
+  }
+)
 
-// Subtitle.displayName = 'Subtitle'
+Subtitle.displayName = 'Subtitle'
 
-// export const TitleAndSubtitle = ({
-//   title,
-//   subtitle,
-//   className
-// }: {
-//   title: TitleProps
-//   subtitle?: SubtitleProps
-//   className?: string
-// }) => {
-//   return (
-//     <div className={clsx(s.titleSubtitleWrapper, className)}>
-//       <Title {...title} />
-//       {subtitle && <Subtitle {...subtitle} />}
-//     </div>
-//   )
-// }
+export const TitleAndSubtitle = ({
+  title,
+  subtitle,
+  className
+}: {
+  title: TitleProps
+  subtitle?: SubtitleProps
+  className?: string
+}) => {
+  return (
+    <div className={clsx(s.titleSubtitleWrapper, className)}>
+      <Title {...title} />
+      {subtitle && <Subtitle {...subtitle} />}
+    </div>
+  )
+}
