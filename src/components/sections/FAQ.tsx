@@ -138,8 +138,8 @@ export default function FAQ({ faq }: LandingPageFragment) {
                     {faq._title}
                     <ChevronUpIcon
                       className={clsx(
-                        'ml-auto h-6 w-6 rotate-180 transform transition-transform duration-200 ease-in-out',
-                        open && 'rotate-0'
+                        'ml-auto h-6 w-6 transform transition-transform duration-200 ease-in-out',
+                        open ? 'rotate-0' : 'rotate-180'
                       )}
                     />
                   </Disclosure.Button>
