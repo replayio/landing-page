@@ -22,7 +22,8 @@ export default {
     },
     extend: {
       colors: {
-        primary: '#f02d5e'
+        primary: '#f02d5e',
+        accent: '#f02d5e'
       },
       maxWidth: {
         '2xl': '40rem'

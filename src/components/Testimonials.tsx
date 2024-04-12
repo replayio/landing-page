@@ -37,6 +37,7 @@ import pantheon from '~/images/testimonials/pantheon.png'
 import tablecheck from '~/images/testimonials/tablecheck.png'
 import { classNames } from '~/lib/utils'
 import { ArrowIcon } from './icons'
+import { Eyebrow, Title } from './primitives/texts'
 
 const images = {
   alex,
@@ -285,10 +286,8 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className={styles.sectionSubhead}>{testimonials.caseStudySubTitle}</h2>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            {testimonials.caseStudyTitle}
-          </p>
+          <Eyebrow>{testimonials.caseStudySubTitle}</Eyebrow>
+          <Title as="h2">{testimonials.caseStudyTitle}</Title>
         </div>
 
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-1 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-3">
@@ -297,11 +296,9 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
           ))}
         </div>
 
-        <div className="mx-auto mt-20 max-w-2xl text-center">
-          <h2 className={styles.sectionSubhead}>{testimonials.subtitle}</h2>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {testimonials.title}
-          </p>
+        <div className="mx-auto mt-20 text-center">
+          <Eyebrow>{testimonials.subtitle}</Eyebrow>
+          <Title as="h2">{testimonials.title}</Title>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-y-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-2 lg:gap-x-8 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
           <FeaturedTestimonial testimonial={featuredTestimonial} />

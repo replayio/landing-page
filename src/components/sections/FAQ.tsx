@@ -16,7 +16,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { Button } from '../Button'
-import { useMinTabletBreakpoint, useTabletBreakpoint } from '~/hooks/use-media'
+import { useMinTabletBreakpoint } from '~/hooks/use-media'
+import { Title } from '../primitives/texts'
 
 const logos = {
   'test-runner': [
@@ -85,7 +86,7 @@ export default function FAQ({ faq }: LandingPageFragment) {
     <section className="border-t border-slate-300 bg-slate-100 py-20 sm:py-32">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center lg:mx-0 ">
-          <h2 className="text-3xl  tracking-tight text-gray-900 sm:text-4xl">{faq.title}</h2>
+          <Title as="h2">{faq.title}</Title>
           <p className="mt-4 text-lg leading-8 text-gray-600">{faq.subTitle}</p>
         </div>
         <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-20 gap-y-12 text-left leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">

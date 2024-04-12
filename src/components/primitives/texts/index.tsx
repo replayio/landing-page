@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { forwardRef, ReactNode } from 'react'
+import { FC, forwardRef, ReactNode } from 'react'
 
 import s from './texts.module.scss'
 
@@ -8,49 +8,71 @@ type TitleProps = {
   hero?: boolean
   children: ReactNode
   className?: string
+  white?: boolean
 }
 
-export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
-  ({ as = 'h1', children, className, hero, ...rest }, ref) => {
-    const Comp = as
+export const Title: FC<TitleProps> = ({ as = 'h1', children, className, white, hero, ...rest }) => {
+  const Comp = as
 
-    return (
-      <Comp {...rest} className={clsx(s.title, className, { [s.hero as string]: hero })} ref={ref}>
-        {children}
-      </Comp>
-    )
-  }
-)
+  return (
+    <Comp
+      {...rest}
+      className={clsx(
+        'font-display font-bold tracking-tight text-gray-900',
+        className,
+        white ? 'text-white' : 'text-gray-900',
+        {
+          'text-3xl sm:text-5xl': as === 'h1',
+          'text-2xl sm:text-5xl': as === 'h2'
+        }
+      )}
+    >
+      {children}
+    </Comp>
+  )
+}
 
 Title.displayName = 'Title'
 
-type SubtitleProps = { children: ReactNode; className?: string }
+type EyebrowProps = { children: ReactNode; className?: string }
 
-export const Subtitle = forwardRef<HTMLParagraphElement, SubtitleProps>(
-  ({ children, className, ...rest }, ref) => {
-    return (
-      <p {...rest} className={clsx(s.subtitle, className)} ref={ref}>
-        {children}
-      </p>
-    )
-  }
-)
-
-Subtitle.displayName = 'Subtitle'
-
-export const TitleAndSubtitle = ({
-  title,
-  subtitle,
-  className
-}: {
-  title: TitleProps
-  subtitle?: SubtitleProps
-  className?: string
-}) => {
+export const Eyebrow: FC<EyebrowProps> = ({ children, className, ...rest }) => {
   return (
-    <div className={clsx(s.titleSubtitleWrapper, className)}>
-      <Title {...title} />
-      {subtitle && <Subtitle {...subtitle} />}
-    </div>
+    <p {...rest} className={clsx('text-accent text-lg font-semibold tracking-wide', className)}>
+      {children}
+    </p>
   )
 }
+
+Eyebrow.displayName = 'Eyebrow'
+
+// type SubtitleProps = { children: ReactNode; className?: string }
+
+// export const Subtitle = forwardRef<HTMLParagraphElement, SubtitleProps>(
+//   ({ children, className, ...rest }, ref) => {
+//     return (
+//       <p {...rest} className={clsx(s.subtitle, className)} ref={ref}>
+//         {children}
+//       </p>
+//     )
+//   }
+// )
+
+// Subtitle.displayName = 'Subtitle'
+
+// export const TitleAndSubtitle = ({
+//   title,
+//   subtitle,
+//   className
+// }: {
+//   title: TitleProps
+//   subtitle?: SubtitleProps
+//   className?: string
+// }) => {
+//   return (
+//     <div className={clsx(s.titleSubtitleWrapper, className)}>
+//       <Title {...title} />
+//       {subtitle && <Subtitle {...subtitle} />}
+//     </div>
+//   )
+// }

@@ -11,6 +11,7 @@ import testSteps from '~/images/screenshots/jump-to-test-steps.png'
 import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { getImageSizes } from '~/lib/utils/image'
+import { Title } from '../primitives/texts'
 
 const images = {
   testSteps: {
@@ -52,9 +53,9 @@ export function DevTools({ devTools }: LandingPageFragment) {
               </g>
             </svg>
           </div>
-          <h2 className="text-pretty font-display text-2xl tracking-tight text-white sm:text-3xl md:text-5xl">
+          <Title className="text-pretty" as="h2" white>
             {devTools.title}
-          </h2>
+          </Title>
           <p className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7] md:text-lg">
             {devTools.subTitle}
           </p>

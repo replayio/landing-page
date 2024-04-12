@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { RichText } from 'basehub/react-rich-text'
 import styles from '../../styles/Landingpage.module.css'
+import { Eyebrow, Title } from '../primitives/texts'
 
 const images = {
   rootCause: CodeBracketIcon,
@@ -17,15 +18,13 @@ export default function DynamicAnalysis({ dynamicAnalysis }: LandingPageFragment
         <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
           <div className="px-6 md:px-0 lg:pr-4 lg:pt-4">
             <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
-              <div className="relative flex items-center">
-                <BeakerIcon className="mr-2 h-5 w-5 text-[#f02d5e]" aria-hidden="true" />
-                <h2 className={`${styles.colorPrimaryAccent} text-base font-semibold leading-7`}>
+              <Eyebrow>
+                <span className="relative inline-flex items-center">
+                  <BeakerIcon className="text-accent mr-2 h-5 w-5" aria-hidden="true" />{' '}
                   {dynamicAnalysis.subtitle}
-                </h2>
-              </div>
-              <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                {dynamicAnalysis.title}
-              </p>
+                </span>
+              </Eyebrow>
+              <Title as="h2">{dynamicAnalysis.title}</Title>
               <p className="mt-6 text-lg leading-8 text-gray-600">{dynamicAnalysis.description}</p>
               <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                 {dynamicAnalysis.features.items.map((feature) => {
@@ -34,7 +33,7 @@ export default function DynamicAnalysis({ dynamicAnalysis }: LandingPageFragment
                     <div key={feature._title} className="relative pl-9">
                       <dt className="inline font-semibold text-gray-900">
                         <Icon
-                          className={`absolute left-1 top-1 h-5 w-5 text-[#f02d5e]`}
+                          className={`text-accent absolute left-1 top-1 h-5 w-5`}
                           aria-hidden="true"
                         />
                       </dt>{' '}

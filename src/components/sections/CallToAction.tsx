@@ -1,6 +1,7 @@
 import { BaseHubButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
+import { Title } from '../primitives/texts'
 
 export function CallToAction({ cta }: LandingPageFragment) {
   return (
@@ -11,9 +12,9 @@ export function CallToAction({ cta }: LandingPageFragment) {
       >
         <Container className="relative">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="font-display text-2xl tracking-tight text-white sm:text-5xl">
+            <Title as="h2" white>
               {cta.title}
-            </h2>
+            </Title>
 
             <BaseHubButton className="mt-10 px-8 text-lg" color="default" {...cta.getStartedLink} />
           </div>

@@ -13,6 +13,7 @@ import screenshotTests from '~/images/screenshots/tests-view.png'
 import screenshotRuns from '~/images/screenshots/runs-view.png'
 import screenshotPRComments from '~/images/screenshots/pr-comments.png'
 import { getImageSizes } from '~/lib/utils/image'
+import { Eyebrow, Title } from '../primitives/texts'
 
 interface Feature {
   title: React.ReactNode
@@ -130,16 +131,14 @@ function Feature({
       <div
         className={clsx(
           'flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-100 ease-in-out',
-          isActive ? 'bg-[#f02d5e]' : 'bg-slate-500'
+          isActive ? 'bg-accent' : 'bg-slate-500'
         )}
       >
         <div className="h-9 w-9">
           <feature.icon />
         </div>
       </div>
-      <h3
-        className={clsx('mt-4 text-sm font-medium', isActive ? 'text-[#f02d5e]' : 'text-slate-600')}
-      >
+      <h3 className={clsx('mt-4 text-sm font-medium', isActive ? 'text-accent' : 'text-slate-600')}>
         {feature.title}
       </h3>
       <p className="mt-1 font-display text-xl text-slate-900">{feature.subTitle}</p>
@@ -257,11 +256,8 @@ export function TestSuites({ testSuites }: LandingPageFragment) {
     <section id="test-suites" className="pb-14 pt-20 sm:pb-20 sm:pt-32 lg:pb-32">
       <Container>
         <div className="mx-auto max-w-2xl md:text-center">
-          <h2 className={styles.sectionSubhead}>{testSuites.superTitle}</h2>
-
-          <h3 className="font-display text-3xl tracking-tight text-slate-900 sm:text-3xl">
-            {testSuites.title}
-          </h3>
+          <Eyebrow>{testSuites.superTitle}</Eyebrow>
+          <Title as="h2">{testSuites.superTitle}</Title>
           <p className="mt-4 text-lg tracking-tight text-slate-700">{testSuites.subTitle}</p>
         </div>
         <FeaturesMobile features={testSuites.features.items} />
