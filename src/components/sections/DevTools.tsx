@@ -13,22 +13,9 @@ import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 
 const images = {
-  testSteps: {
-    type: 'image',
-    src: testSteps
-  },
-  console: {
-    type: 'mux-video',
-    src: '9ERwx5ymPqmmqMeRIhVqCvnhyy009017y00mtdvISQF6fI'
-  },
-  react: {
-    type: 'image',
-    src: react
-  },
-  network: {
-    type: 'image',
-    src: network
-  }
+  testSteps,
+  react,
+  network
 }
 
 export function DevTools({ devTools }: LandingPageFragment) {
@@ -124,7 +111,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         {feature.type === 'image' ? (
                           <Image
                             className="w-full"
-                            src={featureImage.src}
+                            src={featureImage}
                             alt=""
                             priority
                             sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
@@ -132,7 +119,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                         ) : (
                           <MuxPlayer
                             streamType="on-demand"
-                            playbackId={featureImage.src as string}
+                            playbackId={feature.video as string}
                             primaryColor="#FFFFFF"
                             secondaryColor="#000000"
                             muted={true}
@@ -181,19 +168,18 @@ export function DevTools({ devTools }: LandingPageFragment) {
                       </div>
                     </h3>
                     <p className={clsx('mb-8 mt-2 text-sm')}>{feature.subTitle}</p>
-                    {featureImage.type === 'image' && (
+                    {feature.type === 'image' ? (
                       <Image
                         className="w-full"
-                        src={featureImage.src}
+                        src={featureImage}
                         alt=""
                         priority
                         sizes="(min-width: 1024px) 67.8125rem, (min-width: 500px) 100vw, 30rem"
                       />
-                    )}
-                    {featureImage.type === 'mux-video' && (
+                    ) : (
                       <MuxPlayer
                         streamType="on-demand"
-                        playbackId={featureImage.src as string}
+                        playbackId={feature.video as string}
                         primaryColor="#FFFFFF"
                         secondaryColor="#ff00ff"
                         muted={true}
