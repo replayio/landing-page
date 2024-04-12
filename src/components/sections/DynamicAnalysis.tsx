@@ -20,7 +20,7 @@ export default function DynamicAnalysis({ dynamicAnalysis }: LandingPageFragment
             <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
               <Eyebrow>
                 <span className="relative inline-flex items-center">
-                  <BeakerIcon className="text-accent mr-2 h-5 w-5" aria-hidden="true" />{' '}
+                  <BeakerIcon className="mr-2 h-5 w-5 text-accent" aria-hidden="true" />{' '}
                   {dynamicAnalysis.subtitle}
                 </span>
               </Eyebrow>
@@ -33,7 +33,7 @@ export default function DynamicAnalysis({ dynamicAnalysis }: LandingPageFragment
                     <div key={feature._title} className="relative pl-9">
                       <dt className="inline font-semibold text-gray-900">
                         <Icon
-                          className={`text-accent absolute left-1 top-1 h-5 w-5`}
+                          className={`absolute left-1 top-1 h-5 w-5 text-accent`}
                           aria-hidden="true"
                         />
                       </dt>{' '}

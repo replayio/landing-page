@@ -40,7 +40,7 @@ export const Eyebrow: FC<EyebrowProps> = ({ children, className, ...rest }) => {
   return (
     <p
       {...rest}
-      className={clsx('text-accent text-base font-semibold tracking-wide md:text-lg', className)}
+      className={clsx('text-base font-semibold tracking-wide text-accent md:text-lg', className)}
     >
       {children}
     </p>
