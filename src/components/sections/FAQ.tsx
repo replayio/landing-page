@@ -14,10 +14,17 @@ import semaphore from '~/images/faq/semaphore.png'
 import soc2 from '~/images/faq/soc2.png'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Button } from '../Button'
 import { useMinTabletBreakpoint } from '~/hooks/use-media'
 import { Title } from '../primitives/texts'
+import { Disclosure, Transition } from '@headlessui/react'
+import {
+  ChevronDoubleUpIcon,
+  ChevronUpIcon,
+  QuestionMarkCircleIcon
+} from '@heroicons/react/24/outline'
+import { clsx } from 'clsx'
 
 const logos = {
   'test-runner': [
@@ -89,7 +96,7 @@ export default function FAQ({ faq }: LandingPageFragment) {
           <Title as="h2">{faq.title}</Title>
           <p className="mt-4 text-lg leading-8 text-gray-600">{faq.subTitle}</p>
         </div>
-        <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-20 gap-y-12 text-left leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <dl className="mx-auto mt-16 hidden max-w-2xl grid-cols-1 gap-x-20 gap-y-12 text-left leading-7 sm:grid-cols-2 md:grid lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {questions.map((question) => (
             <div key={question._title} className="flex flex-col">
               <dt className="text-lg font-semibold text-gray-900">{question._title}</dt>
@@ -120,9 +127,57 @@ export default function FAQ({ faq }: LandingPageFragment) {
             </div>
           ))}
         </dl>
+
+        <div className="mt-8 flex w-full max-w-[420px] flex-col justify-center gap-4 md:hidden">
+          {faq.questions.items.map((faq) => (
+            <Disclosure as="div" className="flex flex-col" key={faq._title}>
+              {({ open }) => (
+                <Fragment>
+                  <Disclosure.Button className="flex items-center text-lg font-medium">
+                    <QuestionMarkCircleIcon className="mr-1.5 h-6 w-6" />
+                    {faq._title}
+                    <ChevronUpIcon
+                      className={clsx(
+                        'ml-auto h-6 w-6 rotate-180 transform transition-transform duration-200 ease-in-out',
+                        open && 'rotate-0'
+                      )}
+                    />
+                  </Disclosure.Button>
+                  <Transition
+                    show={open}
+                    enter="transition duration-200 ease-out"
+                    enterFrom="transform opacity-0"
+                    enterTo="transform opacity-100"
+                    leave="transition duration-100 ease-out"
+                    leaveFrom="transform opacity-100"
+                    leaveTo="transform opacity-0"
+                  >
+                    <Disclosure.Panel className="mb-3 text-gray-500">
+                      <p className="mt-1.5">{faq.summary}</p>
+                      {faq.logos && (
+                        <div className="mt-1 text-gray-600">
+                          {
+                            <div className="mt-4 flex flex-row items-center">
+                              {logos[faq.logos as keyof typeof logos].map((logo, i) => (
+                                <div key={i} className="mr-2">
+                                  <Image src={logo.image} alt={logo.alt} height={logo.height} />
+                                </div>
+                              ))}
+                            </div>
+                          }
+                        </div>
+                      )}
+                    </Disclosure.Panel>
+                  </Transition>
+                </Fragment>
+              )}
+            </Disclosure>
+          ))}
+        </div>
+
         {!isTablet && !showAll && (
           <Button
-            className="mt-12 min-w-[200px] bg-slate-900 text-white hover:bg-slate-800 hover:text-slate-100"
+            className="mt-12 hidden min-w-[200px] bg-slate-900 text-white hover:bg-slate-800 hover:text-slate-100 md:inline-block"
             onClick={() => setShowAll(!showAll)}
           >
             Show more

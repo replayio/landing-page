@@ -22,8 +22,8 @@ export const Title: FC<TitleProps> = ({ as = 'h1', children, className, white, h
         className,
         white ? 'text-white' : 'text-gray-900',
         {
-          'text-3xl sm:text-5xl': as === 'h1',
-          'text-2xl sm:text-5xl': as === 'h2'
+          'text-4xl md:text-6xl': as === 'h1',
+          'text-3xl md:text-5xl': as === 'h2'
         }
       )}
     >
@@ -38,7 +38,10 @@ type EyebrowProps = { children: ReactNode; className?: string }
 
 export const Eyebrow: FC<EyebrowProps> = ({ children, className, ...rest }) => {
   return (
-    <p {...rest} className={clsx('text-accent text-lg font-semibold tracking-wide', className)}>
+    <p
+      {...rest}
+      className={clsx('text-accent text-base font-semibold tracking-wide md:text-lg', className)}
+    >
       {children}
     </p>
   )
