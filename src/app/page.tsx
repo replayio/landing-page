@@ -1,6 +1,5 @@
 import { CallToAction } from '~/components/sections/CallToAction'
 import { Footer } from '~/components/Footer'
-import { Hero } from '~/components/sections/Hero'
 import { DevTools } from '~/components/sections/DevTools'
 import { TestSuites } from '~/components/sections/TestSuites'
 import { Testimonials } from '~/components/Testimonials'
@@ -11,7 +10,7 @@ import { Header } from '~/components/Header'
 import FAQ from '~/components/sections/FAQ'
 import DynamicAnalysis from '~/components/sections/DynamicAnalysis'
 import { Content } from '~/components/sections/Content'
-import { HyperSpace } from '~/components/Hyper'
+import { Hero } from './components/hero'
 
 export default function Home() {
   return (

@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-
 import { BaseHubButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import logoReact from '~/images/hero-logos/react.svg'

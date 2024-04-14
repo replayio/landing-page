@@ -91,7 +91,7 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 flex h-[var(--header-height)] lg:-top-4',
+        'fixed top-0 z-50 flex h-[var(--header-height)] w-full lg:-top-4',
         variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900'
       )}
     >
