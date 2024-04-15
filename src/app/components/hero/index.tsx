@@ -1,7 +1,7 @@
 import { BaseHubButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
-import { RichText } from 'basehub/react-rich-text'
+// import { RichText } from 'basehub/react-rich-text'
 import { Carousel } from '~/components/Carousel'
 import { featureFlags } from '~/lib/feature-flags'
 import CalButton from './cal'
@@ -11,15 +11,15 @@ import Hyperspace from './hyperspace'
 export function Hero({ hero }: LandingPageFragment) {
   return (
     <section className="relative flex">
-      <div className="animate-fadeIn absolute -left-[35%] top-0 h-full w-[135%] opacity-0">
+      <div className="animate-fadeIn absolute -top-[30%] left-0 h-[130%] w-full opacity-0 lg:-left-[35%] lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
       <div className="relative flex flex-1 flex-col">
-        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[180px] lg:pt-[220px] 2xl:pt-[260px]">
+        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[220px] 2xl:pt-[260px]">
           <div className="flex">
             <div className="flex-1">
               <div className="max-w-3xl">
-                <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-8xl">
+                <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl">
                   Move fast <span className="text-accent">without</span>
                   <br />
                   breaking things.
@@ -48,19 +48,15 @@ export function Hero({ hero }: LandingPageFragment) {
 
           <div className="pb-10 pt-[120px]">
             <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
-              <p className="whitespace-nowrap">Trusted by 5,000+ companies</p>
-              <HomeHeroMarquee />
+              <p className="hidden whitespace-nowrap xl:inline-block">
+                Trusted by 5,000+ companies
+              </p>
+              <div className="flex-1">
+                <HomeHeroMarquee />
+              </div>
             </div>
           </div>
         </Container>
-        {/* <div className="z-10 mx-auto mb-12 mt-auto w-full max-w-7xl rounded-lg py-0">
-          <p className="hidden font-display text-base text-slate-900">{hero.logosTitle}</p>
-
-          <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
-            <p className="whitespace-nowrap">Trusted by 5,000+ companies</p>
-            <HomeHeroMarquee />
-          </div>
-        </div> */}
       </div>
     </section>
   )
