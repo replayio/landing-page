@@ -29,7 +29,7 @@ export const HomeHeroMarquee = () => {
           src={company.logo}
           alt={company.name}
           aria-label={`${company.name} logo`}
-          className="mx-1"
+          className="mx-5"
         />
       ))}
     </Marquee>

@@ -2,10 +2,10 @@
 
 import React, { FC, useEffect, useLayoutEffect, useRef } from 'react'
 
-const NUMBER_OF_STARS = 100
-const VELOCITY = 10
+const NUMBER_OF_STARS = 40
+const VELOCITY = 15
 const STAR_COLOR = '#f02d5e'
-const OFFSET_X = 300
+const OFFSET_X = 200
 const OFFSET_Y = 50
 
 class Star {
