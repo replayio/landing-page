@@ -16,6 +16,11 @@ const nextConfig = {
         permanent: false
       },
       {
+        source: '/download',
+        destination: 'https://docs.replay.io/getting-started/record-your-first-replay',
+        permanent: false
+      },
+      {
         source: '/downloads/:path',
         destination: 'https://static.replay.io/downloads/:path',
         permanent: false
