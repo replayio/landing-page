@@ -15,7 +15,7 @@ export const TermsOfService: FC = () => {
           <Heading as="h1" size="sm">
             Terms of Use
           </Heading>
-          <span>Efective date: 28 MAR 2023</span>
+          <span>Effective date: 28 MAR 2023</span>
           <span>Last reviewed: 2 Apr 2024</span>
         </div>
 
