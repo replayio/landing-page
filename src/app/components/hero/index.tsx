@@ -46,7 +46,7 @@ export function Hero({ hero }: LandingPageFragment) {
             </div>
           </div>
 
-          <div className="pb-10 pt-[80px]">
+          <div className="pb-10 pt-[90px]">
             <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
               <p className="hidden whitespace-nowrap xl:inline-block">
                 Trusted by 5,000+ companies
