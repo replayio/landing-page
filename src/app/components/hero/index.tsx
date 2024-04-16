@@ -10,11 +10,11 @@ import Hyperspace from './hyperspace'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
-    <section className="relative flex">
+    <section className="relative flex overflow-hidden">
       <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn opacity-0 lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
-      <div className="relative flex flex-1 flex-col">
+      <div className="relative flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[220px] 2xl:pt-[260px]">
           <div className="flex">
             <div className="flex-1">
@@ -51,7 +51,7 @@ export function Hero({ hero }: LandingPageFragment) {
               <p className="hidden whitespace-nowrap xl:inline-block">
                 Trusted by 5,000+ companies
               </p>
-              <div className="flex-1">
+              <div className="max-w-full flex-1">
                 <HomeHeroMarquee />
               </div>
             </div>

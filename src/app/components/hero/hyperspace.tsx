@@ -101,6 +101,16 @@ const Hyperspace: FC<HyperspaceProps> = ({ style, ...rest }) => {
     createStars(starsList.current, canvas.width, canvas.height)
     starsList.current.forEach((star) => star.draw(ctx))
 
+    const handleResize = () => {
+      canvas.width = canvasRef.current!.clientWidth
+      canvas.height = canvasRef.current!.clientHeight
+      starsList.current = []
+      ctx.reset()
+      createStars(starsList.current, canvas.width, canvas.height)
+    }
+
+    window.addEventListener('resize', handleResize)
+
     const raf = () => {
       ctx.fillStyle = 'rgba(255,255,255,0.25)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -145,6 +155,7 @@ const Hyperspace: FC<HyperspaceProps> = ({ style, ...rest }) => {
 
     return () => {
       cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 
