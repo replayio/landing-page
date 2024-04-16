@@ -9,7 +9,7 @@ test('has title', async ({ page }) => {
 })
 
 test('goes to pricing page', async ({ page }) => {
-  await page.getByTestId('Header').getByTestId('Pricing').click()
+  await page.getByTestId('header').getByTestId('Pricing').click()
   await expect(page.getByTestId('pricing')).toBeVisible()
 })
 
