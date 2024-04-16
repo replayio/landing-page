@@ -60,15 +60,18 @@ const navigation = {
     { name: 'Terms of Use', href: '/terms-of-service' }
   ],
   integrations: [
-    { name: 'React', href: 'https://docs.replay.io/reference-guide/dev-tools/react' },
+    { name: 'React', href: 'https://docs.replay.io/framework-devtools/react-panel' },
     {
       name: 'Redux',
-      href: 'https://docs.replay.io/getting-started/introduction-to-debugging#jumping-to-a-redux-action'
+      href: 'https://docs.replay.io/framework-devtools/redux-panel'
     },
-    { name: 'Cypress', href: 'https://docs.replay.io/test-suites/cypress/installation' },
-    { name: 'Playwright', href: 'https://docs.replay.io/test-suites/playwright/installation' },
-    { name: 'Selenium WebDriver', href: 'https://docs.replay.io/test-suites/selenium' },
-    { name: 'NextJS', href: 'https://docs.replay.io/resources/next-js' }
+    { name: 'Cypress', href: 'https://docs.replay.io/test-runners/cypress-io' },
+    {
+      name: 'Playwright',
+      href: 'https://docs.replay.io/test-runners/playwright/record-your-first-replay'
+    },
+    { name: 'Selenium WebDriver', href: 'https://docs.replay.io/test-runners/selenium' },
+    { name: 'NextJS', href: 'https://docs.replay.io/integrations/frameworks-libraries/nextjs' }
   ],
   social: [
     {
