@@ -34,7 +34,8 @@ export const metadata: Metadata = {
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-inter',
+  preload: true
 })
 
 const lexend = Lexend({

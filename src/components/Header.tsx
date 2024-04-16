@@ -1,6 +1,7 @@
 'use client'
 
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Popover, Transition } from '@headlessui/react'
 
@@ -8,6 +9,16 @@ import { Container } from '~/components/Container'
 import { Logo } from '~/components/FullLogo'
 import { NavLink } from '~/components/NavLink'
 import { clsx } from 'clsx'
+import useHash from '~/hooks/use-hash'
+
+const NAVLINKS = [
+  { href: '#devtools', label: 'DevTools' },
+  { href: '#test-suites', label: 'Test Suites' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: 'https://docs.replay.io', label: 'Docs' },
+  { href: 'https://blog.replay.io', label: 'Changelog' },
+  { href: '/about', label: 'Company' }
+]
 
 function MobileNavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -72,12 +83,11 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight  shadow-xl ring-1 ring-slate-900/5"
           >
-            <MobileNavLink href="#devtools">DevTools</MobileNavLink>
-            <MobileNavLink href="#test-suites">Test Suites</MobileNavLink>
-            <MobileNavLink href="/pricing">Pricing</MobileNavLink>
-            <MobileNavLink href="https://docs.replay.io">Docs</MobileNavLink>
-            <MobileNavLink href="https://blog.replay.io">Changelog</MobileNavLink>
-            <MobileNavLink href="/about">Company</MobileNavLink>
+            {NAVLINKS.map(({ href, label }) => (
+              <MobileNavLink key={href} href={href}>
+                {label}
+              </MobileNavLink>
+            ))}
             <hr className="m-2 border-slate-300/40" />
             <MobileNavLink href="https://app.replay.io">Sign in</MobileNavLink>
           </Popover.Panel>
@@ -87,8 +97,10 @@ function MobileNavigation() {
   )
 }
 
-export function Header({ variant }: { variant?: 'dark' | 'light' }) {
+export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
   const [scrollProgress, setScrollProgress] = useState(0)
+  const pathname = usePathname()
+  const hash = useHash()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,7 +116,8 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
       className={clsx(
         'fixed top-0 z-50 flex h-[var(--header-height)] w-full items-center',
         variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900',
-        { ['border-b border-gray-100 bg-white']: scrollProgress > 0 }
+        { ['border-b border-slate-950']: variant === 'dark' && scrollProgress > 0 },
+        { ['border-b border-gray-100 bg-white']: variant === 'light' && scrollProgress > 0 }
       )}
     >
       <Container className="flex-1">
@@ -114,25 +127,16 @@ export function Header({ variant }: { variant?: 'dark' | 'light' }) {
               <Logo className="h-auto w-[144px]" variant={variant || 'light'} />
             </Link>
             <div className="hidden md:flex md:gap-x-4">
-              <NavLink variant={variant} href="/#devtools">
-                DevTools
-              </NavLink>
-              <NavLink variant={variant} href="/#test-suites">
-                Test Suites
-              </NavLink>
-              <NavLink variant={variant} href="/pricing">
-                Pricing
-              </NavLink>
-              <NavLink variant={variant} href="https://docs.replay.io">
-                Docs
-              </NavLink>
-
-              <NavLink variant={variant} href="https://blog.replay.io">
-                Changelog
-              </NavLink>
-              <NavLink variant={variant} href="/about">
-                Company
-              </NavLink>
+              {NAVLINKS.map(({ href, label }) => (
+                <NavLink
+                  key={href}
+                  variant={variant}
+                  href={href}
+                  active={pathname === href || hash === href}
+                >
+                  {label}
+                </NavLink>
+              ))}
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
