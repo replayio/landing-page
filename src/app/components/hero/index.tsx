@@ -11,7 +11,7 @@ import Hyperspace from './hyperspace'
 export function Hero({ hero }: LandingPageFragment) {
   return (
     <section className="relative flex">
-      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn opacity-0 lg:-left-[35%] lg:h-full lg:w-[135%]">
+      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn opacity-0 lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
       <div className="relative flex flex-1 flex-col">
