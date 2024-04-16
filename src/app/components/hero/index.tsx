@@ -15,7 +15,7 @@ export function Hero({ hero }: LandingPageFragment) {
         <Hyperspace className="opacity-10" />
       </div>
       <div className="relative z-10 flex max-w-full flex-1 flex-col">
-        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[220px] 2xl:pt-[260px]">
+        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[180px] 2xl:pt-[260px]">
           <div className="flex">
             <div className="flex-1">
               <div className="max-w-3xl">
@@ -46,7 +46,7 @@ export function Hero({ hero }: LandingPageFragment) {
             </div>
           </div>
 
-          <div className="pb-10 pt-[90px]">
+          <div className="pb-10 pt-[90px] xl:pt-[120px] 2xl:pt-[200px]">
             <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
               <p className="hidden whitespace-nowrap xl:inline-block">
                 Trusted by 5,000+ companies
