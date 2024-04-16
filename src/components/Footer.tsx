@@ -29,16 +29,13 @@ function Category({ name, links }: { name: string; links: LinkItem[] }) {
 
 const navigation = {
   product: [
-    { name: 'Replay DevTools', href: 'https://docs.replay.io/reference-guide/dev-tools' },
+    { name: 'Replay DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
     {
-      name: 'Replay Browser',
-      href: 'https://docs.replay.io/reference-guide/recording/replay-browser'
+      name: 'Replay Viewer',
+      href: 'https://docs.replay.io/browser-devtools/replay-viewer'
     },
-    { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites' },
-    {
-      name: 'Replay Bug Reports',
-      href: 'https://docs.replay.io/learn-more/workflows/recording-bug-reports'
-    },
+    { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites/runs-view' },
+
     { name: 'Documentation', href: 'https://docs.replay.io' },
     { name: 'Pricing', href: '/pricing' }
   ],
@@ -52,8 +49,7 @@ const navigation = {
   ],
   information: [
     { name: 'Contact', href: '/contact' },
-    { name: 'Resources', href: 'https://docs.replay.io/resources-and-examples' },
-    { name: 'Guides', href: 'https://docs.replay.io/getting-started/introduction-to-debugging' },
+    { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
     { name: 'Branding', href: '/branding' },
     { name: 'Security', href: '/security-and-privacy' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
