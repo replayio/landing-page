@@ -14,16 +14,12 @@ import semaphore from '~/images/faq/semaphore.png'
 import soc2 from '~/images/faq/soc2.png'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Fragment, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from '../Button'
 import { useMinTabletBreakpoint } from '~/hooks/use-media'
 import { Title } from '../primitives/texts'
 import { Disclosure, Transition } from '@headlessui/react'
-import {
-  ChevronDoubleUpIcon,
-  ChevronUpIcon,
-  QuestionMarkCircleIcon
-} from '@heroicons/react/24/outline'
+import { ChevronUpIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
 import { clsx } from 'clsx'
 
 const logos = {
@@ -128,12 +124,12 @@ export default function FAQ({ faq }: LandingPageFragment) {
           ))}
         </dl>
 
-        <div className="mt-8 flex w-full max-w-[420px] flex-col justify-center gap-4 md:hidden">
+        <div className="mt-8 flex w-full max-w-[420px] flex-col justify-center space-y-6 divide-y divide-gray-900/10 md:hidden">
           {faq.questions.items.map((faq) => (
             <Disclosure as="div" className="flex flex-col" key={faq._title}>
               {({ open }) => (
-                <Fragment>
-                  <Disclosure.Button className="flex items-center text-lg font-medium">
+                <>
+                  <Disclosure.Button className="mt-6 flex items-center text-lg font-medium">
                     <QuestionMarkCircleIcon className="mr-1.5 h-6 w-6" />
                     {faq._title}
                     <ChevronUpIcon
@@ -152,7 +148,7 @@ export default function FAQ({ faq }: LandingPageFragment) {
                     leaveFrom="transform opacity-100"
                     leaveTo="transform opacity-0"
                   >
-                    <Disclosure.Panel className="mb-3 text-gray-500">
+                    <Disclosure.Panel className="text-gray-500">
                       <p className="mt-1.5">{faq.summary}</p>
                       {faq.logos && (
                         <div className="mt-1 text-gray-600">
@@ -169,7 +165,7 @@ export default function FAQ({ faq }: LandingPageFragment) {
                       )}
                     </Disclosure.Panel>
                   </Transition>
-                </Fragment>
+                </>
               )}
             </Disclosure>
           ))}
