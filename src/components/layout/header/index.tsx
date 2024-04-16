@@ -49,7 +49,6 @@ export const Header = () => {
   return (
     <>
       <header
-        data-testid="header"
         className={clsx(s.header, {
           [s.scrolled as string]: scrolled,
           [s.navigationSitemapShowing as string]: navigationSitemapShowing,

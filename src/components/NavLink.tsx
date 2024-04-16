@@ -30,7 +30,7 @@ export function NavLink({
             : 'bg-slate-900 text-white hover:bg-slate-800 hover:text-slate-100',
         className
       )}
-      data-testid={children?.toString()}
+      data-testid={`navlink-${children?.toString().toLowerCase()}`}
     >
       {type === 'default' ? (
         <span className="relative">
