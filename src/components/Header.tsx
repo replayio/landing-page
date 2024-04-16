@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Popover, Transition } from '@headlessui/react'
 
@@ -88,14 +88,26 @@ function MobileNavigation() {
 }
 
 export function Header({ variant }: { variant?: 'dark' | 'light' }) {
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollProgress(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <header
       className={clsx(
-        'fixed top-0 z-50 flex h-[var(--header-height)] w-full lg:-top-4',
-        variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900'
+        'fixed top-0 z-50 flex h-[var(--header-height)] w-full items-center',
+        variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900',
+        { ['border-b border-gray-100 bg-white']: scrollProgress > 0 }
       )}
     >
-      <Container className="mt-auto flex-1">
+      <Container className="flex-1">
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">
             <Link href="/" aria-label="Home">
