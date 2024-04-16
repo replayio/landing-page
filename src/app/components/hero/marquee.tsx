@@ -29,6 +29,7 @@ export const HomeHeroMarquee = () => {
           src={company.logo}
           alt={company.name}
           aria-label={`${company.name} logo`}
+          loading="eager"
           className="mx-5"
         />
       ))}
