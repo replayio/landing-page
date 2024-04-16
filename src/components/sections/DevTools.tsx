@@ -73,7 +73,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                     <div
                       key={feature._title}
                       className={clsx(
-                        'group relative my-2 rounded-full px-4 lg:rounded-l-xl lg:rounded-r-none lg:px-6 lg:py-4',
+                        'group relative my-2 rounded-full px-4 font-medium lg:rounded-l-xl lg:rounded-r-none lg:px-6 lg:py-4',
                         selectedIndex === featureIndex
                           ? 'bg-white lg:bg-white/10 lg:ring-1 lg:ring-inset lg:ring-white/10'
                           : 'hover:bg-white/10 lg:hover:bg-white/5'
