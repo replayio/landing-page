@@ -66,16 +66,13 @@
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 200px;
+  margin-top: 150px;
 }
 
 .firstColumn,
 .secondColumn {
   flex-basis: calc(50% - 10px);
   flex-grow: 1;
-}
-
-.firstColumn {
-  padding-top: 100px;
 }
 
 .secondColumn {
