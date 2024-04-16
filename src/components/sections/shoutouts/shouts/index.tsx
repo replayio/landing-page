@@ -72,6 +72,7 @@ export const Shouts: FC = () => {
         </div>
         {visibleShoutsLength < shouts.length && (
           <button
+            className="mt-12 min-w-[200px] bg-slate-900 text-white hover:bg-slate-800 hover:text-slate-100"
             onClick={() =>
               setVisibleShoutsLength(visibleShoutsLength + (remainingItemsLength > 14 ? 9 : 14))
             }

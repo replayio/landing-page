@@ -36,6 +36,8 @@ import zack from '~/images/testimonials/zack-rosen.jpg'
 import pantheon from '~/images/testimonials/pantheon.png'
 import tablecheck from '~/images/testimonials/tablecheck.png'
 import { classNames } from '~/lib/utils'
+import { ArrowIcon } from './icons'
+import { Eyebrow, Title } from './primitives/texts'
 
 const images = {
   alex,
@@ -92,33 +94,33 @@ function CaseStudy({
   rowEnd: number
 }) {
   return (
-    <figure
-      className={`flex min-h-[desiredHeight] flex-col justify-between rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 xl:col-start-${colStart} xl:row-end-${rowEnd}`}
-    >
-      <blockquote className="flex grow flex-col px-12 pt-6 text-lg font-semibold leading-7 tracking-tight text-gray-900 sm:pb-6 sm:pt-12 sm:text-xl sm:leading-8">
-        <p className="flex grow">{`“${testimonial.body}”`}</p>
-        <p className="mt-8 grow">
-          <Link target="blank" className="" href={testimonial.url}>
-            Read more
-          </Link>
-        </p>
-      </blockquote>
-      <figcaption className="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
-        <Image
-          src={testimonial.author.image}
-          className="h-10 w-10 rounded-full bg-gray-50"
-          alt=""
-        />
+    <Link target="blank" className="group block h-full" href={testimonial.url}>
+      <figure
+        className={`flex h-full flex-col justify-between rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 xl:col-start-${colStart} xl:row-end-${rowEnd}`}
+      >
+        <blockquote className="flex grow flex-col p-6 font-medium leading-7 tracking-tight text-gray-900 sm:pb-6 sm:pt-12 sm:leading-8">
+          <p className="flex grow text-lg">{`“${testimonial.body}”`}</p>
+          <p className="mt-8 inline-flex grow items-center text-lg text-[#3762E2] group-hover:underline">
+            Read full case study <ArrowIcon className="ml-1" />
+          </p>
+        </blockquote>
+        <figcaption className="flex flex-nowrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4">
+          <Image
+            src={testimonial.author.image}
+            className="h-10 w-10 rounded-full bg-gray-50"
+            alt=""
+          />
 
-        <div className="flex-auto">
-          <div className="font-semibold">{testimonial.author.name}</div>
-          <div className="text-gray-600">{`@${testimonial.author.handle}`}</div>
-        </div>
-        {testimonial.author.logo && (
-          <Image src={testimonial.author.logo} className="h-10 w-auto flex-none" alt="" />
-        )}
-      </figcaption>
-    </figure>
+          <div className="flex-auto">
+            <p>{testimonial.author.name}</p>
+            <p className="text-gray-600">{`@${testimonial.author.handle}`}</p>
+          </div>
+          {testimonial.author.logo && (
+            <Image src={testimonial.author.logo} className="h-10 w-auto flex-none" alt="" />
+          )}
+        </figcaption>
+      </figure>
+    </Link>
   )
 }
 
@@ -135,7 +137,7 @@ export type TestimonialItem = {
 function FeaturedTestimonial({ testimonial }: { testimonial: TestimonialItem }) {
   return (
     <figure className="rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 sm:col-span-2 xl:col-start-2 xl:row-end-1">
-      <blockquote className="p-6 text-lg font-semibold leading-7 tracking-tight text-gray-900 sm:p-12 sm:text-xl sm:leading-8">
+      <blockquote className="p-6 text-lg font-medium leading-7 tracking-tight text-gray-900 sm:px-8 sm:py-12 sm:text-xl sm:leading-8">
         <p>{`“${testimonial.body}”`}</p>
       </blockquote>
       <figcaption className="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
@@ -145,8 +147,8 @@ function FeaturedTestimonial({ testimonial }: { testimonial: TestimonialItem }) 
           alt=""
         />
         <div className="flex-auto">
-          <div className="font-semibold">{testimonial.author.name}</div>
-          <div className="text-gray-600">{`@${testimonial.author.handle}`}</div>
+          <p className="font-semibold">{testimonial.author.name}</p>
+          <p className="text-gray-600">{`@${testimonial.author.handle}`}</p>
         </div>
       </figcaption>
     </figure>
@@ -177,8 +179,8 @@ export function Testimonial({
           alt=""
         />
         <div>
-          <div className="font-semibold">{testimonial.author.name}</div>
-          <div className="text-gray-600">{`@${testimonial.author.handle}`}</div>
+          <p className="font-semibold">{testimonial.author.name}</p>
+          <p className="text-gray-600">{`@${testimonial.author.handle}`}</p>
         </div>
       </figcaption>
     </figure>
@@ -257,7 +259,7 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
   ]
 
   return (
-    <div className="relative isolate bg-white pb-32 pt-24 sm:pt-32">
+    <section className="relative isolate bg-white pb-6 pt-24 sm:pt-32">
       <div
         className="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
         aria-hidden="true"
@@ -284,10 +286,8 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className={styles.sectionSubhead}>{testimonials.caseStudySubTitle}</h2>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {testimonials.caseStudyTitle}
-          </p>
+          <Eyebrow>{testimonials.caseStudySubTitle}</Eyebrow>
+          <Title as="h2">{testimonials.caseStudyTitle}</Title>
         </div>
 
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-1 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-3">
@@ -296,18 +296,16 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
           ))}
         </div>
 
-        <div className="mx-auto mt-32 max-w-2xl text-center">
-          <h2 className={styles.sectionSubhead}>{testimonials.subtitle}</h2>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {testimonials.title}
-          </p>
+        <div className="mx-auto mt-20 text-center">
+          <Eyebrow>{testimonials.subtitle}</Eyebrow>
+          <Title as="h2">{testimonials.title}</Title>
         </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
-          {<FeaturedTestimonial testimonial={featuredTestimonial} />}
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-y-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-2 lg:gap-x-8 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
+          <FeaturedTestimonial testimonial={featuredTestimonial} />
           <TestimonialForSmallScreen testimonials={baseHubTestimonials} />
           <TestimonialForLargeScreen testimonials={baseHubTestimonials} />
         </div>
       </div>
-    </div>
+    </section>
   )
 }

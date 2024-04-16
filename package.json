@@ -83,7 +83,10 @@
     "sass": "^1.72.0",
     "sharp": "0.33.1"
   },
-  "packageManager": "yarn@4.1.1",
+  "engines": {
+    "node": "20.x",
+    "yarn": "1.x"
+  },
   "volta": {
     "node": "20.12.0",
     "yarn": "4.1.1"

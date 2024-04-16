@@ -11,19 +11,14 @@ type VideoType = {
 
 function Video({ video }: { video: VideoType }) {
   return (
-    <div className="flex justify-between border-b border-gray-200 p-2 pl-0 ">
-      <div className="flex items-center  text-gray-800">
-        <Link
-          href={video.href}
-          className="hover:underline"
-          target="_blank"
-          rel="noopener noreferrer "
-        >
-          {video.title}
-        </Link>
+    <a href={video.href} className="group" target="_blank" rel="noopener noreferrer">
+      <div className="flex justify-between border-b border-gray-200 p-2 pl-0 ">
+        <div className="flex items-center  text-gray-800">
+          <p className="group-hover:underline">{video.title}</p>
+        </div>
+        <span className="text-gray-400">{video.duration}</span>
       </div>
-      <span className="text-gray-400">{video.duration}</span>
-    </div>
+    </a>
   )
 }
 
@@ -49,9 +44,7 @@ function Post({ post }: { post: PostType }) {
       <div className="absolute inset-0 -z-10 rounded-lg ring-1 ring-inset ring-gray-900/10" />
       <div className="flex-1 rounded">
         <h3 className="mb-6 text-2xl font-bold leading-6 text-white">
-          <a href={post.href} className="hover:underline">
-            {post.title}
-          </a>
+          <p className="group-hover:underline">{post.title}</p>
         </h3>
       </div>
     </article>
@@ -60,7 +53,7 @@ function Post({ post }: { post: PostType }) {
 
 export function Content({ content }: LandingPageFragment) {
   return (
-    <div className="mx-auto mt-12 max-w-7xl sm:mt-16 sm:px-6 lg:px-8">
+    <div className="mx-auto mt-12 max-w-7xl border-t border-slate-300 sm:mt-16 sm:px-6 lg:border-none lg:px-8">
       <div className="relative isolate overflow-hidden bg-gray-50 px-6 py-16 text-left shadow-xl sm:rounded-xl sm:px-12">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
           <h2 className="text-2xl font-bold tracking-tight text-slate-800 sm:text-3xl">
@@ -72,7 +65,9 @@ export function Content({ content }: LandingPageFragment) {
         </div>
         <div className="mx-auto mt-8 grid max-w-2xl auto-rows-fr grid-cols-1 gap-6 sm:mt-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {content.blog.items.map((post, i) => (
-            <Post key={post.title} post={post} />
+            <a className="group" key={post.title} href={post.href}>
+              <Post post={post} />
+            </a>
           ))}
         </div>
 
@@ -86,9 +81,7 @@ export function Content({ content }: LandingPageFragment) {
             }}
           >
             <div className="p-4 text-2xl font-bold text-white">{content.course.title}</div>
-            <div className="my-0 mb-4 p-4 pt-0 text-gray-600 text-white">
-              {content.course.description}
-            </div>
+            <div className="my-0 mb-4 p-4 pt-0 text-white">{content.course.description}</div>
             <div className="flex justify-center">
               <a
                 href={content.course.getStarted.href}

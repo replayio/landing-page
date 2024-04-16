@@ -39,7 +39,7 @@ export function Values() {
                 {feature.name}
               </dt>
               <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                <p className="flex-auto">{feature.description}</p>
+                <div className="flex-auto">{feature.description}</div>
                 <p className="mt-6">
                   <a href={feature.href} className="text-sm font-semibold leading-6 text-gray-600">
                     Learn more <span aria-hidden="true">→</span>

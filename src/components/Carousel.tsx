@@ -14,7 +14,7 @@ export function Carousel({
   const testimonial = testimonials[0].testimonial
 
   return (
-    <section
+    <div
       className={`relative flex items-center justify-center rounded-lg bg-white shadow ${styles.testimonialSection}`}
       style={{ width: '320px' }}
     >
@@ -31,6 +31,6 @@ export function Carousel({
           </div>
         </figcaption>
       </div>
-    </section>
+    </div>
   )
 }

@@ -3,10 +3,20 @@
 @tailwind utilities;
 
 @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
-  
+}
+
+:root {
+  /* Layout */
+  --header-height: 56px;
+}
+
+@media (min-width: theme('screens.sm')) {
+  :root {
+    --header-height: 76px;
+  }
+}
