@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test'
+import test from '@playwright/test'
+import expect from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3000/')
@@ -9,7 +10,7 @@ test('has title', async ({ page }) => {
 })
 
 test('goes to pricing page', async ({ page }) => {
-  await page.getByLabel('Header').getByRole('link', { name: 'Pricing' }).click()
+  await page.getByLabel('Header').getByTestId('Pricing').click()
   await expect(page.getByTestId('pricing')).toBeVisible()
 })
 
