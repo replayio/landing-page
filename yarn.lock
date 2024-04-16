@@ -2121,6 +2121,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mixpanel-browser@npm:^2":
+  version: 2.49.0
+  resolution: "@types/mixpanel-browser@npm:2.49.0"
+  checksum: 10/8aa9f114098cd9e2b06314586d73934aa83a8116b7de61bd41208728aebd47daa30134a98c4af3d65c4e755fbbdb6c450058a34ad2204305587fbe8e27f844b3
+  languageName: node
+  linkType: hard
+
 "@types/mousetrap@npm:^1.6.15":
   version: 1.6.15
   resolution: "@types/mousetrap@npm:1.6.15"
@@ -5214,6 +5221,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mixpanel-browser@npm:^2.49.0":
+  version: 2.49.0
+  resolution: "mixpanel-browser@npm:2.49.0"
+  checksum: 10/46b738792153caa35c083f3e23b208d48fac0f040074d2f36dc95bac49e86729676ffb599b4b50d814231c4ae8170110419e748a1cbe0d5432ea415f0fe8adc4
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^0.5.1":
   version: 0.5.6
   resolution: "mkdirp@npm:0.5.6"
@@ -6264,6 +6278,7 @@ __metadata:
     "@tailwindcss/typography": "github:tailwindcss/typography"
     "@typeform/embed-react": "npm:^2.22.0"
     "@types/lodash": "npm:^4.17.0"
+    "@types/mixpanel-browser": "npm:^2"
     "@types/mousetrap": "npm:^1.6.15"
     "@types/node": "npm:^20.10.8"
     "@types/prismjs": "npm:^1.26.3"
@@ -6285,6 +6300,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     logrocket: "npm:^4.0.3"
     lucide-react: "npm:^0.363.0"
+    mixpanel-browser: "npm:^2.49.0"
     mousetrap: "npm:1.6.5"
     next: "npm:^14.1.4"
     prettier: "npm:^3.1.1"
