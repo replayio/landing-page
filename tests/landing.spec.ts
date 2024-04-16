@@ -9,8 +9,8 @@ test('has title', async ({ page }) => {
 })
 
 test('goes to pricing page', async ({ page }) => {
-  await page.getByLabel('Header').getByRole('link', { name: 'Pricing' }).click()
-  await expect(page.getByTestId('pricing')).toBeVisible()
+  await page.getByTestId('navlink-pricing').click()
+  await expect(page.getByTestId('navlink-pricing')).toBeVisible()
 })
 
 test.skip('schedule demo', async ({ page }) => {
