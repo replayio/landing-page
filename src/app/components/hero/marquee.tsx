@@ -14,7 +14,7 @@ import { useMinTabletBreakpoint } from '~/hooks/use-media'
 export const HomeHeroMarquee = () => {
   const isMinTablet = useMinTabletBreakpoint()
   return (
-    <Marquee autoFill gradient gradientWidth={isMinTablet ? 200 : 60} speed={20}>
+    <Marquee gradient gradientWidth={isMinTablet ? 200 : 60} speed={20}>
       {[
         { name: 'React', logo: logoReact },
         { name: 'WeightsBiases', logo: logoWeightsAndBiases },
