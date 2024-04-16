@@ -131,7 +131,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: 'https://docs.replay.io/getting-started/recording-your-first-replay',
+              href: 'https://docs.replay.io/getting-started/record-your-first-replay',
               label: 'Record a replay',
               icon: (
                 <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -624,7 +624,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
     label: 'Pricing'
   },
   getStarted: {
-    href: 'https://docs.replay.io/getting-started/recording-your-first-replay',
+    href: 'https://docs.replay.io/getting-started/record-your-first-replay',
     label: 'Get Started'
   },
   overview: {
