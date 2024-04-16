@@ -172,7 +172,7 @@ export const tiers: Record<string, Tier> = {
       {
         name: 'Office hours',
         description:
-          "Dedicated time to work the team on the top issues you're seeing in your application that are contributing to flaky test results.",
+          "Dedicated time to work with the team on the top issues you're seeing in your application that are contributing to flaky test results.",
         learnMore: '#'
       }
     ]
