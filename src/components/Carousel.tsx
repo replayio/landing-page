@@ -39,7 +39,7 @@ export function Carousel({
         if (prev === _testimonials.length - 1) return 0
         return prev + 1
       })
-    }, ANIM_DURATION * 4)
+    }, ANIM_DURATION * 5)
 
     return () => clearInterval(interval)
   }, [_testimonials.length, activeCard])
@@ -84,7 +84,7 @@ const Card: React.FC<CardProps> = ({ className, state, data, ...rest }) => {
 
     const tlEnter = gsap.timeline({
       paused: true,
-      ease: 'power3.inOut',
+      ease: 'power3.inOut"',
       onStart: () => {
         card.classList.add('z-[2]')
       }
@@ -102,6 +102,13 @@ const Card: React.FC<CardProps> = ({ className, state, data, ...rest }) => {
       x: '35%',
       y: '-35%'
     }
+    const filterNextStateStyle = 'blur(6px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.1))'
+    const enterStateStyles = {
+      scale: 1,
+      x: '0%',
+      y: '0%'
+    }
+    const filterEnterStateStyle = 'blur(0px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.42))'
 
     tlEnter.fromTo(
       card,
@@ -109,44 +116,39 @@ const Card: React.FC<CardProps> = ({ className, state, data, ...rest }) => {
         ...nextStateStyles
       },
       {
-        scale: 1,
-        x: '0%',
-        y: '0%',
-        filter: 'blur(0px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.42))',
-        duration: ANIM_DURATION / 1000
+        ...enterStateStyles,
+        duration: (ANIM_DURATION / 1000) * 0.9
       }
     )
     tlEnter.fromTo(
       card,
       {
-        filter: 'blur(6px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.1))'
+        filter: filterNextStateStyle
       },
       {
-        filter: 'blur(0px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.42))',
-        duration: ANIM_DURATION / 1000 / 2
+        filter: filterEnterStateStyle,
+        duration: (ANIM_DURATION / 1000) * 0.7
       },
       '<'
     )
 
     tlNext.set(card, {
       ...nextStateStyles,
-      filter: 'blur(6px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.1))',
+      filter: filterNextStateStyle,
       duration: ANIM_DURATION / 1000
     })
 
     tlExit.fromTo(
       card,
       {
-        y: '0%',
-        x: '0%',
-        filter: 'blur(0px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.42))',
-        scale: 1,
+        ...enterStateStyles,
+        filter: filterEnterStateStyle,
         opacity: 1
       },
       {
         y: '700px',
         x: '0%',
-        filter: 'blur(0px) drop-shadow(0px 10px 60px rgba(204, 204, 204, 0.42))',
+        filter: filterEnterStateStyle,
         scale: 1,
         opacity: 0,
         duration: ANIM_DURATION / 1000 / 2
@@ -177,7 +179,12 @@ const Card: React.FC<CardProps> = ({ className, state, data, ...rest }) => {
       ref={cardRef}
       className={clsx(
         `absolute flex h-[406px] w-[347px] items-center justify-center rounded-3xl border-2 border-solid border-white bg-white/80 shadow-[-9px_-9px_463px_0_rgba(255,255,255,0.02)_inset] backdrop-blur-[50px]`,
-        { ['z-[2]']: state === 'enter' },
+        { ['scale-1 opacity-1 z-[2]']: state === 'enter' },
+        {
+          ['opacity-1 -translate-y-[35%] translate-x-[35%] scale-[0.7] !blur-[6px]']:
+            state === 'next'
+        },
+        { ['opacity-0']: state === 'exit' },
         className
       )}
       style={{
