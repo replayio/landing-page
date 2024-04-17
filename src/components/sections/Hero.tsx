@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { BaseHubButton } from '~/components/Button'
+import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
 import logoReact from '~/images/hero-logos/react.svg'
 import logoGlide from '~/images/hero-logos/glide.svg'
@@ -41,7 +41,7 @@ export function Hero({ hero }: LandingPageFragment) {
             </div>
 
             <div className="mx-auto my-12 flex max-w-[320px] flex-col justify-start gap-x-6 gap-y-4 lg:max-w-full lg:flex-row">
-              <BaseHubButton {...hero.getStartedLink} />
+              <Button {...hero.getStartedLink} />
               <Cal link={hero.contactUsLink} />
             </div>
           </div>

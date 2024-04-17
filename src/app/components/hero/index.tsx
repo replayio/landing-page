@@ -1,4 +1,4 @@
-import { BaseHubButton } from '~/components/Button'
+import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 // import { RichText } from 'basehub/react-rich-text'
@@ -35,7 +35,7 @@ export function Hero({ hero }: LandingPageFragment) {
               </div>
 
               <div className="mx-auto mt-8 flex max-w-[320px] flex-col justify-start gap-x-6 gap-y-4 lg:max-w-full lg:flex-row">
-                <BaseHubButton {...hero.getStartedLink} />
+                <Button {...hero.getStartedLink} />
                 <CalButton link={hero.contactUsLink} />
               </div>
             </div>
