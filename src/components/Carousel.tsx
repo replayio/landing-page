@@ -81,17 +81,22 @@ export function Carousel({
 }
 
 type CardProps = React.HTMLAttributes<HTMLDivElement> & {
-  state: 'enter' | 'next' | 'exit'
+  state: 'enter' | 'next' | 'exit' | 'idle'
   data: LandingPageFragment['hero']['testimonials']['items'][0]['testimonial']
 }
 
 const Card: React.FC<CardProps> = ({ className, state, data, ...rest }) => {
+  const firstRender = useRef(true)
   const cardRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     if (!cardRef.current) return
 
     const card = cardRef.current
+
+    if (firstRender.current && state === 'exit') {
+      card.classList.add('invisible')
+    }
 
     const tlEnter = gsap.timeline({
       paused: true,
@@ -128,7 +133,7 @@ const Card: React.FC<CardProps> = ({ className, state, data, ...rest }) => {
       },
       {
         ...enterStateStyles,
-        duration: (ANIM_DURATION / 1000) * 0.9
+        duration: (ANIM_DURATION / 1000) * 0.75
       }
     )
     tlEnter.fromTo(
@@ -177,6 +182,8 @@ const Card: React.FC<CardProps> = ({ className, state, data, ...rest }) => {
         tlExit.play()
         break
     }
+
+    firstRender.current = false
 
     return () => {
       tlEnter.revert()
