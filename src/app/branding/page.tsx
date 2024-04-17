@@ -16,17 +16,6 @@ const Branding = () => {
     <>
       <Header />
       <div className={s.section}>
-        <TitleAndSubtitle
-          title={{
-            className: s.title,
-            as: 'h2',
-            children: 'Branding Resources'
-          }}
-          subtitle={{
-            children: ''
-          }}
-        />
-
         <LogoDownloadWidget />
         <StyleGuide />
       </div>

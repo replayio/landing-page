@@ -32,7 +32,7 @@
   }
 
   .widgetWrapper {
-    margin: 60px 0;
+    margin: 100px 0;
     border-radius: 12px;
     position: relative;
   }
@@ -46,7 +46,6 @@
 
   .widget {
     border-radius: 6px;
-    padding: 2rem;
     display: flex;
     justify-content: space-between;
 
@@ -107,7 +106,7 @@
     width: 100%;
     margin: 16px 0;
     border: none;
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid #fff;
   }
 
   .subtitle {
@@ -122,7 +121,7 @@
 .copy-table,
 .copy-table td,
 .copy-table th {
-  border: 1px solid #444;
+  border: 1px solid #c8c8c8;
   text-align: left;
   padding: 4px 6px;
 }
