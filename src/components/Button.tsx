@@ -11,7 +11,7 @@ const baseStyles = {
 
 const variantStyles = {
   solid: {
-    default: `bg-accent hover:bg-[#c61351] text-white hover:text-slate-100 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600`,
+    default: `bg-accent hover:bg-[#c61351] text-white hover:text-slate-100 active:bg-red-800 active:text-red-100 focus-visible:outline-blue-600`,
     blue: 'bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600',
     white:
       'bg-white text-slate-900 hover:bg-gray-50 active:bg-gray-200 active:text-slate-600 focus-visible:outline-white',
