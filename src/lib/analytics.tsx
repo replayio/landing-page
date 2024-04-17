@@ -6,7 +6,7 @@ import mixpanel from 'mixpanel-browser'
 
 export default function Analytics() {
   useEffect(() => {
-    LogRocket.init('4sdo4i/replay-docs')
+    LogRocket.init('4sdo4i/replay-landing-page')
     mixpanel.init('ffaeda9ef8fb976a520ca3a65bba5014', {
       track_pageview: 'url-with-path'
     })
