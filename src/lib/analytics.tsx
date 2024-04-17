@@ -18,7 +18,7 @@ export default function Analytics() {
       <script
         async
         src="https://analytics.umami.is/script.js"
-        data-website-id="9dab9357-6fa2-48ab-966a-82c4e1bb67fe"
+        data-website-id="ded9f3fb-cc9d-4c80-844a-742787b8b9db"
       ></script>
       <script async src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"></script>
     </>
