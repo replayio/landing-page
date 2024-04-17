@@ -1,10 +1,25 @@
-.testimonialQuote::before {
-  content: '“';
-  font-size: 8rem;
-  position: absolute;
-  top: 46px;
-  left: 0px;
-  color: rgba(0, 0, 0, 0.06);
-  font-family: 'Helvetica Neue', sans-serif;
-  z-index: 1;
+.animate-pill-entrance {
+  animation: animate-pill-entrance var(--animation-entrance-duration) linear forwards;
+}
+
+.animate-pill-exit {
+  animation: animate-pill-exit var(--animation-exit-duration) ease forwards;
+}
+
+@keyframes animate-pill-entrance {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes animate-pill-exit {
+  from {
+    background-color: #f02d5e;
+  }
+  to {
+    background-color: #f3dde3;
+  }
 }

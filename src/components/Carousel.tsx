@@ -7,7 +7,7 @@ import { RichText } from 'basehub/react-rich-text'
 import styles from './Carousel.module.css'
 import { clsx } from 'clsx'
 import { gsap } from '~/lib/gsap'
-import { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { CSSProperties, useCallback, useLayoutEffect, useRef, useState } from 'react'
 
 // const images = { vamsi }
 
@@ -51,18 +51,29 @@ export function Carousel({
           <Card key={idx} state={handleCardState(idx)} data={testimonial} />
         ))}
       </div>
-      <div className="absolute right-0 top-1/2 flex w-2 -translate-y-1/2 translate-x-full flex-col gap-y-[7px]">
+      <div className="absolute -right-2 top-1/2 flex w-2 -translate-y-1/2 translate-x-full animate-fadeIn flex-col gap-y-[7px]">
         {Array.from({ length: 3 }).map((_, idx) => (
           <button
             key={idx}
-            className={clsx('h-[30px] w-full rounded-[30px]', {
-              ['bg-accent']: idx === activeCard,
-              ['bg-[#F3DDE3]']: idx !== activeCard
-            })}
+            className={clsx('h-[30px] w-full overflow-hidden rounded-[30px] bg-[#F3DDE3]')}
             onClick={() => {
               setActiveCard(idx)
             }}
-          />
+            aria-label={`Select testimonial ${idx + 1}/${_testimonials.length}`}
+          >
+            <span
+              style={
+                {
+                  '--animation-entrance-duration': `${ANIM_DURATION * 4.5}ms`,
+                  '--animation-exit-duration': `${ANIM_DURATION}ms`
+                } as CSSProperties
+              }
+              className={clsx(`inline-block h-full w-full transition-transform ease-linear`, {
+                [styles['animate-pill-exit']]: idx !== activeCard,
+                [clsx(styles['animate-pill-entrance'], 'bg-accent')]: idx === activeCard
+              })}
+            />
+          </button>
         ))}
       </div>
     </div>
