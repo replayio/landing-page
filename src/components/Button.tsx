@@ -45,7 +45,7 @@ type ButtonProps = (
     }
   | {
       variant: string
-      color?: 'default'
+      color?: keyof typeof variantStyles.outline & keyof typeof variantStyles.solid
     }
 ) &
   (
