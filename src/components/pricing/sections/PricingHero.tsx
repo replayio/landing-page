@@ -66,7 +66,7 @@ function Plan({ tier }: { tier: Tier }) {
                 tier.featured ? 'text-slate-900' : 'text-slate-300'
               )}
             >
-              <a className="text-indigo-300" href={tier.href}>
+              <a className="text-accent hover:underline" href={tier.href}>
                 Start a conversation
               </a>
             </p>
