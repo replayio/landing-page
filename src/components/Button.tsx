@@ -5,19 +5,19 @@ import { useMemo } from 'react'
 
 const baseStyles = {
   solid:
-    'group transition-colors ease-ease-in-out duration-100 inline-flex items-center justify-center rounded-full text-sm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+    'group transition-colors ease-ease-in-out duration-100 inline-flex items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
   outline:
-    'group transition-colors ease-ease-in-out duration-100 inline-flex border-2 items-center justify-center rounded-full text-sm focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-accent'
+    'group bg-white transition-colors ease-ease-in-out duration-100 inline-flex border-2 items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-accent'
 }
 
 const sizeStyles = {
-  sm: 'font-medium text-lg px-5 h-[33px]',
-  base: 'font-semibold h-[54px] px-8 text-base'
+  sm: 'font-medium px-5 h-[38px]',
+  base: 'font-semibold h-[54px] px-8'
 }
 
 const variantStyles = {
   solid: {
-    default: `bg-accent hover:bg-accent-light text-white hover:text-slate-100 active:bg-blue-800 active:text-blue-100`,
+    default: `bg-accent hover:bg-accent-light text-white hover:text-slate-100`,
     blue: 'bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100',
     white:
       'bg-white text-slate-900 hover:bg-gray-50 active:bg-gray-200 active:text-slate-600 focus-visible:outline-white',
