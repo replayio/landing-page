@@ -42,7 +42,7 @@ export function Carousel({
     }, ANIM_DURATION * 4)
 
     return () => clearInterval(interval)
-  }, [_testimonials.length])
+  }, [_testimonials.length, activeCard])
 
   return (
     <div className="relative">
