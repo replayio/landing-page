@@ -123,9 +123,11 @@ export function ClipboardButton({ className, label, ...props }: ClipboardButtonP
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(label)
-    setIsCopied(true)
-    setTimeout(() => setIsCopied(false), 2400)
+    if (label !== null) {
+      navigator.clipboard.writeText(label)
+      setIsCopied(true)
+      setTimeout(() => setIsCopied(false), 2400)
+    }
   }
 
   return (
