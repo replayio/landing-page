@@ -36,7 +36,12 @@ export function Hero({ hero }: LandingPageFragment) {
 
               <div className="mx-auto mt-8 flex max-w-[320px] flex-col justify-start gap-x-6 gap-y-4 lg:max-w-full lg:flex-row">
                 <div className="flex flex-col items-center">
-                  <ClipboardButton {...hero.installationLink} />
+                  <ClipboardButton
+                    href={hero.installationLink.href}
+                    label={hero.installationLink.label}
+                    _id={hero.installationLink._id}
+                    variant={hero.installationLink.variant as 'solid' | 'outline' | null}
+                  />
                   <a
                     href="https://docs.replay.io/quickstart/"
                     className="pt-2 text-center text-xs hover:underline"

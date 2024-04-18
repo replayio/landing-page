@@ -136,13 +136,12 @@ export function ClipboardButton({ className, label, ...props }: ClipboardButtonP
       setTimeout(() => setIsCopied(false), 2400)
     }
   }
-
   return (
     <button
       className={variantClassName}
       onClick={handleCopy}
-      style={{ minWidth: '242px' }} // Set min-width here
-      {...props}
+      style={{ minWidth: '242px' }}
+      {...{ ...props, color: props.color || 'default' }}
     >
       <div className="flex w-full items-center justify-between space-x-2">
         <span className="text-shadow-lg">{isCopied ? 'Copied to clipboard!' : label}</span>
