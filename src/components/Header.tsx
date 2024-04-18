@@ -148,6 +148,10 @@ export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
                 size="sm"
                 color={variant === 'dark' ? 'white' : 'black'}
                 type="solid"
+                className={clsx(
+                  '!h-[33px] border-2',
+                  variant === 'dark' ? 'border-white hover:bg-slate-900' : 'border-black'
+                )}
               >
                 Sign in
               </Button>
