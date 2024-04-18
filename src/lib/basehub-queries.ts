@@ -14,6 +14,7 @@ export const landingPageFragment = fragmentOn('LandingPage', {
       json: { content: true }
     },
     getStartedLink: linkFragment,
+    installationLink: linkFragment,
     contactUsLink: linkFragment,
     logosTitle: true,
     testimonials: {

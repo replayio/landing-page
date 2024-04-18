@@ -1,4 +1,4 @@
-import { BaseHubButton } from '~/components/Button'
+import { ClipboardButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 // import { RichText } from 'basehub/react-rich-text'
@@ -7,11 +7,12 @@ import { featureFlags } from '~/lib/feature-flags'
 import CalButton from './cal'
 import { HomeHeroMarquee } from './marquee'
 import Hyperspace from './hyperspace'
+import { useState } from 'react'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
     <section className="relative flex overflow-hidden">
-      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn opacity-0 lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
+      <div className="animate-fadeIn absolute -top-[30%] left-0 h-[130%] w-full opacity-0 lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
       <div className="relative z-10 flex max-w-full flex-1 flex-col">
@@ -35,8 +36,19 @@ export function Hero({ hero }: LandingPageFragment) {
               </div>
 
               <div className="mx-auto mt-8 flex max-w-[320px] flex-col justify-start gap-x-6 gap-y-4 lg:max-w-full lg:flex-row">
-                <BaseHubButton {...hero.getStartedLink} />
-                <CalButton link={hero.contactUsLink} />
+                <div className="flex flex-col items-center">
+                  <ClipboardButton {...hero.installationLink} />
+                  <a
+                    href="https://docs.replay.io/quickstart/"
+                    className="pt-2 text-center text-xs hover:underline"
+                  >
+                    Or check out our Quickstart Guide
+                  </a>
+                </div>
+                <div className="flex flex-col items-center">
+                  <CalButton link={hero.contactUsLink} />
+                  <div />
+                </div>
               </div>
             </div>
             <div className="hidden h-fit p-0 lg:flex">
