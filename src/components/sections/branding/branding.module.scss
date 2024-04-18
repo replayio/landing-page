@@ -1,7 +1,7 @@
 @import 'css/variables';
 
 .section {
-  margin: auto;
+  margin: calc(var(--header-height) + 24px) auto auto auto;
   max-width: 900px;
 
   .container {
