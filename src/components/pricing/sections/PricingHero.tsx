@@ -49,20 +49,15 @@ function Plan({ tier }: { tier: Tier }) {
       <div className="flex flex-grow flex-col">
         {tier.name == 'Enterprise' ? (
           <div className="mt-8">
-            <p
-              className={clsx(
-                'font-ligh text-sm',
-                tier.featured ? 'text-slate-900' : 'text-slate-300'
-              )}
-            >
+            <p className={clsx('text-sm', tier.featured ? 'text-slate-900' : 'text-slate-300')}>
               -
             </p>
-            <p className="order-first font-display text-3xl font-light tracking-tight text-white">
+            <p className="order-first font-display text-3xl tracking-tight text-white">
               Let&lsquo;s chat
             </p>
             <p
               className={clsx(
-                'mt-1 font-light tracking-tight text-slate-300',
+                'mt-1 tracking-tight text-slate-300',
                 tier.featured ? 'text-slate-900' : 'text-slate-300'
               )}
             >
@@ -73,12 +68,12 @@ function Plan({ tier }: { tier: Tier }) {
           </div>
         ) : (
           <div className={clsx('mt-8', tier.featured ? 'text-slate-900' : 'text-slate-300')}>
-            <p className="text-sm font-light">Starting at</p>
+            <p className="text-sm">Starting at</p>
             <p className="order-first font-display text-3xl tracking-tight">
               ${tier.price}
-              <span className="text-sm  font-light">&nbsp;/ &nbsp; month</span>
+              <span className="text-sm ">&nbsp;/ &nbsp; month</span>
             </p>
-            <p className="mt-1 text-sm font-light tracking-tight">{tier.priceDescription}</p>
+            <p className="mt-1 text-sm tracking-tight">{tier.priceDescription}</p>
           </div>
         )}
 
@@ -87,24 +82,24 @@ function Plan({ tier }: { tier: Tier }) {
           className={clsx(
             'order-last mt-10 flex flex-col  border-t text-sm',
             tier.featured ? 'text-slate-900' : 'text-slate-200',
-            tier.featured ? 'border-slate-900' : 'border-slate-700'
+            tier.featured ? 'border-slate-500' : 'border-slate-700'
           )}
         >
           {Object.entries(tier.features)
             .filter(([label]) => !FEATURES[label].hidden)
             .map(([label, value]) => (
-              <li
+              <PricingTooltip
                 key={label}
-                className={`flex items-center  justify-between border-b  py-2 ${tier.featured ? 'border-slate-900' : 'border-slate-700'}`}
+                learnMore={FEATURES[label].learnMore}
+                body={FEATURES[label].description}
               >
-                <PricingTooltip
-                  learnMore={FEATURES[label].learnMore}
-                  body={FEATURES[label].description}
+                <li
+                  className={`flex items-center justify-between border-b py-2 ${tier.featured ? 'border-slate-500' : 'border-slate-700'}`}
                 >
-                  <span className="cursor-pointer hover:underline">{FEATURES[label].name}</span>
-                </PricingTooltip>
-                <span className="mr-2">{value.toLocaleString()}</span>
-              </li>
+                  <span className="cursor-default">{FEATURES[label].name}</span>
+                  <span className="mr-2">{value.toLocaleString()}</span>
+                </li>
+              </PricingTooltip>
             ))}
         </ul>
 
@@ -121,7 +116,7 @@ function Plan({ tier }: { tier: Tier }) {
               learnMore={feature.learnMore}
               body={feature.description}
             >
-              <li className="flex cursor-pointer hover:underline">
+              <li className="flex cursor-default">
                 <CheckIcon className={tier.featured ? 'text-slate-900' : 'border-indigo-500'} />
                 <span className="ml-4">{feature.name}</span>
               </li>
