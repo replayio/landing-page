@@ -7,6 +7,7 @@ import CalButton from './cal'
 import { HomeHeroMarquee } from './marquee'
 import Hyperspace from './hyperspace'
 import { Carrousel } from './carrousel'
+import Link from 'next/link'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
@@ -42,12 +43,12 @@ export function Hero({ hero }: LandingPageFragment) {
                     variant={hero.installationLink.variant || ''}
                     className="w-full"
                   />
-                  <a
+                  <Link
                     href="https://docs.replay.io/quickstart/"
                     className="pt-2 text-center text-sm text-accent hover:underline"
                   >
                     In depth walkthrough {'->'}
-                  </a>
+                  </Link>
                 </div>
                 <CalButton link={hero.contactUsLink} />
               </div>
