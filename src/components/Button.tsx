@@ -114,7 +114,8 @@ export function BaseHubButton({ className, label, ...props }: BaseHubButtonProps
 interface ClipboardButtonProps {
   href: string | null
   label: string | null
-  variant: string | null
+  variant: 'solid' | 'outline' | null
+  color?: keyof (typeof variantStyles)['solid'] | keyof (typeof variantStyles)['outline'] | null
   _id: string | null
   className?: string
 }
