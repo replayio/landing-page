@@ -208,7 +208,7 @@ const Card: React.FC<CardProps> = ({ className, state, data, mobile, ...rest }) 
     <div
       ref={cardRef}
       className={clsx(
-        `absolute flex h-[230px] w-full items-center justify-center rounded-3xl border-2 border-solid border-white bg-white/80 shadow-[-9px_-9px_463px_0_rgba(255,255,255,0.02)_inset] backdrop-blur-[50px] lg:h-[406px] lg:w-[347px]`,
+        `absolute flex h-[250px] w-full items-center justify-center rounded-3xl border-2 border-solid border-white bg-white/80 shadow-[-9px_-9px_463px_0_rgba(255,255,255,0.02)_inset] backdrop-blur-[50px] lg:h-[406px] lg:w-[347px]`,
         { ['scale-1 opacity-1 z-[2]']: state === 'enter' },
         {
           ['opacity-1 translate-y-[20%] scale-[0.95] lg:-translate-y-[35%] lg:translate-x-[35%] lg:scale-[0.7] lg:!blur-[6px]']:
