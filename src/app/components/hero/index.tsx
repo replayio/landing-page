@@ -7,7 +7,6 @@ import { featureFlags } from '~/lib/feature-flags'
 import CalButton from './cal'
 import { HomeHeroMarquee } from './marquee'
 import Hyperspace from './hyperspace'
-import { useState } from 'react'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (

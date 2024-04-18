@@ -111,6 +111,14 @@ export function BaseHubButton({ className, label, ...props }: BaseHubButtonProps
   )
 }
 
+interface ClipboardButtonProps {
+  href: string
+  label: string
+  variant: string
+  _id: string
+  className?: string
+}
+
 export function ClipboardButton({ className, label, ...props }: BaseHubButtonProps) {
   const [isCopied, setIsCopied] = useState(false)
 
