@@ -1,13 +1,9 @@
 .animate-pill-entrance {
-  @screen lg {
-    animation: animate-pill-entrance-desktop var(--animation-entrance-duration) linear forwards;
-  }
+  animation: animate-pill-entrance-desktop var(--animation-entrance-duration) linear forwards;
 }
 
 .animate-pill-exit {
-  @screen lg {
-    animation: animate-pill-exit-desktop var(--animation-exit-duration) ease forwards;
-  }
+  animation: animate-pill-exit-desktop var(--animation-exit-duration) ease forwards;
 }
 
 @keyframes animate-pill-entrance-desktop {

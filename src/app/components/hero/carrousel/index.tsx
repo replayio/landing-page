@@ -53,15 +53,15 @@ export function Carrousel({
           <Card key={idx} state={handleCardState(idx)} data={testimonial} mobile={!isLgTablet} />
         ))}
       </div>
-      <div className="absolute -right-1 top-1/2 flex w-2 -translate-y-1/2 translate-x-full animate-fadeIn flex-col gap-y-[7px] lg:-right-2">
+      <div className="absolute -right-1 top-1/2 flex w-2 -translate-y-1/2 translate-x-full animate-fadeIn flex-col gap-y-[7px] opacity-0 lg:-right-2">
         {Array.from({ length: 3 }).map((_, idx) => (
           <button
             key={idx}
             style={{ transitionDuration: `${ANIM_DURATION}ms` }}
             className={clsx(
-              'h-[8px] w-full overflow-hidden rounded-[30px] bg-[#F3DDE3] transition-all lg:h-[30px]',
+              'h-[8px] w-full overflow-hidden rounded-[30px] transition-all lg:!h-[30px] lg:bg-[#F3DDE3]',
               {
-                '!h-[14px] bg-accent': idx === activeCard && !isLgTablet
+                'h-[14px] bg-accent': idx === activeCard && !isLgTablet
               }
             )}
             onClick={() => {
@@ -79,8 +79,9 @@ export function Carrousel({
               className={clsx(
                 `hidden h-full w-full transition-transform ease-linear lg:inline-block`,
                 {
-                  [styles['animate-pill-exit']]: idx !== activeCard,
-                  [clsx(styles['animate-pill-entrance'], 'bg-accent')]: idx === activeCard
+                  [styles['animate-pill-exit']]: idx !== activeCard && isLgTablet,
+                  [clsx(styles['animate-pill-entrance'], 'bg-accent')]:
+                    idx === activeCard && isLgTablet
                 }
               )}
             />
