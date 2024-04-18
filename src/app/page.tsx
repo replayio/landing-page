@@ -26,6 +26,13 @@ export default function Home() {
             <Header />
             <main>
               <Hero {...landingPage} />
+              <DevTools {...landingPage} />
+              <TestSuites {...landingPage} />
+              <FAQ {...landingPage} />
+              <DynamicAnalysis {...landingPage} />
+              <CallToAction {...landingPage} />
+              <Testimonials {...landingPage} />
+              <Content {...landingPage} />
             </main>
             <Footer />
           </>

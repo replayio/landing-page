@@ -122,6 +122,12 @@ interface ClipboardButtonProps {
 export function ClipboardButton({ className, label, ...props }: ClipboardButtonProps) {
   const [isCopied, setIsCopied] = useState(false)
 
+  const variantClassName = clsx(
+    baseStyles[props.variant as keyof typeof baseStyles],
+    variantStyles[props.variant as keyof typeof variantStyles][props.color || 'default'],
+    className
+  )
+
   const handleCopy = () => {
     if (label !== null) {
       navigator.clipboard.writeText(label)
@@ -131,7 +137,12 @@ export function ClipboardButton({ className, label, ...props }: ClipboardButtonP
   }
 
   return (
-    <button onClick={handleCopy} style={{ minWidth: '242px' }} {...props}>
+    <button
+      className={variantClassName}
+      onClick={handleCopy}
+      style={{ minWidth: '242px' }} // Set min-width here
+      {...props}
+    >
       <div className="flex w-full items-center justify-between space-x-2">
         <span className="text-shadow-lg">{isCopied ? 'Copied to clipboard!' : label}</span>
         <div>{isCopied ? <SuccessIcon /> : <CopyIcon />}</div>
