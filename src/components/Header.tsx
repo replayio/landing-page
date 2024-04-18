@@ -150,7 +150,7 @@ export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
                 type="solid"
                 className={clsx(
                   '!h-[33px] border-2',
-                  variant === 'dark' ? 'border-white hover:bg-slate-900' : 'border-black'
+                  variant === 'dark' ? 'border-white' : 'border-black'
                 )}
               >
                 Sign in

@@ -55,7 +55,7 @@ const variantStyles = {
     default: `bg-accent hover:bg-accent-light text-white hover:text-slate-100`,
     blue: 'bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100',
     white:
-      'bg-white hover:bg-black hover:text-white text-slate-900 active:bg-gray-200 active:text-slate-600 focus-visible:outline-white',
+      'bg-white border-2 border-slate-900 hover:border-accent hover:bg-slate-950 hover:text-white text-slate-900 active:bg-gray-200 active:text-slate-600 focus-visible:outline-white',
     gray: 'bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 focus-visible:outline-white',
     black: 'bg-slate-900 text-white hover:text-slate-700 hover:bg-white'
   },
