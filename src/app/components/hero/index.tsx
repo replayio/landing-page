@@ -34,7 +34,7 @@ export function Hero({ hero }: LandingPageFragment) {
                 </div>
               </div>
 
-              <div className="mx-auto mt-8 flex max-w-[480px] flex-col justify-start gap-x-6 gap-y-4 lg:flex-row">
+              <div className="mx-auto mt-8 flex max-w-[480px] flex-col justify-start gap-x-6 gap-y-4 lg:mx-0 lg:flex-row">
                 <div className="flex flex-col items-center">
                   <ClipboardButton
                     label={hero.installationLink.label || ''}
@@ -44,9 +44,9 @@ export function Hero({ hero }: LandingPageFragment) {
                   />
                   <a
                     href="https://docs.replay.io/quickstart/"
-                    className="pt-2 text-center text-xs hover:underline"
+                    className="pt-2 text-center text-sm text-accent hover:underline"
                   >
-                    Or check out our Quickstart Guide
+                    In depth walkthrough {'->'}
                   </a>
                 </div>
                 <CalButton link={hero.contactUsLink} />
