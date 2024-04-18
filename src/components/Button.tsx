@@ -112,35 +112,24 @@ export function BaseHubButton({ className, label, ...props }: BaseHubButtonProps
 }
 
 interface ClipboardButtonProps {
-  href: string
-  label: string
-  variant: string
-  _id: string
+  href: string | null
+  label: string | null
+  variant: string | null
+  _id: string | null
   className?: string
 }
 
-export function ClipboardButton({ className, label, ...props }: BaseHubButtonProps) {
+export function ClipboardButton({ className, label, ...props }: ClipboardButtonProps) {
   const [isCopied, setIsCopied] = useState(false)
-
-  const variantClassName = clsx(
-    baseStyles[props.variant as keyof typeof baseStyles],
-    variantStyles[props.variant as keyof typeof variantStyles][props.color || 'default'],
-    className
-  )
 
   const handleCopy = () => {
     navigator.clipboard.writeText(label)
     setIsCopied(true)
-    setTimeout(() => setIsCopied(false), 2400) // Adjust the timeout as needed
+    setTimeout(() => setIsCopied(false), 2400)
   }
 
   return (
-    <button
-      className={variantClassName}
-      onClick={handleCopy}
-      style={{ minWidth: '242px' }} // Set min-width here
-      {...props}
-    >
+    <button onClick={handleCopy} style={{ minWidth: '242px' }} {...props}>
       <div className="flex w-full items-center justify-between space-x-2">
         <span className="text-shadow-lg">{isCopied ? 'Copied to clipboard!' : label}</span>
         <div>{isCopied ? <SuccessIcon /> : <CopyIcon />}</div>
