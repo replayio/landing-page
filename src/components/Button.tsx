@@ -111,7 +111,7 @@ export function BaseHubButton({ className, label, ...props }: BaseHubButtonProps
   )
 }
 
-export function ClipboardButton({ className, label, ...props }: Partial<BaseHubButtonProps>) {
+export function ClipboardButton({ className, label, ...props }: BaseHubButtonProps) {
   const [isCopied, setIsCopied] = useState(false)
 
   const variantClassName = clsx(
@@ -121,11 +121,9 @@ export function ClipboardButton({ className, label, ...props }: Partial<BaseHubB
   )
 
   const handleCopy = () => {
-    if (label) {
-      navigator.clipboard.writeText(label)
-      setIsCopied(true)
-      setTimeout(() => setIsCopied(false), 2400) // Adjust the timeout as needed
-    }
+    navigator.clipboard.writeText(label)
+    setIsCopied(true)
+    setTimeout(() => setIsCopied(false), 2400) // Adjust the timeout as needed
   }
 
   return (
