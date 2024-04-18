@@ -1,12 +1,16 @@
 .animate-pill-entrance {
-  animation: animate-pill-entrance var(--animation-entrance-duration) linear forwards;
+  @screen lg {
+    animation: animate-pill-entrance-desktop var(--animation-entrance-duration) linear forwards;
+  }
 }
 
 .animate-pill-exit {
-  animation: animate-pill-exit var(--animation-exit-duration) ease forwards;
+  @screen lg {
+    animation: animate-pill-exit-desktop var(--animation-exit-duration) ease forwards;
+  }
 }
 
-@keyframes animate-pill-entrance {
+@keyframes animate-pill-entrance-desktop {
   from {
     transform: translateY(-100%);
   }
@@ -15,7 +19,7 @@
   }
 }
 
-@keyframes animate-pill-exit {
+@keyframes animate-pill-exit-desktop {
   from {
     background-color: #f02d5e;
   }

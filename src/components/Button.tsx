@@ -40,9 +40,9 @@ const SuccessIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 
 const baseStyles = {
   solid:
-    'group transition-colors ease-ease-in-out duration-100 inline-flex items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+    'group whitespace-nowrap transition-colors ease-ease-in-out duration-100 inline-flex items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
   outline:
-    'group bg-white transition-colors ease-ease-in-out duration-100 inline-flex border-2 items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-accent'
+    'group whitespace-nowrap bg-white transition-colors ease-ease-in-out duration-100 inline-flex border-2 items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-accent'
 }
 
 const sizeStyles = {
@@ -131,7 +131,6 @@ type ClipboardButtonProps = ButtonProps & {
 }
 
 export function ClipboardButton({
-  className,
   label,
   color = 'default',
   variant = 'solid',
@@ -157,7 +156,12 @@ export function ClipboardButton({
         >
           Copied to clipboard <SuccessIcon />
         </span>
-        <span className={clsx('flex items-center gap-2', isCopied ? 'opacity-0' : 'opacity-1')}>
+        <span
+          className={clsx(
+            'flex w-full items-center justify-center gap-2',
+            isCopied ? 'opacity-0' : 'opacity-1'
+          )}
+        >
           {label} <CopyIcon />
         </span>
       </span>
