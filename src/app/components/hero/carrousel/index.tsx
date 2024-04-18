@@ -61,7 +61,7 @@ export function Carrousel({
             className={clsx(
               'h-[8px] w-full overflow-hidden rounded-[30px] bg-[#F3DDE3] transition-all lg:h-[30px]',
               {
-                'h-[14px] bg-accent': idx === activeCard && !isLgTablet
+                '!h-[14px] bg-accent': idx === activeCard && !isLgTablet
               }
             )}
             onClick={() => {
