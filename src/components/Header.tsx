@@ -13,8 +13,8 @@ import useHash from '~/hooks/use-hash'
 import { Button } from './Button'
 
 const NAVLINKS = [
-  { href: '#devtools', label: 'DevTools' },
-  { href: '#test-suites', label: 'Test Suites' },
+  { href: '/#devtools', label: 'DevTools' },
+  { href: '/#test-suites', label: 'Test Suites' },
   { href: '/pricing', label: 'Pricing' },
   { href: 'https://docs.replay.io', label: 'Docs' },
   { href: 'https://blog.replay.io', label: 'Changelog' },
