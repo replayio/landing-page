@@ -155,7 +155,7 @@ export function ClipboardButton({
             isCopied ? 'opacity-1' : 'opacity-0'
           )}
         >
-          Copied to clipboard! <SuccessIcon />
+          Copied to clipboard <SuccessIcon />
         </span>
         <span className={clsx('flex items-center gap-2', isCopied ? 'opacity-0' : 'opacity-1')}>
           {label} <CopyIcon />
