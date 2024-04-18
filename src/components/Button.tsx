@@ -40,14 +40,14 @@ const SuccessIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 
 const baseStyles = {
   solid:
-    'group whitespace-nowrap transition-colors ease-ease-in-out duration-100 inline-flex items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+    'group whitespace-nowrap transition-colors ease-ease-in-out duration-100 inline-flex items-center justify-center rounded-full sm:text-base text-sm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
   outline:
-    'group whitespace-nowrap bg-white transition-colors ease-ease-in-out duration-100 inline-flex border-2 items-center justify-center rounded-full text-base focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-accent'
+    'group whitespace-nowrap bg-white transition-colors ease-ease-in-out duration-100 inline-flex border-2 items-center justify-center rounded-full text-sm sm:text-base focus:outline-none focus-visible:outline-offset-2 focus-visible:outline-accent'
 }
 
 const sizeStyles = {
-  sm: 'font-medium px-5 h-[38px]',
-  base: 'font-semibold h-[54px] px-8'
+  sm: 'font-medium px-5 h-[36px] sm:h-[38px]',
+  base: 'font-semibold h-[38px] sm:h-[54px] px-8'
 }
 
 const variantStyles = {
