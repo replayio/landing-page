@@ -18,12 +18,13 @@ export const Title: FC<TitleProps> = ({ as = 'h1', children, className, white, h
     <Comp
       {...rest}
       className={clsx(
-        'font-display font-bold tracking-tight text-gray-900',
+        'font-display font-bold tracking-tight',
         className,
         white ? 'text-white' : 'text-gray-900',
         {
           'text-4xl md:text-6xl': as === 'h1',
-          'text-3xl md:text-5xl': as === 'h2'
+          'text-3xl md:text-5xl': as === 'h2',
+          'text-2xl md:text-5xl': as === 'h3'
         }
       )}
     >
