@@ -134,7 +134,7 @@ export function Content({ content }: LandingPageFragment) {
             <Disclosure as="div" className="flex flex-col bg-white px-5 pb-[15px]">
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="mt-3 flex items-center text-lg lg:text-2xl">
+                  <Disclosure.Button className="mt-3 flex items-center text-lg">
                     Chapter Index
                     <ChevronUpIcon
                       className={clsx(
