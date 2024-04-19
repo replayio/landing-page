@@ -63,7 +63,7 @@ function Post({ post }: { post: PostType }) {
 export function Content({ content }: LandingPageFragment) {
   return (
     <section className="border-t border-slate-300 bg-[#F8F8F8] pb-[74px] pt-24 lg:pb-[234px]">
-      <Container className="max-w-5xl lg:!px-0">
+      <Container className="!max-w-5xl lg:!px-0">
         <Title as="h2" className="text-center">
           {content.title}
         </Title>
