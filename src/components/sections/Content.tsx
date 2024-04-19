@@ -72,7 +72,7 @@ export function Content({ content }: LandingPageFragment) {
           <p className="text-center">Our YouTube channel</p>
 
           <div className="mt-6 overflow-hidden rounded-[20px] shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]">
-            <div className="bg-[url('/images/course-bg-mobile.png')] bg-cover p-5 lg:flex lg:gap-[76px] lg:bg-[url('/images/course-bg-desktop.png')]">
+            <div className="bg-[url('/images/course-bg-mobile.png')] bg-cover p-5 lg:flex lg:justify-between lg:gap-[76px] lg:bg-[url('/images/course-bg-desktop.png')]">
               <div>
                 <Title as="h3" white className="flex items-center gap-x-2 lg:text-3xl">
                   <svg
