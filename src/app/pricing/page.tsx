@@ -3,11 +3,11 @@ import { PricingTable } from '~/components/pricing/sections/PricingTable'
 import { Pump } from '.basehub/react-pump'
 import { draftMode } from 'next/headers'
 import { pricingPageFragment } from '~/lib/basehub-queries'
-import { Header } from '~/components/Header'
 import { Footer } from '~/components/Footer'
 import { PricingFAQ } from '~/components/pricing/PricingFAQ'
 import { CostCalculator } from '~/components/pricing/sections/CostCalculator'
 import { featureFlags } from '~/lib/feature-flags'
+import { Header } from '~/components/layout/header'
 
 export default function Home() {
   return (

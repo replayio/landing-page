@@ -1,129 +1,181 @@
-import clsx from 'clsx'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+'use client'
 
-import { ButtonLink } from '~/components/primitives/cta'
-import { NavLink } from '~/components/primitives/nav-link'
-import { useAppStore } from '~/context/use-app-store'
-import { useToggleState } from '~/hooks/use-toggle-state'
-import { SITEMAP } from '~/lib/sitemap'
-import { getImageSizes } from '~/lib/utils/image'
+import { Fragment, useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { Popover, Transition } from '@headlessui/react'
 
-import s from './header.module.scss'
+import { Container } from '~/components/Container'
+import { Logo } from '~/components/FullLogo'
+import { NavLink } from '~/components/NavLink'
+import { clsx } from 'clsx'
+import useHash from '~/hooks/use-hash'
+import { Button } from '~/components/Button'
 import { MobileMenu } from './mobile-menu'
-import {
-  NavigationContent,
-  NavigationItem,
-  NavigationList,
-  NavigationTrigger,
-  NavigationWrapper
-} from './navigation'
+import { useToggleState } from '~/hooks/use-toggle-state'
 
-export const links = [
-  SITEMAP.solutions,
-  SITEMAP.devTools,
-  SITEMAP.docs,
-  SITEMAP.company,
-  SITEMAP.pricing
+export type Navlink = {
+  href: string
+  label: string
+}
+
+const NAVLINKS: Navlink[] = [
+  { href: '/#devtools', label: 'DevTools' },
+  { href: '/#test-suites', label: 'Test Suites' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: 'https://docs.replay.io', label: 'Docs' },
+  { href: 'https://blog.replay.io', label: 'Changelog' },
+  { href: '/about', label: 'Company' }
 ]
 
-export const Header = () => {
-  const [scrolled, setScrolled] = useState<boolean>(false)
-  const { navigationSitemapShowing } = useAppStore()
+function MobileNavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Popover.Button as={Link} href={href} className="block w-full p-2">
+      {children}
+    </Popover.Button>
+  )
+}
+
+function MobileNavIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-3.5 w-3.5 overflow-visible stroke-slate-700"
+      fill="none"
+      strokeWidth={2}
+      strokeLinecap="round"
+    >
+      <path
+        d="M0 1H14M0 7H14M0 13H14"
+        className={clsx('origin-center transition', open && 'scale-90 opacity-0')}
+      />
+      <path
+        d="M2 2L12 12M12 2L2 12"
+        className={clsx('origin-center transition', !open && 'scale-90 opacity-0')}
+      />
+    </svg>
+  )
+}
+
+function MobileNavigation() {
+  return (
+    <Popover>
+      <Popover.Button
+        className="relative z-10 flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none"
+        aria-label="Toggle Navigation"
+      >
+        {({ open }) => <MobileNavIcon open={open} />}
+      </Popover.Button>
+      <Transition.Root>
+        <Transition.Child
+          as={Fragment}
+          enter="duration-150 ease-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="duration-150 ease-in"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Popover.Overlay className="fixed inset-0 bg-slate-300/50" />
+        </Transition.Child>
+        <Transition.Child
+          as={Fragment}
+          enter="duration-150 ease-out"
+          enterFrom="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave="duration-100 ease-in"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          <Popover.Panel
+            as="div"
+            className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight  shadow-xl ring-1 ring-slate-900/5"
+          >
+            {NAVLINKS.map(({ href, label }) => (
+              <MobileNavLink key={href} href={href}>
+                {label}
+              </MobileNavLink>
+            ))}
+            <hr className="m-2 border-slate-300/40" />
+            <MobileNavLink href="https://app.replay.io">Sign in</MobileNavLink>
+          </Popover.Panel>
+        </Transition.Child>
+      </Transition.Root>
+    </Popover>
+  )
+}
+
+export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
   const toggle = useToggleState()
-  const router = useRouter()
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const pathname = usePathname()
+  const hash = useHash()
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      setScrollProgress(window.scrollY)
     }
 
-    handleScroll()
-
-    document.addEventListener('scroll', handleScroll)
-
-    return () => document.removeEventListener('scroll', handleScroll)
-  }, [scrolled])
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <>
-      <header
-        className={clsx(s.header, {
-          [s.scrolled as string]: scrolled,
-          [s.navigationSitemapShowing as string]: navigationSitemapShowing,
-          [s.menuIsOpen as string]: toggle.isOn
-        })}
-      >
-        <NavigationWrapper>
-          <NavLink
-            passHref
-            href={SITEMAP.home.href || '/'}
-            aria-label={`Go to ${SITEMAP.home.label}`}
-            onClick={toggle.handleOff}
-            className={s.logo}
-          >
-            <Image
-              fill
-              src="/images/logo.png"
-              alt="Replay's logo"
-              quality={100}
-              priority
-              sizes={getImageSizes(10, 10, 15)}
-            />
-          </NavLink>
-
-          <NavigationList quantity={links.length}>
-            {links.map((link, index) => (
-              <NavigationItem key={link.label} className={s[`headerLink-${index + 1}`]}>
-                {link.dropdown ? (
-                  <>
-                    <NavigationTrigger>{link.label}</NavigationTrigger>
-                    <NavigationContent
-                      mainContent={link.dropdown.mainContent}
-                      sidebar={link.dropdown.sidebar}
-                      index={index + 1}
-                    />
-                  </>
-                ) : (
-                  <NavLink
-                    style={{
-                      color: router.pathname === link.href ? '#fff' : 'inherit'
-                    }}
-                    href={link.href || '/'}
-                    aria-label={link.label}
-                  >
-                    {link.label}
-                  </NavLink>
-                )}
-              </NavigationItem>
-            ))}
-          </NavigationList>
-
-          <div className={s.rightSideCtasWrapper}>
-            <MobileMenu burgerClassName={s['burgerButton']} {...toggle} />
-
-            <div className={s['ctas']}>
-              <ButtonLink
-                size="big"
-                mode="secondary"
-                href={SITEMAP.login.href || '/'}
-                aria-label={SITEMAP.login.label}
-              >
-                {SITEMAP.login.label}
-              </ButtonLink>
-              <ButtonLink
-                size="big"
-                mode="primary"
-                href={SITEMAP.getStarted.href || '/'}
-                aria-label={SITEMAP.getStarted.label}
-              >
-                {SITEMAP.getStarted.label}
-              </ButtonLink>
+    <header
+      className={clsx(
+        'fixed top-0 z-50 flex h-[var(--header-height)] w-full items-center',
+        variant === 'dark' ? 'bg-slate-900 text-slate-100 ' : 'bg-transparent text-slate-900',
+        {
+          ['border-b border-slate-950']: variant === 'dark' && (scrollProgress > 0 || toggle.isOn)
+        },
+        {
+          ['border-b border-gray-100 bg-white']:
+            variant === 'light' && (scrollProgress > 0 || toggle.isOn)
+        }
+      )}
+    >
+      <Container className="flex-1">
+        <nav className="relative z-50 flex justify-between">
+          <div className="flex items-center ">
+            <Link href="/" aria-label="Home">
+              <Logo className="h-auto w-[144px]" variant={variant || 'light'} />
+            </Link>
+            <div className="hidden md:flex md:gap-x-4">
+              {NAVLINKS.map(({ href, label }) => (
+                <NavLink
+                  key={href}
+                  variant={variant}
+                  href={href}
+                  active={pathname === href || `/${hash}` === href}
+                >
+                  {label}
+                </NavLink>
+              ))}
             </div>
           </div>
-        </NavigationWrapper>
-      </header>
-    </>
+          <div className="flex items-center gap-x-5 md:gap-x-8">
+            <div className="hidden md:block">
+              <Button
+                href="https://app.replay.io"
+                variant="solid"
+                size="sm"
+                color={variant === 'dark' ? 'white' : 'black'}
+                type="solid"
+                className={clsx(
+                  '!h-[33px] border-2',
+                  variant === 'dark' ? 'border-white' : 'border-black'
+                )}
+              >
+                Sign in
+              </Button>
+            </div>
+
+            <div className="-mr-1 md:hidden">
+              <MobileMenu links={NAVLINKS} {...toggle} />
+            </div>
+          </div>
+        </nav>
+      </Container>
+    </header>
   )
 }
