@@ -69,7 +69,18 @@ export function Content({ content }: LandingPageFragment) {
         </Title>
 
         <div className="mt-8">
-          <p className="text-center">Our YouTube channel</p>
+          <p className="text-center">
+            Our{' '}
+            <a
+              className="font-bold hover:underline"
+              href="https://www.youtube.com/@replayio"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              YouTube
+            </a>{' '}
+            channel
+          </p>
 
           <div className="mt-6 overflow-hidden rounded-[20px] shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]">
             <div className="bg-[url('/images/course-bg-mobile.png')] bg-cover p-5 lg:flex lg:justify-between lg:gap-[76px] lg:bg-[url('/images/course-bg-desktop.png')]">
@@ -189,7 +200,10 @@ export function Content({ content }: LandingPageFragment) {
           </div>
 
           <p className="mt-10 text-center text-lg lg:mt-20">
-            Featured essays from the Replay.io blog
+            Featured essays from the Replay.io{' '}
+            <a href="https://blog.replay.io/" className="font-bold hover:underline">
+              blog
+            </a>
           </p>
         </div>
       </Container>
