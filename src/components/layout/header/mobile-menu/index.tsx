@@ -17,9 +17,10 @@ import useHash from '~/hooks/use-hash'
 type MobileMenuProps = ToggleState & {
   burgerClassName?: string
   links: Navlink[]
+  variant?: 'light' | 'dark'
 }
 
-export const MobileMenu = ({ isOn, handleToggle, handleOff, links }: MobileMenuProps) => {
+export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: MobileMenuProps) => {
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const mobileMenuInnerRef = useRef<HTMLDivElement>(null)
   const isTablet = useTabletLgBreakpoint()
@@ -80,7 +81,7 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links }: MobileMenuP
     <>
       <button
         type="button"
-        className="block pl-[1px] text-slate-900"
+        className={clsx('block pl-[1px]', variant ? 'text-slate-100' : 'text-slate-900')}
         onClick={handleToggle}
         aria-label={`${isOn ? 'Close' : 'Open'} menu mobile`}
       >
@@ -90,7 +91,10 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links }: MobileMenuP
       <Portal id="mobile-menu-portal">
         <div
           ref={mobileMenuRef}
-          className="invisible fixed left-0 top-0 z-[100] mt-[var(--header-height)] h-0 w-full bg-white opacity-0"
+          className={clsx(
+            'invisible fixed left-0 top-0 z-[100] mt-[var(--header-height)] h-0 w-full opacity-0',
+            variant === 'dark' ? 'bg-slate-900 text-slate-100' : 'bg-white text-slate-900'
+          )}
         >
           <div
             className="relative flex h-full flex-col overflow-auto py-0 pl-4 pr-4"
@@ -105,7 +109,7 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links }: MobileMenuP
                         ['font-semibold !text-accent']:
                           pathname === link.href || `/${hash}` === link.href
                       },
-                      'duration-[350ms] ease-[cubic-bezier(0.5,1,0.89,1)] flex w-full items-center gap-3 text-2xl leading-8 tracking-[-0.04em] text-slate-900 transition-[color] active:text-accent'
+                      'duration-[350ms] ease-[cubic-bezier(0.5,1,0.89,1)] flex w-full items-center gap-3 text-2xl leading-8 tracking-[-0.04em] transition-[color] active:text-accent'
                     )}
                     href={link.href || '#'}
                     onClick={handleOff}
@@ -117,13 +121,16 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links }: MobileMenuP
               ))}
             </ul>
 
-            <div className="mt-auto animate-fadeIn pb-5 delay-200">
+            <div className="mt-auto animate-fadeIn pb-5">
               <Button
                 href="https://app.replay.io"
                 variant="solid"
-                color="black"
+                color={variant === 'dark' ? 'white' : 'black'}
                 type="solid"
-                className="w-full border-2 border-black"
+                className={clsx(
+                  'w-full border-2',
+                  variant === 'dark' ? 'border-white' : 'border-black'
+                )}
               >
                 Sign in
               </Button>

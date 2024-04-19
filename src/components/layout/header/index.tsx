@@ -171,7 +171,7 @@ export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
             </div>
 
             <div className="-mr-1 md:hidden">
-              <MobileMenu links={NAVLINKS} {...toggle} />
+              <MobileMenu variant={variant} links={NAVLINKS} {...toggle} />
             </div>
           </div>
         </nav>
