@@ -81,7 +81,7 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
     <>
       <button
         type="button"
-        className={clsx('block pl-[1px]', variant ? 'text-slate-100' : 'text-slate-900')}
+        className={clsx('block pl-[1px]', variant === 'dark' ? 'text-slate-100' : 'text-slate-900')}
         onClick={handleToggle}
         aria-label={`${isOn ? 'Close' : 'Open'} menu mobile`}
       >
