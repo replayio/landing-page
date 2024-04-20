@@ -13,7 +13,6 @@ import { useMinTabletBreakpoint, useMinTabletLgBreakpoint } from '~/hooks/use-me
 // const images = { vamsi }
 
 const ANIM_DURATION = 900
-const colorMap = ['bg-accent', 'bg-blue', 'bg-red']
 
 export function Carrousel({
   testimonials
@@ -22,35 +21,38 @@ export function Carrousel({
 }) {
   const isLgTablet = useMinTabletLgBreakpoint()
   const [activeCard, setActiveCard] = useState(0)
-  const _testimonials = colorMap
-  const testimonial = testimonials[0].testimonial
 
   const handleCardState = useCallback(
     (idx: number) => {
       if (activeCard === idx) return 'enter'
-      if (idx === activeCard + 1 || (activeCard === _testimonials.length - 1 && idx === 0))
+      if (idx === activeCard + 1 || (activeCard === testimonials.length - 1 && idx === 0))
         return 'next'
       return 'exit'
     },
-    [activeCard, _testimonials.length]
+    [activeCard, testimonials.length]
   )
 
   useLayoutEffect(() => {
     const interval = setInterval(() => {
       setActiveCard((prev) => {
-        if (prev === _testimonials.length - 1) return 0
+        if (prev === testimonials.length - 1) return 0
         return prev + 1
       })
     }, ANIM_DURATION * 5)
 
     return () => clearInterval(interval)
-  }, [_testimonials.length, activeCard])
+  }, [testimonials.length, activeCard])
 
   return (
     <div className="relative flex w-full lg:block lg:w-auto">
       <div className="h-[260px] w-[calc(100%-16px)] lg:h-[416px] lg:w-[416px]">
-        {Array.from({ length: 3 }).map((_, idx) => (
-          <Card key={idx} state={handleCardState(idx)} data={testimonial} mobile={!isLgTablet} />
+        {testimonials.map((data, idx) => (
+          <Card
+            key={idx}
+            state={handleCardState(idx)}
+            data={data.testimonial}
+            mobile={!isLgTablet}
+          />
         ))}
       </div>
       <div className="absolute -right-1 top-1/2 hidden w-2 -translate-y-1/2 translate-x-full animate-fadeIn flex-col gap-y-[7px] opacity-0 lg:-right-2 lg:flex">
@@ -61,7 +63,7 @@ export function Carrousel({
             onClick={() => {
               setActiveCard(idx)
             }}
-            aria-label={`Select testimonial ${idx + 1}/${_testimonials.length}`}
+            aria-label={`Select testimonial ${idx + 1}/${testimonials.length}`}
           >
             <span
               style={
@@ -217,7 +219,7 @@ const Card: React.FC<CardProps> = ({ className, state, data, mobile, ...rest }) 
     >
       <div className="relative flex h-full w-full max-w-4xl flex-col py-5 lg:py-8">
         <blockquote
-          className={`relative pl-3.5 pr-[18px] pt-5 text-base font-normal italic leading-[1.3] text-[#575757] lg:pl-6 lg:pt-10 lg:text-lg`}
+          className={`relative pl-3.5 pr-[18px] pt-5 text-base font-normal italic !leading-[1.6] text-[#575757] lg:pl-6 lg:pt-10 lg:text-lg`}
         >
           <span className="absolute left-2 top-0 h-[33px] text-[56px] font-bold leading-[0.8] text-accent lg:text-[100px]">
             “
