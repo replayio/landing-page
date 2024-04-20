@@ -50,12 +50,7 @@ export function Carrousel({
     <div className="relative flex w-full lg:block lg:w-auto">
       <div className="h-[260px] w-[calc(100%-16px)] lg:h-[416px] lg:w-[416px]">
         {Array.from({ length: 3 }).map((_, idx) => (
-          <Card
-            key={idx}
-            state={handleCardState(idx)}
-            data={testimonials[idx].testimonial}
-            mobile={!isLgTablet}
-          />
+          <Card key={idx} state={handleCardState(idx)} data={testimonial} mobile={!isLgTablet} />
         ))}
       </div>
       <div className="absolute -right-1 top-1/2 hidden w-2 -translate-y-1/2 translate-x-full animate-fadeIn flex-col gap-y-[7px] opacity-0 lg:-right-2 lg:flex">
