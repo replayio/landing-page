@@ -8,6 +8,15 @@ import { Footer } from '~/components/Footer'
 import { PricingFAQ } from '~/components/pricing/PricingFAQ'
 import { CostCalculator } from '~/components/pricing/sections/CostCalculator'
 import { featureFlags } from '~/lib/feature-flags'
+import { Metadata, Viewport } from 'next/types'
+
+export const metadata: Metadata = {
+  title: 'Pricing'
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0F172A'
+}
 
 export default function Home() {
   return (

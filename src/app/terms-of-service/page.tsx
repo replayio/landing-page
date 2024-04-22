@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
 
@@ -6,6 +6,10 @@ import { TermsOfService } from '~/components/sections/legal/terms'
 
 export const metadata: Metadata = {
   title: 'Terms of Service'
+}
+
+export const viewport: Viewport = {
+  themeColor: '#FFF'
 }
 
 const Terms = () => {

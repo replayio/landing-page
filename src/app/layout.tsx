@@ -1,5 +1,5 @@
 import '~/styles/tailwind.css'
-import { type Metadata } from 'next'
+import { Viewport, type Metadata } from 'next'
 import { Inter, Lexend } from 'next/font/google'
 import clsx from 'clsx'
 
@@ -29,6 +29,10 @@ export const metadata: Metadata = {
     name: 'ahrefs-site-verification',
     content: 'd6acf1324602b320f37276d0f77e3e8ced24a91e2298c91fdcb79f2143e73bc6'
   }
+}
+
+export const viewport: Viewport = {
+  themeColor: '#FFF'
 }
 
 const inter = Inter({

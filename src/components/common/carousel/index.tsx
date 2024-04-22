@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import useEmblaCarousel, { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel-react'
+import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
+import useEmblaCarousel from 'embla-carousel-react'
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react'
 
 import s from './carousel.module.scss'
