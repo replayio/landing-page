@@ -108,6 +108,7 @@ export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
       setScrollProgress(window.scrollY)
     }
 
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
