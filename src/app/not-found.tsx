@@ -1,4 +1,4 @@
-import { Viewport } from 'next'
+import { Metadata, Viewport } from 'next'
 import { Header } from '~/components/layout/header'
 import { Hero } from '~/components/sections/404/hero'
 
