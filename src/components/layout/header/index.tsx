@@ -50,11 +50,11 @@ export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
         variant === 'dark' ? 'bg-slate-900 text-slate-100' : 'bg-transparent text-slate-900',
         {
           ['border-b border-slate-950 shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]']:
-            variant === 'dark' && scrollProgress > 0
+            variant === 'dark' && (scrollProgress > 0 || toggle.isOn)
         },
         {
           ['border-b border-gray-100 !bg-white shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]']:
-            variant === 'light' && scrollProgress > 0
+            variant === 'light' && (scrollProgress > 0 || toggle.isOn)
         }
       )}
     >
