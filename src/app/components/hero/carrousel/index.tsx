@@ -1,16 +1,12 @@
 'use client'
 
-import Image from 'next/image'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { RichText } from 'basehub/react-rich-text'
-// import vamsi from '~/images/vamsi.jpeg'
 import styles from './Carousel.module.css'
 import { clsx } from 'clsx'
 import { gsap } from '~/lib/gsap'
 import { CSSProperties, useCallback, useLayoutEffect, useRef, useState } from 'react'
-import { useMinTabletBreakpoint, useMinTabletLgBreakpoint } from '~/hooks/use-media'
-
-// const images = { vamsi }
+import { useMinTabletLgBreakpoint } from '~/hooks/use-media'
 
 const ANIM_DURATION = 900
 
@@ -56,7 +52,7 @@ export function Carrousel({
         ))}
       </div>
       <div className="absolute -right-1 top-1/2 hidden w-2 -translate-y-1/2 translate-x-full animate-fadeIn flex-col gap-y-[7px] opacity-0 lg:-right-2 lg:flex">
-        {Array.from({ length: 3 }).map((_, idx) => (
+        {testimonials.map((_, idx) => (
           <button
             key={idx}
             className="block h-[30px] w-full overflow-hidden rounded-[30px] bg-[#F3DDE3]"

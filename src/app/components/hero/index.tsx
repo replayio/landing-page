@@ -1,13 +1,13 @@
 import { ClipboardButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
-// import { RichText } from 'basehub/react-rich-text'
 import { featureFlags } from '~/lib/feature-flags'
 import CalButton from './cal'
 import { HomeHeroMarquee } from './marquee'
 import Hyperspace from './hyperspace'
 import { Carrousel } from './carrousel'
 import Link from 'next/link'
+import { RichText } from 'basehub/react-rich-text'
 
 export function Hero({ hero }: LandingPageFragment) {
   return (
@@ -25,13 +25,8 @@ export function Hero({ hero }: LandingPageFragment) {
                   <br />
                   breaking things.
                 </h1>
-                <div className="mt-6 max-w-3xl rounded-lg bg-white/20 text-lg tracking-tight text-slate-700">
-                  <p className="max-w-[620px]">
-                    Meet Replay, the first browser with instant replay. It lets you capture your
-                    tests in CI, debug failures with browser DevTools, and find the moment something
-                    went wrong.
-                  </p>
-                  {/* <RichText>{hero.subtitle.json.content}</RichText> */}
+                <div className="mt-6 max-w-[620px] rounded-lg bg-white/20 text-lg tracking-tight text-slate-700">
+                  <RichText>{hero.subtitle.json.content}</RichText>
                 </div>
               </div>
 
@@ -45,7 +40,7 @@ export function Hero({ hero }: LandingPageFragment) {
                   />
                   <Link
                     href="https://docs.replay.io/quickstart/"
-                    className="pt-2 text-center text-sm text-accent hover:underline"
+                    className="mt-2 text-center text-sm text-accent hover:underline"
                   >
                     In depth walkthrough {'->'}
                   </Link>

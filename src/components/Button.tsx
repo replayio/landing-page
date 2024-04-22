@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
-import styles from '../styles/Landingpage.module.css'
 import { useMemo } from 'react'
 
 const CopyIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
