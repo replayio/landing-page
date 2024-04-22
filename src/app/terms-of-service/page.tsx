@@ -1,6 +1,6 @@
 import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
-import { Header } from '~/components/Header'
+import { Header } from '~/components/layout/header'
 
 import { TermsOfService } from '~/components/sections/legal/terms'
 

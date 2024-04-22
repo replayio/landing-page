@@ -1,88 +1,31 @@
-import clsx from 'clsx'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
-import ChevronIcon from '~/components/icons/chevron'
-import { ButtonLink } from '~/components/primitives/cta'
 import { Portal } from '~/components/primitives/portal'
 import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import type { ToggleState } from '~/hooks/use-toggle-state'
 import { DURATION, gsap } from '~/lib/gsap'
-import type { SitemapType } from '~/lib/sitemap'
-import { SITEMAP } from '~/lib/sitemap'
 
-import { links } from '..'
-import { NavigationContent } from '../navigation'
 import { Burger } from './burger'
-import s from './mobile-menu.module.scss'
+import { Navlink } from '..'
+import { Button } from '~/components/Button'
+import { clsx } from 'clsx'
+import { usePathname } from 'next/navigation'
+import useHash from '~/hooks/use-hash'
 
 type MobileMenuProps = ToggleState & {
   burgerClassName?: string
+  links: Navlink[]
+  variant?: 'light' | 'dark'
 }
 
-const MobileDropdown = ({ label, dropdown, index }: SitemapType & { index: number }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const dropdownContentWrapperRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (isOpen) {
-      gsap.timeline().to(
-        dropdownContentWrapperRef.current,
-        {
-          height: 'auto',
-          padding: '24px 0',
-          autoAlpha: 1,
-          display: 'block'
-        },
-        0
-      )
-    } else {
-      gsap.timeline().to(
-        dropdownContentWrapperRef.current,
-        {
-          height: 0,
-          padding: '0',
-          autoAlpha: 0,
-          display: 'none'
-        },
-        0
-      )
-    }
-    gsap
-  }, [isOpen])
-
-  return (
-    <>
-      <button
-        className={clsx(s.menuLink, { [s.active as string]: isOpen })}
-        type="button"
-        aria-label={label}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {label}
-
-        <ChevronIcon />
-      </button>
-
-      {dropdown && (
-        <div className={s.dropdownContentWrapper} ref={dropdownContentWrapperRef}>
-          <NavigationContent
-            sidebar={dropdown.sidebar}
-            mainContent={dropdown.mainContent}
-            index={index}
-            as="div"
-          />
-        </div>
-      )}
-    </>
-  )
-}
-
-export const MobileMenu = ({ isOn, handleToggle, handleOff, burgerClassName }: MobileMenuProps) => {
+export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: MobileMenuProps) => {
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const mobileMenuInnerRef = useRef<HTMLDivElement>(null)
   const isTablet = useTabletLgBreakpoint()
+  const pathname = usePathname()
+  const hash = useHash()
 
   useIsomorphicLayoutEffect(() => {
     const tl = gsap.timeline({
@@ -91,7 +34,7 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, burgerClassName }: M
 
     if (isOn) {
       tl.to(mobileMenuRef.current, {
-        height: 'calc(var(--vh, 1vh) * 100 - var(--header-height) - 93px)',
+        height: 'calc(100dvh - var(--header-height))',
         autoAlpha: 1
       }).to(
         mobileMenuInnerRef.current,
@@ -138,7 +81,7 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, burgerClassName }: M
     <>
       <button
         type="button"
-        className={clsx(s.burgerButton, burgerClassName)}
+        className={clsx('block pl-[1px]', variant === 'dark' ? 'text-slate-100' : 'text-slate-900')}
         onClick={handleToggle}
         aria-label={`${isOn ? 'Close' : 'Open'} menu mobile`}
       >
@@ -146,35 +89,51 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, burgerClassName }: M
       </button>
 
       <Portal id="mobile-menu-portal">
-        <div className={s.mobileMenuContainer} ref={mobileMenuRef}>
-          <div className={s.mobileMenuInner} ref={mobileMenuInnerRef}>
-            <ul className={s.menuLinksContainer}>
-              {links.map((link, index) => (
-                <li className={s.menuListItem} key={link.label}>
-                  {link.dropdown ? (
-                    <MobileDropdown {...link} index={index} />
-                  ) : (
-                    <Link
-                      className={s.menuLink}
-                      href={link.href || '#'}
-                      onClick={handleOff}
-                      aria-label={link.label}
-                    >
-                      {link.label}
-                    </Link>
-                  )}
+        <div
+          ref={mobileMenuRef}
+          className={clsx(
+            'invisible fixed left-0 top-0 z-[100] mt-[var(--header-height)] h-0 w-full opacity-0',
+            variant === 'dark' ? 'bg-slate-900 text-slate-100' : 'bg-white text-slate-900'
+          )}
+        >
+          <div
+            className="relative flex h-full flex-col overflow-auto py-0 pl-4 pr-4"
+            ref={mobileMenuInnerRef}
+          >
+            <ul className="flex h-full w-full flex-col gap-6">
+              {links.map((link) => (
+                <li className="first:pt-6 last:pb-6" key={link.label}>
+                  <Link
+                    className={clsx(
+                      {
+                        ['font-semibold !text-accent']:
+                          pathname === link.href || `/${hash}` === link.href
+                      },
+                      'duration-[350ms] ease-[cubic-bezier(0.5,1,0.89,1)] flex w-full items-center gap-3 text-2xl leading-8 tracking-[-0.04em] transition-[color] active:text-accent'
+                    )}
+                    href={link.href || '#'}
+                    onClick={handleOff}
+                    aria-label={link.label}
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
 
-            <div className={s.bottomCtasWrapper}>
-              <ButtonLink
-                size="big"
-                href={SITEMAP.login.href || '/'}
-                aria-label={SITEMAP.login.label}
+            <div className="mt-auto animate-fadeIn pb-5">
+              <Button
+                href="https://app.replay.io"
+                variant="solid"
+                color={variant === 'dark' ? 'white' : 'black'}
+                type="solid"
+                className={clsx(
+                  'w-full border-2',
+                  variant === 'dark' ? 'border-white' : 'border-black'
+                )}
               >
-                {SITEMAP.login.label}
-              </ButtonLink>
+                Sign in
+              </Button>
             </div>
           </div>
         </div>
