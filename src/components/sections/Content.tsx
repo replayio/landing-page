@@ -9,6 +9,7 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from 'lucide-react'
 import { clsx } from 'clsx'
 import { padZeroes } from '~/lib/utils'
+import { RichText } from 'basehub/react-rich-text'
 
 type VideoType = {
   href: string
@@ -66,19 +67,10 @@ export function Content({ content }: LandingPageFragment) {
           {content.title}
         </Title>
 
-        <div className="mt-8">
-          <p className="text-center">
-            Our{' '}
-            <a
-              className="font-bold hover:underline"
-              href="https://www.youtube.com/@replayio"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              YouTube
-            </a>{' '}
-            channel
-          </p>
+        <div className="mt-20">
+          <div className="text-center text-lg lg:text-2xl [&_a]:font-bold [&_a]:underline">
+            <RichText>{content.subTitle.json.content}</RichText>
+          </div>
 
           <div className="mt-6 overflow-hidden rounded-[20px] shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]">
             <div className="bg-[url('/images/course-bg-mobile.png')] bg-cover p-5 lg:flex lg:justify-between lg:gap-[76px] lg:bg-[url('/images/course-bg-desktop.png')]">
@@ -197,12 +189,9 @@ export function Content({ content }: LandingPageFragment) {
             </Disclosure>
           </div>
 
-          <p className="mt-10 text-center text-lg lg:mt-20">
-            Featured essays from the Replay.io{' '}
-            <a href="https://blog.replay.io/" className="font-bold hover:underline">
-              blog
-            </a>
-          </p>
+          <div className="mt-10 text-center text-lg lg:mt-20 lg:text-2xl [&_a]:font-bold [&_a]:underline">
+            <RichText>{content.courseSubtitle.json.content}</RichText>
+          </div>
         </div>
       </Container>
       <PostsShowcase posts={content.blog.items} />

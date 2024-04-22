@@ -122,6 +122,7 @@ export const landingPageFragment = fragmentOn('LandingPage', {
         imageUrl: true
       }
     },
+    courseSubtitle: { json: { content: true } },
     course: {
       title: true,
       description: true,
