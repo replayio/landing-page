@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#111827'
+  themeColor: '#070a10'
 }
 
 export default function NotFound() {
