@@ -1,4 +1,4 @@
-import { BaseHubButton } from '~/components/Button'
+import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { Title } from '../primitives/texts'
@@ -16,7 +16,7 @@ export function CallToAction({ cta }: LandingPageFragment) {
               {cta.title}
             </Title>
 
-            <BaseHubButton className="mt-10 px-8 text-lg" color="default" {...cta.getStartedLink} />
+            <Button className="mt-10 px-8 text-lg" color="default" {...cta.getStartedLink} />
           </div>
         </Container>
       </section>

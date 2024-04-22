@@ -2,7 +2,7 @@
 
 import { getCalApi } from '@calcom/embed-react'
 import { useEffect } from 'react'
-import { BaseHubButton } from '~/components/Button'
+import { Button } from '~/components/Button'
 
 export default function CalButton({ link }: { link: any }) {
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function CalButton({ link }: { link: any }) {
   }, [])
 
   return (
-    <BaseHubButton
+    <Button
       data-cal-namespace=""
       data-cal-link="jason-laster/30min"
       data-cal-config='{"layout":"month_view"}'

@@ -43,5 +43,5 @@ export const useMinTabletBreakpoint = () => {
 }
 
 export const useMinTabletLgBreakpoint = () => {
-  return useMedia('(min-width: 1025px)')
+  return useMedia('(min-width: 1024px)')
 }

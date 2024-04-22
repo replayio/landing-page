@@ -10,6 +10,7 @@ import { Logo } from '~/components/FullLogo'
 import { NavLink } from '~/components/NavLink'
 import { clsx } from 'clsx'
 import useHash from '~/hooks/use-hash'
+import { Button } from './Button'
 
 const NAVLINKS = [
   { href: '/#devtools', label: 'DevTools' },
@@ -141,9 +142,19 @@ export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <div className="hidden md:block">
-              <NavLink href="https://app.replay.io" variant={variant} type="solid">
+              <Button
+                href="https://app.replay.io"
+                variant="solid"
+                size="sm"
+                color={variant === 'dark' ? 'white' : 'black'}
+                type="solid"
+                className={clsx(
+                  '!h-[33px] border-2',
+                  variant === 'dark' ? 'border-white' : 'border-black'
+                )}
+              >
                 Sign in
-              </NavLink>
+              </Button>
             </div>
 
             <div className="-mr-1 md:hidden">
