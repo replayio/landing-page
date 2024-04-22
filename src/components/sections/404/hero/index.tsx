@@ -7,7 +7,6 @@ import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
 
 import { Section } from '~/components/common/section'
-import { ButtonLink } from '~/components/primitives/cta'
 import { SITEMAP } from '~/lib/sitemap'
 
 const Sky = dynamic(() => import('~/components/common/sky').then((m) => m.Sky), {
@@ -49,6 +48,7 @@ export const Hero: FC = () => {
               onLoadingComplete={() => {
                 setImageLoaded(true)
               }}
+              quality={100}
             />
           </div>
           <p className="mx-0 mb-8 mt-6 text-center text-lg leading-6 text-slate-300">

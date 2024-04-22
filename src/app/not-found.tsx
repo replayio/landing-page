@@ -1,5 +1,14 @@
+import { Viewport } from 'next'
 import { Header } from '~/components/layout/header'
 import { Hero } from '~/components/sections/404/hero'
+
+export const metadata: Metadata = {
+  title: 'Not found 404'
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0F172A'
+}
 
 export default function NotFound() {
   return (
