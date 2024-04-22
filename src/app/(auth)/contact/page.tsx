@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
 import Script from 'next/script'
 
@@ -7,6 +7,10 @@ import { Header } from '~/components/layout/header'
 
 export const metadata: Metadata = {
   title: 'Contact'
+}
+
+export const viewport: Viewport = {
+  themeColor: '#FFF'
 }
 
 const Contact = () => {

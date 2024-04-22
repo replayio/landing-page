@@ -10,7 +10,12 @@ import FAQ from '~/components/sections/FAQ'
 import DynamicAnalysis from '~/components/sections/DynamicAnalysis'
 import { Content } from '~/components/sections/Content'
 import { Hero } from './components/hero'
+import { Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
+
+export const viewport: Viewport = {
+  themeColor: '#FFF'
+}
 
 export default function Home() {
   return (
