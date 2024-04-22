@@ -67,7 +67,7 @@ export function Content({ content }: LandingPageFragment) {
           {content.title}
         </Title>
 
-        <div className="mt-20">
+        <div className="mt-8 lg:mt-20">
           <div className="text-center text-lg lg:text-2xl [&_a]:font-bold [&_a]:underline">
             <RichText>{content.subTitle.json.content}</RichText>
           </div>
