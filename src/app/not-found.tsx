@@ -7,13 +7,13 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0F172A'
+  themeColor: '#111827'
 }
 
 export default function NotFound() {
   return (
     <>
-      <Header variant="dark" className="!bg-transparent" />
+      <Header variant="dark" className="!border-none !bg-transparent" />
       <main className="pt-[var(--header-height)]">
         <Hero />
       </main>
