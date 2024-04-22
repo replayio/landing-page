@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FC } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
@@ -27,7 +27,11 @@ const NAVLINKS: Navlink[] = [
   { href: '/about', label: 'Company' }
 ]
 
-export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
+type HeaderProps = {
+  variant?: 'dark' | 'light'
+} & React.HTMLAttributes<HTMLDivElement>
+
+export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest }) => {
   const toggle = useToggleState()
   const [scrollProgress, setScrollProgress] = useState(0)
   const pathname = usePathname()
@@ -55,8 +59,10 @@ export function Header({ variant = 'light' }: { variant?: 'dark' | 'light' }) {
         {
           ['border-b border-gray-100 !bg-white shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]']:
             variant === 'light' && (scrollProgress > 0 || toggle.isOn)
-        }
+        },
+        className
       )}
+      {...rest}
     >
       <Container className="flex-1">
         <nav className="relative z-50 flex justify-between">
