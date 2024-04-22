@@ -1,9 +1,7 @@
 'use client'
 
-// import Link from 'next/link'
 import Image from 'next/image'
 import { LandingPageFragment } from '~/lib/basehub-queries'
-// import { RichText } from 'basehub/react-rich-text'
 import { Title } from '../primitives/texts'
 import { Button } from '../Button'
 import { Container } from '../Container'
@@ -131,7 +129,7 @@ export function Content({ content }: LandingPageFragment) {
                   Get Started {'->'}
                 </Button>
               </div>
-              <div className="mt-4 hidden overflow-hidden rounded-[20px] lg:mt-0 lg:block">
+              <div className="mt-4 hidden h-auto w-[365px] overflow-hidden rounded-[20px] lg:mt-0 lg:block">
                 <Image
                   className="w-full object-cover"
                   src="/images/screenshots/course-thumbnail.png"
