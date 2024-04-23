@@ -53,7 +53,8 @@ export const landingPageFragment = fragmentOn('LandingPage', {
         _title: true,
         subtitle: true,
         description: true,
-        image: true
+        image: true,
+        link: true
       }
     }
   },
