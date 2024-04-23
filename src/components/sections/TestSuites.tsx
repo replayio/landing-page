@@ -55,7 +55,7 @@ function FeaturesMobile({
   features: LandingPageFragment['testSuites']['features']['items']
 }) {
   return (
-    <div className="-mx-4 mt-20 flex flex-col gap-y-6 overflow-hidden px-4 pb-20 sm:-mx-6 sm:px-6 lg:hidden">
+    <div className="-mx-4 flex flex-col gap-y-6 overflow-hidden px-4 pb-20 pt-8 sm:-mx-6 sm:px-6 lg:hidden">
       {features.map((feature) => (
         <div
           className="rounded-[20px] bg-white px-5 py-4"
