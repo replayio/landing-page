@@ -1,6 +1,6 @@
 'use client'
 
-import Image, { type ImageProps } from 'next/image'
+import Image from 'next/image'
 import { Tab, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import { LandingPageFragment } from '~/lib/basehub-queries'
@@ -14,10 +14,6 @@ import { getImageSizes } from '~/lib/utils/image'
 import { Eyebrow, Title } from '../primitives/texts'
 import { Button } from '../Button'
 import { useState } from 'react'
-
-interface Feature {
-  children: React.ReactNode
-}
 
 const images = {
   dashboard: screenshotDashboard,
@@ -91,7 +87,7 @@ function FeaturesMobile({
           <Button
             className="mx-auto w-full"
             variant="outline"
-            href="https://blog.replay.io/"
+            href={feature.link ?? '#'}
             target="_blank"
           >
             Learn More {'->'}
@@ -182,7 +178,7 @@ function FeaturesDesktop({
                   <Button
                     className="mx-auto mt-8 min-w-[330px]"
                     variant="outline"
-                    href="https://blog.replay.io/"
+                    href={feature.link ?? '#'}
                     target="_blank"
                   >
                     Learn More {'->'}
