@@ -135,7 +135,7 @@ function FeaturesDesktop({
               isActive={featureIndex === selectedIndex}
               className="relative w-[180px] pb-5"
             >
-              <Tab className="z-1 relative ui-not-focus-visible:outline-none">{feature._title}</Tab>
+              <Tab className="z-1 relative">{feature._title}</Tab>
             </TabHeading>
           ))}
         </Tab.List>
@@ -146,9 +146,10 @@ function FeaturesDesktop({
                 static
                 key={feature._title}
                 className={clsx(
-                  'flex-1 px-32 ui-not-focus-visible:outline-none',
+                  'flex-1 px-32',
                   featureIndex !== selectedIndex && 'pointer-events-none absolute opacity-0'
                 )}
+                tabIndex={-1}
                 aria-hidden={featureIndex !== selectedIndex}
               >
                 <h3 className="text-center text-3xl font-semibold leading-[1.75]">
