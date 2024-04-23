@@ -124,7 +124,7 @@ function FeaturesDesktop({
       ))}
       <Tab.Group
         as="div"
-        className="relative hidden aspect-[1216/712] w-full lg:mt-20 lg:block"
+        className="relative hidden aspect-[1216/712] w-full lg:mt-8 lg:block"
         selectedIndex={selectedIndex}
         onChange={setSelectedIndex}
       >
