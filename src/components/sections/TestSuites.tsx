@@ -113,12 +113,17 @@ function FeaturesDesktop({
       {Array.from({ length: 4 }).map((_, index) => (
         <div
           key={index}
-          className="pointer-events-none absolute left-1/2 top-0 h-full w-[100%] -translate-x-1/2 bg-contain bg-center bg-no-repeat transition-opacity duration-200 ease-in-out"
+          className={clsx(
+            'pointer-events-none absolute left-1/2 top-0 h-full w-[100%] -translate-x-1/2 bg-contain bg-center bg-no-repeat transition-opacity duration-200 ease-in-out',
+            {
+              ['opacity-0']: selectedIndex !== index
+            }
+          )}
           style={{
             backgroundImage: `url(/images/tabs/tab-${index + 1}.png)`,
-            filter: 'drop-shadow(0px 2px 18px rgba(5, 73, 30, 0.08))',
-            opacity: selectedIndex === index ? 1 : 0
+            filter: 'drop-shadow(0px 2px 18px rgba(5, 73, 30, 0.08))'
           }}
+          aria-hidden
         />
       ))}
       <Tab.Group
@@ -146,7 +151,7 @@ function FeaturesDesktop({
                 key={feature._title}
                 className={clsx(
                   'flex-1 px-32 ui-not-focus-visible:outline-none',
-                  featureIndex !== selectedIndex && 'absolute opacity-0 '
+                  featureIndex !== selectedIndex && 'pointer-events-none absolute opacity-0'
                 )}
                 aria-hidden={featureIndex !== selectedIndex}
               >
