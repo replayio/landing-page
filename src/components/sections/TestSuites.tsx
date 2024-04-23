@@ -135,7 +135,7 @@ function FeaturesDesktop({
               isActive={featureIndex === selectedIndex}
               className="relative w-[180px] pb-5"
             >
-              <Tab className="z-1 relative">{feature._title}</Tab>
+              <Tab className="z-1 relative ui-not-focus-visible:outline-none">{feature._title}</Tab>
             </TabHeading>
           ))}
         </Tab.List>
