@@ -43,7 +43,7 @@ function TabHeading({
     >
       <p
         className={clsx(
-          'mt-4 text-sm font-semibold transition-colors duration-200 ease-in-out lg:text-center',
+          'text-sm font-semibold transition-colors duration-200 ease-in-out lg:mt-4 lg:text-center',
           isActive ? 'text-accent' : 'text-slate-600'
         )}
       >
@@ -62,7 +62,7 @@ function FeaturesMobile({
     <div className="-mx-4 mt-20 flex flex-col gap-y-6 overflow-hidden px-4 pb-20 sm:-mx-6 sm:px-6 lg:hidden">
       {features.map((feature) => (
         <div
-          className="rounded-[20px] bg-white px-5"
+          className="rounded-[20px] bg-white px-5 py-4"
           key={feature._title}
           style={{ filter: 'drop-shadow(0px 2px 18px rgba(5, 73, 30, 0.08))' }}
         >
@@ -76,8 +76,8 @@ function FeaturesMobile({
           <p className="mx-auto max-w-[620px] text-center text-[14px] leading-[1.3] text-[#6D6D6D] ">
             {feature.description}
           </p>
-          <div className="relative mt-10 pb-10">
-            <div className="relative mx-auto aspect-[299/176] overflow-hidden rounded-xl">
+          <div className="relative mt-10">
+            <div className="relative mx-auto mb-4 aspect-[299/176] overflow-hidden rounded-xl">
               <Image
                 className="h-full w-auto max-w-none"
                 src={images[feature.image as keyof typeof images]}
@@ -88,6 +88,14 @@ function FeaturesMobile({
               />
             </div>
           </div>
+          <Button
+            className="mx-auto w-full"
+            variant="outline"
+            href="https://blog.replay.io/"
+            target="_blank"
+          >
+            Learn More {'->'}
+          </Button>
         </div>
       ))}
     </div>
