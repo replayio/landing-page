@@ -108,7 +108,7 @@ function Plan({ tier }: { tier: Tier }) {
               body={feature.description}
             >
               <li className="flex cursor-default">
-                <CheckIcon className={tier.featured ? 'text-slate-900' : 'border-indigo-500'} />
+                <CheckIcon className={tier.featured ? 'text-white' : 'border-indigo-500'} />
                 <span className="ml-4">{feature.name}</span>
               </li>
             </PricingTooltip>
