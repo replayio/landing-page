@@ -71,15 +71,15 @@ const variantStyles = {
 type ButtonProps = (
   | {
       variant?: 'solid'
-      color?: keyof typeof variantStyles.solid
+      color?: keyof typeof variantStyles.solid | 'custom'
     }
   | {
       variant: 'outline'
-      color?: keyof typeof variantStyles.outline
+      color?: keyof typeof variantStyles.outline | 'custom'
     }
   | {
       variant: string
-      color?: keyof typeof variantStyles.outline & keyof typeof variantStyles.solid
+      color?: (keyof typeof variantStyles.outline & keyof typeof variantStyles.solid) | 'custom'
     }
 ) &
   (
@@ -110,7 +110,12 @@ export function Button({
 }: ButtonProps) {
   const variantClassName = useMemo(() => {
     const v = (variant in variantStyles ? variant : 'solid') as keyof typeof variantStyles
-    return clsx(baseStyles[v], sizeStyles[size], variantStyles[v][color], className)
+    return clsx(
+      baseStyles[v],
+      sizeStyles[size],
+      color !== 'custom' && variantStyles[v][color],
+      className
+    )
   }, [variant, size, color, className])
 
   return typeof rest.href === 'undefined' ? (
