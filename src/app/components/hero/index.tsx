@@ -42,7 +42,7 @@ export function Hero({ hero }: LandingPageFragment) {
                     href="https://docs.replay.io/quickstart/"
                     className="mt-2 text-center text-sm text-accent hover:underline"
                   >
-                    In depth walkthrough {'->'}
+                    Quickstart Guide {'->'}
                   </Link>
                 </div>
                 <CalButton link={hero.contactUsLink} />
