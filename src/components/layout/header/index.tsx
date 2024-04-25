@@ -1,129 +1,111 @@
-import clsx from 'clsx'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+'use client'
 
-import { ButtonLink } from '~/components/primitives/cta'
-import { NavLink } from '~/components/primitives/nav-link'
-import { useAppStore } from '~/context/use-app-store'
-import { useToggleState } from '~/hooks/use-toggle-state'
-import { SITEMAP } from '~/lib/sitemap'
-import { getImageSizes } from '~/lib/utils/image'
+import { useState, useEffect, FC } from 'react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
-import s from './header.module.scss'
+import { Container } from '~/components/Container'
+import { Logo } from '~/components/FullLogo'
+import { NavLink } from '~/components/NavLink'
+import { clsx } from 'clsx'
+import useHash from '~/hooks/use-hash'
+import { Button } from '~/components/Button'
 import { MobileMenu } from './mobile-menu'
-import {
-  NavigationContent,
-  NavigationItem,
-  NavigationList,
-  NavigationTrigger,
-  NavigationWrapper
-} from './navigation'
+import { useToggleState } from '~/hooks/use-toggle-state'
 
-export const links = [
-  SITEMAP.solutions,
-  SITEMAP.devTools,
-  SITEMAP.docs,
-  SITEMAP.company,
-  SITEMAP.pricing
+export type Navlink = {
+  href: string
+  label: string
+}
+
+const NAVLINKS: Navlink[] = [
+  { href: '/#devtools', label: 'DevTools' },
+  { href: '/#test-suites', label: 'Test Suites' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: 'https://docs.replay.io', label: 'Docs' },
+  { href: 'https://blog.replay.io', label: 'Changelog' },
+  { href: '/about', label: 'Company' }
 ]
 
-export const Header = () => {
-  const [scrolled, setScrolled] = useState<boolean>(false)
-  const { navigationSitemapShowing } = useAppStore()
+type HeaderProps = {
+  variant?: 'dark' | 'light'
+} & React.HTMLAttributes<HTMLDivElement>
+
+export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest }) => {
   const toggle = useToggleState()
-  const router = useRouter()
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const pathname = usePathname()
+  const hash = useHash()
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      setScrollProgress(window.scrollY)
     }
 
     handleScroll()
-
-    document.addEventListener('scroll', handleScroll)
-
-    return () => document.removeEventListener('scroll', handleScroll)
-  }, [scrolled])
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <>
-      <header
-        className={clsx(s.header, {
-          [s.scrolled as string]: scrolled,
-          [s.navigationSitemapShowing as string]: navigationSitemapShowing,
-          [s.menuIsOpen as string]: toggle.isOn
-        })}
-      >
-        <NavigationWrapper>
-          <NavLink
-            passHref
-            href={SITEMAP.home.href || '/'}
-            aria-label={`Go to ${SITEMAP.home.label}`}
-            onClick={toggle.handleOff}
-            className={s.logo}
-          >
-            <Image
-              fill
-              src="/images/logo.png"
-              alt="Replay's logo"
-              quality={100}
-              priority
-              sizes={getImageSizes(2, 2, 2)}
-            />
-          </NavLink>
-
-          <NavigationList quantity={links.length}>
-            {links.map((link, index) => (
-              <NavigationItem key={link.label} className={s[`headerLink-${index + 1}`]}>
-                {link.dropdown ? (
-                  <>
-                    <NavigationTrigger>{link.label}</NavigationTrigger>
-                    <NavigationContent
-                      mainContent={link.dropdown.mainContent}
-                      sidebar={link.dropdown.sidebar}
-                      index={index + 1}
-                    />
-                  </>
-                ) : (
-                  <NavLink
-                    style={{
-                      color: router.pathname === link.href ? '#fff' : 'inherit'
-                    }}
-                    href={link.href || '/'}
-                    aria-label={link.label}
-                  >
-                    {link.label}
-                  </NavLink>
-                )}
-              </NavigationItem>
-            ))}
-          </NavigationList>
-
-          <div className={s.rightSideCtasWrapper}>
-            <MobileMenu burgerClassName={s['burgerButton']} {...toggle} />
-
-            <div className={s['ctas']}>
-              <ButtonLink
-                size="big"
-                mode="secondary"
-                href={SITEMAP.login.href || '/'}
-                aria-label={SITEMAP.login.label}
-              >
-                {SITEMAP.login.label}
-              </ButtonLink>
-              <ButtonLink
-                size="big"
-                mode="primary"
-                href={SITEMAP.getStarted.href || '/'}
-                aria-label={SITEMAP.getStarted.label}
-              >
-                {SITEMAP.getStarted.label}
-              </ButtonLink>
+    <header
+      className={clsx(
+        'fixed top-0 z-50 flex h-[var(--header-height)] w-full items-center',
+        variant === 'dark' ? 'bg-slate-900 text-slate-100' : 'bg-transparent text-slate-900',
+        {
+          ['border-b border-slate-950 shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]']:
+            variant === 'dark' && (scrollProgress > 0 || toggle.isOn)
+        },
+        {
+          ['border-b border-gray-100 !bg-white shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]']:
+            variant === 'light' && (scrollProgress > 0 || toggle.isOn)
+        },
+        className
+      )}
+      {...rest}
+    >
+      <Container className="flex-1">
+        <nav className="relative z-50 flex justify-between">
+          <div className="flex items-center ">
+            <Link href="/" aria-label="Home">
+              <Logo className="h-auto w-[144px]" variant={variant || 'light'} />
+            </Link>
+            <div className="hidden md:flex md:gap-x-4">
+              {NAVLINKS.map(({ href, label }) => (
+                <NavLink
+                  key={href}
+                  variant={variant}
+                  href={href}
+                  active={pathname === href || `/${hash}` === href}
+                >
+                  {label}
+                </NavLink>
+              ))}
             </div>
           </div>
-        </NavigationWrapper>
-      </header>
-    </>
+          <div className="flex items-center gap-x-5 md:gap-x-8">
+            <div className="hidden md:block">
+              <Button
+                href="https://app.replay.io"
+                variant="solid"
+                size="sm"
+                color={variant === 'dark' ? 'white' : 'black'}
+                type="solid"
+                className={clsx(
+                  '!h-[33px] border-2',
+                  variant === 'dark' ? 'border-white' : 'border-black'
+                )}
+              >
+                Sign in
+              </Button>
+            </div>
+
+            <div className="-mr-1 md:hidden">
+              <MobileMenu variant={variant} links={NAVLINKS} {...toggle} />
+            </div>
+          </div>
+        </nav>
+      </Container>
+    </header>
   )
 }

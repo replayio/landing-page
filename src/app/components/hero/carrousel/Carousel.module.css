@@ -1,0 +1,25 @@
+.animate-pill-entrance {
+  animation: animate-pill-entrance var(--animation-entrance-duration) linear forwards;
+}
+
+.animate-pill-exit {
+  animation: animate-pill-exit var(--animation-exit-duration) ease forwards;
+}
+
+@keyframes animate-pill-entrance {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes animate-pill-exit {
+  from {
+    background-color: #f02d5e;
+  }
+  to {
+    background-color: #f3dde3;
+  }
+}

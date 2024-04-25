@@ -17,12 +17,15 @@ export default {
       '5xl': ['3rem', { lineHeight: '3.5rem' }],
       '6xl': ['3.75rem', { lineHeight: '1' }],
       '7xl': ['4.5rem', { lineHeight: '1.1' }],
-      '8xl': ['6rem', { lineHeight: '1' }],
-      '9xl': ['8rem', { lineHeight: '1' }]
+      '8xl': ['5rem', { lineHeight: '1.1' }],
+      '9xl': ['6rem', { lineHeight: '1' }],
+      '10xl': ['8rem', { lineHeight: '1' }]
     },
     extend: {
       colors: {
-        primary: '#f02d5e'
+        primary: '#f02d5e',
+        accent: '#f02d5e',
+        'accent-light': '#F1688A'
       },
       maxWidth: {
         '2xl': '40rem'
@@ -35,6 +38,10 @@ export default {
         display: 'var(--font-inter)'
       },
       keyframes: {
+        fadeIn: {
+          from: { opacity: '0' },
+          to: { opacity: '1' }
+        },
         slideDownAndFade: {
           from: { opacity: '0', transform: 'translateY(-2px)' },
           to: { opacity: '1', transform: 'translateY(0)' }
@@ -56,7 +63,8 @@ export default {
         slideDownAndFade: 'slideDownAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideLeftAndFade: 'slideLeftAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideUpAndFade: 'slideUpAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
-        slideRightAndFade: 'slideRightAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)'
+        slideRightAndFade: 'slideRightAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+        fadeIn: 'fadeIn 1s ease-in-out forwards'
       }
     }
   },

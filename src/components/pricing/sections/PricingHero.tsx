@@ -36,38 +36,35 @@ function Plan({ tier }: { tier: Tier }) {
   return (
     <section
       className={clsx(
-        'flex flex-col rounded-3xl px-6 sm:px-8',
-
+        'flex flex-col rounded-3xl px-6 text-white sm:px-8',
         tier.featured ? `order-first bg-indigo-600 py-8 lg:order-none` : 'lg:py-8'
       )}
     >
-      <h3 className="mt-5 font-display text-lg text-white">{tier.name}</h3>
+      <h3 className="mt-5 font-display text-lg">{tier.name}</h3>
       <p className={clsx('mt-2 text-base', tier.featured ? 'text-white' : 'text-slate-400')}>
         {tier.description}
       </p>
       <div className="flex flex-grow flex-col">
         {tier.name == 'Enterprise' ? (
           <div className="mt-8">
-            <p className="text-sm font-light text-slate-300">-</p>
-            <p className="order-first font-display text-3xl font-light tracking-tight text-white">
+            <p className={clsx('text-sm text-slate-300')}>-</p>
+            <p className="order-first font-display text-3xl tracking-tight text-white">
               Let&lsquo;s chat
             </p>
-            <p className="mt-1 font-light tracking-tight text-slate-300 ">
-              <a className="text-indigo-300" href={tier.href}>
+            <p className="mt-1 font-light tracking-tight text-slate-300">
+              <a className="text-indigo-300 hover:underline" href={tier.href}>
                 Start a conversation
               </a>
             </p>
           </div>
         ) : (
-          <div className="mt-8">
-            <p className="text-sm font-light text-slate-300">Starting at</p>
-            <p className="order-first font-display text-3xl font-light tracking-tight text-white">
+          <div className={clsx('mt-8')}>
+            <p className="text-sm text-slate-300">Starting at</p>
+            <p className="order-first font-display text-3xl tracking-tight">
               ${tier.price}
-              <span className="text-sm  font-light text-slate-300">&nbsp;/ &nbsp; month</span>
+              <span className="text-sm ">&nbsp;/ &nbsp; month</span>
             </p>
-            <p className="mt-1 text-sm font-light tracking-tight text-slate-300">
-              {tier.priceDescription}
-            </p>
+            <p className="mt-1 text-sm tracking-tight text-slate-300">{tier.priceDescription}</p>
           </div>
         )}
 
@@ -76,24 +73,24 @@ function Plan({ tier }: { tier: Tier }) {
           className={clsx(
             'order-last mt-10 flex flex-col  border-t text-sm',
             tier.featured ? 'text-white' : 'text-slate-200',
-            tier.featured ? 'border-indigo-500' : 'border-slate-700'
+            tier.featured ? 'border-slate-500' : 'border-slate-700'
           )}
         >
           {Object.entries(tier.features)
             .filter(([label]) => !FEATURES[label].hidden)
             .map(([label, value]) => (
-              <li
+              <PricingTooltip
                 key={label}
-                className={`flex items-center  justify-between border-b  py-2 ${tier.featured ? 'border-indigo-500' : 'border-slate-700'}`}
+                learnMore={FEATURES[label].learnMore}
+                body={FEATURES[label].description}
               >
-                <PricingTooltip
-                  learnMore={FEATURES[label].learnMore}
-                  body={FEATURES[label].description}
+                <li
+                  className={`flex items-center justify-between border-b py-2 ${tier.featured ? 'border-indigo-500' : 'border-slate-700'}`}
                 >
-                  <span className="cursor-pointer hover:underline">{FEATURES[label].name}</span>
-                </PricingTooltip>
-                <span className="mr-2">{value.toLocaleString()}</span>
-              </li>
+                  <span className="cursor-default">{FEATURES[label].name}</span>
+                  <span className="mr-2">{value.toLocaleString()}</span>
+                </li>
+              </PricingTooltip>
             ))}
         </ul>
 
@@ -110,7 +107,7 @@ function Plan({ tier }: { tier: Tier }) {
               learnMore={feature.learnMore}
               body={feature.description}
             >
-              <li className="flex cursor-pointer hover:underline">
+              <li className="flex cursor-default">
                 <CheckIcon className={tier.featured ? 'text-white' : 'border-indigo-500'} />
                 <span className="ml-4">{feature.name}</span>
               </li>
@@ -122,10 +119,14 @@ function Plan({ tier }: { tier: Tier }) {
         href={tier.href}
         variant={tier.featured ? 'solid' : 'outline'}
         color="white"
-        className="mt-8"
+        className={clsx(
+          'mt-8',
+          tier.featured ? '!border-white hover:!border-black' : 'border-slate-700 !bg-transparent'
+        )}
         aria-label={`Get started with the ${tier.name} plan for ${tier.price}`}
       >
         {tier.name == 'Enterprise' ? 'Reach out' : 'Get started'}
+        {tier.featured && <span className="ml-1 font-semibold">{' ->'}</span>}
       </Button>
     </section>
   )
@@ -141,7 +142,7 @@ export function PricingHero({ hero }: { hero: PricingPageFragment['hero'] }) {
     >
       <Container>
         <div className="md:text-left">
-          <h2 className="text-base font-semibold leading-7 text-indigo-300">Test Suites</h2>
+          <h2 className="text-base leading-7 text-indigo-300">Test Suites</h2>
           <SquigglyTitle {...hero.title} />
           <div className="text-md mt-4 text-slate-300 md:max-w-2xl">
             <RichText>{hero.description.json.content}</RichText>

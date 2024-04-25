@@ -10,12 +10,16 @@ export const linkFragment = fragmentOn('LinkComponent', {
 
 export const landingPageFragment = fragmentOn('LandingPage', {
   hero: {
-    subtitle: {
-      json: { content: true }
-    },
     getStartedLink: linkFragment,
+    installationLink: linkFragment,
     contactUsLink: linkFragment,
     logosTitle: true,
+    heroVariants: {
+      items: {
+        h1: { json: { content: true } },
+        h2: { json: { content: true } }
+      }
+    },
     testimonials: {
       items: {
         testimonial: {
@@ -52,7 +56,8 @@ export const landingPageFragment = fragmentOn('LandingPage', {
         _title: true,
         subtitle: true,
         description: true,
-        image: true
+        image: true,
+        link: true
       }
     }
   },
@@ -121,6 +126,7 @@ export const landingPageFragment = fragmentOn('LandingPage', {
         imageUrl: true
       }
     },
+    courseSubtitle: { json: { content: true } },
     course: {
       title: true,
       description: true,

@@ -29,16 +29,13 @@ function Category({ name, links }: { name: string; links: LinkItem[] }) {
 
 const navigation = {
   product: [
-    { name: 'Replay DevTools', href: 'https://docs.replay.io/reference-guide/dev-tools' },
+    { name: 'Replay DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
     {
-      name: 'Replay Browser',
-      href: 'https://docs.replay.io/reference-guide/recording/replay-browser'
+      name: 'Replay Viewer',
+      href: 'https://docs.replay.io/browser-devtools/replay-viewer'
     },
-    { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites' },
-    {
-      name: 'Replay Bug Reports',
-      href: 'https://docs.replay.io/learn-more/workflows/recording-bug-reports'
-    },
+    { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites/runs-view' },
+
     { name: 'Documentation', href: 'https://docs.replay.io' },
     { name: 'Pricing', href: '/pricing' }
   ],
@@ -52,23 +49,25 @@ const navigation = {
   ],
   information: [
     { name: 'Contact', href: '/contact' },
-    { name: 'Resources', href: 'https://docs.replay.io/resources-and-examples' },
-    { name: 'Guides', href: 'https://docs.replay.io/getting-started/introduction-to-debugging' },
+    { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
     { name: 'Branding', href: '/branding' },
     { name: 'Security', href: '/security-and-privacy' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Use', href: '/terms-of-service' }
   ],
   integrations: [
-    { name: 'React', href: 'https://docs.replay.io/reference-guide/dev-tools/react' },
+    { name: 'React', href: 'https://docs.replay.io/framework-devtools/react-panel' },
     {
       name: 'Redux',
-      href: 'https://docs.replay.io/getting-started/introduction-to-debugging#jumping-to-a-redux-action'
+      href: 'https://docs.replay.io/framework-devtools/redux-panel'
     },
-    { name: 'Cypress', href: 'https://docs.replay.io/test-suites/cypress/installation' },
-    { name: 'Playwright', href: 'https://docs.replay.io/test-suites/playwright/installation' },
-    { name: 'Selenium WebDriver', href: 'https://docs.replay.io/test-suites/selenium' },
-    { name: 'NextJS', href: 'https://docs.replay.io/resources/next-js' }
+    { name: 'Cypress', href: 'https://docs.replay.io/test-runners/cypress-io' },
+    {
+      name: 'Playwright',
+      href: 'https://docs.replay.io/test-runners/playwright/record-your-first-replay'
+    },
+    { name: 'Selenium WebDriver', href: 'https://docs.replay.io/test-runners/selenium' },
+    { name: 'NextJS', href: 'https://docs.replay.io/integrations/frameworks-libraries/nextjs' }
   ],
   social: [
     {
@@ -133,7 +132,7 @@ const navigation = {
 
 export function Footer() {
   return (
-    <footer className="relative isolate -z-10 bg-white" aria-labelledby="footer-heading">
+    <footer className="relative isolate z-10 bg-white" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>

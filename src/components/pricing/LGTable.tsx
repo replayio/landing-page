@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 
 import { Tier, Section } from './sections/comparison'
 import { classNames } from '~/lib/utils'
+import { Button } from '../Button'
 
 export function LGTable({ tiers, sections }: { tiers: Record<string, Tier>; sections: Section[] }) {
   const tierEntries = Object.entries(tiers)
@@ -11,7 +12,7 @@ export function LGTable({ tiers, sections }: { tiers: Record<string, Tier>; sect
     <div className="isolate mt-20 hidden lg:block">
       <div className="relative -mx-8">
         {tierEntries.some(([_, tier]) => tier.featured) ? (
-          <div className="absolute inset-x-4 inset-y-0 -z-10 flex">
+          <div className="pointer-events-none absolute inset-x-4 inset-y-0 z-10 flex">
             <div
               className="flex w-1/5 px-4"
               aria-hidden="true"
@@ -23,15 +24,8 @@ export function LGTable({ tiers, sections }: { tiers: Record<string, Tier>; sect
             </div>
           </div>
         ) : null}
-        <table className="w-full table-fixed border-separate border-spacing-x-8 text-left">
-          <caption className="sr-only">Pricing plan comparison</caption>
-          <colgroup>
-            <col className="w-1/5" />
-            <col className="w-1/5" />
-            <col className="w-1/5" />
-            <col className="w-1/5" />
-            <col className="w-1/5" />
-          </colgroup>
+        <p className="sr-only">Pricing plan comparison</p>
+        <table className="sticky top-[var(--header-height)] w-full table-fixed border-separate border-spacing-x-8 bg-gradient-to-b from-white to-white/50 text-left">
           <thead>
             <tr>
               <td />
@@ -61,20 +55,22 @@ export function LGTable({ tiers, sections }: { tiers: Record<string, Tier>; sect
                       </>
                     )}
                   </div>
-                  <a
+                  <Button
                     href={tier.href}
-                    className={classNames(
-                      tier.featured
-                        ? 'bg-indigo-600 text-white hover:bg-indigo-500'
-                        : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300',
-                      'mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                    )}
+                    variant={tier.featured ? 'solid' : 'outline'}
+                    color="default"
+                    size="sm"
+                    className="mt-8 w-full"
                   >
                     {tier.name == 'Enterprise' ? 'Reach out' : 'Buy plan'}
-                  </a>
+                  </Button>
                 </td>
               ))}
             </tr>
+          </tbody>
+        </table>
+        <table className="w-full table-fixed border-separate border-spacing-x-8 text-left">
+          <tbody>
             {sections.map((section, sectionIdx) => (
               <Fragment key={`{${section.name}-${sectionIdx}`}>
                 <tr>
@@ -110,7 +106,7 @@ export function LGTable({ tiers, sections }: { tiers: Record<string, Tier>; sect
                             <>
                               {value === true ? (
                                 <CheckIcon
-                                  className="mx-auto h-5 w-5 text-indigo-600"
+                                  className="mx-auto h-5 w-5 text-accent"
                                   aria-hidden="true"
                                 />
                               ) : (

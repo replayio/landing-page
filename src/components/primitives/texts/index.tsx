@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { forwardRef, ReactNode } from 'react'
+import { FC, forwardRef, ReactNode } from 'react'
 
 import s from './texts.module.scss'
 
@@ -8,21 +8,47 @@ type TitleProps = {
   hero?: boolean
   children: ReactNode
   className?: string
+  white?: boolean
 }
 
-export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
-  ({ as = 'h1', children, className, hero, ...rest }, ref) => {
-    const Comp = as
+export const Title: FC<TitleProps> = ({ as = 'h1', children, className, white, hero, ...rest }) => {
+  const Comp = as
 
-    return (
-      <Comp {...rest} className={clsx(s.title, className, { [s.hero as string]: hero })} ref={ref}>
-        {children}
-      </Comp>
-    )
-  }
-)
+  return (
+    <Comp
+      {...rest}
+      className={clsx(
+        'font-display font-bold tracking-tight',
+        className,
+        white ? 'text-white' : 'text-gray-900',
+        {
+          'text-4xl md:text-6xl': as === 'h1',
+          'text-3xl md:text-5xl': as === 'h2',
+          'text-2xl md:text-5xl': as === 'h3'
+        }
+      )}
+    >
+      {children}
+    </Comp>
+  )
+}
 
 Title.displayName = 'Title'
+
+type EyebrowProps = { children: ReactNode; className?: string }
+
+export const Eyebrow: FC<EyebrowProps> = ({ children, className, ...rest }) => {
+  return (
+    <p
+      {...rest}
+      className={clsx('text-base font-semibold tracking-wide text-accent md:text-lg', className)}
+    >
+      {children}
+    </p>
+  )
+}
+
+Eyebrow.displayName = 'Eyebrow'
 
 type SubtitleProps = { children: ReactNode; className?: string }
 

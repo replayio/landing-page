@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { RichText } from 'basehub/react-rich-text'
 import styles from '../../styles/Landingpage.module.css'
+import { Eyebrow, Title } from '../primitives/texts'
 
 const images = {
   rootCause: CodeBracketIcon,
@@ -12,23 +13,18 @@ const images = {
 
 export default function DynamicAnalysis({ dynamicAnalysis }: LandingPageFragment) {
   return (
-    <div className="overflow-hidden border-t border-slate-300 bg-white py-24 sm:py-32">
+    <div className="overflow-hidden border-t border-slate-300 bg-white py-20 sm:py-32">
       <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
           <div className="px-6 md:px-0 lg:pr-4 lg:pt-4">
             <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
-              <div className="relative">
-                <BeakerIcon
-                  className={`absolute -left-7 top-1 h-5 w-5 ${styles.colorPrimaryAccent}`}
-                  aria-hidden="true"
-                />
-                <h2 className={`${styles.colorPrimaryAccent} text-base font-semibold leading-7`}>
+              <Eyebrow>
+                <span className="relative inline-flex items-center">
+                  <BeakerIcon className="mr-2 h-5 w-5 text-accent" aria-hidden="true" />{' '}
                   {dynamicAnalysis.subtitle}
-                </h2>
-              </div>
-              <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                {dynamicAnalysis.title}
-              </p>
+                </span>
+              </Eyebrow>
+              <Title as="h2">{dynamicAnalysis.title}</Title>
               <p className="mt-6 text-lg leading-8 text-gray-600">{dynamicAnalysis.description}</p>
               <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                 {dynamicAnalysis.features.items.map((feature) => {
@@ -37,7 +33,7 @@ export default function DynamicAnalysis({ dynamicAnalysis }: LandingPageFragment
                     <div key={feature._title} className="relative pl-9">
                       <dt className="inline font-semibold text-gray-900">
                         <Icon
-                          className={`absolute left-1 top-1 h-5 w-5 ${styles.colorPrimaryAccent}`}
+                          className={`absolute left-1 top-1 h-5 w-5 text-accent`}
                           aria-hidden="true"
                         />
                       </dt>{' '}

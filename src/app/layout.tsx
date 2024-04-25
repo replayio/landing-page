@@ -1,5 +1,5 @@
 import '~/styles/tailwind.css'
-import { type Metadata } from 'next'
+import { Viewport, type Metadata } from 'next'
 import { Inter, Lexend } from 'next/font/google'
 import clsx from 'clsx'
 
@@ -31,10 +31,15 @@ export const metadata: Metadata = {
   }
 }
 
+export const viewport: Viewport = {
+  themeColor: '#FFF'
+}
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-inter',
+  preload: true
 })
 
 const lexend = Lexend({
@@ -52,7 +57,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <Analytics />
       </head>
-      <body className="flex h-full flex-col">{children}</body>
+      <body>{children}</body>
     </html>
   )
 }
