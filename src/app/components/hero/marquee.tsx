@@ -12,14 +12,14 @@ import Marquee from 'react-fast-marquee'
 import { useMinTabletBreakpoint } from '~/hooks/use-media'
 import { PropsWithChildren } from 'react'
 
-type MarqueeProps = PropsWithChildren<{
+type MarqueeProps = {
   style?: React.CSSProperties
   className?: string
   play?: boolean
   pauseOnHover?: boolean
   pauseOnClick?: boolean
   gradientColor?: string
-}>
+}
 
 export const HomeHeroMarquee = (props: MarqueeProps) => {
   const isMinTablet = useMinTabletBreakpoint()
