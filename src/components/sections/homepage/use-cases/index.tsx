@@ -18,7 +18,7 @@ const UseCases = () => {
     description: (
       <>
         <br />
-        <Link href="https://replayio.typeform.com/to/jTudlerL" aria-label="Create a team">
+        <Link href="https://app.replay.io/team/new" aria-label="Create a team">
           Create a team
         </Link>{' '}
         and start sharing replays with your team.

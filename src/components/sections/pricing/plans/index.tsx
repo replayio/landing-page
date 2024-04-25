@@ -68,7 +68,7 @@ export const bugreportingPlans: Plan[] = [
     description:
       'Team workspaces make it easy to collaborate, manage recordings, and track conversations so that bugs get fixed faster.',
     cta: 'Create Team',
-    link: 'https://replayio.typeform.com/to/jTudlerL',
+    link: 'https://app.replay.io/team/new',
     content: [
       {
         title: 'Only pay for developers on your team',
@@ -95,7 +95,7 @@ export const bugreportingPlans: Plan[] = [
     description:
       'Organization includes Team workspaces with additional controls around access and recordings, SSO / SAML integration and Enterprise Security features.',
     cta: 'Create Organization',
-    link: 'https://replayio.typeform.com/to/jTudlerL',
+    link: 'https://app.replay.io/team/new',
     content: [
       {
         features: {

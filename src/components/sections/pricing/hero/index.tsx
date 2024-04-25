@@ -22,7 +22,7 @@ const bugreportingPlans = [
     price: 20,
     mode: 'per month / per developer',
     cta: 'Create team',
-    link: 'https://replayio.typeform.com/to/jTudlerL',
+    link: 'https://app.replay.io/team/new',
     features: [
       '200 recordings per month',
       'Up to 10 users + developers',
@@ -35,7 +35,7 @@ const bugreportingPlans = [
     price: 75,
     mode: 'per month / per developer',
     cta: 'Create Organization',
-    link: 'https://replayio.typeform.com/to/jTudlerL',
+    link: 'https://app.replay.io/team/new',
     features: [
       '1,000 recordings per month',
       'Up to 100 users + developers',
