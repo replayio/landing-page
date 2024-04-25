@@ -20,3 +20,8 @@
     --header-height: 76px;
   }
 }
+
+.primary-emphasis b {
+  color:  #f02d5e ;
+  font-weight: inherit;
+}
