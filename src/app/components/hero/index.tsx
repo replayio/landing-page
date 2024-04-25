@@ -13,7 +13,7 @@ export function Hero({ hero }: LandingPageFragment) {
   const { h1, h2 } = hero.heroVariants.items[0]
 
   return (
-    <section className="relative flex overflow-hidden">
+    <section className="relative flex overflow-hidden bg-[#FCFCFC]">
       <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
@@ -59,7 +59,7 @@ export function Hero({ hero }: LandingPageFragment) {
             <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
               <p className="hidden whitespace-nowrap xl:inline-block">{hero.logosTitle}</p>
               <div className="max-w-full flex-1">
-                <HomeHeroMarquee />
+                <HomeHeroMarquee gradientColor="#FCFCFC" />
               </div>
             </div>
           </div>

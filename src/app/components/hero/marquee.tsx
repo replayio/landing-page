@@ -10,11 +10,21 @@ import logoVercel from '~/images/hero-logos/vercel.svg'
 import logoWeightsAndBiases from '~/images/hero-logos/weights-and-biases.svg'
 import Marquee from 'react-fast-marquee'
 import { useMinTabletBreakpoint } from '~/hooks/use-media'
+import { PropsWithChildren } from 'react'
 
-export const HomeHeroMarquee = () => {
+type MarqueeProps = {
+  style?: React.CSSProperties
+  className?: string
+  play?: boolean
+  pauseOnHover?: boolean
+  pauseOnClick?: boolean
+  gradientColor?: string
+}
+
+export const HomeHeroMarquee = (props: MarqueeProps) => {
   const isMinTablet = useMinTabletBreakpoint()
   return (
-    <Marquee gradient gradientWidth={isMinTablet ? 200 : 60} speed={20}>
+    <Marquee gradient gradientWidth={isMinTablet ? 200 : 60} speed={20} {...props}>
       {[
         { name: 'React', logo: logoReact },
         { name: 'WeightsBiases', logo: logoWeightsAndBiases },
