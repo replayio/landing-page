@@ -17,6 +17,12 @@ export const landingPageFragment = fragmentOn('LandingPage', {
     installationLink: linkFragment,
     contactUsLink: linkFragment,
     logosTitle: true,
+    heroVariants: {
+      items: {
+        h1: { json: { content: true } },
+        h2: { json: { content: true } }
+      }
+    },
     testimonials: {
       items: {
         testimonial: {
