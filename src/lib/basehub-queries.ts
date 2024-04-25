@@ -10,9 +10,9 @@ export const linkFragment = fragmentOn('LinkComponent', {
 
 export const landingPageFragment = fragmentOn('LandingPage', {
   hero: {
-    subtitle: {
-      json: { content: true }
-    },
+    // subtitle: {
+    //   json: { content: true }
+    // },
     getStartedLink: linkFragment,
     installationLink: linkFragment,
     contactUsLink: linkFragment,
