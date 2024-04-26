@@ -38,9 +38,9 @@ export function Hero({ hero }: LandingPageFragment) {
                     variant={hero.installationLink.variant || ''}
                     className="hidden w-full md:block"
                   />
-                  <Link href="https://docs.replay.io/quickstart/">
+                  <Link href="https://docs.replay.io/quickstart/" className="w-full">
                     <Button className="w-full md:hidden">Quickstart Guide</Button>
-                    <span className="mt-2 hidden text-center text-sm text-accent hover:underline sm:inline">
+                    <span className="mt-2 hidden text-center text-sm text-accent hover:underline md:block">
                       Quickstart Guide {'->'}
                     </span>
                   </Link>
