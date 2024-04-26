@@ -1,4 +1,4 @@
-import { ClipboardButton } from '~/components/Button'
+import { Button, ClipboardButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { featureFlags } from '~/lib/feature-flags'
@@ -36,13 +36,13 @@ export function Hero({ hero }: LandingPageFragment) {
                     label={hero.installationLink.label || ''}
                     _id={hero.installationLink._id}
                     variant={hero.installationLink.variant || ''}
-                    className="w-full"
+                    className="hidden w-full md:block"
                   />
-                  <Link
-                    href="https://docs.replay.io/quickstart/"
-                    className="mt-2 text-center text-sm text-accent hover:underline"
-                  >
-                    Quickstart Guide {'->'}
+                  <Link href="https://docs.replay.io/quickstart/">
+                    <Button className="w-full md:hidden">Quickstart Guide</Button>
+                    <span className="mt-2 hidden text-center text-sm text-accent hover:underline sm:inline">
+                      Quickstart Guide {'->'}
+                    </span>
                   </Link>
                 </div>
                 <CalButton link={hero.contactUsLink} />
