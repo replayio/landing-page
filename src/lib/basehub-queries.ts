@@ -40,6 +40,18 @@ export const landingPageFragment = fragmentOn('LandingPage', {
     title: true,
     subTitle: true,
     replayUrl: true,
+    description: {
+      json: {
+        content: true,
+        blocks: {
+          __typename: true,
+          _id: true,
+          _title: true,
+          label: true,
+          body: true
+        }
+      }
+    },
     features: {
       items: {
         _title: true,

@@ -12,6 +12,7 @@ import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { getImageSizes } from '~/lib/utils/image'
 import { Title } from '../primitives/texts'
+import { Description } from './devtools/Description'
 
 const images = {
   testSteps: {
@@ -56,9 +57,9 @@ export function DevTools({ devTools }: LandingPageFragment) {
           <Title className="text-pretty" as="h2" white>
             {devTools.title}
           </Title>
-          <p className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7] md:text-lg">
-            {devTools.subTitle}
-          </p>
+          <div className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7] opacity-100 md:text-lg">
+            <Description>{devTools.description}</Description>
+          </div>
         </div>
 
         <Tab.Group
