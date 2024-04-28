@@ -12,6 +12,7 @@ import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { getImageSizes } from '~/lib/utils/image'
 import { Title } from '../primitives/texts'
+import { Description } from '@radix-ui/react-dialog'
 
 const images = {
   testSteps: {
@@ -57,7 +58,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
             {devTools.title}
           </Title>
           <p className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7] md:text-lg">
-            {devTools.subTitle}
+            <Description>{devTools.description}</Description>
           </p>
         </div>
 
