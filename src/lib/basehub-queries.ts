@@ -8,6 +8,26 @@ export const linkFragment = fragmentOn('LinkComponent', {
   variant: true
 })
 
+const popoverFragment = fragmentOn('PopoverComponent', {
+  _id: true,
+  _title: true,
+  body: true,
+  learnMore: linkFragment
+})
+
+export type PopoverFragment = fragmentOn.infer<typeof popoverFragment>
+
+export const descriptionFragment = fragmentOn('DescriptionRichText', {
+  content: true,
+  toc: true,
+  blocks: {
+    __typename: true,
+    on_PopoverComponent: popoverFragment
+  }
+})
+
+export type DescriptionFragment = fragmentOn.infer<typeof descriptionFragment>
+
 export const landingPageFragment = fragmentOn('LandingPage', {
   hero: {
     getStartedLink: linkFragment,
@@ -38,8 +58,19 @@ export const landingPageFragment = fragmentOn('LandingPage', {
   },
   devTools: {
     title: true,
-    subTitle: true,
     replayUrl: true,
+    description: {
+      json: {
+        content: true,
+        blocks: {
+          __typename: true,
+          _id: true,
+          _title: true,
+          body: true,
+          learnMore: linkFragment
+        }
+      }
+    },
     features: {
       items: {
         _title: true,
