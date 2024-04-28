@@ -9,7 +9,7 @@ export const DescriptionTooltip = ({
   body,
   learnMore
 }: {
-  learnMore?: string
+  learnMore: string | null
   body: string
   children: React.ReactNode
 }) => {
@@ -54,40 +54,40 @@ const popoverFragment = fragmentOn('PopoverComponent', {
 
 type PopoverFragment = fragmentOn.infer<typeof popoverFragment>
 
-export const bodyFragment = fragmentOn('BodyRichText', {
-  content: true,
-  toc: true,
-  blocks: {
-    __typename: true,
-    on_PopoverComponent: PopoverFragment
-  }
-})
-
-type BodyFragment = fragmentOn.infer<typeof bodyFragment>
-
-function Popover({ _title, body, label, learnMore }: typeof PopoverFragment) {
+function Popover(props: PopoverFragment) {
   return (
     <span className="relative">
-      <DescriptionTooltip body={body || ''} learnMore={learnMore}>
+      <DescriptionTooltip body={props.body || ''} learnMore={props.learnMore}>
         <span className="relative font-semibold hover:cursor-pointer hover:text-white ">
-          {label}
+          {props.label}
         </span>
       </DescriptionTooltip>
     </span>
   )
 }
 
+export const bodyFragment = fragmentOn('DescriptionRichText', {
+  content: true,
+  toc: true,
+  blocks: {
+    __typename: true,
+    on_PopoverComponent: popoverFragment
+  }
+})
+
+type BodyFragment = fragmentOn.infer<typeof bodyFragment>
+
 export const Description = (props: RichTextProps<BodyFragment['blocks']>) => {
   return (
     <div className="relative">
       <RichText
-        blocks={props.children.json.blocks}
+        blocks={props.blocks}
         components={{
           PopoverComponent: Popover,
           PopoverComponent_mark: Popover
         }}
       >
-        {props.children.json.content}
+        {props.children}
       </RichText>
     </div>
   )
