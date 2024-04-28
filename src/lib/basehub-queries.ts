@@ -11,7 +11,10 @@ export const linkFragment = fragmentOn('LinkComponent', {
 export const landingPageFragment = fragmentOn('LandingPage', {
   hero: {
     getStartedLink: linkFragment,
-    installationLink: linkFragment,
+    installationLink: {
+      ...linkFragment,
+      clipboard: true
+    },
     contactUsLink: linkFragment,
     logosTitle: true,
     heroVariants: {

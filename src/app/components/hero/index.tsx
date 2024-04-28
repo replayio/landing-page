@@ -36,6 +36,7 @@ export function Hero({ hero }: LandingPageFragment) {
                     label={hero.installationLink.label || ''}
                     _id={hero.installationLink._id}
                     variant={hero.installationLink.variant || ''}
+                    clipboard={hero.installationLink.clipboard}
                     className="w-full"
                   />
                   <Link
