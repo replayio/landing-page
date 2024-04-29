@@ -81,6 +81,17 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                   {label}
                 </NavLink>
               ))}
+
+              {pathname === '/about' && (
+                <NavLink
+                  className="font-semibold "
+                  variant={variant}
+                  href="#careers"
+                  active={false}
+                >
+                  We&apos;re hiring 👋{' '}
+                </NavLink>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">

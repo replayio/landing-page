@@ -26,7 +26,7 @@ export const Work = () => {
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary">
           <RocketLaunchIcon className="h-6 w-6 text-white" aria-hidden="true" />
         </div>
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h2 id="careers" className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Join our journey
         </h2>
         <p className="text-gray-600">
