@@ -58,7 +58,6 @@ export function DevTools({ devTools }: LandingPageFragment) {
             {devTools.title}
           </Title>
           <div className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7]  md:text-lg">
-            {/* @ts-ignore */}
             <Description {...devTools.description.json} />
           </div>
         </div>
