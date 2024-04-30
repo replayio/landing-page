@@ -22,7 +22,7 @@ export const descriptionFragment = fragmentOn('DescriptionRichText', {
   toc: true,
   blocks: {
     __typename: true,
-    on_PopoverComponent: popoverFragment
+    ...popoverFragment
   }
 })
 
@@ -60,16 +60,7 @@ export const landingPageFragment = fragmentOn('LandingPage', {
     title: true,
     replayUrl: true,
     description: {
-      json: {
-        content: true,
-        blocks: {
-          __typename: true,
-          _id: true,
-          _title: true,
-          body: true,
-          learnMore: linkFragment
-        }
-      }
+      json: descriptionFragment
     },
     features: {
       items: {
