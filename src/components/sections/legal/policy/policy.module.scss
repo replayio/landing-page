@@ -10,24 +10,22 @@
       display: flex;
       flex-direction: column;
       place-items: center;
-      margin-top: 60px;
+      margin-top: 160px;
       margin-bottom: 112px;
 
       span {
-        color: var(--color-pink-crayon);
         font-weight: 600;
         line-height: 143%;
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: 0.1em;
-        margin-top: 24px;
         text-align: center;
         text-transform: uppercase;
       }
     }
 
     h2 {
-      font-size: 40px;
-      margin-bottom: 24px;
+      font-size: 24px;
+      margin-bottom: 12px;
     }
 
     h3 {
@@ -173,6 +171,7 @@
       .heading {
         margin-top: 32px;
         margin-bottom: 64px;
+        font-size: 12px;
 
         span {
           margin-top: 16px;
