@@ -3,15 +3,16 @@
 import { LandingPageFragment } from '~/lib/basehub-queries'
 
 import circle from '~/images/faq/circle.png'
-import cypress from '~/images/faq/cypress.png'
+import cypress from '~/images/logos/cypress.svg'
 import gdpr from '~/images/faq/gdpr.png'
-import github from '~/images/faq/github.png'
+import github from '~/images/logos/github.svg'
 import gitlab from '~/images/faq/gitlab.png'
-import playwright from '~/images/faq/playwright.png'
-import sauce from '~/images/faq/sauce.png'
+import playwright from '~/images/logos/playwright.svg'
+import sauce from '~/images/logos/sauce.svg'
 import selenium from '~/images/faq/selenium.png'
-import semaphore from '~/images/faq/semaphore.png'
-import soc2 from '~/images/faq/soc2.png'
+import webdriver from '~/images/logos/webdriver.svg'
+import semaphore from '~/images/logos/semaphore.svg'
+import soc2 from '~/images/faq/soc2.svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
@@ -33,11 +34,16 @@ const logos = {
     {
       image: cypress,
       alt: 'Cypress',
-      height: 40
+      height: 38
     },
     {
       image: selenium,
       alt: 'Selenium',
+      height: 35
+    },
+    {
+      image: webdriver,
+      alt: 'Webdriver',
       height: 35
     }
   ],
@@ -45,12 +51,12 @@ const logos = {
     {
       image: circle,
       alt: 'CircleCI',
-      height: 32
+      height: 35
     },
     {
       image: github,
       alt: 'Github',
-      height: 45
+      height: 35
     },
     {
       image: gitlab,
@@ -60,7 +66,7 @@ const logos = {
     {
       image: sauce,
       alt: 'Sauce Labs',
-      height: 40
+      height: 32
     },
     {
       image: semaphore,
