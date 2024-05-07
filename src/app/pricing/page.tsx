@@ -5,8 +5,6 @@ import { draftMode } from 'next/headers'
 import { pricingPageFragment } from '~/lib/basehub-queries'
 import { Footer } from '~/components/Footer'
 import { PricingFAQ } from '~/components/pricing/PricingFAQ'
-import { CostCalculator } from '~/components/pricing/sections/CostCalculator'
-import { featureFlags } from '~/lib/feature-flags'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { Calculator } from '~/components/pricing/sections/cost-calculator'
@@ -34,7 +32,6 @@ export default function Home() {
               <Header variant="dark" />
               <PricingHero {...pricingPage} />
               <Calculator />
-              {featureFlags.showCalculator && <CostCalculator />}
               <PricingTable />
               <PricingFAQ {...pricingPage} />
             </main>
