@@ -280,11 +280,7 @@ export const Panel = ({
           <p className="mr-auto rounded-[4px] border border-green-300 bg-gradient-to-tr from-green-100 to-green-200 px-2 py-1 text-base font-semibold leading-[1] text-green-600 md:mr-0 md:text-xl md:leading-[1]">
             ${monthlyCost}
           </p>
-          {savedCost && (
-            <p className="ml-3 text-base leading-[1] text-accent underline underline-offset-2">
-              Save ${savedCost}
-            </p>
-          )}
+          {savedCost && <p className="ml-3 text-base leading-[1] text-accent">Save ${savedCost}</p>}
         </div>
       </div>
     </div>
