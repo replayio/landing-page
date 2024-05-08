@@ -38,56 +38,7 @@ export const Calculator = () => {
 
         <div className="flex flex-col gap-[14px] pt-6 md:flex-row md:gap-10">
           {inputs.map((input) => (
-            <div
-              key={input.id}
-              className="flex w-full grow justify-between gap-4 md:max-w-[107px] md:flex-col"
-            >
-              <div className="flex items-center">
-                <label
-                  htmlFor={input.id}
-                  className="whitespace-nowrap text-lg font-semibold text-gray-700 md:text-base md:leading-5"
-                >
-                  {input.title}
-                </label>
-                <Tooltip.Provider>
-                  <Tooltip.Root delayDuration={0.02}>
-                    <Tooltip.Trigger asChild>
-                      <button className="">
-                        <InfoIcon className="ml-2 inline size-5 text-gray-400 md:size-[15px]" />
-                      </button>
-                    </Tooltip.Trigger>
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        className={clsx(
-                          s['tooltip-content'],
-                          'flex max-w-56 flex-col gap-2 rounded-lg bg-gray-600 p-4 text-white'
-                        )}
-                        sideOffset={5}
-                      >
-                        <p className="text-base font-semibold leading-5">{input.title}</p>
-                        <p className="text-sm leading-[18px]">{input.description}</p>
-                        <Tooltip.Arrow className="fill-gray-600" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
-                  </Tooltip.Root>
-                </Tooltip.Provider>
-              </div>
-              <div className="flex w-full max-w-[110px] gap-2 md:max-w-none">
-                <input
-                  type="number"
-                  id={input.id}
-                  value={input.value}
-                  min={input.min}
-                  max={input.max}
-                  className="h-9 flex-1 rounded-md border border-gray-200 bg-gray-50 px-4 text-base font-medium text-gray-500 focus:border-accent focus:ring-accent"
-                />
-                {input.symbol && (
-                  <span className="flex items-center text-base font-semibold text-gray-500">
-                    {input.symbol}
-                  </span>
-                )}
-              </div>
-            </div>
+            <Input key={input.id} input={input} />
           ))}
         </div>
 
@@ -213,6 +164,58 @@ const inputs: CalculatorInput[] = [
     symbol: '%'
   }
 ]
+
+export const Input = ({ input }: { input: CalculatorInput }) => {
+  return (
+    <div className="flex w-full grow justify-between gap-4 md:max-w-[107px] md:flex-col">
+      <div className="flex items-center">
+        <label
+          htmlFor={input.id}
+          className="whitespace-nowrap text-lg font-semibold text-gray-700 md:text-base md:leading-5"
+        >
+          {input.title}
+        </label>
+        <Tooltip.Provider>
+          <Tooltip.Root delayDuration={0.02}>
+            <Tooltip.Trigger asChild>
+              <div className="hidden md:block">
+                <InfoIcon className="ml-2 inline size-5 text-gray-400 md:size-[15px]" />
+              </div>
+            </Tooltip.Trigger>
+            <Tooltip.Portal>
+              <Tooltip.Content
+                className={clsx(
+                  s['tooltip-content'],
+                  'flex max-w-56 flex-col gap-2 rounded-lg bg-gray-600 p-4 text-white'
+                )}
+                sideOffset={5}
+              >
+                <p className="text-base font-semibold leading-5">{input.title}</p>
+                <p className="text-sm leading-[18px]">{input.description}</p>
+                <Tooltip.Arrow className="fill-gray-600" />
+              </Tooltip.Content>
+            </Tooltip.Portal>
+          </Tooltip.Root>
+        </Tooltip.Provider>
+      </div>
+      <div className="flex w-full max-w-[110px] gap-2 md:max-w-none">
+        <input
+          type="number"
+          id={input.id}
+          value={input.value}
+          min={input.min}
+          max={input.max}
+          className="h-9 flex-1 rounded-md border border-gray-200 bg-gray-50 px-4 text-base font-medium text-gray-500 focus:border-accent focus:ring-accent"
+        />
+        {input.symbol && (
+          <span className="flex items-center text-base font-semibold text-gray-500">
+            {input.symbol}
+          </span>
+        )}
+      </div>
+    </div>
+  )
+}
 
 export const Panel = ({
   theme = 'primary',
