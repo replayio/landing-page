@@ -3,8 +3,8 @@ import screenshotRca from '~/images/screenshots/rca-1.png'
 import Image from 'next/image'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { RichText } from 'basehub/react-rich-text'
-import styles from '../../styles/Landingpage.module.css'
 import { Eyebrow, Title } from '../primitives/texts'
+import Link from 'next/link'
 
 const images = {
   rootCause: CodeBracketIcon,
@@ -39,6 +39,11 @@ export default function DynamicAnalysis({ dynamicAnalysis }: LandingPageFragment
                       </dt>{' '}
                       <dd className="inline">
                         <RichText>{feature.feature.json.content}</RichText>
+                        {feature?.learnMore && (
+                          <Link href={feature?.learnMore} className="text-accent hover:underline">
+                            Learn more
+                          </Link>
+                        )}
                       </dd>
                     </div>
                   )

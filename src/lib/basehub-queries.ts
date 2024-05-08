@@ -110,7 +110,8 @@ export const landingPageFragment = fragmentOn('LandingPage', {
       items: {
         _title: true,
         feature: { json: { content: true } },
-        icon: true
+        icon: true,
+        learnMore: true
       }
     }
   },
