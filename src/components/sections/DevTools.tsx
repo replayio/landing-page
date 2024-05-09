@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Tab } from '@headlessui/react'
 import MuxPlayer from '@mux/mux-player-react/lazy'
 import clsx from 'clsx'
+import { Button } from '~/components/Button'
 
 import { Container } from '~/components/Container'
 import react from '~/images/screenshots/inspect-react-components.png'
@@ -216,6 +217,11 @@ export function DevTools({ devTools }: LandingPageFragment) {
               'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)'
           }}
         />
+      </div>
+      <div className="mt-12 flex justify-center">
+        <a href="https://app.replay.io/recording/overboarddev-demo-replay--8acb44d4-29d1-457d-a004-d16ddb871036">
+          <Button className="">Take a look at this replay {'->'}</Button>
+        </a>
       </div>
     </section>
   )
