@@ -70,16 +70,6 @@ export const team = [
     }
   },
   {
-    image: ryan,
-    role: 'Software engineer',
-    name: 'Ryan Duffy',
-    bio: `Ryan hails from the cornfields of the midwest and currently resides in the pacific northwest who enjoys working across the stack at Replay. A generalist at heart, he spends his time away from Replay playing music, camping in the teardrop camper he built, working on his Mini Cooper, finding great food, and trying new things.`,
-    socials: {
-      linkedin: 'https://www.linkedin.com/in/theryanjduffy/'
-    }
-  },
-
-  {
     image: holger,
     role: 'Software engineer',
     name: 'Holger Benl',
