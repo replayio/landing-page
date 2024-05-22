@@ -83,6 +83,7 @@ function Plan({ tier }: { tier: Tier }) {
                 key={label}
                 learnMore={FEATURES[label].learnMore}
                 body={FEATURES[label].description}
+                highlighted={tier.featured}
               >
                 <li
                   className={`flex items-center justify-between border-b py-2 ${tier.featured ? 'border-indigo-500' : 'border-slate-700'}`}

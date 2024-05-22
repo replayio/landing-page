@@ -21,14 +21,14 @@ export const FEATURES: Record<string, Feature> = {
   },
   recordings: {
     name: 'Uploaded recordings',
-    description: `By default all failed tests are uploaded, but we recommend also uploading all recordings for atleast one run a day so you have a reference point.`,
-    learnMore: '#'
+    description: `By default all tests are uploaded, but it's easy to upload a subset of recordings to stay within the upload limits.`,
+    learnMore: 'https://docs.replay.io/ci-workflows/upload-strategies'
   },
   processed: {
-    name: 'Replayed recordings',
+    name: 'Instant replays',
     description:
-      'We try and replay a represantitive sample of your failed recordings so that you can start debugging them immediately.',
-    learnMore: '#'
+      'It typically takes about 30 seconds to view a new recording. On Pro plans, we replay some of the recordings ahead of time so that they’re immediately available.',
+    learnMore: ''
   },
   rca: {
     name: 'Root cause analysis *',
@@ -81,7 +81,7 @@ export const tiers: Record<string, Tier> = {
       users: 20,
       runs: 'Unlimited',
       recordings: 100,
-      processed: 20,
+      processed: 0,
       rca: 0,
       perf: 0,
       retention: '7 days',
@@ -116,7 +116,7 @@ export const tiers: Record<string, Tier> = {
       users: 20,
       runs: 'Unlimited',
       recordings: 1000,
-      processed: 100,
+      processed: 0,
       rca: 0,
       perf: 0,
       retention: '7 days',
