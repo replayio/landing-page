@@ -19,7 +19,7 @@ export default function MyApp({ link }: { link: any }) {
   return (
     <Button
       data-cal-namespace=""
-      data-cal-link="jason-laster/30min"
+      data-cal-link="team/replay/intro"
       data-cal-config='{"layout":"month_view"}'
       {...link}
     />
