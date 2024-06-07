@@ -75,7 +75,7 @@ export const tiers: Record<string, Tier> = {
     featured: false,
     price: 0,
     description: 'For small teams with a handful of flaky E2E tests.',
-    href: 'https://app.replay.io/team/new',
+    href: 'https://app.replay.io/team/new/tests',
     priceDescription: 'No credit card required',
     features: {
       users: 20,
@@ -110,7 +110,7 @@ export const tiers: Record<string, Tier> = {
     price: 75,
     priceDescription: 'No credit card required',
     description: 'For teams with a growing test suite.',
-    href: 'https://app.replay.io/team/new',
+    href: 'https://app.replay.io/team/new/tests',
     featured: true,
     features: {
       users: 20,
@@ -146,7 +146,7 @@ export const tiers: Record<string, Tier> = {
     price: 350,
     priceDescription: 'No credit card required',
     description: 'For businesses who want to set E2E reliability goals.',
-    href: 'https://app.replay.io/team/new',
+    href: 'https://app.replay.io/team/new/tests',
     featured: false,
     features: {
       users: 50,
