@@ -557,7 +557,7 @@ const data: DataType[] = [
     description: (
       <>
         <br />
-        <Link href="https://app.replay.io/team/new" aria-label="Create a team">
+        <Link href="https://app.replay.io/team/new/tests" aria-label="Create a team">
           Create a team
         </Link>{' '}
         and start sharing replays with your team.
