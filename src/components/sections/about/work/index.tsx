@@ -6,18 +6,7 @@ import { Link } from '~/components/primitives/link'
 import arrow from '~/public/images/about/arrow.svg'
 import journeyImg from '~/public/images/about/journey.svg'
 
-const positions = [
-  {
-    title: 'Founding GTM Lead',
-    skills: 'GTM',
-    href: 'https://replayio.notion.site/Founding-GTM-Member-44008e5bcbe141eb9bf68c08f71980a4'
-  },
-  {
-    title: 'Team Lead',
-    skills: 'Engineering',
-    href: 'https://replayio.notion.site/Product-team-lead-5f7a525b7a814015b7defa7531761032'
-  }
-]
+const positions: { title: string; skills: string; href: string }[] = []
 
 export const Work = () => {
   return (
