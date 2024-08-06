@@ -2,7 +2,7 @@ import { Button, ClipboardButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { featureFlags } from '~/lib/feature-flags'
-import CalButton from './cal'
+// import CalButton from './cal'
 import { HomeHeroMarquee } from './marquee'
 import Hyperspace from './hyperspace'
 import { Carrousel } from './carrousel'
@@ -46,7 +46,7 @@ export function Hero({ hero }: LandingPageFragment) {
                     </span>
                   </Link>
                 </div>
-                <CalButton link={hero.contactUsLink} />
+                {/* <CalButton link={hero.contactUsLink} /> */}
               </div>
             </div>
             <div className="mx-auto mt-12 h-fit w-full max-w-[480px] scale-100 p-0 lg:mx-0 lg:mt-0 lg:flex lg:w-auto lg:max-w-full lg:scale-75 xl:scale-100">
