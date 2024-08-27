@@ -9,7 +9,7 @@ import s from './footer.module.scss'
 const links = [
   {
     section: 'About',
-    links: [SITEMAP.aboutUs, SITEMAP.pricing, SITEMAP.hiring, SITEMAP.values]
+    links: [SITEMAP.aboutUs, SITEMAP.hiring, SITEMAP.values]
   },
   {
     section: 'Get Help',

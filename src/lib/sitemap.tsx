@@ -39,7 +39,6 @@ type SitemapKeys =
   | 'timeTravel'
   | 'docs'
   | 'company'
-  | 'pricing'
   | 'getStarted'
   | 'overview'
   | 'login'
@@ -618,10 +617,6 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
         }
       ]
     }
-  },
-  pricing: {
-    href: '/pricing',
-    label: 'Pricing'
   },
   getStarted: {
     href: 'https://docs.replay.io/getting-started/record-your-first-replay',

@@ -169,26 +169,6 @@ export const landingPageFragment = fragmentOn('LandingPage', {
   }
 })
 
-export const pricingPageFragment = fragmentOn('PricingPage', {
-  hero: {
-    title: {
-      left: true,
-      right: true
-    },
-    label: true,
-    description: { json: { content: true } }
-  },
-  faq: {
-    title: true,
-    questions: {
-      items: {
-        _title: true,
-        answer: true
-      }
-    }
-  }
-})
-
 export const aboutPageFragment = fragmentOn('AboutPage', {
   hero: {
     title: true,
@@ -202,5 +182,4 @@ export const aboutPageFragment = fragmentOn('AboutPage', {
 
 export type LandingPageFragment = fragmentOn.infer<typeof landingPageFragment>
 export type LinkFragment = fragmentOn.infer<typeof linkFragment>
-export type PricingPageFragment = fragmentOn.infer<typeof pricingPageFragment>
 export type AboutPageFragment = fragmentOn.infer<typeof aboutPageFragment>

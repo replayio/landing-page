@@ -51,8 +51,8 @@ export function TestSuiteCaseStudies() {
 
   return (
     <section
-      id="pricing"
-      aria-label="Pricing"
+      id="case-studies"
+      aria-label="case studies"
       className="border-t border-gray-300 bg-gray-200 py-16 sm:py-16"
     >
       <div className="mx-auto max-w-7xl ">
