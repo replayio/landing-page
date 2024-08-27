@@ -160,6 +160,11 @@ const nextConfig = {
         source: '/security-privacy',
         destination: 'https://www.replay.io/security-and-privacy',
         permanent: true
+      },
+      {
+        source: '/pricing',
+        destination: 'https://www.replay.io/',
+        permanent: false
       }
     ]
   }

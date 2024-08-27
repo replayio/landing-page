@@ -20,7 +20,6 @@ export type Navlink = {
 
 const NAVLINKS: Navlink[] = [
   { href: '/#devtools', label: 'DevTools' },
-  { href: '/#test-suites', label: 'Test Suites' },
   { href: 'https://docs.replay.io', label: 'Docs' },
   { href: 'https://blog.replay.io', label: 'Changelog' },
   { href: '/about', label: 'Company' }
