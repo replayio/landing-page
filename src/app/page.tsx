@@ -1,7 +1,6 @@
 import { CallToAction } from '~/components/sections/CallToAction'
 import { Footer } from '~/components/Footer'
 import { DevTools } from '~/components/sections/DevTools'
-import { TestSuites } from '~/components/sections/TestSuites'
 import { Testimonials } from '~/components/Testimonials'
 import { Pump } from '.basehub/react-pump'
 import { draftMode } from 'next/headers'
@@ -32,7 +31,6 @@ export default function Home() {
             <main>
               <Hero {...landingPage} />
               <DevTools {...landingPage} />
-              <TestSuites {...landingPage} />
               <FAQ {...landingPage} />
               <DynamicAnalysis {...landingPage} />
               <CallToAction {...landingPage} />
