@@ -36,8 +36,7 @@ const navigation = {
     },
     { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites/runs-view' },
 
-    { name: 'Documentation', href: 'https://docs.replay.io' },
-    { name: 'Pricing', href: '/pricing' }
+    { name: 'Documentation', href: 'https://docs.replay.io' }
   ],
   company: [
     { name: 'About', href: '/about' },
