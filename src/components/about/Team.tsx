@@ -1,14 +1,8 @@
 import brian from '~/images/team/brian.png'
-import colin from '~/images/team/colin.png'
 import dan from '~/images/team/dan.png'
 import domi from '~/images/team/domi.png'
-import holger from '~/images/team/holger.png'
 import jason from '~/images/team/jason.png'
-import jon from '~/images/team/jon.png'
 import mark from '~/images/team/mark.png'
-import miriam from '~/images/team/miriam.png'
-import ryan from '~/images/team/ryan.png'
-import vaughn from '~/images/team/vaughn.jpeg'
 import Image from 'next/image'
 
 export const team = [
@@ -28,17 +22,6 @@ export const team = [
     name: 'Brian Hackett',
     bio: 'Brian has had a longtime passion for helping people understand hugely complex software systems, starting with a Stanford Ph.D. and continuing through 10 years at Mozilla, where he worked on JavaScript VM optimizations and developed a precursor to Replay. He is a nomadic adventurer and enjoys sailing around Polynesia and van travel in the western US with his wife.'
   },
-  {
-    image: vaughn,
-    role: 'Software engineer',
-    name: 'Brian Vaughn',
-    bio: `Brian enjoys building tools that help make other engineers more productive. Before joining Replay, he spent the past several years building and maintaining the React JS developer tools. When he's not writing software, Brian also enjoys making music and running.`,
-    socials: {
-      twitter: 'https://twitter.com/brian_d_vaughn',
-      linkedin: 'https://www.linkedin.com/in/briandavidvaughn/'
-    }
-  },
-
   {
     image: dan,
     role: 'Software engineer',
