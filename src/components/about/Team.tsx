@@ -1,5 +1,4 @@
 import brian from '~/images/team/brian.png'
-import dan from '~/images/team/dan.png'
 import domi from '~/images/team/domi.png'
 import jason from '~/images/team/jason.png'
 import mark from '~/images/team/mark.png'
@@ -7,29 +6,19 @@ import Image from 'next/image'
 
 export const team = [
   {
-    image: jason,
+    image: brian,
     role: 'CEO',
+    name: 'Brian Hackett',
+    bio: 'Brian has had a longtime passion for helping people understand hugely complex software systems, starting with a Stanford Ph.D. and continuing through 10 years at Mozilla, where he worked on JavaScript VM optimizations and developed a precursor to Replay. He is a nomadic adventurer and enjoys sailing around Polynesia and van travel in the western US.'
+  },
+  {
+    image: jason,
+    role: 'Product',
     name: 'Jason Laster',
     bio: 'Jason has contributed to debuggers in several runtimes and prior to Replay was the tech lead for the Firefox Debugger. When not debugging the debugger, you’ll likely find him in the woodworking studio or outside with his pup Walle.',
     socials: {
       twitter: 'https://twitter.com/jasonlaster11/',
       linkedin: 'https://www.linkedin.com/in/jason-laster-6657167/'
-    }
-  },
-  {
-    image: brian,
-    role: 'CTO',
-    name: 'Brian Hackett',
-    bio: 'Brian has had a longtime passion for helping people understand hugely complex software systems, starting with a Stanford Ph.D. and continuing through 10 years at Mozilla, where he worked on JavaScript VM optimizations and developed a precursor to Replay. He is a nomadic adventurer and enjoys sailing around Polynesia and van travel in the western US with his wife.'
-  },
-  {
-    image: dan,
-    role: 'Software engineer',
-    name: 'Dan Miller',
-    bio: `Dan started his career at Etsy where he worked on PHP runtimes and type systems and has been trying to help developers be more productive ever since. When not trying to express the "is a hot dog a sandwich" question using types, he can probably be found hiking or skiing if the weather is nice, otherwise he's probably playing Super Smash Bros.`,
-    socials: {
-      twitter: 'https://twitter.com/jazzdan',
-      linkedin: 'https://www.linkedin.com/in/dan-miller-b3790211/'
     }
   },
   {
@@ -42,7 +31,6 @@ export const team = [
       linkedin: 'https://www.linkedin.com/in/markerikson/'
     }
   },
-
   {
     image: domi,
     role: 'Software engineer',
