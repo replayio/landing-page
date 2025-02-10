@@ -16,11 +16,11 @@ export function Hero({ hero }: LandingPageFragment) {
   const { h1, h2 } = hero.heroVariants.items[0]
 
   return (
-    <section className="relative flex overflow-hidden bg-[#FCFCFC]">
+    <section className="relative flex overflow-hidden bg-[#FCFCFC] flex-col">
       <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
-      <div className=" relative z-10 flex max-w-full flex-1 flex-col">
+      <div className="relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[180px] 2xl:pt-[260px]">
           <div className="flex flex-col items-center">
             <div className="flex-1 max-w-3xl mx-auto">
@@ -34,9 +34,9 @@ export function Hero({ hero }: LandingPageFragment) {
               </div>
             </div>
           </div>
+          <img src="/images/hero-image.jpg" alt="Nut Explanation" className="w-full h-auto mt-8" />
         </Container>
       </div>
-      <img src="/images/hero-image.jpg" alt="Nut Explanation" className="w-full h-auto" />
     </section>
   )
 }
