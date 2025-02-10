@@ -34,7 +34,11 @@ export function Hero({ hero }: LandingPageFragment) {
               </div>
             </div>
           </div>
-          <img src="/images/hero-image.jpg" alt="Nut Explanation" className="w-1/2 h-auto mt-8 mx-auto" />
+          <img
+            src="/images/hero-image.jpg"
+            alt="Nut Explanation"
+            className="w-[80%] md:w-1/2 h-auto mt-8 mx-auto"
+          />
         </Container>
       </div>
     </section>
