@@ -29,6 +29,7 @@ export default function Home() {
           <>
             <Header />
             <main>
+              <Hero {...landingPage} />
               <FAQ {...landingPage} />
               <CallToAction {...landingPage} />
               <Testimonials {...landingPage} />
