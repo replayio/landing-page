@@ -26,7 +26,11 @@ export function Hero({ hero }: LandingPageFragment) {
                   An all seeing debugger for your web app
                 </h1>
                 <div className="mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-                  We're building Nut, a chat API for explaining problems in your app.
+                  We're building
+                  <a href="https://static.replay.io/protocol/tot/Nut/" target="_blank" rel="noopener noreferrer">
+                    Nut
+                  </a>,
+                  a chat API for explaining problems in your app.
                   Nut uses our lightweight recorder to capture and later query the billions
                   of things that happened while the app was running.
                   Nut analyzes this data to tell you what is causing the bug.
@@ -48,8 +52,21 @@ export function Hero({ hero }: LandingPageFragment) {
               Nut gives AIs the clear explanations they need to fix bugs reliably.
             </div>
             <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-              For now we're focusing on Nut.new, a no-code tool in the mold of Bolt, v0,
-              and Lovable.  You can build complete apps from scratch by prompting the AI,
+              For now we're focusing on
+              <a href="https://nut.new" target="_blank" rel="noopener noreferrer">
+                Nut.new
+              </a>, a no-code tool in the mold of
+              <a href="https://bolt.new" target="_blank" rel="noopener noreferrer">
+                Bolt
+              </a>,
+              <a href="https://v0.dev" target="_blank" rel="noopener noreferrer">
+                v0
+              </a>,
+              and
+              <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">
+                Lovable
+              </a>.
+              You can build complete apps from scratch by prompting the AI,
               and call the Nut API to get past the points where other tools get stuck.
               Nut.new is free to use lightly, and in unlimited amounts through our early
               adopter program or with your own Anthropic API key.
