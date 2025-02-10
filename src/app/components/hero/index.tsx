@@ -22,8 +22,8 @@ export function Hero({ hero }: LandingPageFragment) {
       </div>
       <div className=" relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[180px] 2xl:pt-[260px]">
-          <div className="flex flex-col items-center lg:flex-row lg:justify-center">
-            <div className="flex-1 max-w-3xl">
+          <div className="flex flex-col items-center">
+            <div className="flex-1 max-w-3xl mx-auto">
               <div className="primary-emphasis">
                 <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
                   {HeroTitle}
