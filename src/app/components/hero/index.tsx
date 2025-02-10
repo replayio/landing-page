@@ -26,8 +26,13 @@ export function Hero({ hero }: LandingPageFragment) {
                   An all seeing debugger for your web app
                 </h1>
                 <div className="mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-                  We're building
-                  <a href="https://static.replay.io/protocol/tot/Nut/" target="_blank" rel="noopener noreferrer">
+                  We're building{' '}
+                  <a 
+                    href="https://static.replay.io/protocol/tot/Nut/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800"
+                  >
                     Nut
                   </a>,
                   a chat API for explaining problems in your app.
@@ -47,23 +52,42 @@ export function Hero({ hero }: LandingPageFragment) {
           <div className="flex flex-col items-center">
             <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
               Nut works especially well with AI code writers.  AIs are lousy at debugging
-              problems in code they’ve written.  The basic issue is a lack of context:
+              problems in code they've written.  The basic issue is a lack of context:
               people use devtools to understand their app, but AIs struggle here.
               Nut gives AIs the clear explanations they need to fix bugs reliably.
             </div>
             <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-              For now we're focusing on
-              <a href="https://nut.new" target="_blank" rel="noopener noreferrer">
+              For now we're focusing on{' '}
+              <a 
+                href="https://nut.new" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
                 Nut.new
-              </a>, a no-code tool in the mold of
-              <a href="https://bolt.new" target="_blank" rel="noopener noreferrer">
+              </a>, a no-code tool in the mold of{' '}
+              <a 
+                href="https://bolt.new" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
                 Bolt
-              </a>,
-              <a href="https://v0.dev" target="_blank" rel="noopener noreferrer">
+              </a>,{' '}
+              <a 
+                href="https://v0.dev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
                 v0
-              </a>,
-              and
-              <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">
+              </a>, and{' '}
+              <a 
+                href="https://lovable.dev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
                 Lovable
               </a>.
               You can build complete apps from scratch by prompting the AI,
