@@ -29,13 +29,8 @@ function Category({ name, links }: { name: string; links: LinkItem[] }) {
 
 const navigation = {
   product: [
-    { name: 'Replay DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
-    {
-      name: 'Replay Viewer',
-      href: 'https://docs.replay.io/browser-devtools/replay-viewer'
-    },
-    { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites/runs-view' },
-
+    { name: 'Nut.new', href: 'https://nut.new' },
+    { name: 'DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
     { name: 'Documentation', href: 'https://docs.replay.io' }
   ],
   company: [
@@ -150,9 +145,6 @@ export function Footer() {
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <Category name="Information" links={navigation.information} />
-              </div>
-              <div className="mt-10 md:mt-0">
-                <Category name="Integrations" links={navigation.integrations} />
               </div>
             </div>
           </div>
