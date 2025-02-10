@@ -29,6 +29,10 @@ export default function Home() {
           <>
             <Header />
             <main>
+              <FAQ {...landingPage} />
+              <CallToAction {...landingPage} />
+              <Testimonials {...landingPage} />
+              <Content {...landingPage} />
             </main>
             <Footer />
           </>
