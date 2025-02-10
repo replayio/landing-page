@@ -110,11 +110,11 @@ export function Hero({ hero }: LandingPageFragment) {
                   browser recorder
                 </a>{' '}
                 makes Nut possible.
-                The browser captures just enough data while an app is running that it can
-                be replayed later and reproduce the exact same behavior.
+                The browser captures just enough data while your app is running that it can
+                be replayed later and behave exactly the same.
                 This behavior is queried like a database and processed with advanced techniques
                 such as dataflow and control dependency analysis to get to the
-                underlying cause of any problem captured by the recording.
+                underlying cause of any problem in the recording.
               </div>
             </div>
           </div>
