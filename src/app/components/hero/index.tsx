@@ -22,13 +22,13 @@ export function Hero({ hero }: LandingPageFragment) {
       </div>
       <div className=" relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[180px] 2xl:pt-[260px]">
-          <div className="flex flex-col lg:flex-row">
-            <div className="flex-1">
-              <div className="primary-emphasis max-w-3xl">
+          <div className="flex flex-col items-center lg:flex-row lg:justify-center">
+            <div className="flex-1 max-w-3xl">
+              <div className="primary-emphasis">
                 <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
                   {HeroTitle}
                 </h1>
-                <div className="mt-6 max-w-[620px] rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
+                <div className="mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
                   {HeroText}
                 </div>
               </div>
@@ -36,6 +36,7 @@ export function Hero({ hero }: LandingPageFragment) {
           </div>
         </Container>
       </div>
+      <img src="/images/hero-image.jpg" alt="Nut Explanation" className="w-full h-auto" />
     </section>
   )
 }
