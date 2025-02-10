@@ -31,9 +31,6 @@ export default function Home() {
             <main>
               <Hero {...landingPage} />
               <FAQ {...landingPage} />
-              <CallToAction {...landingPage} />
-              <Testimonials {...landingPage} />
-              <Content {...landingPage} />
             </main>
             <Footer />
           </>
