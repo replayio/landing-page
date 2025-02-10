@@ -93,10 +93,10 @@ export function Hero({ hero }: LandingPageFragment) {
             </div>
           </div>
         </Container>
-        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[180px] 2xl:pt-[260px]">
+        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[60px] lg:pt-[90px] 2xl:pt-[120px]">
           <div className="flex flex-col items-center">
             <div className="flex-1 max-w-3xl mx-auto">
-              <h2 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
+              <h2 className="font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
                 How it works
               </h2>
               <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
