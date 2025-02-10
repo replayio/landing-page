@@ -78,65 +78,6 @@ export const Hero: FC = () => {
             'Learn where Replay is right now and where we are going next. Find out about our values. Meet the team and discover opportunities to join us on our journey.'
         }}
       />
-      <Container size="sm">
-        <div className={s['main-features']}>
-          <HeadingSet
-            disabled={activeHeading !== 0}
-            className={s['feature']}
-            image={{
-              src: future,
-              alt: 'The replay team chatting',
-              placeholder: 'blur'
-            }}
-            title="Replay in the future"
-            description={
-              <>
-                <p>
-                  We see a world where collaborating with Replay is second nature. When a bug is
-                  reported, the bug report includes a replay. When a test fails, there is a link to
-                  the replay. When a question is asked on Stack Overflow, teams can discuss it
-                  directly in the replay. You see where we’re going with this.
-                </p>
-                <p>
-                  At its heart, Replay provides the unparalleled ability to understand your
-                  software. We are sparking fundamental change by challenging the ways we think
-                  about software development.
-                </p>
-              </>
-            }
-          />
-
-          <div className={s['progress-bar']}>
-            <ScrollProgressBar onProgressUpdate={setActiveHeading} />
-          </div>
-
-          <HeadingSet
-            disabled={activeHeading !== 1}
-            className={s['feature']}
-            title="Replay here and now"
-            image={{
-              src: now,
-              alt: 'The replay team chatting',
-              placeholder: 'blur'
-            }}
-            description={
-              <>
-                <p>
-                  We believe people understand what they can see, and if you cannot see what your
-                  software is doing, you cannot understand it. With Replay, we are making software
-                  easier to understand whether you are writing your first application, or
-                  challenging what’s possible.
-                </p>
-                <p>
-                  Great software development isn’t about 10x more output. It’s about 10x more
-                  insight, insight derived from being able to visualize, communicate, and
-                  collaborate 10x more effectively.
-                </p>
-              </>
-            }
-          />
-        </div>
-      </Container>
     </Section>
   )
 }

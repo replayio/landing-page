@@ -48,7 +48,6 @@ const navigation = {
     // { name: 'Case Studies', href: '#' }
   ],
   information: [
-    { name: 'Contact', href: '/contact' },
     { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
     { name: 'Branding', href: '/branding' },
     { name: 'Security', href: '/security-and-privacy' },
