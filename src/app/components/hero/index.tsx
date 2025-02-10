@@ -36,9 +36,8 @@ export function Hero({ hero }: LandingPageFragment) {
                     Nut
                   </a>,
                   a chat API for explaining problems in your app.
-                  Nut uses our lightweight recorder to capture and later query the billions
-                  of things that happened while the app was running.
-                  Nut analyzes this data to tell you what is causing the bug.
+                  Nut uses our lightweight recorder to capture and later analyze the billions
+                  of things that happened while the app was running, then tells you the root cause.
                   Take the actual work out of figuring out most bugs.
                 </div>
               </div>
