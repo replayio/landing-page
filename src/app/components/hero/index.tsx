@@ -9,6 +9,9 @@ import { Carrousel } from './carrousel'
 import Link from 'next/link'
 import { RichText } from 'basehub/react-rich-text'
 
+const HeroTitle = "An all seeing debugger for your web app";
+const HeroText = "We're building Nut, a chat API for explaining problems in your app.  Nut uses our lightweight recorder to capture and later query the billions of things that happened while the app was running.  Nut analyzes this data to tell you what is causing the bug.  Take the actual work out of figuring out most bugs.";
+
 export function Hero({ hero }: LandingPageFragment) {
   const { h1, h2 } = hero.heroVariants.items[0]
 
@@ -23,44 +26,11 @@ export function Hero({ hero }: LandingPageFragment) {
             <div className="flex-1">
               <div className="primary-emphasis max-w-3xl">
                 <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl">
-                  <RichText>{h1!.json.content}</RichText>
+                  <RichText>{HeroTitle}</RichText>
                 </h1>
                 <div className="mt-6 max-w-[620px] rounded-lg bg-white/20 text-lg tracking-tight text-slate-700">
-                  <RichText>{h2!.json.content}</RichText>
+                  <RichText>{HeroText}</RichText>
                 </div>
-              </div>
-
-              <div className="mx-auto mt-8 flex max-w-[480px] flex-col justify-start gap-x-6 gap-y-4 lg:mx-0 lg:flex-row">
-                <div className="flex flex-col items-center">
-                  <ClipboardButton
-                    label={hero.installationLink.label || ''}
-                    _id={hero.installationLink._id}
-                    variant={hero.installationLink.variant || ''}
-                    className="hidden w-full md:block"
-                    clipboard={hero.installationLink.clipboard}
-                  />
-                  <Link href="https://docs.replay.io/quickstart/" className="w-full">
-                    <Button className="w-full md:hidden">Quickstart Guide</Button>
-                    <span className="mt-2 hidden text-center text-sm text-accent hover:underline md:block">
-                      Quickstart Guide {'->'}
-                    </span>
-                  </Link>
-                </div>
-                {/* <CalButton link={hero.contactUsLink} /> */}
-              </div>
-            </div>
-            <div className="mx-auto mt-12 h-fit w-full max-w-[480px] scale-100 p-0 lg:mx-0 lg:mt-0 lg:flex lg:w-auto lg:max-w-full lg:scale-75 xl:scale-100">
-              {featureFlags.showTestSuiteTestimonials && (
-                <Carrousel testimonials={hero.testimonials.items} />
-              )}
-            </div>
-          </div>
-
-          <div className="pb-10 pt-[90px] xl:pt-[120px] 2xl:pt-[200px]">
-            <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
-              <p className="hidden whitespace-nowrap xl:inline-block">{hero.logosTitle}</p>
-              <div className="max-w-full flex-1">
-                <HomeHeroMarquee gradientColor="#FCFCFC" />
               </div>
             </div>
           </div>
