@@ -100,7 +100,21 @@ export function Hero({ hero }: LandingPageFragment) {
                 How it works
               </h2>
               <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-                TODO
+                Replay's Chromium-based deterministic{' '}
+                <a
+                  href="https://blog.replay.io/how-replay-works"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  browser recorder
+                </a>{' '}
+                makes Nut possible.
+                The browser captures just enough data while an app is running that it can
+                be replayed later and reproduce the exact same behavior.
+                This behavior is queried like a database and processed with advanced techniques
+                such as dataflow and control dependency analysis to get to the
+                underlying cause of any problem captured by the recording.
               </div>
             </div>
           </div>
@@ -112,31 +126,34 @@ export function Hero({ hero }: LandingPageFragment) {
                 Early adopters
               </h2>
               <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-                TODO
-              </div>
-            </div>
-          </div>
-        </Container>
-        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[60px] lg:pt-[90px] 2xl:pt-[120px]">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 max-w-3xl mx-auto">
-              <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
-                Future plans
-              </h2>
-              <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-                TODO
-              </div>
-            </div>
-          </div>
-        </Container>
-        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[60px] lg:pt-[90px] 2xl:pt-[120px]">
-          <div className="flex flex-col items-center">
-            <div className="flex-1 max-w-3xl mx-auto">
-              <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
-                We're hiring!
-              </h2>
-              <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
-                TODO
+                Nut is early in development.
+                We're offering unlimited free access to{' '}
+                <a 
+                  href="https://nut.new" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  Nut.new
+                </a>{' '}
+                for early adopters in exchange for giving us feedback we'll use to improve Nut.
+                Reach us at{' '}
+                <a
+                  href="mailto:hi@replay.io"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  hi@replay.io
+                </a>{' '}
+                or fill out our{' '}
+                <a
+                  href="https://replay.io/contact"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  contact form
+                </a>{' '}
+                to join our early adopter program.
               </div>
             </div>
           </div>
