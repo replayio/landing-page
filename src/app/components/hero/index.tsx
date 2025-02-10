@@ -25,10 +25,10 @@ export function Hero({ hero }: LandingPageFragment) {
           <div className="flex flex-col lg:flex-row">
             <div className="flex-1">
               <div className="primary-emphasis max-w-3xl">
-                <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl">
+                <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
                   {HeroTitle}
                 </h1>
-                <div className="mt-6 max-w-[620px] rounded-lg bg-white/20 text-lg tracking-tight text-slate-700">
+                <div className="mt-6 max-w-[620px] rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
                   {HeroText}
                 </div>
               </div>
