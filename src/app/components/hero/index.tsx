@@ -13,54 +13,147 @@ export function Hero({ hero }: LandingPageFragment) {
   const { h1, h2 } = hero.heroVariants.items[0]
 
   return (
-    <section className="relative flex overflow-hidden bg-[#FCFCFC]">
-      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
-        <Hyperspace className="opacity-10" />
-      </div>
-      <div className=" relative z-10 flex max-w-full flex-1 flex-col">
+    <section className="relative flex overflow-hidden bg-[#FCFCFC] flex-col">
+      <div className="relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[180px] 2xl:pt-[260px]">
-          <div className="flex flex-col lg:flex-row">
-            <div className="flex-1">
-              <div className="primary-emphasis max-w-3xl">
-                <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl">
-                  <RichText>{h1!.json.content}</RichText>
+          <div className="flex flex-col items-center">
+            <div className="flex-1 max-w-3xl mx-auto">
+              <div className="primary-emphasis">
+                <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl text-center">
+                  An all seeing debugger for your web app
                 </h1>
-                <div className="mt-6 max-w-[620px] rounded-lg bg-white/20 text-lg tracking-tight text-slate-700">
-                  <RichText>{h2!.json.content}</RichText>
+                <div className="mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
+                  We're building{' '}
+                  <a 
+                    href="https://static.replay.io/protocol/tot/Nut/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800"
+                  >
+                    Nut
+                  </a>,
+                  a chat API for explaining problems in your app.
+                  Nut records your app to capture and later analyze the billions
+                  of things that happened while it ran, then tells you the root cause.
+                  Take the actual work out of figuring out most bugs.
                 </div>
               </div>
-
-              <div className="mx-auto mt-8 flex max-w-[480px] flex-col justify-start gap-x-6 gap-y-4 lg:mx-0 lg:flex-row">
-                <div className="flex flex-col items-center">
-                  <ClipboardButton
-                    label={hero.installationLink.label || ''}
-                    _id={hero.installationLink._id}
-                    variant={hero.installationLink.variant || ''}
-                    className="hidden w-full md:block"
-                    clipboard={hero.installationLink.clipboard}
-                  />
-                  <Link href="https://docs.replay.io/quickstart/" className="w-full">
-                    <Button className="w-full md:hidden">Quickstart Guide</Button>
-                    <span className="mt-2 hidden text-center text-sm text-accent hover:underline md:block">
-                      Quickstart Guide {'->'}
-                    </span>
-                  </Link>
-                </div>
-                {/* <CalButton link={hero.contactUsLink} /> */}
-              </div>
-            </div>
-            <div className="mx-auto mt-12 h-fit w-full max-w-[480px] scale-100 p-0 lg:mx-0 lg:mt-0 lg:flex lg:w-auto lg:max-w-full lg:scale-75 xl:scale-100">
-              {featureFlags.showTestSuiteTestimonials && (
-                <Carrousel testimonials={hero.testimonials.items} />
-              )}
             </div>
           </div>
-
-          <div className="pb-10 pt-[90px] xl:pt-[120px] 2xl:pt-[200px]">
-            <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
-              <p className="hidden whitespace-nowrap xl:inline-block">{hero.logosTitle}</p>
-              <div className="max-w-full flex-1">
-                <HomeHeroMarquee gradientColor="#FCFCFC" />
+          <img
+            src="/images/hero-image.jpg"
+            alt="Nut Explanation"
+            className="w-[80%] md:w-[60%] h-auto mt-8 mx-auto"
+          />
+          <div className="flex flex-col items-center">
+            <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
+              Nut works especially well with AI code writers.  AIs are lousy at debugging
+              problems in code they've written.  The basic issue is a lack of context:
+              people use devtools to understand their app, but AIs struggle here.
+              Nut gives AIs the clear explanations they need to fix bugs reliably.
+            </div>
+            <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
+              For now we're focusing on{' '}
+              <a 
+                href="https://nut.new" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
+                Nut.new
+              </a>, a no-code tool in the mold of{' '}
+              <a 
+                href="https://bolt.new" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
+                Bolt
+              </a>,{' '}
+              <a 
+                href="https://v0.dev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
+                v0
+              </a>, and{' '}
+              <a 
+                href="https://lovable.dev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800"
+              >
+                Lovable
+              </a>.
+              You can build complete apps from scratch by prompting the AI,
+              and call the Nut API to get past the points where other tools get stuck.
+              Nut.new is free to use lightly, and in unlimited amounts through our early
+              adopter program or with your own Anthropic API key.
+            </div>
+          </div>
+        </Container>
+        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[60px] lg:pt-[90px] 2xl:pt-[120px]">
+          <div className="flex flex-col items-center">
+            <div className="flex-1 max-w-3xl mx-auto">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl xl:text-6xl text-center">
+                How it works
+              </h2>
+              <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
+                Replay's Chromium-based deterministic{' '}
+                <a
+                  href="https://blog.replay.io/how-replay-works"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  browser recorder
+                </a>{' '}
+                makes Nut possible.
+                The browser captures just enough data while your app is running that it can
+                be replayed later and behave exactly the same.
+                This behavior is queried like a database and processed with advanced techniques
+                such as dataflow and control dependency analysis to get to the
+                underlying cause of any problem in the recording.
+              </div>
+            </div>
+          </div>
+        </Container>
+        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[60px] lg:pt-[90px] 2xl:pt-[120px]">
+          <div className="flex flex-col items-center">
+            <div className="flex-1 max-w-3xl mx-auto">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl xl:text-6xl text-center">
+                Early adopters
+              </h2>
+              <div className="flex-1 max-w-3xl mx-auto mt-6 mb-12 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
+                Nut is early in development.
+                We're offering unlimited free access to{' '}
+                <a 
+                  href="https://nut.new" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  Nut.new
+                </a>{' '}
+                for early adopters who can give us feedback we'll use to improve Nut.
+                Reach us at{' '}
+                <a
+                  href="mailto:hi@replay.io"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  hi@replay.io
+                </a>{' '}
+                or fill out our{' '}
+                <a
+                  href="https://replay.io/contact"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  contact form
+                </a>{' '}
+                to join our early adopter program.
               </div>
             </div>
           </div>

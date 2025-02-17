@@ -32,10 +32,7 @@ export default function Home() {
               <Hero {...landingPage} />
               <DevTools {...landingPage} />
               <FAQ {...landingPage} />
-              <DynamicAnalysis {...landingPage} />
-              <CallToAction {...landingPage} />
               <Testimonials {...landingPage} />
-              <Content {...landingPage} />
             </main>
             <Footer />
           </>

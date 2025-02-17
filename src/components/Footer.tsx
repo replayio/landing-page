@@ -29,13 +29,8 @@ function Category({ name, links }: { name: string; links: LinkItem[] }) {
 
 const navigation = {
   product: [
-    { name: 'Replay DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
-    {
-      name: 'Replay Viewer',
-      href: 'https://docs.replay.io/browser-devtools/replay-viewer'
-    },
-    { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites/runs-view' },
-
+    { name: 'Nut.new', href: 'https://nut.new' },
+    { name: 'DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
     { name: 'Documentation', href: 'https://docs.replay.io' }
   ],
   company: [
@@ -48,7 +43,6 @@ const navigation = {
     // { name: 'Case Studies', href: '#' }
   ],
   information: [
-    { name: 'Contact', href: '/contact' },
     { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
     { name: 'Branding', href: '/branding' },
     { name: 'Security', href: '/security-and-privacy' },
@@ -136,19 +130,7 @@ export function Footer() {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div
-        className="absolute inset-x-0 top-1/4 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
-        aria-hidden="true"
-      >
-        <div
-          className="ml-[max(20%,10rem)] aspect-[1313/600] w-[70.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc]"
-          style={{
-            clipPath:
-              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)'
-          }}
-        />
-      </div>
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-12 sm:pt-24 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <ShortLogo className="fill-slate-800" style={{ height: '20px' }} />
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
@@ -163,9 +145,6 @@ export function Footer() {
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <Category name="Information" links={navigation.information} />
-              </div>
-              <div className="mt-10 md:mt-0">
-                <Category name="Integrations" links={navigation.integrations} />
               </div>
             </div>
           </div>
