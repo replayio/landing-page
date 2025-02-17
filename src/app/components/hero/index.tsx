@@ -33,8 +33,8 @@ export function Hero({ hero }: LandingPageFragment) {
                     Nut
                   </a>,
                   a chat API for explaining problems in your app.
-                  Nut uses our lightweight recorder to capture and later analyze the billions
-                  of things that happened while the app was running, then tells you the root cause.
+                  Nut records your app to capture and later analyze the billions
+                  of things that happened while it ran, then tells you the root cause.
                   Take the actual work out of figuring out most bugs.
                 </div>
               </div>
@@ -136,7 +136,7 @@ export function Hero({ hero }: LandingPageFragment) {
                 >
                   Nut.new
                 </a>{' '}
-                for early adopters in exchange for giving us feedback we'll use to improve Nut.
+                for early adopters who can give us feedback we'll use to improve Nut.
                 Reach us at{' '}
                 <a
                   href="mailto:hi@replay.io"
