@@ -30,6 +30,9 @@ export default function Home() {
             <Header />
             <main>
               <Hero {...landingPage} />
+              <DevTools {...landingPage} />
+              <FAQ {...landingPage} />
+              <Testimonials {...landingPage} />
             </main>
             <Footer />
           </>
