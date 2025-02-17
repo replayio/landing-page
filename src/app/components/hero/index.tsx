@@ -125,7 +125,7 @@ export function Hero({ hero }: LandingPageFragment) {
               <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl xl:text-6xl text-center">
                 Early adopters
               </h2>
-              <div className="flex-1 max-w-3xl mx-auto mt-6 rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
+              <div className="flex-1 max-w-3xl mx-auto mt-6 mb-6rounded-lg bg-white/20 text-lg tracking-tight text-slate-700 text-center">
                 Nut is early in development.
                 We're offering unlimited free access to{' '}
                 <a 
