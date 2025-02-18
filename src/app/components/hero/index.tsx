@@ -1,4 +1,4 @@
-import { Button, ClipboardButton } from '~/components/Button'
+import { Button, LinkButton } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { featureFlags } from '~/lib/feature-flags'
@@ -8,9 +8,10 @@ import Hyperspace from './hyperspace'
 import { Carrousel } from './carrousel'
 import Link from 'next/link'
 import { RichText } from 'basehub/react-rich-text'
-
+import Image from 'next/image'
+import { getAspectRatio } from '~/lib/images'
 export function Hero({ hero }: LandingPageFragment) {
-  const { h1, h2 } = hero.heroVariants.items[0]
+  const { h1, h2 } = hero.heroVariants.items[3]
 
   return (
     <section className="relative flex overflow-hidden bg-[#FCFCFC]">
@@ -31,28 +32,30 @@ export function Hero({ hero }: LandingPageFragment) {
               </div>
 
               <div className="mx-auto mt-8 flex max-w-[480px] flex-col justify-start gap-x-6 gap-y-4 lg:mx-0 lg:flex-row">
-                <div className="flex flex-col items-center">
-                  <ClipboardButton
+                <div className="flex flex-row items-center gap-x-4">
+                  <Button
                     label={hero.installationLink.label || ''}
-                    _id={hero.installationLink._id}
                     variant={hero.installationLink.variant || ''}
-                    className="hidden w-full md:block"
-                    clipboard={hero.installationLink.clipboard}
+                    href={hero.installationLink.href || ''}
+                    target="_blank"
+                    className=" w-full "
                   />
-                  <Link href="https://docs.replay.io/quickstart/" className="w-full">
-                    <Button className="w-full md:hidden">Quickstart Guide</Button>
-                    <span className="mt-2 hidden text-center text-sm text-accent hover:underline md:block">
-                      Quickstart Guide {'->'}
-                    </span>
-                  </Link>
+                  {hero.showSecondaryCta && (
+                    <LinkButton
+                      href={hero.secondaryCta.href || ''}
+                      label={hero.secondaryCta.label + ' ->'}
+                    />
+                  )}
                 </div>
-                {/* <CalButton link={hero.contactUsLink} /> */}
               </div>
             </div>
             <div className="mx-auto mt-12 h-fit w-full max-w-[480px] scale-100 p-0 lg:mx-0 lg:mt-0 lg:flex lg:w-auto lg:max-w-full lg:scale-75 xl:scale-100">
-              {featureFlags.showTestSuiteTestimonials && (
-                <Carrousel testimonials={hero.testimonials.items} />
-              )}
+              <Image
+                alt={hero.example.alt || ''}
+                width={500}
+                height={500 * getAspectRatio(hero.example.aspectRatio)}
+                src={hero.example.url}
+              />
             </div>
           </div>
 
