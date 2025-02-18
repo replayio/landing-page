@@ -3,7 +3,11 @@ const path = require('path')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [{ hostname: 'basehub.earth' }, { hostname: '"image-forwarder.notaku.so"' }]
+    remotePatterns: [
+      { hostname: 'basehub.earth' },
+      { hostname: 'image-forwarder.notaku.so' },
+      { hostname: 'assets.basehub.com' }
+    ]
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'src')]

@@ -65,7 +65,12 @@ export const Description = (props: DescriptionFragment) => {
         blocks={props.blocks}
         components={{
           // @ts-ignore
-          PopoverComponent_mark: Popover
+          PopoverComponent_mark: Popover,
+          a: ({ children, href }: { children: React.ReactNode; href: string }) => (
+            <a href={href} className="underline">
+              {children}
+            </a>
+          )
         }}
       >
         {props.content}

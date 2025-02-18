@@ -174,3 +174,11 @@ export function ClipboardButton({
     </Button>
   )
 }
+
+export function LinkButton({ href, label }: { href: string; label: string }) {
+  return (
+    <Link href={href} className="w-full">
+      <span className="mt-2  text-center text-sm text-accent hover:underline ">{label}</span>
+    </Link>
+  )
+}

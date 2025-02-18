@@ -28,14 +28,27 @@ export const descriptionFragment = fragmentOn('DescriptionRichText', {
 
 export type DescriptionFragment = fragmentOn.infer<typeof descriptionFragment>
 
+export const imageFragment = fragmentOn('BlockImage', {
+  url: {
+    __args: {
+      quality: 100
+    }
+  },
+  alt: true,
+  width: true,
+  height: true,
+  aspectRatio: true
+})
+
 export const landingPageFragment = fragmentOn('LandingPage', {
   hero: {
-    getStartedLink: linkFragment,
+    secondaryCta: linkFragment,
+    showSecondaryCta: true,
     installationLink: {
       ...linkFragment,
       clipboard: true
     },
-    contactUsLink: linkFragment,
+    example: imageFragment,
     logosTitle: true,
     heroVariants: {
       items: {
@@ -112,6 +125,30 @@ export const landingPageFragment = fragmentOn('LandingPage', {
         feature: { json: { content: true } },
         icon: true,
         learnMore: true
+      }
+    }
+  },
+  nut: {
+    title: true,
+    subtitle: true,
+    description: {
+      json: descriptionFragment
+    },
+    logo: imageFragment,
+    cta: linkFragment,
+    showExamples: true,
+    earlyAdopterTitle: true,
+    earlyAdopterDescription: {
+      json: { content: true }
+    },
+    examples: {
+      items: {
+        _title: true,
+        title: true,
+        description: {
+          json: { content: true }
+        },
+        screenshot: imageFragment
       }
     }
   },
