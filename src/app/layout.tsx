@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { defaultMeta } from '~/lib/constants'
 import { ReactNode } from 'react'
 import Analytics from '~/lib/analytics'
+import { Toolbar } from 'basehub/next-toolbar'
 
 export const metadata: Metadata = {
   title: {
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head>
         <Analytics />
+        <Toolbar />
       </head>
       <body>{children}</body>
     </html>

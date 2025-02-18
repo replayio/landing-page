@@ -39,7 +39,7 @@
     "@types/react-dom": "^18.2.18",
     "@vercel/analytics": "^1.2.2",
     "autoprefixer": "^10.4.12",
-    "basehub": "^4.0.3",
+    "basehub": "^8.1.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "embla-carousel-react": "8.0.0-rc05",

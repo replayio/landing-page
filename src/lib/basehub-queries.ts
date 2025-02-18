@@ -22,7 +22,7 @@ export const descriptionFragment = fragmentOn('DescriptionRichText', {
   toc: true,
   blocks: {
     __typename: true,
-    ...popoverFragment
+    on_PopoverComponent: popoverFragment
   }
 })
 
