@@ -41,9 +41,9 @@ export const Work = () => {
           <br />
           Check out our open roles.
         </p>
-        <a className="text-center lg:text-left" href="mailto:hiring@replay.io">
+        <a className="text-center lg:text-left" href="mailto:hi@replay.io">
           <Button variant="solid" color="default">
-            hiring@replay.io
+            hi@replay.io
           </Button>
         </a>
       </div>
