@@ -84,7 +84,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                 <NavLink
                   className="font-semibold "
                   variant={variant}
-                  href="#careers"
+                  href="/about#careers"
                   active={false}
                 >
                   We&apos;re hiring 👋{' '}
