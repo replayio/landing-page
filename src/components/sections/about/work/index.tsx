@@ -6,7 +6,23 @@ import { Link } from '~/components/primitives/link'
 import arrow from '~/public/images/about/arrow.svg'
 import journeyImg from '~/public/images/about/journey.svg'
 
-const positions: { title: string; skills: string; href: string }[] = []
+const positions = [
+  {
+    title: 'Backend Engineer',
+    skills: 'Engineering',
+    href: 'https://replayio.notion.site/Backend-Engineer-1a1b960c446380729e05c2b557c35b36'
+  },
+  {
+    title: 'DevOps Engineer',
+    skills: 'Engineering',
+    href: 'https://replayio.notion.site/DevOps-Engineer-1a1b960c446380c4b276f9f0f56f18ea'
+  },
+  {
+    title: 'Frontend Engineer',
+    skills: 'Engineering',
+    href: 'https://replayio.notion.site/Frontend-Engineer-1a1b960c446380359e3af477ea6c168d'
+  }
+];
 
 export const Work = () => {
   return (
@@ -25,9 +41,9 @@ export const Work = () => {
           <br />
           Check out our open roles.
         </p>
-        <a className="text-center lg:text-left" href="mailto:hiring@replay.io">
+        <a className="text-center lg:text-left" href="mailto:hi@replay.io">
           <Button variant="solid" color="default">
-            hiring@replay.io
+            hi@replay.io
           </Button>
         </a>
       </div>
