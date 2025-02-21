@@ -80,7 +80,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                 </NavLink>
               ))}
 
-              {pathname === '/about' && (
+              {(
                 <NavLink
                   className="font-semibold "
                   variant={variant}
