@@ -11,6 +11,7 @@ import { Button } from '~/components/Button'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 import { RichText } from 'basehub/react-rich-text'
+import { forwardRef, useEffect, useRef } from 'react'
 
 export function Nut({ nut }: LandingPageFragment) {
   return (
@@ -72,12 +73,72 @@ function NutEarlyAdopters({ nut }: { nut: LandingPageFragment['nut'] }) {
   )
 }
 
+// Local video component for Nut section
+interface NutVideoProps {
+  src: string
+  width?: number
+  height?: number
+  className?: string
+  controls?: boolean
+}
+
+const NutVideo = forwardRef<HTMLVideoElement, NutVideoProps>(
+  ({ src, width, height, className, controls = false }, ref) => {
+    return (
+      <video
+        ref={ref}
+        src={src}
+        width={width}
+        height={height}
+        className={className}
+        controls={controls}
+        playsInline
+      />
+    )
+  }
+)
+
+NutVideo.displayName = 'NutVideo'
+
 function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examples']['items'] }) {
+  // Create an array of refs for each video element
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>(Array(examples.length).fill(null))
+
+  // Play the first video when the component mounts
+  useEffect(() => {
+    const firstVideo = videoRefs.current[0]
+    if (firstVideo) {
+      firstVideo.play().catch((err) => console.error('Error playing first video:', err))
+    }
+  }, [])
+
+  const handleTabChange = (index: number) => {
+    // Pause all videos
+    videoRefs.current.forEach((videoRef) => {
+      if (videoRef) {
+        videoRef.pause()
+      }
+    })
+
+    // Play the selected video
+    const selectedVideo = videoRefs.current[index]
+    if (selectedVideo) {
+      selectedVideo.currentTime = 0 // Reset to beginning
+      selectedVideo.play().catch((err) => console.error('Error playing video:', err))
+    }
+  }
+
   return (
     <>
+      {/* Subheader for the examples section */}
+      <h3 className="mt-16 text-center font-display text-lg font-semibold italic text-gray-700 md:mt-20">
+        See Nut in action
+      </h3>
+
       <Tab.Group
         as="div"
-        className="mt-16 hidden grid-cols-1 items-center gap-y-2 pt-10 sm:gap-y-6 md:mt-32 lg:grid lg:grid-cols-12 lg:pt-0"
+        className="mt-4 hidden grid-cols-1 items-center gap-y-2 pt-2 sm:gap-y-6 md:mt-12 lg:grid lg:grid-cols-12 lg:pt-0"
+        onChange={handleTabChange}
       >
         {({ selectedIndex }) => (
           <>
@@ -103,7 +164,7 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
                         )}
                       >
                         <span className="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none" />
-                        {example._title}
+                        {example.title}
                       </Tab>
                     </h3>
                     <p
@@ -121,7 +182,7 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
               </Tab.List>
             </div>
             <Tab.Panels className="hidden lg:col-span-7 lg:block">
-              {examples.map((example) => {
+              {examples.map((example, index) => {
                 return (
                   <Tab.Panel key={example._title} unmount={false}>
                     <div className="relative text-gray-900 hover:text-gray-900 sm:px-6 lg:hidden">
@@ -131,11 +192,15 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
                       </p>
                     </div>
                     <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-200/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
-                      <Image
-                        src={example.screenshot.url}
-                        alt=""
-                        width={500}
-                        height={500 * getAspectRatio(example.screenshot.aspectRatio)}
+                      <NutVideo
+                        ref={(el) => {
+                          videoRefs.current[index] = el
+                        }}
+                        controls
+                        src={example.video.url}
+                        width={example.video.width}
+                        height={example.video.height}
+                        className="h-full w-full object-cover"
                       />
                     </div>
                   </Tab.Panel>
@@ -147,7 +212,7 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
       </Tab.Group>
       <div className="mt-4 flex overflow-x-hidden pb-4 sm:mx-0 sm:pb-0 lg:hidden">
         <div className="relative z-10 flex flex-col gap-x-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-          {examples.map((example) => {
+          {examples.map((example, index) => {
             return (
               <div
                 key={example._title}
@@ -160,11 +225,12 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
                   <RichText>{example.description!.json.content}</RichText>
                 </p>
                 <div className="flex items-center justify-center">
-                  <Image
-                    src={example.screenshot.url}
-                    alt={`${example._title} screenshot`}
-                    width={500}
-                    height={500 * getAspectRatio(example.screenshot.aspectRatio)}
+                  <NutVideo
+                    controls
+                    src={example.video.url}
+                    width={example.video.width}
+                    height={example.video.height}
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </div>

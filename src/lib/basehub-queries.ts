@@ -1,5 +1,11 @@
 import { fragmentOn } from '.basehub'
-import { link } from 'fs'
+
+export const videoFragment = fragmentOn('BlockVideo', {
+  url: true,
+  // poster: true,
+  title: true,
+  description: true
+})
 
 export const linkFragment = fragmentOn('LinkComponent', {
   _id: true,
@@ -131,6 +137,7 @@ export const landingPageFragment = fragmentOn('LandingPage', {
   nut: {
     title: true,
     subtitle: true,
+    // promoVideo: videoFragment,
     description: {
       json: descriptionFragment
     },
@@ -148,7 +155,11 @@ export const landingPageFragment = fragmentOn('LandingPage', {
         description: {
           json: { content: true }
         },
-        screenshot: imageFragment
+        video: {
+          url: true,
+          width: true,
+          height: true
+        }
       }
     }
   },
