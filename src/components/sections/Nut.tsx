@@ -136,21 +136,21 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
 
       <Tab.Group
         as="div"
-        className="mt-4 hidden grid-cols-1 items-center gap-y-2 pt-2 sm:gap-y-6 md:mt-12 lg:grid lg:grid-cols-12 lg:pt-0"
+        className="mt-4 hidden grid-cols-1 items-center gap-y-2 pt-2 sm:gap-y-6 md:mt-12 xl:grid xl:grid-cols-12 xl:pt-0"
         onChange={handleTabChange}
       >
         {({ selectedIndex }) => (
           <>
-            <div className="-mx-4 hidden overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5 lg:block">
-              <Tab.List className="relative z-10 flex gap-x-4 whitespace-nowrap px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
+            <div className="-mx-4 hidden overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 xl:col-span-5 xl:block">
+              <Tab.List className="relative z-10 flex gap-x-4 whitespace-nowrap px-4 sm:mx-auto sm:px-0 xl:mx-0 xl:block xl:gap-x-0 xl:gap-y-1 xl:whitespace-normal">
                 {examples.map((example, exampleIndex) => (
                   <div
                     key={example._title}
                     className={clsx(
-                      'group relative my-2 rounded-full px-4 font-medium lg:rounded-l-xl lg:rounded-r-none lg:px-6 lg:py-4',
+                      'group relative my-2 rounded-full px-4 font-medium xl:rounded-l-xl xl:rounded-r-none xl:px-6 xl:py-4',
                       selectedIndex === exampleIndex
-                        ? 'bg-white lg:bg-gray-100 lg:ring-1 lg:ring-inset lg:ring-gray-200'
-                        : 'hover:bg-gray-50 lg:hover:bg-gray-50'
+                        ? 'bg-white xl:bg-gray-100 xl:ring-1 xl:ring-inset xl:ring-gray-200'
+                        : 'hover:bg-gray-50 xl:hover:bg-gray-50'
                     )}
                   >
                     <h3>
@@ -158,11 +158,11 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
                         className={clsx(
                           'font-display text-lg ui-not-focus-visible:outline-none',
                           selectedIndex === exampleIndex
-                            ? 'text-blue-600 lg:text-gray-900'
-                            : 'text-gray-600 hover:text-gray-900 lg:text-gray-600'
+                            ? 'text-blue-600 xl:text-gray-900'
+                            : 'text-gray-600 hover:text-gray-900 xl:text-gray-600'
                         )}
                       >
-                        <span className="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none" />
+                        <span className="absolute inset-0 rounded-full xl:rounded-l-xl xl:rounded-r-none" />
                         {example.title}
                       </Tab>
                     </h3>
@@ -180,17 +180,17 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
                 ))}
               </Tab.List>
             </div>
-            <Tab.Panels className="hidden lg:col-span-7 lg:block">
+            <Tab.Panels className="hidden xl:col-span-7 xl:block">
               {examples.map((example, index) => {
                 return (
                   <Tab.Panel key={example._title} unmount={false}>
-                    <div className="relative text-gray-900 hover:text-gray-900 sm:px-6 lg:hidden">
+                    <div className="relative text-gray-900 hover:text-gray-900 sm:px-6 xl:hidden">
                       <div className="absolute -inset-x-4 bottom-[-4.25rem] top-[-6.5rem] bg-gray-100 ring-1 ring-inset ring-gray-200 sm:inset-x-0 sm:rounded-t-xl" />
                       <p className="relative mx-auto max-w-2xl text-base text-gray-900 sm:text-left">
                         <RichText>{example.description!.json.content}</RichText>
                       </p>
                     </div>
-                    <div className="mt-10 w-[45rem] overflow-hidden   shadow-blue-200/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
+                    <div className="mt-10 w-[45rem] overflow-hidden   shadow-blue-200/20 sm:w-auto xl:mt-0 xl:w-[67.8125rem]">
                       <NutVideo
                         ref={(el) => {
                           videoRefs.current[index] = el
@@ -206,8 +206,8 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
           </>
         )}
       </Tab.Group>
-      <div className="mt-4 flex overflow-x-hidden pb-4 sm:mx-0 sm:pb-0 lg:hidden">
-        <div className="relative z-10 flex flex-col gap-x-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
+      <div className="mt-4 flex overflow-x-hidden pb-4 sm:mx-0 sm:pb-0 xl:hidden">
+        <div className="relative z-10 flex flex-col gap-x-4 sm:mx-auto sm:px-0 xl:mx-0 xl:block xl:gap-x-0 xl:gap-y-1 xl:whitespace-normal">
           {examples.map((example, index) => {
             return (
               <div
