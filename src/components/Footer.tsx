@@ -139,6 +139,9 @@ export function Footer() {
       <div
         className="absolute inset-x-0 top-1/4 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
         aria-hidden="true"
+        style={{
+          pointerEvents: 'none'
+        }}
       >
         <div
           className="ml-[max(20%,10rem)] aspect-[1313/600] w-[70.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc]"
