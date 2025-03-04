@@ -158,7 +158,8 @@ export const landingPageFragment = fragmentOn('LandingPage', {
         video: {
           url: true,
           width: true,
-          height: true
+          height: true,
+          aspectRatio: true
         }
       }
     }

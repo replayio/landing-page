@@ -75,28 +75,27 @@ function NutEarlyAdopters({ nut }: { nut: LandingPageFragment['nut'] }) {
 
 // Local video component for Nut section
 interface NutVideoProps {
-  src: string
-  width?: number
-  height?: number
+  video: {
+    url: string
+    aspectRatio: string
+  }
   className?: string
-  controls?: boolean
 }
 
-const NutVideo = forwardRef<HTMLVideoElement, NutVideoProps>(
-  ({ src, width, height, className, controls = false }, ref) => {
-    return (
-      <video
-        ref={ref}
-        src={src}
-        width={width}
-        height={height}
-        className={className}
-        controls={controls}
-        playsInline
-      />
-    )
-  }
-)
+const NutVideo = forwardRef<HTMLVideoElement, NutVideoProps>(({ video, className }, ref) => {
+  const height = 460
+  return (
+    <video
+      ref={ref}
+      playsInline
+      src={video.url}
+      width={eval(video.aspectRatio) * height}
+      height={height}
+      controls
+      className={`rounded-xl object-cover shadow-xl ${className}`}
+    />
+  )
+})
 
 NutVideo.displayName = 'NutVideo'
 
@@ -191,16 +190,13 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
                         <RichText>{example.description!.json.content}</RichText>
                       </p>
                     </div>
-                    <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-200/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
+                    <div className="mt-10 w-[45rem] overflow-hidden   shadow-blue-200/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
                       <NutVideo
                         ref={(el) => {
                           videoRefs.current[index] = el
                         }}
-                        controls
-                        src={example.video.url}
-                        width={example.video.width}
-                        height={example.video.height}
-                        className="h-full w-full object-cover"
+                        video={example.video}
+                        className="ml-4"
                       />
                     </div>
                   </Tab.Panel>
@@ -225,13 +221,7 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
                   <RichText>{example.description!.json.content}</RichText>
                 </p>
                 <div className="flex items-center justify-center">
-                  <NutVideo
-                    controls
-                    src={example.video.url}
-                    width={example.video.width}
-                    height={example.video.height}
-                    className="h-full w-full object-cover"
-                  />
+                  <NutVideo video={example.video} />
                 </div>
               </div>
             )
