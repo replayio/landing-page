@@ -21,6 +21,11 @@ const positions = [
     title: 'Frontend Engineer',
     skills: 'Engineering',
     href: 'https://replayio.notion.site/Frontend-Engineer-1a1b960c446380359e3af477ea6c168d'
+  },
+  {
+    title: 'AI Analysis Engineer',
+    skills: 'Engineering',
+    href: 'https://replayio.notion.site/AI-Analysis-Engineer-1adb960c446380d786a5e030c2ceb9e2'
   }
 ];
 
