@@ -41,7 +41,7 @@ const navigation = {
   company: [
     { name: 'About', href: '/about' },
     { name: 'Blog', href: 'https://blog.replay.io/' },
-    { name: 'Careers', href: '/about#careers' }
+    { name: 'Careers', href: 'https://jobs.ashbyhq.com/replay' }
     //TODO: We have categories in our blog but we don't have a direct link to them yet
     // { name: 'Changelog', href: '#' },
     // { name: 'Engineering blog', href: '#' },

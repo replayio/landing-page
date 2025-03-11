@@ -5,7 +5,6 @@ import { Footer } from '~/components/Footer'
 import { Hero } from '~/components/about/Hero'
 import { Team } from '~/components/about/Team'
 import { Values } from '~/components/about/Values'
-import { Work } from '~/components/sections/about/work'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 
@@ -33,7 +32,6 @@ export default function Home() {
               <Hero {...aboutPage} />
               <Values />
               <Team />
-              <Work />
             </main>
             <Footer />
           </>
