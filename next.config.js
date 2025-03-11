@@ -71,7 +71,7 @@ const nextConfig = {
       },
       {
         source: '/hiring',
-        destination: 'https://www.replay.io/about#careers',
+        destination: 'https://jobs.ashbyhq.com/replay',
         permanent: true
       },
       {
