@@ -130,8 +130,11 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
   return (
     <>
       {/* Subheader for the examples section */}
-      <h3 className="mt-16 text-center font-display text-lg font-semibold italic text-gray-700 md:mt-20">
-        See Nut in action
+      <h3
+        id="see-nut-in-action"
+        className="mt-16 text-center font-display text-lg font-semibold italic text-gray-700 md:mt-20"
+      >
+        <a href="#see-nut-in-action">See Nut in action</a>
       </h3>
 
       <Tab.Group
