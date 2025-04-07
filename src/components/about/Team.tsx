@@ -12,16 +12,6 @@ export const team = [
     bio: 'Brian has had a longtime passion for helping people understand hugely complex software systems, starting with a Stanford Ph.D. and continuing through 10 years at Mozilla, where he worked on JavaScript VM optimizations and developed a precursor to Replay. He is a nomadic adventurer and enjoys sailing around Polynesia and van travel in the western US.'
   },
   {
-    image: jason,
-    role: 'Product',
-    name: 'Jason Laster',
-    bio: 'Jason has contributed to debuggers in several runtimes and prior to Replay was the tech lead for the Firefox Debugger. When not debugging the debugger, you’ll likely find him in the woodworking studio or outside with his pup Walle.',
-    socials: {
-      twitter: 'https://twitter.com/jasonlaster11/',
-      linkedin: 'https://www.linkedin.com/in/jason-laster-6657167/'
-    }
-  },
-  {
     image: mark,
     role: 'Software engineer',
     name: 'Mark Erikson',

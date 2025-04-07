@@ -451,7 +451,7 @@ export const TermsOfService: FC = () => {
               <br />
               Attn: DMCA Designated Agent
               <br />
-              Jason Laster
+              Brian Hackett
               <br />
               548 Market St, PMB 78081, San Francisco, CA 94104
               <br />
