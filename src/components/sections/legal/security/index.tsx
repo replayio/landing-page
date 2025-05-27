@@ -16,7 +16,7 @@ export const Security: FC = () => {
             Security &amp; Privacy
           </Heading>
           <span>Effective date: 28 MAR 2023</span>
-          <span>Last reviewed: 2 Apr 2024</span>
+          <span>Last reviewed: 27 May 2025</span>
         </div>
         <Heading id="compliance" as="h2">
           Compliance reporting
