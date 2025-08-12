@@ -80,7 +80,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                 </NavLink>
               ))}
 
-              {(
+              {/*(
                 <NavLink
                   className="font-semibold "
                   variant={variant}
@@ -89,7 +89,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                 >
                   We&apos;re hiring 👋{' '}
                 </NavLink>
-              )}
+              )*/}
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
