@@ -69,11 +69,13 @@ const nextConfig = {
         destination: 'https://blog.replay.io',
         permanent: true
       },
+      /*
       {
         source: '/hiring',
         destination: 'https://jobs.ashbyhq.com/replay',
         permanent: true
       },
+      */
       {
         source: '/effective-determinism',
         destination:
