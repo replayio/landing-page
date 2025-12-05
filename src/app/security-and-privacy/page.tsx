@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
@@ -14,7 +15,9 @@ export const viewport: Viewport = {
 const Privacy = () => {
   return (
     <>
-      <Header />
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
       <main>
         <div className="px-4">
           <Security />
