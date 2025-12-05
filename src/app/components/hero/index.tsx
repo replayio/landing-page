@@ -1,21 +1,13 @@
-import { Button, LinkButton } from '~/components/Button'
+import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
-import { featureFlags } from '~/lib/feature-flags'
 // import CalButton from './cal'
 import { HomeHeroMarquee } from './marquee'
 import Hyperspace from './hyperspace'
-import { Carrousel } from './carrousel'
-import Link from 'next/link'
-import { RichText } from 'basehub/react-rich-text'
-import Image from 'next/image'
-import { getAspectRatio } from '~/lib/images'
 export function Hero({ hero }: LandingPageFragment) {
-  const { h1, h2 } = hero.heroVariants.items[3]
-
   return (
     <section className="relative flex overflow-hidden bg-[#FCFCFC]">
-      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
+      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%] z-[-5]">
         <Hyperspace className="opacity-10" />
       </div>
       <div className=" relative z-10 flex max-w-full flex-1 flex-col">
