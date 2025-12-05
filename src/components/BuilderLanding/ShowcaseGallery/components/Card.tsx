@@ -66,7 +66,7 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
               {app.bulletPoints.map((badge, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1.5 text-sm font-medium text-accent bg-rose-100/80 rounded-full"
+                  className="px-3 py-1.5 text-sm font-medium text-accent bg-gray-200 rounded-full"
                 >
                   {badge}
                 </span>
