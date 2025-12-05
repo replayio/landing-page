@@ -134,7 +134,7 @@ function NutExamples({ examples }: { examples: LandingPageFragment['nut']['examp
         id="see-nut-in-action"
         className="mt-16 text-center font-display text-lg font-semibold italic text-gray-700 md:mt-20"
       >
-        <a href="#see-nut-in-action">See Nut in action</a>
+        <a href="#see-nut-in-action">See Replay.Builder in action</a>
       </h3>
 
       <Tab.Group

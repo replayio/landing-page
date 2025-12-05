@@ -6,7 +6,8 @@ const nextConfig = {
     remotePatterns: [
       { hostname: 'basehub.earth' },
       { hostname: 'image-forwarder.notaku.so' },
-      { hostname: 'assets.basehub.com' }
+      { hostname: 'assets.basehub.com' },
+      { hostname: 'utfs.io' }
     ]
   },
   sassOptions: {
