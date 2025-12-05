@@ -23,6 +23,13 @@ const NAVLINKS: Navlink[] = [
   // { href: '/about', label: 'Company' }
 ]
 
+const MobileNavlinks: Navlink[] = [
+  { href: '/', label: 'Builder' },
+  { href: '/devtools', label: 'DevTools' },
+  { href: 'https://blog.replay.io', label: 'Changelog' },
+  // { href: '/about', label: 'Company' },
+]
+
 const DEVTOOLS_DROPDOWN_LINKS = [
   { href: 'https://docs.replay.io', label: 'Docs', description: 'Read the documentation.' },
 ]
@@ -301,7 +308,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
             </div>
 
             <div className="-mr-1 md:hidden">
-              <MobileMenu variant={variant} links={NAVLINKS} {...toggle} />
+              <MobileMenu variant={variant} links={MobileNavlinks} {...toggle} />
             </div>
           </div>
         </nav>

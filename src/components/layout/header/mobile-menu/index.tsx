@@ -121,18 +121,25 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
               ))}
             </ul>
 
-            <div className="mt-auto animate-fadeIn pb-5">
+            <div className="mt-auto animate-fadeIn pb-5 flex flex-col gap-2">
               <Button
-                href="https://app.replay.io"
-                variant="solid"
-                color={variant === 'dark' ? 'white' : 'black'}
-                type="solid"
+                href="https://builder.replay.io/?login=true"
+                variant="outline"
+                size="sm"
                 className={clsx(
-                  'w-full border-2',
-                  variant === 'dark' ? 'border-white' : 'border-black'
+                  'px-8 py-6 border border-gray-200 w-full',
                 )}
               >
-                Sign in
+                Login
+              </Button>
+              <Button
+                href="https://builder.replay.io/?focus=true"
+                variant="solid"
+                size="sm"
+                color="default"
+                className="px-8 py-6 w-full"
+              >
+                Start Building
               </Button>
             </div>
           </div>
