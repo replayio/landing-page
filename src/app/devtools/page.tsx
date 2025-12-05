@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { DevTools } from '~/components/sections/DevTools'
 import { Testimonials } from '~/components/Testimonials'
@@ -25,7 +26,9 @@ export default function DevToolsPage() {
         console.log(landingPage)
         return (
           <>
-            <Header />
+            <Suspense fallback={null}>
+              <Header />
+            </Suspense>
             <main>
               <Hero {...landingPage} />
               <DevTools {...landingPage} />

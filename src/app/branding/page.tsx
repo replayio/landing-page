@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
 const Branding = () => {
   return (
     <>
-      <Header />
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
       <div className={s.section}>
         <LogoDownloadWidget />
         <StyleGuide />

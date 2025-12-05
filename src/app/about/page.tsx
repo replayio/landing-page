@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Pump } from '.basehub/react-pump'
 import { draftMode } from 'next/headers'
 import { aboutPageFragment } from '~/lib/basehub-queries'
@@ -28,7 +29,9 @@ export default function Home() {
         return (
           <>
             <main>
-              <Header />
+              <Suspense fallback={null}>
+                <Header />
+              </Suspense>
               <Hero {...aboutPage} />
               <Values />
               <Team />

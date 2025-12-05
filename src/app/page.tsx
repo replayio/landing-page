@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
@@ -15,7 +16,9 @@ export const viewport: Viewport = {
 export default function Home() {
   return (
     <>
-      <Header />
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
       <main>
         <BuilderHomeMain />
         <ShowcaseGallery />
