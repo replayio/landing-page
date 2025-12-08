@@ -19,7 +19,7 @@ const Branding = () => {
   return (
     <>
       <Suspense fallback={null}>
-        <Header />
+      <Header />
       </Suspense>
       <div className={s.section}>
         <LogoDownloadWidget />

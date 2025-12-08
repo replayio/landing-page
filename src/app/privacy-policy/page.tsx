@@ -16,7 +16,7 @@ const Privacy = () => {
   return (
     <>
       <Suspense fallback={null}>
-        <Header />
+      <Header />
       </Suspense>
       <main>
         <Policy />

@@ -2,98 +2,76 @@
 
 import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
+import { ChatGptIcon } from '~/components/icons/chatGpt'
+import { AiIcon } from '~/components/icons/ai'
+import { SupabaseIcon } from '~/components/icons/Supabase'
+import { SmsIcon } from '~/components/icons/Sms'
+import { GoogleDocsIcon } from '~/components/icons/GoogleDocs'
+import { GoogleSheetsIcon } from '~/components/icons/GoogleSheets'
+import { ResendIcon } from '~/components/icons/Resend'
+import { StorageIcon } from '~/components/icons/Storage'
+import { FileUploadIcon } from '~/components/icons/FileUpload'
 
 // Icon components for connectors
 const AIIcon = () => (
   <div className="flex items-center gap-2">
     {/* OpenAI/ChatGPT style icon */}
-    <div className="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 bg-gray-50">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c1.03.13 2 .45 2.87.93H13v-.93zM13 7h5.24c.25.31.48.65.68 1H13V7zm0 3h6.74c.08.33.15.66.19 1H13v-1zm0 9.93V19h2.87c-.87.48-1.84.8-2.87.93zM18.24 17H13v-1h5.92c-.2.35-.43.69-.68 1zm1.5-3H13v-1h6.93c-.04.34-.11.67-.19 1z"
-          fill="currentColor"
-          className="text-gray-700"
-        />
-      </svg>
+    <div className="flex h-8 w-8 items-center justify-center">
+     <ChatGptIcon />
     </div>
     {/* Anthropic style icon */}
-    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#d4a27c]">
-      <span className="text-sm font-bold text-white">A</span>
+    <div className="flex h-8 w-8 items-center justify-center">
+      <AiIcon />
     </div>
   </div>
 )
 
 const DatabaseIcon = () => (
-  <div className="flex h-8 w-8 items-center justify-center text-emerald-500">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z" />
-    </svg>
+  <div className="flex h-8 w-8 items-center justify-center border border-gray-200 rounded-sm">
+    <SupabaseIcon />
   </div>
 )
 
 const SMSIcon = () => (
-  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" className="text-gray-600" />
-      <path
-        d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="text-gray-600"
-      />
-    </svg>
+  <div className="flex h-8 w-8 items-center justify-center">
+    <SmsIcon />
   </div>
 )
 
 const DocumentIcon = () => (
   <div className="flex items-center gap-2">
     {/* Word/Doc icon */}
-    <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-600">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"
-          fill="white"
-          fillOpacity="0.3"
-        />
-        <path d="M14 2v6h6" stroke="white" strokeWidth="1.5" />
-        <path d="M9 13h6M9 17h6M9 9h2" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
+    <div className="flex h-8 w-8 items-center">
+      <GoogleDocsIcon />
     </div>
     {/* Sheets/Excel icon */}
-    <div className="flex h-8 w-8 items-center justify-center rounded bg-emerald-600">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="16" height="16" rx="2" fill="white" fillOpacity="0.3" />
-        <path d="M4 9h16M4 14h16M9 4v16M14 4v16" stroke="white" strokeWidth="1.5" />
-      </svg>
+    <div className="flex h-8 w-8 items-center justify-center">
+      <GoogleSheetsIcon />
     </div>
   </div>
 )
 
 const EmailIcon = () => (
   <div className="flex h-8 w-8 items-center justify-center">
-    <span className="text-xl font-bold text-gray-800" style={{ fontFamily: 'system-ui' }}>
-      R
-    </span>
+    <ResendIcon />
   </div>
 )
 
-const FileUploadIcon = () => (
+const FileStorageIcon = () => (
   <div className="flex items-center gap-2">
     {/* Uploadthing style icon */}
-    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-red-500">
-      <span className="text-sm font-bold text-white">U</span>
+    <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-black">
+      <FileUploadIcon />
     </div>
     {/* AWS/Vercel style icon */}
-    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-red-500">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 4L4 20h16L12 4z" fill="white" />
-      </svg>
+    <div className="flex h-8 w-8 items-center justify-center border border-gray-200 rounded-sm">
+      <StorageIcon />
     </div>
   </div>
 )
 
 const WebhookIcon = () => (
-  <div className="flex h-8 w-8 items-center justify-center text-accent">
+  <div className="flex h-8 w-8 items-center justify-center text-accent border border-gray-200 rounded-sm">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zM18 22a3 3 0 100-6 3 3 0 000 6zM8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"
@@ -190,7 +168,7 @@ export function Connectors() {
           <ConnectorCard
             title="File Upload & Storage"
             description="Your Builder-built apps can offer photo, video and file upload features, including image resizing and compression."
-            icon={<FileUploadIcon />}
+            icon={<FileStorageIcon />}
             className="lg:col-start-3 lg:row-start-2"
           />
 

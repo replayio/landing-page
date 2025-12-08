@@ -26,7 +26,7 @@ export function Pricing() {
       pricePeriod: '/month',
       emphasized: false,
       features: [
-        { name: 'Feature Create one project', included: true, tooltip: 'Build one project' },
+        { name: 'One project', included: true, tooltip: 'Build one project' },
         {
           name: 'Limited customer support',
           included: true,
@@ -45,7 +45,7 @@ export function Pricing() {
       id: 'builder',
       title: 'Builder',
       description: 'No limits on any features.\nGo nuts!',
-      price: '$49',
+      price: '$20',
       pricePeriod: '/month',
       emphasized: true,
       featuresLabel: 'Everything in Basic, plus:',
@@ -61,25 +61,25 @@ export function Pricing() {
         { name: 'Deploy your applications', included: true, tooltip: 'Deploy apps to production' },
       ],
     },
-    {
-      id: 'pro',
-      title: 'Pro',
-      description: 'Coming Soon!',
-      price: '$199',
-      pricePeriod: '/month',
-      emphasized: false,
-      features: [
-        { name: 'Unlimited projects', included: true, tooltip: 'Build as many apps as you want' },
-        {
-          name: 'VIP Customer Support',
-          included: true,
-          tooltip: '24/7 priority support with dedicated account manager',
-        },
-        { name: 'API connectors', included: true, tooltip: 'Connect to external APIs' },
-        { name: 'Download your code', included: true, tooltip: 'Download your project source code' },
-        { name: 'Deploy your applications', included: true, tooltip: 'Deploy apps to production' },
-      ],
-    },
+    // {
+    //   id: 'pro',
+    //   title: 'Pro',
+    //   description: 'Coming Soon!',
+    //   price: '$199',
+    //   pricePeriod: '/month',
+    //   emphasized: false,
+    //   features: [
+    //     { name: 'Unlimited projects', included: true, tooltip: 'Build as many apps as you want' },
+    //     {
+    //       name: 'VIP Customer Support',
+    //       included: true,
+    //       tooltip: '24/7 priority support with dedicated account manager',
+    //     },
+    //     { name: 'API connectors', included: true, tooltip: 'Connect to external APIs' },
+    //     { name: 'Download your code', included: true, tooltip: 'Download your project source code' },
+    //     { name: 'Deploy your applications', included: true, tooltip: 'Deploy apps to production' },
+    //   ],
+    // },
   ]
 
   return (

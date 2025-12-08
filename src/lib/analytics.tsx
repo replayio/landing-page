@@ -38,7 +38,7 @@ export default function Analytics() {
         src="https://analytics.umami.is/script.js"
         data-website-id="ded9f3fb-cc9d-4c80-844a-742787b8b9db"
       ></script>
-      
+
       {/* Mixpanel */}
       <script async src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"></script>
     </>
