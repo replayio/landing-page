@@ -3,7 +3,7 @@ export const AiIcon = (props: JSX.IntrinsicElements['img'] & { width?: number; h
   
     return (
       <img
-        src="/icons/ai.svg"
+        src="/icons/AI.svg"
         alt="AI"
         width={width}
         height={height}
