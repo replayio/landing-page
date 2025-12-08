@@ -143,6 +143,7 @@ const features = [
 
 export function HowBuilderWorks() {
   const [selectedVideoId, setSelectedVideoId] = useState<string | null>(features[0].videoId)
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
 
   return (
     <section id="how-builder-works" className="relative isolate overflow-hidden bg-white pb-16 pt-8 md:pb-24 md:pt-20">
@@ -167,7 +168,10 @@ export function HowBuilderWorks() {
                 return (
                   <button
                     key={index}
-                    onClick={() => setSelectedVideoId(feature.videoId)}
+                    onClick={() => {
+                      setSelectedVideoId(feature.videoId)
+                      setHasUserInteracted(true)
+                    }}
                     className={`group flex w-full items-start gap-4 rounded-lg border-2 p-4 text-left transition-all ${
                       isSelected
                         ? 'border-accent bg-white shadow-sm'
@@ -205,7 +209,7 @@ export function HowBuilderWorks() {
                 {selectedVideoId ? (
                   <div className="aspect-video">
                     <iframe
-                      src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0`}
+                      src={`https://www.youtube.com/embed/${selectedVideoId}?${hasUserInteracted ? 'autoplay=1&' : ''}rel=0`}
                       title="YouTube video player"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
