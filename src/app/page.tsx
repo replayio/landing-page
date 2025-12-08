@@ -3,7 +3,7 @@ import { Footer } from '~/components/Footer'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import BuilderHomeMain from '~/components/BuilderLanding/Chat/Chat'
-// import { HowBuilderWorks } from '~/components/BuilderLanding/HowBuilderWorks/HowBuilderWorks'
+import { HowBuilderWorks } from '~/components/BuilderLanding/HowBuilderWorks/HowBuilderWorks'
 import { ShowcaseGallery } from '~/components/BuilderLanding/ShowcaseGallery/ShowcaseGallery'
 import { Connectors } from '~/components/BuilderLanding/Connectors/Connectors'
 import { Pricing } from '~/components/BuilderLanding/Pricing/Pricing'
@@ -49,7 +49,7 @@ export default function Home() {
       <main>
         <BuilderHomeMain />
         <ShowcaseGallery />
-        {/* <HowBuilderWorks /> */}
+        <HowBuilderWorks />
         <Connectors />
         <Pricing />
         <FAQs />
