@@ -29,17 +29,18 @@ function Category({ name, links }: { name: string; links: LinkItem[] }) {
 
 const navigation = {
   product: [
+    { name: 'Replay Builder', href: 'https://builder.replay.io' },
     { name: 'Replay DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
-    {
-      name: 'Replay Viewer',
-      href: 'https://docs.replay.io/browser-devtools/replay-viewer'
-    },
-    { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites/runs-view' },
+    // {
+    //   name: 'Replay Viewer',
+    //   href: 'https://docs.replay.io/browser-devtools/replay-viewer'
+    // },
+    // { name: 'Replay Test Suites', href: 'https://docs.replay.io/test-suites/runs-view' },
 
-    { name: 'Documentation', href: 'https://docs.replay.io' }
+    // { name: 'Documentation', href: 'https://docs.replay.io' }
   ],
   company: [
-    { name: 'About', href: '/about' },
+    // { name: 'About', href: '/about' },
     { name: 'Blog', href: 'https://blog.replay.io/' },
     //{ name: 'Careers', href: 'https://jobs.ashbyhq.com/replay' }
     //TODO: We have categories in our blog but we don't have a direct link to them yet
@@ -47,28 +48,28 @@ const navigation = {
     // { name: 'Engineering blog', href: '#' },
     // { name: 'Case Studies', href: '#' }
   ],
-  information: [
-    { name: 'Contact', href: '/contact' },
-    { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
-    { name: 'Branding', href: '/branding' },
-    { name: 'Security', href: '/security-and-privacy' },
-    { name: 'Privacy Policy', href: '/privacy-policy' },
-    { name: 'Terms of Use', href: '/terms-of-service' }
-  ],
-  integrations: [
-    { name: 'React', href: 'https://docs.replay.io/framework-devtools/react-panel' },
-    {
-      name: 'Redux',
-      href: 'https://docs.replay.io/framework-devtools/redux-panel'
-    },
-    { name: 'Cypress', href: 'https://docs.replay.io/test-runners/cypress-io' },
-    {
-      name: 'Playwright',
-      href: 'https://docs.replay.io/test-runners/playwright/record-your-first-replay'
-    },
-    { name: 'Selenium WebDriver', href: 'https://docs.replay.io/test-runners/selenium' },
-    { name: 'NextJS', href: 'https://docs.replay.io/integrations/frameworks-libraries/nextjs' }
-  ],
+  // information: [
+  //   { name: 'Contact', href: '/contact' },
+  //   { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
+  //   { name: 'Branding', href: '/branding' },
+  //   { name: 'Security', href: '/security-and-privacy' },
+  //   { name: 'Privacy Policy', href: '/privacy-policy' },
+  //   { name: 'Terms of Use', href: '/terms-of-service' }
+  // ],
+  // integrations: [
+  //   { name: 'React', href: 'https://docs.replay.io/framework-devtools/react-panel' },
+  //   {
+  //     name: 'Redux',
+  //     href: 'https://docs.replay.io/framework-devtools/redux-panel'
+  //   },
+  //   { name: 'Cypress', href: 'https://docs.replay.io/test-runners/cypress-io' },
+  //   {
+  //     name: 'Playwright',
+  //     href: 'https://docs.replay.io/test-runners/playwright/record-your-first-replay'
+  //   },
+  //   { name: 'Selenium WebDriver', href: 'https://docs.replay.io/test-runners/selenium' },
+  //   { name: 'NextJS', href: 'https://docs.replay.io/integrations/frameworks-libraries/nextjs' }
+  // ],
   social: [
     {
       name: 'Discord',
@@ -157,20 +158,20 @@ export function Footer() {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <Category name="Product" links={navigation.product} />
+                <Category name="Products" links={navigation.product} />
               </div>
               <div className="mt-10 md:mt-0">
                 <Category name="Company" links={navigation.company} />
               </div>
             </div>
-            <div className="md:grid md:grid-cols-2 md:gap-8">
+            {/* <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <Category name="Information" links={navigation.information} />
               </div>
               <div className="mt-10 md:mt-0">
                 <Category name="Integrations" links={navigation.integrations} />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {showNewsletter && (

@@ -17,7 +17,7 @@ const Terms = () => {
   return (
     <>
       <Suspense fallback={null}>
-        <Header />
+      <Header />
       </Suspense>
       <main>
         <div className="px-4">

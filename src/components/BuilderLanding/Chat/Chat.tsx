@@ -6,14 +6,14 @@ import Hyperspace from '~/app/components/hero/hyperspace'
 
 export default function BuilderHomeMain() {
   return (
-    <div className="relative min-h-screen bg-white">
+    <section className="relative min-h-screen flex overflow-hidden bg-white">
       {/* Radial gradient background with subtle lines */}
       <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
 
 
-      <Container className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-12">
+      <Container className="relative z-10 flex w-full max-w-7xl flex-col items-center pt-[120px] pb-16 lg:pt-[180px] lg:pb-24 2xl:pt-[260px]">
         <div className="flex w-full max-w-4xl flex-col items-center">
           {/* Main Headline */}
           <h1 className="text-center text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl">
@@ -76,7 +76,7 @@ export default function BuilderHomeMain() {
           </div>
         </div>
       </Container>
-    </div>
+    </section>
   )
 }
 

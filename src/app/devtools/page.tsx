@@ -7,8 +7,33 @@ import { draftMode } from 'next/headers'
 import { landingPageFragment } from '~/lib/basehub-queries'
 import FAQ from '~/components/sections/FAQ'
 import { Hero } from '../components/hero'
-import { Viewport } from 'next/types'
+import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
+import { defaultMeta } from '~/lib/constants'
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s - Replay',
+    default: 'Replay - Time Travel Browser DevTools'
+  },
+  description: defaultMeta.description,
+  openGraph: {
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+  },
+  twitter: {
+    site: defaultMeta.twitter.site,
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    creator: defaultMeta.twitter.handle,
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+  },
+  other: {
+    name: 'ahrefs-site-verification',
+    content: 'd6acf1324602b320f37276d0f77e3e8ced24a91e2298c91fdcb79f2143e73bc6'
+  }
+}
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
@@ -23,7 +48,6 @@ export default function DevToolsPage() {
     >
       {async ([{ landingPage }]) => {
         'use server'
-        console.log(landingPage)
         return (
           <>
             <Suspense fallback={null}>

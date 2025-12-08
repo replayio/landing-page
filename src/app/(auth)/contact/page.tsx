@@ -20,7 +20,7 @@ const Contact = () => {
       <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
 
       <Suspense fallback={null}>
-        <Header />
+      <Header />
       </Suspense>
       <div>
         <ContactForm />

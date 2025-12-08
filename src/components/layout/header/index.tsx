@@ -99,7 +99,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
     }
   }, [searchParams, isHomepage])
 
-  // Close dropdowns when clicking outside
+  // Close dropdowns when clicking outside (optional - hover handles most cases)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -152,14 +152,16 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
             </Link>
             <div className="hidden md:flex md:gap-x-4 md:items-center">
               {/* Builder Dropdown */}
-              <div ref={dropdownRef} className="relative">
+              <div
+                ref={dropdownRef}
+                className="relative"
+                onMouseEnter={() => setBuilderDropdownOpen(true)}
+                onMouseLeave={() => setBuilderDropdownOpen(false)}
+              >
                 <button
                   onClick={() => {
-                    if (isHomepage) {
-                      // On homepage - just toggle dropdown
-                      setBuilderDropdownOpen(!builderDropdownOpen)
-                    } else {
-                      // Not on homepage - navigate to homepage with param to open dropdown
+                    if (!isHomepage) {
+                      // Not on homepage - navigate to homepage
                       router.push('/')
                     }
                   }}
@@ -183,7 +185,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
 
                 {/* Dropdown Menu */}
                 {builderDropdownOpen && (
-                  <div className="absolute left-0 top-full mt-2 w-72 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                  <div className="absolute left-0 top-full w-72 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
                     {BUILDER_DROPDOWN_ITEMS.map((item) => (
                       <button
                         key={item.id}
@@ -199,13 +201,15 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
               </div>
 
               {/* DevTools Dropdown */}
-              <div ref={devtoolsDropdownRef} className="relative">
+              <div
+                ref={devtoolsDropdownRef}
+                className="relative"
+                onMouseEnter={() => setDevtoolsDropdownOpen(true)}
+                onMouseLeave={() => setDevtoolsDropdownOpen(false)}
+              >
                 <button
                   onClick={() => {
-                    if (isDevtoolsPage) {
-                      // On devtools page - just toggle dropdown
-                      setDevtoolsDropdownOpen(!devtoolsDropdownOpen)
-                    } else {
+                    if (!isDevtoolsPage) {
                       // Not on devtools page - navigate to devtools page
                       router.push('/devtools')
                     }
@@ -230,7 +234,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
 
                 {/* Dropdown Menu */}
                 {devtoolsDropdownOpen && (
-                  <div className="absolute left-0 top-full mt-2 w-64 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                  <div className="absolute left-0 top-full w-64 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
                     {DEVTOOLS_DROPDOWN_LINKS.map((item) => (
                       <Link
                         key={item.href}

@@ -15,7 +15,7 @@ export default function NotFound() {
   return (
     <>
       <Suspense fallback={null}>
-        <Header variant="dark" className="!border-none !bg-transparent" />
+      <Header variant="dark" className="!border-none !bg-transparent" />
       </Suspense>
       <main className="pt-[var(--header-height)]">
         <Hero />

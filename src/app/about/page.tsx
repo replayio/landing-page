@@ -30,7 +30,7 @@ export default function Home() {
           <>
             <main>
               <Suspense fallback={null}>
-                <Header />
+              <Header />
               </Suspense>
               <Hero {...aboutPage} />
               <Values />
