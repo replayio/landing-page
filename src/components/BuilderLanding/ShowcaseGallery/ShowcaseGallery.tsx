@@ -99,12 +99,17 @@ export function ShowcaseGallery() {
     const embla = carouselRef.current
     if (!embla) return
     
-    // Prevent default scroll behavior when over carousel
+    // Only respond to horizontal scroll (deltaX), ignore vertical scroll (deltaY)
+    // If there's no horizontal scroll, don't prevent default and let page scroll normally
+    if (Math.abs(e.deltaX) === 0 || Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      return // Allow normal vertical scrolling
+    }
+    
+    // Prevent default scroll behavior only for horizontal scroll
     e.preventDefault()
     
-    // Use deltaX for horizontal scroll, deltaY for vertical scroll
-    // Convert any scroll direction to horizontal carousel movement
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
+    // Use only deltaX for horizontal carousel movement
+    const delta = e.deltaX
     
     // Use internal engine for smooth continuous scrolling
     // Adjust multiplier for scroll speed (lower = slower)
