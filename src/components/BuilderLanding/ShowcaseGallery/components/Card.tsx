@@ -27,21 +27,21 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
   return (
     <div
       className={clsx(
-        'group relative overflow-hidden rounded-lg flex flex-col justify-end items-start gap-4 p-4 border block w-full h-[369px] aspect-video border-[var(--base-border,#E5E5E5)]',
+        'group relative overflow-hidden rounded-lg flex flex-col justify-end items-start gap-4 p-4 border block w-full h-[369px] aspect-video border-[var(--base-border,#E5E5E5)] transition-all duration-300',
         className
       )}
     >
-      {/* App Screenshot - Sharp */}
+      {/* App Screenshot - Sharp, blurred on hover */}
       <Image
         src={app.photo!}
         alt={imageAlt}
         fill
-        className="object-cover object-top"
+        className="object-cover object-top group-hover:blur-[2px] transition-all duration-300"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
       />
 
-      {/* Blurred image overlay - only at bottom */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Blurred image overlay - only at bottom (default state) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
         <Image
           src={app.photo!}
           alt=""
@@ -55,19 +55,24 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
         />
       </div>
 
-      {/* Background gradient overlays */}
+      {/* Background gradient overlays - default state */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none group-hover:opacity-0 transition-opacity duration-300"
         style={{
           background: 'linear-gradient(156deg, rgba(255, 255, 255, 0.00) 44.15%, #FFF 95.01%), linear-gradient(236deg, rgba(255, 255, 255, 0.00) 26.51%, rgba(255, 255, 255, 0.60) 84.05%)',
         }}
       />
 
-      {/* Gradient overlay for text readability */}
-      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" /> */}
+      {/* Hover state: Gradient overlay with white and pink/red gradients */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: 'linear-gradient(156deg, rgba(255, 255, 255, 0.00) 44.15%, #FFF 95.01%), linear-gradient(236deg, rgba(0, 0, 0, 0.00) 26.51%, var(--tailwind-colors-slate-500, rgba(240, 45, 94, 0.50)) 84.05%)',
+        }}
+      />
 
-      {/* Content Section - Positioned at bottom via flexbox */}
-      <div className="flex flex-col relative w-full gap-4">
+      {/* Content Section - Positioned at bottom via flexbox, hidden on hover */}
+      <div className="flex flex-col relative w-full gap-4 group-hover:opacity-0 transition-opacity duration-300">
         {/* Title */}
         <div className="flex flex-col gap-2">
           <h3
@@ -103,6 +108,14 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Hover state: Buttons - centered */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-auto">
+        {/* Customize it button */}
+        <button onClick={() => window.open(`https://builder.replay.io/?appPath=${app.appPath}`, '_blank')} className="px-6 py-3 bg-accent text-white font-semibold rounded-full hover:bg-accent-light transition-colors duration-200 whitespace-nowrap">
+          Customize it
+        </button>
       </div>
     </div>
   )
