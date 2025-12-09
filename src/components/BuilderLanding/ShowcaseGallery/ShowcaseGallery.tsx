@@ -135,12 +135,12 @@ export function ShowcaseGallery() {
       <Container className="relative">
         <div className="max-w-4xl">
           <h2 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl md:text-6xl">
-            Don&apos;t want to
+            Start with
             <br />
-            <span className="text-accent">start from scratch?</span>
+            <span className="text-accent">a fully working app</span>
           </h2>
           <p className="mt-4 max-w-3xl text-base text-gray-700 sm:text-lg">
-            Start with one of these apps, and map it to your needs.
+            Ready to use out-of-the-box (but can be aligned to your needs)
           </p>
         </div>
       </Container>
