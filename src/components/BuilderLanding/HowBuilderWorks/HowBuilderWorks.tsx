@@ -38,7 +38,7 @@ const features = [
     icon: <DeployIcon />,
     description: 'Deploying your app is as simple as it gets',
     highlight: 'No need for coding experience',
-    videoId: 'uLoRbZdvUiE',
+    videoId: 'PwYn8KNP7Ng',
   },
 ]
 
