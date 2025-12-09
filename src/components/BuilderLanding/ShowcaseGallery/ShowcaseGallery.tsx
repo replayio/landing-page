@@ -158,7 +158,7 @@ export function ShowcaseGallery() {
             dragFree: true,
           }}
           className="p-6"
-          slideClassName="!w-[480px] sm:!w-[520px] lg:!w-[580px] flex-shrink-0 rounded-xl"
+          slideClassName="!w-[480px] sm:!w-[520px] lg:!w-[656px] flex-shrink-0 rounded-xl aspect-video"
           dots={false}
           arrows={false}
         >
