@@ -8,6 +8,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '~/components/ui/accordion'
+import { useMemo } from 'react'
+import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
 interface FAQ {
   question: string
@@ -77,8 +79,28 @@ export function FAQs() {
     },
   ]
 
+  const faqSchema = useMemo(() => {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: extractTextFromNode(faq.answer).trim(),
+        },
+      })),
+    }
+  }, [faqs])
+
   return (
     <section id="faq" className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-12 md:pb-24 md:pt-20">
+      {/* JSON-LD structured data for Generative Engine Optimization (GEO) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Container className="relative">
         {/* Header - Left aligned */}
         <div className="max-w-4xl mb-12">
