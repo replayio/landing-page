@@ -57,6 +57,10 @@ export default {
         slideRightAndFade: {
           from: { opacity: '0', transform: 'translateX(-2px)' },
           to: { opacity: '1', transform: 'translateX(0)' }
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' }
         }
       },
       animation: {
@@ -64,7 +68,11 @@ export default {
         slideLeftAndFade: 'slideLeftAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideUpAndFade: 'slideUpAndFade 100ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideRightAndFade: 'slideRightAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
-        fadeIn: 'fadeIn 1s ease-in-out forwards'
+        fadeIn: 'fadeIn 1s ease-in-out forwards',
+        gradientShift: 'gradientShift 5s ease-in-out infinite'
+      },
+      backgroundSize: {
+        '200%': '200% 100%'
       }
     }
   },
