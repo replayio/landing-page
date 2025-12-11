@@ -3,8 +3,11 @@
 import { Container } from '~/components/Container'
 import InputArea from './components/InputArea'
 import Hyperspace from '~/app/components/hero/hyperspace'
+import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 
 export default function BuilderHomeMain() {
+  const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
+
   return (
     <section className="relative min-h-screen flex overflow-hidden bg-white">
       {/* Radial gradient background with subtle lines */}
@@ -14,7 +17,7 @@ export default function BuilderHomeMain() {
 
 
       <Container className="relative z-10 flex w-full max-w-7xl flex-col items-center pt-[120px] pb-16 lg:pt-[180px] lg:pb-24 2xl:pt-[260px]">
-        <div className="flex w-full max-w-4xl flex-col items-center">
+        <div ref={heroContentRef} className="flex w-full max-w-4xl flex-col items-center">
           {/* Main Headline */}
           <h1 className="text-center text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl">
             Own your tools

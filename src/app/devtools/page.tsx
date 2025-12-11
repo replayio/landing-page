@@ -11,6 +11,7 @@ import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta } from '~/lib/constants'
 import { BrokenDreamsBanner } from '~/components/BuilderLanding/BrokenDreamsBanner/BrokenDreamsBanner'
+import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 export const metadata: Metadata = {
   title: {
@@ -55,12 +56,12 @@ export default function DevToolsPage() {
             <Suspense fallback={null}>
               <Header className="!top-[52px] sm:!top-[54px]" />
             </Suspense>
-            <main className="pt-[calc(var(--header-height)+52px)] sm:pt-[calc(var(--header-height)+54px)]">
+            <PageContentAnimate className="pt-[calc(var(--header-height)+52px)] sm:pt-[calc(var(--header-height)+54px)]">
               <Hero {...landingPage} />
               <DevTools {...landingPage} />
               <FAQ {...landingPage} />
               <Testimonials {...landingPage} />
-            </main>
+            </PageContentAnimate>
             <Footer />
           </>
         )

@@ -9,6 +9,7 @@ import { Connectors } from '~/components/BuilderLanding/Connectors/Connectors'
 import { Pricing } from '~/components/BuilderLanding/Pricing/Pricing'
 import { FAQs } from '~/components/BuilderLanding/Faqs/FAQs'
 import { BrokenDreamsBanner } from '~/components/BuilderLanding/BrokenDreamsBanner/BrokenDreamsBanner'
+import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 export const metadata: Metadata = {
   title: 'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
@@ -48,14 +49,14 @@ export default function Home() {
       <Suspense fallback={null}>
         <Header className="!top-[52px] sm:!top-[54px]" />
       </Suspense>
-      <main className="pt-[calc(var(--header-height)+52px)] sm:pt-[calc(var(--header-height)+54px)]">
+      <PageContentAnimate className="pt-[calc(var(--header-height)+52px)] sm:pt-[calc(var(--header-height)+54px)]">
         <BuilderHomeMain />
         <ShowcaseGallery />
         <HowBuilderWorks />
         <Connectors />
         <Pricing />
         <FAQs />
-      </main>
+      </PageContentAnimate>
       <Footer />
     </>
   )
