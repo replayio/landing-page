@@ -13,6 +13,18 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src')]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/knowledge-base',
+        destination: 'https://intercom.help/YOUR-WORKSPACE-SLUG'
+      },
+      {
+        source: '/knowledge-base/:path*',
+        destination: 'https://intercom.help/YOUR-WORKSPACE-SLUG/:path*'
+      }
+    ]
+  },
   redirects() {
     return [
       {
