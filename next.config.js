@@ -17,11 +17,11 @@ const nextConfig = {
     return [
       {
         source: '/knowledge-base',
-        destination: 'https://intercom.help/YOUR-WORKSPACE-SLUG'
+        destination: 'https://intercom.help/replay-builder'
       },
       {
         source: '/knowledge-base/:path*',
-        destination: 'https://intercom.help/YOUR-WORKSPACE-SLUG/:path*'
+        destination: 'https://intercom.help/replay-builder/:path*'
       }
     ]
   },
