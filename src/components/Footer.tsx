@@ -1,33 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShortLogo } from './ShortLogo'
 import { getImageSizes } from '~/lib/utils/image'
-import styles from '../styles/Landingpage.module.css'
-
-type LinkItem = {
-  name: string
-  href: string
-  icon?: (props: any) => JSX.Element
-}
-
-const showNewsletter = false
-
-function Category({ name, links }: { name: string; links: LinkItem[] }) {
-  return (
-    <>
-      <h3 className="text-sm font-semibold leading-6 text-gray-900">{name}</h3>
-      <ul role="list" className="mt-6 space-y-4">
-        {links.map((item) => (
-          <li key={item.name}>
-            <Link href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
-              {item.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </>
-  )
-}
 
 const navigation = {
   product: [
