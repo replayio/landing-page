@@ -177,9 +177,9 @@ export function Footer() {
         <div className="flex items-center justify-between gap-6 pb-6 border-b border-gray-200">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="relative w-[52px] h-[58px]">
+            <div className="relative w-[25px] h-[29px]">
               <Image
-                src="/images/isotype.png"
+                src="/images/logo.svg"
                 alt="Replay's isotype"
                 fill
                 quality={100}
@@ -243,9 +243,9 @@ export function Footer() {
       <div className="lg:hidden mx-auto max-w-7xl px-6 pb-8 pt-16">
         <div className="flex flex-col items-center gap-6">
           {/* Logo */}
-          <div className="relative w-[27px] h-[30px]">
+          <div className="relative w-[25px] h-[29px]">
             <Image
-              src="/images/isotype.png"
+              src="/images/logo.svg"
               alt="Replay's isotype"
               fill
               quality={100}
