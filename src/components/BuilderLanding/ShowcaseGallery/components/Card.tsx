@@ -99,7 +99,7 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
         </div>
 
         {/* Feature Tags */}
-        {app.bulletPoints && app.bulletPoints.length > 0 && (
+        {/* {app.bulletPoints && app.bulletPoints.length > 0 && (
           <div className="flex gap-2 max-w-full overflow-hidden">
             {app.bulletPoints.map((badge, index) => (
               <span
@@ -110,7 +110,7 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
               </span>
             ))}
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Hover state: Buttons - centered */}
