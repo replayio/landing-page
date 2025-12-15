@@ -143,7 +143,7 @@ export function ShowcaseGallery() {
   }, [handleWheel])
 
   return (
-    <section id="showcase-gallery" className="relative isolate overflow-hidden bg-white pb-16 pt-8 md:pb-24 md:pt-20">
+    <section id="showcase-gallery" className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-8 md:pb-24 md:pt-20">
       {/* Headline Section - contained */}
       <Container className="relative">
         <div className="max-w-4xl">
@@ -169,6 +169,7 @@ export function ShowcaseGallery() {
             align: 'start',
             slidesToScroll: 1,
             dragFree: true,
+            loop: true,
           }}
           className="px-4 sm:px-6"
           // On mobile, each slide takes the full available width.
