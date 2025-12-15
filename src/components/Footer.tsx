@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShortLogo } from './ShortLogo'
+import { getImageSizes } from '~/lib/utils/image'
 import styles from '../styles/Landingpage.module.css'
 
 type LinkItem = {
@@ -30,7 +32,7 @@ function Category({ name, links }: { name: string; links: LinkItem[] }) {
 const navigation = {
   product: [
     { name: 'Replay Builder', href: 'https://builder.replay.io' },
-    { name: 'Replay DevTools', href: 'https://docs.replay.io/browser-devtools/elements-panel' },
+    { name: 'Replay DevTools', href: '/devtools' },
     // {
     //   name: 'Replay Viewer',
     //   href: 'https://docs.replay.io/browser-devtools/replay-viewer'
@@ -42,20 +44,20 @@ const navigation = {
   company: [
     // { name: 'About', href: '/about' },
     { name: 'Blog', href: 'https://blog.replay.io/' },
+    { name: 'Contact', href: '/contact' },
     //{ name: 'Careers', href: 'https://jobs.ashbyhq.com/replay' }
     //TODO: We have categories in our blog but we don't have a direct link to them yet
     // { name: 'Changelog', href: '#' },
     // { name: 'Engineering blog', href: '#' },
     // { name: 'Case Studies', href: '#' }
   ],
-  // information: [
-  //   { name: 'Contact', href: '/contact' },
+  information: [
   //   { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
   //   { name: 'Branding', href: '/branding' },
-  //   { name: 'Security', href: '/security-and-privacy' },
-  //   { name: 'Privacy Policy', href: '/privacy-policy' },
-  //   { name: 'Terms of Use', href: '/terms-of-service' }
-  // ],
+    { name: 'Security', href: '/security-and-privacy' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Use', href: '/terms-of-service' },
+  ],
   // integrations: [
   //   { name: 'React', href: 'https://docs.replay.io/framework-devtools/react-panel' },
   //   {
@@ -131,6 +133,23 @@ const navigation = {
   ]
 }
 
+// Derived arrays for footer layout (derived from navigation, not modifying it)
+const desktopNavLinks = [
+  { label: 'Builder', href: navigation.product[0].href },
+  { label: 'Devtools', href: navigation.product[1].href },
+  { label: 'Change log', href: navigation.company[0].href },
+  { label: 'Contact', href: navigation.information[1].href },
+  // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
+]
+
+const mobileNavLinks = [
+  { label: 'Builder', href: navigation.product[0].href },
+  { label: 'Devtools', href: navigation.product[1].href },
+  { label: 'Change log', href: navigation.company[0].href },
+  { label: 'Contact', href: navigation.information[1].href },
+  // { label: 'About Us', href: '/about' },
+]
+
 export function Footer() {
   return (
     <footer className="relative isolate z-10 bg-white" aria-labelledby="footer-heading">
@@ -152,73 +171,138 @@ export function Footer() {
           }}
         />
       </div>
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <ShortLogo className="fill-slate-800" style={{ height: '20px' }} />
-          <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <Category name="Products" links={navigation.product} />
-              </div>
-              <div className="mt-10 md:mt-0">
-                <Category name="Company" links={navigation.company} />
-              </div>
-            </div>
-            {/* <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <Category name="Information" links={navigation.information} />
-              </div>
-              <div className="mt-10 md:mt-0">
-                <Category name="Integrations" links={navigation.integrations} />
-              </div>
-            </div> */}
-          </div>
-        </div>
-        {showNewsletter && (
-          <div className="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24 lg:flex lg:items-center lg:justify-between">
-            <div>
-              <h3 className="text-sm font-semibold leading-6 text-gray-900">
-                Subscribe to our newsletter
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-gray-600">
-                The latest news, articles, and resources, sent to your inbox weekly.
-              </p>
-            </div>
-            <form className="mt-6 sm:flex sm:max-w-md lg:mt-0">
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                type="email"
-                name="email-address"
-                id="email-address"
-                autoComplete="email"
-                required
-                className="w-full min-w-0 appearance-none rounded-md border-0 bg-white px-3 py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-56 sm:text-sm sm:leading-6"
-                placeholder="Enter your email"
+      {/* Desktop Layout */}
+      <div className="hidden lg:block mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+        {/* Top Section: Logo, Nav Links, Social Icons */}
+        <div className="flex items-center justify-between gap-6 pb-6 border-b border-gray-200">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <div className="relative w-[52px] h-[58px]">
+              <Image
+                src="/images/isotype.png"
+                alt="Replay's isotype"
+                fill
+                quality={100}
+                priority
+                sizes={getImageSizes(2, 2, 2)}
+                className="object-contain"
               />
-              <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
-                <button
-                  type="submit"
-                  className={`flex w-full items-center justify-center rounded-md ${styles.bgPrimaryAccent} px-3 py-2 text-sm font-semibold text-white shadow-sm hover:${styles.bgPrimaryAccent} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-${styles.bgPrimaryAccent}`}
-                >
-                  Subscribe
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
-        )}
-        <div className="mt-8 border-t border-gray-900/10 pt-8 md:flex md:items-center md:justify-between">
-          <div className="flex space-x-6 md:order-2">
-            {navigation.social.map((item) => (
-              <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
-                <span className="sr-only">{item.name}</span>
-                <item.icon className="h-6 w-6" aria-hidden="true" />
+
+          {/* Navigation Links */}
+          <nav className="flex items-center gap-8 flex-1 justify-center">
+            {desktopNavLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-base font-medium text-gray-900 hover:text-accent transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4 flex-shrink-0">
+            {navigation.social.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-900 hover:text-accent transition-colors"
+                aria-label={social.name}
+              >
+                <social.icon className="h-5 w-5" />
               </a>
             ))}
           </div>
-          <p className="mt-8 text-xs leading-5 text-gray-500 md:order-1 md:mt-0">
-            &copy; Record Replay, Inc. All rights reserved.
+        </div>
+
+        {/* Bottom Section: Copyright and Legal Links */}
+        <div className="flex items-center justify-between pt-6">
+          <p className="text-sm text-gray-500">
+            Copyright {new Date().getFullYear()} © Replay.io
+          </p>
+          <div className="flex items-center gap-6">
+            {navigation.information.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="lg:hidden mx-auto max-w-7xl px-6 pb-8 pt-16">
+        <div className="flex flex-col items-center gap-6">
+          {/* Logo */}
+          <div className="relative w-[27px] h-[30px]">
+            <Image
+              src="/images/isotype.png"
+              alt="Replay's isotype"
+              fill
+              quality={100}
+              priority
+              sizes={getImageSizes(2, 2, 2)}
+              className="object-contain"
+            />
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex flex-col items-center gap-4">
+            {mobileNavLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-base font-semibold text-gray-900 hover:text-accent transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Social Icons */}
+          <div className="flex items-center justify-center gap-5 mt-2">
+            {navigation.social.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-900 hover:text-accent transition-colors"
+                aria-label={social.name}
+              >
+                <social.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div className="w-full max-w-[300px] h-px bg-gray-200 my-2" />
+
+          {/* Legal Links */}
+          <div className="flex flex-col items-center gap-3">
+            {navigation.information.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm font-normal text-gray-500 hover:text-gray-900 transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Copyright */}
+          <p className="text-sm font-normal text-gray-500 mt-2">
+            Copyright {new Date().getFullYear()} © Replay.io
           </p>
         </div>
       </div>
