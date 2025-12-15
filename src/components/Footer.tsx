@@ -137,16 +137,16 @@ const navigation = {
 const desktopNavLinks = [
   { label: 'Builder', href: navigation.product[0].href },
   { label: 'Devtools', href: navigation.product[1].href },
-  { label: 'Change log', href: navigation.company[0].href },
-  { label: 'Contact', href: navigation.information[1].href },
+  { label: 'Blog', href: navigation.company[0].href },
+  { label: 'Contact', href: navigation.company[1].href },
   // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
 ]
 
 const mobileNavLinks = [
   { label: 'Builder', href: navigation.product[0].href },
   { label: 'Devtools', href: navigation.product[1].href },
-  { label: 'Change log', href: navigation.company[0].href },
-  { label: 'Contact', href: navigation.information[1].href },
+  { label: 'Blog', href: navigation.company[0].href },
+  { label: 'Contact', href: navigation.company[1].href },
   // { label: 'About Us', href: '/about' },
 ]
 
