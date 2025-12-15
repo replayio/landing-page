@@ -6,6 +6,7 @@ import { Button } from '~/components/Button'
 import { Container } from '~/components/Container'
 import { Carousel } from '~/components/common/carousel'
 import { ReferenceAppCard, ReferenceAppCategory, ReferenceApp } from './components/Card'
+import { RightArrowIcon } from '~/components/icons/rightArrow'
 
 export const referenceApps: ReferenceApp[] = [
   {
@@ -119,6 +120,18 @@ export function ShowcaseGallery() {
     engine.scrollTo.distance(-delta * scrollSpeed, false)
   }, [])
 
+  const scrollPrev = useCallback(() => {
+    const embla = carouselRef.current
+    if (!embla) return
+    embla.scrollPrev()
+  }, [])
+
+  const scrollNext = useCallback(() => {
+    const embla = carouselRef.current
+    if (!embla) return
+    embla.scrollNext()
+  }, [])
+
   useEffect(() => {
     const container = carouselContainerRef.current
     if (!container) return
@@ -130,7 +143,7 @@ export function ShowcaseGallery() {
   }, [handleWheel])
 
   return (
-    <section id="showcase-gallery" className="relative isolate overflow-hidden bg-white pb-16 pt-8 md:pb-24 md:pt-20">
+    <section id="showcase-gallery" className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-8 md:pb-24 md:pt-20">
       {/* Headline Section - contained */}
       <Container className="relative">
         <div className="max-w-4xl">
@@ -156,9 +169,12 @@ export function ShowcaseGallery() {
             align: 'start',
             slidesToScroll: 1,
             dragFree: true,
+            loop: true,
           }}
-          className="p-6"
-          slideClassName="!w-[480px] sm:!w-[520px] lg:!w-[656px] flex-shrink-0 rounded-xl aspect-video"
+          className="px-4 sm:px-6"
+          // On mobile, each slide takes the full available width.
+          // On larger screens we cap the width so multiple slides can peek in.
+          slideClassName="!w-full sm:!w-[520px] lg:!w-[656px] flex-shrink-0 rounded-xl aspect-video"
           dots={false}
           arrows={false}
         >
@@ -166,6 +182,28 @@ export function ShowcaseGallery() {
             <ReferenceAppCard key={`${app.appName}-${index}`} app={app} />
           ))}
         </Carousel>
+      </div>
+
+      {/* Mobile navigation buttons – make it clear there’s more to scroll */}
+      <div className="mt-6 flex items-center justify-between px-6 sm:hidden">
+        <button
+          type="button"
+          onClick={scrollPrev}
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+          aria-label="Previous app"
+        >
+          <span className="inline-flex rotate-180">
+            <RightArrowIcon />
+          </span>
+        </button>
+        <button
+          type="button"
+          onClick={scrollNext}
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+          aria-label="Next app"
+        >
+          <RightArrowIcon />
+        </button>
       </div>
 
       {/* CTA Button - contained */}

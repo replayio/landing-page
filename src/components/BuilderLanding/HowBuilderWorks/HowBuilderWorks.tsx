@@ -10,7 +10,6 @@ import { ToolIcon } from '~/components/icons/tool'
 import { DeployIcon } from '~/components/icons/deploy'
 import { RightArrowIcon } from '~/components/icons/rightArrow'
 
-
 const features = [
   {
     title: 'Plan & Ideate',
@@ -39,12 +38,76 @@ const features = [
     description: 'Deploying your app is as simple as it gets',
     highlight: 'No need for coding experience',
     videoId: 'PwYn8KNP7Ng',
-  },
-]
+  }
+] as const
+
+type Feature = (typeof features)[number]
+
+function FeatureCard({
+  feature,
+  isSelected,
+  onClick,
+  showArrow = true
+}: {
+  feature: Feature
+  isSelected: boolean
+  onClick: () => void
+  showArrow?: boolean
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`group flex w-full items-center gap-4 rounded-lg border-2 p-4 text-left transition-all ${
+        isSelected
+          ? 'border-accent bg-white shadow-sm'
+          : 'border-gray-200 bg-gray-50 hover:border-gray-300 hover:bg-white'
+      }`}
+    >
+      {/* Icon */}
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center text-gray-600 border border-gray-200 rounded-lg bg-white">
+        {feature.icon}
+      </div>
+
+      {/* Content */}
+      <div className="flex-1">
+        <h3 className="font-semibold text-gray-900">{feature.title}</h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+          {feature.description}{' '}
+          <span className="font-medium text-accent">{feature.highlight}</span>
+        </p>
+      </div>
+
+      {/* Right Arrow */}
+      {showArrow && (
+        <div className="w-10 h-10 flex shrink-0 items-center justify-center border border-gray-200 rounded-full bg-white">
+          <RightArrowIcon width={20} height={20} />
+        </div>
+      )}
+    </button>
+  )
+}
 
 export function HowBuilderWorks() {
-  const [selectedVideoId, setSelectedVideoId] = useState<string | null>(features[0].videoId)
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
+
+  const selectedFeature = features[currentIndex]
+  const selectedVideoId = selectedFeature.videoId
+
+  const handleSelect = (index: number) => {
+    setCurrentIndex(index)
+    setHasUserInteracted(true)
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + features.length) % features.length)
+    setHasUserInteracted(true)
+  }
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % features.length)
+    setHasUserInteracted(true)
+  }
 
   return (
     <section id="how-builder-works" className="relative isolate overflow-hidden bg-white pb-16 pt-8 md:pb-24 md:pt-20">
@@ -59,47 +122,61 @@ export function HowBuilderWorks() {
             Anyone can go from idea to live web application in minutes - no code, no hassle.
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row gap-12 mt-12">
+        <div className="flex flex-col-reverse lg:flex-row gap-6 mt-10">
           {/* Left Section - Text Content */}
           <div className="flex flex-col lg:max-w-sm lg:flex-shrink-0">
-            {/* Feature Cards */}
-            <div className="space-y-3">
-              {features.map((feature, index) => {
-                const isSelected = selectedVideoId === feature.videoId
-                return (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setSelectedVideoId(feature.videoId)
-                      setHasUserInteracted(true)
-                    }}
-                    className={`group flex w-full items-center gap-4 rounded-lg border-2 p-4 text-left transition-all ${
-                      isSelected
-                        ? 'border-accent bg-white shadow-sm'
-                        : 'border-gray-200 bg-gray-50 hover:border-gray-300 hover:bg-white'
-                    }`}
-                  >
-                    {/* Icon */}
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center text-gray-600 border border-gray-200 rounded-lg bg-white">
-                      {feature.icon}
-                    </div>
+            {/* Desktop Feature Cards */}
+            <div className="hidden lg:block">
+              <div className="space-y-3">
+                {features.map((feature, index) => (
+                  <FeatureCard
+                    key={feature.title}
+                    feature={feature}
+                    isSelected={index === currentIndex}
+                    onClick={() => handleSelect(index)}
+                  />
+                ))}
+              </div>
+            </div>
 
-                    {/* Content */}
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900">{feature.title}</h3>
-                      <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
-                        {feature.description}{' '}
-                        <span className="font-medium text-accent">{feature.highlight}</span>
-                      </p>
-                    </div>
+            {/* Mobile carousel-style card (arrows inside card) */}
+            <div className="lg:hidden">
+              <div
+                className={`group flex w-full items-center gap-4 rounded-lg border-2 p-4 text-left transition-all ${
+                  'border-accent bg-white shadow-sm'
+                }`}
+              >
+                {/* Previous button */}
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform shrink-0"
+                  aria-label="Previous step"
+                >
+                  <span className="inline-flex rotate-180">
+                    <RightArrowIcon width={18} height={18} />
+                  </span>
+                </button>
 
-                    {/* Right Arrow */}
-                    <div className="w-10 h-10 flex shrink-0 items-center justify-center border border-gray-200 rounded-full bg-white">
-                      <RightArrowIcon width={20} height={20} />
-                    </div>
-                  </button>
-                )
-              })}
+                {/* Content */}
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900">{selectedFeature.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+                    {selectedFeature.description}{' '}
+                    <span className="font-medium text-accent">{selectedFeature.highlight}</span>
+                  </p>
+                </div>
+
+                {/* Next button */}
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform shrink-0"
+                  aria-label="Next step"
+                >
+                  <RightArrowIcon width={18} height={18} />
+                </button>
+              </div>
             </div>
           </div>
 

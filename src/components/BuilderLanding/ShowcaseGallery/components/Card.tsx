@@ -27,7 +27,10 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
   return (
     <div
       className={clsx(
-        'group relative overflow-hidden rounded-lg flex flex-col justify-end items-start gap-4 p-4 border block w-full h-[369px] aspect-video border-[var(--base-border,#E5E5E5)] transition-all duration-300',
+        // Full-width, responsive card that keeps a 16:9 aspect ratio.
+        // The height is driven by the parent slide's aspect ratio so it scales
+        // with the viewport on mobile instead of staying fixed.
+        'group relative overflow-hidden rounded-lg flex flex-col justify-end items-start gap-4 p-4 border block w-full aspect-video border-[var(--base-border,#E5E5E5)] transition-all duration-300',
         className
       )}
     >
@@ -86,7 +89,7 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
 
           {/* Description */}
           <p
-            className="text-xs font-normal leading-4 text-base"
+            className="text-xs font-normal leading-4 text-base truncate"
             style={{
               textShadow: 'var(--shadow-sm-1-offset-x, 0) var(--shadow-sm-1-offset-y, 1px) var(--shadow-sm-1-blur-radius, 3px) var(--shadow-sm-1-color, rgba(0, 0, 0, 0.10)), var(--shadow-sm-2-offset-x, 0) var(--shadow-sm-2-offset-y, 1px) var(--shadow-sm-2-blur-radius, 2px) var(--shadow-sm-2-color, rgba(0, 0, 0, 0.10))',
             }}
@@ -96,18 +99,18 @@ export function ReferenceAppCard({ app, className }: ReferenceAppCardProps) {
         </div>
 
         {/* Feature Tags */}
-        {app.bulletPoints && app.bulletPoints.length > 0 && (
-          <div className="flex flex-wrap gap-2">
+        {/* {app.bulletPoints && app.bulletPoints.length > 0 && (
+          <div className="flex gap-2 max-w-full overflow-hidden">
             {app.bulletPoints.map((badge, index) => (
               <span
                 key={index}
-                className="px-3 py-1.5 text-sm font-medium bg-white text-accent rounded-full"
+                className="px-3 py-1.5 text-sm font-medium bg-white text-accent rounded-full truncate whitespace-nowrap flex-[0_1_auto]"
               >
                 {badge}
               </span>
             ))}
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Hover state: Buttons - centered */}
