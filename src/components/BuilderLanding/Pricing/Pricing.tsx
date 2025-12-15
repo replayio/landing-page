@@ -1,7 +1,11 @@
 'use client'
 
+import { useRef, useCallback } from 'react'
+import { EmblaCarouselType } from 'embla-carousel'
 import { Container } from '~/components/Container'
 import { Button } from '~/components/Button'
+import { Carousel } from '~/components/common/carousel'
+import { RightArrowIcon } from '~/components/icons/rightArrow'
 import { PricingCard } from './components/PricingCard'
 import type { PricingFeature } from './components/PricingCard'
 
@@ -17,6 +21,20 @@ interface PricingPlan {
 }
 
 export function Pricing() {
+  const carouselRef = useRef<EmblaCarouselType | undefined>(undefined)
+
+  const scrollPrev = useCallback(() => {
+    const embla = carouselRef.current
+    if (!embla) return
+    embla.scrollPrev()
+  }, [])
+
+  const scrollNext = useCallback(() => {
+    const embla = carouselRef.current
+    if (!embla) return
+    embla.scrollNext()
+  }, [])
+
   const pricingPlans: PricingPlan[] = [
     {
       id: 'free',
@@ -97,8 +115,8 @@ export function Pricing() {
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="flex flex-col items-center gap-6 md:flex-row md:items-stretch md:justify-center">
+        {/* Desktop Pricing Cards */}
+        <div className="hidden md:flex flex-col items-center gap-6 md:flex-row md:items-stretch md:justify-center">
           {pricingPlans.map((plan) => (
             <PricingCard
               key={plan.id}
@@ -111,6 +129,57 @@ export function Pricing() {
               featuresLabel={plan.featuresLabel}
             />
           ))}
+        </div>
+
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <Carousel
+            ref={carouselRef}
+            config={{
+              align: 'start',
+              slidesToScroll: 1,
+              dragFree: true,
+              loop: true,
+            }}
+            slideClassName="!w-full flex-shrink-0"
+            dots={false}
+            arrows={false}
+          >
+            {pricingPlans.map((plan) => (
+              <PricingCard
+                key={plan.id}
+                title={plan.title}
+                description={plan.description}
+                price={plan.price}
+                pricePeriod={plan.pricePeriod}
+                features={plan.features}
+                emphasized={plan.emphasized}
+                featuresLabel={plan.featuresLabel}
+              />
+            ))}
+          </Carousel>
+
+          {/* Mobile navigation buttons */}
+          <div className="mt-6 flex items-center justify-between gap-4">
+            <button
+              type="button"
+              onClick={scrollPrev}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+              aria-label="Previous pricing plan"
+            >
+              <span className="inline-flex rotate-180">
+                <RightArrowIcon width={18} height={18} />
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={scrollNext}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+              aria-label="Next pricing plan"
+            >
+              <RightArrowIcon width={18} height={18} />
+            </button>
+          </div>
         </div>
 
         {/* Bottom CTA Button */}
