@@ -71,7 +71,7 @@ const InputArea = () => {
                 {/* Prompt text at top */}
                 <div className="text-sm sm:text-lg">
                     <span className="text-gray-900">What would you like </span>
-                    <span className="text-accent font-semibold">Replay.Builder to build?</span>
+                    <span className="text-accent font-semibold">Replay Builder to build?</span>
                     <span className="text-gray-400"> Click here</span>
                 </div>
 

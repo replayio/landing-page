@@ -14,8 +14,8 @@ export function BrokenDreamsBanner() {
     >
       <Container className="flex items-center justify-center gap-4">
         <p className="text-white font-medium text-sm sm:text-base text-center sm:text-left">
-          <span className="hidden sm:inline">Rebuild your vibe-broken apps with Replay.Builder</span>
-          <span className="sm:hidden">Rebuild your apps with Replay.Builder</span>
+          <span className="hidden sm:inline">Rebuild your vibe-broken apps with Replay Builder</span>
+          <span className="sm:hidden">Rebuild your apps with Replay Builder</span>
         </p>
         <Button
           variant="outline"
