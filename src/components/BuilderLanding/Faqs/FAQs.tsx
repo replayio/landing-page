@@ -19,21 +19,21 @@ interface FAQ {
 export function FAQs() {
   const faqs: FAQ[] = [
     {
-      question: 'What makes Replay.Builder so good at debugging code?',
+      question: 'What makes Replay Builder so good at debugging code?',
       answer: (
         <div className="flex flex-col gap-4">
           <p>
-            Our secret sauce is Replay, our powerful code debugging tool. Before building Replay.Builder, 
+            Our secret sauce is Replay, our powerful code debugging tool. Before building Replay Builder, 
             the team at Replay built an insanely good deterministic browser-based code
             debugger that recorded billions of activities as your code runs and makes sense of it
             all to then correct issues.
           </p>
-          <p>Replay.Builder was built with this core debugging engine inside it.</p>
+          <p>Replay Builder was built with this core debugging engine inside it.</p>
         </div>
       ),
     },
     {
-      question: 'Can I use Replay.Builder for free?',
+      question: 'Can I use Replay Builder for free?',
       answer: (
         <p>
           It&apos;s the age-old question. Short answer is, yes. All new customers start on the Free
@@ -45,7 +45,7 @@ export function FAQs() {
       question: 'Can I cancel my plan?',
       answer: (
         <p>
-          Yes, you can. If you cancel your plan, you can continue using Replay.Builder to build
+          Yes, you can. If you cancel your plan, you can continue using Replay Builder to build
           your apps until you reach the end of the current billing cycle.
         </p>
       ),
@@ -71,7 +71,7 @@ export function FAQs() {
       question: 'Do Builder apps have a built in database?',
       answer: (
         <p>
-          Yes! Every app built with Replay.Builder will automatically have a database created along 
+          Yes! Every app built with Replay Builder will automatically have a database created along 
           with the interface of the app. We have a deep integration with Supabase. 
           (No, you don't need a crash-course in SQL)
         </p>
@@ -110,7 +110,7 @@ export function FAQs() {
             asked <span className="text-accent">questions</span>
           </h2>
           <p className="mt-4 text-base text-gray-700 sm:text-lg">
-            Everything you need to know about Replay.Builder.
+            Everything you need to know about Replay Builder.
           </p>
         </div>
 
