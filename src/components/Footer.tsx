@@ -17,6 +17,7 @@ const navigation = {
   company: [
     // { name: 'About', href: '/about' },
     { name: 'Blog', href: 'https://blog.replay.io/' },
+    { name: 'Knowledge Base', href: '/knowledge-base' },
     { name: 'Contact', href: '/contact' },
     //{ name: 'Careers', href: 'https://jobs.ashbyhq.com/replay' }
     //TODO: We have categories in our blog but we don't have a direct link to them yet
@@ -107,20 +108,13 @@ const navigation = {
 }
 
 // Derived arrays for footer layout (derived from navigation, not modifying it)
-const desktopNavLinks = [
+const NAV_LINKS = [
   { label: 'Builder', href: navigation.product[0].href },
   { label: 'Devtools', href: navigation.product[1].href },
   { label: 'Blog', href: navigation.company[0].href },
+  { label: 'Knowledge Base', href: navigation.company[1].href },
   { label: 'Contact', href: navigation.company[1].href },
   // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
-]
-
-const mobileNavLinks = [
-  { label: 'Builder', href: navigation.product[0].href },
-  { label: 'Devtools', href: navigation.product[1].href },
-  { label: 'Blog', href: navigation.company[0].href },
-  { label: 'Contact', href: navigation.company[1].href },
-  // { label: 'About Us', href: '/about' },
 ]
 
 export function Footer() {
@@ -165,7 +159,7 @@ export function Footer() {
 
           {/* Navigation Links */}
           <nav className="flex items-center gap-8 flex-1 justify-center">
-            {desktopNavLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
@@ -230,7 +224,7 @@ export function Footer() {
 
           {/* Navigation Links */}
           <nav className="flex flex-col items-center gap-4">
-            {mobileNavLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
