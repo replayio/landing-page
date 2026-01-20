@@ -44,16 +44,16 @@ export function Pricing() {
       pricePeriod: '/month',
       emphasized: false,
       features: [
-        { name: 'One project', included: true, tooltip: 'Build one project' },
+        { name: 'Limited usage', included: true, tooltip: 'Message and usage limits apply' },
         {
           name: 'Limited customer support',
           included: true,
           tooltip: 'Email support during business hours',
         },
-        { name: 'API connectors', included: false, tooltip: 'Connect to external APIs' },
+        { name: 'API connectors', included: true, tooltip: 'Connect to external APIs' },
         {
           name: 'Download your code',
-          included: false,
+          included: true,
           tooltip: 'Download your project source code',
         },
         { name: 'Deploy your applications', included: false, tooltip: 'Deploy apps to production' },
@@ -68,14 +68,12 @@ export function Pricing() {
       emphasized: true,
       featuresLabel: 'Everything in Basic, plus:',
       features: [
-        { name: 'Unlimited projects', included: true, tooltip: 'Build as many apps as you want' },
+        { name: 'Nearly unlimited usage', included: true, tooltip: 'Very high message and usage limits' },
         {
           name: 'Priority Customer Support',
           included: true,
           tooltip: 'Priority email and chat support',
         },
-        { name: 'API connectors', included: true, tooltip: 'Connect to external APIs' },
-        { name: 'Download your code', included: true, tooltip: 'Download your project source code' },
         { name: 'Deploy your applications', included: true, tooltip: 'Deploy apps to production' },
       ],
     },
