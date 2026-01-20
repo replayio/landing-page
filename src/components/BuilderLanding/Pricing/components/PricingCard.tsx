@@ -1,4 +1,6 @@
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 import clsx from 'clsx'
+import WithTooltip from '~/components/ui/Tooltip'
 
 export interface PricingFeature {
   name: string
@@ -142,13 +144,11 @@ export function PricingCard({
                 {feature.name}
               </span>
               {feature.tooltip && (
-                <button
-                  className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
-                  title={feature.tooltip}
-                  aria-label={feature.tooltip}
-                >
-                  <InfoIcon />
-                </button>
+                <TooltipProvider>
+                  <WithTooltip tooltip={feature.tooltip}>
+                    <InfoIcon className="text-gray-400 hover:text-gray-600 transition-colors" />
+                  </WithTooltip>
+                </TooltipProvider>
               )}
             </div>
           ))}
