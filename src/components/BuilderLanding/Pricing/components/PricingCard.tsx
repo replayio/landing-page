@@ -1,4 +1,6 @@
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 import clsx from 'clsx'
+import WithTooltip from '~/components/ui/Tooltip'
 
 export interface PricingFeature {
   name: string
@@ -84,76 +86,84 @@ export function PricingCard({
   featuresLabel,
 }: PricingCardProps) {
   return (
-    <div
-      className={clsx(
-        'relative flex flex-col rounded-xl border bg-gray-50 p-6',
-        'w-full max-w-[320px] md:w-[320px]',
-        {
-          'border-gray-300 shadow-xl z-10': emphasized,
-          'border-gray-200 shadow-sm': !emphasized,
-        },
-        className
-      )}
-    >
-      {/* Header */}
-      <div className="mb-4">
-        <h3
-          className={clsx('text-xl font-bold mb-1', {
-            'text-accent': emphasized,
-            'text-gray-900': !emphasized,
-          })}
-        >
-          {title}
-        </h3>
-        <p className="text-sm text-gray-600 leading-snug">{description}</p>
-      </div>
-
-      {/* Price */}
-      <div className="mb-4">
-        <span className="text-4xl font-bold text-gray-900">{price}</span>
-        {pricePeriod && (
-          <span className={clsx('text-sm ml-0.5', emphasized ? 'text-accent' : 'text-accent')}>
-            {pricePeriod}
-          </span>
+    <TooltipProvider>
+      <div
+        className={clsx(
+          'relative flex flex-col rounded-xl border bg-gray-50 p-6',
+          'w-full max-w-[320px] md:w-[320px]',
+          {
+            'border-gray-300 shadow-xl z-10': emphasized,
+            'border-gray-200 shadow-sm': !emphasized,
+          },
+          className
         )}
-      </div>
+      >
+        {/* Header */}
+        <div className="mb-4">
+          <h3
+            className={clsx('text-xl font-bold mb-1', {
+              'text-accent': emphasized,
+              'text-gray-900': !emphasized,
+            })}
+          >
+            {title}
+          </h3>
+          <p className="text-sm text-gray-600 leading-snug">{description}</p>
+        </div>
 
-      {/* Features */}
-      <div>
-        <h4 className="text-sm font-semibold text-gray-900 mb-3">
-          {featuresLabel || "What's included:"}
-        </h4>
-        <div className="space-y-3">
-          {features.map((feature, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <div className="flex-shrink-0">
-                {feature.included ? (
-                  <CheckIcon className="text-accent" />
-                ) : (
-                  <XIcon className="text-accent" />
+        {/* Price */}
+        <div className="mb-4">
+          <span className="text-4xl font-bold text-gray-900">{price}</span>
+          {pricePeriod && (
+            <span className={clsx('text-sm ml-0.5', emphasized ? 'text-accent' : 'text-accent')}>
+              {pricePeriod}
+            </span>
+          )}
+        </div>
+
+        {/* Features */}
+        <div>
+          <h4 className="text-sm font-semibold text-gray-900 mb-3">
+            {featuresLabel || "What's included:"}
+          </h4>
+          <div className="space-y-3">
+            {features.map((feature, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <div className="flex-shrink-0">
+                  {feature.included ? (
+                    <CheckIcon className="text-accent" />
+                  ) : (
+                    <XIcon className="text-accent" />
+                  )}
+                </div>
+                <span
+                  className={clsx('flex-1 text-sm', {
+                    'text-gray-900': feature.included,
+                    'text-gray-400': !feature.included,
+                  })}
+                >
+                  {feature.name}
+                </span>
+                {feature.tooltip && (
+                  <WithTooltip 
+                    tooltip={feature.tooltip}
+                    className="!bg-gray-900 !text-gray-100 border border-gray-700"
+                    arrowClassName="!fill-gray-900"
+                  >
+                    <button
+                      type="button"
+                      className="flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
+                      aria-label={`Info about ${feature.name}`}
+                    >
+                      <InfoIcon className="text-gray-400 hover:text-gray-600 transition-colors" />
+                    </button>
+                  </WithTooltip>
                 )}
               </div>
-              <span
-                className={clsx('flex-1 text-sm', {
-                  'text-gray-900': feature.included,
-                  'text-gray-400': !feature.included,
-                })}
-              >
-                {feature.name}
-              </span>
-              {feature.tooltip && (
-                <button
-                  className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
-                  title={feature.tooltip}
-                  aria-label={feature.tooltip}
-                >
-                  <InfoIcon />
-                </button>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </TooltipProvider>
   )
 }
