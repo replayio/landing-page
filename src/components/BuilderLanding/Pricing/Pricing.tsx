@@ -56,7 +56,7 @@ export function Pricing() {
           included: true,
           tooltip: 'Download your project source code',
         },
-        { name: 'Deploy your applications', included: false, tooltip: 'Deploy apps to production' },
+        { name: 'Deploy your applications', included: false, tooltip: 'Deploying apps to production is a premium feature' },
       ],
     },
     {
