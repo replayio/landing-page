@@ -19,30 +19,10 @@ export default function BuilderHomeMain() {
       <Container className="relative z-10 flex w-full max-w-7xl flex-col items-center flex-1">
         <div ref={heroContentRef} className="flex w-full max-w-4xl flex-col items-center pt-8 md:pt-12 lg:pt-16 xl:pt-20">
           {/* Main Headline */}
-          <h1 className="text-center text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="text-center text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
             Own your tools
             <br />
-            with web apps that{' '}
-            <span className="relative inline-block">
-              work
-              <svg
-                className="absolute -bottom-1 left-0 w-full"
-                height="10"
-                viewBox="0 0 120 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M2 5C8 3, 15 7, 22 5C29 3, 36 7, 43 5C50 3, 57 7, 64 5C71 3, 78 7, 85 5C92 3, 99 7, 106 5C110 4.5, 114 4, 118 5"
-                  stroke="#3B82F6"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  fill="none"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
-            </span>
+            with web apps that work
           </h1>
 
           {/* Sub-headline */}
