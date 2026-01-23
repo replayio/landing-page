@@ -8,7 +8,6 @@ import { ShowcaseGallery } from '~/components/BuilderLanding/ShowcaseGallery/Sho
 import { Connectors } from '~/components/BuilderLanding/Connectors/Connectors'
 import { Pricing } from '~/components/BuilderLanding/Pricing/Pricing'
 import { FAQs } from '~/components/BuilderLanding/Faqs/FAQs'
-import { BrokenDreamsBanner } from '~/components/BuilderLanding/BrokenDreamsBanner/BrokenDreamsBanner'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 export const metadata: Metadata = {
@@ -45,7 +44,6 @@ export const viewport: Viewport = {
 export default function Home() {
   return (
     <>
-      <BrokenDreamsBanner />
       <Suspense fallback={null}>
         <Header className="!top-[52px] sm:!top-[54px]" />
       </Suspense>

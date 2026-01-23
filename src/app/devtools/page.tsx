@@ -10,7 +10,6 @@ import { Hero } from '../components/hero'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta } from '~/lib/constants'
-import { BrokenDreamsBanner } from '~/components/BuilderLanding/BrokenDreamsBanner/BrokenDreamsBanner'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 export const metadata: Metadata = {
@@ -52,7 +51,6 @@ export default function DevToolsPage() {
         'use server'
         return (
           <>
-            <BrokenDreamsBanner />
             <Suspense fallback={null}>
               <Header className="!top-[52px] sm:!top-[54px]" />
             </Suspense>
