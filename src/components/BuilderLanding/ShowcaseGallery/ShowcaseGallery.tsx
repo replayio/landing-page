@@ -1,152 +1,175 @@
 'use client'
 
-import { useRef, useEffect, useCallback } from 'react'
-import { EmblaCarouselType } from 'embla-carousel'
-import { Button } from '~/components/Button'
+import { useRef, useEffect, useCallback, useState, useMemo } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import clsx from 'clsx'
 import { Container } from '~/components/Container'
-import { Carousel } from '~/components/common/carousel'
-import { ReferenceAppCard, ReferenceAppCategory, ReferenceApp } from './components/Card'
-import { RightArrowIcon } from '~/components/icons/rightArrow'
-
-export const referenceApps: ReferenceApp[] = [
-  {
-    appPath: 'management/IssueTracker',
-    appName: 'Issue Tracker',
-    description: 'Track and manage issues across your projects',
-    bulletPoints: ['Triage System', 'Personal Inboxes', 'Email Notifications'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8KdqUWQBDviRZOVD8n3oL79Tegv1adIFGkcmQ6H',
-    categories: [ReferenceAppCategory.Business, ReferenceAppCategory.Technical],
-  },
-  {
-    appPath: 'management/DocumentManager',
-    appName: 'Team Wiki',
-    description: 'A shared knowledge base for your team',
-    bulletPoints: ['Rich Text Documents', 'Kanban Boards and Tables', 'Comment System'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8Kd65diTnZrn27SvXDfJANF0dzKcZECW1mhuabT',
-    categories: [ReferenceAppCategory.Business],
-  },
-  {
-    appPath: 'observe/TelemetryBoard',
-    appName: 'Telemetry Board',
-    description: 'Listens to OpenTelemetry events and helps you monitor your systems',
-    bulletPoints: ['Custom Boards', 'Saved Views', 'Editable Log Rendering'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8KdjK4IdOUektSnylW57BEZobPcKpDY4LHifIMz',
-    categories: [ReferenceAppCategory.Technical],
-  },
-  {
-    appPath: 'social/ScoreKeeper',
-    appName: 'ScoreKeeper',
-    description: "Keep track of everyone's scores when playing card and board games",
-    bulletPoints: ['Round History', 'Game History'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8KdLdVubLoPsxJKqg3tOm8U6XBkfWzF1NvylbMC',
-    categories: [ReferenceAppCategory.Personal],
-  },
-  {
-    appPath: 'personal/Paperlane',
-    appName: 'Paperlane',
-    description: 'Clean and simple note taking app',
-    bulletPoints: ['Rich Text'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8KdYlDrUI5pOy8T4MGez0Njgs2FS9nmWfxvoXib',
-    categories: [ReferenceAppCategory.Personal],
-  },
-  {
-    appPath: 'social/FamilyCarts',
-    appName: 'Family Carts',
-    description: 'Shared grocery lists for you and your family',
-    bulletPoints: ['Per Store Lists'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8KdeWtx5KE1nQ39PNmwcYLluUfE5oeBy6F2pkSM',
-    categories: [ReferenceAppCategory.Personal],
-  },
-  {
-    appPath: 'management/SupportCRM',
-    appName: 'Support CRM',
-    description: 'Manage support tickets from your customers',
-    bulletPoints: ['Email Notifications'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8KdfbHk8O1ureDlVQJGmHCq126KNU7B3RpWcTtE',
-    categories: [ReferenceAppCategory.Business],
-  },
-  {
-    appPath: 'social/CommunityIdeas',
-    appName: 'Community Ideas',
-    description: 'Collect ideas from your users on upcoming features',
-    bulletPoints: ['Voting System', 'User Comments'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8Kd4gd56oTwYcWkB0HDfQ6qhVKvEnaUGMbL8owF',
-    categories: [ReferenceAppCategory.Business],
-  },
-  {
-    appPath: 'management/Invoicerator',
-    appName: 'Invoicerator',
-    description: 'Track time on different projects and generate invoices',
-    bulletPoints: ['PDF Invoicing'],
-    photo: 'https://utfs.io/f/g4w5SXU7E8Kdjs887pUektSnylW57BEZobPcKpDY4LHifIMz',
-    categories: [ReferenceAppCategory.Business, ReferenceAppCategory.Personal],
-  },
-  /*
-  {
-    appName: 'StudyBuddy',
-    description: 'Generate study materials for any topic',
-    bulletPoints: ['PDF Imports', 'AI Generated Flash Cards'],
-    categories: [ReferenceAppCategory.Personal],
-  },
-  */
-];
+import { ReferenceAppCard } from './components/Card'
+import { CategorySelector, type IntroSectionCategory } from './components/CategorySelector'
+import { Collections } from './components/Collections'
+import {
+  getReferenceAppSummaries,
+  type ReferenceAppSummary,
+} from '~/lib/ReferenceApps'
 
 export function ShowcaseGallery() {
-  const carouselRef = useRef<EmblaCarouselType | undefined>(undefined)
-  const carouselContainerRef = useRef<HTMLDivElement>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>('All')
+  const [showAll, setShowAll] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const searchParams = useSearchParams()
+  const hasHandledAppPath = useRef(false)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartRef = useRef({ x: 0, scrollLeft: 0 })
+  const [referenceApps, setReferenceApps] = useState<ReferenceAppSummary[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  // Handle wheel events to scroll carousel horizontally with smooth scrolling
-  const handleWheel = useCallback((e: WheelEvent) => {
-    const embla = carouselRef.current
-    if (!embla) return
-    
-    // Only respond to horizontal scroll (deltaX), ignore vertical scroll (deltaY)
-    // If there's no horizontal scroll, don't prevent default and let page scroll normally
-    if (Math.abs(e.deltaX) === 0 || Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      return // Allow normal vertical scrolling
+  // Fetch reference apps on mount
+  useEffect(() => {
+    const loadReferenceApps = async () => {
+      try {
+        setIsLoading(true)
+        const apps = await getReferenceAppSummaries()
+        setReferenceApps(apps)
+      } catch (error) {
+        console.error('Failed to fetch reference apps:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
-    
-    // Prevent default scroll behavior only for horizontal scroll
-    e.preventDefault()
-    
-    // Use only deltaX for horizontal carousel movement
-    const delta = e.deltaX
-    
-    // Use internal engine for smooth continuous scrolling
-    // Adjust multiplier for scroll speed (lower = slower)
-    const scrollSpeed = 0.4
-    const engine = embla.internalEngine()
-    engine.scrollBody.useDuration(0) // Disable animation for immediate response
-    engine.scrollTo.distance(-delta * scrollSpeed, false)
+
+    loadReferenceApps()
   }, [])
 
+  // Handle appPath URL parameter - automatically open customize
+  useEffect(() => {
+    if (hasHandledAppPath.current || referenceApps.length === 0) {
+      return
+    }
+
+    const appPathParam = searchParams.get('appPath')
+    if (!appPathParam) {
+      return
+    }
+
+    const matchingApp = referenceApps.find((app) => app.referenceAppPath === appPathParam)
+    if (!matchingApp) {
+      return
+    }
+
+    hasHandledAppPath.current = true
+    window.open(`https://builder.replay.io/?appPath=${matchingApp.referenceAppPath}`, '_blank')
+  }, [searchParams, referenceApps])
+
+  // Filter apps by stage first (before calculating categories)
+  const stageFilteredApps = useMemo(() => {
+    if (showAll) {
+      return referenceApps
+    }
+    return referenceApps.filter((app) => ['alpha', 'beta', 'release'].includes(app.stage))
+  }, [referenceApps, showAll])
+
+  const categories = useMemo(() => {
+    const sectionCategories: IntroSectionCategory[] = []
+    sectionCategories.push({ name: 'All', count: stageFilteredApps.length })
+    for (const { tags } of stageFilteredApps) {
+      for (const tag of tags) {
+        const existing = sectionCategories.find((c) => c.name === tag)
+        if (existing) {
+          existing.count++
+        } else {
+          sectionCategories.push({ name: tag, count: 1 })
+        }
+      }
+    }
+    return sectionCategories
+  }, [stageFilteredApps])
+
+  const filteredApps = useMemo(() => {
+    let apps = stageFilteredApps
+
+    // Filter by category
+    if (!selectedCategory) {
+      return []
+    }
+    if (selectedCategory !== 'All') {
+      apps = apps.filter((app) => app.tags.some((category) => category === selectedCategory))
+    }
+
+    // Filter by search term (case-insensitive match on app names)
+    if (searchTerm.trim()) {
+      const searchLower = searchTerm.toLowerCase().trim()
+      apps = apps.filter((app) => app.name.toLowerCase().includes(searchLower))
+    }
+
+    return apps
+  }, [selectedCategory, stageFilteredApps, searchTerm])
+
+  // Drag-to-scroll handlers
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrollContainerRef.current) {
+      return
+    }
+
+    // Don't start dragging if clicking on a button, interactive element, or card
+    const target = e.target as HTMLElement
+    if (target.tagName === 'BUTTON' || target.closest('button') || target.closest('[data-card-clickable]')) {
+      return
+    }
+
+    setIsDragging(true)
+    dragStartRef.current = {
+      x: e.pageX - scrollContainerRef.current.offsetLeft,
+      scrollLeft: scrollContainerRef.current.scrollLeft,
+    }
+
+    e.preventDefault()
+  }
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !scrollContainerRef.current) {
+      return
+    }
+
+    e.preventDefault()
+    const x = e.pageX - scrollContainerRef.current.offsetLeft
+    const walk = (x - dragStartRef.current.x) * 1.5 // Scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = dragStartRef.current.scrollLeft - walk
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleMouseLeave = () => {
+    setIsDragging(false)
+  }
+
+  // Navigation functions for mobile arrows
   const scrollPrev = useCallback(() => {
-    const embla = carouselRef.current
-    if (!embla) return
-    embla.scrollPrev()
+    if (!scrollContainerRef.current) {
+      return
+    }
+    const container = scrollContainerRef.current
+    const slideWidth = container.clientWidth
+    container.scrollBy({ left: -slideWidth, behavior: 'smooth' })
   }, [])
 
   const scrollNext = useCallback(() => {
-    const embla = carouselRef.current
-    if (!embla) return
-    embla.scrollNext()
-  }, [])
-
-  useEffect(() => {
-    const container = carouselContainerRef.current
-    if (!container) return
-
-    container.addEventListener('wheel', handleWheel, { passive: false })
-    return () => {
-      container.removeEventListener('wheel', handleWheel)
+    if (!scrollContainerRef.current) {
+      return
     }
-  }, [handleWheel])
+    const container = scrollContainerRef.current
+    const slideWidth = container.clientWidth
+    container.scrollBy({ left: slideWidth, behavior: 'smooth' })
+  }, [])
 
   return (
     <section id="showcase-gallery" className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-8 md:pb-24 md:pt-20">
-      {/* Headline Section - contained */}
       <Container className="relative">
-        <div className="max-w-4xl">
+        {/* Header */}
+        <div className="max-w-4xl mb-12">
           <h2 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl md:text-6xl">
             Start with
             <br />
@@ -156,70 +179,91 @@ export function ShowcaseGallery() {
             Ready to use out-of-the-box (but can be aligned to your needs)
           </p>
         </div>
-      </Container>
 
-      {/* Carousel - full width but starts at container edge */}
-      <div 
-        ref={carouselContainerRef}
-        className="mt-12 w-full mx-auto"
-      >
-        <Carousel
-          ref={carouselRef}
-          config={{
-            align: 'start',
-            slidesToScroll: 1,
-            dragFree: true,
-            loop: true,
-          }}
-          className="px-4 sm:px-6"
-          // On mobile, each slide takes the full available width.
-          // On larger screens we cap the width so multiple slides can peek in.
-          slideClassName="!w-full sm:!w-[520px] lg:!w-[656px] flex-shrink-0 rounded-xl aspect-video"
-          dots={false}
-          arrows={false}
-        >
-          {referenceApps.map((app, index) => (
-            <ReferenceAppCard key={`${app.appName}-${index}`} app={app} />
-          ))}
-        </Carousel>
-      </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-24">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 border-4 border-gray-200 border-t-accent rounded-full animate-spin" />
+              <p className="text-gray-600">Loading apps...</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            <CategorySelector
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategorySelect={(category) => setSelectedCategory(category)}
+              showAll={showAll}
+              onShowAllChange={setShowAll}
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+            />
 
-      {/* Mobile navigation buttons – make it clear there’s more to scroll */}
-      <div className="mt-6 flex items-center justify-between px-6 sm:hidden">
-        <button
-          type="button"
-          onClick={scrollPrev}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
-          aria-label="Previous app"
-        >
-          <span className="inline-flex rotate-180">
-            <RightArrowIcon />
-          </span>
-        </button>
-        <button
-          type="button"
-          onClick={scrollNext}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
-          aria-label="Next app"
-        >
-          <RightArrowIcon />
-        </button>
-      </div>
+            {/* Horizontal scrolling card container */}
+            {filteredApps.length > 0 && (
+              <>
+                <div
+                  ref={scrollContainerRef}
+                  className={clsx(
+                    'overflow-x-auto pb-4 px-4 sm:px-6 mb-4 sm:mb-8 snap-x snap-mandatory',
+                    isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'
+                  )}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  style={{
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    WebkitOverflowScrolling: 'touch',
+                    scrollBehavior: isDragging ? 'auto' : 'smooth',
+                  }}
+                >
+                  <div className="flex gap-4 sm:gap-6" style={{ minWidth: 'min-content' }}>
+                    {filteredApps.map((app) => (
+                      <div
+                        key={app.name}
+                        className="w-[calc(100vw-2rem)] sm:w-[520px] lg:w-[656px] flex-shrink-0 snap-start"
+                      >
+                        <ReferenceAppCard
+                          appName={app.name}
+                          description={app.shortDescription}
+                          bulletPoints={app.bulletPoints}
+                          stage={app.stage}
+                          photo={app.screenshotURL}
+                          appPath={app.referenceAppPath}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-      {/* CTA Button - contained */}
-      <Container>
-        <div className="mt-12 flex justify-center">
-          <Button
-            variant="solid"
-            color="default"
-            size="base"
-            className="px-8"
-            href="https://builder.replay.io/?focus=true"
-            target="_blank"
-          >
-            Start Building
-          </Button>
-        </div>
+                {/* Mobile navigation arrows */}
+                <div className="flex items-center justify-between px-6 sm:hidden mb-8">
+                  <button
+                    type="button"
+                    onClick={scrollPrev}
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform hover:bg-gray-50"
+                    aria-label="Previous app"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={scrollNext}
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform hover:bg-gray-50"
+                    aria-label="Next app"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </div>
+              </>
+            )}
+
+            {/* Collections Section */}
+            <Collections />
+          </>
+        )}
       </Container>
     </section>
   )
