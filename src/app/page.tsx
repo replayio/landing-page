@@ -49,7 +49,9 @@ export default function Home() {
       </Suspense>
       <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
         <BuilderHomeMain />
-        <ShowcaseGallery />
+        <Suspense fallback={<div className="min-h-[400px]" />}>
+          <ShowcaseGallery />
+        </Suspense>
         <HowBuilderWorks />
         <Connectors />
         <Pricing />
