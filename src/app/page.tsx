@@ -45,9 +45,9 @@ export default function Home() {
   return (
     <>
       <Suspense fallback={null}>
-        <Header className="!top-[52px] sm:!top-[54px]" />
+        <Header className="!top-[0px] sm:!top-[0px]" />
       </Suspense>
-      <PageContentAnimate className="pt-[calc(var(--header-height)+52px)] sm:pt-[calc(var(--header-height)+54px)]">
+      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
         <BuilderHomeMain />
         <ShowcaseGallery />
         <HowBuilderWorks />

@@ -7,7 +7,9 @@ const nextConfig = {
       { hostname: 'basehub.earth' },
       { hostname: 'image-forwarder.notaku.so' },
       { hostname: 'assets.basehub.com' },
-      { hostname: 'utfs.io' }
+      { hostname: 'utfs.io' },
+      { hostname: 'static.replay.io' },
+      { hostname: 'placehold.co' }
     ]
   },
   sassOptions: {
