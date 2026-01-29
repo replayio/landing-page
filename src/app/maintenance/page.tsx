@@ -3,30 +3,28 @@ import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 
-import { TermsOfService } from '~/components/sections/legal/terms'
+import { MaintenancePage } from '~/components/MaintenancePage'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service'
+  title: 'Maintenance Support - Get Help for Your AI-Built Web App'
 }
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
 }
 
-const Terms = () => {
+const Maintenance = () => {
   return (
     <>
       <Suspense fallback={null}>
-      <Header />
+        <Header />
       </Suspense>
       <main>
-        <div className="px-4">
-          <TermsOfService />
-        </div>
+        <MaintenancePage />
       </main>
       <Footer />
     </>
   )
 }
 
-export default Terms
+export default Maintenance
