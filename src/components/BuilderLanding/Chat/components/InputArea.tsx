@@ -70,9 +70,7 @@ const InputArea = () => {
             <div className="relative flex flex-col justify-between h-[180px] rounded-2xl border-2 border-accent/50 bg-white p-5 shadow-sm transition-all focus-within:border-accent focus-within:shadow-md">
                 {/* Prompt text at top */}
                 <div className="text-sm sm:text-lg">
-                    <span className="text-gray-900">What would you like </span>
-                    <span className="text-accent font-semibold">Replay Builder to build?</span>
-                    <span className="text-gray-400"> Click here</span>
+                    <span className="text-gray-900">What would you like Replay Builder to build?</span>
                 </div>
 
                 {/* Bottom row with icons and send button */}
