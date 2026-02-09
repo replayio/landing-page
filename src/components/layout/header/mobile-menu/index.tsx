@@ -101,24 +101,30 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
             ref={mobileMenuInnerRef}
           >
             <ul className="flex h-full w-full flex-col gap-6">
-              {links.map((link) => (
-                <li className="first:pt-6 last:pb-6" key={link.label}>
-                  <Link
-                    className={clsx(
-                      {
-                        ['font-semibold !text-accent']:
-                          pathname === link.href || `/${hash}` === link.href
-                      },
-                      'duration-[350ms] ease-[cubic-bezier(0.5,1,0.89,1)] flex w-full items-center gap-3 text-2xl leading-8 tracking-[-0.04em] transition-[color] active:text-accent'
-                    )}
-                    href={link.href || '#'}
-                    onClick={handleOff}
-                    aria-label={link.label}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {links.map((link) => {
+                // Check if link is active - only for internal links
+                const isActive = link.href?.startsWith('/')
+                  ? pathname === link.href || (hash && `/${hash}` === link.href)
+                  : false
+
+                return (
+                  <li className="first:pt-6 last:pb-6" key={link.label}>
+                    <Link
+                      className={clsx(
+                        {
+                          ['font-semibold !text-accent']: isActive
+                        },
+                        'duration-[350ms] ease-[cubic-bezier(0.5,1,0.89,1)] flex w-full items-center gap-3 text-2xl leading-8 tracking-[-0.04em] transition-[color] active:text-accent'
+                      )}
+                      href={link.href || '#'}
+                      onClick={handleOff}
+                      aria-label={link.label}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
 
             <div className="mt-auto animate-fadeIn pb-5 flex flex-col gap-2">

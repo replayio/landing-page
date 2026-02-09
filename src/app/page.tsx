@@ -1,63 +1,70 @@
 import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
+import { DevTools } from '~/components/sections/DevTools'
+import { Testimonials } from '~/components/Testimonials'
+import { Pump } from '.basehub/react-pump'
+import { draftMode } from 'next/headers'
+import { landingPageFragment } from '~/lib/basehub-queries'
+import FAQ from '~/components/sections/FAQ'
+import { Hero } from './components/hero'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
-import BuilderHomeMain from '~/components/BuilderLanding/Chat/Chat'
-import { HowBuilderWorks } from '~/components/BuilderLanding/HowBuilderWorks/HowBuilderWorks'
-import { ShowcaseGallery } from '~/components/BuilderLanding/ShowcaseGallery/ShowcaseGallery'
-import { Connectors } from '~/components/BuilderLanding/Connectors/Connectors'
-import { Pricing } from '~/components/BuilderLanding/Pricing/Pricing'
-import { FAQs } from '~/components/BuilderLanding/Faqs/FAQs'
+import { defaultMeta } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 export const metadata: Metadata = {
-  title: 'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
-  description: 'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
+  title: {
+    template: '%s - Replay',
+    default: 'Replay - Time Travel Browser DevTools'
+  },
+  description: defaultMeta.description,
   openGraph: {
-    title: 'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
-    description: 'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
-    url: 'https://www.replay.io/',
-    siteName: 'Replay',
-    images: [
-      {
-        url: '/images/og-image-builder.png',
-        width: 1200,
-        height: 630,
-        alt: 'Replay Builder',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
-    description: 'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
-    images: ['/images/og-image-builder.png'],
+    site: defaultMeta.twitter.site,
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    creator: defaultMeta.twitter.handle,
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
+  other: {
+    name: 'ahrefs-site-verification',
+    content: 'd6acf1324602b320f37276d0f77e3e8ced24a91e2298c91fdcb79f2143e73bc6'
+  }
 }
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
 }
 
-export default function Home() {
+export default function DevToolsPage() {
   return (
-    <>
-      <Suspense fallback={null}>
-        <Header className="!top-[0px] sm:!top-[0px]" />
-      </Suspense>
-      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
-        <BuilderHomeMain />
-        <Suspense fallback={<div className="min-h-[400px]" />}>
-          <ShowcaseGallery />
-        </Suspense>
-        <HowBuilderWorks />
-        <Connectors />
-        <Pricing />
-        <FAQs />
-      </PageContentAnimate>
-      <Footer />
-    </>
+    <Pump
+      draft={draftMode().isEnabled}
+      next={{ revalidate: 30 }}
+      queries={[{ landingPage: landingPageFragment }]}
+    >
+      {async ([{ landingPage }]) => {
+        'use server'
+        return (
+          <>
+            <Suspense fallback={null}>
+              <Header className="!top-[0px] sm:!top-[0px]" />
+            </Suspense>
+            <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
+              <Hero {...landingPage} />
+              <DevTools {...landingPage} />
+              <FAQ {...landingPage} />
+              <Testimonials {...landingPage} />
+            </PageContentAnimate>
+            <Footer />
+          </>
+        )
+      }}
+    </Pump>
   )
 }
+

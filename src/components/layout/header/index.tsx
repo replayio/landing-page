@@ -24,8 +24,8 @@ const NAVLINKS: Navlink[] = [
 ]
 
 const MobileNavlinks: Navlink[] = [
-  { href: '/', label: 'Builder' },
-  { href: '/devtools', label: 'DevTools' },
+  { href: '/', label: 'DevTools' },
+  { href: '/builder', label: 'Builder' },
   { href: 'https://blog.replay.io', label: 'Changelog' },
   // { href: '/about', label: 'Company' },
 ]
@@ -77,8 +77,8 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
   const router = useRouter()
   const searchParams = useSearchParams()
   const hash = useHash()
-  const isHomepage = pathname === '/'
-  const isDevtoolsPage = pathname === '/devtools'
+  const isDevtoolsPage = pathname === '/'
+  const isBuilderPage = pathname === '/builder'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,12 +92,12 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
 
   // Open dropdown if navigated with ?builder=open param
   useEffect(() => {
-    if (searchParams.get('builder') === 'open' && isHomepage) {
+    if (searchParams.get('builder') === 'open' && isBuilderPage) {
       setBuilderDropdownOpen(true)
       // Clean up the URL param
-      window.history.replaceState({}, '', '/')
+      window.history.replaceState({}, '', '/builder')
     }
-  }, [searchParams, isHomepage])
+  }, [searchParams, isBuilderPage])
 
   // Close dropdowns when clicking outside (optional - hover handles most cases)
   useEffect(() => {
@@ -151,55 +151,6 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
               <Logo className="h-auto w-[144px]" variant={variant || 'light'} />
             </Link>
             <div className="hidden md:flex md:gap-x-4 md:items-center">
-              {/* Builder Dropdown */}
-              <div
-                ref={dropdownRef}
-                className="relative"
-                onMouseEnter={() => setBuilderDropdownOpen(true)}
-                onMouseLeave={() => setBuilderDropdownOpen(false)}
-              >
-                <button
-                  onClick={() => {
-                    if (!isHomepage) {
-                      // Not on homepage - navigate to homepage
-                      router.push('/')
-                    }
-                  }}
-                  className={clsx(
-                    'inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium transition-colors',
-                    variant === 'dark'
-                      ? 'text-slate-100 hover:text-white'
-                      : isHomepage
-                        ? 'text-accent hover:text-accent/80'
-                        : 'text-slate-700 hover:text-accent'
-                  )}
-                >
-                  Builder
-                  <ChevronDown
-                    className={clsx(
-                      'transition-transform duration-200',
-                      builderDropdownOpen && 'rotate-180'
-                    )}
-                  />
-                </button>
-
-                {/* Dropdown Menu */}
-                {builderDropdownOpen && (
-                  <div className="absolute left-0 top-full w-72 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
-                    {BUILDER_DROPDOWN_ITEMS.map((item) => (
-                      <button
-                        key={item.id}
-                        onClick={() => scrollToSection(item.id)}
-                        className="block w-full px-4 py-3 text-left transition-colors hover:bg-gray-50"
-                      >
-                        <span className="block text-sm font-medium text-accent">{item.label}</span>
-                        <span className="block text-sm text-gray-600">{item.description}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
               {/* DevTools Dropdown */}
               <div
                 ref={devtoolsDropdownRef}
@@ -210,8 +161,8 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                 <button
                   onClick={() => {
                     if (!isDevtoolsPage) {
-                      // Not on devtools page - navigate to devtools page
-                      router.push('/devtools')
+                      // Not on devtools page - navigate to devtools page (homepage)
+                      router.push('/')
                     }
                   }}
                   className={clsx(
@@ -264,6 +215,55 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                 )}
               </div>
 
+              {/* Builder Dropdown */}
+              <div
+                ref={dropdownRef}
+                className="relative"
+                onMouseEnter={() => setBuilderDropdownOpen(true)}
+                onMouseLeave={() => setBuilderDropdownOpen(false)}
+              >
+                <button
+                  onClick={() => {
+                    if (!isBuilderPage) {
+                      // Not on builder page - navigate to builder page
+                      router.push('/builder')
+                    }
+                  }}
+                  className={clsx(
+                    'inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium transition-colors',
+                    variant === 'dark'
+                      ? 'text-slate-100 hover:text-white'
+                      : isBuilderPage
+                        ? 'text-accent hover:text-accent/80'
+                        : 'text-slate-700 hover:text-accent'
+                  )}
+                >
+                  Builder
+                  <ChevronDown
+                    className={clsx(
+                      'transition-transform duration-200',
+                      builderDropdownOpen && 'rotate-180'
+                    )}
+                  />
+                </button>
+
+                {/* Dropdown Menu */}
+                {builderDropdownOpen && (
+                  <div className="absolute left-0 top-full w-72 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                    {BUILDER_DROPDOWN_ITEMS.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => scrollToSection(item.id)}
+                        className="block w-full px-4 py-3 text-left transition-colors hover:bg-gray-50"
+                      >
+                        <span className="block text-sm font-medium text-accent">{item.label}</span>
+                        <span className="block text-sm text-gray-600">{item.description}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {NAVLINKS.map(({ href, label }) => (
                 <NavLink
                   key={href}
@@ -288,28 +288,30 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
-            <div className="hidden md:flex md:items-center md:gap-x-4">
-              <Button
-                href="https://builder.replay.io/?login=true"
-                variant="outline"
-                size="sm"
-                // color={variant === 'dark' ? 'white' : 'black'}
-                className={clsx(
-                  'px-8 py-6 border border-gray-200',
-                )}
-              >
-                Login
-              </Button>
-              <Button
-                href="https://builder.replay.io/?focus=true"
-                variant="solid"
-                size="sm"
-                color="default"
-                className="px-8 py-6"
-              >
-                Start Building
-              </Button>
-            </div>
+            {isBuilderPage && (
+              <div className="hidden md:flex md:items-center md:gap-x-4">
+                <Button
+                  href="https://builder.replay.io/?login=true"
+                  variant="outline"
+                  size="sm"
+                  // color={variant === 'dark' ? 'white' : 'black'}
+                  className={clsx(
+                    'px-8 py-6 border border-gray-200',
+                  )}
+                >
+                  Login
+                </Button>
+                <Button
+                  href="https://builder.replay.io/?focus=true"
+                  variant="solid"
+                  size="sm"
+                  color="default"
+                  className="px-8 py-6"
+                >
+                  Start Building
+                </Button>
+              </div>
+            )}
 
             <div className="-mr-1 md:hidden">
               <MobileMenu variant={variant} links={MobileNavlinks} {...toggle} />
