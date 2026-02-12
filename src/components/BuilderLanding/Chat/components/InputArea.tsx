@@ -24,12 +24,12 @@ import { useState, useRef, useEffect, useCallback } from 'react'
   // Plus icon component
   const PlusIcon = () => (
     <svg
-      width="20"
-      height="20"
+      width="16"
+      height="16"
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-gray-600"
+      className="text-gray-900"
     >
       <path
         d="M8 3V13M3 8H13"
@@ -76,35 +76,48 @@ const InputArea = () => {
 
     return (
         <div className="mt-10 w-full max-w-[700px]">
-            <div className="relative flex items-end gap-3 rounded-2xl bg-gray-100 p-4">
-                {/* Plus button on left */}
-                <button
-                    type="button"
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
-                    aria-label="Add attachment"
-                >
-                    <PlusIcon />
-                </button>
+            {/* Main input container with white background */}
+            <div className="bg-white rounded-md border border-gray-200">
+                {/* Textarea area */}
+                <div className="relative">
+                    <textarea
+                        ref={inputRef}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="What would you like Replay Builder to build?"
+                        className="w-full border-none resize-none text-gray-900 bg-transparent text-base rounded-md focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-none active:border-none placeholder:text-gray-500 p-3"
+                        style={{
+                            minHeight: '76px',
+                            maxHeight: '200px',
+                            overflowY: 'auto',
+                        }}
+                        rows={1}
+                    />
+                </div>
 
-                {/* Textarea in the middle */}
-                <textarea
-                    ref={inputRef}
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="What would you like Replay Builder to build?"
-                    className="flex-1 min-h-[44px] max-h-[200px] resize-none bg-transparent text-gray-900 placeholder:text-gray-400 focus:outline-none text-base"
-                    rows={1}
-                />
+                {/* Bottom controls */}
+                <div className="flex justify-between items-center p-2">
+                    <div className="flex gap-2 items-center">
+                        {/* Plus/Upload button */}
+                        <button
+                            type="button"
+                            className="w-8 h-8 rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex items-center justify-center p-2 aspect-square"
+                            aria-label="Add attachment"
+                        >
+                            <PlusIcon />
+                        </button>
+                    </div>
 
-                {/* Send button on right */}
-                <button
-                    onClick={handleSend}
-                    disabled={!inputValue.trim()}
-                    className="shrink-0 rounded-xl bg-gray-800 px-4 py-2.5 font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 flex items-center gap-2"
-                >
-                    <span className="text-sm">Send</span>
-                    <span className="text-xs opacity-75">⌘Enter</span>
-                </button>
+                    {/* Send Button */}
+                    <button
+                        onClick={handleSend}
+                        disabled={!inputValue.trim()}
+                        className="px-5 py-2.5 rounded-full font-medium bg-gray-900 text-white hover:bg-gray-800 transition-all duration-200 flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                        <span>Send</span>
+                        <span className="text-white/70 text-sm">⌘Enter</span>
+                    </button>
+                </div>
             </div>
         </div>
     )

@@ -30,9 +30,9 @@ export default function BuilderHomeMain() {
             Build and customize web apps for you and your team in minutes.
           </p>
 
-          <div className="max-w-[600px] w-full">
+          <a className="max-w-[600px] w-full" href="https://builder.replay.io/?focus=true" target="_blank">
             <InputArea />
-          </div>
+          </a>
 
 
           {/* Bottom Section */}

@@ -160,7 +160,7 @@ export function ShowcaseGallery() {
       x: e.pageX - scrollContainerRef.current.offsetLeft,
       scrollLeft: scrollContainerRef.current.scrollLeft,
     }
-
+    
     e.preventDefault()
   }
 
@@ -271,29 +271,29 @@ export function ShowcaseGallery() {
                           appPath={app.referenceAppPath}
                         />
                       </div>
-                    ))}
+          ))}
                   </div>
-                </div>
+      </div>
 
                 {/* Mobile navigation arrows */}
                 <div className="flex items-center justify-between px-6 sm:hidden mb-8">
-                  <button
-                    type="button"
-                    onClick={scrollPrev}
+        <button
+          type="button"
+          onClick={scrollPrev}
                     className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform hover:bg-gray-50"
-                    aria-label="Previous app"
-                  >
+          aria-label="Previous app"
+        >
                     <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={scrollNext}
+        </button>
+        <button
+          type="button"
+          onClick={scrollNext}
                     className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform hover:bg-gray-50"
-                    aria-label="Next app"
-                  >
+          aria-label="Next app"
+        >
                     <ChevronRight size={24} />
-                  </button>
-                </div>
+        </button>
+      </div>
               </>
             )}
 

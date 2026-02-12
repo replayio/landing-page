@@ -7,8 +7,6 @@ export function Collections() {
   const [collections, setCollections] = useState<CollectionPageIndexEntry[]>([])
   const [isLoadingCollections, setIsLoadingCollections] = useState(true)
 
-  console.log('collections', collections);
-
   // Fetch collections on mount
   useEffect(() => {
     const loadCollections = async () => {

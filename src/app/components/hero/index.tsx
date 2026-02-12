@@ -33,22 +33,22 @@ export function Hero({ hero }: LandingPageFragment) {
                   Our AI-powered time-travel debugger shows you exactly what happened - no guesswork, no reproduction steps, just answers.
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
-                  <Button
+                    <Button
                     label="Install Replay MCP"
                     variant="solid"
                     href="https://docs.replay.io/basics/replay-mcp/quickstart"
-                    target="_blank"
+                      target="_blank"
                     className="w-full sm:w-auto"
-                  />
-                  <Link
-                    href="https://docs.replay.io/basics/replay-mcp/overview"
+                    />
+                      <Link
+                        href="https://docs.replay.io/basics/replay-mcp/overview"
                     target="_blank"
                     className="text-slate-700 hover:text-slate-900 font-medium transition-colors"
-                  >
-                    View our docs
-                  </Link>
+                      >
+                        View our docs
+                      </Link>
+                  </div>
                 </div>
-              </div>
             </div>
             {/* <div className="mx-auto mt-12 h-fit w-full max-w-[480px] scale-100 p-0 lg:mx-0 lg:mt-0 lg:flex lg:w-auto lg:max-w-full lg:scale-75 xl:scale-100">
               <Image
