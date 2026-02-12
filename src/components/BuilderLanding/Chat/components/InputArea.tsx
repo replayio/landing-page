@@ -29,10 +29,11 @@ import { useState, useRef, useEffect, useCallback } from 'react'
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="text-gray-600"
     >
       <path
         d="M8 3V13M3 8H13"
-        stroke="#F97391"
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -65,45 +66,45 @@ const InputArea = () => {
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [handleSend])
 
+    // Auto-resize textarea
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.style.height = 'auto'
+            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
+        }
+    }, [inputValue])
+
     return (
         <div className="mt-10 w-full max-w-[700px]">
-            <div className="relative flex flex-col justify-between h-[180px] rounded-2xl border-2 border-accent/50 bg-white p-5 shadow-sm transition-all focus-within:border-accent focus-within:shadow-md">
-                {/* Prompt text at top */}
-                <div className="text-sm sm:text-lg">
-                    <span className="text-gray-900">What would you like Replay Builder to build?</span>
-                </div>
+            <div className="relative flex items-end gap-3 rounded-2xl bg-gray-100 p-4">
+                {/* Plus button on left */}
+                <button
+                    type="button"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
+                    aria-label="Add attachment"
+                >
+                    <PlusIcon />
+                </button>
 
-                {/* Bottom row with icons and send button */}
-                <div className="flex items-end justify-between">
-                    {/* Icon buttons on left */}
-                    <div className="flex items-center gap-3">
-                        {/* <button
-                            disabled={true}
-                            type="button"
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/50 hover:bg-gray-50 transition-colors disabled:opacity-70"
-                            aria-label="Voice input"
-                        >
-                            <AudioWaveIcon />
-                        </button> */}
-                        <button
-                            disabled={true}
-                            type="button"
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/50 hover:bg-gray-50 transition-colors disabled:opacity-70"
-                            aria-label="Add attachment"
-                        >
-                            <PlusIcon />
-                        </button>
-                    </div>
+                {/* Textarea in the middle */}
+                <textarea
+                    ref={inputRef}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="What would you like Replay Builder to build?"
+                    className="flex-1 min-h-[44px] max-h-[200px] resize-none bg-transparent text-gray-900 placeholder:text-gray-400 focus:outline-none text-base"
+                    rows={1}
+                />
 
-                    {/* Send button on right */}
-                    <button
-                        onClick={handleSend}
-                        className="shrink-0 rounded-xl bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <span className="text-base">Send</span>
-                        <span className="ml-2 text-sm font-medium opacity-90">⌘Enter</span>
-                    </button>
-                </div>
+                {/* Send button on right */}
+                <button
+                    onClick={handleSend}
+                    disabled={!inputValue.trim()}
+                    className="shrink-0 rounded-xl bg-gray-800 px-4 py-2.5 font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 flex items-center gap-2"
+                >
+                    <span className="text-sm">Send</span>
+                    <span className="text-xs opacity-75">⌘Enter</span>
+                </button>
             </div>
         </div>
     )
