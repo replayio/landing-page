@@ -145,19 +145,19 @@ export function PricingCard({
                   {feature.name}
                 </span>
                 {feature.tooltip && (
-                    <WithTooltip 
-                      tooltip={feature.tooltip}
-                      className="!bg-gray-900 !text-gray-100 border border-gray-700"
-                      arrowClassName="!fill-gray-900"
+                  <WithTooltip 
+                    tooltip={feature.tooltip}
+                    className="!bg-gray-900 !text-gray-100 border border-gray-700"
+                    arrowClassName="!fill-gray-900"
+                  >
+                    <button
+                      type="button"
+                      className="flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
+                      aria-label={`Info about ${feature.name}`}
                     >
-                      <button
-                        type="button"
-                        className="flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
-                        aria-label={`Info about ${feature.name}`}
-                      >
-                      <InfoIcon className="text-gray-400 hover:text-gray-600 transition-colors" />
-                      </button>
-                    </WithTooltip>
+                    <InfoIcon className="text-gray-400 hover:text-gray-600 transition-colors" />
+                    </button>
+                  </WithTooltip>
                 )}
               </div>
             ))}

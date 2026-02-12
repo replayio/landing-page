@@ -37,18 +37,18 @@ export function Hero({ hero }: LandingPageFragment) {
                     label="Install Replay MCP"
                     variant="solid"
                     href="https://docs.replay.io/basics/replay-mcp/quickstart"
-                      target="_blank"
+                    target="_blank"
                     className="w-full sm:w-auto"
                   />
-                    <Link
-                      href="https://docs.replay.io/basics/replay-mcp/overview"
-                      target="_blank"
-                      className="text-slate-700 hover:text-slate-900 font-medium transition-colors"
-                    >
-                      View our docs
-                    </Link>
-                  </div>
+                  <Link
+                    href="https://docs.replay.io/basics/replay-mcp/overview"
+                    target="_blank"
+                    className="text-slate-700 hover:text-slate-900 font-medium transition-colors"
+                  >
+                    View our docs
+                  </Link>
                 </div>
+              </div>
             </div>
             {/* <div className="mx-auto mt-12 h-fit w-full max-w-[480px] scale-100 p-0 lg:mx-0 lg:mt-0 lg:flex lg:w-auto lg:max-w-full lg:scale-75 xl:scale-100">
               <Image
