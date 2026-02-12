@@ -155,7 +155,7 @@ export function PricingCard({
                       className="flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
                       aria-label={`Info about ${feature.name}`}
                     >
-                      <InfoIcon className="text-gray-400 hover:text-gray-600 transition-colors" />
+                    <InfoIcon className="text-gray-400 hover:text-gray-600 transition-colors" />
                     </button>
                   </WithTooltip>
                 )}

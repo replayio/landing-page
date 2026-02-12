@@ -24,15 +24,16 @@ import { useState, useRef, useEffect, useCallback } from 'react'
   // Plus icon component
   const PlusIcon = () => (
     <svg
-      width="20"
-      height="20"
+      width="16"
+      height="16"
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="text-gray-900"
     >
       <path
         d="M8 3V13M3 8H13"
-        stroke="#F97391"
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -65,43 +66,56 @@ const InputArea = () => {
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [handleSend])
 
+    // Auto-resize textarea
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.style.height = 'auto'
+            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
+        }
+    }, [inputValue])
+
     return (
         <div className="mt-10 w-full max-w-[700px]">
-            <div className="relative flex flex-col justify-between h-[180px] rounded-2xl border-2 border-accent/50 bg-white p-5 shadow-sm transition-all focus-within:border-accent focus-within:shadow-md">
-                {/* Prompt text at top */}
-                <div className="text-sm sm:text-lg">
-                    <span className="text-gray-900">What would you like Replay Builder to build?</span>
+            {/* Main input container with white background */}
+            <div className="bg-white rounded-md border border-gray-200">
+                {/* Textarea area */}
+                <div className="relative">
+                    <textarea
+                        ref={inputRef}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="What would you like Replay Builder to build?"
+                        className="w-full border-none resize-none text-gray-900 bg-transparent text-base rounded-md focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-none active:border-none placeholder:text-gray-500 p-3"
+                        style={{
+                            minHeight: '76px',
+                            maxHeight: '200px',
+                            overflowY: 'auto',
+                        }}
+                        rows={1}
+                    />
                 </div>
 
-                {/* Bottom row with icons and send button */}
-                <div className="flex items-end justify-between">
-                    {/* Icon buttons on left */}
-                    <div className="flex items-center gap-3">
-                        {/* <button
-                            disabled={true}
-                            type="button"
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/50 hover:bg-gray-50 transition-colors disabled:opacity-70"
-                            aria-label="Voice input"
-                        >
-                            <AudioWaveIcon />
-                        </button> */}
+                {/* Bottom controls */}
+                <div className="flex justify-between items-center p-2">
+                    <div className="flex gap-2 items-center">
+                        {/* Plus/Upload button */}
                         <button
-                            disabled={true}
                             type="button"
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/50 hover:bg-gray-50 transition-colors disabled:opacity-70"
+                            className="w-8 h-8 rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex items-center justify-center p-2 aspect-square"
                             aria-label="Add attachment"
                         >
                             <PlusIcon />
                         </button>
                     </div>
 
-                    {/* Send button on right */}
+                    {/* Send Button */}
                     <button
                         onClick={handleSend}
-                        className="shrink-0 rounded-xl bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
+                        disabled={!inputValue.trim()}
+                        className="px-5 py-2.5 rounded-full font-medium bg-gray-900 text-white hover:bg-gray-800 transition-all duration-200 flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        <span className="text-base">Send</span>
-                        <span className="ml-2 text-sm font-medium opacity-90">⌘Enter</span>
+                        <span>Send</span>
+                        <span className="text-white/70 text-sm">⌘Enter</span>
                     </button>
                 </div>
             </div>
