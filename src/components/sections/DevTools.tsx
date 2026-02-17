@@ -36,24 +36,24 @@ const examples: Example[] = [
     title: 'Broken data import',
     subtitle: 'CRM clients not added correctly',
     videoUrl: 'https://placeholder.replay.io/form-debug.mp4',
-    recordingId: '29c55374-e226-4eb9-81b5-88f3af8c2557',
-    initialPrompt: 'The contact form silently fails when I click submit. What\'s going wrong?',
+    recordingId: '6a271479-83f6-4d49-a337-e57f3438f9bc',
+    initialPrompt: 'After I import contacts the client names are wrong',
     transcript: brokenDataImport as StreamEvent[]
   },
   {
     title: 'Sluggish page load',
     subtitle: 'Dashboard takes too long to populate',
     videoUrl: 'https://placeholder.replay.io/perf-debug.mp4',
-    recordingId: '03afced4-8677-4159-b114-350da6691885',
-    initialPrompt: 'The dashboard page takes 8 seconds to load. Can you figure out why?',
+    recordingId: 'e3e94ee6-83e0-42ad-a0e4-b61b386aefa2',
+    initialPrompt: 'The dashboard takes way too long to load',
     transcript: sluggishPageLoad as StreamEvent[]
   },
   {
     title: 'Flashing content',
     subtitle: 'Empty deals list shown briefly',
     videoUrl: 'https://placeholder.replay.io/state-debug.mp4',
-    recordingId: 'be6c6f8c-0b1b-4206-b1b3-49a5c0563472',
-    initialPrompt: 'The user profile page shows stale data after editing. Why doesn\'t it update?',
+    recordingId: '013ccfd4-35d2-4862-ac63-67b2e094bd7d',
+    initialPrompt: 'When adding a new deal the deals list flashed as empty before updating',
     transcript: flashingContent as StreamEvent[]
   }
 ]
