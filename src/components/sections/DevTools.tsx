@@ -1,40 +1,161 @@
 'use client'
 
-import Image from 'next/image'
-import { Tab } from '@headlessui/react'
-import MuxPlayer from '@mux/mux-player-react/lazy'
+import { useState } from 'react'
 import clsx from 'clsx'
-import { Button } from '~/components/Button'
 
 import { Container } from '~/components/Container'
-import react from '~/images/screenshots/inspect-react-components.png'
-import testSteps from '~/images/screenshots/jump-to-test-steps.png'
-import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
-import { getImageSizes } from '~/lib/utils/image'
 import { Title } from '../primitives/texts'
-import { Description } from './devtools/Description'
 
-const images = {
-  testSteps: {
-    type: 'image',
-    src: testSteps
+interface TranscriptMessage {
+  role: 'user' | 'assistant'
+  content: string
+}
+
+interface Example {
+  title: string
+  videoUrl: string
+  initialPrompt: string
+  transcript: TranscriptMessage[]
+}
+
+const examples: Example[] = [
+  {
+    title: 'Button doesn\'t work',
+    videoUrl: 'https://placeholder.replay.io/button-debug.mp4',
+    initialPrompt: 'Why doesn\'t the submit button work on the signup form?',
+    transcript: [
+      { role: 'user', content: 'Why doesn\'t the submit button work on the signup form?' },
+      {
+        role: 'assistant',
+        content:
+          'I found the issue. The button\'s onClick handler calls `handleSubmit`, but that function has an early return when `isLoading` is true. Looking at the state, `isLoading` is never reset to `false` after the first submission attempt fails.'
+      },
+      { role: 'user', content: 'How do I fix it?' },
+      {
+        role: 'assistant',
+        content:
+          'Add `setIsLoading(false)` in the catch block of your API call in `handleSubmit`. Here\'s the fix:\n\n```js\ncatch (err) {\n  setError(err.message)\n  setIsLoading(false) // Add this line\n}\n```'
+      }
+    ]
   },
-  console: {
-    type: 'mux-video',
-    src: '9ERwx5ymPqmmqMeRIhVqCvnhyy009017y00mtdvISQF6fI'
+  {
+    title: 'Form won\'t submit',
+    videoUrl: 'https://placeholder.replay.io/form-debug.mp4',
+    initialPrompt: 'The contact form silently fails when I click submit. What\'s going wrong?',
+    transcript: [
+      { role: 'user', content: 'The contact form silently fails when I click submit. What\'s going wrong?' },
+      {
+        role: 'assistant',
+        content:
+          'I traced the form submission and found that the `fetch` call to `/api/contact` is returning a 422 error. The server expects a `phone` field but the form only sends `name`, `email`, and `message`.'
+      },
+      { role: 'user', content: 'Can you show me where to add the phone field?' },
+      {
+        role: 'assistant',
+        content:
+          'In `ContactForm.tsx`, add a phone input to the form and include it in the request body:\n\n```js\nconst body = {\n  name, email, message,\n  phone: phone || "" // optional\n}\n```'
+      }
+    ]
   },
-  react: {
-    type: 'image',
-    src: react
+  {
+    title: 'Page loads slowly',
+    videoUrl: 'https://placeholder.replay.io/perf-debug.mp4',
+    initialPrompt: 'The dashboard page takes 8 seconds to load. Can you figure out why?',
+    transcript: [
+      { role: 'user', content: 'The dashboard page takes 8 seconds to load. Can you figure out why?' },
+      {
+        role: 'assistant',
+        content:
+          'I analyzed the network requests during page load. The `/api/dashboard/stats` endpoint takes 6.2 seconds to respond. It\'s making 3 sequential database queries that could be parallelized.'
+      },
+      { role: 'user', content: 'Which queries should be parallelized?' },
+      {
+        role: 'assistant',
+        content:
+          'The `getUserStats`, `getRevenueData`, and `getActivityFeed` calls are independent but run sequentially. Wrap them in `Promise.all`:\n\n```js\nconst [stats, revenue, activity] = await Promise.all([\n  getUserStats(userId),\n  getRevenueData(userId),\n  getActivityFeed(userId)\n])\n```\nThis should bring load time under 2 seconds.'
+      }
+    ]
   },
-  network: {
-    type: 'image',
-    src: network
+  {
+    title: 'Data not updating',
+    videoUrl: 'https://placeholder.replay.io/state-debug.mp4',
+    initialPrompt: 'The user profile page shows stale data after editing. Why doesn\'t it update?',
+    transcript: [
+      { role: 'user', content: 'The user profile page shows stale data after editing. Why doesn\'t it update?' },
+      {
+        role: 'assistant',
+        content:
+          'The profile edit saves correctly to the API, but the local React state isn\'t being updated. After the PUT request succeeds, the component doesn\'t refetch or update its cached data.'
+      },
+      { role: 'user', content: 'What\'s the best way to fix this?' },
+      {
+        role: 'assistant',
+        content:
+          'After a successful update, invalidate the query cache so the data refetches:\n\n```js\nawait updateProfile(data)\nqueryClient.invalidateQueries([\'profile\', userId])\n```\nThis will trigger a refetch and the UI will show the updated data immediately.'
+      }
+    ]
   }
+]
+
+function Transcript({ messages }: { messages: TranscriptMessage[] }) {
+  return (
+    <div className="flex flex-col gap-3">
+      {messages.map((msg, i) => (
+        <div
+          key={i}
+          className={clsx(
+            'rounded-lg px-4 py-3 text-sm leading-relaxed',
+            msg.role === 'user'
+              ? 'self-end bg-blue-600 text-white'
+              : 'self-start bg-white/10 text-gray-200'
+          )}
+        >
+          <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/60">
+            {msg.role === 'user' ? 'You' : 'Replay AI'}
+          </span>
+          <p className="whitespace-pre-wrap">{msg.content}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ChatMock({ initialPrompt }: { initialPrompt: string }) {
+  const [input, setInput] = useState(initialPrompt)
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="rounded-lg bg-white/10 px-4 py-3 text-sm text-gray-300">
+        Start a conversation with Replay AI about this bug...
+      </div>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Ask about this bug..."
+          className="flex-1 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+        />
+        <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500">
+          Send
+        </button>
+      </div>
+    </div>
+  )
 }
 
 export function DevTools({ devTools }: LandingPageFragment) {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [showChat, setShowChat] = useState(false)
+
+  const selected = examples[selectedIndex]
+
+  function selectExample(index: number) {
+    setSelectedIndex(index)
+    setShowChat(false)
+  }
+
   return (
     <section
       id="devtools"
@@ -42,173 +163,73 @@ export function DevTools({ devTools }: LandingPageFragment) {
     >
       <Container className="relative">
         <div className="flex max-w-2xl flex-col justify-center text-center md:mx-auto xl:max-w-none">
-          <div className="mx-auto">
-            <svg
-              width="77"
-              height="75"
-              viewBox="0 0 77 75"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g fill="#fff" fillOpacity=".28">
-                <path d="m39.3959 22.7608-5.6608-3.2744-5.6608-3.2743c-.2455-.1419-.524-.2165-.8074-.2165-.2834.0001-.5619.0748-.8073.2168-.2455.142-.4493.3462-.5911.592-.1417.2459-.2164.5249-.2165.8088v13.0972c.0001.284.0747.5629.2165.8088.1418.2459.3456.4501.5911.5921.2454.142.5238.2167.8073.2168.2834.0001.5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3462.5911-.5922.1418-.2459.2164-.5249.2164-.8089 0-.284-.0746-.563-.2164-.809-.1417-.2459-.3456-.4501-.5911-.5921ZM39.3959 41l-5.6608-3.2743-5.6608-3.2743c-.2455-.1419-.524-.2166-.8074-.2165-.2835 0-.5619.0748-.8073.2168-.2455.142-.4494.3462-.5911.592-.1418.2459-.2164.5249-.2165.8088v13.0972c.0001.2839.0747.5629.2165.8088.1417.2459.3456.4501.5911.592.2454.142.5238.2168.8073.2169.2834 0 .5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3463.5912-.5922.1417-.246.2163-.525.2163-.809 0-.284-.0746-.563-.2163-.809-.1418-.2459-.3457-.4501-.5912-.5921ZM55.5411 31.8828l-5.6608-3.2744-5.6608-3.2742c-.2455-.1419-.524-.2166-.8074-.2165-.2834 0-.5619.0748-.8073.2168-.2455.142-.4493.3461-.5911.592-.1418.2459-.2164.5248-.2166.8088v13.0972c.0002.284.0748.5629.2166.8088.1418.2458.3456.45.5911.592.2454.142.5239.2168.8073.2168.2834.0001.5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3462.5911-.5922.1418-.2459.2164-.5249.2164-.8089 0-.284-.0746-.563-.2164-.809-.1417-.2459-.3456-.4501-.5911-.5921Z" />
-              </g>
-            </svg>
-          </div>
           <Title className="text-pretty" as="h2" white>
-            {devTools.title}
+            From bug to fix — without touching DevTools
           </Title>
-          <div className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7]  md:text-lg">
-            <Description {...devTools.description.json} />
-          </div>
+          <p className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7] md:text-lg">
+            See how Replay MCP lets your agent dive in and explain the problem.
+          </p>
         </div>
 
-        <Tab.Group
-          as="div"
-          className="mt-16 hidden grid-cols-1 items-center gap-y-2 pt-10 sm:gap-y-6 md:mt-32 lg:grid lg:grid-cols-12 lg:pt-0"
-        >
-          {({ selectedIndex }) => (
-            <>
-              <div className="-mx-4 hidden overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5 lg:block">
-                <Tab.List className="relative z-10 flex gap-x-4 whitespace-nowrap px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-                  {devTools.features.items.map((feature, featureIndex) => (
-                    <div
-                      key={feature._title}
-                      className={clsx(
-                        'group relative my-2 rounded-full px-4 font-medium lg:rounded-l-xl lg:rounded-r-none lg:px-6 lg:py-4',
-                        selectedIndex === featureIndex
-                          ? 'bg-white lg:bg-white/10 lg:ring-1 lg:ring-inset lg:ring-white/10'
-                          : 'hover:bg-white/10 lg:hover:bg-white/5'
-                      )}
-                    >
-                      <h3>
-                        <Tab
-                          className={clsx(
-                            'font-display text-lg ui-not-focus-visible:outline-none',
-                            selectedIndex === featureIndex
-                              ? 'text-blue-600 lg:text-white'
-                              : 'text-blue-100 hover:text-white lg:text-white'
-                          )}
-                        >
-                          <span className="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none" />
-                          {feature._title}
-                        </Tab>
-                      </h3>
-                      <p
-                        className={clsx(
-                          'mt-2 text-sm ',
-                          selectedIndex === featureIndex
-                            ? 'text-white'
-                            : 'text-blue-100 group-hover:text-white'
-                        )}
-                      >
-                        {feature.subTitle}
-                      </p>
-                    </div>
-                  ))}
-                </Tab.List>
-              </div>
-              <Tab.Panels className="hidden lg:col-span-7 lg:block">
-                {devTools.features.items.map((feature) => {
-                  const featureImage = images[(feature.image as keyof typeof images) || 'console']
-                  return (
-                    <Tab.Panel key={feature._title} unmount={false}>
-                      <div className="relative text-white hover:text-white sm:px-6 lg:hidden">
-                        <div className="absolute -inset-x-4 bottom-[-4.25rem] top-[-6.5rem] bg-white/10 ring-1 ring-inset ring-white/10 sm:inset-x-0 sm:rounded-t-xl" />
-                        <p className="relative mx-auto max-w-2xl text-base text-white sm:text-center">
-                          {feature.subTitle}
-                        </p>
-                      </div>
-                      <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
-                        {feature.type === 'image' ? (
-                          <Image
-                            className="w-full"
-                            src={featureImage.src}
-                            alt=""
-                            priority
-                            sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
-                          />
-                        ) : (
-                          <MuxPlayer
-                            loading="viewport"
-                            streamType="on-demand"
-                            playbackId={featureImage.src as string}
-                            primaryColor="#FFFFFF"
-                            secondaryColor="#000000"
-                            muted={true}
-                            autoPlay={true}
-                            loop={true}
-                            style={
-                              {
-                                aspectRatio: '554/327',
-                                display: 'block',
-                                '--controls': 'none',
-                                '--media-object-fit': 'cover',
-                                '--media-object-position': 'center'
-                              } as React.CSSProperties
-                            }
-                          />
-                        )}
-                      </div>
-                    </Tab.Panel>
-                  )
-                })}
-              </Tab.Panels>
-            </>
-          )}
-        </Tab.Group>
-
-        <div className="mt-4 flex overflow-x-hidden pb-4 sm:mx-0 sm:pb-0 lg:hidden">
-          <div className="relative z-10 flex flex-col gap-x-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-            {devTools.features.items.map((feature) => {
-              const featureImage = images[(feature.image as keyof typeof images) || 'console']
-              return (
-                <div
-                  key={feature._title}
-                  className={'relative my-2 mt-12 flex flex-col rounded-full text-white'}
+        <div className="mt-16 flex flex-col gap-8 lg:grid lg:grid-cols-12 lg:gap-12">
+          {/* Left 1/3: Example list */}
+          <div className="lg:col-span-4">
+            <div className="flex flex-row gap-2 overflow-x-auto lg:flex-col lg:gap-1 lg:overflow-x-visible">
+              {examples.map((example, i) => (
+                <button
+                  key={example.title}
+                  onClick={() => selectExample(i)}
+                  className={clsx(
+                    'whitespace-nowrap rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors lg:whitespace-normal lg:rounded-l-xl lg:rounded-r-none lg:px-6 lg:py-4 lg:text-base',
+                    selectedIndex === i
+                      ? 'bg-white/10 text-white ring-1 ring-inset ring-white/10'
+                      : 'text-blue-100 hover:bg-white/5 hover:text-white'
+                  )}
                 >
-                  <h3 className="font-display text-lg font-semibold ui-not-focus-visible:outline-none">
-                    {feature._title}
-                  </h3>
-                  <p className="mb-8 mt-2">{feature.subTitle}</p>
-                  {featureImage.type === 'image' && (
-                    <Image
-                      className="w-full"
-                      src={featureImage.src}
-                      alt={`${feature._title} screenshot`}
-                      placeholder="blur"
-                      sizes={getImageSizes(67, 100, 100)}
-                    />
+                  {example.title}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right 2/3: Content area */}
+          <div className="flex flex-col gap-6 lg:col-span-8">
+            {/* Video area */}
+            <div className="overflow-hidden rounded-xl bg-black/30 shadow-xl shadow-blue-900/20">
+              <div className="flex aspect-video items-center justify-center text-gray-500">
+                <span className="text-sm">Video placeholder: {selected.videoUrl}</span>
+              </div>
+            </div>
+
+            {/* Chat area */}
+            <div className="rounded-xl bg-white/5 p-4">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-white">
+                  {showChat ? 'Chat with Replay AI' : 'Conversation'}
+                </h3>
+                <button
+                  onClick={() => setShowChat(!showChat)}
+                  className={clsx(
+                    'rounded-lg px-4 py-1.5 text-sm font-medium transition-colors',
+                    showChat
+                      ? 'bg-white/10 text-white hover:bg-white/20'
+                      : 'bg-blue-600 text-white hover:bg-blue-500'
                   )}
-                  {featureImage.type === 'mux-video' && (
-                    <div className="overflow-hidden rounded-[8px]">
-                      <MuxPlayer
-                        loading="viewport"
-                        streamType="on-demand"
-                        playbackId={featureImage.src as string}
-                        primaryColor="#FFFFFF"
-                        secondaryColor="#ff00ff"
-                        muted={true}
-                        autoPlay={true}
-                        loop={true}
-                        style={
-                          {
-                            aspectRatio: '554/327',
-                            display: 'block',
-                            '--controls': 'none',
-                            '--media-object-fit': 'cover',
-                            '--media-object-position': 'center'
-                          } as React.CSSProperties
-                        }
-                      />
-                    </div>
-                  )}
-                </div>
-              )
-            })}
+                >
+                  {showChat ? 'View transcript' : 'Try it!'}
+                </button>
+              </div>
+
+              {showChat ? (
+                <ChatMock initialPrompt={selected.initialPrompt} />
+              ) : (
+                <Transcript messages={selected.transcript} />
+              )}
+            </div>
           </div>
         </div>
       </Container>
+
       <div className="absolute -top-24 right-0 -z-10 transform-gpu blur-3xl" aria-hidden="true">
         <div
           className="aspect-[1404/767] w-[87.75rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-25"
@@ -217,11 +238,6 @@ export function DevTools({ devTools }: LandingPageFragment) {
               'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)'
           }}
         />
-      </div>
-      <div className="mt-12 flex justify-center">
-        <a href="https://app.replay.io/recording/overboarddev-demo-replay--8acb44d4-29d1-457d-a004-d16ddb871036">
-          <Button className="">Take a look at this replay {'->'}</Button>
-        </a>
       </div>
     </section>
   )
