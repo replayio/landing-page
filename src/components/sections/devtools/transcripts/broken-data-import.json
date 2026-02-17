@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "The contact form silently fails when I click submit. What's going wrong?"
+  },
+  {
+    "role": "assistant",
+    "content": "I traced the form submission and found that the `fetch` call to `/api/contact` is returning a 422 error. The server expects a `phone` field but the form only sends `name`, `email`, and `message`."
+  },
+  {
+    "role": "user",
+    "content": "Can you show me where to add the phone field?"
+  },
+  {
+    "role": "assistant",
+    "content": "In `ContactForm.tsx`, add a phone input to the form and include it in the request body:\n\n```js\nconst body = {\n  name, email, message,\n  phone: phone || \"\" // optional\n}\n```"
+  }
+]

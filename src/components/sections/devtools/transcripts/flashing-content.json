@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "The user profile page shows stale data after editing. Why doesn't it update?"
+  },
+  {
+    "role": "assistant",
+    "content": "The profile edit saves correctly to the API, but the local React state isn't being updated. After the PUT request succeeds, the component doesn't refetch or update its cached data."
+  },
+  {
+    "role": "user",
+    "content": "What's the best way to fix this?"
+  },
+  {
+    "role": "assistant",
+    "content": "After a successful update, invalidate the query cache so the data refetches:\n\n```js\nawait updateProfile(data)\nqueryClient.invalidateQueries(['profile', userId])\n```\nThis will trigger a refetch and the UI will show the updated data immediately."
+  }
+]
