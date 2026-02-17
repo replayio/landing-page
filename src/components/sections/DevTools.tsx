@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { Title } from '../primitives/texts'
+import { Chat } from './devtools/Chat'
 
 interface TranscriptMessage {
   role: 'user' | 'assistant'
@@ -26,7 +27,7 @@ const examples: Example[] = [
     title: 'Button doesn\'t work',
     subtitle: 'Creating a new task does nothing',
     videoUrl: 'https://placeholder.replay.io/button-debug.mp4',
-    recordingId: '50325333-51a4-49f9-9e97-b267d7252e8a',
+    recordingId: '7afbb85a-289b-4006-9ca1-93200acceae5',
     initialPrompt: 'Why doesn\'t the submit button work on the signup form?',
     transcript: [
       { role: 'user', content: 'Why doesn\'t the submit button work on the signup form?' },
@@ -131,29 +132,6 @@ function Transcript({ messages }: { messages: TranscriptMessage[] }) {
   )
 }
 
-function ChatMock({ initialPrompt }: { initialPrompt: string }) {
-  const [input, setInput] = useState(initialPrompt)
-
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="rounded-lg bg-white/10 px-4 py-3 text-sm text-gray-300">
-        Start a conversation with Replay AI about this bug...
-      </div>
-      <div className="flex gap-2">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about this bug..."
-          className="flex-1 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-        />
-        <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500">
-          Send
-        </button>
-      </div>
-    </div>
-  )
-}
 
 export function DevTools({ devTools }: LandingPageFragment) {
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -216,27 +194,34 @@ export function DevTools({ devTools }: LandingPageFragment) {
               </div>
             </div>
 
+            {/* Try it button */}
+            {!showChat && (
+              <button
+                onClick={() => setShowChat(true)}
+                className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-blue-500/25 transition-all hover:from-blue-400 hover:to-indigo-400 hover:shadow-blue-500/40"
+              >
+                Try it yourself →
+              </button>
+            )}
+
             {/* Chat area */}
             <div className="rounded-xl bg-white/5 p-4">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-white">
                   {showChat ? 'Chat with Replay AI' : 'Conversation'}
                 </h3>
-                <button
-                  onClick={() => setShowChat(!showChat)}
-                  className={clsx(
-                    'rounded-lg px-4 py-1.5 text-sm font-medium transition-colors',
-                    showChat
-                      ? 'bg-white/10 text-white hover:bg-white/20'
-                      : 'bg-blue-600 text-white hover:bg-blue-500'
-                  )}
-                >
-                  {showChat ? 'View transcript' : 'Try it!'}
-                </button>
+                {showChat && (
+                  <button
+                    onClick={() => setShowChat(false)}
+                    className="rounded-lg bg-white/10 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/20"
+                  >
+                    View transcript
+                  </button>
+                )}
               </div>
 
               {showChat ? (
-                <ChatMock initialPrompt={selected.initialPrompt} />
+                <Chat recordingId={selected.recordingId} initialPrompt={selected.initialPrompt} />
               ) : (
                 <Transcript messages={selected.transcript} />
               )}
