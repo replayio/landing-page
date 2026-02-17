@@ -14,7 +14,9 @@ interface TranscriptMessage {
 
 interface Example {
   title: string
+  subtitle?: string
   videoUrl: string
+  recordingId: string
   initialPrompt: string
   transcript: TranscriptMessage[]
 }
@@ -22,7 +24,9 @@ interface Example {
 const examples: Example[] = [
   {
     title: 'Button doesn\'t work',
+    subtitle: 'Creating a new task does nothing',
     videoUrl: 'https://placeholder.replay.io/button-debug.mp4',
+    recordingId: '50325333-51a4-49f9-9e97-b267d7252e8a',
     initialPrompt: 'Why doesn\'t the submit button work on the signup form?',
     transcript: [
       { role: 'user', content: 'Why doesn\'t the submit button work on the signup form?' },
@@ -40,8 +44,10 @@ const examples: Example[] = [
     ]
   },
   {
-    title: 'Form won\'t submit',
+    title: 'Broken data import',
+    subtitle: 'CRM clients not added correctly',
     videoUrl: 'https://placeholder.replay.io/form-debug.mp4',
+    recordingId: '29c55374-e226-4eb9-81b5-88f3af8c2557',
     initialPrompt: 'The contact form silently fails when I click submit. What\'s going wrong?',
     transcript: [
       { role: 'user', content: 'The contact form silently fails when I click submit. What\'s going wrong?' },
@@ -59,8 +65,10 @@ const examples: Example[] = [
     ]
   },
   {
-    title: 'Page loads slowly',
+    title: 'Sluggish page load',
+    subtitle: 'Dashboard takes too long to populate',
     videoUrl: 'https://placeholder.replay.io/perf-debug.mp4',
+    recordingId: '03afced4-8677-4159-b114-350da6691885',
     initialPrompt: 'The dashboard page takes 8 seconds to load. Can you figure out why?',
     transcript: [
       { role: 'user', content: 'The dashboard page takes 8 seconds to load. Can you figure out why?' },
@@ -78,8 +86,10 @@ const examples: Example[] = [
     ]
   },
   {
-    title: 'Data not updating',
+    title: 'Flashing content',
+    subtitle: 'Empty deals list shown briefly',
     videoUrl: 'https://placeholder.replay.io/state-debug.mp4',
+    recordingId: 'be6c6f8c-0b1b-4206-b1b3-49a5c0563472',
     initialPrompt: 'The user profile page shows stale data after editing. Why doesn\'t it update?',
     transcript: [
       { role: 'user', content: 'The user profile page shows stale data after editing. Why doesn\'t it update?' },
@@ -186,7 +196,12 @@ export function DevTools({ devTools }: LandingPageFragment) {
                       : 'text-blue-100 hover:bg-white/5 hover:text-white'
                   )}
                 >
-                  {example.title}
+                  <span>{example.title}</span>
+                  {selectedIndex === i && example.subtitle && (
+                    <span className="mt-1 block text-sm font-normal text-white/60">
+                      {example.subtitle}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
