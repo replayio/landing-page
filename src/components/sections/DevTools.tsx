@@ -7,6 +7,7 @@ import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
 import { Title } from '../primitives/texts'
 import { Chat } from './devtools/Chat'
+import { EventList } from './devtools/EventList'
 import { StreamEvent } from './devtools/types'
 
 interface Example {
@@ -882,74 +883,6 @@ const examples: Example[] = [
   }
 ]
 
-interface DisplayMessage {
-  role: 'user' | 'assistant'
-  content: string
-  toolCalls: string[]
-}
-
-function eventsToMessages(events: StreamEvent[]): DisplayMessage[] {
-  const messages: DisplayMessage[] = []
-  for (const event of events) {
-    if (event.kind === 'Initialized') continue
-    if (event.role === 'user') {
-      messages.push({ role: 'user', content: event.content || '', toolCalls: [] })
-    } else if (event.role === 'assistant' && event.content != null) {
-      const last = messages[messages.length - 1]
-      if (last && last.role === 'assistant') {
-        last.content += event.content
-      } else {
-        messages.push({ role: 'assistant', content: event.content, toolCalls: [] })
-      }
-    } else if (event.kind === 'ToolCall') {
-      const last = messages[messages.length - 1]
-      if (last && last.role === 'assistant') {
-        last.toolCalls.push(event.name || 'tool')
-      }
-    }
-  }
-  return messages
-}
-
-function Transcript({ events }: { events: StreamEvent[] }) {
-  const messages = eventsToMessages(events)
-  return (
-    <div className="flex flex-col gap-3">
-      {messages.map((msg, i) => (
-        <div key={i}>
-          <div
-            className={clsx(
-              'rounded-lg px-4 py-3 text-sm leading-relaxed',
-              msg.role === 'user'
-                ? 'self-end bg-blue-600 text-white'
-                : 'self-start bg-white/10 text-gray-200'
-            )}
-          >
-            <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/60">
-              {msg.role === 'user' ? 'You' : 'Replay AI'}
-            </span>
-            <p className="whitespace-pre-wrap">{msg.content}</p>
-          </div>
-          {msg.toolCalls.length > 0 && (
-            <div className="mt-1 flex flex-wrap gap-1.5 pl-2">
-              {msg.toolCalls.map((name, j) => (
-                <span
-                  key={j}
-                  className="inline-flex items-center gap-1 rounded-md bg-white/5 px-2 py-0.5 text-xs text-gray-400"
-                >
-                  <span className="text-green-400">&#10003;</span>
-                  {name}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  )
-}
-
-
 export function DevTools({ devTools }: LandingPageFragment) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [showChat, setShowChat] = useState(false)
@@ -1040,7 +973,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
               {showChat ? (
                 <Chat recordingId={selected.recordingId} initialPrompt={selected.initialPrompt} />
               ) : (
-                <Transcript events={selected.transcript} />
+                <EventList events={selected.transcript} />
               )}
             </div>
           </div>
