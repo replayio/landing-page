@@ -1,40 +1,75 @@
 'use client'
 
-import Image from 'next/image'
-import { Tab } from '@headlessui/react'
-import MuxPlayer from '@mux/mux-player-react/lazy'
+import { useState } from 'react'
 import clsx from 'clsx'
-import { Button } from '~/components/Button'
+import MuxPlayer from '@mux/mux-player-react/lazy'
 
 import { Container } from '~/components/Container'
-import react from '~/images/screenshots/inspect-react-components.png'
-import testSteps from '~/images/screenshots/jump-to-test-steps.png'
-import network from '~/images/screenshots/view-network-requests.png'
 import { LandingPageFragment } from '~/lib/basehub-queries'
-import { getImageSizes } from '~/lib/utils/image'
 import { Title } from '../primitives/texts'
-import { Description } from './devtools/Description'
+import { Chat } from './devtools/Chat'
+import { EventList } from './devtools/EventList'
+import { StreamEvent } from './devtools/types'
+import buttonDoesntWork from './devtools/transcripts/button-doesnt-work.json'
+import brokenDataImport from './devtools/transcripts/broken-data-import.json'
+import sluggishPageLoad from './devtools/transcripts/sluggish-page-load.json'
+import flashingContent from './devtools/transcripts/flashing-content.json'
 
-const images = {
-  testSteps: {
-    type: 'image',
-    src: testSteps
-  },
-  console: {
-    type: 'mux-video',
-    src: '9ERwx5ymPqmmqMeRIhVqCvnhyy009017y00mtdvISQF6fI'
-  },
-  react: {
-    type: 'image',
-    src: react
-  },
-  network: {
-    type: 'image',
-    src: network
-  }
+interface Example {
+  title: string
+  subtitle?: string
+  muxPlaybackId: string
+  recordingId: string
+  initialPrompt: string
+  transcript: StreamEvent[]
 }
 
+const examples: Example[] = [
+  {
+    title: 'Button doesn\'t work',
+    subtitle: 'Creating a new task does nothing',
+    muxPlaybackId: '4qzqK2nSFoP02ppOu6fi9kcf02aVtvaj3ZK02pqpjBVhiQ',
+    recordingId: '26a48f66-ea81-4519-929c-cbcde13eac16',
+    initialPrompt: 'The form to add a new task isn\'t doing anything',
+    transcript: buttonDoesntWork as StreamEvent[]
+  },
+  {
+    title: 'Broken data import',
+    subtitle: 'CRM clients not added correctly',
+    muxPlaybackId: 'g8gJI73WhFi9019AXDaerLF00019T00YDvKCJvjWEEy8voM',
+    recordingId: '6a271479-83f6-4d49-a337-e57f3438f9bc',
+    initialPrompt: 'After I import contacts the client names are wrong',
+    transcript: brokenDataImport as StreamEvent[]
+  },
+  {
+    title: 'Sluggish page load',
+    subtitle: 'Dashboard takes too long to populate',
+    muxPlaybackId: 'JWKSQrDAM7NSh9GZ730000YtvBwEWptCNSneUCrTZ21kQ',
+    recordingId: 'e3e94ee6-83e0-42ad-a0e4-b61b386aefa2',
+    initialPrompt: 'The dashboard takes way too long to load',
+    transcript: sluggishPageLoad as StreamEvent[]
+  },
+  {
+    title: 'Flashing content',
+    subtitle: 'Empty deals list shown briefly',
+    muxPlaybackId: 'wZfgg01KFpLucarzVWKjmeFb3lcQuyVeeHQ00Y02It02cFw',
+    recordingId: '013ccfd4-35d2-4862-ac63-67b2e094bd7d',
+    initialPrompt: 'When adding a new deal the deals list flashed as empty before updating',
+    transcript: flashingContent as StreamEvent[]
+  }
+]
+
 export function DevTools({ devTools }: LandingPageFragment) {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [showChat, setShowChat] = useState(false)
+
+  const selected = examples[selectedIndex]
+
+  function selectExample(index: number) {
+    setSelectedIndex(index)
+    setShowChat(false)
+  }
+
   return (
     <section
       id="devtools"
@@ -42,173 +77,99 @@ export function DevTools({ devTools }: LandingPageFragment) {
     >
       <Container className="relative">
         <div className="flex max-w-2xl flex-col justify-center text-center md:mx-auto xl:max-w-none">
-          <div className="mx-auto">
-            <svg
-              width="77"
-              height="75"
-              viewBox="0 0 77 75"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g fill="#fff" fillOpacity=".28">
-                <path d="m39.3959 22.7608-5.6608-3.2744-5.6608-3.2743c-.2455-.1419-.524-.2165-.8074-.2165-.2834.0001-.5619.0748-.8073.2168-.2455.142-.4493.3462-.5911.592-.1417.2459-.2164.5249-.2165.8088v13.0972c.0001.284.0747.5629.2165.8088.1418.2459.3456.4501.5911.5921.2454.142.5238.2167.8073.2168.2834.0001.5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3462.5911-.5922.1418-.2459.2164-.5249.2164-.8089 0-.284-.0746-.563-.2164-.809-.1417-.2459-.3456-.4501-.5911-.5921ZM39.3959 41l-5.6608-3.2743-5.6608-3.2743c-.2455-.1419-.524-.2166-.8074-.2165-.2835 0-.5619.0748-.8073.2168-.2455.142-.4494.3462-.5911.592-.1418.2459-.2164.5249-.2165.8088v13.0972c.0001.2839.0747.5629.2165.8088.1417.2459.3456.4501.5911.592.2454.142.5238.2168.8073.2169.2834 0 .5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3463.5912-.5922.1417-.246.2163-.525.2163-.809 0-.284-.0746-.563-.2163-.809-.1418-.2459-.3457-.4501-.5912-.5921ZM55.5411 31.8828l-5.6608-3.2744-5.6608-3.2742c-.2455-.1419-.524-.2166-.8074-.2165-.2834 0-.5619.0748-.8073.2168-.2455.142-.4493.3461-.5911.592-.1418.2459-.2164.5248-.2166.8088v13.0972c.0002.284.0748.5629.2166.8088.1418.2458.3456.45.5911.592.2454.142.5239.2168.8073.2168.2834.0001.5619-.0746.8074-.2165l5.6608-3.2743 5.6608-3.2743c.2455-.142.4494-.3462.5911-.5922.1418-.2459.2164-.5249.2164-.8089 0-.284-.0746-.563-.2164-.809-.1417-.2459-.3456-.4501-.5911-.5921Z" />
-              </g>
-            </svg>
-          </div>
           <Title className="text-pretty" as="h2" white>
-            {devTools.title}
+            From bug to fix — without touching DevTools
           </Title>
-          <div className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7]  md:text-lg">
-            <Description {...devTools.description.json} />
-          </div>
+          <p className="mx-auto mt-4 max-w-3xl tracking-tight text-[#C1C3C7] md:text-lg">
+            See how Replay MCP lets your agent dive in and explain the problem.
+          </p>
         </div>
 
-        <Tab.Group
-          as="div"
-          className="mt-16 hidden grid-cols-1 items-center gap-y-2 pt-10 sm:gap-y-6 md:mt-32 lg:grid lg:grid-cols-12 lg:pt-0"
-        >
-          {({ selectedIndex }) => (
-            <>
-              <div className="-mx-4 hidden overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5 lg:block">
-                <Tab.List className="relative z-10 flex gap-x-4 whitespace-nowrap px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-                  {devTools.features.items.map((feature, featureIndex) => (
-                    <div
-                      key={feature._title}
-                      className={clsx(
-                        'group relative my-2 rounded-full px-4 font-medium lg:rounded-l-xl lg:rounded-r-none lg:px-6 lg:py-4',
-                        selectedIndex === featureIndex
-                          ? 'bg-white lg:bg-white/10 lg:ring-1 lg:ring-inset lg:ring-white/10'
-                          : 'hover:bg-white/10 lg:hover:bg-white/5'
-                      )}
-                    >
-                      <h3>
-                        <Tab
-                          className={clsx(
-                            'font-display text-lg ui-not-focus-visible:outline-none',
-                            selectedIndex === featureIndex
-                              ? 'text-blue-600 lg:text-white'
-                              : 'text-blue-100 hover:text-white lg:text-white'
-                          )}
-                        >
-                          <span className="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none" />
-                          {feature._title}
-                        </Tab>
-                      </h3>
-                      <p
-                        className={clsx(
-                          'mt-2 text-sm ',
-                          selectedIndex === featureIndex
-                            ? 'text-white'
-                            : 'text-blue-100 group-hover:text-white'
-                        )}
-                      >
-                        {feature.subTitle}
-                      </p>
-                    </div>
-                  ))}
-                </Tab.List>
-              </div>
-              <Tab.Panels className="hidden lg:col-span-7 lg:block">
-                {devTools.features.items.map((feature) => {
-                  const featureImage = images[(feature.image as keyof typeof images) || 'console']
-                  return (
-                    <Tab.Panel key={feature._title} unmount={false}>
-                      <div className="relative text-white hover:text-white sm:px-6 lg:hidden">
-                        <div className="absolute -inset-x-4 bottom-[-4.25rem] top-[-6.5rem] bg-white/10 ring-1 ring-inset ring-white/10 sm:inset-x-0 sm:rounded-t-xl" />
-                        <p className="relative mx-auto max-w-2xl text-base text-white sm:text-center">
-                          {feature.subTitle}
-                        </p>
-                      </div>
-                      <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
-                        {feature.type === 'image' ? (
-                          <Image
-                            className="w-full"
-                            src={featureImage.src}
-                            alt=""
-                            priority
-                            sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
-                          />
-                        ) : (
-                          <MuxPlayer
-                            loading="viewport"
-                            streamType="on-demand"
-                            playbackId={featureImage.src as string}
-                            primaryColor="#FFFFFF"
-                            secondaryColor="#000000"
-                            muted={true}
-                            autoPlay={true}
-                            loop={true}
-                            style={
-                              {
-                                aspectRatio: '554/327',
-                                display: 'block',
-                                '--controls': 'none',
-                                '--media-object-fit': 'cover',
-                                '--media-object-position': 'center'
-                              } as React.CSSProperties
-                            }
-                          />
-                        )}
-                      </div>
-                    </Tab.Panel>
-                  )
-                })}
-              </Tab.Panels>
-            </>
-          )}
-        </Tab.Group>
-
-        <div className="mt-4 flex overflow-x-hidden pb-4 sm:mx-0 sm:pb-0 lg:hidden">
-          <div className="relative z-10 flex flex-col gap-x-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-            {devTools.features.items.map((feature) => {
-              const featureImage = images[(feature.image as keyof typeof images) || 'console']
-              return (
-                <div
-                  key={feature._title}
-                  className={'relative my-2 mt-12 flex flex-col rounded-full text-white'}
+        <div className="mt-16 flex flex-col gap-8 lg:grid lg:grid-cols-12 lg:gap-12">
+          {/* Left 1/3: Example list */}
+          <div className="lg:col-span-4">
+            <div className="flex flex-row gap-2 overflow-x-auto lg:flex-col lg:gap-1 lg:overflow-x-visible">
+              {examples.map((example, i) => (
+                <button
+                  key={example.title}
+                  onClick={() => selectExample(i)}
+                  className={clsx(
+                    'whitespace-nowrap rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors lg:whitespace-normal lg:rounded-l-xl lg:rounded-r-none lg:px-6 lg:py-4 lg:text-base',
+                    selectedIndex === i
+                      ? 'bg-white/10 text-white ring-1 ring-inset ring-white/10'
+                      : 'text-blue-100 hover:bg-white/5 hover:text-white'
+                  )}
                 >
-                  <h3 className="font-display text-lg font-semibold ui-not-focus-visible:outline-none">
-                    {feature._title}
-                  </h3>
-                  <p className="mb-8 mt-2">{feature.subTitle}</p>
-                  {featureImage.type === 'image' && (
-                    <Image
-                      className="w-full"
-                      src={featureImage.src}
-                      alt={`${feature._title} screenshot`}
-                      placeholder="blur"
-                      sizes={getImageSizes(67, 100, 100)}
-                    />
+                  <span>{example.title}</span>
+                  {selectedIndex === i && example.subtitle && (
+                    <span className="mt-1 block text-sm font-normal text-white/60">
+                      {example.subtitle}
+                    </span>
                   )}
-                  {featureImage.type === 'mux-video' && (
-                    <div className="overflow-hidden rounded-[8px]">
-                      <MuxPlayer
-                        loading="viewport"
-                        streamType="on-demand"
-                        playbackId={featureImage.src as string}
-                        primaryColor="#FFFFFF"
-                        secondaryColor="#ff00ff"
-                        muted={true}
-                        autoPlay={true}
-                        loop={true}
-                        style={
-                          {
-                            aspectRatio: '554/327',
-                            display: 'block',
-                            '--controls': 'none',
-                            '--media-object-fit': 'cover',
-                            '--media-object-position': 'center'
-                          } as React.CSSProperties
-                        }
-                      />
-                    </div>
-                  )}
-                </div>
-              )
-            })}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right 2/3: Content area */}
+          <div className="flex flex-col gap-6 lg:col-span-8">
+            {/* Video area */}
+            <div className="overflow-hidden rounded-xl shadow-xl shadow-blue-900/20">
+              <MuxPlayer
+                loading="viewport"
+                streamType="on-demand"
+                playbackId={selected.muxPlaybackId}
+                primaryColor="#FFFFFF"
+                secondaryColor="#000000"
+                muted={true}
+                autoPlay={true}
+                loop={true}
+                style={{
+                  aspectRatio: '554/327',
+                  display: 'block',
+                  '--controls': 'none',
+                  '--media-object-fit': 'cover',
+                  '--media-object-position': 'center',
+                } as React.CSSProperties}
+              />
+            </div>
+
+            {/* Try it button */}
+            {!showChat && (
+              <button
+                onClick={() => setShowChat(true)}
+                className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-blue-500/25 transition-all hover:from-blue-400 hover:to-indigo-400 hover:shadow-blue-500/40"
+              >
+                Try it yourself →
+              </button>
+            )}
+
+            {/* Chat area */}
+            <div className="rounded-xl bg-white/5 p-4">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-white">
+                  {showChat ? 'Chat with Replay AI' : 'Conversation'}
+                </h3>
+                {showChat && (
+                  <button
+                    onClick={() => setShowChat(false)}
+                    className="rounded-lg bg-white/10 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/20"
+                  >
+                    View transcript
+                  </button>
+                )}
+              </div>
+
+              {showChat ? (
+                <Chat recordingId={selected.recordingId} initialPrompt={selected.initialPrompt} />
+              ) : (
+                <EventList events={selected.transcript} />
+              )}
+            </div>
           </div>
         </div>
       </Container>
+
       <div className="absolute -top-24 right-0 -z-10 transform-gpu blur-3xl" aria-hidden="true">
         <div
           className="aspect-[1404/767] w-[87.75rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-25"
@@ -217,11 +178,6 @@ export function DevTools({ devTools }: LandingPageFragment) {
               'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)'
           }}
         />
-      </div>
-      <div className="mt-12 flex justify-center">
-        <a href="https://app.replay.io/recording/overboarddev-demo-replay--8acb44d4-29d1-457d-a004-d16ddb871036">
-          <Button className="">Take a look at this replay {'->'}</Button>
-        </a>
       </div>
     </section>
   )
