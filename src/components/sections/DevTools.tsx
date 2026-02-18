@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
+import MuxPlayer from '@mux/mux-player-react/lazy'
 
 import { Container } from '~/components/Container'
 import { LandingPageFragment } from '~/lib/basehub-queries'
@@ -17,7 +18,7 @@ import flashingContent from './devtools/transcripts/flashing-content.json'
 interface Example {
   title: string
   subtitle?: string
-  videoUrl: string
+  muxPlaybackId: string
   recordingId: string
   initialPrompt: string
   transcript: StreamEvent[]
@@ -27,7 +28,7 @@ const examples: Example[] = [
   {
     title: 'Button doesn\'t work',
     subtitle: 'Creating a new task does nothing',
-    videoUrl: 'https://placeholder.replay.io/button-debug.mp4',
+    muxPlaybackId: 'wfAPmW7i76SHKwyDodfiMqdKi2Bkf2Cseg011zBnewQI',
     recordingId: '26a48f66-ea81-4519-929c-cbcde13eac16',
     initialPrompt: 'The form to add a new task isn\'t doing anything',
     transcript: buttonDoesntWork as StreamEvent[]
@@ -35,7 +36,7 @@ const examples: Example[] = [
   {
     title: 'Broken data import',
     subtitle: 'CRM clients not added correctly',
-    videoUrl: 'https://placeholder.replay.io/form-debug.mp4',
+    muxPlaybackId: 'g8gJI73WhFi9019AXDaerLF00019T00YDvKCJvjWEEy8voM',
     recordingId: '6a271479-83f6-4d49-a337-e57f3438f9bc',
     initialPrompt: 'After I import contacts the client names are wrong',
     transcript: brokenDataImport as StreamEvent[]
@@ -43,7 +44,7 @@ const examples: Example[] = [
   {
     title: 'Sluggish page load',
     subtitle: 'Dashboard takes too long to populate',
-    videoUrl: 'https://placeholder.replay.io/perf-debug.mp4',
+    muxPlaybackId: 'JWKSQrDAM7NSh9GZ730000YtvBwEWptCNSneUCrTZ21kQ',
     recordingId: 'e3e94ee6-83e0-42ad-a0e4-b61b386aefa2',
     initialPrompt: 'The dashboard takes way too long to load',
     transcript: sluggishPageLoad as StreamEvent[]
@@ -51,7 +52,7 @@ const examples: Example[] = [
   {
     title: 'Flashing content',
     subtitle: 'Empty deals list shown briefly',
-    videoUrl: 'https://placeholder.replay.io/state-debug.mp4',
+    muxPlaybackId: 'wZfgg01KFpLucarzVWKjmeFb3lcQuyVeeHQ00Y02It02cFw',
     recordingId: '013ccfd4-35d2-4862-ac63-67b2e094bd7d',
     initialPrompt: 'When adding a new deal the deals list flashed as empty before updating',
     transcript: flashingContent as StreamEvent[]
@@ -113,10 +114,24 @@ export function DevTools({ devTools }: LandingPageFragment) {
           {/* Right 2/3: Content area */}
           <div className="flex flex-col gap-6 lg:col-span-8">
             {/* Video area */}
-            <div className="overflow-hidden rounded-xl bg-black/30 shadow-xl shadow-blue-900/20">
-              <div className="flex aspect-video items-center justify-center text-gray-500">
-                <span className="text-sm">Video placeholder: {selected.videoUrl}</span>
-              </div>
+            <div className="overflow-hidden rounded-xl shadow-xl shadow-blue-900/20">
+              <MuxPlayer
+                loading="viewport"
+                streamType="on-demand"
+                playbackId={selected.muxPlaybackId}
+                primaryColor="#FFFFFF"
+                secondaryColor="#000000"
+                muted={true}
+                autoPlay={true}
+                loop={true}
+                style={{
+                  aspectRatio: '554/327',
+                  display: 'block',
+                  '--controls': 'none',
+                  '--media-object-fit': 'cover',
+                  '--media-object-position': 'center',
+                } as React.CSSProperties}
+              />
             </div>
 
             {/* Try it button */}
