@@ -28,7 +28,7 @@ const examples: Example[] = [
   {
     title: 'Button doesn\'t work',
     subtitle: 'Creating a new task does nothing',
-    muxPlaybackId: 'wfAPmW7i76SHKwyDodfiMqdKi2Bkf2Cseg011zBnewQI',
+    muxPlaybackId: '4qzqK2nSFoP02ppOu6fi9kcf02aVtvaj3ZK02pqpjBVhiQ',
     recordingId: '26a48f66-ea81-4519-929c-cbcde13eac16',
     initialPrompt: 'The form to add a new task isn\'t doing anything',
     transcript: buttonDoesntWork as StreamEvent[]
