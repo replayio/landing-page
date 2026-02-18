@@ -25,12 +25,13 @@ export function Hero({ hero }: LandingPageFragment) {
             <div className="flex flex-col justify-center items-center w-full">
               <div ref={heroContentRef} className="primary-emphasis max-w-3xl">
                 <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-8xl">
-                  AI writes code fast.
+                  Superpowers
                   <br />
-                  Replay helps you ship it.
+                  for your agent
                 </h1>
                 <p className="mt-6 text-lg tracking-tight text-slate-700">
-                  Our AI-powered time-travel debugger shows you exactly what happened - no guesswork, no reproduction steps, just answers.
+                  Replay records your app so your agent can understand everything that happened,
+                  down to the finest detail.
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
                   <Button
