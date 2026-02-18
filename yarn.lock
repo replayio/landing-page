@@ -2408,14 +2408,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/typography@github:tailwindcss/typography":
+"@tailwindcss/typography@npm:^0.5.15":
   version: 0.5.19
-  resolution: "@tailwindcss/typography@git+ssh://git@github.com/tailwindcss/typography.git#commit=74a3da779bb43e4e68f446395224c768704c1fb6"
+  resolution: "@tailwindcss/typography@npm:0.5.19"
   dependencies:
     postcss-selector-parser: "npm:6.0.10"
   peerDependencies:
     tailwindcss: "*"
-  checksum: 10/fb3db141581612abed80bba77c5cc6f2e6e4f126af2db5628cb4aa799f61e2ed4dfa6efbc76047794b42fd7a7c26f34b502d1f2d4d781514182ab5c47fa7b0f1
+  checksum: 10/f7fbbad3c863f07e7c2c2ededc1cb4efc540ad5a3b8d2d99185afad31074baba90d54cddc7e2c25b39e3f2a77cccd6fd8623477577ede53dadc0fff80802a2ca
   languageName: node
   linkType: hard
 
@@ -7923,7 +7923,7 @@ __metadata:
     "@replayio/overboard": "npm:^0.4.1"
     "@replayio/playwright": "npm:2.0.0-alpha.10"
     "@tailwindcss/forms": "npm:^0.5.7"
-    "@tailwindcss/typography": "github:tailwindcss/typography"
+    "@tailwindcss/typography": "npm:^0.5.15"
     "@typeform/embed-react": "npm:^2.22.0"
     "@types/lodash": "npm:^4.17.0"
     "@types/mixpanel-browser": "npm:^2"
