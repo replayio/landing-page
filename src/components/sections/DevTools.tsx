@@ -70,6 +70,16 @@ export function DevTools({ devTools }: LandingPageFragment) {
     setShowChat(false)
   }
 
+  const handlePrev = () => {
+    setSelectedIndex((prev) => (prev - 1 + examples.length) % examples.length)
+    setShowChat(false)
+  }
+
+  const handleNext = () => {
+    setSelectedIndex((prev) => (prev + 1) % examples.length)
+    setShowChat(false)
+  }
+
   return (
     <section
       id="devtools"
@@ -91,34 +101,37 @@ export function DevTools({ devTools }: LandingPageFragment) {
         <div className="mt-16 flex flex-col gap-8 lg:grid lg:grid-cols-12 lg:gap-12">
           {/* Left 1/3: Example list */}
           <div className="lg:col-span-4">
-            <div className="flex flex-row gap-2 overflow-x-auto lg:flex-col lg:gap-3 lg:overflow-x-visible">
-              {examples.map((example, i) => (
-                <button
-                  key={example.title}
-                  onClick={() => selectExample(i)}
-                  className={clsx(
-                    'group flex w-full items-center gap-4 rounded-lg border-2 p-4 text-left transition-all whitespace-nowrap lg:whitespace-normal',
-                    selectedIndex === i
-                      ? 'border-accent bg-white shadow-sm'
-                      : 'border-gray-200 bg-gray-50 hover:border-gray-300 hover:bg-white'
-                  )}
-                >
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900">{example.title}</h3>
-                    {example.subtitle && (
-                      <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
-                        {example.subtitle}
-                      </p>
+            {/* Desktop: Vertical list of cards */}
+            <div className="hidden lg:block">
+              <div className="space-y-3">
+                {examples.map((example, i) => (
+                  <button
+                    key={example.title}
+                    onClick={() => selectExample(i)}
+                    className={clsx(
+                      'group flex w-full items-center gap-4 rounded-lg border-2 p-4 text-left transition-all',
+                      selectedIndex === i
+                        ? 'border-accent bg-white shadow-sm'
+                        : 'border-gray-200 bg-gray-50 hover:border-gray-300 hover:bg-white'
                     )}
-                  </div>
+                  >
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-gray-900">{example.title}</h3>
+                      {example.subtitle && (
+                        <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+                          {example.subtitle}
+                        </p>
+                      )}
+                    </div>
 
-                  {/* Right Arrow */}
-                  <div className="w-10 h-10 flex shrink-0 items-center justify-center border border-gray-200 rounded-full bg-white">
-                    <RightArrowIcon width={20} height={20} />
-                  </div>
-                </button>
-              ))}
+                    {/* Right Arrow */}
+                    <div className="w-10 h-10 flex shrink-0 items-center justify-center border border-gray-200 rounded-full bg-white">
+                      <RightArrowIcon width={20} height={20} />
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -143,6 +156,43 @@ export function DevTools({ devTools }: LandingPageFragment) {
                   '--media-object-position': 'center',
                 } as React.CSSProperties}
               />
+            </div>
+
+            {/* Mobile: Carousel-style card with navigation arrows */}
+            <div className="lg:hidden">
+              <div className="group flex w-full items-center gap-4 rounded-lg border-2 border-accent bg-white shadow-sm p-4 text-left transition-all">
+                {/* Previous button */}
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform shrink-0"
+                  aria-label="Previous example"
+                >
+                  <span className="inline-flex rotate-180">
+                    <RightArrowIcon width={18} height={18} />
+                  </span>
+                </button>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900">{selected.title}</h3>
+                  {selected.subtitle && (
+                    <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+                      {selected.subtitle}
+                    </p>
+                  )}
+                </div>
+
+                {/* Next button */}
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform shrink-0"
+                  aria-label="Next example"
+                >
+                  <RightArrowIcon width={18} height={18} />
+                </button>
+              </div>
             </div>
 
             {/* Try it button */}
