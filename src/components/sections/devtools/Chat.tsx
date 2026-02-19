@@ -137,20 +137,20 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
     <div className="flex flex-col gap-4">
       <div ref={scrollRef} className="max-h-96 overflow-y-auto pr-1">
         {events.length === 0 && (
-          <div className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-600 shadow-sm">
+          <div className="rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-sm text-gray-400 shadow-sm">
             Ask Replay AI about this bug...
           </div>
         )}
         <EventList events={events} />
         {isStreaming && events.length > 0 && events[events.length - 1].kind === 'Initialized' && (
-          <div className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-600 shadow-sm">
-            <span className="inline-block h-4 w-1 animate-pulse bg-gray-400" />
+          <div className="rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-sm text-gray-400 shadow-sm">
+            <span className="inline-block h-4 w-1 animate-pulse bg-gray-500" />
           </div>
         )}
       </div>
 
       {/* Input container matching the image design */}
-      <div className="rounded-2xl bg-white border border-gray-200 shadow-sm p-4">
+      <div className="rounded-2xl bg-gray-800 border border-gray-700 shadow-sm p-4">
         {/* Textarea on top */}
         <textarea
           ref={textareaRef}
@@ -160,7 +160,7 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
           placeholder="What would you like to do now?"
           disabled={isStreaming}
           rows={1}
-          className="w-full rounded-lg border-none bg-white px-3 py-2 text-base text-gray-900 placeholder:text-gray-600 focus:outline-none resize-none overflow-y-auto disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full rounded-lg border-none bg-gray-800 px-3 py-2 text-base text-white placeholder:text-gray-500 focus:outline-none resize-none overflow-y-auto disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             minHeight: '40px',
             maxHeight: '150px',
@@ -173,7 +173,7 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
           <button
             onClick={handleSend}
             disabled={isStreaming || !input.trim()}
-            className="px-5 py-2.5 rounded-full font-medium bg-gray-800 text-white hover:bg-gray-700 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-5 py-2.5 rounded-full font-medium bg-accent text-white hover:bg-accent/90 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span>Send</span>
             <span className="text-white/70 text-sm">⌘Enter</span>

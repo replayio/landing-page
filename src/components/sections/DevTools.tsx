@@ -83,17 +83,17 @@ export function DevTools({ devTools }: LandingPageFragment) {
   return (
     <section
       id="devtools"
-      className="relative isolate overflow-hidden bg-white pb-16 pt-8 md:pb-24 md:pt-20"
+      className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-8 md:pb-24 md:pt-20"
     >
       <Container className="relative">
         <div className="max-w-4xl mb-12">
-          <h2 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl md:text-6xl">
+          <h2 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
             From bug to fix —
             <br />
             <span className="text-accent">without touching DevTools
             </span>
           </h2>
-          <p className="mt-4 max-w-3xl text-base text-gray-700 sm:text-lg">
+          <p className="mt-4 max-w-3xl text-base text-white sm:text-lg">
             See how Replay MCP lets your agent dive in and explain the problem.
           </p>
         </div>
@@ -111,22 +111,22 @@ export function DevTools({ devTools }: LandingPageFragment) {
                     className={clsx(
                       'group flex w-full items-center gap-4 rounded-lg border-2 p-4 text-left transition-all',
                       selectedIndex === i
-                        ? 'border-accent bg-white shadow-sm'
-                        : 'border-gray-200 bg-gray-50 hover:border-gray-300 hover:bg-white'
+                        ? 'border-accent bg-gray-800 shadow-sm'
+                        : 'border-gray-700 bg-gray-800/50 hover:border-gray-600 hover:bg-gray-800'
                     )}
                   >
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900">{example.title}</h3>
+                      <h3 className="font-semibold text-white">{example.title}</h3>
                       {example.subtitle && (
-                        <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+                        <p className="mt-1.5 text-sm leading-relaxed text-gray-400">
                           {example.subtitle}
                         </p>
                       )}
                     </div>
 
                     {/* Right Arrow */}
-                    <div className="w-10 h-10 flex shrink-0 items-center justify-center border border-gray-200 rounded-full bg-white">
+                    <div className="w-10 h-10 flex shrink-0 items-center justify-center border border-gray-700 rounded-full bg-gray-800">
                       <RightArrowIcon width={20} height={20} />
                     </div>
                   </button>
@@ -138,7 +138,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
           {/* Right 2/3: Content area */}
           <div className="flex flex-col gap-6 lg:col-span-8">
             {/* Video area */}
-            <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-gray-100 shadow-xl">
+            <div className="relative overflow-hidden rounded-lg border border-gray-700 bg-gray-800 shadow-xl">
               <MuxPlayer
                 loading="viewport"
                 streamType="on-demand"
@@ -160,12 +160,12 @@ export function DevTools({ devTools }: LandingPageFragment) {
 
             {/* Mobile: Carousel-style card with navigation arrows */}
             <div className="lg:hidden">
-              <div className="group flex w-full items-center gap-4 rounded-lg border-2 border-accent bg-white shadow-sm p-4 text-left transition-all">
+              <div className="group flex w-full items-center gap-4 rounded-lg border-2 border-accent bg-gray-800 shadow-sm p-4 text-left transition-all">
                 {/* Previous button */}
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform shrink-0"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 shadow-md border border-gray-700 text-accent active:scale-95 transition-transform shrink-0"
                   aria-label="Previous example"
                 >
                   <span className="inline-flex rotate-180">
@@ -175,9 +175,9 @@ export function DevTools({ devTools }: LandingPageFragment) {
 
                 {/* Content */}
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">{selected.title}</h3>
+                  <h3 className="font-semibold text-white">{selected.title}</h3>
                   {selected.subtitle && (
-                    <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+                    <p className="mt-1.5 text-sm leading-relaxed text-gray-400">
                       {selected.subtitle}
                     </p>
                   )}
@@ -187,7 +187,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform shrink-0"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 shadow-md border border-gray-700 text-accent active:scale-95 transition-transform shrink-0"
                   aria-label="Next example"
                 >
                   <RightArrowIcon width={18} height={18} />
@@ -195,26 +195,18 @@ export function DevTools({ devTools }: LandingPageFragment) {
               </div>
             </div>
 
-            {/* Try it button */}
-            {!showChat && (
-              <button
-                onClick={() => setShowChat(true)}
-                className="w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
-              >
-                Try it yourself →
-              </button>
-            )}
-
             {/* Chat area */}
-            <div className="rounded-xl bg-gray-50 border border-gray-200 p-4">
+            <div className={clsx("rounded-xl bg-gray-800/50 border border-gray-700 p-4",
+              { 'max-h-96 overflow-y-auto': !showChat }
+            )}>
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-gray-900">
+                <h3 className="text-sm font-semibold text-white">
                   {showChat ? 'Chat with Replay AI' : 'Conversation'}
                 </h3>
                 {showChat && (
                   <button
                     onClick={() => setShowChat(false)}
-                    className="rounded-lg bg-white border border-gray-200 px-4 py-1.5 text-sm font-medium text-gray-700 transition-all hover:bg-gray-100 hover:border-gray-300"
+                    className="rounded-lg bg-gray-800 border border-gray-700 px-4 py-1.5 text-sm font-medium text-gray-300 transition-all hover:bg-gray-700 hover:border-gray-600"
                   >
                     View transcript
                   </button>
@@ -227,6 +219,17 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 <EventList events={selected.transcript} />
               )}
             </div>
+
+
+            {/* Try it button */}
+            {!showChat && (
+              <button
+                onClick={() => setShowChat(true)}
+                className="w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
+              >
+                Try it yourself →
+              </button>
+            )}
           </div>
         </div>
       </Container>
