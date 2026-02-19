@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { Plus } from 'lucide-react'
 import { StreamEvent } from './types'
 import { EventList } from './EventList'
 
@@ -113,46 +114,71 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
     sendMessage(eventsRef.current)
   }
 
-  function handleKeyDown(e: React.KeyboardEvent) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSend()
     }
   }
 
+  // Auto-resize textarea
+  useEffect(() => {
+    const textarea = textareaRef.current
+    if (textarea) {
+      textarea.style.height = '40px'
+      const scrollHeight = textarea.scrollHeight
+      textarea.style.height = `${Math.min(scrollHeight, 200)}px`
+    }
+  }, [input])
+
   return (
-    <div className="flex flex-col gap-3">
-      <div ref={scrollRef} className="max-h-96 overflow-y-auto">
+    <div className="flex flex-col gap-4">
+      <div ref={scrollRef} className="max-h-96 overflow-y-auto pr-1">
         {events.length === 0 && (
-          <div className="rounded-lg bg-white/10 px-4 py-3 text-sm text-gray-300">
+          <div className="rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-sm text-gray-400 shadow-sm">
             Ask Replay AI about this bug...
           </div>
         )}
         <EventList events={events} />
         {isStreaming && events.length > 0 && events[events.length - 1].kind === 'Initialized' && (
-          <div className="rounded-lg bg-white/10 px-4 py-3 text-sm text-gray-200">
-            <span className="inline-block h-4 w-1 animate-pulse bg-white/60" />
+          <div className="rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-sm text-gray-400 shadow-sm">
+            <span className="inline-block h-4 w-1 animate-pulse bg-gray-500" />
           </div>
         )}
       </div>
 
-      <div className="flex gap-2">
-        <input
-          type="text"
+      {/* Input container matching the image design */}
+      <div className="rounded-2xl bg-gray-800 border border-gray-700 shadow-sm p-4">
+        {/* Textarea on top */}
+        <textarea
+          ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask about this bug..."
+          placeholder="What would you like to do now?"
           disabled={isStreaming}
-          className="flex-1 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
+          rows={1}
+          className="w-full rounded-lg border-none bg-gray-800 px-3 py-2 text-base text-white placeholder:text-gray-500 focus:outline-none resize-none overflow-y-auto disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{
+            minHeight: '40px',
+            maxHeight: '150px',
+          }}
         />
-        <button
-          onClick={handleSend}
-          disabled={isStreaming || !input.trim()}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-50"
-        >
-          Send
-        </button>
+
+        {/* Bottom controls */}
+        <div className="flex justify-end items-center mt-3">
+          {/* Send button on right */}
+          <button
+            onClick={handleSend}
+            disabled={isStreaming || !input.trim()}
+            className="px-5 py-2.5 rounded-full font-medium bg-accent text-white hover:bg-accent/90 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span>Send</span>
+            <span className="text-white/70 text-sm">⌘Enter</span>
+          </button>
+        </div>
       </div>
     </div>
   )

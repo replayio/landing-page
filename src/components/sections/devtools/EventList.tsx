@@ -46,38 +46,48 @@ function ToolCallItem({ item }: { item: Extract<DisplayItem, { type: 'tool' }> }
       <button
         onClick={() => setExpanded(!expanded)}
         className={clsx(
-          'flex w-full items-center gap-1.5 rounded-md px-3 py-1.5 text-left text-xs transition-colors',
+          'flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-left text-xs transition-all',
           item.isComplete
-            ? 'bg-white/5 text-gray-400 hover:bg-white/10'
-            : 'bg-white/10 text-gray-300'
+            ? 'border-gray-700 bg-gray-800 text-gray-300 hover:border-gray-600 hover:bg-gray-700 shadow-sm'
+            : 'border-gray-700 bg-gray-800 text-gray-300 shadow-sm'
         )}
       >
-        {!item.isComplete && (
-          <span className="inline-block h-2 w-2 flex-shrink-0 animate-spin rounded-full border border-white/40 border-t-white/80" />
-        )}
-        {item.isComplete && !item.failed && (
-          <span className="flex-shrink-0 text-green-400">&#10003;</span>
-        )}
-        {item.isComplete && item.failed && (
-          <span className="flex-shrink-0 text-red-400">&#10005;</span>
-        )}
-        <span className="font-medium">{item.name}</span>
-        <span className="ml-auto text-white/30">{expanded ? '▾' : '▸'}</span>
+        {/* Icon container */}
+        <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
+          {!item.isComplete && (
+            <span className="inline-block h-2.5 w-2.5 animate-spin rounded-full border-2 border-gray-600 border-t-gray-400" />
+          )}
+          {item.isComplete && !item.failed && (
+            <span className="flex-shrink-0 text-green-400 text-sm">✓</span>
+          )}
+          {item.isComplete && item.failed && (
+            <span className="flex-shrink-0 text-red-400 text-sm">✗</span>
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <span className="font-medium text-white block">{item.name}</span>
+          {item.isComplete && item.result && (
+            <span className="text-xs text-gray-400 line-clamp-1 mt-0.5">
+              {typeof item.result === 'string' ? item.result.substring(0, 60) : 'Completed'}
+            </span>
+          )}
+        </div>
+        <span className="ml-auto text-gray-500 text-xs flex-shrink-0">{expanded ? '▾' : '▸'}</span>
       </button>
       {expanded && (
-        <div className="mt-1 rounded-md bg-black/30 p-3 text-xs">
+        <div className="mt-2 rounded-lg border border-gray-700 bg-gray-800 p-3 text-xs">
           {item.input != null && (
-            <div className="mb-2">
-              <span className="font-semibold text-gray-400">Input:</span>
-              <pre className="mt-1 overflow-x-auto whitespace-pre-wrap text-gray-500">
+            <div className="mb-3">
+              <span className="font-semibold text-gray-300">Input:</span>
+              <pre className="mt-1.5 overflow-x-auto whitespace-pre-wrap rounded bg-gray-900 border border-gray-700 p-2 text-gray-300 font-mono text-xs">
                 {JSON.stringify(item.input, null, 2)}
               </pre>
             </div>
           )}
           {item.result != null && (
             <div>
-              <span className="font-semibold text-gray-400">Result:</span>
-              <pre className="mt-1 max-h-48 overflow-auto whitespace-pre-wrap text-gray-500">
+              <span className="font-semibold text-gray-300">Result:</span>
+              <pre className="mt-1.5 max-h-48 overflow-auto whitespace-pre-wrap rounded bg-gray-900 border border-gray-700 p-2 text-gray-300 font-mono text-xs">
                 {item.result}
               </pre>
             </div>
@@ -91,21 +101,27 @@ function ToolCallItem({ item }: { item: Extract<DisplayItem, { type: 'tool' }> }
 export function EventList({ events }: { events: StreamEvent[] }) {
   const items = eventsToDisplayItems(events)
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       {items.map((item, i) => {
         if (item.type === 'user') {
           return (
-            <div key={i} className="rounded-lg bg-blue-600 px-4 py-3 text-sm leading-relaxed text-white">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/60">You</span>
-              <div className="prose-invert prose-sm max-w-none"><Markdown>{item.content}</Markdown></div>
+            <div key={i} className="w-fit max-w-[70%] ml-auto">
+              <div className="rounded-lg bg-gray-700 p-5 text-sm leading-relaxed text-white shadow-sm">
+                <div className="prose prose-sm max-w-none prose-p:my-0 prose-p:leading-relaxed prose-p:text-white prose-headings:text-white">
+                  <Markdown>{item.content}</Markdown>
+                </div>
+              </div>
             </div>
           )
         }
         if (item.type === 'text') {
           return (
-            <div key={i} className="rounded-lg bg-white/10 px-4 py-3 text-sm leading-relaxed text-gray-200">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/60">Replay AI</span>
-              <div className="prose-invert prose-sm max-w-none"><Markdown>{item.content}</Markdown></div>
+            <div key={i} className="w-[80%] mr-auto">
+              <div className="px-4 py-3 text-sm leading-relaxed text-gray-100">
+                <div className="prose prose-sm max-w-none prose-p:my-0 prose-p:leading-relaxed prose-p:text-gray-100 prose-headings:text-white prose-strong:text-white prose-code:bg-gray-800 prose-code:text-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:border prose-code:border-gray-700 prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:border prose-pre:border-gray-700 prose-li:text-gray-100 prose-ul:text-gray-100 prose-ol:text-gray-100">
+                  <Markdown>{item.content}</Markdown>
+                </div>
+              </div>
             </div>
           )
         }
