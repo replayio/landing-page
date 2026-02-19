@@ -144,6 +144,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 playbackId={selected.muxPlaybackId}
                 primaryColor="#FFFFFF"
                 secondaryColor="#000000"
+                minResolution="720p"
                 muted={true}
                 autoPlay={true}
                 loop={true}
