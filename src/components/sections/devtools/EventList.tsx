@@ -105,8 +105,8 @@ export function EventList({ events }: { events: StreamEvent[] }) {
       {items.map((item, i) => {
         if (item.type === 'user') {
           return (
-            <div key={i} className="w-[95%] ml-auto">
-              <div className="rounded-lg bg-gray-700 px-4 py-3 text-sm leading-relaxed text-white shadow-sm">
+            <div key={i} className="w-fit max-w-[70%] ml-auto">
+              <div className="rounded-lg bg-gray-700 p-5 text-sm leading-relaxed text-white shadow-sm">
                 <div className="prose prose-sm max-w-none prose-p:my-0 prose-p:leading-relaxed prose-p:text-white prose-headings:text-white">
                   <Markdown>{item.content}</Markdown>
                 </div>
@@ -116,7 +116,7 @@ export function EventList({ events }: { events: StreamEvent[] }) {
         }
         if (item.type === 'text') {
           return (
-            <div key={i} className="w-[95%] mr-auto">
+            <div key={i} className="w-[80%] mr-auto">
               <div className="px-4 py-3 text-sm leading-relaxed text-gray-100">
                 <div className="prose prose-sm max-w-none prose-p:my-0 prose-p:leading-relaxed prose-p:text-gray-100 prose-headings:text-white prose-strong:text-white prose-code:bg-gray-800 prose-code:text-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:border prose-code:border-gray-700 prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:border prose-pre:border-gray-700 prose-li:text-gray-100 prose-ul:text-gray-100 prose-ol:text-gray-100">
                   <Markdown>{item.content}</Markdown>
