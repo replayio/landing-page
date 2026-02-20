@@ -40,6 +40,26 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           data-website-id="fbe91bf5-8681-4948-a34b-8f2200a4d18f"
           data-host-url="https://replay-analytics.netlify.app"
         />
+        <Script
+          id="apollo-website-tracker"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+function initApollo(){
+  var n = Math.random().toString(36).substring(7);
+  var o = document.createElement("script");
+  o.src = "https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache=" + n;
+  o.async = true;
+  o.defer = true;
+  o.onload = function(){
+    window.trackingFunctions.onLoad({appId: "69987d99eda3b200117689e4"});
+  };
+  document.head.appendChild(o);
+}
+initApollo();
+            `.trim()
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
