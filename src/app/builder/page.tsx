@@ -8,6 +8,7 @@ import { ShowcaseGallery } from '~/components/BuilderLanding/ShowcaseGallery/Sho
 import { Connectors } from '~/components/BuilderLanding/Connectors/Connectors'
 import { Pricing } from '~/components/BuilderLanding/Pricing/Pricing'
 import { FAQs } from '~/components/BuilderLanding/Faqs/FAQs'
+import { builderFaqsConfig } from '~/components/BuilderLanding/Faqs/builder-faqs-config'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 export const metadata: Metadata = {
@@ -55,7 +56,7 @@ export default function Home() {
         <HowBuilderWorks />
         <Connectors />
         <Pricing />
-        <FAQs />
+        <FAQs {...builderFaqsConfig} />
       </PageContentAnimate>
       <Footer />
     </>

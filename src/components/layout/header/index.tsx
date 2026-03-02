@@ -24,8 +24,9 @@ const NAVLINKS: Navlink[] = [
 ]
 
 const MobileNavlinks: Navlink[] = [
-  { href: '/', label: 'DevTools' },
-  { href: '/builder', label: 'Builder' },
+  { href: '/', label: 'Replay MCP' },
+  { href: '/replay-extension', label: 'Replay Extension' },
+  { href: '/builder', label: 'Replay Builder' },
   { href: 'https://blog.replay.io', label: 'Changelog' },
   // { href: '/about', label: 'Company' },
 ]
@@ -79,6 +80,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
   const hash = useHash()
   const isDevtoolsPage = pathname === '/'
   const isBuilderPage = pathname === '/builder'
+  const isExtensionPage = pathname === '/replay-extension'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -174,7 +176,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                         : 'text-slate-700 hover:text-accent'
                   )}
                 >
-                  DevTools
+                  Replay MCP
                   <ChevronDown
                     className={clsx(
                       'transition-transform duration-200',
@@ -214,6 +216,23 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                   </div>
                 )}
               </div>
+
+              {/* Replay Extension Dropdown */}
+              <button
+                onClick={() => {
+                  router.push('/replay-extension')
+                }}
+                className={clsx(
+                  'inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium transition-colors',
+                  variant === 'dark'
+                    ? 'text-slate-100 hover:text-white'
+                    : isExtensionPage
+                      ? 'text-accent hover:text-accent/80'
+                      : 'text-slate-700 hover:text-accent'
+                )}
+              >
+                Replay Extension
+              </button>
 
               {/* Builder Dropdown */}
               <div

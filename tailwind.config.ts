@@ -61,6 +61,14 @@ export default {
         gradientShift: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' }
+        },
+        fadeUpOut: {
+          from: { opacity: '1', transform: 'translateY(0)' },
+          to: { opacity: '0', transform: 'translateY(-100%)' }
+        },
+        fadeDownIn: {
+          from: { opacity: '0', transform: 'translateY(100%)' },
+          to: { opacity: '1', transform: 'translateY(0)' }
         }
       },
       animation: {
@@ -69,7 +77,9 @@ export default {
         slideUpAndFade: 'slideUpAndFade 100ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideRightAndFade: 'slideRightAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
         fadeIn: 'fadeIn 1s ease-in-out forwards',
-        gradientShift: 'gradientShift 5s ease-in-out infinite'
+        gradientShift: 'gradientShift 5s ease-in-out infinite',
+        fadeUpOut: 'fadeUpOut 400ms ease-out forwards',
+        fadeDownIn: 'fadeDownIn 400ms ease-out forwards'
       },
       backgroundSize: {
         '200%': '200% 100%'
