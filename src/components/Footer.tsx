@@ -109,12 +109,12 @@ const navigation = {
 
 // Derived arrays for footer layout (derived from navigation, not modifying it)
 const NAV_LINKS = [
+  { label: 'About', href: '/about' },
   { label: 'Devtools', href: navigation.product[0].href },
   { label: 'Builder', href: navigation.product[1].href },
   { label: 'Blog', href: navigation.company[0].href },
   { label: 'Knowledge Base', href: navigation.company[1].href },
   { label: 'Contact', href: navigation.company[1].href },
-  // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
 ]
 
 export function Footer() {
