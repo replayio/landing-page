@@ -23,7 +23,7 @@ const NAVLINKS: Navlink[] = [
   { href: '/engineers', label: 'For Engineers' },
   { href: '/vibe-coders', label: 'For Vibe Coders' },
   { href: '/pricing', label: 'Pricing' },
-  { href: 'https://blog.replay.io', label: 'Changelog' },
+  { href: 'https://blog.replay.io', label: 'Blog' },
   // { href: '/about', label: 'Company' }
 ]
 

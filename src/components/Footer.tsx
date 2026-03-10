@@ -115,7 +115,6 @@ const NAV_LINKS = [
   { label: 'Pricing', href: '/pricing' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: navigation.company[0].href },
-  { label: 'Knowledge Base', href: navigation.company[1].href },
   { label: 'Contact', href: navigation.company[1].href },
   // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
 ]
