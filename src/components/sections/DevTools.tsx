@@ -86,13 +86,11 @@ export function DevTools({ devTools }: LandingPageFragment) {
       className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-8 md:pb-24 md:pt-20"
     >
       <Container className="relative">
-        <div className="max-w-4xl mb-12">
-          <h2 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
-            From bug to fix —
-            <br />
-            without touching DevTools
+        <div className="w-full mb-12 text-center mx-auto">
+          <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
+            From bug to fix — without touching DevTools
           </h2>
-          <p className="mt-4 max-w-3xl text-base text-white sm:text-lg">
+          <p className="mt-4 text-base text-white sm:text-lg">
             See how Replay MCP lets your agent dive in and explain the problem.
           </p>
         </div>
@@ -203,14 +201,14 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 <h3 className="text-sm font-semibold text-white">
                   {showChat ? 'Chat with Replay AI' : 'Chat transcript with Replay MCP'}
                 </h3>
-                {showChat && (
+                {/* {showChat && (
                   <button
                     onClick={() => setShowChat(false)}
                     className="rounded-lg bg-gray-800 border border-gray-700 px-4 py-1.5 text-sm font-medium text-gray-300 transition-all hover:bg-gray-700 hover:border-gray-600"
                   >
                     View transcript
                   </button>
-                )}
+                )} */}
               </div>
 
               {showChat ? (
@@ -222,14 +220,14 @@ export function DevTools({ devTools }: LandingPageFragment) {
 
 
             {/* Try it button */}
-            {!showChat && (
+            {/* {!showChat && (
               <button
                 onClick={() => setShowChat(true)}
                 className="w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
               >
                 Try it yourself →
               </button>
-            )}
+            )} */}
           </div>
         </div>
       </Container>
