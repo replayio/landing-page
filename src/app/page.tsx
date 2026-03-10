@@ -5,8 +5,15 @@ import { Testimonials } from '~/components/Testimonials'
 import { Pump } from '.basehub/react-pump'
 import { draftMode } from 'next/headers'
 import { landingPageFragment } from '~/lib/basehub-queries'
-import FAQ from '~/components/sections/FAQ'
 import { Hero } from './components/hero'
+import { AgentProblem } from './components/AgentProblem'
+import { AgentSolution } from './components/AgentSolution'
+import { WorksWhereYouWork } from './components/WorksWhereYouWork'
+import { AgentBenefits } from './components/AgentBenefits'
+import { BuiltForTeams } from './components/BuiltForTeams'
+import { ReplayComparison } from './components/ReplayComparison'
+import { HomepageFAQs } from './components/HomepageFAQs'
+import { HomepageCTA } from './components/HomepageCTA'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta } from '~/lib/constants'
@@ -56,9 +63,16 @@ export default function DevToolsPage() {
             </Suspense>
             <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
               <Hero {...landingPage} />
+              <AgentProblem />
+              <AgentSolution />
+              <WorksWhereYouWork />
               <DevTools {...landingPage} />
-              <FAQ {...landingPage} />
+              <AgentBenefits />
               <Testimonials {...landingPage} />
+              <BuiltForTeams />
+              <ReplayComparison />
+              <HomepageFAQs />
+              <HomepageCTA />
             </PageContentAnimate>
             <Footer />
           </>

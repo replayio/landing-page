@@ -183,11 +183,6 @@ const nextConfig = {
         permanent: true
       },
       {
-        source: '/pricing',
-        destination: 'https://www.replay.io/',
-        permanent: false
-      },
-      {
         source: '/knowledge-base',
         destination: 'https://intercom.help/replay-builder',
         permanent: true
