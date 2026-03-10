@@ -11,7 +11,7 @@ export function HomepageCTA({ backgroundColor = 'white' }: { backgroundColor?: '
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            Stop debugging for your agent.
+            Stop debugging for your agent.{' '}
             <br className="hidden sm:block" />
             Let Replay do it.
           </h2>
