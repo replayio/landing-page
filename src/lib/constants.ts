@@ -42,7 +42,7 @@ export const basementLog = `
 export const defaultMeta = {
   title: 'Replay - The MCP time travel debugger for your coding agent.',
   description: `Replay MCP gives your coding agent the runtime context it needs to fix its bugs.`,
-  ogImage: `${siteOrigin}/mstile-310x310.png`,
+  ogImage: `${siteOrigin}/mstile-310x150.png`,
   twitter: {
     handle: '@replayio',
     site: '@replayio'
