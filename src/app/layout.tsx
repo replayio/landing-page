@@ -7,6 +7,7 @@ import Script from 'next/script'
 import { ReactNode } from 'react'
 import Analytics from '~/lib/analytics'
 import { Toolbar } from 'basehub/next-toolbar'
+import { TopBanner } from '~/components/TopBanner'
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
@@ -61,7 +62,10 @@ initApollo();
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <TopBanner />
+        {children}
+      </body>
     </html>
   )
 }
