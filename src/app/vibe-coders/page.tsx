@@ -66,8 +66,6 @@ export default function VibeCodersPage() {
               <VibeCodersSteps />
               <VibeCodersMCPCallout />
               <VibeCodersCTA />
-              <Testimonials {...landingPage} />
-              <HomepageCTA backgroundColor="gray" />
             </PageContentAnimate>
             <Footer />
           </>
