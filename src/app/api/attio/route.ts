@@ -67,6 +67,7 @@ export async function POST(req: NextRequest) {
             ...(descriptionParts && {
               description: descriptionParts,
             }),
+            source: 'design-partner-application',
           },
         },
       }

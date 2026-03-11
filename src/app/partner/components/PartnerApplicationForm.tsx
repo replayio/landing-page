@@ -195,7 +195,7 @@ export function PartnerApplicationForm() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="mt-8 w-full rounded-full bg-gradient-to-r from-rose-500 to-purple-500 px-8 py-3.5 text-base font-medium text-white hover:from-rose-600 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-8 w-full rounded-full bg-accent hover:bg-accent-light px-8 py-3.5 text-base font-medium text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? 'Submitting...' : 'Apply to become a design partner'}
               </button>
