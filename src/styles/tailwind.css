@@ -13,6 +13,7 @@
 :root {
   /* Layout */
   --header-height: 56px;
+  --banner-height: 36px;
 }
 
 @media (min-width: theme('screens.sm')) {

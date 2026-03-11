@@ -60,7 +60,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
   return (
     <header
       className={clsx(
-        'fixed top-0 z-50 flex h-[var(--header-height)] w-full items-center',
+        'fixed top-0 z-50 flex h-[var(--header-height)] w-full items-center mt-[var(--banner-height)]',
         variant === 'dark' ? 'bg-slate-900 text-slate-100' : 'bg-transparent text-slate-900',
         {
           ['border-b border-slate-950 shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]']:
