@@ -206,7 +206,7 @@ export function PricingTiers() {
               </div>
               <div className="flex flex-row md:flex-col gap-3 flex-shrink-0">
                 <Link
-                  href="mailto:partners@replay.io"
+                  href="/partner#apply"
                   className="rounded-full bg-accent hover:bg-accent-light px-6 py-3 text-sm font-medium text-white text-center transition"
                 >
                   Apply to partner
