@@ -8,7 +8,7 @@ export function AgentProblem() {
           <h2 className="text-center text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
             Your agent reads code.
             <br />
-            <span className="text-accent">It can&apos;t read runtime.</span>
+            <span className="text-accent">It can&apos;t read the runtime.</span>
           </h2>
 
           <div className="mt-12 space-y-6 text-base leading-relaxed text-gray-700 sm:text-lg">
