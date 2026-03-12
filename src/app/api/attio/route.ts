@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { fullName, company, email, linkedin, teamSize, painPoints } =
+    const { fullName, jobTitle, email, linkedin, teamSize, painPoints } =
       await req.json()
 
     if (!email || !fullName) {
@@ -37,16 +37,11 @@ export async function POST(req: NextRequest) {
     const firstName = nameParts[0] || fullName.trim()
     const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : ''
 
-    const descriptionParts = [
-      company && `Company: ${company}`,
-      teamSize && `Team size: ${teamSize}`,
+    const descriptionParts = [  
       painPoints && `Pain points: ${painPoints}`,
-    ]
-      .filter(Boolean)
-      .join('\n')
+    ].filter(Boolean).join('\n')
 
     // Assert person record (create or update, matched by email)
-    // Company is auto-linked by Attio from the email domain
     const personRes = await attioFetch(
       '/v2/objects/people/records?matching_attribute=email_addresses',
       'PUT',
@@ -66,6 +61,12 @@ export async function POST(req: NextRequest) {
             }),
             ...(descriptionParts && {
               description: descriptionParts,
+            }),
+            ...(jobTitle && {
+              job_title: jobTitle,
+            }),
+            ...(teamSize && {
+              eng_team_size: teamSize,
             }),
             source: 'design-partner-application',
           },
