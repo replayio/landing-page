@@ -14,7 +14,7 @@ const teamSizeOptions = [
 export function PartnerApplicationForm() {
   const [formData, setFormData] = useState({
     fullName: '',
-    company: '',
+    jobTitle: '',
     email: '',
     linkedin: '',
     teamSize: '',
@@ -24,14 +24,46 @@ export function PartnerApplicationForm() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
+  const [linkedinError, setLinkedinError] = useState('')
+  const [emailError, setEmailError] = useState('')
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    if (e.target.name === 'linkedin') setLinkedinError('')
+    if (e.target.name === 'email') setEmailError('')
+  }
+
+  const isValidEmail = (value: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+  const isValidLinkedin = (url: string) =>
+    /linkedin\.com\/in\//i.test(url.trim())
+
+  const handleBlurEmail = () => {
+    if (!formData.email.trim()) return
+    if (isValidEmail(formData.email)) setEmailError('')
+    else setEmailError('Please enter a valid email address (e.g. name@company.com)')
+  }
+
+  const handleBlurLinkedin = () => {
+    if (!formData.linkedin.trim()) return
+    if (isValidLinkedin(formData.linkedin)) setLinkedinError('')
+    else setLinkedinError('Please enter a valid LinkedIn profile URL (e.g. https://linkedin.com/in/yourname)')
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!isValidEmail(formData.email)) {
+      setEmailError('Please enter a valid email address (e.g. name@company.com)')
+      return
+    }
+    if (!isValidLinkedin(formData.linkedin)) {
+      setLinkedinError('Please enter a valid LinkedIn profile URL (e.g. https://linkedin.com/in/yourname)')
+      return
+    }
+
     setSubmitting(true)
     setError('')
 
@@ -97,16 +129,16 @@ export function PartnerApplicationForm() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-sm font-semibold text-gray-900">
-                    Company name <span className="text-rose-500">*</span>
+                  <label htmlFor="jobTitle" className="block text-sm font-semibold text-gray-900">
+                    Job title <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
-                    id="company"
-                    name="company"
+                    id="jobTitle"
+                    name="jobTitle"
                     required
-                    placeholder="Acme Corp"
-                    value={formData.company}
+                    placeholder="Senior Software Engineer"
+                    value={formData.jobTitle}
                     onChange={handleChange}
                     className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
                   />
@@ -125,8 +157,16 @@ export function PartnerApplicationForm() {
                   placeholder="jane@acmecorp.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                  onBlur={handleBlurEmail}
+                  className={`mt-2 block w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:outline-none ${
+                    emailError
+                      ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500'
+                      : 'border-gray-300 focus:border-purple-500 focus:ring-purple-500'
+                  }`}
                 />
+                {emailError && (
+                  <p className="mt-1.5 text-xs text-rose-500">{emailError}</p>
+                )}
               </div>
 
               <div className="mt-6">
@@ -134,15 +174,25 @@ export function PartnerApplicationForm() {
                   LinkedIn profile <span className="text-rose-500">*</span>
                 </label>
                 <input
-                  type="url"
+                  type="text"
                   id="linkedin"
                   name="linkedin"
                   required
                   placeholder="https://linkedin.com/in/janesmith"
+                  inputMode="url"
+                  autoComplete="url"
                   value={formData.linkedin}
                   onChange={handleChange}
-                  className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                  onBlur={handleBlurLinkedin}
+                  className={`mt-2 block w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:outline-none ${
+                    linkedinError
+                      ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500'
+                      : 'border-gray-300 focus:border-purple-500 focus:ring-purple-500'
+                  }`}
                 />
+                {linkedinError && (
+                  <p className="mt-1.5 text-xs text-rose-500">{linkedinError}</p>
+                )}
               </div>
 
               <div className="mt-6">
