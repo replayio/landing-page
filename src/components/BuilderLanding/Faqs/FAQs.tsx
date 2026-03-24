@@ -6,7 +6,7 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
+  AccordionTrigger
 } from '~/components/ui/accordion'
 import { useMemo } from 'react'
 import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
@@ -16,69 +16,68 @@ interface FAQ {
   answer: string | React.ReactNode
 }
 
-export function FAQs() {
-  const faqs: FAQ[] = [
-    {
-      question: 'What makes Replay Builder so good at debugging code?',
-      answer: (
-        <div className="flex flex-col gap-4">
-          <p>
-            Our secret sauce is Replay, our powerful code debugging tool. Before building Replay Builder, 
-            the team at Replay built an insanely good deterministic browser-based code
-            debugger that recorded billions of activities as your code runs and makes sense of it
-            all to then correct issues.
-          </p>
-          <p>Replay Builder was built with this core debugging engine inside it.</p>
-        </div>
-      ),
-    },
-    {
-      question: 'Can I use Replay Builder for free?',
-      answer: (
+const faqs: FAQ[] = [
+  {
+    question: 'What makes Replay Builder so good at debugging code?',
+    answer: (
+      <div className="flex flex-col gap-4">
         <p>
-          It&apos;s the age-old question. Short answer is, yes. All new customers start on the Free
-          plan, where you can build one app, from start to finish.
+          Our secret sauce is Replay, our powerful code debugging tool. Before building Replay
+          Builder, the team at Replay built an insanely good deterministic browser-based code
+          debugger that recorded billions of activities as your code runs and makes sense of it all
+          to then correct issues.
         </p>
-      ),
-    },
-    {
-      question: 'Can I cancel my plan?',
-      answer: (
+        <p>Replay Builder was built with this core debugging engine inside it.</p>
+      </div>
+    )
+  },
+  {
+    question: 'Can I use Replay Builder for free?',
+    answer: (
+      <p>
+        It&apos;s the age-old question. Short answer is, yes. All new customers start on the Free
+        plan, where you can build one app, from start to finish.
+      </p>
+    )
+  },
+  {
+    question: 'Can I cancel my plan?',
+    answer: (
+      <p>
+        Yes, you can. If you cancel your plan, you can continue using Replay Builder to build your
+        apps until you reach the end of the current billing cycle.
+      </p>
+    )
+  },
+  {
+    question: 'How can I get help or contact support?',
+    answer: (
+      <div className="flex flex-col gap-4">
         <p>
-          Yes, you can. If you cancel your plan, you can continue using Replay Builder to build
-          your apps until you reach the end of the current billing cycle.
+          We&apos;re here to help! You can reach out to our support team through multiple channels:
         </p>
-      ),
-    },
-    {
-      question: 'How can I get help or contact support?',
-      answer: (
-        <div className="flex flex-col gap-4">
-          <p>
-            We&apos;re here to help! You can reach out to our support team through multiple
-            channels:
-          </p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Join our Discord community for quick help from our team and other users</li>
-            <li>Send us an email at support@replay.io for detailed technical questions</li>
-            <li>Check out our documentation and tutorials for common questions</li>
-          </ul>
-          <p>Our team typically responds within 24 hours during business days.</p>
-        </div>
-      ),
-    },
-    {
-      question: 'Do Builder apps have a built in database?',
-      answer: (
-        <p>
-          Yes! Every app built with Replay Builder will automatically have a database created along 
-          with the interface of the app. We have a deep integration with Supabase. 
-          (No, you don't need a crash-course in SQL)
-        </p>
-      ),
-    },
-  ]
+        <ul className="list-disc space-y-2 pl-6">
+          <li>Join our Discord community for quick help from our team and other users</li>
+          <li>Send us an email at support@replay.io for detailed technical questions</li>
+          <li>Check out our documentation and tutorials for common questions</li>
+        </ul>
+        <p>Our team typically responds within 24 hours during business days.</p>
+      </div>
+    )
+  },
+  {
+    question: 'Do Builder apps have a built in database?',
+    answer: (
+      <p>
+        Yes! Every app built with Replay Builder will automatically have a database created along
+        with the interface of the app. We have a deep integration with Supabase. (No, you don&apos;t
+        need a crash-course in SQL)
+      </p>
+    )
+  }
+]
 
+export function FAQs() {
   const faqSchema = useMemo(() => {
     return {
       '@context': 'https://schema.org',
@@ -88,14 +87,17 @@ export function FAQs() {
         name: faq.question,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: extractTextFromNode(faq.answer).trim(),
-        },
-      })),
+          text: extractTextFromNode(faq.answer).trim()
+        }
+      }))
     }
   }, [faqs])
 
   return (
-    <section id="faq" className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-12 md:pb-24 md:pt-20">
+    <section
+      id="faq"
+      className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-12 md:pb-24 md:pt-20"
+    >
       {/* JSON-LD structured data for Generative Engine Optimization (GEO) */}
       <script
         type="application/ld+json"
@@ -103,7 +105,7 @@ export function FAQs() {
       />
       <Container className="relative">
         {/* Header - Left aligned */}
-        <div className="max-w-4xl mb-12">
+        <div className="mb-12 max-w-4xl">
           <h2 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl md:text-6xl">
             Frequently
             <br />
@@ -123,7 +125,7 @@ export function FAQs() {
                 value={`item-${index}`}
                 className="border-b border-gray-400"
               >
-                <AccordionTrigger className="py-5 text-left hover:no-underline text-base font-medium text-accent sm:text-lg [&>svg]:text-gray-400">
+                <AccordionTrigger className="py-5 text-left text-base font-medium text-accent hover:no-underline sm:text-lg [&>svg]:text-gray-400">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm leading-relaxed text-gray-600 sm:text-base">

@@ -19,14 +19,14 @@ export const metadata: Metadata = {
   description:
     'See how Replay gives your coding agent runtime context to find and fix bugs automatically. From recording to root cause to shipped fix.',
   alternates: {
-    canonical: `${siteOrigin}/how-it-works`,
+    canonical: `${siteOrigin}/how-it-works`
   },
   openGraph: {
     url: `${siteOrigin}/how-it-works`,
     title: 'How Replay Works — From Bug to Fix in Under a Minute',
     description:
       'Replay captures the full browser runtime and turns it into a root cause and fix for your coding agent. No manual debugging.',
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
@@ -35,12 +35,12 @@ export const metadata: Metadata = {
     description:
       'Replay captures the full browser runtime and turns it into a root cause and fix for your coding agent.',
     creator: defaultMeta.twitter.handle,
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
-  },
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+  }
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFF',
+  themeColor: '#FFF'
 }
 
 export default function HowItWorksPage() {

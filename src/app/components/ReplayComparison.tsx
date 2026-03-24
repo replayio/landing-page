@@ -5,7 +5,7 @@ const withoutReplay = [
   'You step in to debug manually with DevTools',
   'Flaky tests get retried and ignored',
   'Bug reports sit in the backlog waiting for someone to reproduce them',
-  "Agents write code fast but can't debug what they break",
+  "Agents write code fast but can't debug what they break"
 ]
 
 const withReplay = [
@@ -13,7 +13,7 @@ const withReplay = [
   'You review the PR instead of opening DevTools',
   'Flaky tests get diagnosed and fixed automatically',
   'Bug reports get a recording, analysis, and fix in minutes',
-  'Agents ship fixes as fast as they ship features',
+  'Agents ship fixes as fast as they ship features'
 ]
 
 export function ReplayComparison() {
@@ -29,9 +29,7 @@ export function ReplayComparison() {
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {/* Without Replay */}
           <div className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
-            <p className="text-xs font-bold uppercase tracking-wider text-accent">
-              Without Replay
-            </p>
+            <p className="text-xs font-bold uppercase tracking-wider text-accent">Without Replay</p>
             <ul className="mt-6 space-y-4">
               {withoutReplay.map((item) => (
                 <li key={item} className="text-sm leading-relaxed text-gray-700 sm:text-base">

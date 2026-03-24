@@ -1,17 +1,17 @@
-import * as Tooltip from '@radix-ui/react-tooltip';
-import { forwardRef, type ForwardedRef, type ReactElement } from 'react';
+import * as Tooltip from '@radix-ui/react-tooltip'
+import { forwardRef, type ForwardedRef, type ReactElement } from 'react'
 
 interface TooltipProps {
-  tooltip: React.ReactNode;
-  children: ReactElement;
-  sideOffset?: number;
-  className?: string;
-  arrowClassName?: string;
-  tooltipStyle?: React.CSSProperties;
-  position?: 'top' | 'bottom' | 'left' | 'right';
-  maxWidth?: number;
-  delay?: number;
-  forceOpen?: boolean;
+  tooltip: React.ReactNode
+  children: ReactElement
+  sideOffset?: number
+  className?: string
+  arrowClassName?: string
+  tooltipStyle?: React.CSSProperties
+  position?: 'top' | 'bottom' | 'left' | 'right'
+  maxWidth?: number
+  delay?: number
+  forceOpen?: boolean
 }
 
 const WithTooltip = forwardRef(
@@ -26,9 +26,9 @@ const WithTooltip = forwardRef(
       position = 'top',
       maxWidth = 250,
       delay = 0,
-      forceOpen = false,
+      forceOpen = false
     }: TooltipProps,
-    _ref: ForwardedRef<HTMLElement>,
+    _ref: ForwardedRef<HTMLElement>
   ) => {
     return (
       <Tooltip.Root delayDuration={delay} open={forceOpen ? true : undefined}>
@@ -37,14 +37,14 @@ const WithTooltip = forwardRef(
           <Tooltip.Content
             side={position}
             className={`
+              bg-bolt-elements-background-depth-3
+              text-bolt-elements-textPrimary
               z-[2000]
-              px-2.5
-              py-1.5
               max-h-[300px]
               select-none
               rounded-md
-              bg-bolt-elements-background-depth-3
-              text-bolt-elements-textPrimary
+              px-2.5
+              py-1.5
               text-sm
               leading-tight
               shadow-lg
@@ -59,7 +59,7 @@ const WithTooltip = forwardRef(
             sideOffset={sideOffset}
             style={{
               maxWidth,
-              ...tooltipStyle,
+              ...tooltipStyle
             }}
           >
             <div className="break-words">{tooltip}</div>
@@ -74,8 +74,10 @@ const WithTooltip = forwardRef(
           </Tooltip.Content>
         </Tooltip.Portal>
       </Tooltip.Root>
-    );
-  },
-);
+    )
+  }
+)
 
-export default WithTooltip;
+WithTooltip.displayName = 'WithTooltip'
+
+export default WithTooltip

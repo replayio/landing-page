@@ -15,14 +15,14 @@ export const metadata: Metadata = {
   description:
     'Join the Replay Design Partner Program. Get free access to Replay MCP, a direct line to the engineering team, and help shape the future of agent-powered debugging.',
   alternates: {
-    canonical: `${siteOrigin}/partner`,
+    canonical: `${siteOrigin}/partner`
   },
   openGraph: {
     url: `${siteOrigin}/partner`,
     title: 'Design Partner Program — Replay',
     description:
       'Help us build the perfect debugger for your coding agent. Free access, direct engineering support, and your workflow shapes the product.',
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
@@ -31,12 +31,12 @@ export const metadata: Metadata = {
     description:
       'Help us build the perfect debugger for your coding agent. Free access, direct engineering support, and your workflow shapes the product.',
     creator: defaultMeta.twitter.handle,
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
-  },
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+  }
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFF',
+  themeColor: '#FFF'
 }
 
 export default function PartnerPage() {

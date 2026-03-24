@@ -22,7 +22,7 @@ const AIIcon = () => (
   <div className="flex items-center gap-2">
     {/* OpenAI/ChatGPT style icon */}
     <div className="flex h-8 w-8 items-center justify-center">
-     <ChatGptIcon />
+      <ChatGptIcon />
     </div>
     {/* Anthropic style icon */}
     <div className="flex h-8 w-8 items-center justify-center">
@@ -32,7 +32,7 @@ const AIIcon = () => (
 )
 
 const DatabaseIcon = () => (
-  <div className="flex h-8 w-8 items-center justify-center border border-gray-200 rounded-sm">
+  <div className="flex h-8 w-8 items-center justify-center rounded-sm border border-gray-200">
     <SupabaseIcon />
   </div>
 )
@@ -69,14 +69,14 @@ const FileStorageIcon = () => (
       <FileUploadIcon />
     </div>
     {/* AWS/Vercel style icon */}
-    <div className="flex h-8 w-8 items-center justify-center border border-gray-200 rounded-sm">
+    <div className="flex h-8 w-8 items-center justify-center rounded-sm border border-gray-200">
       <StorageIcon />
     </div>
   </div>
 )
 
 const WebhookIcon = () => (
-  <div className="flex h-8 w-8 items-center justify-center text-accent border border-gray-200 rounded-sm">
+  <div className="flex h-8 w-8 items-center justify-center rounded-sm border border-gray-200 text-accent">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zM18 22a3 3 0 100-6 3 3 0 000 6zM8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"
@@ -95,7 +95,7 @@ const ConnectorCard = ({
   description,
   icon,
   backgroundImage,
-  className = '',
+  className = ''
 }: {
   title: string
   description: string
@@ -104,12 +104,12 @@ const ConnectorCard = ({
   className?: string
 }) => (
   <div
-    className={`relative flex flex-col rounded-xl border border-gray-200/60 bg-white  p-5 shadow-sm overflow-hidden border border-white ${className}`}
+    className={`relative flex flex-col overflow-hidden rounded-xl border border  border-gray-200/60 border-white bg-white p-5 shadow-sm ${className}`}
   >
     {/* Background pattern image */}
     {backgroundImage && (
       <>
-        <div className="absolute inset-0 opacity-[0.1] pointer-events-none overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.1]">
           <Image
             src={backgroundImage}
             alt=""
@@ -121,14 +121,15 @@ const ConnectorCard = ({
         </div>
         {/* Radial gradient overlay to fade edges */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="pointer-events-none absolute inset-0"
           style={{
-            background: 'radial-gradient(80.26% 80.26% at 50% 50%, rgba(255, 255, 255, 0.00) 0%, #FFF 100%)',
+            background:
+              'radial-gradient(80.26% 80.26% at 50% 50%, rgba(255, 255, 255, 0.00) 0%, #FFF 100%)'
           }}
         />
       </>
     )}
-    
+
     {/* Content */}
     <div className="relative z-10">
       <h3 className="text-base font-semibold text-accent">{title}</h3>
@@ -142,46 +143,53 @@ const ConnectorCard = ({
 const connectors = [
   {
     title: 'AI',
-    description: 'Build apps that use LLMs do complex things like extracting & analyzing content from documents or form submissions, or conversational interfaces.',
+    description:
+      'Build apps that use LLMs do complex things like extracting & analyzing content from documents or form submissions, or conversational interfaces.',
     icon: <AIIcon />,
-    backgroundImage: '/backgrounds/AI.svg',
+    backgroundImage: '/backgrounds/AI.svg'
   },
   {
     title: 'Full Database',
-    description: 'Power your apps with an integrated database requiring zero setup. Builder handles everything.',
+    description:
+      'Power your apps with an integrated database requiring zero setup. Builder handles everything.',
     icon: <DatabaseIcon />,
-    backgroundImage: '/backgrounds/Full_database.svg',
+    backgroundImage: '/backgrounds/Full_database.svg'
   },
   {
     title: 'SMS / Text',
-    description: 'Build apps that use SMS messages to communicate with customers, and send transactional updates.',
+    description:
+      'Build apps that use SMS messages to communicate with customers, and send transactional updates.',
     icon: <SMSIcon />,
-    backgroundImage: '/backgrounds/SMS_Text.svg',
+    backgroundImage: '/backgrounds/SMS_Text.svg'
   },
   {
     title: 'Document Ingestion & Analysis',
-    description: 'Pull information out of your documents and spreadsheets, and write it back to them.',
+    description:
+      'Pull information out of your documents and spreadsheets, and write it back to them.',
     icon: <DocumentIcon />,
-    backgroundImage: '/backgrounds/Document_Ingestion.svg',
+    backgroundImage: '/backgrounds/Document_Ingestion.svg'
   },
   {
     title: 'Email',
-    description: 'Build apps that send notifications, like new user sign ups, and transactional emails.',
+    description:
+      'Build apps that send notifications, like new user sign ups, and transactional emails.',
     icon: <EmailIcon />,
-    backgroundImage: '/backgrounds/Email.svg',
+    backgroundImage: '/backgrounds/Email.svg'
   },
   {
     title: 'File Upload & Storage',
-    description: 'Your Builder-built apps can offer photo, video and file upload features, including image resizing and compression.',
+    description:
+      'Your Builder-built apps can offer photo, video and file upload features, including image resizing and compression.',
     icon: <FileStorageIcon />,
-    backgroundImage: '/backgrounds/File_upload.svg',
+    backgroundImage: '/backgrounds/File_upload.svg'
   },
   {
     title: 'Webhooks',
-    description: 'We make it easy to work with any third-party service that can trigger a webhook event, to retrieve data to include in your apps, or to send data out of them.',
+    description:
+      'We make it easy to work with any third-party service that can trigger a webhook event, to retrieve data to include in your apps, or to send data out of them.',
     icon: <WebhookIcon />,
-    backgroundImage: '/backgrounds/Webhooks.svg',
-  },
+    backgroundImage: '/backgrounds/Webhooks.svg'
+  }
 ]
 
 export function Connectors() {
@@ -200,7 +208,10 @@ export function Connectors() {
   }, [])
 
   return (
-    <section id="connectors" className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-12 md:pb-24 md:pt-20">
+    <section
+      id="connectors"
+      className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-12 md:pb-24 md:pt-20"
+    >
       <Container className="relative">
         {/* Headline Section - Left aligned */}
         <div className="max-w-4xl">
@@ -216,7 +227,7 @@ export function Connectors() {
         </div>
 
         {/* Desktop Grid - Custom layout with spanning */}
-        <div className="mt-10 hidden lg:grid grid-cols-4 grid-rows-2 gap-4">
+        <div className="mt-10 hidden grid-cols-4 grid-rows-2 gap-4 lg:grid">
           {/* Row 1, Col 1 - AI */}
           <ConnectorCard
             title={connectors[0].title}
@@ -289,7 +300,7 @@ export function Connectors() {
               align: 'start',
               slidesToScroll: 1,
               dragFree: true,
-              loop: true,
+              loop: true
             }}
             slideClassName="!w-full flex-shrink-0"
             dots={false}
@@ -311,7 +322,7 @@ export function Connectors() {
             <button
               type="button"
               onClick={scrollPrev}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-accent shadow-md transition-transform active:scale-95"
               aria-label="Previous connector"
             >
               <span className="inline-flex rotate-180">
@@ -321,7 +332,7 @@ export function Connectors() {
             <button
               type="button"
               onClick={scrollNext}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-accent shadow-md transition-transform active:scale-95"
               aria-label="Next connector"
             >
               <RightArrowIcon width={18} height={18} />
@@ -346,4 +357,3 @@ export function Connectors() {
     </section>
   )
 }
-

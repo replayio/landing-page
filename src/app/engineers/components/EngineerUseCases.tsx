@@ -4,18 +4,18 @@ const useCases = [
   {
     title: 'Failing tests in CI',
     description:
-      'Your test suite has a flake that fails one in ten runs and nobody can reproduce it locally. Replay records every CI run. When it flakes, Replay MCP analyzes the recording and delivers the root cause to your agent — no manual investigation.',
+      'Your test suite has a flake that fails one in ten runs and nobody can reproduce it locally. Replay records every CI run. When it flakes, Replay MCP analyzes the recording and delivers the root cause to your agent — no manual investigation.'
   },
   {
     title: "User-reported bugs you can't reproduce",
     description:
-      "A user reports something broken. You can't reproduce it locally. Replay captures the user's session, analyzes it, and surfaces the exact conditions that caused the failure.",
+      "A user reports something broken. You can't reproduce it locally. Replay captures the user's session, analyzes it, and surfaces the exact conditions that caused the failure."
   },
   {
     title: 'Agents stuck in a loop',
     description:
-      'Your agent keeps retrying the same patch against the same failing test. Replay gives it the runtime context to break the loop — and ship the actual fix.',
-  },
+      'Your agent keeps retrying the same patch against the same failing test. Replay gives it the runtime context to break the loop — and ship the actual fix.'
+  }
 ]
 
 export function EngineerUseCases() {
@@ -33,10 +33,7 @@ export function EngineerUseCases() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {useCases.map((useCase) => (
-            <div
-              key={useCase.title}
-              className="rounded-xl border border-gray-200 bg-gray-200 p-6"
-            >
+            <div key={useCase.title} className="rounded-xl border border-gray-200 bg-gray-200 p-6">
               <h3 className="text-lg font-semibold text-gray-900">{useCase.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-gray-700 sm:text-base">
                 {useCase.description}

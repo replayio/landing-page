@@ -8,38 +8,29 @@ async function attioFetch(path: string, method: string, body?: object) {
     headers: {
       Authorization: `Bearer ${ATTIO_API_KEY}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     },
-    ...(body && { body: JSON.stringify(body) }),
+    ...(body && { body: JSON.stringify(body) })
   })
 }
 
 export async function POST(req: NextRequest) {
   if (!ATTIO_API_KEY) {
-    return NextResponse.json(
-      { error: 'Attio is not configured' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Attio is not configured' }, { status: 500 })
   }
 
   try {
-    const { fullName, jobTitle, email, linkedin, teamSize, painPoints } =
-      await req.json()
+    const { fullName, jobTitle, email, linkedin, teamSize, painPoints } = await req.json()
 
     if (!email || !fullName) {
-      return NextResponse.json(
-        { error: 'Email and name are required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Email and name are required' }, { status: 400 })
     }
 
     const nameParts = fullName.trim().split(/\s+/)
     const firstName = nameParts[0] || fullName.trim()
     const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : ''
 
-    const descriptionParts = [  
-      painPoints && `Pain points: ${painPoints}`,
-    ].filter(Boolean).join('\n')
+    const descriptionParts = [painPoints && `Pain points: ${painPoints}`].filter(Boolean).join('\n')
 
     // Assert person record (create or update, matched by email)
     const personRes = await attioFetch(
@@ -53,24 +44,24 @@ export async function POST(req: NextRequest) {
               {
                 first_name: firstName,
                 last_name: lastName,
-                full_name: fullName.trim(),
-              },
+                full_name: fullName.trim()
+              }
             ],
             ...(linkedin && {
-              linkedin: linkedin,
+              linkedin: linkedin
             }),
             ...(descriptionParts && {
-              description: descriptionParts,
+              description: descriptionParts
             }),
             ...(jobTitle && {
-              job_title: jobTitle,
+              job_title: jobTitle
             }),
             ...(teamSize && {
-              eng_team_size: teamSize,
+              eng_team_size: teamSize
             }),
-            source: 'design-partner-application',
-          },
-        },
+            source: 'design-partner-application'
+          }
+        }
       }
     )
 
@@ -92,8 +83,8 @@ export async function POST(req: NextRequest) {
       const entryRes = await attioFetch(`/v2/lists/${listId}/entries`, 'POST', {
         data: {
           parent_record_id: personId,
-          parent_object: 'people',
-        },
+          parent_object: 'people'
+        }
       })
 
       if (!entryRes.ok) {
@@ -105,9 +96,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, id: personId })
   } catch (error) {
     console.error('Attio API error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

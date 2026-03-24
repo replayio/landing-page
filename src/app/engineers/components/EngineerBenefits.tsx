@@ -5,7 +5,7 @@ const toolIcons: Record<string, string> = {
   'Claude Code': '/images/hero-logos/claude.svg',
   Cursor: '/images/hero-logos/cursor.svg',
   Copilot: '/images/hero-logos/copilot.svg',
-  Windsurf: '/images/hero-logos/windsurf.svg',
+  Windsurf: '/images/hero-logos/windsurf.svg'
 }
 
 const benefits = [
@@ -14,21 +14,21 @@ const benefits = [
     description:
       'Your agent gets a precise diagnosis — the exact state change, failed request, or bad render that caused the bug, and why.',
     quote:
-      '"The form submission fails because the onSubmit handler fires before the async validation resolves. The race condition is in FormContainer.tsx line 47."',
+      '"The form submission fails because the onSubmit handler fires before the async validation resolves. The race condition is in FormContainer.tsx line 47."'
   },
   {
     title: 'An implementation-ready fix',
     description:
       'Not vague suggestions. The specific file, function, and change — ready for your agent to apply.',
     quote:
-      '"Wrap the handleSubmit call in FormContainer.tsx with await validateForm() before proceeding to submission logic."',
+      '"Wrap the handleSubmit call in FormContainer.tsx with await validateForm() before proceeding to submission logic."'
   },
   {
     title: 'Works in your existing workflow',
     description:
       'Connects to Cursor, Claude Code, Copilot, and Windsurf. Integrates with Playwright, Cypress, and Selenium. Runs in CI. Nothing to rip out.',
-    tools: ['Claude Code', 'Cursor', 'Copilot', 'Windsurf'],
-  },
+    tools: ['Claude Code', 'Cursor', 'Copilot', 'Windsurf']
+  }
 ]
 
 export function EngineerBenefits() {
@@ -57,9 +57,7 @@ export function EngineerBenefits() {
 
               {benefit.quote && (
                 <div className="mt-5 rounded-lg bg-gray-300/25 p-4">
-                  <p className="text-sm italic leading-relaxed text-gray-600">
-                    {benefit.quote}
-                  </p>
+                  <p className="text-sm italic leading-relaxed text-gray-600">{benefit.quote}</p>
                 </div>
               )}
 
@@ -71,12 +69,7 @@ export function EngineerBenefits() {
                       className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700"
                     >
                       {toolIcons[tool] && (
-                        <Image
-                          src={toolIcons[tool]}
-                          alt={tool}
-                          width={16}
-                          height={16}
-                        />
+                        <Image src={toolIcons[tool]} alt={tool} width={16} height={16} />
                       )}
                       {tool}
                     </span>

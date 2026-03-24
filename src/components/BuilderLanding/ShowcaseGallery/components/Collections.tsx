@@ -28,21 +28,21 @@ export function Collections() {
   }
 
   return (
-    <div className="mt-12 animate-fade-in">
+    <div className="animate-fade-in mt-12">
       <div className="mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Collections</h2>
+        <h2 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">Collections</h2>
         <p className="text-gray-600">Apps for different use cases</p>
       </div>
 
       {isLoadingCollections ? (
         <div className="flex items-center justify-center py-12">
           <div className="flex flex-col items-center gap-4">
-            <div className="w-8 h-8 border-4 border-gray-200 border-t-accent rounded-full animate-spin" />
-            <p className="text-gray-600 text-sm">Loading collections...</p>
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-accent" />
+            <p className="text-sm text-gray-600">Loading collections...</p>
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {collections.map((collection) => (
             <button
               key={collection.collectionPath}
@@ -51,22 +51,27 @@ export function Collections() {
                 const encodedPath = encodeURIComponent(collection.name)
                 window.open(`https://builder.replay.io/collection/${encodedPath}`, '_blank')
               }}
-              className="group text-left bg-white rounded-xl p-6 border border-gray-200 hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/5"
+              className="group rounded-xl border border-gray-200 bg-white p-6 text-left transition-all duration-300 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5"
             >
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent transition-colors">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-accent">
                 {collection.name}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">{collection.shortDescription}</p>
-              <div className="mt-4 flex items-center text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+              <p className="text-sm leading-relaxed text-gray-600">{collection.shortDescription}</p>
+              <div className="mt-4 flex items-center text-accent opacity-0 transition-opacity group-hover:opacity-100">
                 <span className="text-sm font-medium">View collection</span>
                 <svg
-                  className="w-4 h-4 ml-2"
+                  className="ml-2 h-4 w-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
             </button>

@@ -19,14 +19,14 @@ export const metadata: Metadata = {
   description:
     'Replay MCP gives your coding agent the runtime context it needs to fix bugs — not loop on them. Root cause analysis, implementation-ready fixes, works in your existing workflow.',
   alternates: {
-    canonical: `${siteOrigin}/for-engineers`,
+    canonical: `${siteOrigin}/for-engineers`
   },
   openGraph: {
     url: `${siteOrigin}/for-engineers`,
     title: 'Replay for Engineers — Runtime Context for Your Coding Agent',
     description:
       'Replay MCP gives your coding agent the runtime context it needs to fix bugs — not loop on them.',
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
@@ -35,12 +35,12 @@ export const metadata: Metadata = {
     description:
       'Replay MCP gives your coding agent the runtime context it needs to fix bugs — not loop on them.',
     creator: defaultMeta.twitter.handle,
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
-  },
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+  }
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFF',
+  themeColor: '#FFF'
 }
 
 export default function ForEngineersPage() {

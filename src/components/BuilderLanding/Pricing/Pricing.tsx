@@ -48,16 +48,20 @@ export function Pricing() {
         {
           name: 'Limited customer support',
           included: true,
-          tooltip: 'Email support during business hours',
+          tooltip: 'Email support during business hours'
         },
         { name: 'API connectors', included: true, tooltip: 'Connect to external APIs' },
         {
           name: 'Download your code',
           included: true,
-          tooltip: 'Download your project source code',
+          tooltip: 'Download your project source code'
         },
-        { name: 'Deploy your applications', included: false, tooltip: 'Deploying apps to production is a premium feature' },
-      ],
+        {
+          name: 'Deploy your applications',
+          included: false,
+          tooltip: 'Deploying apps to production is a premium feature'
+        }
+      ]
     },
     {
       id: 'builder',
@@ -68,15 +72,19 @@ export function Pricing() {
       emphasized: true,
       featuresLabel: 'Everything in Basic, plus:',
       features: [
-        { name: 'Nearly unlimited usage', included: true, tooltip: 'Very high message and usage limits' },
+        {
+          name: 'Nearly unlimited usage',
+          included: true,
+          tooltip: 'Very high message and usage limits'
+        },
         {
           name: 'Priority Customer Support',
           included: true,
-          tooltip: 'Priority email and chat support',
+          tooltip: 'Priority email and chat support'
         },
-        { name: 'Deploy your applications', included: true, tooltip: 'Deploy apps to production' },
-      ],
-    },
+        { name: 'Deploy your applications', included: true, tooltip: 'Deploy apps to production' }
+      ]
+    }
     // {
     //   id: 'pro',
     //   title: 'Pro',
@@ -99,10 +107,13 @@ export function Pricing() {
   ]
 
   return (
-    <section id="pricing" className="relative isolate overflow-hidden pb-16 pt-12 md:pb-24 md:pt-20">
+    <section
+      id="pricing"
+      className="relative isolate overflow-hidden pb-16 pt-12 md:pb-24 md:pt-20"
+    >
       <Container className="relative">
         {/* Header - Left aligned */}
-        <div className="max-w-4xl mb-10">
+        <div className="mb-10 max-w-4xl">
           <h2 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl md:text-6xl">
             Simple,
             <br />
@@ -114,7 +125,7 @@ export function Pricing() {
         </div>
 
         {/* Desktop Pricing Cards */}
-        <div className="hidden md:flex flex-col items-center gap-6 md:flex-row md:items-stretch md:justify-center">
+        <div className="hidden flex-col items-center gap-6 md:flex md:flex-row md:items-stretch md:justify-center">
           {pricingPlans.map((plan) => (
             <PricingCard
               key={plan.id}
@@ -137,7 +148,7 @@ export function Pricing() {
               align: 'start',
               slidesToScroll: 1,
               dragFree: true,
-              loop: true,
+              loop: true
             }}
             slideClassName="!w-full flex-shrink-0"
             dots={false}
@@ -162,7 +173,7 @@ export function Pricing() {
             <button
               type="button"
               onClick={scrollPrev}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-accent shadow-md transition-transform active:scale-95"
               aria-label="Previous pricing plan"
             >
               <span className="inline-flex rotate-180">
@@ -172,7 +183,7 @@ export function Pricing() {
             <button
               type="button"
               onClick={scrollNext}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-accent shadow-md transition-transform active:scale-95"
               aria-label="Next pricing plan"
             >
               <RightArrowIcon width={18} height={18} />

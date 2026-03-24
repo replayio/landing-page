@@ -1,4 +1,4 @@
-import { TooltipProvider } from '@radix-ui/react-tooltip';
+import { TooltipProvider } from '@radix-ui/react-tooltip'
 import clsx from 'clsx'
 import WithTooltip from '~/components/ui/Tooltip'
 
@@ -83,7 +83,7 @@ export function PricingCard({
   features,
   emphasized = false,
   className,
-  featuresLabel,
+  featuresLabel
 }: PricingCardProps) {
   return (
     <TooltipProvider>
@@ -92,8 +92,8 @@ export function PricingCard({
           'relative flex flex-col rounded-xl border bg-gray-50 p-6',
           'w-full max-w-[320px] md:w-[320px]',
           {
-            'border-gray-300 shadow-xl z-10': emphasized,
-            'border-gray-200 shadow-sm': !emphasized,
+            'z-10 border-gray-300 shadow-xl': emphasized,
+            'border-gray-200 shadow-sm': !emphasized
           },
           className
         )}
@@ -101,21 +101,21 @@ export function PricingCard({
         {/* Header */}
         <div className="mb-4">
           <h3
-            className={clsx('text-xl font-bold mb-1', {
+            className={clsx('mb-1 text-xl font-bold', {
               'text-accent': emphasized,
-              'text-gray-900': !emphasized,
+              'text-gray-900': !emphasized
             })}
           >
             {title}
           </h3>
-          <p className="text-sm text-gray-600 leading-snug">{description}</p>
+          <p className="text-sm leading-snug text-gray-600">{description}</p>
         </div>
 
         {/* Price */}
         <div className="mb-4">
           <span className="text-4xl font-bold text-gray-900">{price}</span>
           {pricePeriod && (
-            <span className={clsx('text-sm ml-0.5', emphasized ? 'text-accent' : 'text-accent')}>
+            <span className={clsx('ml-0.5 text-sm', emphasized ? 'text-accent' : 'text-accent')}>
               {pricePeriod}
             </span>
           )}
@@ -123,7 +123,7 @@ export function PricingCard({
 
         {/* Features */}
         <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-semibold text-gray-900">
             {featuresLabel || "What's included:"}
           </h4>
           <div className="space-y-3">
@@ -139,23 +139,23 @@ export function PricingCard({
                 <span
                   className={clsx('flex-1 text-sm', {
                     'text-gray-900': feature.included,
-                    'text-gray-400': !feature.included,
+                    'text-gray-400': !feature.included
                   })}
                 >
                   {feature.name}
                 </span>
                 {feature.tooltip && (
-                  <WithTooltip 
+                  <WithTooltip
                     tooltip={feature.tooltip}
-                    className="!bg-gray-900 !text-gray-100 border border-gray-700"
+                    className="border border-gray-700 !bg-gray-900 !text-gray-100"
                     arrowClassName="!fill-gray-900"
                   >
                     <button
                       type="button"
-                      className="flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
+                      className="flex cursor-pointer items-center justify-center rounded focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
                       aria-label={`Info about ${feature.name}`}
                     >
-                    <InfoIcon className="text-gray-400 hover:text-gray-600 transition-colors" />
+                      <InfoIcon className="text-gray-400 transition-colors hover:text-gray-600" />
                     </button>
                   </WithTooltip>
                 )}

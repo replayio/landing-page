@@ -4,21 +4,20 @@ const steps = [
   {
     number: 1,
     title: 'Install the Replay Chrome Extension',
-    description:
-      'It takes about 30 seconds. Just click install from the Chrome Web Store.',
+    description: 'It takes about 30 seconds. Just click install from the Chrome Web Store.'
   },
   {
     number: 2,
     title: 'Go to your app, hit Record, and reproduce the bug',
     description:
-      "Just do the thing that's broken while Replay is watching. Click the button, fill out the form, whatever it is.",
+      "Just do the thing that's broken while Replay is watching. Click the button, fill out the form, whatever it is."
   },
   {
     number: 3,
     title: 'Read what Replay found',
     description:
-      'It tells you what went wrong and what to fix, in plain English. Copy the fix and paste it into your AI tool.',
-  },
+      'It tells you what went wrong and what to fix, in plain English. Copy the fix and paste it into your AI tool.'
+  }
 ]
 
 export function VibeCodersSteps() {

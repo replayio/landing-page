@@ -9,15 +9,17 @@ export default function BuilderHomeMain() {
   const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
 
   return (
-    <section className="relative min-h-screen flex flex-col bg-white">
+    <section className="relative flex min-h-screen flex-col bg-white">
       {/* Radial gradient background with subtle lines */}
       <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
         <Hyperspace className="opacity-10" />
       </div>
 
-
-      <Container className="relative z-10 flex w-full max-w-7xl flex-col items-center flex-1">
-        <div ref={heroContentRef} className="flex w-full max-w-4xl flex-col items-center pt-8 md:pt-12 lg:pt-16 xl:pt-20">
+      <Container className="relative z-10 flex w-full max-w-7xl flex-1 flex-col items-center">
+        <div
+          ref={heroContentRef}
+          className="flex w-full max-w-4xl flex-col items-center pt-8 md:pt-12 lg:pt-16 xl:pt-20"
+        >
           {/* Main Headline */}
           <h1 className="text-center text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
             Own your tools
@@ -30,10 +32,13 @@ export default function BuilderHomeMain() {
             Build and customize web apps for you and your team in minutes.
           </p>
 
-          <a className="max-w-[600px] w-full" href="https://builder.replay.io/?focus=true" target="_blank">
+          <a
+            className="w-full max-w-[600px]"
+            href="https://builder.replay.io/?focus=true"
+            target="_blank"
+          >
             <InputArea />
           </a>
-
 
           {/* Bottom Section */}
           <div className="mt-6 flex flex-col items-center gap-3">
@@ -52,7 +57,7 @@ export default function BuilderHomeMain() {
                   })
                 }
               }}
-              className="rounded-full border-2 px-6 py-2.5 font-semibold text-accent-light transition-colors hover:bg-accent-light hover:text-white shadow-lg hover:border-accent"
+              className="rounded-full border-2 px-6 py-2.5 font-semibold text-accent-light shadow-lg transition-colors hover:border-accent hover:bg-accent-light hover:text-white"
             >
               Showcase Gallery
             </button>
@@ -62,4 +67,3 @@ export default function BuilderHomeMain() {
     </section>
   )
 }
-

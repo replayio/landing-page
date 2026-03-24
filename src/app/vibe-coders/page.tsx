@@ -21,14 +21,14 @@ export const metadata: Metadata = {
   description:
     'The Replay Chrome extension is like having a senior engineer watching over your shoulder, catching bugs, finding root causes, and telling the AI exactly how to fix them.',
   alternates: {
-    canonical: `${siteOrigin}/vibe-coders`,
+    canonical: `${siteOrigin}/vibe-coders`
   },
   openGraph: {
     url: `${siteOrigin}/vibe-coders`,
     title: 'Replay for Vibe Coders — Vibe Fearlessly',
     description:
       'The Replay Chrome extension catches bugs, finds root causes, and tells the AI exactly how to fix them. Built for Lovable, Replit, Base44, and Bolt users.',
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
     description:
       'The Replay Chrome extension catches bugs, finds root causes, and tells the AI exactly how to fix them.',
     creator: defaultMeta.twitter.handle,
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
-  },
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+  }
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFF',
+  themeColor: '#FFF'
 }
 
 export default function VibeCodersPage() {

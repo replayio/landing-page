@@ -3,13 +3,7 @@
 import { useState } from 'react'
 import { Container } from '~/components/Container'
 
-const teamSizeOptions = [
-  '1–5',
-  '6–20',
-  '21–50',
-  '51–200',
-  '200+',
-]
+const teamSizeOptions = ['1–5', '6–20', '21–50', '51–200', '200+']
 
 export function PartnerApplicationForm() {
   const [formData, setFormData] = useState({
@@ -18,7 +12,7 @@ export function PartnerApplicationForm() {
     email: '',
     linkedin: '',
     teamSize: '',
-    painPoints: '',
+    painPoints: ''
   })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -35,10 +29,8 @@ export function PartnerApplicationForm() {
     if (e.target.name === 'email') setEmailError('')
   }
 
-  const isValidEmail = (value: string) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
-  const isValidLinkedin = (url: string) =>
-    /linkedin\.com\/in\//i.test(url.trim())
+  const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+  const isValidLinkedin = (url: string) => /linkedin\.com\/in\//i.test(url.trim())
 
   const handleBlurEmail = () => {
     if (!formData.email.trim()) return
@@ -49,7 +41,10 @@ export function PartnerApplicationForm() {
   const handleBlurLinkedin = () => {
     if (!formData.linkedin.trim()) return
     if (isValidLinkedin(formData.linkedin)) setLinkedinError('')
-    else setLinkedinError('Please enter a valid LinkedIn profile URL (e.g. https://linkedin.com/in/yourname)')
+    else
+      setLinkedinError(
+        'Please enter a valid LinkedIn profile URL (e.g. https://linkedin.com/in/yourname)'
+      )
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,7 +55,9 @@ export function PartnerApplicationForm() {
       return
     }
     if (!isValidLinkedin(formData.linkedin)) {
-      setLinkedinError('Please enter a valid LinkedIn profile URL (e.g. https://linkedin.com/in/yourname)')
+      setLinkedinError(
+        'Please enter a valid LinkedIn profile URL (e.g. https://linkedin.com/in/yourname)'
+      )
       return
     }
 
@@ -71,7 +68,7 @@ export function PartnerApplicationForm() {
       const res = await fetch('/api/attio', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData)
       })
 
       if (!res.ok) {
@@ -103,15 +100,16 @@ export function PartnerApplicationForm() {
 
           {submitted ? (
             <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-100 p-10 text-center">
-              <h3 className="text-xl font-semibold text-gray-900">
-                Thanks for applying!
-              </h3>
+              <h3 className="text-xl font-semibold text-gray-900">Thanks for applying!</h3>
               <p className="mt-3 text-base text-gray-600">
                 We&apos;ll review your application and reach out within a few days.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="mt-12 rounded-2xl border border-gray-200 bg-gray-100 p-8 sm:p-10">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-12 rounded-2xl border border-gray-200 bg-gray-100 p-8 sm:p-10"
+            >
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-semibold text-gray-900">
@@ -125,7 +123,7 @@ export function PartnerApplicationForm() {
                     placeholder="Jane Smith"
                     value={formData.fullName}
                     onChange={handleChange}
-                    className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                    className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                   />
                 </div>
                 <div>
@@ -140,7 +138,7 @@ export function PartnerApplicationForm() {
                     placeholder="Senior Software Engineer"
                     value={formData.jobTitle}
                     onChange={handleChange}
-                    className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                    className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                   />
                 </div>
               </div>
@@ -158,15 +156,13 @@ export function PartnerApplicationForm() {
                   value={formData.email}
                   onChange={handleChange}
                   onBlur={handleBlurEmail}
-                  className={`mt-2 block w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:outline-none ${
+                  className={`mt-2 block w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 ${
                     emailError
                       ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500'
                       : 'border-gray-300 focus:border-purple-500 focus:ring-purple-500'
                   }`}
                 />
-                {emailError && (
-                  <p className="mt-1.5 text-xs text-rose-500">{emailError}</p>
-                )}
+                {emailError && <p className="mt-1.5 text-xs text-rose-500">{emailError}</p>}
               </div>
 
               <div className="mt-6">
@@ -184,15 +180,13 @@ export function PartnerApplicationForm() {
                   value={formData.linkedin}
                   onChange={handleChange}
                   onBlur={handleBlurLinkedin}
-                  className={`mt-2 block w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:outline-none ${
+                  className={`mt-2 block w-full rounded-lg border bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 ${
                     linkedinError
                       ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500'
                       : 'border-gray-300 focus:border-purple-500 focus:ring-purple-500'
                   }`}
                 />
-                {linkedinError && (
-                  <p className="mt-1.5 text-xs text-rose-500">{linkedinError}</p>
-                )}
+                {linkedinError && <p className="mt-1.5 text-xs text-rose-500">{linkedinError}</p>}
               </div>
 
               <div className="mt-6">
@@ -205,7 +199,7 @@ export function PartnerApplicationForm() {
                   required
                   value={formData.teamSize}
                   onChange={handleChange}
-                  className="mt-2 block w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                  className="mt-2 block w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                 >
                   <option value="" disabled>
                     Select a range...
@@ -234,18 +228,16 @@ export function PartnerApplicationForm() {
                   placeholder="e.g. We have a lot of flaky Playwright tests in CI that nobody can reproduce locally, and our agent just keeps retrying the same patch without making progress..."
                   value={formData.painPoints}
                   onChange={handleChange}
-                  className="mt-2 block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none resize-none"
+                  className="mt-2 block w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                 />
               </div>
 
-              {error && (
-                <p className="mt-4 text-center text-sm text-rose-500">{error}</p>
-              )}
+              {error && <p className="mt-4 text-center text-sm text-rose-500">{error}</p>}
 
               <button
                 type="submit"
                 disabled={submitting}
-                className="mt-8 w-full rounded-full bg-accent hover:bg-accent-light px-8 py-3.5 text-base font-medium text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-8 w-full rounded-full bg-accent px-8 py-3.5 text-base font-medium text-white transition-all hover:bg-accent-light disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {submitting ? 'Submitting...' : 'Apply to become a design partner'}
               </button>

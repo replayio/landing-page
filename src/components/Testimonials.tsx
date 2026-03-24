@@ -287,7 +287,12 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <Eyebrow>{testimonials.caseStudySubTitle}</Eyebrow>
-          <Title as="h2" className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">{testimonials.caseStudyTitle}</Title>
+          <Title
+            as="h2"
+            className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl"
+          >
+            {testimonials.caseStudyTitle}
+          </Title>
         </div>
 
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-1 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-3">
@@ -298,7 +303,12 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
 
         <div className="mx-auto mt-20 text-center">
           <Eyebrow>{testimonials.subtitle}</Eyebrow>
-          <Title as="h2" className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">{testimonials.title}</Title>
+          <Title
+            as="h2"
+            className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl"
+          >
+            {testimonials.title}
+          </Title>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-y-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-2 lg:gap-x-8 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
           <FeaturedTestimonial testimonial={featuredTestimonial} />

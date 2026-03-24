@@ -23,7 +23,7 @@ const NAVLINKS: Navlink[] = [
   { href: '/engineers', label: 'For Engineers' },
   { href: '/vibe-coders', label: 'For Vibe Coders' },
   { href: '/pricing', label: 'Pricing' },
-  { href: 'https://blog.replay.io', label: 'Blog' },
+  { href: 'https://blog.replay.io', label: 'Blog' }
   // { href: '/about', label: 'Company' }
 ]
 
@@ -32,7 +32,7 @@ const MobileNavlinks: Navlink[] = [
   { href: '/engineers', label: 'For Engineers' },
   { href: '/vibe-coders', label: 'For Vibe Coders' },
   { href: '/pricing', label: 'Pricing' },
-  { href: 'https://blog.replay.io', label: 'Changelog' },
+  { href: 'https://blog.replay.io', label: 'Changelog' }
   // { href: '/about', label: 'Company' },
 ]
 
@@ -60,7 +60,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
   return (
     <header
       className={clsx(
-        'fixed top-0 z-50 flex h-[var(--header-height)] w-full items-center mt-[var(--banner-height)]',
+        'fixed top-0 z-50 mt-[var(--banner-height)] flex h-[var(--header-height)] w-full items-center',
         variant === 'dark' ? 'bg-slate-900 text-slate-100' : 'bg-transparent text-slate-900',
         {
           ['border-b border-slate-950 shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]']:
@@ -80,7 +80,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
             <Logo className="h-auto w-[144px]" variant={variant || 'light'} />
           </Link>
           <div className="flex items-center ">
-            <div className="hidden md:flex md:gap-x-4 md:items-center">
+            <div className="hidden md:flex md:items-center md:gap-x-4">
               {NAVLINKS.map(({ href, label }) => (
                 <NavLink
                   key={href}
@@ -112,9 +112,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                   variant="outline"
                   size="sm"
                   // color={variant === 'dark' ? 'white' : 'black'}
-                  className={clsx(
-                    'px-6 py-4 border border-gray-200',
-                  )}
+                  className={clsx('border border-gray-200 px-6 py-4')}
                 >
                   Login
                 </Button>

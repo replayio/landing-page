@@ -4,10 +4,7 @@ const INTERCOM_TOKEN = process.env.INTERCOM_ACCESS_TOKEN
 
 export async function POST(req: NextRequest) {
   if (!INTERCOM_TOKEN) {
-    return NextResponse.json(
-      { error: 'Intercom is not configured' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Intercom is not configured' }, { status: 500 })
   }
 
   try {
@@ -22,7 +19,7 @@ export async function POST(req: NextRequest) {
       headers: {
         Authorization: `Bearer ${INTERCOM_TOKEN}`,
         'Content-Type': 'application/json',
-        Accept: 'application/json',
+        Accept: 'application/json'
       },
       body: JSON.stringify({
         role: 'lead',
@@ -30,9 +27,9 @@ export async function POST(req: NextRequest) {
         ...(name && { name }),
         custom_attributes: {
           ...(tool && { vibe_tool: tool }),
-          source: 'chrome-extension-notification',
-        },
-      }),
+          source: 'chrome-extension-notification'
+        }
+      })
     })
 
     const data = await response.json()
@@ -43,23 +40,20 @@ export async function POST(req: NextRequest) {
         const contactId = data.errors[0].data?.contact_id
 
         if (contactId) {
-          const updateRes = await fetch(
-            `https://api.intercom.io/contacts/${contactId}`,
-            {
-              method: 'PUT',
-              headers: {
-                Authorization: `Bearer ${INTERCOM_TOKEN}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-              },
-              body: JSON.stringify({
-                custom_attributes: {
-                  ...(tool && { vibe_tool: tool }),
-                  source: 'chrome-extension-notification',
-                },
-              }),
-            }
-          )
+          const updateRes = await fetch(`https://api.intercom.io/contacts/${contactId}`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${INTERCOM_TOKEN}`,
+              'Content-Type': 'application/json',
+              Accept: 'application/json'
+            },
+            body: JSON.stringify({
+              custom_attributes: {
+                ...(tool && { vibe_tool: tool }),
+                source: 'chrome-extension-notification'
+              }
+            })
+          })
           const updateData = await updateRes.json()
           return NextResponse.json(updateData)
         }

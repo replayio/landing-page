@@ -26,12 +26,12 @@ interface Example {
 
 const examples: Example[] = [
   {
-    title: 'Button doesn\'t work',
+    title: "Button doesn't work",
     subtitle: 'Creating a new task does nothing',
     muxPlaybackId: '4qzqK2nSFoP02ppOu6fi9kcf02aVtvaj3ZK02pqpjBVhiQ',
     recordingId: '26a48f66-ea81-4519-929c-cbcde13eac16',
-    initialPrompt: 'The form to add a new task isn\'t doing anything',
-    transcript: buttonDoesntWork as StreamEvent[],
+    initialPrompt: "The form to add a new task isn't doing anything",
+    transcript: buttonDoesntWork as StreamEvent[]
   },
   {
     title: 'Broken data import',
@@ -39,7 +39,7 @@ const examples: Example[] = [
     muxPlaybackId: 'g8gJI73WhFi9019AXDaerLF00019T00YDvKCJvjWEEy8voM',
     recordingId: '6a271479-83f6-4d49-a337-e57f3438f9bc',
     initialPrompt: 'After I import contacts the client names are wrong',
-    transcript: brokenDataImport as StreamEvent[],
+    transcript: brokenDataImport as StreamEvent[]
   },
   {
     title: 'Sluggish page load',
@@ -47,7 +47,7 @@ const examples: Example[] = [
     muxPlaybackId: 'JWKSQrDAM7NSh9GZ730000YtvBwEWptCNSneUCrTZ21kQ',
     recordingId: 'e3e94ee6-83e0-42ad-a0e4-b61b386aefa2',
     initialPrompt: 'The dashboard takes way too long to load',
-    transcript: sluggishPageLoad as StreamEvent[],
+    transcript: sluggishPageLoad as StreamEvent[]
   },
   {
     title: 'Flashing content',
@@ -55,7 +55,7 @@ const examples: Example[] = [
     muxPlaybackId: 'wZfgg01KFpLucarzVWKjmeFb3lcQuyVeeHQ00Y02It02cFw',
     recordingId: '013ccfd4-35d2-4862-ac63-67b2e094bd7d',
     initialPrompt: 'When adding a new deal the deals list flashed as empty before updating',
-    transcript: flashingContent as StreamEvent[],
+    transcript: flashingContent as StreamEvent[]
   }
 ]
 
@@ -86,7 +86,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
       className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-8 md:pb-24 md:pt-20"
     >
       <Container className="relative">
-        <div className="w-full mb-12 text-center mx-auto">
+        <div className="mx-auto mb-12 w-full text-center">
           <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
             From bug to fix — without touching DevTools
           </h2>
@@ -113,7 +113,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                     )}
                   >
                     {/* Content */}
-                    <div className="flex-1 min-w-0">
+                    <div className="min-w-0 flex-1">
                       <h3 className="font-semibold text-white">{example.title}</h3>
                       {example.subtitle && (
                         <p className="mt-1.5 text-sm leading-relaxed text-gray-400">
@@ -123,7 +123,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                     </div>
 
                     {/* Right Arrow */}
-                    <div className="w-10 h-10 flex shrink-0 items-center justify-center border border-gray-700 rounded-full bg-gray-800">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800">
                       <RightArrowIcon width={20} height={20} />
                     </div>
                   </button>
@@ -146,24 +146,26 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 muted={true}
                 autoPlay={true}
                 loop={true}
-                style={{
-                  aspectRatio: '554/327',
-                  display: 'block',
-                  '--controls': 'none',
-                  '--media-object-fit': 'cover',
-                  '--media-object-position': 'center',
-                } as React.CSSProperties}
+                style={
+                  {
+                    aspectRatio: '554/327',
+                    display: 'block',
+                    '--controls': 'none',
+                    '--media-object-fit': 'cover',
+                    '--media-object-position': 'center'
+                  } as React.CSSProperties
+                }
               />
             </div>
 
             {/* Mobile: Carousel-style card with navigation arrows */}
             <div className="lg:hidden">
-              <div className="group flex w-full items-center gap-4 rounded-lg border-2 border-accent bg-gray-800 shadow-sm p-4 text-left transition-all">
+              <div className="group flex w-full items-center gap-4 rounded-lg border-2 border-accent bg-gray-800 p-4 text-left shadow-sm transition-all">
                 {/* Previous button */}
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 shadow-md border border-gray-700 text-accent active:scale-95 transition-transform shrink-0"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-accent shadow-md transition-transform active:scale-95"
                   aria-label="Previous example"
                 >
                   <span className="inline-flex rotate-180">
@@ -185,7 +187,7 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 shadow-md border border-gray-700 text-accent active:scale-95 transition-transform shrink-0"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-accent shadow-md transition-transform active:scale-95"
                   aria-label="Next example"
                 >
                   <RightArrowIcon width={18} height={18} />
@@ -194,9 +196,11 @@ export function DevTools({ devTools }: LandingPageFragment) {
             </div>
 
             {/* Chat area */}
-            <div className={clsx("rounded-xl bg-gray-800/50 border border-gray-700 p-4",
-              { 'max-h-96 overflow-y-auto': !showChat }
-            )}>
+            <div
+              className={clsx('rounded-xl border border-gray-700 bg-gray-800/50 p-4', {
+                'max-h-96 overflow-y-auto': !showChat
+              })}
+            >
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-white">
                   {showChat ? 'Chat with Replay AI' : 'Chat transcript with Replay MCP'}
@@ -217,7 +221,6 @@ export function DevTools({ devTools }: LandingPageFragment) {
                 <EventList events={selected.transcript} />
               )}
             </div>
-
 
             {/* Try it button */}
             {/* {!showChat && (

@@ -7,9 +7,7 @@ export function EngineerProblem() {
         <div className="mx-auto max-w-3xl">
           <h2 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl">
             The problem isn&apos;t your agent.{' '}
-            <span className="text-accent">
-              It&apos;s what your agent can&apos;t see.
-            </span>
+            <span className="text-accent">It&apos;s what your agent can&apos;t see.</span>
           </h2>
           <div className="mt-8 space-y-6 text-base leading-relaxed text-gray-700 sm:text-lg">
             <p>
