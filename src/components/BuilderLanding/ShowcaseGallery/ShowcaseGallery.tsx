@@ -8,16 +8,13 @@ import { Container } from '~/components/Container'
 import { ReferenceAppCard } from './components/Card'
 import { CategorySelector, type IntroSectionCategory } from './components/CategorySelector'
 import { Collections } from './components/Collections'
-import {
-  getReferenceAppSummaries,
-  type ReferenceAppSummary,
-} from '~/lib/ReferenceApps'
+import { getReferenceAppSummaries, type ReferenceAppSummary } from '~/lib/ReferenceApps'
 
 // Stage priority order (higher index = higher priority)
 const STAGE_PRIORITY: Record<string, number> = {
   release: 3,
   beta: 2,
-  alpha: 1,
+  alpha: 1
 }
 
 // Sort apps: Sales CRM first, then by stage (release > beta > alpha), then alphabetically
@@ -151,14 +148,18 @@ export function ShowcaseGallery() {
 
     // Don't start dragging if clicking on a button, interactive element, or card
     const target = e.target as HTMLElement
-    if (target.tagName === 'BUTTON' || target.closest('button') || target.closest('[data-card-clickable]')) {
+    if (
+      target.tagName === 'BUTTON' ||
+      target.closest('button') ||
+      target.closest('[data-card-clickable]')
+    ) {
       return
     }
 
     setIsDragging(true)
     dragStartRef.current = {
       x: e.pageX - scrollContainerRef.current.offsetLeft,
-      scrollLeft: scrollContainerRef.current.scrollLeft,
+      scrollLeft: scrollContainerRef.current.scrollLeft
     }
 
     e.preventDefault()
@@ -203,10 +204,13 @@ export function ShowcaseGallery() {
   }, [])
 
   return (
-    <section id="showcase-gallery" className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-8 md:pb-24 md:pt-20">
+    <section
+      id="showcase-gallery"
+      className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-8 md:pb-24 md:pt-20"
+    >
       <Container className="relative">
         {/* Header */}
-        <div className="max-w-4xl mb-12">
+        <div className="mb-12 max-w-4xl">
           <h2 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl md:text-6xl">
             Start with
             <br />
@@ -220,7 +224,7 @@ export function ShowcaseGallery() {
         {isLoading ? (
           <div className="flex items-center justify-center py-24">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 border-4 border-gray-200 border-t-accent rounded-full animate-spin" />
+              <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-accent" />
               <p className="text-gray-600">Loading apps...</p>
             </div>
           </div>
@@ -242,7 +246,7 @@ export function ShowcaseGallery() {
                 <div
                   ref={scrollContainerRef}
                   className={clsx(
-                    'overflow-x-auto pb-4 px-4 sm:px-6 mb-4 sm:mb-8 snap-x snap-mandatory',
+                    'mb-4 snap-x snap-mandatory overflow-x-auto px-4 pb-4 sm:mb-8 sm:px-6',
                     isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'
                   )}
                   onMouseDown={handleMouseDown}
@@ -253,14 +257,14 @@ export function ShowcaseGallery() {
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
                     WebkitOverflowScrolling: 'touch',
-                    scrollBehavior: isDragging ? 'auto' : 'smooth',
+                    scrollBehavior: isDragging ? 'auto' : 'smooth'
                   }}
                 >
                   <div className="flex gap-4 sm:gap-6" style={{ minWidth: 'min-content' }}>
                     {filteredApps.map((app) => (
                       <div
                         key={app.name}
-                        className="w-[calc(100vw-2rem)] sm:w-[520px] lg:w-[656px] flex-shrink-0 snap-start"
+                        className="w-[calc(100vw-2rem)] flex-shrink-0 snap-start sm:w-[520px] lg:w-[656px]"
                       >
                         <ReferenceAppCard
                           appName={app.name}
@@ -276,11 +280,11 @@ export function ShowcaseGallery() {
                 </div>
 
                 {/* Mobile navigation arrows */}
-                <div className="flex items-center justify-between px-6 sm:hidden mb-8">
+                <div className="mb-8 flex items-center justify-between px-6 sm:hidden">
                   <button
                     type="button"
                     onClick={scrollPrev}
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform hover:bg-gray-50"
+                    className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-accent shadow-md transition-transform hover:bg-gray-50 active:scale-95"
                     aria-label="Previous app"
                   >
                     <ChevronLeft size={24} />
@@ -288,7 +292,7 @@ export function ShowcaseGallery() {
                   <button
                     type="button"
                     onClick={scrollNext}
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-accent active:scale-95 transition-transform hover:bg-gray-50"
+                    className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-accent shadow-md transition-transform hover:bg-gray-50 active:scale-95"
                     aria-label="Next app"
                   >
                     <ChevronRight size={24} />

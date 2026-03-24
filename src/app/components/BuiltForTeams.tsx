@@ -4,23 +4,23 @@ const useCases = [
   {
     title: 'Agent-assisted development',
     description:
-      'Your coding agent hits a failing test or runtime error. Instead of looping, it sends the recording to Replay and gets a precise fix back — then implements it.',
+      'Your coding agent hits a failing test or runtime error. Instead of looping, it sends the recording to Replay and gets a precise fix back — then implements it.'
   },
   {
     title: 'Flaky tests in CI',
     description:
-      'Record every test run. When a test flakes, Replay analyzes the recording and delivers the root cause and fix to your agent — no manual investigation needed.',
+      'Record every test run. When a test flakes, Replay analyzes the recording and delivers the root cause and fix to your agent — no manual investigation needed.'
   },
   {
     title: 'Bug triage on autopilot',
     description:
-      'A user reports a bug. Replay captures the session, generates the diagnosis and fix. Your agent applies it. You review the PR.',
+      'A user reports a bug. Replay captures the session, generates the diagnosis and fix. Your agent applies it. You review the PR.'
   },
   {
     title: 'Unblocking stuck agents',
     description:
-      'When your agent loops on a problem — retrying the same patch, failing the same test — Replay gives it the runtime context it needs to break out.',
-  },
+      'When your agent loops on a problem — retrying the same patch, failing the same test — Replay gives it the runtime context it needs to break out.'
+  }
 ]
 
 export function BuiltForTeams() {
@@ -38,10 +38,7 @@ export function BuiltForTeams() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {useCases.map((useCase) => (
-            <div
-              key={useCase.title}
-              className="rounded-xl border border-gray-200 bg-white p-6"
-            >
+            <div key={useCase.title} className="rounded-xl border border-gray-200 bg-white p-6">
               <h3 className="text-lg font-semibold text-gray-900">{useCase.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-gray-700 sm:text-base">
                 {useCase.description}

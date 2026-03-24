@@ -21,7 +21,7 @@ export function VibeCodersCTA() {
       await fetch('/api/intercom', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, tool: tool === 'Other' ? otherTool : tool }),
+        body: JSON.stringify({ email, tool: tool === 'Other' ? otherTool : tool })
       })
     } catch (err) {
       console.error('Failed to submit to Intercom:', err)
@@ -45,9 +45,12 @@ export function VibeCodersCTA() {
               <button
                 onClick={() => {
                   setShowForm(true)
-                  setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100)
+                  setTimeout(
+                    () => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
+                    100
+                  )
                 }}
-                className="inline-block rounded-full bg-gradient-to-r from-rose-500 to-purple-500 px-8 py-3.5 text-base font-medium text-white hover:from-rose-600 hover:to-purple-600 transition-all"
+                className="inline-block rounded-full bg-gradient-to-r from-rose-500 to-purple-500 px-8 py-3.5 text-base font-medium text-white transition-all hover:from-rose-600 hover:to-purple-600"
               >
                 Coming soon: Get notified
               </button>
@@ -62,31 +65,35 @@ export function VibeCodersCTA() {
                   placeholder="Your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                  className="block w-full rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                 />
                 <select
                   value={tool}
                   onChange={(e) => setTool(e.target.value)}
-                  className="block w-full appearance-none rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm text-gray-900 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                  className="block w-full appearance-none rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                 >
                   <option value="" disabled>
                     Which tool do you use?
                   </option>
                   {vibeTools.map((t) => (
-                    <option key={t} value={t}>{t}</option>
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
                   ))}
                 </select>
-                {tool === 'Other' && <input
-                  type="text"
-                  placeholder="Which tool?"
-                  value={otherTool}
-                  onChange={(e) => setOtherTool(e.target.value)}
-                  className="block w-full rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
-                />}
+                {tool === 'Other' && (
+                  <input
+                    type="text"
+                    placeholder="Which tool?"
+                    value={otherTool}
+                    onChange={(e) => setOtherTool(e.target.value)}
+                    className="block w-full rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                  />
+                )}
                 <button
                   onClick={handleNotify}
                   disabled={submitting || !email}
-                  className="w-full rounded-full bg-gradient-to-r from-rose-500 to-purple-500 px-8 py-3.5 text-base font-medium text-white hover:from-rose-600 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-full bg-gradient-to-r from-rose-500 to-purple-500 px-8 py-3.5 text-base font-medium text-white transition-all hover:from-rose-600 hover:to-purple-600 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {submitting ? 'Submitting...' : 'Notify me'}
                 </button>

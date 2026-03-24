@@ -6,22 +6,22 @@ const steps = [
     title: 'A test fails. The agent loops.',
     description:
       "Your coding agent hits a runtime error and has no way to see what's actually happening in the browser. It patches. It retries. Same failure.",
-    imagePlaceholder: 'Step 1 image coming soon',
+    imagePlaceholder: 'Step 1 image coming soon'
   },
   {
     step: 2,
     title: 'Replay records and finds the root cause.',
     description:
       'Replay records a deterministic capture of the browser session — every DOM change, network request, component state. Then it analyzes the recording automatically.',
-    imagePlaceholder: 'Step 2 image coming soon',
+    imagePlaceholder: 'Step 2 image coming soon'
   },
   {
     step: 3,
     title: 'Your agent receives a specific, implementation-ready fix.',
     description:
       'Not "check your async logic." The exact file, function, and change — with full context. Your agent implements it. You review the PR.',
-    imagePlaceholder: 'Step 3 image coming soon',
-  },
+    imagePlaceholder: 'Step 3 image coming soon'
+  }
 ]
 
 export function BugToFix() {
@@ -63,9 +63,7 @@ export function BugToFix() {
                 {/* Image placeholder */}
                 <div className="flex-1">
                   <div className="flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-lg">
-                    <p className="text-sm font-medium text-gray-400">
-                      {step.imagePlaceholder}
-                    </p>
+                    <p className="text-sm font-medium text-gray-400">{step.imagePlaceholder}</p>
                   </div>
                 </div>
               </div>

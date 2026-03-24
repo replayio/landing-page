@@ -21,9 +21,7 @@ export function AgentProblem() {
               The problem isn&apos;t the agent. It&apos;s that the agent has no way to see what
               actually happened in the browser. No DOM state, no network timing, no component
               re-renders.{' '}
-              <strong className="font-semibold text-gray-900">
-                It&apos;s debugging blind.
-              </strong>
+              <strong className="font-semibold text-gray-900">It&apos;s debugging blind.</strong>
             </p>
             <p>
               You end up pulling the agent aside, opening DevTools yourself, and spending an hour

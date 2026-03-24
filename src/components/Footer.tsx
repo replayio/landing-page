@@ -5,7 +5,7 @@ import { getImageSizes } from '~/lib/utils/image'
 const navigation = {
   product: [
     { name: 'Replay DevTools', href: '/' },
-    { name: 'Replay Builder', href: 'https://builder.replay.io' },
+    { name: 'Replay Builder', href: 'https://builder.replay.io' }
     // {
     //   name: 'Replay Viewer',
     //   href: 'https://docs.replay.io/browser-devtools/replay-viewer'
@@ -18,7 +18,7 @@ const navigation = {
     // { name: 'About', href: '/about' },
     { name: 'Blog', href: 'https://blog.replay.io/' },
     { name: 'Knowledge Base', href: '/knowledge-base' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Contact', href: '/contact' }
     //{ name: 'Careers', href: 'https://jobs.ashbyhq.com/replay' }
     //TODO: We have categories in our blog but we don't have a direct link to them yet
     // { name: 'Changelog', href: '#' },
@@ -26,11 +26,11 @@ const navigation = {
     // { name: 'Case Studies', href: '#' }
   ],
   information: [
-  //   { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
-  //   { name: 'Branding', href: '/branding' },
+    //   { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
+    //   { name: 'Branding', href: '/branding' },
     { name: 'Security', href: '/security-and-privacy' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
-    { name: 'Terms of Use', href: '/terms-of-service' },
+    { name: 'Terms of Use', href: '/terms-of-service' }
   ],
   // integrations: [
   //   { name: 'React', href: 'https://docs.replay.io/framework-devtools/react-panel' },
@@ -115,7 +115,7 @@ const NAV_LINKS = [
   { label: 'Pricing', href: '/pricing' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: navigation.company[0].href },
-  { label: 'Contact', href: navigation.company[1].href },
+  { label: 'Contact', href: navigation.company[1].href }
   // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
 ]
 
@@ -141,12 +141,12 @@ export function Footer() {
         />
       </div>
       {/* Desktop Layout */}
-      <div className="hidden lg:block mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+      <div className="mx-auto hidden max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:block lg:px-8 lg:pt-32">
         {/* Top Section: Logo, Nav Links, Social Icons */}
-        <div className="flex items-center justify-between gap-6 pb-6 border-b border-gray-200">
+        <div className="flex items-center justify-between gap-6 border-b border-gray-200 pb-6">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="relative w-[25px] h-[29px]">
+            <div className="relative h-[29px] w-[25px]">
               <Image
                 src="/images/logo.svg"
                 alt="Replay's isotype"
@@ -160,12 +160,12 @@ export function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex items-center gap-8 flex-1 justify-center">
+          <nav className="flex flex-1 items-center justify-center gap-8">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-base font-medium text-gray-900 hover:text-accent transition-colors"
+                className="text-base font-medium text-gray-900 transition-colors hover:text-accent"
               >
                 {link.label}
               </Link>
@@ -173,14 +173,14 @@ export function Footer() {
           </nav>
 
           {/* Social Icons */}
-          <div className="flex items-center gap-4 flex-shrink-0">
+          <div className="flex flex-shrink-0 items-center gap-4">
             {navigation.social.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-900 hover:text-accent transition-colors"
+                className="text-gray-900 transition-colors hover:text-accent"
                 aria-label={social.name}
               >
                 <social.icon className="h-5 w-5" />
@@ -191,15 +191,13 @@ export function Footer() {
 
         {/* Bottom Section: Copyright and Legal Links */}
         <div className="flex items-center justify-between pt-6">
-          <p className="text-sm text-gray-500">
-            Copyright {new Date().getFullYear()} © Replay.io
-          </p>
+          <p className="text-sm text-gray-500">Copyright {new Date().getFullYear()} © Replay.io</p>
           <div className="flex items-center gap-6">
             {navigation.information.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+                className="text-sm text-gray-500 transition-colors hover:text-gray-900"
               >
                 {link.name}
               </Link>
@@ -209,10 +207,10 @@ export function Footer() {
       </div>
 
       {/* Mobile Layout */}
-      <div className="lg:hidden mx-auto max-w-7xl px-6 pb-8 pt-16">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:hidden">
         <div className="flex flex-col items-center gap-6">
           {/* Logo */}
-          <div className="relative w-[25px] h-[29px]">
+          <div className="relative h-[29px] w-[25px]">
             <Image
               src="/images/logo.svg"
               alt="Replay's isotype"
@@ -230,7 +228,7 @@ export function Footer() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-base font-semibold text-gray-900 hover:text-accent transition-colors"
+                className="text-base font-semibold text-gray-900 transition-colors hover:text-accent"
               >
                 {link.label}
               </Link>
@@ -238,14 +236,14 @@ export function Footer() {
           </nav>
 
           {/* Social Icons */}
-          <div className="flex items-center justify-center gap-5 mt-2">
+          <div className="mt-2 flex items-center justify-center gap-5">
             {navigation.social.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-900 hover:text-accent transition-colors"
+                className="text-gray-900 transition-colors hover:text-accent"
                 aria-label={social.name}
               >
                 <social.icon className="h-5 w-5" />
@@ -254,7 +252,7 @@ export function Footer() {
           </div>
 
           {/* Divider */}
-          <div className="w-full max-w-[300px] h-px bg-gray-200 my-2" />
+          <div className="my-2 h-px w-full max-w-[300px] bg-gray-200" />
 
           {/* Legal Links */}
           <div className="flex flex-col items-center gap-3">
@@ -262,7 +260,7 @@ export function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-normal text-gray-500 hover:text-gray-900 transition-colors"
+                className="text-sm font-normal text-gray-500 transition-colors hover:text-gray-900"
               >
                 {link.name}
               </Link>
@@ -270,7 +268,7 @@ export function Footer() {
           </div>
 
           {/* Copyright */}
-          <p className="text-sm font-normal text-gray-500 mt-2">
+          <p className="mt-2 text-sm font-normal text-gray-500">
             Copyright {new Date().getFullYear()} © Replay.io
           </p>
         </div>

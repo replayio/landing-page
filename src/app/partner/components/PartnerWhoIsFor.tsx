@@ -5,7 +5,7 @@ export function PartnerWhoIsFor() {
     <section className="relative isolate overflow-hidden bg-gray-200 py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-3xl font-bold text-center text-gray-900 sm:text-4xl md:text-5xl">
+          <h2 className="text-center text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl">
             Who this is for
           </h2>
           <div className="mt-8 space-y-6 text-base leading-relaxed text-gray-700 sm:text-lg">

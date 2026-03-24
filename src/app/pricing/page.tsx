@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   description:
     'Simple, volume-based pricing. Replay records your web app, delivers an AI root cause analysis, and proposes a fix — right where you work.',
   alternates: {
-    canonical: `${siteOrigin}/pricing`,
+    canonical: `${siteOrigin}/pricing`
   },
   openGraph: {
     url: `${siteOrigin}/pricing`,
     title: 'Pricing — Replay',
     description:
       'Simple, volume-based pricing. Replay records your web app, delivers an AI root cause analysis, and proposes a fix — right where you work.',
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
@@ -32,12 +32,12 @@ export const metadata: Metadata = {
     description:
       'Simple, volume-based pricing. Replay records your web app, delivers an AI root cause analysis, and proposes a fix — right where you work.',
     creator: defaultMeta.twitter.handle,
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }],
-  },
+    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+  }
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFF',
+  themeColor: '#FFF'
 }
 
 export default function PricingPage() {

@@ -11,7 +11,13 @@ declare global {
   }
 }
 
-export function Chat({ recordingId, initialPrompt }: { recordingId: string; initialPrompt: string }) {
+export function Chat({
+  recordingId,
+  initialPrompt
+}: {
+  recordingId: string
+  initialPrompt: string
+}) {
   const [events, setEvents] = useState<StreamEvent[]>([])
   const [input, setInput] = useState(initialPrompt)
   const [isStreaming, setIsStreaming] = useState(false)
@@ -27,7 +33,9 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
         () => console.log(text)
       )
     }
-    return () => { delete window.copyTranscript }
+    return () => {
+      delete window.copyTranscript
+    }
   }, [])
 
   useEffect(() => {
@@ -37,71 +45,77 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
     }
   }, [events])
 
-  const sendMessage = useCallback(async (allEvents: StreamEvent[]) => {
-    setIsStreaming(true)
-    abortRef.current = new AbortController()
+  const sendMessage = useCallback(
+    async (allEvents: StreamEvent[]) => {
+      setIsStreaming(true)
+      abortRef.current = new AbortController()
 
-    // Send all user messages as NDJSON
-    const body = allEvents
-      .filter((e) => e.role === 'user')
-      .map((e) => JSON.stringify({ role: 'user', content: e.content }))
-      .join('\n')
+      // Send all user messages as NDJSON
+      const body = allEvents
+        .filter((e) => e.role === 'user')
+        .map((e) => JSON.stringify({ role: 'user', content: e.content }))
+        .join('\n')
 
-    try {
-      const res = await fetch(
-        `https://dispatch.replay.io/nut/recording/${recordingId}/chat`,
-        {
+      try {
+        const res = await fetch(`https://dispatch.replay.io/nut/recording/${recordingId}/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-ndjson' },
           body,
           signal: abortRef.current.signal
-        }
-      )
+        })
 
-      if (!res.ok || !res.body) {
-        const errorEvent: StreamEvent = { role: 'assistant', content: 'Something went wrong. Please try again.' }
-        eventsRef.current.push(errorEvent)
-        setEvents([...eventsRef.current])
-        setIsStreaming(false)
-        return
-      }
-
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder()
-      let buffer = ''
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-
-        buffer += decoder.decode(value, { stream: true })
-        const lines = buffer.split('\n')
-        buffer = lines.pop() || ''
-
-        for (const line of lines) {
-          if (!line.trim()) continue
-          let event: StreamEvent
-          try {
-            event = JSON.parse(line)
-          } catch {
-            continue
+        if (!res.ok || !res.body) {
+          const errorEvent: StreamEvent = {
+            role: 'assistant',
+            content: 'Something went wrong. Please try again.'
           }
+          eventsRef.current.push(errorEvent)
+          setEvents([...eventsRef.current])
+          setIsStreaming(false)
+          return
+        }
 
-          eventsRef.current.push(event)
+        const reader = res.body.getReader()
+        const decoder = new TextDecoder()
+        let buffer = ''
+
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+
+          buffer += decoder.decode(value, { stream: true })
+          const lines = buffer.split('\n')
+          buffer = lines.pop() || ''
+
+          for (const line of lines) {
+            if (!line.trim()) continue
+            let event: StreamEvent
+            try {
+              event = JSON.parse(line)
+            } catch {
+              continue
+            }
+
+            eventsRef.current.push(event)
+            setEvents([...eventsRef.current])
+          }
+        }
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') {
+          const errorEvent: StreamEvent = {
+            role: 'assistant',
+            content: 'Something went wrong. Please try again.'
+          }
+          eventsRef.current.push(errorEvent)
           setEvents([...eventsRef.current])
         }
+      } finally {
+        setIsStreaming(false)
+        abortRef.current = null
       }
-    } catch (err) {
-      if ((err as Error).name !== 'AbortError') {
-        const errorEvent: StreamEvent = { role: 'assistant', content: 'Something went wrong. Please try again.' }
-        eventsRef.current.push(errorEvent)
-        setEvents([...eventsRef.current])
-      }
-    } finally {
-      setIsStreaming(false)
-      abortRef.current = null
-    }
-  }, [recordingId])
+    },
+    [recordingId]
+  )
 
   function handleSend() {
     const text = input.trim()
@@ -150,7 +164,7 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
       </div>
 
       {/* Input container matching the image design */}
-      <div className="rounded-2xl bg-gray-800 border border-gray-700 shadow-sm p-4">
+      <div className="rounded-2xl border border-gray-700 bg-gray-800 p-4 shadow-sm">
         {/* Textarea on top */}
         <textarea
           ref={textareaRef}
@@ -160,23 +174,23 @@ export function Chat({ recordingId, initialPrompt }: { recordingId: string; init
           placeholder="What would you like to do now?"
           disabled={isStreaming}
           rows={1}
-          className="w-full rounded-lg border-none bg-gray-800 px-3 py-2 text-base text-white placeholder:text-gray-500 focus:outline-none resize-none overflow-y-auto disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full resize-none overflow-y-auto rounded-lg border-none bg-gray-800 px-3 py-2 text-base text-white placeholder:text-gray-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           style={{
             minHeight: '40px',
-            maxHeight: '150px',
+            maxHeight: '150px'
           }}
         />
 
         {/* Bottom controls */}
-        <div className="flex justify-end items-center mt-3">
+        <div className="mt-3 flex items-center justify-end">
           {/* Send button on right */}
           <button
             onClick={handleSend}
             disabled={isStreaming || !input.trim()}
-            className="px-5 py-2.5 rounded-full font-medium bg-accent text-white hover:bg-accent/90 transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 font-medium text-white transition-all duration-200 hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span>Send</span>
-            <span className="text-white/70 text-sm">⌘Enter</span>
+            <span className="text-sm text-white/70">⌘Enter</span>
           </button>
         </div>
       </div>

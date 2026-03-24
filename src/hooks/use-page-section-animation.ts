@@ -5,13 +5,16 @@ import { gsap } from '~/lib/gsap'
  * Hook to animate hero elements (title, subtitle) on page load
  * Creates a subtle fade-in animation with easing
  */
-export function usePageLoadAnimation<T extends HTMLElement = HTMLElement, S extends HTMLElement = HTMLElement>() {
+export function usePageLoadAnimation<
+  T extends HTMLElement = HTMLElement,
+  S extends HTMLElement = HTMLElement
+>() {
   const titleRef = useRef<T>(null)
   const subtitleRef = useRef<S>(null)
 
   useEffect(() => {
     const elements: HTMLElement[] = []
-    
+
     if (titleRef.current) {
       elements.push(titleRef.current)
     }

@@ -18,9 +18,7 @@ export function WorksWhereYouWork() {
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           {/* Replay MCP */}
           <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-sm font-bold uppercase tracking-wider text-gray-500">
-              Replay MCP
-            </p>
+            <p className="text-sm font-bold uppercase tracking-wider text-gray-500">Replay MCP</p>
             <div className="mt-4 overflow-hidden rounded-lg">
               <Image
                 src="/images/CLIAnimation.gif"
@@ -38,7 +36,7 @@ export function WorksWhereYouWork() {
             <Link
               href="https://docs.replay.io/basics/replay-mcp/quickstart"
               target="_blank"
-              className="mt-4 inline-block text-md font-medium text-accent hover:text-accent-light transition-colors"
+              className="text-md mt-4 inline-block font-medium text-accent transition-colors hover:text-accent-light"
             >
               Read the docs →
             </Link>
@@ -63,7 +61,7 @@ export function WorksWhereYouWork() {
               Record a bug in your browser, get a plain-English fix to paste into your AI tool. No
               setup required.
             </p>
-            <span className="mt-4 inline-block rounded-full border border-accent/30 px-4 py-1.5 text-md font-semibold text-accent">
+            <span className="text-md mt-4 inline-block rounded-full border border-accent/30 px-4 py-1.5 font-semibold text-accent">
               Coming Soon
             </span>
           </div>

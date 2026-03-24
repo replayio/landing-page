@@ -8,6 +8,7 @@
     "build": "yarn basehub-gen && next build",
     "start": "yarn basehub-gen && next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "playwright": "playwright test --project chromium",
     "playwright:replay": "playwright test --project replay-chromium"
   },

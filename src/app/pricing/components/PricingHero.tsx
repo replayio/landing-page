@@ -5,18 +5,17 @@ export function PricingHero() {
     <section className="relative overflow-hidden bg-white py-16 md:py-24">
       {/* Top glow */}
       <div
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px]"
+        className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2"
         style={{
-          background:
-            'radial-gradient(ellipse at 50% 0%, rgba(240,45,94,0.09) 0%, transparent 65%)',
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(240,45,94,0.09) 0%, transparent 65%)'
         }}
       />
 
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-slate-500 mb-6">
+          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-slate-500">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Simple, volume-based pricing 
+            Simple, volume-based pricing
           </span>
 
           <h1 className="font-display text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl xl:text-8xl">
@@ -25,13 +24,13 @@ export function PricingHero() {
             <span className="text-accent">Pay for what you use.</span>
           </h1>
 
-          <p className="mt-6 text-lg tracking-tight text-gray-700 max-w-2xl mx-auto">
+          <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-gray-700">
             Replay records your web app, delivers an AI root cause analysis, and proposes a fix
             &mdash; right where you work.
           </p>
 
           {/* Access point badges */}
-          <div className="mt-10 flex items-center justify-center gap-2 flex-wrap">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
             <span className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3.5 py-1.5 text-sm text-gray-500">
               <svg
                 width="14"
@@ -62,7 +61,7 @@ export function PricingHero() {
                 <path d="M7 1.5C5 3 4 5 4 7s1 4 3 5.5M7 1.5C9 3 10 5 10 7s-1 4-3 5.5M1.5 7h11" />
               </svg>
               Chrome extension
-              <span className="text-[9px] font-semibold uppercase tracking-wider text-accent leading-none">
+              <span className="text-[9px] font-semibold uppercase leading-none tracking-wider text-accent">
                 Coming soon
               </span>
             </span>
