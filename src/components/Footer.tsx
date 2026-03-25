@@ -29,6 +29,7 @@ const navigation = {
     //   { name: 'Guides', href: 'https://docs.replay.io/time-travel-intro/what-is-time-travel' },
     //   { name: 'Branding', href: '/branding' },
     { name: 'Security', href: '/security-and-privacy' },
+    { name: 'Status', href: 'https://status.replay.io/' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Use', href: '/terms-of-service' }
   ],
