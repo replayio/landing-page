@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Container } from '~/components/Container'
 import Hyperspace from '~/app/components/hero/hyperspace'
 import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
-import { PRECOG_BLOG_ANNOUNCEMENT, PRECOG_DOCS_MCP_QUICKSTART } from '../constants'
+import { PRECOG_DOCS_MCP_QUICKSTART } from '../constants'
 
 export function PrecogHero() {
   const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
@@ -37,14 +37,6 @@ export function PrecogHero() {
                 className="inline-flex w-full items-center justify-center rounded-full bg-accent px-8 py-3.5 text-base font-semibold text-white shadow-md transition-opacity hover:opacity-95 sm:w-auto"
               >
                 Enable Precog
-              </Link>
-              <Link
-                href={PRECOG_BLOG_ANNOUNCEMENT}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-full border border-gray-300 bg-white px-8 py-3.5 text-base font-medium text-gray-900 shadow-sm transition-colors hover:border-gray-400 hover:bg-gray-50 sm:w-auto"
-              >
-                Read the announcement
               </Link>
             </div>
           </div>
