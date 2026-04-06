@@ -7,9 +7,12 @@ import mixpanel from 'mixpanel-browser'
 
 const GA_MEASUREMENT_ID = 'G-244NMJ9B93'
 
+/** LogRocket project: Replay Marketing Site + Docs (anonymous traffic — no LogRocket.identify). */
+const LOGROCKET_APP_ID = 'woocwd/replay-marketing-site-docs'
+
 export default function Analytics() {
   useEffect(() => {
-    LogRocket.init('4sdo4i/replay-landing-page')
+    LogRocket.init(LOGROCKET_APP_ID)
     mixpanel.init('ffaeda9ef8fb976a520ca3a65bba5014', {
       track_pageview: 'url-with-path'
     })
