@@ -4,8 +4,9 @@ import { Inter, Lexend } from 'next/font/google'
 import clsx from 'clsx'
 import Script from 'next/script'
 
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import Analytics from '~/lib/analytics'
+import { RedditPixel } from '~/components/analytics/RedditPixel'
 import { Toolbar } from 'basehub/next-toolbar'
 import { TopBanner } from '~/components/TopBanner'
 
@@ -34,6 +35,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head>
         <Analytics />
+        <Suspense fallback={null}>
+          <RedditPixel />
+        </Suspense>
         <Toolbar />
         <Script
           async
