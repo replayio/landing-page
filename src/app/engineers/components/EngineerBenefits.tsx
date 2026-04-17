@@ -3,6 +3,7 @@ import { Container } from '~/components/Container'
 
 const toolIcons: Record<string, string> = {
   'Claude Code': '/images/hero-logos/claude.svg',
+  Codex: '/images/hero-logos/openai.svg',
   Cursor: '/images/hero-logos/cursor.svg',
   Copilot: '/images/hero-logos/copilot.svg',
   Windsurf: '/images/hero-logos/windsurf.svg'
@@ -26,8 +27,8 @@ const benefits = [
   {
     title: 'Works in your existing workflow',
     description:
-      'Connects to Cursor, Claude Code, Copilot, and Windsurf. Integrates with Playwright, Cypress, and Selenium. Runs in CI. Nothing to rip out.',
-    tools: ['Claude Code', 'Cursor', 'Copilot', 'Windsurf']
+      'Connects to Claude Code, Codex, Cursor, Copilot, and Windsurf. Integrates with Playwright, Cypress, and Selenium. Runs in CI. Nothing to rip out.',
+    tools: ['Claude Code', 'Codex', 'Cursor', 'Copilot', 'Windsurf']
   }
 ]
 
