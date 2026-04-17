@@ -8,7 +8,7 @@ export function VibeCodersMCPCallout() {
         <div className="mx-auto max-w-3xl">
           <div className="rounded-2xl border border-gray-200 bg-gray-100 p-8 sm:p-10">
             <p className="text-xs font-bold uppercase tracking-wider text-purple-500">
-              Also using Cursor or Claude Code?
+              Also using Cursor, Claude Code, or Codex?
             </p>
             <h3 className="mt-3 text-xl font-bold text-gray-900 sm:text-2xl">
               Replay MCP works there too.

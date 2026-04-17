@@ -1,4 +1,13 @@
 import { Container } from '~/components/Container'
+import Image from 'next/image'
+
+const toolIcons: Record<string, string> = {
+  'Claude Code': '/images/hero-logos/claude.svg',
+  Codex: '/images/hero-logos/openai.svg',
+  Cursor: '/images/hero-logos/cursor.svg',
+  Copilot: '/images/hero-logos/copilot.svg',
+  Windsurf: '/images/hero-logos/windsurf.svg'
+}
 
 const benefits = [
   {
@@ -14,7 +23,8 @@ const benefits = [
   {
     title: 'Works with any coding agent',
     description:
-      'Replay MCP connects to Claude Code, Cursor, Copilot, Windsurf, and any agent that supports MCP. Add it once and every agent in your workflow gets full runtime visibility.'
+      'Replay MCP connects to Claude Code, Codex, Cursor, Copilot, Windsurf, and any agent that supports MCP. Add it once and every agent in your workflow gets full runtime visibility.',
+    tools: ['Claude Code', 'Codex', 'Cursor', 'Copilot', 'Windsurf']
   }
 ]
 
@@ -38,6 +48,19 @@ export function AgentBenefits() {
               <p className="mt-4 text-sm leading-relaxed text-gray-700 sm:text-base">
                 {benefit.description}
               </p>
+
+              {benefit.tools && (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {benefit.tools.map((tool) => (
+                    <span key={tool} className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700">
+                      {toolIcons[tool] && (
+                        <Image src={toolIcons[tool]} alt={tool} width={16} height={16} />
+                      )}
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

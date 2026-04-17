@@ -19,7 +19,7 @@ const faqs = [
   {
     question: 'Which coding agents does it work with?',
     answer:
-      'Any agent that supports MCP — including Claude Code, Cursor, Copilot, and Windsurf. Add Replay MCP once and it works across your tools.'
+      'Any agent that supports MCP — including Claude Code, Codex, Cursor, Copilot, and Windsurf. Add Replay MCP once and it works across your tools.'
   },
   {
     question: 'How is this different from session replay tools like LogRocket?',
