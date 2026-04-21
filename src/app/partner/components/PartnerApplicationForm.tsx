@@ -1,7 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import Script from 'next/script'
 import { Container } from '~/components/Container'
+
+const CALENDLY_URL = 'https://calendly.com/tom-daly-replay/replay-design-partner-intro-call'
 
 const teamSizeOptions = ['1–5', '6–20', '21–50', '51–200', '200+']
 
@@ -94,16 +97,27 @@ export function PartnerApplicationForm() {
               Apply to become a design partner
             </h2>
             <p className="mt-4 text-base text-gray-700 sm:text-lg">
-              We review applications on a rolling basis and reach out within a few days.
+              {!submitted && 'After filling out the form, you will be able to schedule a short intro call.'}
             </p>
           </div>
 
           {submitted ? (
-            <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-100 p-10 text-center">
-              <h3 className="text-xl font-semibold text-gray-900">Thanks for applying!</h3>
-              <p className="mt-3 text-base text-gray-600">
-                We&apos;ll review your application and reach out within a few days.
-              </p>
+            <div className="mt-12">
+              <div className="mb-6 text-center">
+                <h3 className="text-xl font-semibold text-gray-900">Thanks for applying!</h3>
+                <p className="mt-2 text-base text-gray-600">
+                  Pick a time below for a short intro call.
+                </p>
+              </div>
+              <div
+                className="calendly-inline-widget overflow-hidden rounded-2xl border border-gray-200 bg-white"
+                data-url={CALENDLY_URL}
+                style={{ minWidth: 320, height: 700 }}
+              />
+              <Script
+                src="https://assets.calendly.com/assets/external/widget.js"
+                strategy="lazyOnload"
+              />
             </div>
           ) : (
             <form
