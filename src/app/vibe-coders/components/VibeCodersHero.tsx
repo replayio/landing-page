@@ -1,12 +1,15 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Container } from '~/components/Container'
 import Hyperspace from '~/app/components/hero/hyperspace'
 import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 import { Base44Icon } from '~/components/icons/base44'
 import { Button } from '~/components/Button'
+
+const CHROME_EXTENSION_URL =
+  'https://chromewebstore.google.com/detail/replay-debugger/lkbmpddckbjbfaekcjacjgpehgaaijhh'
 
 const partners = [
   { name: 'Replit', logo: '/images/hero-logos/replit.svg' },
@@ -15,35 +18,10 @@ const partners = [
   { name: 'Bolt', logo: '/images/hero-logos/bolt.svg' }
 ]
 
-const vibeTools = ['Lovable', 'Base44', 'Bolt', 'Replit', 'Other']
-
 export function VibeCodersHero() {
   const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(true)
-  const [showForm, setShowForm] = useState(false)
-  const [email, setEmail] = useState('')
-  const [tool, setTool] = useState('')
-  const [otherTool, setOtherTool] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const formRef = useRef<HTMLDivElement>(null)
-
-  const handleNotify = async () => {
-    if (!email) return
-    setSubmitting(true)
-    try {
-      await fetch('/api/intercom', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, tool: tool === 'Other' ? otherTool : tool })
-      })
-    } catch (err) {
-      console.error('Failed to submit to Intercom:', err)
-    }
-    setSubmitted(true)
-    setSubmitting(false)
-  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -67,14 +45,6 @@ export function VibeCodersHero() {
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pb-16 pt-[120px] lg:pb-24 lg:pt-[180px]">
           <div className="flex w-full flex-col items-center justify-center">
             <div ref={heroContentRef} className="max-w-5xl text-center">
-              {/* Coming Soon badge */}
-              <div className="mb-8 flex justify-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-gray-700 shadow-sm">
-                  <span className="h-2 w-2 rounded-full bg-rose-500" />
-                  Coming Soon
-                </span>
-              </div>
-
               {/* Cycling partner + Replay logos */}
               <div className="mb-10 flex items-center justify-center gap-4 sm:gap-6">
                 <div className="flex min-w-[160px] items-center justify-end gap-2.5">
@@ -125,65 +95,14 @@ export function VibeCodersHero() {
                 them.
               </p>
               <div className="mt-8 flex justify-center">
-                {!showForm ? (
-                  <Button
-                    onClick={() => {
-                      setShowForm(true)
-                      setTimeout(
-                        () =>
-                          formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
-                        100
-                      )
-                    }}
-                    className="inline-block rounded-full bg-accent px-8 py-3.5 text-base font-medium text-white transition-all hover:bg-accent-light"
-                  >
-                    Coming soon: Get notified
-                  </Button>
-                ) : submitted ? (
-                  <p className="text-base font-medium text-gray-700">
-                    Thanks! We&apos;ll let you know when it&apos;s ready.
-                  </p>
-                ) : (
-                  <div ref={formRef} className="w-full max-w-md space-y-3">
-                    <input
-                      type="email"
-                      placeholder="Your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="block w-full rounded-xl border border-gray-200 bg-gray-100 px-5 py-3.5 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                    />
-                    <select
-                      value={tool}
-                      onChange={(e) => setTool(e.target.value)}
-                      className="block w-full appearance-none rounded-xl border border-gray-200 bg-gray-100 px-5 py-3.5 text-sm text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                    >
-                      <option value="" disabled>
-                        Which tool do you use?
-                      </option>
-                      {vibeTools.map((t) => (
-                        <option key={t} value={t}>
-                          {t}
-                        </option>
-                      ))}
-                    </select>
-                    {tool === 'Other' && (
-                      <input
-                        type="text"
-                        placeholder="Which tool?"
-                        value={otherTool}
-                        onChange={(e) => setOtherTool(e.target.value)}
-                        className="block w-full rounded-xl border border-gray-200 bg-gray-100 px-5 py-3.5 text-sm text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                      />
-                    )}
-                    <button
-                      onClick={handleNotify}
-                      disabled={submitting || !email}
-                      className="w-full rounded-full bg-gradient-to-r from-rose-500 to-purple-500 px-8 py-3.5 text-base font-medium text-white transition-all hover:from-rose-600 hover:to-purple-600 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      {submitting ? 'Submitting...' : 'Notify me'}
-                    </button>
-                  </div>
-                )}
+                <Button
+                  href={CHROME_EXTENSION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-full bg-accent px-8 py-3.5 text-base font-medium text-white transition-all hover:bg-accent-light"
+                >
+                  Install Replay Extension
+                </Button>
               </div>
             </div>
           </div>
