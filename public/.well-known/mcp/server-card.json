@@ -1,0 +1,12 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/2025/server-card.json",
+  "serverInfo": { "name": "Replay MCP", "version": "1" },
+  "transport": { "type": "http", "endpoint": "https://dispatch.replay.io/nut/mcp" },
+  "authentication": {
+    "type": "bearer",
+    "description": "Replay API key from https://app.replay.io/team/settings"
+  },
+  "capabilities": { "tools": true, "prompts": false, "resources": false },
+  "documentation": "https://docs.replay.io/basics/replay-mcp/quickstart",
+  "homepage": "https://www.replay.io"
+}

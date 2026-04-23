@@ -1,0 +1,32 @@
+{
+  "skills": [
+    {
+      "name": "skills-replay-cli",
+      "type": "cli",
+      "description": "**Description:** Use when the user wants help with Replay CLI commands for recording, uploading, managing recordings, or authentication. Examples: \"upload my recording\", \"list my replays\", \"login to replay\", \"remove recordings\", \"record ...",
+      "url": "https://raw.githubusercontent.com/replayio/skills/main/skills/replay-cli/SKILL.md",
+      "sha256": "89482e0c885004719a841cc71ae60a2a58a2a20220be92c03e7df8f4de69da3a"
+    },
+    {
+      "name": "skills-replay-cypress",
+      "type": "cli",
+      "description": "**Description:** Use when the user wants to set up Replay for recording Cypress tests, configure the Replay Cypress plugin, or run Cypress tests with the Replay browser. Examples: \"set up replay for cypress\", \"record my cypress tests\", \"...",
+      "url": "https://raw.githubusercontent.com/replayio/skills/main/skills/replay-cypress/SKILL.md",
+      "sha256": "9fa667d14989bff69325b2ce529c73e2f0c0cc3c4cbbefd31ecb34aae649c3c4"
+    },
+    {
+      "name": "skills-replay-mcp",
+      "type": "cli",
+      "description": "This document provides an overview of the tools available when using Replay MCP",
+      "url": "https://raw.githubusercontent.com/replayio/skills/main/skills/replay-mcp/SKILL.md",
+      "sha256": "e0d8f93268bbfd0c78fd457fde8da90fe5884989f5748321fbe01d7be1f1e400"
+    },
+    {
+      "name": "skills-replay-playwright",
+      "type": "cli",
+      "description": "**Description:** Use when the user wants to set up Replay for Playwright tests, configure the Replay Playwright plugin, or run Playwright tests with the Replay Browser. Examples: \"set up replay for my playwright tests\", \"record my playwr...",
+      "url": "https://raw.githubusercontent.com/replayio/skills/main/skills/replay-playwright/SKILL.md",
+      "sha256": "32fbb41c0ebb83753772a8d9ec6f71685f35a0ff252c037b17385472b949c480"
+    }
+  ]
+}
