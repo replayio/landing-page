@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "basehub-gen": "basehub --output .basehub",
+    "prebuild": "node scripts/generate-agent-skills.mjs && node scripts/update-markdown-agent-tokens.mjs",
     "dev": "yarn basehub dev --output .basehub & next dev",
     "build": "yarn basehub-gen && next build",
     "start": "yarn basehub-gen && next start",

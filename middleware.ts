@@ -1,4 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import markdownAgentTokens from './src/lib/markdown-agent-tokens.json'
+
+const MARKDOWN_TOKEN_BY_PATH = markdownAgentTokens as Record<string, number>
 
 /** Map marketing pathname (no trailing slash, except '/') to static markdown under /agent/ */
 const MARKDOWN_BY_PATH: Record<string, string> = {
@@ -42,11 +45,20 @@ function shouldSkipAgentHeaders(pathname: string): boolean {
 }
 
 function appendDiscoveryLinkHeaders(response: NextResponse): void {
+  // Registered relation types expected by agent-readiness checks (RFC 8288 / RFC 9727 §3):
+  // api-catalog, service-desc, service-doc, describedby
   response.headers.append(
     'Link',
     '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"'
   )
-  response.headers.append('Link', '<https://docs.replay.io>; rel="service-doc"')
+  response.headers.append(
+    'Link',
+    '<https://docs.replay.io/basics/replay-mcp/tools>; rel="service-desc"; type="text/html"'
+  )
+  response.headers.append(
+    'Link',
+    '<https://docs.replay.io/basics/replay-mcp/quickstart>; rel="service-doc"; type="text/html"'
+  )
   response.headers.append(
     'Link',
     '</.well-known/mcp/server-card.json>; rel="describedby"; type="application/json"'
@@ -68,6 +80,10 @@ export function middleware(request: NextRequest) {
       url.pathname = target
       const res = NextResponse.rewrite(url)
       res.headers.set('Content-Type', 'text/markdown; charset=utf-8')
+      const pathKey = normalizePathname(pathname)
+      const approxTokens =
+        MARKDOWN_TOKEN_BY_PATH[pathKey] ?? Math.max(1, Math.ceil((request.nextUrl.pathname.length + 200) / 4))
+      res.headers.set('x-markdown-tokens', String(approxTokens))
       appendDiscoveryLinkHeaders(res)
       return res
     }

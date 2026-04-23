@@ -20,7 +20,12 @@ function skillNameFromPath(path) {
 }
 
 function descriptionFromMarkdown(text) {
-  const lines = text.split(/\r?\n/)
+  let body = text
+  if (body.startsWith('---')) {
+    const end = body.indexOf('\n---\n', 3)
+    if (end !== -1) body = body.slice(end + 5)
+  }
+  const lines = body.split(/\r?\n/)
   let i = 0
   while (i < lines.length && (lines[i].trim() === '' || lines[i].startsWith('#'))) {
     i++
