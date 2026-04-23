@@ -3,7 +3,7 @@ import { Container } from '~/components/Container'
 
 const toolIcons: Record<string, string> = {
   'Claude Code': '/images/hero-logos/claude.svg',
-  Codex: '/images/hero-logos/openai.svg',
+  Codex: '/images/hero-logos/Openai.svg',
   Cursor: '/images/hero-logos/cursor.svg',
   Copilot: '/images/hero-logos/copilot.svg',
   Windsurf: '/images/hero-logos/windsurf.svg'

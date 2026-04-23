@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import markdownAgentTokens from './src/lib/markdown-agent-tokens.json'
+import markdownAgentTokens from './lib/markdown-agent-tokens.json'
 
 const MARKDOWN_TOKEN_BY_PATH = markdownAgentTokens as Record<string, number>
 
@@ -82,7 +82,8 @@ export function middleware(request: NextRequest) {
       res.headers.set('Content-Type', 'text/markdown; charset=utf-8')
       const pathKey = normalizePathname(pathname)
       const approxTokens =
-        MARKDOWN_TOKEN_BY_PATH[pathKey] ?? Math.max(1, Math.ceil((request.nextUrl.pathname.length + 200) / 4))
+        MARKDOWN_TOKEN_BY_PATH[pathKey] ??
+        Math.max(1, Math.ceil((request.nextUrl.pathname.length + 200) / 4))
       res.headers.set('x-markdown-tokens', String(approxTokens))
       appendDiscoveryLinkHeaders(res)
       return res
