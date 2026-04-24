@@ -8,6 +8,7 @@ import {
   AboutCta,
   AboutHero,
   AboutHowWeWork,
+  AboutPrinciples,
   AboutTeamSection,
   AboutWhereWeStarted,
   AboutWhereWereGoing
@@ -54,6 +55,7 @@ export default function AboutPage() {
         <AboutWhereWereGoing />
         <AboutHowWeWork />
         <AboutTeamSection />
+        <AboutPrinciples />
         <AboutCta />
       </PageContentAnimate>
       <Footer />
