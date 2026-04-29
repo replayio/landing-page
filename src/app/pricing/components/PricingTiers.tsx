@@ -23,9 +23,9 @@ const tiers = [
     label: 'Starter',
     name: 'For individuals & small teams',
     desc: 'When hard bugs come up occasionally and you need answers fast.',
-    price: 'TBD',
+    price: '299',
     pricePrefix: '$',
-    billing: 'per month · billed annually',
+    billing: 'per month · billed annually · details soon',
     volume: '~XX sessions / month',
     featuresLabel: 'Includes',
     features: [
@@ -101,7 +101,6 @@ export function PricingTiers() {
                   Most popular
                 </span>
               )}
-
               <p
                 className={`mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] ${
                   tier.variant === 'featured' ? 'text-accent' : 'text-slate-400'
@@ -178,33 +177,32 @@ export function PricingTiers() {
       </Container>
 
       {/* Design Partner overlay */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center px-6">
-        <div className="w-full max-w-5xl">
-          <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-white p-10 shadow-xl md:p-14">
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-4 py-10 sm:px-6">
+        <div className="w-full max-w-3xl">
+          <div className="relative overflow-hidden rounded-2xl border border-gray-200/90 bg-white p-8 shadow-lg sm:p-10">
             <div
-              className="pointer-events-none absolute -right-20 top-1/2 h-[400px] w-[400px] -translate-y-1/2"
+              className="pointer-events-none absolute -right-24 top-1/2 h-[320px] w-[320px] -translate-y-1/2 sm:h-[380px] sm:w-[380px]"
               style={{
-                background: 'radial-gradient(circle, rgba(240,45,94,0.07) 0%, transparent 70%)'
+                background: 'radial-gradient(circle, rgba(240,45,94,0.06) 0%, transparent 68%)'
               }}
             />
 
-            <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-              <div className="max-w-lg">
-                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">
-                  Early access &middot; Design partners
+            <div className="relative z-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
+              <div className="min-w-0 max-w-xl">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-accent">
+                  Early access · Design partners
                 </p>
-                <h2 className="mb-3 text-2xl font-bold leading-snug tracking-tight text-slate-900 sm:text-3xl">
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-[1.65rem] sm:leading-snug">
                   Shape what Replay becomes
                 </h2>
-                <p className="text-sm leading-relaxed text-slate-600">
+                <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
                   We&apos;re working with a small group of engineering teams to build and refine
-                  Replay MCP. Design partners get free access during the program and favorable
-                  pricing when they convert &mdash; in exchange for real usage and regular feedback.
-                  If your team ships a React or Next.js app and hard bugs are costing you hours,
-                  we&apos;d like to talk.
+                  Replay MCP. Partners get free access now and favorable terms when paid plans ship
+                  &mdash; in exchange for real usage and regular feedback. If your team ships a React
+                  or Next.js app and hard bugs are costing you hours, we&apos;d like to talk.
                 </p>
               </div>
-              <div className="flex flex-shrink-0 flex-row gap-3 md:flex-col">
+              <div className="flex shrink-0 flex-col gap-2.5 sm:w-[200px]">
                 <Link
                   href="/partner#apply"
                   className="rounded-full bg-accent px-6 py-3 text-center text-sm font-medium text-white transition hover:bg-accent-light"
@@ -213,7 +211,7 @@ export function PricingTiers() {
                 </Link>
                 <Link
                   href="mailto:support@replay.io"
-                  className="rounded-full border border-gray-200 px-6 py-3 text-center text-sm font-medium text-slate-500 transition hover:border-slate-300 hover:text-slate-700"
+                  className="rounded-full border border-gray-200 bg-white px-6 py-3 text-center text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
                 >
                   Discuss pricing
                 </Link>
