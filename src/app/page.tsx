@@ -16,7 +16,7 @@ import { HomepageFAQs } from './components/HomepageFAQs'
 import { HomepageCTA } from './components/HomepageCTA'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
-import { defaultMeta } from '~/lib/constants'
+import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 export const metadata: Metadata = {
@@ -25,7 +25,11 @@ export const metadata: Metadata = {
     default: 'Replay - Time Travel Browser DevTools'
   },
   description: defaultMeta.description,
+  alternates: {
+    canonical: `${siteOrigin}/`
+  },
   openGraph: {
+    url: `${siteOrigin}/`,
     title: defaultMeta.title,
     description: defaultMeta.description,
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
