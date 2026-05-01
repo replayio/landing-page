@@ -30,8 +30,8 @@ export function WorksWhereYouWork() {
               />
             </div>
             <p className="mt-6 text-sm leading-relaxed text-gray-700 sm:text-base">
-              Install Replay MCP in one command and connect it to Cursor, Claude Code, Codex, Copilot, or
-              Windsurf. Your agent gets root cause and a specific fix automatically.
+              Install Replay MCP in one command and connect it to Cursor, Claude Code, Codex,
+              Copilot, or Windsurf. Your agent gets root cause and a specific fix automatically.
             </p>
             <Link
               href="https://docs.replay.io/basics/replay-mcp/quickstart"

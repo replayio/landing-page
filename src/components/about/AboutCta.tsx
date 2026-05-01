@@ -20,7 +20,7 @@ export function AboutCta() {
               href="https://docs.replay.io/basics/getting-started/record-your-playwright-tests"
               target="_blank"
               rel="noopener noreferrer"
-              className="border-0 bg-rose-500 px-10 text-white hover:opacity-90 hover:bg-rose-600"
+              className="border-0 bg-rose-500 px-10 text-white hover:bg-rose-600 hover:opacity-90"
             >
               Install the CI Agent
             </Button>

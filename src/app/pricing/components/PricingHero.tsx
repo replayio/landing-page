@@ -31,7 +31,10 @@ export function PricingHero() {
             &mdash; right where you work.
           </p>
           <p className="mx-auto mt-5 max-w-xl text-sm text-slate-500">
-            <Link href="#partner" className="text-slate-600 underline decoration-slate-300 underline-offset-4 transition hover:text-accent hover:decoration-accent/40">
+            <Link
+              href="#partner"
+              className="text-slate-600 underline decoration-slate-300 underline-offset-4 transition hover:text-accent hover:decoration-accent/40"
+            >
               Join the design partner program
             </Link>{' '}
             for free access while we finalize plans.

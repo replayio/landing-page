@@ -14,8 +14,8 @@ export function AboutWhereWeStarted() {
             <p>
               We thought that was broken. Our founders spent a decade at Mozilla working on the
               Firefox browser engine — one of the most complex software systems ever built. They saw
-              firsthand how much time gets lost to bugs that nobody can reproduce, errors that nobody
-              can explain, and fixes that nobody is confident about.
+              firsthand how much time gets lost to bugs that nobody can reproduce, errors that
+              nobody can explain, and fixes that nobody is confident about.
             </p>
             <p>
               So they built Replay: a way to record exactly what your software did and play it back,
