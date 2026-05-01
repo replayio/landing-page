@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Container } from '~/components/Container'
 import {
   Accordion,
@@ -12,29 +13,49 @@ import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
 const faqs = [
   {
-    question: 'What counts as a session?',
+    question: 'Can I use Replay CLI-only?',
     answer:
-      'A session is one recorded debugging interaction — a bug captured, analyzed, and returned with a root cause and proposed fix. Whether you use the Chrome extension or IDE via MCP, it draws from the same monthly pool.'
+      'Yes. You can install the Replay CLI skills and Replay MCP to debug locally. The real power of Replay is when it is plugged into your CI/CD pipeline.'
   },
   {
-    question: 'Do I need both the Chrome extension and MCP?',
+    question: 'Do I need to use Replay with my Playwright test suite?',
     answer:
-      "No. Use whichever fits your workflow. The Chrome extension is great for capturing bugs as you browse; MCP brings Replay's analysis directly into Cursor, VS Code, or any MCP-compatible IDE. Many teams use both depending on context."
+      'No. Replay can be used on its own. When you configure your Playwright tests to use Replay, recordings are captured for all tests, so you get time-travel debugging analysis on failures.'
   },
   {
-    question: 'When will pricing be finalized?',
+    question: 'Do I need to integrate Replay into my CI/CD pipeline?',
     answer:
-      "We're still in active design partner phase and setting final numbers based on what we learn with early teams. Reach out now and you'll lock in design-partner rates before general availability."
+      'No, but we highly recommend it. Teams that run test suites on PRs can get root-cause analysis and suggested fixes for failed tests as comments on the pull request in GitHub.'
   },
   {
-    question: 'What kinds of bugs does Replay work best for?',
+    question: 'Does Replay commit code automatically?',
     answer:
-      'Hard-to-reproduce bugs: intermittent failures, React state issues, race conditions, anything that disappears when you try to recreate it manually. If you can record it happening, Replay can analyze it and tell you exactly what went wrong.'
+      'No. Replay suggests root-cause analyses and fixes that a human engineer can choose to implement.'
   },
   {
-    question: 'We use AI coding tools. Does Replay help with those bugs?',
+    question: 'Will there be a free trial?',
     answer:
-      'Yes — and this is increasingly the core use case. AI-generated code produces more hard-to-trace logic errors and concurrency bugs than human-written code. Replay gives your AI agent ground truth about what actually happened at runtime, rather than asking it to guess.'
+      "Yes. We're aiming to start with a 14-day free trial, no credit card required, so you can get Replay set up and see the value it delivers. During the trial you can capture Replay recordings and get time-travel analysis on them. You can configure your Playwright suite to capture recordings and set up the Replay GitHub bot to monitor runs, capture recordings, and analyze failed tests."
+  },
+  {
+    question: 'Will pricing be flat or usage-based?',
+    answer:
+      'For our base tier we plan a flat price (monthly or annually) with an allotment of 500 analyzed recordings per month — enough for most startup teams. For larger engineering teams we will work with you on a structure that fits.'
+  },
+  {
+    question: 'What does it mean to be a Replay design partner?',
+    answer: (
+      <>
+        Visit our{' '}
+        <Link
+          href="/partner"
+          className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
+        >
+          design partner page
+        </Link>{' '}
+        to learn more about how you can help shape the future of Replay.
+      </>
+    )
   }
 ]
 

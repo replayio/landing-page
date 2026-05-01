@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import { Container } from '~/components/Container'
 
-
 const principles: {
   name: string
   description: ReactNode
@@ -11,7 +10,7 @@ const principles: {
     name: 'The code behind our code',
     description:
       'Integrity, honesty, and decency. Our principles are not aspirations but constraints. They lie behind every action we take, or decision we make. They ensure that we remain true to our course and true to ourselves.',
-    href: 'https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#19baa7e2-94a0-4f53-8211-12c280f715f5',
+    href: 'https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#19baa7e2-94a0-4f53-8211-12c280f715f5'
   },
   {
     name: 'Embedded values',
@@ -25,7 +24,7 @@ const principles: {
         </p>
       </div>
     ),
-    href: 'https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#4af5092d36214ce4a780e9c144014e58',
+    href: 'https://replayio.notion.site/Replay-s-Principles-Values-7b20c16430524356a28bbe842b1d5f06#4af5092d36214ce4a780e9c144014e58'
   }
 ]
 
@@ -38,9 +37,7 @@ export function AboutPrinciples() {
             {principles.map((item) => {
               return (
                 <div key={item.name} className="flex flex-col">
-                  <dt className="text-lg font-semibold leading-7 text-gray-900">
-                    {item.name}
-                  </dt>
+                  <dt className="text-lg font-semibold leading-7 text-gray-900">{item.name}</dt>
                   <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
                     <div className="flex-auto">
                       {typeof item.description === 'string' ? (

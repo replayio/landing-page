@@ -97,7 +97,8 @@ export function PartnerApplicationForm() {
               Apply to become a design partner
             </h2>
             <p className="mt-4 text-base text-gray-700 sm:text-lg">
-              {!submitted && 'After filling out the form, you will be able to schedule a short intro call.'}
+              {!submitted &&
+                'After filling out the form, you will be able to schedule a short intro call.'}
             </p>
           </div>
 

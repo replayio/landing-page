@@ -5,7 +5,9 @@ export function AboutWhereWereGoing() {
     <section className="bg-white py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-wider text-accent">Where we&apos;re going</p>
+          <p className="text-sm font-bold uppercase tracking-wider text-accent">
+            Where we&apos;re going
+          </p>
           <div className="mt-6 space-y-6 text-base leading-relaxed text-gray-700 sm:text-lg">
             <p>
               Today, AI agents write code faster than any human. But when a test fails in CI,
@@ -15,8 +17,8 @@ export function AboutWhereWereGoing() {
             <p>
               So we gave the time machine to the agent.{' '}
               <strong className="font-semibold text-gray-900">
-                Replay now enables your coding agent to time-travel through recordings and fix failing
-                tests without human intervention.
+                Replay now enables your coding agent to time-travel through recordings and fix
+                failing tests without human intervention.
               </strong>{' '}
               It turns out they&apos;re way better at it anyway — no fatigue, no missed details, no
               wrong turns.

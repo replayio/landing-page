@@ -52,7 +52,10 @@ export function AgentBenefits() {
               {benefit.tools && (
                 <div className="mt-5 flex flex-wrap gap-2">
                   {benefit.tools.map((tool) => (
-                    <span key={tool} className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700">
+                    <span
+                      key={tool}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700"
+                    >
                       {toolIcons[tool] && (
                         <Image src={toolIcons[tool]} alt={tool} width={16} height={16} />
                       )}

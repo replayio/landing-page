@@ -198,8 +198,8 @@ export function PricingTiers() {
                 <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
                   We&apos;re working with a small group of engineering teams to build and refine
                   Replay MCP. Partners get free access now and favorable terms when paid plans ship
-                  &mdash; in exchange for real usage and regular feedback. If your team ships a React
-                  or Next.js app and hard bugs are costing you hours, we&apos;d like to talk.
+                  &mdash; in exchange for real usage and regular feedback. If your team ships a
+                  React or Next.js app and hard bugs are costing you hours, we&apos;d like to talk.
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2.5 sm:w-[200px]">
