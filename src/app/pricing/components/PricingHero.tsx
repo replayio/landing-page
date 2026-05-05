@@ -42,7 +42,12 @@ export function PricingHero() {
 
           {/* Access point badges */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3.5 py-1.5 text-sm text-gray-500">
+            <Link
+              href="https://docs.replay.io/basics/replay-mcp/quickstart"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3.5 py-1.5 text-sm text-gray-500 transition hover:border-gray-300 hover:text-gray-700"
+            >
               <svg
                 width="14"
                 height="14"
@@ -56,9 +61,14 @@ export function PricingHero() {
                 <path d="M4 11v1.5M10 11v1.5M3 13h8" />
               </svg>
               IDE via MCP
-            </span>
+            </Link>
             <span className="text-sm text-gray-400">+</span>
-            <span className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3.5 py-1.5 text-sm text-gray-500">
+            <Link
+              href="https://chromewebstore.google.com/detail/replay-debugger/lkbmpddckbjbfaekcjacjgpehgaaijhh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3.5 py-1.5 text-sm text-gray-500 transition hover:border-gray-300 hover:text-gray-700"
+            >
               <svg
                 width="14"
                 height="14"
@@ -72,10 +82,7 @@ export function PricingHero() {
                 <path d="M7 1.5C5 3 4 5 4 7s1 4 3 5.5M7 1.5C9 3 10 5 10 7s-1 4-3 5.5M1.5 7h11" />
               </svg>
               Chrome extension
-              <span className="text-[9px] font-semibold uppercase leading-none tracking-wider text-accent">
-                Coming soon
-              </span>
-            </span>
+            </Link>
           </div>
           <p className="mt-3 text-xs text-gray-400">
             Both access points draw from the same session pool &mdash; use whichever fits your
