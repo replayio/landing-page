@@ -19,8 +19,8 @@ export type Navlink = {
 }
 
 const NAVLINKS: Navlink[] = [
-  { href: '/how-it-works', label: 'How It Works' },
-  { href: '/engineers', label: 'For Engineers' },
+  // { href: '/how-it-works', label: 'How It Works' },
+  // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
   { href: 'https://blog.replay.io', label: 'Blog' }
@@ -28,8 +28,8 @@ const NAVLINKS: Navlink[] = [
 ]
 
 const MobileNavlinks: Navlink[] = [
-  { href: '/how-it-works', label: 'How It Works' },
-  { href: '/engineers', label: 'For Engineers' },
+  // { href: '/how-it-works', label: 'How It Works' },
+  // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
   { href: 'https://blog.replay.io', label: 'Changelog' }
