@@ -22,6 +22,7 @@ const NAVLINKS: Navlink[] = [
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/roi-calculator', label: 'ROI Calculator' },
   { href: '/about', label: 'About' },
   { href: 'https://blog.replay.io', label: 'Blog' }
   // { href: '/about', label: 'Company' }
@@ -31,6 +32,7 @@ const MobileNavlinks: Navlink[] = [
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/roi-calculator', label: 'ROI Calculator' },
   { href: '/about', label: 'About' },
   { href: 'https://blog.replay.io', label: 'Changelog' }
   // { href: '/about', label: 'Company' },

@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8
     },
     {
+      url: `${siteURLString}/roi-calculator`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'daily',
+      priority: 0.8
+    },
+    {
       url: `${siteURLString}/privacy-policy`,
       lastModified: new Date().toISOString(),
       changeFrequency: 'daily',
