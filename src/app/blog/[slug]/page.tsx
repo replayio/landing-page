@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   if (!postData) notFound()
 
-  const { post, recordMap } = postData
+  const { post, markdown } = postData
   const formattedDate = formatDate(post.publishedAt)
 
   return (
@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </header>
 
             <div className="prose prose-lg mt-10 max-w-none prose-headings:font-semibold prose-a:text-accent prose-pre:rounded-xl prose-img:rounded-xl">
-              <BlogPostBody recordMap={recordMap} />
+              <BlogPostBody markdown={markdown} />
             </div>
           </article>
         </Container>

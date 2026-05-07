@@ -5,8 +5,7 @@ import type {
   PageObjectResponse,
   QueryDataSourceResponse
 } from '@notionhq/client/build/src/api-endpoints'
-import { NotionAPI } from 'notion-client'
-import type { ExtendedRecordMap } from 'notion-types'
+import { NotionToMarkdown } from 'notion-to-md'
 
 const parseNotionDatabaseId = (value?: string) => {
   if (!value) return null
@@ -29,7 +28,7 @@ const notionToken = process.env.NOTION_TOKEN
 const notionDatabaseId = parseNotionDatabaseId(process.env.NOTION_BLOG_DATABASE_ID)
 
 const notion = notionToken ? new Client({ auth: notionToken }) : null
-const notionPageApi = new NotionAPI()
+const n2m = notion ? new NotionToMarkdown({ notionClient: notion as unknown as never }) : null
 
 let cachedDataSourceId: string | null = null
 
@@ -138,7 +137,7 @@ const slugify = (input: string) => {
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
 
-  return normalized || 'post'
+  return normalized
 }
 
 const toUniqueSlugs = (titles: string[]) => {
@@ -146,6 +145,8 @@ const toUniqueSlugs = (titles: string[]) => {
 
   return titles.map((title) => {
     const baseSlug = slugify(title)
+    if (!baseSlug) return null
+
     const currentCount = counts.get(baseSlug) ?? 0
     const nextCount = currentCount + 1
     counts.set(baseSlug, nextCount)
@@ -183,33 +184,48 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
     cursor = response.has_more ? response.next_cursor ?? undefined : undefined
   } while (cursor)
 
-  const titles = pages.map((page) => getTitle(page))
+  const validPages = pages.filter((page) => getTitle(page).length > 0)
+  const titles = validPages.map((page) => getTitle(page))
   const slugs = toUniqueSlugs(titles)
 
-  return pages.map((page, index) => ({
-    id: page.id,
-    slug: slugs[index],
-    title: titles[index],
-    excerpt: getDescription(page),
-    publishedAt: getDate(page),
-    authors: getAuthors(page),
-    tags: getTags(page),
-    coverImageUrl: getCoverImageUrl(page),
-    coverEnabled: getCoverEnabled(page),
-    lastEditedTime: page.last_edited_time
-  }))
+  const posts: BlogPost[] = []
+  for (let index = 0; index < validPages.length; index++) {
+    const slug = slugs[index]
+    if (!slug) continue
+    const page = validPages[index]
+    posts.push({
+      id: page.id,
+      slug,
+      title: titles[index],
+      excerpt: getDescription(page),
+      publishedAt: getDate(page),
+      authors: getAuthors(page),
+      tags: getTags(page),
+      coverImageUrl: getCoverImageUrl(page),
+      coverEnabled: getCoverEnabled(page),
+      lastEditedTime: page.last_edited_time
+    })
+  }
+
+  return posts
 }
 
 export const getBlogPostBySlug = async (
   slug: string
-): Promise<{ post: BlogPost; recordMap: ExtendedRecordMap } | null> => {
-  if (!hasNotionConfig()) return null
+): Promise<{ post: BlogPost; markdown: string } | null> => {
+  if (!hasNotionConfig() || !n2m) return null
 
   const posts = await getBlogPosts()
   const post = posts.find((entry) => entry.slug === slug)
 
   if (!post) return null
 
-  const recordMap = await notionPageApi.getPage(post.id.replace(/-/g, ''))
-  return { post, recordMap }
+  try {
+    const blocks = await n2m.pageToMarkdown(post.id)
+    const markdown = n2m.toMarkdownString(blocks).parent ?? ''
+    return { post, markdown }
+  } catch (error) {
+    console.error(`[notion-blog] Failed to fetch markdown for slug "${slug}":`, error)
+    return null
+  }
 }
