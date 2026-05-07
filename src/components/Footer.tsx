@@ -112,6 +112,7 @@ const navigation = {
 const NAV_LINKS = [
   // { label: 'How It Works', href: '/how-it-works' },
   // { label: 'For Engineers', href: '/engineers' },
+  { label: 'Overview', href: '/' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: navigation.company[0].href },
