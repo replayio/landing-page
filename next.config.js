@@ -9,7 +9,11 @@ const nextConfig = {
       { hostname: 'assets.basehub.com' },
       { hostname: 'utfs.io' },
       { hostname: 'static.replay.io' },
-      { hostname: 'placehold.co' }
+      { hostname: 'placehold.co' },
+      { hostname: 'www.notion.so' },
+      { hostname: 'notion.so' },
+      { hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com' },
+      { hostname: 's3.us-west-2.amazonaws.com' }
     ]
   },
   sassOptions: {
@@ -77,11 +81,6 @@ const nextConfig = {
       {
         source: '/docs',
         destination: 'https://docs.replay.io',
-        permanent: true
-      },
-      {
-        source: '/blog',
-        destination: 'https://blog.replay.io',
         permanent: true
       },
       /*
