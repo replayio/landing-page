@@ -19,6 +19,7 @@ export type Navlink = {
 }
 
 const NAVLINKS: Navlink[] = [
+  { href: '/', label: 'Overview' },
   // { href: '/how-it-works', label: 'How It Works' },
   // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
@@ -28,6 +29,7 @@ const NAVLINKS: Navlink[] = [
 ]
 
 const MobileNavlinks: Navlink[] = [
+  { href: '/', label: 'Overview' },
   // { href: '/how-it-works', label: 'How It Works' },
   // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
@@ -86,7 +88,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                   key={href}
                   variant={variant}
                   href={href}
-                  active={pathname === href || `/${hash}` === href}
+                  active={pathname === href || (!!hash && `${pathname}${hash}` === href)}
                 >
                   {label}
                 </NavLink>
