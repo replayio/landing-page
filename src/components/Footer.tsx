@@ -16,7 +16,7 @@ const navigation = {
   ],
   company: [
     // { name: 'About', href: '/about' },
-    { name: 'Blog', href: 'https://blog.replay.io/' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Knowledge Base', href: '/knowledge-base' },
     { name: 'Contact', href: '/contact' }
     //{ name: 'Careers', href: 'https://jobs.ashbyhq.com/replay' }

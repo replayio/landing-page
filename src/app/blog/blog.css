@@ -1,0 +1,22 @@
+.notion-overrides .notion {
+  width: 100%;
+}
+
+.notion-overrides .notion-page-content {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+.notion-overrides .notion-title {
+  display: none;
+}
+
+.notion-overrides .notion-text {
+  line-height: 1.75;
+}
+
+.notion-overrides .notion-asset-wrapper-image img,
+.notion-overrides .notion-asset-wrapper-image video {
+  border-radius: 0.75rem;
+}

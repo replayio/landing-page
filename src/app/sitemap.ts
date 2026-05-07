@@ -1,10 +1,13 @@
 import { MetadataRoute } from 'next'
 import { siteURL } from '~/lib/constants'
+import { getBlogPosts } from '~/lib/notion-blog'
 
 const siteURLString = siteURL.toString()
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const blogPosts = await getBlogPosts().catch(() => [])
+
+  const pages: MetadataRoute.Sitemap = [
     {
       url: siteURLString,
       lastModified: new Date().toISOString(),
@@ -48,4 +51,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8
     }
   ]
+
+  for (const post of blogPosts) {
+    pages.push({
+      url: `${siteURLString}/blog/${post.slug}`,
+      lastModified: post.lastEditedTime || new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.7
+    })
+  }
+
+  return pages
 }
