@@ -56,7 +56,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
           <p className="mt-3 text-sm leading-6 text-gray-600">{post.excerpt}</p>
         ) : null}
 
-        <div className="mt-5 flex items-center justify-between text-sm text-gray-500">
+        <div className="mt-auto flex items-center justify-between pt-6 text-sm text-gray-500">
           <span>{post.authors.join(', ') || 'Replay Team'}</span>
           {formattedDate ? <time dateTime={post.publishedAt!}>{formattedDate}</time> : null}
         </div>
