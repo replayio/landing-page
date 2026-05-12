@@ -1,3 +1,5 @@
+import { createHmac, timingSafeEqual } from 'node:crypto'
+
 import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -7,7 +9,15 @@ type ManualBody = {
   slug?: string
 }
 
-/** Notion webhook delivery (shape from Notion API 2026-03-11) */
+/** Notion webhook delivery (see https://developers.notion.com/reference/webhooks) */
+type NotionWebhookParent = {
+  type?: string
+  id?: string
+  database_id?: string
+  data_source_id?: string
+  page_id?: string
+}
+
 type NotionWebhookBody = {
   verification_token?: string
   id?: string
@@ -16,15 +26,16 @@ type NotionWebhookBody = {
   type?: string
   entity?: { id?: string; type?: string }
   data?: {
-    parent?: {
-      id?: string
-      type?: string
-      data_source_id?: string
-    }
+    parent?: NotionWebhookParent
   }
 }
 
-const NOTION_PAGE_EVENT_TYPES = new Set(['page.created', 'page.content_updated', 'page.deleted'])
+const NOTION_PAGE_EVENT_TYPES = new Set([
+  'page.created',
+  'page.content_updated',
+  'page.deleted',
+  'page.properties_updated'
+])
 
 const slugify = (input: string) => {
   return input
@@ -77,6 +88,52 @@ const parseSlug = (request: NextRequest, body: ManualBody | NotionWebhookBody | 
   return slug || null
 }
 
+/** Initial subscription probe: body contains verification_token only (no event `type`). */
+const isNotionSubscriptionVerification = (
+  body: unknown
+): body is { verification_token: string } => {
+  if (!body || typeof body !== 'object') return false
+  const o = body as Record<string, unknown>
+  return typeof o.verification_token === 'string' && typeof o.type !== 'string'
+}
+
+const verifyNotionWebhookSignature = (
+  rawBody: string,
+  signatureHeader: string | null,
+  verificationToken: string
+): boolean => {
+  if (!signatureHeader || !signatureHeader.startsWith('sha256=')) return false
+  const digest = createHmac('sha256', verificationToken).update(rawBody, 'utf8').digest('hex')
+  const expected = `sha256=${digest}`
+  const expectedBuf = Buffer.from(expected)
+  const headerBuf = Buffer.from(signatureHeader)
+  if (expectedBuf.length !== headerBuf.length) return false
+  try {
+    return timingSafeEqual(new Uint8Array(expectedBuf), new Uint8Array(headerBuf))
+  } catch {
+    return false
+  }
+}
+
+const normalizedParentDatabaseIds = (parent: NotionWebhookParent | undefined): string[] => {
+  if (!parent?.type) return []
+  const t = parent.type
+  const ids: string[] = []
+  if (t === 'database' && parent.id) {
+    const n = normalizeNotionId(parent.id)
+    if (n) ids.push(n)
+  }
+  if (t === 'database_id' && parent.database_id) {
+    const n = normalizeNotionId(parent.database_id)
+    if (n) ids.push(n)
+  }
+  if (t === 'data_source_id' && parent.database_id) {
+    const n = normalizeNotionId(parent.database_id)
+    if (n) ids.push(n)
+  }
+  return ids
+}
+
 const isNotionWebhookPayload = (body: unknown): body is NotionWebhookBody =>
   typeof body === 'object' &&
   body !== null &&
@@ -84,9 +141,9 @@ const isNotionWebhookPayload = (body: unknown): body is NotionWebhookBody =>
   typeof (body as NotionWebhookBody).type === 'string' &&
   (body as NotionWebhookBody).type!.startsWith('page.')
 
-const shouldRevalidateFromNotion = (
+function shouldRevalidateFromNotion(
   body: NotionWebhookBody
-): { revalidate: true } | { revalidate: false; reason: string } => {
+): { revalidate: true } | { revalidate: false; reason: string } {
   const configuredDb = parseConfiguredBlogDatabaseId()
   if (!configuredDb) {
     return { revalidate: false, reason: 'NOTION_BLOG_DATABASE_ID not configured' }
@@ -102,12 +159,28 @@ const shouldRevalidateFromNotion = (
   }
 
   const parent = body.data?.parent
-  if (parent?.type !== 'database') {
-    return { revalidate: false, reason: `parent is not a database (got ${parent?.type ?? 'none'})` }
+  const configuredDataSourceId = normalizeNotionId(
+    process.env.NOTION_BLOG_DATA_SOURCE_ID?.trim() ?? ''
+  )
+  if (
+    parent?.type === 'data_source_id' &&
+    parent.data_source_id &&
+    configuredDataSourceId &&
+    normalizeNotionId(parent.data_source_id) === configuredDataSourceId
+  ) {
+    return { revalidate: true }
   }
 
-  const parentId = normalizeNotionId(parent.id)
-  if (!parentId || parentId !== configuredDb) {
+  const candidates = normalizedParentDatabaseIds(parent)
+
+  if (candidates.length === 0) {
+    return {
+      revalidate: false,
+      reason: `cannot resolve blog database from webhook parent (type=${parent?.type ?? 'missing'})`
+    }
+  }
+
+  if (!candidates.some((id) => id === configuredDb)) {
     return {
       revalidate: false,
       reason: 'parent database id does not match NOTION_BLOG_DATABASE_ID'
@@ -118,36 +191,54 @@ const shouldRevalidateFromNotion = (
 }
 
 export async function POST(request: NextRequest) {
-  let body: ManualBody | NotionWebhookBody | null = null
+  const rawBody = await request.text()
 
+  let body: ManualBody | NotionWebhookBody | null = null
   try {
-    body = (await request.json()) as ManualBody | NotionWebhookBody
+    body = rawBody ? (JSON.parse(rawBody) as ManualBody | NotionWebhookBody) : null
   } catch {
     body = null
   }
 
-  console.log('body', body)
-  // Notion subscription verification (no auth; one-time probe)
-  if (body && typeof (body as NotionWebhookBody).verification_token === 'string') {
+  if (isNotionSubscriptionVerification(body)) {
     return NextResponse.json({ ok: true })
   }
 
-  const expectedSecret = process.env.NOTION_REVALIDATE_SECRET
+  const notionSignature = request.headers.get('x-notion-signature')
+  const webhookVerificationToken = process.env.NOTION_WEBHOOK_VERIFICATION_TOKEN?.trim()
+  const revalidateSecret = process.env.NOTION_REVALIDATE_SECRET
 
-  if (!expectedSecret) {
-    return NextResponse.json(
-      { ok: false, message: 'NOTION_REVALIDATE_SECRET is not configured.' },
-      { status: 500 }
-    )
+  if (notionSignature) {
+    if (!webhookVerificationToken) {
+      return NextResponse.json(
+        {
+          ok: false,
+          message:
+            'Notion sent X-Notion-Signature but NOTION_WEBHOOK_VERIFICATION_TOKEN is not set. Add the webhook verification token from your Notion connection (same value you pasted when verifying the subscription).'
+        },
+        { status: 500 }
+      )
+    }
+    if (!verifyNotionWebhookSignature(rawBody, notionSignature, webhookVerificationToken)) {
+      return NextResponse.json(
+        { ok: false, message: 'Invalid Notion webhook signature.' },
+        { status: 401 }
+      )
+    }
+  } else {
+    if (!revalidateSecret) {
+      return NextResponse.json(
+        { ok: false, message: 'NOTION_REVALIDATE_SECRET is not configured.' },
+        { status: 500 }
+      )
+    }
+
+    const incomingSecret = parseSecret(request, body)
+    if (incomingSecret !== revalidateSecret) {
+      return NextResponse.json({ ok: false, message: 'Invalid secret.' }, { status: 401 })
+    }
   }
 
-  const incomingSecret = parseSecret(request, body)
-
-  if (incomingSecret !== expectedSecret) {
-    return NextResponse.json({ ok: false, message: 'Invalid secret.' }, { status: 401 })
-  }
-
-  // Notion webhook: only blog DB + page create/update/delete
   if (body && isNotionWebhookPayload(body)) {
     const decision = shouldRevalidateFromNotion(body)
 
@@ -170,7 +261,6 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  // Manual / Zapier / curl
   revalidatePath('/blog')
   const slug = parseSlug(request, body)
 

@@ -32,12 +32,54 @@ const n2m = notion ? new NotionToMarkdown({ notionClient: notion as unknown as n
 
 let cachedDataSourceId: string | null = null
 
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
+
+const getErrorHttpStatus = (error: unknown): number | null => {
+  if (error && typeof error === 'object' && 'status' in error) {
+    const status = (error as { status: unknown }).status
+    if (typeof status === 'number') return status
+  }
+  return null
+}
+
+const isRetriableNotionError = (error: unknown) => {
+  const status = getErrorHttpStatus(error)
+  if (status === null) return false
+  return status === 429 || status === 502 || status === 503 || status === 504
+}
+
+const withNotionRetry = async <T>(label: string, fn: () => Promise<T>): Promise<T> => {
+  const maxAttempts = 5
+  let lastError: unknown
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error
+      if (!isRetriableNotionError(error) || attempt === maxAttempts) {
+        throw error
+      }
+      const backoffMs = 400 * 2 ** (attempt - 1) + Math.floor(Math.random() * 250)
+      console.warn(
+        `[notion-blog] ${label} failed (attempt ${attempt}/${maxAttempts}), retrying in ${backoffMs}ms`,
+        error
+      )
+      await sleep(backoffMs)
+    }
+  }
+
+  throw lastError
+}
+
 const hasNotionConfig = () => Boolean(notion && notionToken && notionDatabaseId)
 
 const getBlogDataSourceId = async (): Promise<string> => {
   if (cachedDataSourceId) return cachedDataSourceId
 
-  const database = await notion!.databases.retrieve({ database_id: notionDatabaseId! })
+  const database = await withNotionRetry('databases.retrieve', () =>
+    notion!.databases.retrieve({ database_id: notionDatabaseId! })
+  )
 
   if (!isFullDatabase(database)) {
     throw new Error(
@@ -75,6 +117,9 @@ export type BlogPost = {
   coverEnabled: boolean
   lastEditedTime: string
 }
+
+/** One shared list fetch per Node process (build prerender runs many getBlogPostBySlug in parallel). */
+let productionBlogPostsPromise: Promise<BlogPost[]> | null = null
 
 const getTitle = (page: FullPageRow): string => {
   const property = page.properties.Name
@@ -155,29 +200,29 @@ const toUniqueSlugs = (titles: string[]) => {
   })
 }
 
-export const getBlogPosts = async (): Promise<BlogPost[]> => {
-  if (!hasNotionConfig()) return []
-
+const loadBlogPostsFromNotion = async (): Promise<BlogPost[]> => {
   const dataSourceId = await getBlogDataSourceId()
 
   const pages: FullPageRow[] = []
   let cursor: string | undefined
 
   do {
-    const response: QueryDataSourceResponse = await notion!.dataSources.query({
-      data_source_id: dataSourceId,
-      page_size: 100,
-      start_cursor: cursor,
-      in_trash: false,
-      filter: {
-        property: 'hidden',
-        checkbox: { equals: false }
-      },
-      sorts: [
-        { property: 'Date', direction: 'descending' },
-        { timestamp: 'last_edited_time', direction: 'descending' }
-      ]
-    })
+    const response: QueryDataSourceResponse = await withNotionRetry('dataSources.query', () =>
+      notion!.dataSources.query({
+        data_source_id: dataSourceId,
+        page_size: 100,
+        start_cursor: cursor,
+        in_trash: false,
+        filter: {
+          property: 'hidden',
+          checkbox: { equals: false }
+        },
+        sorts: [
+          { property: 'Date', direction: 'descending' },
+          { timestamp: 'last_edited_time', direction: 'descending' }
+        ]
+      })
+    )
 
     for (const row of response.results) {
       if (isFullPage(row)) pages.push(row)
@@ -212,6 +257,23 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
   return posts
 }
 
+export const getBlogPosts = async (): Promise<BlogPost[]> => {
+  if (!hasNotionConfig()) return []
+
+  if (process.env.NODE_ENV !== 'production') {
+    return loadBlogPostsFromNotion()
+  }
+
+  if (!productionBlogPostsPromise) {
+    productionBlogPostsPromise = loadBlogPostsFromNotion().catch((error) => {
+      productionBlogPostsPromise = null
+      throw error
+    })
+  }
+
+  return productionBlogPostsPromise
+}
+
 export const getBlogPostBySlug = async (
   slug: string
 ): Promise<{ post: BlogPost; markdown: string } | null> => {
@@ -223,7 +285,9 @@ export const getBlogPostBySlug = async (
   if (!post) return null
 
   try {
-    const blocks = await n2m.pageToMarkdown(post.id)
+    const blocks = await withNotionRetry(`pageToMarkdown:${slug}`, () =>
+      n2m.pageToMarkdown(post.id)
+    )
     const markdown = n2m.toMarkdownString(blocks).parent ?? ''
     return { post, markdown }
   } catch (error) {
