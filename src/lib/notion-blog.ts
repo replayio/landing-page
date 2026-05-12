@@ -168,6 +168,7 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
       data_source_id: dataSourceId,
       page_size: 100,
       start_cursor: cursor,
+      in_trash: false,
       filter: {
         property: 'hidden',
         checkbox: { equals: false }
