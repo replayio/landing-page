@@ -31,8 +31,12 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600
 
+const INITIAL_PAGE_SIZE = 24
+
 export default async function BlogPage() {
   const posts = await getBlogPosts()
+  const initialPosts = posts.slice(0, INITIAL_PAGE_SIZE)
+  const initialTags = Array.from(new Set(initialPosts.flatMap((post) => post.tags)))
 
   return (
     <>
@@ -54,7 +58,11 @@ export default async function BlogPage() {
             </p>
           </section>
 
-          <BlogPostsExplorer posts={posts} />
+          <BlogPostsExplorer
+            initialPosts={initialPosts}
+            totalCount={posts.length}
+            initialTags={initialTags}
+          />
         </Container>
       </main>
 
