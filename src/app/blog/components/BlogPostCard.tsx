@@ -4,6 +4,7 @@ import { BlogPost } from '~/lib/notion-blog'
 
 type BlogPostCardProps = {
   post: BlogPost
+  priority?: boolean
 }
 
 const formatDate = (date: string | null) => {
@@ -16,7 +17,7 @@ const formatDate = (date: string | null) => {
   })
 }
 
-export function BlogPostCard({ post }: BlogPostCardProps) {
+export function BlogPostCard({ post, priority = false }: BlogPostCardProps) {
   const formattedDate = formatDate(post.publishedAt)
   const href = `/blog/${post.slug}`
 
@@ -29,6 +30,9 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
             alt={post.title}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            quality={70}
+            priority={priority}
+            loading={priority ? 'eager' : 'lazy'}
             className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
         </Link>
