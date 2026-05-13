@@ -31,21 +31,23 @@ Not logs. Not stack traces. A **deterministic recording** of every DOM change, n
 
 ---
 
-## Same “two ways to connect” as the homepage
+## Same “three ways to Replay” as the homepage
 
-The How It Works page reuses the **Works where you already work** section:
+The How It Works page reuses the **Three ways to Replay** section: time-travel debugging works **wherever your tests run** and **wherever your agent works**. Most teams use all three.
 
-- **Replay MCP** — One-command install; connects to Cursor, Claude Code, Codex, Copilot, Windsurf; agent gets root cause and a specific fix. Docs: https://docs.replay.io/basics/replay-mcp/quickstart  
+- **In your CI pipeline — Replay CI Agent** — Installs as a GitHub bot; records every Playwright run; on failures, Replay posts root cause + suggested fix as a PR comment automatically. Set up: https://docs.replay.io/basics/ci-agent  
 
-- **Replay Chrome extension** — Record in the browser, get a plain-English fix to paste into your AI tool; **Coming Soon** in the marketing UI.
+- **In your IDE — Replay MCP** — One-command install; connects to Cursor, Claude Code, Codex, Copilot, Windsurf; agent gets root cause and a specific fix. Docs: https://docs.replay.io/basics/replay-mcp/quickstart  
+
+- **In your browser — Replay Chrome extension** — Capture a deterministic recording of any bug on localhost, staging, or production; hand it to your agent or step through it yourself. No reproduction required. Install: https://docs.replay.io/basics/chrome-extension  
 
 ---
 
 ## Closing CTA (shared component)
 
-**Stop debugging for your agent. Let Replay do it.**  
+**Stop debugging for your agent. Give it time-travel.**  
 Free to get started. No credit card required.  
-Button links to the Replay MCP quickstart: https://docs.replay.io/basics/replay-mcp/quickstart  
+Buttons: **Install the CI Agent** (https://docs.replay.io/basics/ci-agent) and **Add Replay MCP** (https://docs.replay.io/basics/replay-mcp/quickstart).  
 
 ---
 
