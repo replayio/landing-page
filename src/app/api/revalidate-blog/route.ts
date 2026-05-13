@@ -1,7 +1,9 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
+
+import { NOTION_BLOG_POSTS_TAG } from '~/lib/notion-blog'
 
 /** Manual body */
 type ManualBody = {
@@ -250,6 +252,7 @@ export async function POST(request: NextRequest) {
       })
     }
 
+    revalidateTag(NOTION_BLOG_POSTS_TAG)
     revalidatePath('/blog')
     revalidatePath('/blog/[slug]', 'page')
 
@@ -257,10 +260,11 @@ export async function POST(request: NextRequest) {
       ok: true,
       source: 'notion',
       event: body.type,
-      revalidated: ['/blog', '/blog/*']
+      revalidated: ['/blog', '/blog/*', `tag:${NOTION_BLOG_POSTS_TAG}`]
     })
   }
 
+  revalidateTag(NOTION_BLOG_POSTS_TAG)
   revalidatePath('/blog')
   const slug = parseSlug(request, body)
 

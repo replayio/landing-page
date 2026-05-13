@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 }
 
-export const revalidate = 3600
+export const revalidate = 1800
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const postData = await getBlogPostBySlug(params.slug)

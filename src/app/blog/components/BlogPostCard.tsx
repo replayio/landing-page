@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { BlogPost } from '~/lib/notion-blog'
+import { BlogCoverImage } from './BlogCoverImage'
 
 type BlogPostCardProps = {
   post: BlogPost
@@ -29,16 +29,7 @@ export function BlogPostCard({ post, priority = false }: BlogPostCardProps) {
       <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow group-hover:shadow-md">
         {post.coverEnabled && post.coverImageUrl ? (
           <div className="relative aspect-[16/9] w-full overflow-hidden">
-            <Image
-              src={post.coverImageUrl}
-              alt={post.title}
-              fill
-              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-              quality={70}
-              priority={priority}
-              loading={priority ? 'eager' : 'lazy'}
-              className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-            />
+            <BlogCoverImage src={post.coverImageUrl} alt={post.title} priority={priority} />
           </div>
         ) : null}
 
