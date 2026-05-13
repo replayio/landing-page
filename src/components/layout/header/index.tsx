@@ -19,22 +19,24 @@ export type Navlink = {
 }
 
 const NAVLINKS: Navlink[] = [
-  { href: '/how-it-works', label: 'How It Works' },
-  { href: '/engineers', label: 'For Engineers' },
+  { href: '/', label: 'Overview' },
+  // { href: '/how-it-works', label: 'How It Works' },
+  // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/roi-calculator', label: 'ROI Calculator' },
   { href: '/about', label: 'About' },
-  { href: 'https://blog.replay.io', label: 'Blog' }
+  { href: '/blog', label: 'Blog' }
   // { href: '/about', label: 'Company' }
 ]
 
 const MobileNavlinks: Navlink[] = [
-  { href: '/how-it-works', label: 'How It Works' },
-  { href: '/engineers', label: 'For Engineers' },
+  { href: '/', label: 'Overview' },
+  // { href: '/how-it-works', label: 'How It Works' },
+  // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/roi-calculator', label: 'ROI Calculator' },
   { href: '/about', label: 'About' },
-  { href: 'https://blog.replay.io', label: 'Changelog' }
+  { href: '/blog', label: 'Changelog' }
   // { href: '/about', label: 'Company' },
 ]
 
@@ -88,7 +90,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
                   key={href}
                   variant={variant}
                   href={href}
-                  active={pathname === href || `/${hash}` === href}
+                  active={pathname === href || (!!hash && `${pathname}${hash}` === href)}
                 >
                   {label}
                 </NavLink>

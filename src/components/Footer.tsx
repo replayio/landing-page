@@ -16,7 +16,7 @@ const navigation = {
   ],
   company: [
     // { name: 'About', href: '/about' },
-    { name: 'Blog', href: 'https://blog.replay.io/' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Knowledge Base', href: '/knowledge-base' },
     { name: 'Contact', href: '/contact' }
     //{ name: 'Careers', href: 'https://jobs.ashbyhq.com/replay' }
@@ -110,8 +110,9 @@ const navigation = {
 
 // Derived arrays for footer layout (derived from navigation, not modifying it)
 const NAV_LINKS = [
-  { label: 'How It Works', href: '/how-it-works' },
-  { label: 'For Engineers', href: '/engineers' },
+  // { label: 'How It Works', href: '/how-it-works' },
+  // { label: 'For Engineers', href: '/engineers' },
+  { label: 'Overview', href: '/' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'ROI Calculator', href: '/roi-calculator' },
   { label: 'About', href: '/about' },
