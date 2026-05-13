@@ -134,14 +134,18 @@ export function ResultsPanel({ inputs, results }: ResultsPanelProps) {
           target="_blank"
           className="flex-1 px-6"
         >
-          Get started now
+          Install the CI Agent
         </Button>
-        <Link
-          href="/pricing"
-          className="inline-flex h-[38px] flex-1 items-center justify-center whitespace-nowrap rounded-full border-2 border-gray-200 bg-white px-6 text-sm font-semibold text-slate-600 transition-colors duration-100 hover:border-slate-300 hover:text-gray-900 sm:h-[54px] sm:text-base"
+        <Button
+          variant="outline"
+          color="blue"
+          href="https://docs.replay.io/basics/replay-mcp/quickstart"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 px-6"
         >
-          View pricing
-        </Link>
+          Add Replay MCP
+        </Button>
       </div>
     </div>
   )
