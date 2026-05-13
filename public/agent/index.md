@@ -25,23 +25,35 @@ When a test fails or a user hits a bug, agents often guess at a fix, push it, an
 
 ## The solution (what Replay does)
 
-**Give your agent eyes on the runtime.**
+**Give your agent the power of time-travel.**
 
-Replay records a **deterministic capture** of the browser session — every DOM change, network request, and state update. It analyzes the recording, identifies the **root cause**, and delivers a **detailed fix** to your coding agent **via MCP**, or in plain English **via the Chrome extension** (extension is labeled **Coming Soon** on the marketing site as of this copy).
+Replay captures a **deterministic recording** — every DOM change, network request, JS execution frame, and state update. **Using Replay MCP**, your coding agent can analyze the recording, **trace the exact causal chain from failure to root cause**, and deliver the root cause and a suggested fix. **No guessing. No manual debugging. No human required.**
+
+Explainer video (embedded on the site): https://youtu.be/Ew5Yc2Hni-8
 
 ---
 
-## Two ways to connect (same recording engine)
+## Three ways to Replay
 
-### Replay MCP
+Replay's time-travel debugging works **wherever your tests run** and **wherever your agent works**. Most teams use all three.
 
-Install Replay MCP in one command and connect it to **Cursor, Claude Code, Codex, Copilot, or Windsurf**. Your agent gets root cause and a specific fix automatically.
+### In your CI pipeline — Test fails. Fix lands on your PR.
 
-Docs: https://docs.replay.io/basics/replay-mcp/quickstart
+The Replay CI Agent installs as a GitHub bot. It records every Playwright run on every PR. When a test fails, Replay analyzes the recording and posts root cause plus a suggested fix as a PR comment — **automatically.**
 
-### Replay Chrome extension
+Set up the CI Agent: https://docs.replay.io/basics/ci-agent
 
-Record a bug in your browser, get a plain-English fix to paste into your AI tool. No setup required. (Marketing UI indicates **Coming Soon** for the extension.)
+### In your IDE — Your agent time-travels through the recording.
+
+Replay MCP connects to **Cursor, Claude Code, Codex, Copilot, or Windsurf** in one command. Your coding agent can step through any recorded execution, inspect state at any point in time, and identify root causes — right inside your IDE.
+
+Set up Replay MCP: https://docs.replay.io/basics/replay-mcp/quickstart
+
+### In your browser — Record any bug, anywhere.
+
+The Replay Chrome extension lets engineers and QA capture a deterministic recording of any bug — on **localhost, a staging environment, or production**. Record it once, hand it to your agent, or step through it yourself. **No reproduction required.**
+
+Install the extension: https://docs.replay.io/basics/chrome-extension
 
 ---
 
@@ -85,11 +97,22 @@ Session replay tools capture video and logs **for humans to watch**. Replay capt
 
 ---
 
+## Final call-to-action (bottom of homepage)
+
+**Stop debugging for your agent. Give it time-travel.**  
+Free to get started. No credit card required.
+
+- Install the CI Agent → https://docs.replay.io/basics/ci-agent
+- Add Replay MCP → https://docs.replay.io/basics/replay-mcp/quickstart
+
+---
+
 ## Links
 
 - How it works: https://www.replay.io/how-it-works  
 - For engineers: https://www.replay.io/engineers  
 - Vibe coders / Chrome extension story: https://www.replay.io/vibe-coders  
 - Pricing: https://www.replay.io/pricing  
+- Blog: https://www.replay.io/blog  
 - Docs: https://docs.replay.io  
 - Replay MCP tools reference: https://docs.replay.io/basics/replay-mcp/tools  

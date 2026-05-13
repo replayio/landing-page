@@ -23,6 +23,7 @@ const NAVLINKS: Navlink[] = [
   // { href: '/how-it-works', label: 'How It Works' },
   // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/roi-calculator', label: 'ROI Calculator' },
   { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' }
   // { href: '/about', label: 'Company' }
@@ -33,6 +34,7 @@ const MobileNavlinks: Navlink[] = [
   // { href: '/how-it-works', label: 'How It Works' },
   // { href: '/engineers', label: 'For Engineers' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/roi-calculator', label: 'ROI Calculator' },
   { href: '/about', label: 'About' },
   { href: '/blog', label: 'Changelog' }
   // { href: '/about', label: 'Company' },
