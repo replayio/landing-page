@@ -6,6 +6,22 @@ import type {
   QueryDataSourceResponse
 } from '@notionhq/client/build/src/api-endpoints'
 import { NotionToMarkdown } from 'notion-to-md'
+import { unstable_cache } from 'next/cache'
+
+/**
+ * Tag used to invalidate the cached blog posts list from the revalidate-blog
+ * webhook so newly published / edited posts (and refreshed Notion S3 cover URLs)
+ * appear immediately.
+ */
+export const NOTION_BLOG_POSTS_TAG = 'notion-blog-posts'
+
+/**
+ * Notion's `cover.file.url` and any markdown body images are AWS S3 presigned
+ * URLs that expire roughly 1 hour after issuance. We must refresh them faster
+ * than that, otherwise /_next/image proxies the optimizer to an expired URL
+ * and returns 502. 15 minutes leaves plenty of buffer.
+ */
+const NOTION_BLOG_POSTS_REVALIDATE_SECONDS = 900
 
 const parseNotionDatabaseId = (value?: string) => {
   if (!value) return null
@@ -117,9 +133,6 @@ export type BlogPost = {
   coverEnabled: boolean
   lastEditedTime: string
 }
-
-/** One shared list fetch per Node process (build prerender runs many getBlogPostBySlug in parallel). */
-let productionBlogPostsPromise: Promise<BlogPost[]> | null = null
 
 const getTitle = (page: FullPageRow): string => {
   const property = page.properties.Name
@@ -257,6 +270,21 @@ const loadBlogPostsFromNotion = async (): Promise<BlogPost[]> => {
   return posts
 }
 
+/**
+ * Cross-instance cache. Replaces the previous module-scoped promise, which
+ * was effectively never invalidated on warm Vercel lambdas — that caused
+ * stale Notion S3 URLs to keep being served well past their 1-hour expiry,
+ * which made /_next/image return 502 for some cover images.
+ */
+const cachedLoadBlogPostsFromNotion = unstable_cache(
+  () => loadBlogPostsFromNotion(),
+  [NOTION_BLOG_POSTS_TAG],
+  {
+    tags: [NOTION_BLOG_POSTS_TAG],
+    revalidate: NOTION_BLOG_POSTS_REVALIDATE_SECONDS
+  }
+)
+
 export const getBlogPosts = async (): Promise<BlogPost[]> => {
   if (!hasNotionConfig()) return []
 
@@ -264,14 +292,7 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
     return loadBlogPostsFromNotion()
   }
 
-  if (!productionBlogPostsPromise) {
-    productionBlogPostsPromise = loadBlogPostsFromNotion().catch((error) => {
-      productionBlogPostsPromise = null
-      throw error
-    })
-  }
-
-  return productionBlogPostsPromise
+  return cachedLoadBlogPostsFromNotion()
 }
 
 export const getBlogPostBySlug = async (

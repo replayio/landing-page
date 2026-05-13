@@ -29,7 +29,10 @@ export const metadata: Metadata = {
   }
 }
 
-export const revalidate = 3600
+// 30 min; the Notion data layer (notion-blog.ts) refreshes its own cache every
+// 15 min, well inside the ~1h S3 presigned URL expiry. Page-level revalidate
+// is just a backstop for the rendered HTML.
+export const revalidate = 1800
 
 const INITIAL_PAGE_SIZE = 24
 
