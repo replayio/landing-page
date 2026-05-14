@@ -1,7 +1,20 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import markdownAgentTokens from './lib/markdown-agent-tokens.json'
+import { resolveBlogRedirect } from './lib/blog-redirect'
 
 const MARKDOWN_TOKEN_BY_PATH = markdownAgentTokens as Record<string, number>
+
+const BLOG_LEGACY_HOST = 'blog.replay.io'
+const BLOG_NEW_ORIGIN = 'https://www.replay.io'
+
+function blogLegacyRedirect(request: NextRequest): NextResponse | null {
+  const host = request.headers.get('host')
+  if (host !== BLOG_LEGACY_HOST) return null
+
+  const target = new URL(resolveBlogRedirect(request.nextUrl.pathname), BLOG_NEW_ORIGIN)
+  target.search = request.nextUrl.search
+  return NextResponse.redirect(target, 301)
+}
 
 // ad attribution — first-touch capture of paid-ad click IDs + utms as a
 // .replay.io cookie, so the value survives the replay.io -> app.replay.io
@@ -115,6 +128,9 @@ function appendDiscoveryLinkHeaders(response: NextResponse): void {
 }
 
 export function middleware(request: NextRequest) {
+  const blogRedirect = blogLegacyRedirect(request)
+  if (blogRedirect) return blogRedirect
+
   const pathname = request.nextUrl.pathname
 
   if (wantsMarkdown(request)) {
@@ -148,5 +164,10 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/((?!_next|api|.*\\..*).*)']
+  // dropped the `.*\\..*` exclusion that used to skip file-extension paths:
+  // blog.replay.io has post slugs like `launching-nut.new` and `changelog-30:-redux-devtools-v0.5`
+  // that need to flow through this middleware so they can be 301'd. for replay.io
+  // traffic, shouldSkipAgentHeaders short-circuits those same paths inside the
+  // handler, so the extra invocations are cheap.
+  matcher: ['/', '/((?!_next|_vercel|api).*)']
 }
