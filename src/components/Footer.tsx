@@ -117,7 +117,7 @@ const NAV_LINKS = [
   { label: 'ROI Calculator', href: '/roi-calculator' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: navigation.company[0].href },
-  { label: 'Contact', href: navigation.company[1].href }
+  { label: 'Contact', href: '/contact' }
   // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
 ]
 

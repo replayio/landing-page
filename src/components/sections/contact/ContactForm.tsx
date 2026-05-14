@@ -108,16 +108,6 @@ const ContactForm: FC = () => {
               </a>
               .
             </p>
-            <blockquote className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-7">
-              <p className="text-base italic leading-relaxed text-gray-600 sm:text-[17px]">
-                &quot;Next.js App Router is now stable in 13.4. Wouldn&apos;t have been possible
-                without Replay—we investigated so many (over 20) super complicated bugs that using
-                traditional debugging would have cost us days to investigate.&quot;
-              </p>
-              <footer className="mt-5 border-t border-gray-100 pt-5 text-sm font-medium not-italic text-gray-500">
-                — Tim Neutkens, Co-author of Next.js
-              </footer>
-            </blockquote>
           </article>
         </div>
         <div
