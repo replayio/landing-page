@@ -1,17 +1,20 @@
 import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { DevTools } from '~/components/sections/DevTools'
-import { Testimonials } from '~/components/Testimonials'
 import { Pump } from '.basehub/react-pump'
 import { draftMode } from 'next/headers'
 import { landingPageFragment } from '~/lib/basehub-queries'
 import { Hero } from './components/hero'
 import { AgentProblem } from './components/AgentProblem'
 import { AgentSolution } from './components/AgentSolution'
-import { WorksWhereYouWork } from './components/WorksWhereYouWork'
-import { AgentBenefits } from './components/AgentBenefits'
-import { BuiltForTeams } from './components/BuiltForTeams'
+import { CiFullLoop } from './components/CiFullLoop'
+import { RuntimeAnalysis } from './components/RuntimeAnalysis'
+import { HomepageTestimonials } from './components/HomepageTestimonials'
+import { FeaturedProofPoint } from './components/FeaturedProofPoint'
+import { IndividualDebugging } from './components/IndividualDebugging'
+import { TimeTravelogues } from './components/TimeTravelogues'
 import { ReplayComparison } from './components/ReplayComparison'
+import { CiPipelineIntegrations } from './components/CiPipelineIntegrations'
 import { HomepageFAQs } from './components/HomepageFAQs'
 import { HomepageCTA } from './components/HomepageCTA'
 import { Metadata, Viewport } from 'next/types'
@@ -22,22 +25,25 @@ import { PageContentAnimate } from '~/components/common/page-content-animate'
 export const metadata: Metadata = {
   title: {
     template: '%s - Replay',
-    default: 'Replay - Time Travel Browser DevTools'
+    default: 'Replay — E2E test failures analyzed automatically'
   },
-  description: defaultMeta.description,
+  description:
+    'Replay CI Agent records every test run, analyzes failures with time-travel debugging, and posts root cause and fix to your PR.',
   alternates: {
     canonical: `${siteOrigin}/`
   },
   openGraph: {
     url: `${siteOrigin}/`,
-    title: defaultMeta.title,
-    description: defaultMeta.description,
+    title: 'Replay — E2E test failures analyzed automatically',
+    description:
+      'Replay CI Agent records every test run, analyzes failures with time-travel debugging, and posts root cause and fix to your PR.',
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     site: defaultMeta.twitter.site,
-    title: defaultMeta.title,
-    description: defaultMeta.description,
+    title: 'Replay — E2E test failures analyzed automatically',
+    description:
+      'Replay CI Agent records every test run, analyzes failures with time-travel debugging, and posts root cause and fix to your PR.',
     creator: defaultMeta.twitter.handle,
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
@@ -51,7 +57,7 @@ export const viewport: Viewport = {
   themeColor: '#FFF'
 }
 
-export default function DevToolsPage() {
+export default function HomePage() {
   return (
     <Pump
       draft={draftMode().isEnabled}
@@ -69,12 +75,15 @@ export default function DevToolsPage() {
               <Hero {...landingPage} />
               <AgentProblem />
               <AgentSolution />
-              <WorksWhereYouWork />
+              <CiFullLoop />
+              <RuntimeAnalysis />
               <DevTools {...landingPage} />
-              <AgentBenefits />
-              <Testimonials {...landingPage} />
-              <BuiltForTeams />
+              <HomepageTestimonials />
+              <FeaturedProofPoint />
+              <IndividualDebugging />
+              <TimeTravelogues />
               <ReplayComparison />
+              <CiPipelineIntegrations />
               <HomepageFAQs />
               <HomepageCTA />
             </PageContentAnimate>

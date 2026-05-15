@@ -6,26 +6,28 @@ export function AgentProblem() {
       <Container>
         <div className="mx-auto max-w-3xl">
           <h2 className="text-center text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            Your agent reads code.
+            Your CI fails.
             <br />
-            <span className="text-accent">It can&apos;t read the runtime.</span>
+            <span className="text-accent">Your team debugs. Repeat.</span>
           </h2>
 
-          <div className="mt-12 space-y-6 text-base leading-relaxed text-gray-700 sm:text-lg">
+          <div className="mt-12 space-y-6 text-center text-base leading-relaxed text-gray-700 sm:text-lg">
             <p>
-              A test fails. A user hits a bug. Your agent takes a guess at the fix, pushes it, and
-              the same test fails again. Without runtime context, agents are stuck in a loop —
-              guessing, patching, retrying.
+              A test fails in CI. The test assertion tells you what failed—not what broke. Someone
+              opens DevTools, reproduces it locally if they&apos;re lucky, and eventually figures out
+              the root cause. That&apos;s an hour per failure. Multiply by your team.
             </p>
             <p>
-              The problem isn&apos;t the agent. It&apos;s that the agent has no way to see what
-              actually happened in the browser. No DOM state, no network timing, no component
-              re-renders.{' '}
-              <strong className="font-semibold text-gray-900">It&apos;s debugging blind.</strong>
+              Your coding agents make this worse. They can write code faster than ever, but when
+              something breaks at runtime they&apos;re debugging blind — guessing at fixes, looping on
+              the same failure, burning tokens without making progress.{' '}
+              <strong className="font-semibold text-gray-900">
+                The bottleneck isn&apos;t writing code. It&apos;s what happens when it breaks.
+              </strong>
             </p>
             <p>
-              You end up pulling the agent aside, opening DevTools yourself, and spending an hour
-              doing the work manually. The whole point of the agent was to save you that time.
+              So teams do the rational thing: they avoid writing more automated tests, because the
+              maintenance overhead isn&apos;t worth it. Coverage stagnates. Confidence erodes.
             </p>
           </div>
         </div>
