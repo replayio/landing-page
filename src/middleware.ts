@@ -68,6 +68,7 @@ const MARKDOWN_BY_PATH: Record<string, string> = {
   '/precog': '/agent/precog.md',
   '/partner': '/agent/partner.md',
   '/pricing': '/agent/pricing.md',
+  '/debugging': '/agent/debugging.md',
   '/roi-calculator': '/agent/roi-calculator.md',
   '/about': '/agent/about.md',
   '/privacy-policy': '/agent/privacy-policy.md',

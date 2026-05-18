@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import MuxPlayer from '@mux/mux-player-react/lazy'
 
 import { Container } from '~/components/Container'
-import { LandingPageFragment } from '~/lib/basehub-queries'
 import { RightArrowIcon } from '~/components/icons/rightArrow'
 import { Chat } from './devtools/Chat'
 import { EventList } from './devtools/EventList'
@@ -35,7 +34,7 @@ const examples: Example[] = [
   },
   {
     title: 'Broken data import',
-    subtitle: 'CRM clients not added correctly',
+    subtitle: 'CRM sync failed to upload our data',
     muxPlaybackId: 'g8gJI73WhFi9019AXDaerLF00019T00YDvKCJvjWEEy8voM',
     recordingId: '6a271479-83f6-4d49-a337-e57f3438f9bc',
     initialPrompt: 'After I import contacts the client names are wrong',
@@ -51,7 +50,7 @@ const examples: Example[] = [
   },
   {
     title: 'Flashing content',
-    subtitle: 'Empty deals list shown briefly',
+    subtitle: 'Empty state flickers on visibility',
     muxPlaybackId: 'wZfgg01KFpLucarzVWKjmeFb3lcQuyVeeHQ00Y02It02cFw',
     recordingId: '013ccfd4-35d2-4862-ac63-67b2e094bd7d',
     initialPrompt: 'When adding a new deal the deals list flashed as empty before updating',
@@ -59,7 +58,7 @@ const examples: Example[] = [
   }
 ]
 
-export function DevTools({ devTools }: LandingPageFragment) {
+export function DevTools() {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [showChat, setShowChat] = useState(false)
 
@@ -87,11 +86,15 @@ export function DevTools({ devTools }: LandingPageFragment) {
     >
       <Container className="relative">
         <div className="mx-auto mb-12 w-full text-center">
-          <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
+          <p className="text-sm font-bold uppercase tracking-wider text-accent">
+            Replay MCP in action
+          </p>
+          <h2 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
             From bug to fix — without touching DevTools
           </h2>
-          <p className="mt-4 text-base text-white sm:text-lg">
-            See how Replay MCP lets your agent dive in and explain the problem.
+          <p className="mt-4 text-base text-gray-300 sm:text-lg">
+            Your coding agent uses Replay MCP to time-travel through the recording and deliver the
+            root cause — while you do something else.
           </p>
         </div>
 
