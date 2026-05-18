@@ -66,6 +66,7 @@ Install the Chrome extension and see what Replay finds.
 ## Links
 
 - Homepage: https://www.replay.io  
+- Individual debugging: https://www.replay.io/debugging  
 - How it works: https://www.replay.io/how-it-works  
 - Engineers / MCP: https://www.replay.io/engineers  
 - MCP quickstart: https://docs.replay.io/basics/replay-mcp/quickstart  
