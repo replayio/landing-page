@@ -2,101 +2,74 @@
 
 **Canonical URL:** https://www.replay.io/pricing  
 
-**Meta description (site):** Simple, volume-based pricing. Replay records your web app, delivers an AI root cause analysis, and proposes a fix — right where you work.
+**Meta description:** Simple, volume-based pricing. Replay records your web app, delivers an AI root cause analysis, and proposes a fix — right where you work.
 
 ---
 
 ## Hero
 
-Eyebrow: **Simple, volume-based pricing**
+**Eyebrow:** Volume-based pricing · **$299/mo** starter, launching soon
 
 **Headline:** Debug smarter. **Pay for what you use.**
 
 **Subhead:** Replay records your web app, delivers an AI root cause analysis, and proposes a fix — right where you work.
 
-### Access points (badges on the page)
-
-- **IDE via MCP**  
-- **Chrome extension** — labeled **Coming soon** next to the badge on the marketing page.
-
-Copy: **Both access points draw from the same session pool** — use whichever fits your workflow.
+**Design partners:** Join the design partner program for free access while plans are finalized → https://www.replay.io/partner#partner
 
 ---
 
-## Tier structure (marketing; prices not finalized on page)
-
-The pricing page shows **three tiers** with placeholder pricing (**TBD** / **Custom**) and illustrative volume text (**~XX** / **~XXX** sessions / month). Treat **exact dollar amounts and session counts as not finalized** until published on the live page.
+## Tiers (marketing page; CTAs omitted on live page)
 
 ### Starter — For individuals & small teams
 
 When hard bugs come up occasionally and you need answers fast.
 
-**Includes (feature list from the page):**
+- **Price shown:** $299/mo · billed annually · details soon  
+- **Volume (placeholder):** ~XX sessions / month  
 
-- Full session recording & replay  
-- AI root cause analysis per session  
-- Proposed fix with code context  
-- IDE (MCP) + Chrome extension access  
-- 7-day session history  
-- Community support  
+**Includes:** Full session recording & replay; AI root cause analysis per session; proposed fix with code context; IDE (MCP) + Chrome extension access; 7-day session history; community support.
 
-### Professional — For teams shipping fast (marked “Most popular”)
+### Professional — For teams shipping fast (featured)
 
 Growing teams with no dedicated QA; every debugging hour is an hour not shipping.
 
-**Everything in Starter, plus:**
+- **Price shown:** TBD  
+- **Volume (placeholder):** ~XXX sessions / month  
 
-- Higher monthly session volume  
-- Team sharing & collaborative sessions  
-- 30-day session history  
-- Priority RCA queue  
-- Slack-based support  
-- Usage analytics dashboard  
+**Everything in Starter, plus:** Higher monthly volume; team sharing; 30-day session history; priority RCA queue; Slack support; usage analytics dashboard.
 
 ### Enterprise — For high-stakes, high-volume teams
 
 Custom volume and terms.
 
-**Everything in Professional, plus:**
-
-- Dedicated Replay engineer support  
-- Custom data retention & compliance  
-- SSO & advanced access controls  
-- SLA guarantees  
-- Private deployment options  
-- Roadmap input & joint planning  
+**Everything in Professional, plus:** Dedicated engineer support; custom retention & compliance; SSO; SLA; private deployment; roadmap input.
 
 ---
 
-## Design partner overlay (on the same pricing page)
+## Related products (context for agents)
 
-**Early access · Design partners**  
-**Shape what Replay becomes**
-
-Copy: Working with a small group of teams to build and refine **Replay MCP**. Design partners get **free access during the program** and **favorable pricing when they convert** — in exchange for **real usage and regular feedback**. If the team ships **React or Next.js** and hard bugs cost hours, they’d like to talk.
-
-Actions: **Apply to partner** → https://www.replay.io/partner#apply  
-**Discuss pricing** → mailto:support@replay.io  
+- **CI Agent (homepage `/`):** Automatic Playwright failure analysis in CI; homepage FAQ cites **Free** (25 analyses/mo) and **Growth** ($299/mo annual or $349/mo monthly, 500 analyses/mo).
+- **Individual debugging (`/debugging`):** Manual recording + Replay MCP; debugging FAQ mentions free recording/investigation and Growth for higher volume.
 
 ---
 
-## Pricing FAQs (verbatim topics from the page)
+## Pricing FAQs (topics on page)
 
-- **What counts as a session?** — One recorded debugging interaction: bug captured, analyzed, returned with root cause and proposed fix. Chrome extension and IDE via MCP draw from the **same monthly pool**.
-
-- **Do I need both the Chrome extension and MCP?** — No. Use what fits; extension for browsing, MCP for Cursor/VS Code/MCP-compatible IDE; many teams use both.
-
-- **When will pricing be finalized?** — Still in **design partner phase**; final numbers depend on early teams. Reach out to lock in **design-partner rates** before general availability.
-
-- **What bugs does Replay work best for?** — Hard-to-reproduce: intermittent failures, React state, race conditions, anything that disappears when recreated manually. If you can **record it happening**, Replay can analyze it.
-
-- **We use AI coding tools — does Replay help?** — Yes; positioned as a core use case: AI-generated code can produce hard-to-trace logic and concurrency bugs; Replay gives agents **ground truth** at runtime instead of guessing.
+- **Can I use Replay CLI-only?** — Yes; local CLI + MCP. Full value is in CI/CD integration.
+- **Need Playwright?** — No; Replay works standalone. Playwright integration captures all runs and analyzes failures.
+- **Need CI/CD?** — No, but recommended for PR comments with root cause + fix on failed tests.
+- **Auto-commit?** — No; Replay suggests fixes for humans to apply.
+- **Free trial?** — Planning 14-day trial, no card; recordings + analysis during trial; can configure Playwright + GitHub bot.
+- **Flat vs. usage?** — Base tier planned as flat price with ~500 analyzed recordings/mo; enterprise negotiated.
+- **Design partner?** — See https://www.replay.io/partner
 
 ---
 
 ## Links
 
-- Homepage: https://www.replay.io  
+- Homepage (CI Agent): https://www.replay.io  
+- Individual debugging: https://www.replay.io/debugging  
 - Design partners: https://www.replay.io/partner  
 - MCP quickstart: https://docs.replay.io/basics/replay-mcp/quickstart  
+- CI Agent setup: https://docs.replay.io/basics/ci-agent  
 - Support: mailto:support@replay.io  

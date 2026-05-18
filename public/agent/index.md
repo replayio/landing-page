@@ -1,118 +1,132 @@
 # Replay — homepage (agent-oriented summary)
 
 **Canonical URL:** https://www.replay.io  
-**Positioning (site metadata):** Replay is the MCP time-travel debugger for your coding agent.
+**Positioning (site metadata):** Replay CI Agent records every test run, analyzes failures with time-travel debugging, and posts root cause and fix to your PR.
 
 ---
 
-## Hero message
+## Hero
 
-**Headline:** Your coding agent can't fix what it can't see.
+**Headline:** Your E2E tests fail. **Replay tells you why — and how to fix it.**
 
-**Supporting copy:** Replay captures the full browser runtime — every DOM change, network request, and state update — and turns it into a root cause and a specific fix. No manual debugging.
+**Supporting copy:** Replay CI Agent automatically records every test run, analyzes failures using time-travel debugging data, and posts a root cause, failure trace, and suggested fix as a comment on your PR.
 
-Primary call-to-action on the site: **Add Replay to your agent** → https://docs.replay.io/basics/replay-mcp/quickstart
+**Primary CTA:** Try Replay for free → https://docs.replay.io/basics/getting-started/record-your-playwright-tests
 
----
-
-## The problem (why agents fail at bugs)
-
-Your agent reads code. **It can't read the runtime.**
-
-When a test fails or a user hits a bug, agents often guess at a fix, push it, and fail again. They have no DOM state, no network timing, no component re-renders — **it's debugging blind.** Teams end up opening DevTools manually instead of the agent saving that time.
+**Footnote:** Start free. No credit card required. $299/mo for Growth.
 
 ---
 
-## The solution (what Replay does)
+## The problem
 
-**Give your agent the power of time-travel.**
+**Headline:** Your CI fails. **Your team debugs. Repeat.**
 
-Replay captures a **deterministic recording** — every DOM change, network request, JS execution frame, and state update. **Using Replay MCP**, your coding agent can analyze the recording, **trace the exact causal chain from failure to root cause**, and deliver the root cause and a suggested fix. **No guessing. No manual debugging. No human required.**
-
-Explainer video (embedded on the site): https://youtu.be/Ew5Yc2Hni-8
+When a test fails in CI, the assertion tells you what failed—not what broke. Someone opens DevTools, reproduces locally if lucky, and spends about an hour per failure. Coding agents make this worse: they guess at fixes and loop without runtime context. **The bottleneck isn't writing code. It's what happens when it breaks.** Teams then avoid adding automated tests because maintenance isn't worth it.
 
 ---
 
-## Three ways to Replay
+## The solution (time-travel for CI)
 
-Replay's time-travel debugging works **wherever your tests run** and **wherever your agent works**. Most teams use all three.
-
-### In your CI pipeline — Test fails. Fix lands on your PR.
-
-The Replay CI Agent installs as a GitHub bot. It records every Playwright run on every PR. When a test fails, Replay analyzes the recording and posts root cause plus a suggested fix as a PR comment — **automatically.**
-
-Set up the CI Agent: https://docs.replay.io/basics/ci-agent
-
-### In your IDE — Your agent time-travels through the recording.
-
-Replay MCP connects to **Cursor, Claude Code, Codex, Copilot, or Windsurf** in one command. Your coding agent can step through any recorded execution, inspect state at any point in time, and identify root causes — right inside your IDE.
-
-Set up Replay MCP: https://docs.replay.io/basics/replay-mcp/quickstart
-
-### In your browser — Record any bug, anywhere.
-
-The Replay Chrome extension lets engineers and QA capture a deterministic recording of any bug — on **localhost, a staging environment, or production**. Record it once, hand it to your agent, or step through it yourself. **No reproduction required.**
-
-Install the extension: https://docs.replay.io/basics/chrome-extension
+Replay captures a **deterministic recording** of the browser runtime and analyzes failures automatically. Your team gets root cause and a suggested fix on the PR—without manual debugging.
 
 ---
 
-## What your agent gets from Replay (three promises)
+## Every CI failure, automatically analyzed
 
-1. **Root-cause analysis, automated** — Replay traces the recording to find the exact cause (state change, failed request, bad render) and explains why it happened — not only the surface error.
+Three-step loop on the homepage:
 
-2. **Detailed fixes, not vague suggestions** — The agent receives an **implementation-ready fix** with full context: which file, which function, what to change, and why — to reduce trial-and-error loops.
+1. **Test fails — Replay records** — Every Playwright run in CI is recorded; failures capture DOM, network, and JS execution. No test code changes required.
+2. **Replay analyzes the recording** — The agent steps through time-travel data, finds the causal chain, and assigns a confidence score.
+3. **Root cause + suggested fix posted to your PR** — Findings appear as a PR comment with evidence and file/line references.
 
-3. **Works with any coding agent that supports MCP** — Replay MCP connects to **Claude Code, Codex, Cursor, Copilot, Windsurf**, and other MCP-capable agents.
-
----
-
-## Built for teams shipping with agents (use cases on the site)
-
-- **Agent-assisted development** — Failing test or runtime error: the agent sends the recording to Replay and gets a precise fix back instead of looping.
-
-- **Flaky tests in CI** — Record test runs; when a flake happens, Replay analyzes the recording and delivers root cause and fix to the agent.
-
-- **Bug triage on autopilot** — User reports a bug → Replay captures the session → diagnosis and fix → agent applies it → you review the PR.
-
-- **Unblocking stuck agents** — When the agent retries the same patch against the same failing test, Replay supplies runtime context to break the loop.
+CI Agent setup: https://docs.replay.io/basics/ci-agent
 
 ---
 
-## Replay vs. the old way (marketing comparison)
+## Analysis that used to require a staff engineer
 
-**Without Replay:** Agent guesses and loops; you debug manually in DevTools; flaky tests get retried and ignored; bug reports wait for reproduction; agents write code fast but can't debug what they break.
+Three classes of runtime bugs the homepage highlights (with example agent insights):
 
-**With Replay:** Agent gets a detailed fix from the recording; you review the PR; flaky tests get diagnosed automatically; bug reports get recording + analysis + fix quickly; agents ship fixes as fast as they ship features.
-
----
-
-## How this differs from session replay (FAQ on the site)
-
-Session replay tools capture video and logs **for humans to watch**. Replay captures a **deterministic recording of the browser runtime** (DOM mutations, network, state) and **Replay MCP analyzes it automatically** to generate fixes for your agent — the site positions this as not requiring a human to watch a replay.
-
-**Recording overhead:** Described as minimal and comparable to screen recording for many teams. **Tests:** Replay integrates with **Cypress, Playwright, Selenium, and WebDriver** without requiring you to replace your test setup.
-
-**Pricing entry:** The homepage FAQ states Replay is **free to get started** (record sessions, connect MCP, get automated fixes at no cost). For current commercial tiers, see https://www.replay.io/pricing .
+- **Render-to-cause chains** — Trace why a component re-rendered to the exact state mutation.
+- **Selector reference tracking** — See which selector read stale data and when references changed.
+- **JS execution, frame by frame** — Step through frames; add retroactive logs; find race conditions in specific lines.
 
 ---
 
-## Final call-to-action (bottom of homepage)
+## Individual debugging (separate product path)
 
-**Stop debugging for your agent. Give it time-travel.**  
-Free to get started. No credit card required.
+**Section:** "Debugging a specific bug?"
 
-- Install the CI Agent → https://docs.replay.io/basics/ci-agent
-- Add Replay MCP → https://docs.replay.io/basics/replay-mcp/quickstart
+Replay also works outside CI: record a bug manually, connect **Replay MCP** to your coding agent, and time-travel through the execution in your IDE. Same deterministic capture, different workflow.
+
+**Full page:** https://www.replay.io/debugging  
+**MCP quickstart:** https://docs.replay.io/basics/replay-mcp/quickstart
+
+---
+
+## Time travelogue & proof points
+
+Featured case study: Replay MCP helped find a React bug faster than Dan Abramov did (blog on site). Additional "Time travelogue" cards link to real debugging investigations.
+
+---
+
+## Pipeline integrations
+
+Replay works with **Playwright, Cypress, Selenium, WebDriver**, and common CI providers. React apps get deeper component/state analysis; any JavaScript stack in the browser can be recorded.
+
+---
+
+## Replay vs. the old way
+
+**Without Replay:** Manual CI debugging, agent guess-and-loop, flaky tests retried without diagnosis, coverage stagnates.
+
+**With Replay:** Automatic root cause on PRs, agents get implementation-ready fixes, flaky failures get evidence trails.
+
+---
+
+## Homepage FAQs (topics)
+
+- How Replay records tests (instrumented browser in CI)
+- What the agent posts on failures (root cause, confidence, line, evidence, suggested fix)
+- React vs. any JS stack
+- Analysis timing (minutes after the run)
+- Wrong analysis → confidence score + link to full recording in DevTools
+- CI recording overhead (minimal)
+- **Pricing:** Free plan (25 analyses/month), Growth $299/mo annual or $349/mo monthly, 500 analyses — see https://www.replay.io/pricing
+
+---
+
+## Final CTA
+
+**Stop debugging test failures manually.**  
+Free plan available. No credit card required. $299/mo for Growth.
+
+---
+
+## Site map (marketing pages with agent markdown)
+
+| Path | Summary |
+|------|---------|
+| `/` | CI Agent homepage (this file) |
+| `/debugging` | Individual debugging with Replay MCP |
+| `/pricing` | Plans and FAQs |
+| `/how-it-works` | Agent runtime context story |
+| `/engineers` | Replay for engineers (see canonical `/for-engineers` on live site) |
+| `/partner` | Design partner program |
+| `/roi-calculator` | Debugging cost calculator |
+| `/about` | Company story |
+
+Request any path with `Accept: text/markdown` to receive the corresponding agent summary.
 
 ---
 
 ## Links
 
+- Individual debugging: https://www.replay.io/debugging  
 - How it works: https://www.replay.io/how-it-works  
-- For engineers: https://www.replay.io/engineers  
-- Vibe coders / Chrome extension story: https://www.replay.io/vibe-coders  
 - Pricing: https://www.replay.io/pricing  
+- Design partners: https://www.replay.io/partner  
 - Blog: https://www.replay.io/blog  
 - Docs: https://docs.replay.io  
-- Replay MCP tools reference: https://docs.replay.io/basics/replay-mcp/tools  
+- Replay MCP tools: https://docs.replay.io/basics/replay-mcp/tools  
+- Replay MCP quickstart: https://docs.replay.io/basics/replay-mcp/quickstart  

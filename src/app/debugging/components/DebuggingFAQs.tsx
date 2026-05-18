@@ -13,53 +13,49 @@ import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
 const faqs = [
   {
-    question: 'How does Replay record my tests?',
+    question: 'Is this different from Replay CI Agent?',
     answer:
-      'Replay works by swapping in a Replay-instrumented browser in your CI config. When a test runs, Replay captures every DOM mutation, network request, and JS execution deterministically — so the recording is a perfect, replayable trace of exactly what happened.'
+      'Yes. CI Agent automatically records and analyzes your E2E test failures in your CI pipeline—no manual work needed. This page is about using Replay to debug specific bugs on your own, outside of CI. Same time-travel technology, different workflow.'
   },
   {
-    question: 'What kind of analysis does the agent provide?',
+    question: 'Does Replay MCP work with my coding agent?',
     answer:
-      'For each failing test, Replay posts a PR comment with a root cause statement, a confidence score, the exact line of code that caused the failure, and an evidence trail showing the sequence of events leading up to it. If the failure has a clear fix, it includes a suggested code change.'
+      'Replay MCP works with Claude Code, Codeium, Cursor, Windsurf, or any MCP-compatible tool. If your agent supports MCP, it can use Replay.'
   },
   {
-    question: 'Does Replay only work with React?',
+    question: 'Do I need to use MCP, or can I just use DevTools?',
     answer:
-      'No — Replay works with any JavaScript or TypeScript application. React apps get deeper analysis because Replay can inspect component state and re-renders, but Replay captures full execution data for any JS stack.'
+      'Both work. Replay DevTools gives you a visual debugging interface with time-travel controls. Replay MCP lets your coding agent access the same data programmatically. Use whichever fits your workflow—or both.'
   },
   {
-    question: 'How long does analysis take?',
+    question: 'What does Replay actually record?',
     answer:
-      'Usually a few minutes after the test run completes. Replay posts its analysis as a PR comment, so your developer sees the root cause and suggested fix before they even open the CI logs.'
+      "Everything. Every function call, every DOM mutation, every network request, every state change, every event handler. It's a deterministic capture of the program execution, not a video or a log file. You can inspect any moment in the recording as if you paused the debugger right there."
   },
   {
-    question: "What if the agent's analysis is wrong?",
+    question: 'Does it only work with React?',
     answer:
-      'Replay includes a confidence score with every analysis, so you can tell at a glance how certain it is. Every analysis also links to the full recording so you can open it in Replay DevTools and inspect every frame yourself.'
+      'No. Replay records the entire browser runtime—any JavaScript framework works. React teams get additional insights from built-in React DevTools, component render analysis, and Redux / Zustand / TanStack Query state tracking integrations.'
   },
   {
-    question: 'Does recording slow down my CI?',
-    answer:
-      'Minimal overhead — comparable to screen recording. Most teams run Replay in CI without noticing a difference in build times.'
-  },
-  {
-    question: 'How much does this cost?',
+    question: 'Is Replay free for individual use?',
     answer: (
       <>
-        Replay Growth is $299/month (billed annually) or $349/month (billed monthly), and includes
-        500 AI analyses per month. Start on the Free plan (25 analyses/month) with no time limit.{' '}
+        The free plan lets you record and investigate with no time limit—start without a credit
+        card. For higher volume, individual debugging is available on the Growth plan at $20/mo—or
+        reach out if you&apos;re an individual developer and we&apos;ll figure something out.{' '}
         <Link
           href="/pricing"
           className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
         >
-          See full pricing →
+          See pricing →
         </Link>
       </>
     )
   }
 ]
 
-export function HomepageFAQs() {
+export function DebuggingFAQs() {
   const faqSchema = useMemo(() => {
     return {
       '@context': 'https://schema.org',

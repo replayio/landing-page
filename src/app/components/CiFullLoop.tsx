@@ -47,7 +47,9 @@ export function CiFullLoop() {
                   {step.number}
                 </div>
                 <div className="min-w-0 pt-0.5">
-                  <h3 className="text-base font-semibold text-gray-900 sm:text-base">{step.title}</h3>
+                  <h3 className="text-base font-semibold text-gray-900 sm:text-base">
+                    {step.title}
+                  </h3>
                   <p className="mt-2 text-xs leading-relaxed text-gray-600 sm:text-sm">
                     {step.description}
                   </p>

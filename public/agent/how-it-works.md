@@ -51,8 +51,15 @@ Buttons: **Install the CI Agent** (https://docs.replay.io/basics/ci-agent) and *
 
 ---
 
+## Individual debugging
+
+For bugs outside CI (record manually, debug with MCP or DevTools): https://www.replay.io/debugging
+
+---
+
 ## Links
 
 - Homepage: https://www.replay.io  
+- Individual debugging: https://www.replay.io/debugging  
 - For engineers: https://www.replay.io/engineers  
 - Docs: https://docs.replay.io  

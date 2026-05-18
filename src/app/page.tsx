@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
-import { DevTools } from '~/components/sections/DevTools'
 import { Pump } from '.basehub/react-pump'
 import { draftMode } from 'next/headers'
 import { landingPageFragment } from '~/lib/basehub-queries'
@@ -77,7 +76,6 @@ export default function HomePage() {
               <AgentSolution />
               <CiFullLoop />
               <RuntimeAnalysis />
-              <DevTools {...landingPage} />
               <HomepageTestimonials />
               <FeaturedProofPoint />
               <IndividualDebugging />

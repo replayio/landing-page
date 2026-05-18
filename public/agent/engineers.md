@@ -61,6 +61,7 @@ Connects to **Claude Code, Codex, Cursor, Copilot, and Windsurf**. Integrates wi
 ## Links
 
 - Homepage: https://www.replay.io  
+- Individual debugging: https://www.replay.io/debugging  
 - How it works: https://www.replay.io/how-it-works  
 - Replay MCP quickstart: https://docs.replay.io/basics/replay-mcp/quickstart  
 - Replay MCP tools: https://docs.replay.io/basics/replay-mcp/tools  

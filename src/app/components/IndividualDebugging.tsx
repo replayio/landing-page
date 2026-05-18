@@ -15,7 +15,7 @@ export function IndividualDebugging() {
             time-travel data, directly in your IDE.
           </p>
           <Link
-            href="https://docs.replay.io/basics/replay-mcp/quickstart"
+            href="/debugging"
             className="mt-5 inline-block text-sm font-medium text-blue-600 transition hover:text-blue-700"
           >
             Learn how it works for individual debugging →

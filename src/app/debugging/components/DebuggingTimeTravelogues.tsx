@@ -4,34 +4,33 @@ import { Container } from '~/components/Container'
 const stories = [
   {
     duration: '7 min',
-    title: 'Replay MCP solved a React bug faster than Dan Abramov did',
+    title: 'How Replay MCP helped find a React bug faster than Dan Abramov did',
     description:
-      'Replay MCP agent looked at a React 18 issue, and found root cause in a little over 7 minutes. Dan had been manually debugging the same bug.',
-    href: 'https://blog.replay.io/web-debug-bench',
-    author: 'Mark Erikson'
+      'Dan Abramov fixed a race condition in React 18. With Replay recordings, four parallel agents identified the root cause in under 30 minutes — the best run took 7 minutes.',
+    href: '/blog/replay-time-travelogue-how-replay-mcp-helped-find-a-react-bug-faster-than-dan-abramov-did',
+    author: '@dan_abramov'
   },
   {
     duration: '4–9 min',
-    title: 'The architectural fix Nadia spent days finding — solved automatically',
+    title: 'Improving Nadia\u2019s "debugging with AI" results using Replay MCP',
     description:
-      'Given a Replay recording and codebase, an AI agent recommended the exact server-side prefetching fix Nadia had eventually discovered through days of intense investigation.',
-    href: 'https://blog.replay.io/how-we-rebuilt-react-devtools-with-replay-routines',
-    author: 'Mark Erikson'
+      'Nadia Makarevich tested AI debugging against three Next.js app bugs. Without Replay, the agent fixed 1 of 3. With Replay MCP, it found all three.',
+    href: '/blog/replay-time-travelogue-improving-nadias-debugging-with-ai-results-using-replay-mcp',
+    author: '@nadia'
   }
 ]
 
-export function TimeTravelogues() {
+export function DebuggingTimeTravelogues() {
   return (
     <section className="relative isolate overflow-hidden bg-white py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-bold uppercase tracking-wider text-accent">Time travelogues</p>
+          <p className="text-sm font-bold uppercase tracking-wider text-accent">Time travelogue</p>
           <h2 className="mt-4 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            Deep-dive time-travel sessions
+            Agents solving real bugs with Replay MCP
           </h2>
           <p className="mt-4 text-base text-gray-700 sm:text-lg">
-            A running series of real debugging investigations — each one pitting Replay MCP against
-            a bug that stumped a human expert.
+            These aren&apos;t toy demos. Real bugs, real codebases, full evidence trails.
           </p>
         </div>
 
@@ -50,13 +49,11 @@ export function TimeTravelogues() {
               </p>
               <Link
                 href={story.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="mt-5 text-sm font-medium text-accent transition hover:text-accent-light"
               >
                 Read the story →
               </Link>
-              <p className="mt-4 text-sm text-gray-500">— {story.author}</p>
+              <p className="mt-4 text-sm text-gray-500">— via {story.author}</p>
             </article>
           ))}
         </div>
