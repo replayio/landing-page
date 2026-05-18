@@ -7,6 +7,7 @@ import type {
 } from '@notionhq/client/build/src/api-endpoints'
 import { NotionToMarkdown } from 'notion-to-md'
 import { unstable_cache } from 'next/cache'
+import { slugify } from './slugify'
 
 /**
  * Tag used to invalidate the cached blog posts list from the revalidate-blog
@@ -183,20 +184,6 @@ const getCoverImageUrl = (page: FullPageRow): string | null => {
   if (page.cover.type === 'external') return page.cover.external.url
   if (page.cover.type === 'file') return page.cover.file.url
   return null
-}
-
-const slugify = (input: string) => {
-  return input
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[\u2018\u2019\u201A\u201B]/g, '')
-    .replace(/[\u201C\u201D\u201E\u201F]/g, '')
-    .replace(/[\u2013\u2014\u2212]/g, '-')
-    .replace(/[\u2026]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
 }
 
 const toUniqueSlugs = (titles: string[]) => {
