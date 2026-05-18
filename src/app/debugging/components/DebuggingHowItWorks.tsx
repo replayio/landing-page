@@ -17,7 +17,7 @@ const steps = [
     number: 3,
     title: 'Fix with confidence',
     description:
-      "Whether your agent found it or you did, you now know exactly what happened. The root cause is clear because you saw it in the actual execution—not inferred from logs or guessed from the stack trace."
+      'Whether your agent found it or you did, you now know exactly what happened. The root cause is clear because you saw it in the actual execution—not inferred from logs or guessed from the stack trace.'
   }
 ]
 

@@ -41,9 +41,9 @@ const faqs = [
     question: 'Is Replay free for individual use?',
     answer: (
       <>
-        The free plan lets you record and investigate with no time limit—start without a credit card.
-        For higher volume, individual debugging is available on the Growth plan at $20/mo—or reach out
-        if you&apos;re an individual developer and we&apos;ll figure something out.{' '}
+        The free plan lets you record and investigate with no time limit—start without a credit
+        card. For higher volume, individual debugging is available on the Growth plan at $20/mo—or
+        reach out if you&apos;re an individual developer and we&apos;ll figure something out.{' '}
         <Link
           href="/pricing"
           className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
@@ -88,7 +88,12 @@ export function DebuggingFAQs() {
         </div>
 
         <div className="mx-auto max-w-3xl">
-          <Accordion type="single" collapsible defaultValue="item-0" className="flex flex-col gap-3">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="item-0"
+            className="flex flex-col gap-3"
+          >
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}

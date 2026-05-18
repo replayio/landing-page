@@ -92,7 +92,12 @@ export function HomepageFAQs() {
         </div>
 
         <div className="mx-auto max-w-3xl">
-          <Accordion type="single" collapsible defaultValue="item-0" className="flex flex-col gap-3">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="item-0"
+            className="flex flex-col gap-3"
+          >
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}

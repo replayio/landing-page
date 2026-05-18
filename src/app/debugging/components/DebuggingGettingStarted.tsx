@@ -7,7 +7,12 @@ const options = [
     title: 'Replay MCP — agent-driven',
     steps: [
       'Install Replay MCP in your coding agent',
-      <>Record: <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">npx replayio record https://your-app.localhost:3000</code></>,
+      <>
+        Record:{' '}
+        <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">
+          npx replayio record https://your-app.localhost:3000
+        </code>
+      </>,
       <>Tell your agent: &ldquo;Debug this Replay recording — [recording URL]&rdquo;</>
     ]
   },
@@ -26,8 +31,18 @@ const options = [
     badgeClass: 'bg-purple-600',
     title: 'CLI — manual or scripted',
     steps: [
-      <>Install: <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">npm install -g replayio</code></>,
-      <>Record: <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">replayio record &lt;url&gt;</code></>,
+      <>
+        Install:{' '}
+        <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">
+          npm install -g replayio
+        </code>
+      </>,
+      <>
+        Record:{' '}
+        <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">
+          replayio record &lt;url&gt;
+        </code>
+      </>,
       'Investigate in DevTools or via MCP'
     ]
   }

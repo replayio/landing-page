@@ -41,8 +41,12 @@ export function DebuggingTimeTravelogues() {
               className="flex flex-col rounded-xl border border-gray-200 bg-white p-8 shadow-sm"
             >
               <p className="text-2xl font-bold text-accent">{story.duration}</p>
-              <h3 className="mt-3 text-lg font-semibold leading-snug text-gray-900">{story.title}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-600">{story.description}</p>
+              <h3 className="mt-3 text-lg font-semibold leading-snug text-gray-900">
+                {story.title}
+              </h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-600">
+                {story.description}
+              </p>
               <Link
                 href={story.href}
                 className="mt-5 text-sm font-medium text-accent transition hover:text-accent-light"

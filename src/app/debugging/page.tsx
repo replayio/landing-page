@@ -17,7 +17,7 @@ import { DebuggingCiPromo } from './components/DebuggingCiPromo'
 import { DebuggingCTA } from './components/DebuggingCTA'
 
 export const metadata: Metadata = {
-  title: 'Individual Debugging — Fix bugs your agent can\'t figure out',
+  title: "Individual Debugging — Fix bugs your agent can't figure out",
   description:
     'Replay is a time-travel debugger. Record your app, capture every function call and state change, and let your coding agent analyze it with Replay MCP.',
   alternates: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     url: `${siteOrigin}/debugging`,
-    title: 'Individual Debugging — Fix bugs your agent can\'t figure out',
+    title: "Individual Debugging — Fix bugs your agent can't figure out",
     description:
       'Replay is a time-travel debugger. Record your app and let your coding agent analyze the full runtime with Replay MCP.',
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: defaultMeta.twitter.site,
-    title: 'Individual Debugging — Fix bugs your agent can\'t figure out',
+    title: "Individual Debugging — Fix bugs your agent can't figure out",
     description:
       'Replay is a time-travel debugger. Record your app and let your coding agent analyze the full runtime with Replay MCP.',
     creator: defaultMeta.twitter.handle,
