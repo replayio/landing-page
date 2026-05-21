@@ -55,6 +55,11 @@ const testimonials: Testimonial[] = [
     title: 'React Maintainer'
   },
   {
+    quote: "After seeing what Replay can do, I'm setting up a lot more Playwright tests on my PRs. I was afraid to before, due to the extra work of debugging failed tests.",
+    name: 'Ben Buckman',
+    title: 'Co-founder, Getmallow.com'
+  },
+  {
     quote:
       "If I don't immediately know the answer to a bug, I immediately reach for Replay.io. It's like HMR for repros.",
     name: 'Sebastian Markbåge',
