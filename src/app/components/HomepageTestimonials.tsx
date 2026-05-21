@@ -56,7 +56,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote: "After seeing what Replay can do, I'm setting up a lot more Playwright tests on my PRs. I was afraid to before, due to the extra work of debugging failed tests.",
-    name: 'Ben Buckman',
+    name: 'Ben Ruckman',
     title: 'Co-founder, Getmallow.com'
   },
   {
