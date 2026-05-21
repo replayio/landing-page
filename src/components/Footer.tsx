@@ -114,6 +114,7 @@ const NAV_LINKS = [
   // { label: 'For Engineers', href: '/engineers' },
   { label: 'Overview', href: '/' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Loop QA', href: '/loop-qa' },
   { label: 'ROI Calculator', href: '/roi-calculator' },
   { label: 'Debugging', href: '/debugging' },
   { label: 'About', href: '/about' },

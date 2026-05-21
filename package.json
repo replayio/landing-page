@@ -59,6 +59,7 @@
     "mousetrap": "1.6.5",
     "next": "^14.1.4",
     "notion-to-md": "^3.1.9",
+    "ogl": "^1.0.11",
     "prismjs": "^1.28.0",
     "react": "^18.2.0",
     "react-device-detect": "2.1.2",

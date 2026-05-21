@@ -6850,6 +6850,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ogl@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "ogl@npm:1.0.11"
+  checksum: 10/6a157ca41883eaa695db9736ccf07f5bd7746ea1252c05551a72f32027003bed787ca0b228a03f18c4fb69eba8f124290a51c82ae0d9f95885ac30a1b9699d18
+  languageName: node
+  linkType: hard
+
 "once@npm:^1.3.0":
   version: 1.4.0
   resolution: "once@npm:1.4.0"
@@ -7723,6 +7730,7 @@ __metadata:
     mousetrap: "npm:1.6.5"
     next: "npm:^14.1.4"
     notion-to-md: "npm:^3.1.9"
+    ogl: "npm:^1.0.11"
     prettier: "npm:^3.1.1"
     prettier-plugin-tailwindcss: "npm:^0.5.11"
     prismjs: "npm:^1.28.0"
