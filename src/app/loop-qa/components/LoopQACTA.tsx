@@ -21,7 +21,7 @@ export function LoopQACTA() {
           size="base"
           className="px-8"
         >
-          Try Loop QA &rarr;
+          Try Loop QA
         </Button>
         <p className="mt-3 text-xs text-gray-400">No test suite required &middot; Works with any web app</p>
       </Container>

@@ -36,7 +36,7 @@ export function LoopQAHero() {
           size="base"
           className="px-8"
         >
-          Try Loop QA &rarr;
+          Try Loop QA
         </Button>
         <p className="mt-3 text-center text-xs text-gray-400">
           No test suite required &middot; Works with any web app
@@ -52,6 +52,16 @@ export function LoopQAHero() {
             playsInline
             poster="/loopQa_screenshot.png"
           />
+        </div>
+        <div className="mt-5 flex justify-center">
+          <a
+            href="https://loop-qa.replay.io/projects/proj-team-knowledge-hub-iyi2da-netlify-app-mpen5qsj/overview"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-full border-2 border-accent px-6 py-2.5 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-white"
+          >
+            View live demo
+          </a>
         </div>
       </div>
     </div>
