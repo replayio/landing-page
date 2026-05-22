@@ -284,7 +284,9 @@ export function Orb({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hue, hoverIntensity, rotateOnHover, forceHoverState, backgroundColor])
 
-  return <div ref={ctnDom} style={{ position: 'relative', zIndex: 0, width: '100%', height: '100%' }} />
+  return (
+    <div ref={ctnDom} style={{ position: 'relative', zIndex: 0, width: '100%', height: '100%' }} />
+  )
 }
 
 function hexToVec3(color: string): Vec3 {

@@ -231,7 +231,7 @@ export function DevTools() {
                 onClick={() => setShowChat(true)}
                 className="w-full rounded-full bg-accent px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
               >
-                Try it yourself →
+                Try it yourself
               </button>
             )} */}
           </div>

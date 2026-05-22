@@ -9,9 +9,20 @@ export function LoopQAHero() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="h-[640px] w-[640px] sm:h-[1232px] sm:w-[1232px]"
-          style={{ position: 'absolute', top: '41%', left: '50vw', transform: 'translate(-50%, -50%)' }}
+          style={{
+            position: 'absolute',
+            top: '41%',
+            left: '50vw',
+            transform: 'translate(-50%, -50%)'
+          }}
         >
-          <Orb hue={264} hoverIntensity={0.3} rotateOnHover forceHoverState={false} backgroundColor="#ffffff" />
+          <Orb
+            hue={264}
+            hoverIntensity={0.3}
+            rotateOnHover
+            forceHoverState={false}
+            backgroundColor="#ffffff"
+          />
         </div>
       </div>
 
@@ -26,8 +37,8 @@ export function LoopQAHero() {
           <span className="text-accent">Loop QA finds the bugs.</span>
         </h1>
         <p className="mb-10 max-w-2xl text-lg leading-relaxed text-gray-600">
-          Autonomous QA that explores your app, finds the bugs, and tells you exactly how to fix them. No test suite to
-          write, no QA team required.
+          Autonomous QA that explores your app, finds the bugs, and tells you exactly how to fix
+          them. No test suite to write, no QA team required.
         </p>
         <Button
           href="https://loop-qa.replay.io"

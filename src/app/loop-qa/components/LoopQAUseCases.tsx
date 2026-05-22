@@ -32,7 +32,9 @@ export function LoopQAUseCases() {
   return (
     <section className="bg-gray-50 py-16 md:py-24">
       <Container className="max-w-4xl">
-        <p className="mb-4 text-center text-sm font-medium uppercase tracking-widest text-accent">Use cases</p>
+        <p className="mb-4 text-center text-sm font-medium uppercase tracking-widest text-accent">
+          Use cases
+        </p>
         <h2 className="mb-14 text-center font-display text-3xl font-bold leading-tight tracking-tight text-gray-900">
           Who is Loop QA for?
         </h2>
@@ -44,7 +46,9 @@ export function LoopQAUseCases() {
             </div>
           ))}
           <div className="flex flex-col justify-center rounded-xl border border-dashed border-accent/40 bg-accent/[0.02] p-7">
-            <h3 className="mb-2 text-base font-semibold text-gray-900">Don&apos;t see your use case?</h3>
+            <h3 className="mb-2 text-base font-semibold text-gray-900">
+              Don&apos;t see your use case?
+            </h3>
             <p className="text-sm leading-relaxed text-gray-500">
               We want to hear about how you&apos;d like to use Loop QA.{' '}
               <a href="mailto:sales@replay.io" className="text-accent transition hover:opacity-80">

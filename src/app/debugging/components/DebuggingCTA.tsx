@@ -21,7 +21,7 @@ export function DebuggingCTA() {
               target="_blank"
               className="border-0 bg-rose-500 px-10 text-white transition-opacity hover:opacity-90"
             >
-              Get started with Replay MCP →
+              Get started with Replay MCP
             </Button>
             <p className="text-sm text-slate-500">Free to start. No credit card required.</p>
           </div>

@@ -37,7 +37,7 @@ export function Hero({ hero: _hero }: LandingPageFragment) {
                 </p>
                 <div className="mt-8 flex flex-col items-center gap-3">
                   <Button
-                    label="Try Replay for free →"
+                    label="Try Replay for free"
                     variant="solid"
                     color="custom"
                     href="https://docs.replay.io/basics/getting-started/record-your-playwright-tests"

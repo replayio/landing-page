@@ -48,7 +48,7 @@ const faqs = [
           href="/pricing"
           className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
         >
-          See pricing →
+          See pricing
         </Link>
       </>
     )

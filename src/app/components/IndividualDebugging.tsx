@@ -18,7 +18,7 @@ export function IndividualDebugging() {
             href="/debugging"
             className="mt-5 inline-block text-sm font-medium text-blue-600 transition hover:text-blue-700"
           >
-            Learn how it works for individual debugging →
+            Learn how it works for individual debugging
           </Link>
         </div>
       </Container>

@@ -33,7 +33,7 @@ export function PrecogFinalCTA() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-accent px-10 py-3.5 text-base font-semibold text-white shadow-md transition-opacity hover:opacity-95"
             >
-              Try Replay MCP →
+              Try Replay MCP
             </Link>
           </div>
         </div>
