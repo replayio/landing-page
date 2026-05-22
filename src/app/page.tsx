@@ -5,7 +5,7 @@ import { draftMode } from 'next/headers'
 import { landingPageFragment } from '~/lib/basehub-queries'
 import { Hero } from './components/hero'
 import { AgentProblem } from './components/AgentProblem'
-import { AgentSolution } from './components/AgentSolution'
+import { AgentSolution } from './debugging/components/AgentSolution'
 import { CiFullLoop } from './components/CiFullLoop'
 import { RuntimeAnalysis } from './components/RuntimeAnalysis'
 import { HomepageTestimonials } from './components/HomepageTestimonials'
@@ -73,7 +73,6 @@ export default function HomePage() {
             <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
               <Hero {...landingPage} />
               <AgentProblem />
-              <AgentSolution />
               <CiFullLoop />
               <RuntimeAnalysis />
               <HomepageTestimonials />
