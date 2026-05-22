@@ -35,7 +35,7 @@ const capabilities = [
 
 export function DebuggingRuntimeContext() {
   return (
-    <section className="relative isolate overflow-hidden bg-gray-200 py-16 md:py-24">
+    <section className="relative isolate overflow-hidden bg-white py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
@@ -51,7 +51,7 @@ export function DebuggingRuntimeContext() {
           {capabilities.map((item) => (
             <article
               key={item.title}
-              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+              className="rounded-xl border border-gray-200 bg-slate-50 p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-gray-600 sm:text-base">

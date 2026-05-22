@@ -15,6 +15,7 @@ import { DebuggingGettingStarted } from './components/DebuggingGettingStarted'
 import { DebuggingFAQs } from './components/DebuggingFAQs'
 import { DebuggingCiPromo } from './components/DebuggingCiPromo'
 import { DebuggingCTA } from './components/DebuggingCTA'
+import { AgentSolution } from './components/AgentSolution'
 
 export const metadata: Metadata = {
   title: "Individual Debugging — Fix bugs your agent can't figure out",
@@ -54,6 +55,7 @@ export default function DebuggingPage() {
       <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
         <DebuggingHero />
         <DebuggingProblem />
+        <AgentSolution />
         <DebuggingHowItWorks />
         <DebuggingRuntimeContext />
         <DevTools />

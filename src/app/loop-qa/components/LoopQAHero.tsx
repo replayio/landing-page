@@ -49,7 +49,7 @@ export function LoopQAHero() {
         >
           Try Loop QA
         </Button>
-        <p className="mt-3 text-center text-xs text-gray-400">
+        <p className="mt-3 text-center text-xs text-gray-900">
           No test suite required &middot; Works with any web app
         </p>
       </section>

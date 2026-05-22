@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: 'Loop QA — Autonomous QA for the Vibecoding Era',
     description:
       'Drop in a URL. Loop QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+    images: [{ url: `${siteOrigin}/loopQA_og-image.png`, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description:
       'Drop in a URL. Loop QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
     creator: defaultMeta.twitter.handle,
-    images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
+    images: [{ url: `${siteOrigin}/loopQA_og-image.png`, width: 1200, height: 630 }]
   }
 }
 

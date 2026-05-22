@@ -14,7 +14,7 @@ export function FeaturedProofPoint() {
   const postHref = `/blog/${FEATURED_POST_SLUG}`
 
   return (
-    <section className="bg-gray-200 pb-16">
+    <section className="bg-gray-200 pb-16 pt-16">
       <Container>
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 lg:p-10">
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-10">
