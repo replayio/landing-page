@@ -53,7 +53,7 @@ export function AboutPrinciples() {
                         rel="noopener noreferrer"
                         className="text-sm font-semibold leading-6 text-gray-600 transition hover:text-accent"
                       >
-                        Learn more <span aria-hidden>→</span>
+                        Learn more
                       </a>
                     </p>
                   </dd>

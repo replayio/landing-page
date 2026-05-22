@@ -40,7 +40,9 @@ export function LoopQAHowItWorks() {
   return (
     <section className="py-16 md:py-24">
       <Container className="max-w-6xl">
-        <p className="mb-4 text-center text-sm font-medium uppercase tracking-widest text-accent">How it works</p>
+        <p className="mb-4 text-center text-sm font-medium uppercase tracking-widest text-accent">
+          How it works
+        </p>
         <h2 className="mb-16 text-center font-display text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl">
           From URL to bug report — automatically
         </h2>
@@ -71,7 +73,9 @@ export function LoopQAHowItWorks() {
                     {step.title}
                   </span>
                 </div>
-                {active === i && <p className="pl-8 text-sm leading-relaxed text-gray-500">{step.description}</p>}
+                {active === i && (
+                  <p className="pl-8 text-sm leading-relaxed text-gray-500">{step.description}</p>
+                )}
               </button>
             ))}
           </div>
@@ -91,7 +95,13 @@ export function LoopQAHowItWorks() {
               ) : (
                 <div className="flex flex-col items-center gap-4 px-8 text-center">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 bg-accent/10">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="ml-1 text-accent">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="ml-1 text-accent"
+                    >
                       <path d="M5 3l14 9-14 9V3z" fill="currentColor" />
                     </svg>
                   </div>

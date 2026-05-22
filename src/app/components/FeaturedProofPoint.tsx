@@ -46,7 +46,7 @@ export function FeaturedProofPoint() {
                 href={postHref}
                 className="mt-5 inline-block text-sm font-medium text-accent transition hover:text-accent-light"
               >
-                Read the full story →
+                Read the full story
               </Link>
             </div>
           </div>

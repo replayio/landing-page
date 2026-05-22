@@ -51,7 +51,7 @@ export function DebuggingTimeTravelogues() {
                 href={story.href}
                 className="mt-5 text-sm font-medium text-accent transition hover:text-accent-light"
               >
-                Read the story →
+                Read the story
               </Link>
               <p className="mt-4 text-sm text-gray-500">— via {story.author}</p>
             </article>

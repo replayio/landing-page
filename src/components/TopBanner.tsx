@@ -23,7 +23,7 @@ export function TopBanner() {
       <span className="hidden sm:inline">
         <strong>Introducing Loop QA:</strong> Test your web apps with confidence
       </span>
-      <span className="sm:hidden font-bold">Introducing Loop QA</span>
+      <span className="font-bold sm:hidden">Introducing Loop QA</span>
       <Link
         href="/loop-qa"
         className="inline-flex shrink-0 items-center whitespace-nowrap rounded-full bg-white/20 px-3 py-0.5 text-xs font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30"

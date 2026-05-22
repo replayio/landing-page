@@ -32,7 +32,7 @@ export function DebuggingHero() {
               </p>
               <div className="mt-8 flex flex-col items-center gap-3">
                 <Button
-                  label="Get started with Replay MCP →"
+                  label="Get started with Replay MCP"
                   variant="solid"
                   color="custom"
                   href="https://docs.replay.io/basics/replay-mcp/quickstart"

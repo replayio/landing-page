@@ -27,7 +27,7 @@ export function HomepageCTA({ backgroundColor = 'white' }: { backgroundColor?: '
               target="_blank"
               className="border-0 bg-rose-500 px-10 text-white transition-opacity hover:opacity-90"
             >
-              Get started free →
+              Get started free
             </Button>
           </div>
         </div>

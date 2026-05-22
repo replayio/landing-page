@@ -16,7 +16,7 @@ const faqs: FAQ[] = [
   },
   {
     q: 'Do I need to write any tests or config?',
-    a: "No. Loop QA discovers user journeys and writes Playwright tests automatically. You provide a URL — it takes care of everything else."
+    a: 'No. Loop QA discovers user journeys and writes Playwright tests automatically. You provide a URL — it takes care of everything else.'
   },
   {
     q: 'What does a bug report include?',
@@ -80,7 +80,10 @@ export function LoopQAFAQs() {
                 {faq.linkText ? (
                   <>
                     {faq.linkBefore}
-                    <a href="mailto:sales@replay.io" className="text-accent transition hover:opacity-80">
+                    <a
+                      href="mailto:sales@replay.io"
+                      className="text-accent transition hover:opacity-80"
+                    >
                       {faq.linkText}
                     </a>
                     {faq.a}

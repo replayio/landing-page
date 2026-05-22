@@ -11,8 +11,8 @@ export function LoopQACTA() {
           <span className="text-accent">find your bugs?</span>
         </h2>
         <p className="mx-auto mb-8 max-w-xl text-lg text-gray-600">
-          Drop in a URL and Loop QA takes it from there — journeys, tests, recordings, and bug reports filed
-          automatically.
+          Drop in a URL and Loop QA takes it from there — journeys, tests, recordings, and bug
+          reports filed automatically.
         </p>
         <Button
           href="https://loop-qa.replay.io"
@@ -23,7 +23,9 @@ export function LoopQACTA() {
         >
           Try Loop QA
         </Button>
-        <p className="mt-3 text-xs text-gray-400">No test suite required &middot; Works with any web app</p>
+        <p className="mt-3 text-xs text-gray-400">
+          No test suite required &middot; Works with any web app
+        </p>
       </Container>
     </section>
   )

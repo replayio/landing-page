@@ -11,13 +11,15 @@ export function LoopQAProblem() {
         </h2>
         <div className="space-y-6 text-lg leading-relaxed text-gray-600">
           <p>
-            AI coding tools have compressed development cycles from weeks to hours. A solo founder or a small team can
-            now ship a full web app in a day. But the way we test software hasn&apos;t changed — it still requires
-            engineers to write test suites, QA teams to run them, and someone to triage what breaks.
+            AI coding tools have compressed development cycles from weeks to hours. A solo founder
+            or a small team can now ship a full web app in a day. But the way we test software
+            hasn&apos;t changed — it still requires engineers to write test suites, QA teams to run
+            them, and someone to triage what breaks.
           </p>
           <p>
-            The result: vibecoded apps ship without meaningful test coverage. Internal tools get deployed with no QA
-            layer at all. And the bugs your users hit are the first signal that something is wrong.
+            The result: vibecoded apps ship without meaningful test coverage. Internal tools get
+            deployed with no QA layer at all. And the bugs your users hit are the first signal that
+            something is wrong.
           </p>
           <p className="font-medium text-gray-900">
             Loop QA closes the gap. Give it a URL and it takes care of the rest.

@@ -22,7 +22,7 @@ export function VibeCodersMCPCallout() {
               href="/for-engineers"
               className="mt-5 inline-flex items-center text-sm font-medium text-purple-600 transition-colors hover:text-purple-700"
             >
-              Learn about Replay MCP →
+              Learn about Replay MCP
             </Link>
           </div>
         </div>

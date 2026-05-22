@@ -24,7 +24,7 @@ export function DebuggingCiPromo() {
             href="/"
             className="shrink-0 border-0 bg-rose-500 text-white hover:bg-rose-600"
           >
-            Learn about CI Agent →
+            Learn about CI Agent
           </Button>
         </div>
       </Container>
