@@ -74,10 +74,11 @@ export function HomepageTestimonials() {
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            What developers are saying
+            Built on technology teams already trust
           </h2>
           <p className="mt-4 text-base text-gray-700 sm:text-lg">
-            Teams at Vercel, Glide, Tablecheck, Pantheon, and more use Replay every day.
+            Replay QA runs on the same recording engine used every day by teams at Vercel, Glide,
+            Pantheon, and more.
           </p>
         </div>
 

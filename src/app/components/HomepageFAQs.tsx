@@ -13,41 +13,51 @@ import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
 const faqs = [
   {
-    question: 'How does Replay record my tests?',
+    question: 'What kinds of apps can Replay QA test?',
     answer:
-      'Replay works by swapping in a Replay-instrumented browser in your CI config. When a test runs, Replay captures every DOM mutation, network request, and JS execution deterministically — so the recording is a perfect, replayable trace of exactly what happened.'
+      'Any web app accessible via a URL — marketing sites, SaaS products, internal tools, or all of the above. Replay QA explores whatever is at the URL you provide.'
   },
   {
-    question: 'What kind of analysis does the agent provide?',
+    question: 'Can Replay QA test apps that require login?',
     answer:
-      'For each failing test, Replay posts a PR comment with a root cause statement, a confidence score, the exact line of code that caused the failure, and an evidence trail showing the sequence of events leading up to it. If the failure has a clear fix, it includes a suggested code change.'
+      'Yes. Replay QA supports authenticated flows. You can provide login credentials and it will test behind your auth wall.'
   },
   {
-    question: 'Does Replay only work with React?',
+    question: 'Can I test localhost or private apps?',
     answer:
-      'No — Replay works with any JavaScript or TypeScript application. React apps get deeper analysis because Replay can inspect component state and re-renders, but Replay captures full execution data for any JS stack.'
+      'Yes. Replay QA includes a reverse proxy option so it can reach apps running on your local machine or a private network.'
   },
   {
-    question: 'How long does analysis take?',
+    question: 'Do I need to write any tests or config?',
     answer:
-      'Usually a few minutes after the test run completes. Replay posts its analysis as a PR comment, so your developer sees the root cause and suggested fix before they even open the CI logs.'
+      'No. Replay QA discovers user journeys and writes Playwright tests automatically. You provide a URL — it takes care of everything else.'
   },
   {
-    question: "What if the agent's analysis is wrong?",
+    question: 'What does a bug report include?',
     answer:
-      'Replay includes a confidence score with every analysis, so you can tell at a glance how certain it is. Every analysis also links to the full recording so you can open it in Replay DevTools and inspect every frame yourself.'
+      'Every bug comes with a Replay recording of the session, a full runtime breakdown (function calls, DOM mutations, network requests, state changes), a root-cause analysis with confidence score, and a suggested fix.'
   },
   {
-    question: 'Does recording slow down my CI?',
+    question: 'How is this different from Playwright or Cypress test generation tools?',
     answer:
-      'Minimal overhead — comparable to screen recording. Most teams run Replay in CI without noticing a difference in build times.'
+      'Test generation tools help you write tests faster — you still have to write them, run them, and debug when they fail. Replay QA explores your app autonomously, writes and runs the tests itself, and diagnoses failures. You just provide a URL.'
+  },
+  {
+    question: 'How is this different from QA Wolf or BrowserStack?',
+    answer:
+      "QA Wolf requires human QA engineers to build and maintain test suites. BrowserStack is a platform for running tests you've already written. Replay QA is fully autonomous — no tests to write, no humans to triage. It finds the flows, finds the bugs, and explains root cause."
+  },
+  {
+    question: 'Can I connect Replay QA to my issue tracker?',
+    answer:
+      "Yes. Replay QA supports a Bug Report Webhook — point it at your issue tracker's API and every bug Replay QA finds can be filed automatically. Works with Linear, GitHub Issues, Jira, and any tracker that accepts an HTTP endpoint."
   },
   {
     question: 'How much does this cost?',
     answer: (
       <>
-        Replay Growth is $299/month (billed annually) or $349/month (billed monthly), and includes
-        500 AI analyses per month. Start on the Free plan (25 analyses/month) with no time limit.{' '}
+        Free plan includes 20 analyses per month — no time limit, no credit card required. Paid
+        plans start at $49/month for individuals and $299/month (annual) for teams.{' '}
         <Link
           href="/pricing"
           className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"

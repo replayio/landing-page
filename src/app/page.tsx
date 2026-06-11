@@ -1,48 +1,41 @@
 import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
-import { Pump } from '.basehub/react-pump'
-import { draftMode } from 'next/headers'
-import { landingPageFragment } from '~/lib/basehub-queries'
 import { Hero } from './components/hero'
+import { ProductVideo } from './components/ProductVideo'
 import { AgentProblem } from './components/AgentProblem'
-import { AgentSolution } from './debugging/components/AgentSolution'
-import { CiFullLoop } from './components/CiFullLoop'
-import { RuntimeAnalysis } from './components/RuntimeAnalysis'
+import { QAHowItWorks } from './components/QAHowItWorks'
+import { QAUseCases } from './components/QAUseCases'
 import { HomepageTestimonials } from './components/HomepageTestimonials'
-import { FeaturedProofPoint } from './components/FeaturedProofPoint'
-import { IndividualDebugging } from './components/IndividualDebugging'
-import { TimeTravelogues } from './components/TimeTravelogues'
-import { ReplayComparison } from './components/ReplayComparison'
-import { CiPipelineIntegrations } from './components/CiPipelineIntegrations'
 import { HomepageFAQs } from './components/HomepageFAQs'
-import { HomepageCTA } from './components/HomepageCTA'
+import { QAFinalCTA } from './components/QAFinalCTA'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 
+const title = 'Replay QA — AI wrote the app. Replay QA finds what broke.'
+const description =
+  'Give Replay QA a URL. It explores your web app, records every session, finds real bugs, and gives your coding agent the root cause and fix.'
+
 export const metadata: Metadata = {
   title: {
     template: '%s - Replay',
-    default: 'Replay — E2E test failures analyzed automatically'
+    default: title
   },
-  description:
-    'Replay CI Agent records every test run, analyzes failures with time-travel debugging, and posts root cause and fix to your PR.',
+  description,
   alternates: {
     canonical: `${siteOrigin}/`
   },
   openGraph: {
     url: `${siteOrigin}/`,
-    title: 'Replay — E2E test failures analyzed automatically',
-    description:
-      'Replay CI Agent records every test run, analyzes failures with time-travel debugging, and posts root cause and fix to your PR.',
+    title,
+    description,
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     site: defaultMeta.twitter.site,
-    title: 'Replay — E2E test failures analyzed automatically',
-    description:
-      'Replay CI Agent records every test run, analyzes failures with time-travel debugging, and posts root cause and fix to your PR.',
+    title,
+    description,
     creator: defaultMeta.twitter.handle,
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
@@ -58,36 +51,21 @@ export const viewport: Viewport = {
 
 export default function HomePage() {
   return (
-    <Pump
-      draft={draftMode().isEnabled}
-      next={{ revalidate: 30 }}
-      queries={[{ landingPage: landingPageFragment }]}
-    >
-      {async ([{ landingPage }]) => {
-        'use server'
-        return (
-          <>
-            <Suspense fallback={null}>
-              <Header className="!top-[0px] sm:!top-[0px]" />
-            </Suspense>
-            <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
-              <Hero {...landingPage} />
-              <AgentProblem />
-              <CiFullLoop />
-              <RuntimeAnalysis />
-              <HomepageTestimonials />
-              <FeaturedProofPoint />
-              <IndividualDebugging />
-              <TimeTravelogues />
-              <ReplayComparison />
-              <CiPipelineIntegrations />
-              <HomepageFAQs />
-              <HomepageCTA />
-            </PageContentAnimate>
-            <Footer />
-          </>
-        )
-      }}
-    </Pump>
+    <>
+      <Suspense fallback={null}>
+        <Header className="!top-[0px] sm:!top-[0px]" />
+      </Suspense>
+      <PageContentAnimate>
+        <Hero />
+        <ProductVideo />
+        <AgentProblem />
+        <QAHowItWorks />
+        <QAUseCases />
+        <HomepageTestimonials />
+        <HomepageFAQs />
+        <QAFinalCTA />
+      </PageContentAnimate>
+      <Footer />
+    </>
   )
 }

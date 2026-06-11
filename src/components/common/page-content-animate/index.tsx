@@ -1,5 +1,6 @@
 'use client'
 
+import clsx from 'clsx'
 import { ReactNode, useRef, useEffect } from 'react'
 import { gsap } from '~/lib/gsap'
 
@@ -55,7 +56,10 @@ export function PageContentAnimate({ children, className }: PageContentAnimatePr
   }, [])
 
   return (
-    <main ref={containerRef as React.RefObject<HTMLElement>} className={className}>
+    <main
+      ref={containerRef as React.RefObject<HTMLElement>}
+      className={clsx('pt-[calc(var(--header-height))]', className)}
+    >
       {children}
     </main>
   )
