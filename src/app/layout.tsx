@@ -8,7 +8,6 @@ import { ReactNode, Suspense } from 'react'
 import Analytics from '~/lib/analytics'
 import { RedditPixel } from '~/components/analytics/RedditPixel'
 import { Toolbar } from 'basehub/next-toolbar'
-import { TopBanner } from '~/components/TopBanner'
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
@@ -108,7 +107,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             src="https://px.ads.linkedin.com/collect/?pid=8830930&fmt=gif"
           />
         </noscript>
-        <TopBanner />
         {children}
       </body>
     </html>
