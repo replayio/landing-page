@@ -1,5 +1,4 @@
 import Hyperspace from '~/app/components/hero/hyperspace'
-import Link from 'next/link'
 import { Container } from '~/components/Container'
 
 export function PricingHero() {
@@ -12,32 +11,19 @@ export function PricingHero() {
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-slate-600">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-            <span>
-              Volume-based pricing
-              <span className="mx-2 text-slate-300">·</span>
-              <span className="font-medium text-slate-900">$299/mo</span> starter, launching soon
-            </span>
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+            Free plan &middot; No credit card required
           </span>
 
-          <h1 className="font-display text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl xl:text-8xl">
-            Debug smarter.
+          <h1 className="font-display text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl xl:text-7xl">
+            Simple pricing.
             <br />
-            <span className="text-accent">Pay for what you use.</span>
+            <span className="text-accent">Based on usage.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-gray-700">
-            Replay records your web app, delivers an AI root cause analysis, and proposes a fix
-            &mdash; right where you work.
-          </p>
-          <p className="mx-auto mt-5 max-w-xl text-sm text-slate-500">
-            <Link
-              href="#partner"
-              className="text-slate-600 underline decoration-slate-300 underline-offset-4 transition hover:text-accent hover:decoration-accent/40"
-            >
-              Join the design partner program
-            </Link>{' '}
-            for free access while we finalize plans.
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed tracking-tight text-gray-700">
+            Pay for the analyses you run — however you use Replay. Start free with 20 analyses a
+            month. Upgrade when you need more.
           </p>
         </div>
       </Container>

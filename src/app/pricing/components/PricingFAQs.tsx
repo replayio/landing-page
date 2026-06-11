@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Container } from '~/components/Container'
 import {
   Accordion,
@@ -13,49 +12,34 @@ import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
 const faqs = [
   {
-    question: 'Can I use Replay CLI-only?',
+    question: "What's the difference between the plans?",
     answer:
-      'Yes. You can install the Replay CLI skills and Replay MCP to debug locally. The real power of Replay is when it is plugged into your CI/CD pipeline.'
+      'The plans differ by analysis volume. Free gives you 20 AI analyses per month — enough to evaluate Replay with no time limit. Individual ($50/mo) and Team ($300/mo) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
   },
   {
-    question: 'Do I need to use Replay with my Playwright test suite?',
+    question: 'Can I upgrade or downgrade at any time?',
     answer:
-      'No. Replay can be used on its own. When you configure your Playwright tests to use Replay, recordings are captured for all tests, so you get time-travel debugging analysis on failures.'
+      "Yes. Start on Free and upgrade whenever you're ready — no commitment required. You can downgrade to a lower plan at the end of your billing period."
   },
   {
-    question: 'Do I need to integrate Replay into my CI/CD pipeline?',
+    question: 'What counts as an analysis?',
     answer:
-      'No, but we highly recommend it. Teams that run test suites on PRs can get root-cause analysis and suggested fixes for failed tests as comments on the pull request in GitHub.'
+      'An analysis is any time Replay examines a recording to produce an insight — a root cause, a bug report, a suggested fix. Each recording analyzed counts as one analysis, regardless of which Replay product triggered it.'
   },
   {
-    question: 'Does Replay commit code automatically?',
+    question: 'What happens if I hit my analysis limit?',
     answer:
-      'No. Replay suggests root-cause analyses and fixes that a human engineer can choose to implement.'
+      "You'll be notified when you're approaching your limit. You can upgrade to a higher plan at any time — your existing recordings stay intact."
   },
   {
-    question: 'Will there be a free trial?',
+    question: 'How is this different from Datadog, Sentry, or LogRocket?',
     answer:
-      "Yes. We're aiming to start with a 14-day free trial, no credit card required, so you can get Replay set up and see the value it delivers. During the trial you can capture Replay recordings and get time-travel analysis on them. You can configure your Playwright suite to capture recordings and set up the Replay GitHub bot to monitor runs, capture recordings, and analyze failed tests."
+      'Those tools surface what went wrong. Replay captures the full runtime — every DOM mutation, network call, and JS execution frame — and analyzes it to tell you exactly why, with a specific fix. No human needs to read a trace.'
   },
   {
-    question: 'Will pricing be flat or usage-based?',
+    question: 'Does Replay work with my existing tools?',
     answer:
-      'For our base tier we plan a flat price (monthly or annually) with an allotment of 500 analyzed recordings per month — enough for most startup teams. For larger engineering teams we will work with you on a structure that fits.'
-  },
-  {
-    question: 'What does it mean to be a Replay design partner?',
-    answer: (
-      <>
-        Visit our{' '}
-        <Link
-          href="/partner"
-          className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
-        >
-          design partner page
-        </Link>{' '}
-        to learn more about how you can help shape the future of Replay.
-      </>
-    )
+      'Yes. Replay integrates with Playwright and Cypress for test recording, GitHub Actions, CircleCI, Jenkins, and BuildKite for CI, and Claude Code, Codex, Cursor, Copilot, and Windsurf for coding agents. Use whichever combination fits your workflow.'
   }
 ]
 
@@ -78,7 +62,7 @@ export function PricingFAQs() {
   return (
     <section
       id="faq"
-      className="relative isolate overflow-hidden bg-white pb-16 pt-12 md:pb-24 md:pt-20"
+      className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-12 md:pb-24 md:pt-20"
     >
       <script
         type="application/ld+json"
@@ -92,17 +76,22 @@ export function PricingFAQs() {
         </div>
 
         <div className="mx-auto max-w-3xl">
-          <Accordion type="single" collapsible defaultValue="item-0" className="w-full">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="item-0"
+            className="flex flex-col gap-3"
+          >
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="border-b border-gray-300"
+                className="overflow-hidden rounded-xl border border-b border-gray-200 bg-white px-5 data-[state=open]:shadow-sm"
               >
                 <AccordionTrigger className="py-5 text-left text-base font-semibold text-gray-900 hover:no-underline sm:text-lg [&>svg]:text-gray-400">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm leading-relaxed text-gray-700 sm:text-base">
+                <AccordionContent className="pb-5 text-sm leading-relaxed text-gray-600 sm:text-base">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

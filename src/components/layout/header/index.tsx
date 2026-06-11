@@ -19,29 +19,17 @@ export type Navlink = {
 }
 
 const NAVLINKS: Navlink[] = [
-  { href: '/', label: 'Overview' },
-  // { href: '/how-it-works', label: 'How It Works' },
-  // { href: '/engineers', label: 'For Engineers' },
+  { href: '/', label: 'Home' },
+  { href: '/how-it-works', label: 'How It Works' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/loop-qa', label: 'Loop QA' },
-  { href: '/roi-calculator', label: 'ROI Calculator' },
-  { href: '/debugging', label: 'Debugging' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' }
-  // { href: '/about', label: 'Company' }
+  { href: '/about', label: 'About' }
 ]
 
 const MobileNavlinks: Navlink[] = [
-  { href: '/', label: 'Overview' },
-  // { href: '/how-it-works', label: 'How It Works' },
-  // { href: '/engineers', label: 'For Engineers' },
+  { href: '/', label: 'Home' },
+  { href: '/how-it-works', label: 'How It Works' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/loop-qa', label: 'Loop QA' },
-  { href: '/roi-calculator', label: 'ROI Calculator' },
-  { href: '/debugging', label: 'Debugging' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Changelog' }
-  // { href: '/about', label: 'Company' },
+  { href: '/about', label: 'About' }
 ]
 
 type HeaderProps = {
@@ -137,13 +125,14 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
             ) : (
               <div className="hidden md:flex md:items-center md:gap-x-4">
                 <Button
-                  href="https://docs.replay.io/basics/replay-mcp/overview"
+                  href="https://qa.replay.io"
+                  target="_blank"
                   variant="solid"
                   size="sm"
                   color="default"
                   className="px-6 py-4"
                 >
-                  Try Replay Free
+                  Try Replay QA
                 </Button>
               </div>
             )}
