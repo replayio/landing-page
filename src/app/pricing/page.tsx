@@ -45,7 +45,7 @@ export default function PricingPage() {
       <Suspense fallback={null}>
         <Header className="!top-[0px] sm:!top-[0px]" />
       </Suspense>
-      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
+      <PageContentAnimate>
         <PricingHero />
         <PricingTiers />
         <PricingTestimonials />

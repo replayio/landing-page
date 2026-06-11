@@ -1,12 +1,14 @@
-import Hyperspace from '~/app/components/hero/hyperspace'
 import { Container } from '~/components/Container'
 
 export function PricingHero() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-24">
-      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
-        <Hyperspace className="opacity-10" />
-      </div>
+    <section className="relative overflow-hidden bg-white pb-16 pt-12 md:pb-24 md:pt-16">
+      <div
+        className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(240,45,94,0.09) 0%, transparent 65%)'
+        }}
+      />
 
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">

@@ -55,7 +55,7 @@ export default function HomePage() {
       <Suspense fallback={null}>
         <Header className="!top-[0px] sm:!top-[0px]" />
       </Suspense>
-      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
+      <PageContentAnimate>
         <Hero />
         <ProductVideo />
         <AgentProblem />

@@ -1,8 +1,8 @@
 'use client'
 
 import { Container } from '~/components/Container'
+import { Orb } from '~/components/Orb'
 import { HomeHeroMarquee } from './marquee'
-import Hyperspace from './hyperspace'
 import { HeroUrlInput } from '../HeroUrlInput'
 import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 
@@ -11,9 +11,24 @@ export function Hero() {
   const marqueeRef = usePageSectionAnimation<HTMLDivElement>()
 
   return (
-    <section className="relative flex overflow-hidden bg-[#FCFCFC]">
-      <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
-        <Hyperspace className="opacity-10" />
+    <section className="relative flex overflow-visible bg-[#FCFCFC]">
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute h-[640px] w-[640px] opacity-40 sm:h-[1232px] sm:w-[1232px]"
+          style={{
+            top: '41%',
+            left: '50vw',
+            transform: 'translate(-50%, -50%)'
+          }}
+        >
+          <Orb
+            hue={264}
+            hoverIntensity={0.3}
+            rotateOnHover
+            forceHoverState={false}
+            backgroundColor="#FCFCFC"
+          />
+        </div>
       </div>
       <div className="relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[160px] 2xl:pt-[220px]">
