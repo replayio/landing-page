@@ -9,7 +9,9 @@ export function PricingTiers() {
   const [annual, setAnnual] = useState(true)
 
   const individualPrice = annual ? 42 : 49
-  const individualBillingNote = annual ? 'per month · billed annually' : 'per month · billed monthly'
+  const individualBillingNote = annual
+    ? 'per month · billed annually'
+    : 'per month · billed monthly'
 
   const teamPrice = annual ? 299 : 349
   const teamBillingNote = annual ? 'per month · billed annually' : 'per month · billed monthly'

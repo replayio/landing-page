@@ -35,8 +35,8 @@ export function TechnologySection() {
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 sm:text-lg">
               Whether you&apos;re running Replay QA on a web app or analyzing a CI failure, the same
-              recording engine is at work. Replay captures the full browser runtime deterministically
-              — making AI analysis possible where it wasn&apos;t before.
+              recording engine is at work. Replay captures the full browser runtime
+              deterministically — making AI analysis possible where it wasn&apos;t before.
             </p>
           </div>
 
