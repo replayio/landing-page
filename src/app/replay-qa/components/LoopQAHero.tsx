@@ -34,20 +34,20 @@ export function LoopQAHero() {
         <h1 className="mb-6 font-display text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl">
           Drop in a URL.
           <br />
-          <span className="text-accent">Loop QA finds the bugs.</span>
+          <span className="text-accent">Replay QA finds the bugs.</span>
         </h1>
         <p className="mb-10 max-w-2xl text-lg leading-relaxed text-gray-600">
           Autonomous QA that explores your app, finds the bugs, and tells you exactly how to fix
           them. No test suite to write, no QA team required.
         </p>
         <Button
-          href="https://loop-qa.replay.io"
+          href="https://qa.replay.io"
           variant="solid"
           color="default"
           size="base"
           className="px-8"
         >
-          Try Loop QA
+          Try Replay QA
         </Button>
         <p className="mt-3 text-center text-xs text-gray-900">
           No test suite required &middot; Works with any web app
@@ -66,7 +66,7 @@ export function LoopQAHero() {
         </div>
         <div className="mt-5 flex justify-center">
           <a
-            href="https://loop-qa.replay.io/projects/proj-team-knowledge-hub-iyi2da-netlify-app-mpen5qsj/overview"
+            href="https://qa.replay.io/projects/proj-team-knowledge-hub-iyi2da-netlify-app-mpen5qsj/overview"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center rounded-full border-2 border-accent px-6 py-2.5 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-white"
