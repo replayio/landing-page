@@ -29,7 +29,7 @@ export function HeroUrlInput({ className }: { className?: string }) {
         />
         <button
           type="submit"
-          className="w-full flex-shrink-0 rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-light sm:w-auto sm:rounded-full sm:whitespace-nowrap"
+          className="w-full flex-shrink-0 rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-light sm:w-auto sm:whitespace-nowrap sm:rounded-full"
         >
           Test my app for free
         </button>

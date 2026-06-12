@@ -23,7 +23,7 @@ const NAVLINKS: Navlink[] = [
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/blog', label: 'Blog' }
 ]
 
 const MobileNavlinks: Navlink[] = [
@@ -31,7 +31,7 @@ const MobileNavlinks: Navlink[] = [
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/blog', label: 'Blog' }
 ]
 
 type HeaderProps = {
