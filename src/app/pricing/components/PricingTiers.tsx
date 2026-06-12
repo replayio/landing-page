@@ -84,7 +84,7 @@ export function PricingTiers() {
               20 analyses a month, no time limit, no credit card required.
             </p>
             <Link
-              href="https://app.replay.io/sign-up"
+              href="https://qa.replay.io"
               className="block w-full rounded-xl border border-gray-200 py-3 text-center text-sm font-medium text-gray-600 transition hover:border-gray-300 hover:text-gray-900"
             >
               Get started free
@@ -137,7 +137,7 @@ export function PricingTiers() {
               they use Replay.
             </p>
             <Link
-              href="https://app.replay.io/sign-up"
+              href="https://qa.replay.io"
               className="block w-full rounded-xl bg-accent py-3 text-center text-sm font-medium text-white transition hover:bg-accent-light"
             >
               Get started
