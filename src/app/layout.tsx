@@ -97,7 +97,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
       </head>
-      <body>
+      <body className="overflow-x-clip">
         <noscript>
           <img
             height="1"
