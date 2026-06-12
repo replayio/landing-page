@@ -8,14 +8,14 @@ const steps = [
     number: '01',
     title: 'Give it a URL',
     description:
-      'Point Loop QA at any web app — a marketing site, a SaaS product, an internal tool, or all of the above. No configuration, no test files, no setup beyond the URL.',
+      'Point Replay QA at any web app — a marketing site, a SaaS product, an internal tool, or all of the above. No configuration, no test files, no setup beyond the URL.',
     videoSrc: '/LoopQA_url.mp4'
   },
   {
     number: '02',
     title: 'Discovers journeys and writes tests',
     description:
-      'Loop QA explores your app the way a user would — navigating flows, filling forms, triggering interactions. It identifies meaningful user journeys and writes Playwright tests for each one. No human authoring required.',
+      'Replay QA explores your app the way a user would — navigating flows, filling forms, triggering interactions. It identifies meaningful user journeys and writes Playwright tests for each one. No human authoring required.',
     videoSrc: '/LoopQA_journeys.mp4'
   },
   {
@@ -29,7 +29,7 @@ const steps = [
     number: '04',
     title: 'Files detailed bug reports',
     description:
-      'For every bug found, Loop QA files a report with everything needed to understand and fix it — without anyone having to reproduce it manually.',
+      'For every bug found, Replay QA files a report with everything needed to understand and fix it — without anyone having to reproduce it manually.',
     videoSrc: '/LoopQA_bugreport.mp4'
   }
 ]

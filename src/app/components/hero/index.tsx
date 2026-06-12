@@ -11,13 +11,12 @@ export function Hero() {
   const marqueeRef = usePageSectionAnimation<HTMLDivElement>()
 
   return (
-    <section className="relative flex overflow-visible bg-[#FCFCFC]">
-      <div className="pointer-events-none absolute inset-0">
+    <section className="relative flex overflow-hidden bg-[#FCFCFC]">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute h-[640px] w-[640px] opacity-40 sm:h-[1232px] sm:w-[1232px]"
+          className="absolute left-1/2 h-[420px] w-[420px] opacity-40 sm:h-[640px] sm:w-[640px] lg:h-[1232px] lg:w-[1232px]"
           style={{
             top: '41%',
-            left: '50vw',
             transform: 'translate(-50%, -50%)'
           }}
         >
@@ -30,25 +29,28 @@ export function Hero() {
           />
         </div>
       </div>
-      <div className="relative z-10 flex max-w-full flex-1 flex-col">
-        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-[120px] lg:pt-[160px] 2xl:pt-[220px]">
+      <div className="relative z-10 flex w-full min-w-0 max-w-full flex-1 flex-col">
+        <Container className="relative z-10 flex w-full max-w-7xl flex-col pt-6 sm:pt-12 lg:pt-[160px] 2xl:pt-[220px]">
           <div className="flex flex-col lg:flex-row">
-            <div className="flex w-full flex-col items-center justify-center">
-              <div ref={heroContentRef} className="primary-emphasis max-w-4xl text-center">
-                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-slate-600">
+            <div className="flex w-full min-w-0 flex-col items-center justify-center">
+              <div
+                ref={heroContentRef}
+                className="primary-emphasis w-full max-w-4xl px-1 text-center sm:px-0"
+              >
+                <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-slate-600 sm:mb-6">
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
                   Replay QA
                 </span>
-                <h1 className="font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl xl:text-7xl">
+                <h1 className="font-display text-[1.75rem] font-bold leading-[1.15] tracking-tight text-slate-900 sm:text-4xl sm:leading-tight md:text-6xl xl:text-7xl">
                   AI wrote the app.
                   <br />
                   <span className="text-accent">Replay QA finds what broke.</span>
                 </h1>
-                <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed tracking-tight text-slate-700">
+                <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed tracking-tight text-slate-700 sm:mt-6 sm:text-lg">
                   Give Replay QA a URL. It explores your web app, records every session, finds real
                   bugs, and gives your coding agent the root cause and fix.
                 </p>
-                <div className="mt-10">
+                <div className="mt-8 sm:mt-10">
                   <HeroUrlInput />
                 </div>
               </div>
@@ -57,13 +59,13 @@ export function Hero() {
 
           <div
             ref={marqueeRef}
-            className="flex flex-col items-center pb-10 pt-[72px] xl:pt-[100px] 2xl:pt-[160px]"
+            className="flex flex-col items-center pb-8 pt-10 sm:pb-10 sm:pt-[72px] xl:pt-[100px] 2xl:pt-[160px]"
           >
             <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
               Replay is trusted by top engineering teams
             </p>
-            <div className="flex min-h-[40px] items-center text-[#8B8B8B]">
-              <div className="max-w-full flex-1">
+            <div className="flex min-h-[40px] w-full items-center text-[#8B8B8B]">
+              <div className="max-w-full flex-1 overflow-hidden">
                 <HomeHeroMarquee gradientColor="#FCFCFC" />
               </div>
             </div>

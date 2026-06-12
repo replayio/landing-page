@@ -17,12 +17,12 @@ export function LoopQAProblem() {
             them, and someone to triage what breaks.
           </p>
           <p>
-            The result: vibecoded apps ship without meaningful test coverage. Internal tools get
+            The result: AI-built apps ship without meaningful test coverage. Internal tools get
             deployed with no QA layer at all. And the bugs your users hit are the first signal that
             something is wrong.
           </p>
           <p className="font-medium text-gray-900">
-            Loop QA closes the gap. Give it a URL and it takes care of the rest.
+            Replay QA closes the gap. Give it a URL and it takes care of the rest.
           </p>
         </div>
       </Container>

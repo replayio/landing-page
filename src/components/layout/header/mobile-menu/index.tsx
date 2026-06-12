@@ -34,7 +34,7 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
 
     if (isOn) {
       tl.to(mobileMenuRef.current, {
-        height: 'calc(100dvh - var(--header-height) - var(--banner-height, 0px))',
+        height: 'calc(100dvh - var(--header-height))',
         autoAlpha: 1
       }).to(
         mobileMenuInnerRef.current,
@@ -92,7 +92,7 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
         <div
           ref={mobileMenuRef}
           className={clsx(
-            'invisible fixed left-0 top-0 z-[100] mt-[calc(var(--header-height)+var(--banner-height,0px))] h-0 w-full opacity-0',
+            'invisible fixed left-0 top-0 z-[100] mt-[var(--header-height)] h-0 w-full opacity-0',
             variant === 'dark' ? 'bg-slate-900 text-slate-100' : 'bg-white text-slate-900'
           )}
         >

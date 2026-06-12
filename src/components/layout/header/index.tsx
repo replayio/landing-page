@@ -22,14 +22,16 @@ const NAVLINKS: Navlink[] = [
   { href: '/', label: 'Home' },
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/about', label: 'About' }
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' }
 ]
 
 const MobileNavlinks: Navlink[] = [
   { href: '/', label: 'Home' },
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/about', label: 'About' }
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' }
 ]
 
 type HeaderProps = {
@@ -70,7 +72,7 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
       <Container className="flex-1">
         <nav className="relative z-50 flex justify-between">
           <Link href="/" aria-label="Home">
-            <Logo className="h-auto w-[144px]" variant={variant || 'light'} />
+            <Logo className="h-auto w-[120px] sm:w-[144px]" variant={variant || 'light'} />
           </Link>
           <div className="flex items-center ">
             <div className="hidden md:flex md:items-center md:gap-x-4">

@@ -59,9 +59,9 @@ function CopyPromptBlock({ prompt }: { prompt: string }) {
 
 const SHORT_PROMPT = `Use Replay QA to test this app. Create a QA project for my running app, wait for the results, fix any open bugs, and keep looping until the app passes.`
 
-const FULL_PROMPT = `Set up a continuous QA loop for the app we're building using Replay QA (https://loop-qa.replay.io).
+const FULL_PROMPT = `Set up a continuous QA loop for the app we're building using Replay QA (https://qa.replay.io).
 
-Drive everything through the REST API at https://loop-qa.replay.io/api/v1 — read the OpenAPI spec at /api/v1/openapi.json first; it documents the full workflow. Authenticate with my API token ("Authorization: Bearer lqa_..."), asking me for it if needed.
+Drive everything through the REST API at https://qa.replay.io/api/v1 — read the OpenAPI spec at /api/v1/openapi.json first; it documents the full workflow. Authenticate with my API token ("Authorization: Bearer lqa_..."), asking me for it if needed.
 
 Your job:
 1. Create a QA project for the running app — give it the target_url and a short note on the key flows. If the app is only reachable from this machine (e.g. http://localhost:3000), enable the reverse proxy and follow the spec's setup steps.

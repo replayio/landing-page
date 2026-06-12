@@ -17,7 +17,7 @@ export function HeroUrlInput({ className }: { className?: string }) {
 
   return (
     <form onSubmit={handleSubmit} className={clsx('mx-auto w-full max-w-lg', className)}>
-      <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-2 py-2 shadow-lg transition-all focus-within:border-accent/40 focus-within:shadow-[0_0_0_3px_rgba(240,45,94,0.15)]">
+      <div className="flex flex-col gap-2 rounded-2xl border border-gray-200 bg-white p-2 shadow-lg transition-all focus-within:border-accent/40 focus-within:shadow-[0_0_0_3px_rgba(240,45,94,0.15)] sm:flex-row sm:items-center sm:rounded-full sm:px-2 sm:py-2">
         <input
           type="text"
           inputMode="url"
@@ -25,11 +25,11 @@ export function HeroUrlInput({ className }: { className?: string }) {
           onChange={(e) => setUrl(e.target.value)}
           placeholder="your-app.com"
           aria-label="Your app URL"
-          className="min-w-0 flex-1 border-0 bg-transparent pl-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-0"
+          className="min-w-0 flex-1 rounded-xl border-0 bg-transparent px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-0 sm:rounded-none sm:py-0 sm:pl-4"
         />
         <button
           type="submit"
-          className="flex-shrink-0 whitespace-nowrap rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-light"
+          className="w-full flex-shrink-0 rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-light sm:w-auto sm:whitespace-nowrap sm:rounded-full"
         >
           Test my app for free
         </button>
