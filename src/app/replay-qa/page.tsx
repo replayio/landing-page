@@ -12,27 +12,27 @@ import { LoopQAFAQs } from './components/LoopQAFAQs'
 import { LoopQACTA } from './components/LoopQACTA'
 
 export const metadata: Metadata = {
-  title: 'Loop QA — Autonomous QA for the Vibecoding Era',
+  title: 'Replay QA — Autonomous QA for the Vibecoding Era',
   description:
-    'Drop in a URL. Loop QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
+    'Drop in a URL. Replay QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
   alternates: {
-    canonical: `${siteOrigin}/loop-qa`
+    canonical: `${siteOrigin}/replay-qa`
   },
   openGraph: {
-    url: `${siteOrigin}/loop-qa`,
-    title: 'Loop QA — Autonomous QA for the Vibecoding Era',
+    url: `${siteOrigin}/replay-qa`,
+    title: 'Replay QA — Autonomous QA for the Vibecoding Era',
     description:
-      'Drop in a URL. Loop QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
-    images: [{ url: `${siteOrigin}/loopQA_og-image.png`, width: 1200, height: 630 }]
+      'Drop in a URL. Replay QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
+    images: [{ url: `${siteOrigin}/replayQA_og-image.png`, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
     site: defaultMeta.twitter.site,
-    title: 'Loop QA — Autonomous QA for the Vibecoding Era',
+    title: 'Replay QA — Autonomous QA for the Vibecoding Era',
     description:
-      'Drop in a URL. Loop QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
+      'Drop in a URL. Replay QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
     creator: defaultMeta.twitter.handle,
-    images: [{ url: `${siteOrigin}/loopQA_og-image.png`, width: 1200, height: 630 }]
+    images: [{ url: `${siteOrigin}/replayQA_og-image.png`, width: 1200, height: 630 }]
   }
 }
 
