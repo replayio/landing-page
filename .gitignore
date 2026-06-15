@@ -132,3 +132,9 @@ dist
 /blob-report/
 /playwright/.cache/
 .env*.local
+
+# Generated agent markdown (built from page content)
+public/agent/*.md
+public/llms.txt
+public/llms-full.txt
+src/lib/markdown-agent-tokens.json
