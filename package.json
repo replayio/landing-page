@@ -3,7 +3,7 @@
   "version": "7.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "node scripts/generate-agent-skills.mjs",
+    "prebuild": "node scripts/ensure-agent-tokens-stub.mjs && node scripts/generate-agent-skills.mjs",
     "dev": "next dev",
     "build": "next build && node scripts/generate-agent-markdown.mjs",
     "start": "next start",
