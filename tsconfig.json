@@ -22,9 +22,7 @@
     "paths": {
       "~/images/*": ["./public/images/*"],
       "~/public/*": ["./public/*"],
-      "~/*": ["./src/*"],
-      ".basehub": ["./.basehub"],
-      ".basehub/*": ["./.basehub/*"]
+      "~/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

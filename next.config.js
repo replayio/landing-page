@@ -4,9 +4,7 @@ const path = require('path')
 const nextConfig = {
   images: {
     remotePatterns: [
-      { hostname: 'basehub.earth' },
       { hostname: 'image-forwarder.notaku.so' },
-      { hostname: 'assets.basehub.com' },
       { hostname: 'utfs.io' },
       { hostname: 'static.replay.io' },
       { hostname: 'placehold.co' },
