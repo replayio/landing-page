@@ -81,9 +81,6 @@ web_modules/
 .cache
 .parcel-cache
 
-# basehub build output
-.basehub
-
 # Next.js build output
 .next
 out
