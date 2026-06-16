@@ -50,9 +50,7 @@ export const viewport: Viewport = {
 export default function Home() {
   return (
     <>
-      <Suspense fallback={null}>
-        <Header className="!top-[0px] sm:!top-[0px]" />
-      </Suspense>
+      <Header className="!top-[0px] sm:!top-[0px]" />
       <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
         <BuilderHomeMain />
         <Suspense fallback={<div className="min-h-[400px]" />}>

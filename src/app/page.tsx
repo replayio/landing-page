@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { Hero } from './components/hero'
 import { ProductVideo } from './components/ProductVideo'
@@ -52,9 +51,7 @@ export const viewport: Viewport = {
 export default function HomePage() {
   return (
     <>
-      <Suspense fallback={null}>
-        <Header className="!top-[0px] sm:!top-[0px]" />
-      </Suspense>
+      <Header className="!top-[0px] sm:!top-[0px]" />
       <PageContentAnimate>
         <Hero />
         <ProductVideo />

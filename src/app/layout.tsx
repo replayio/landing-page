@@ -7,7 +7,6 @@ import Script from 'next/script'
 import { ReactNode, Suspense } from 'react'
 import Analytics from '~/lib/analytics'
 import { RedditPixel } from '~/components/analytics/RedditPixel'
-import { Toolbar } from 'basehub/next-toolbar'
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
@@ -37,7 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Suspense fallback={null}>
           <RedditPixel />
         </Suspense>
-        <Toolbar />
+
         <Script
           async
           src="https://replay-analytics.netlify.app/umami.js"
