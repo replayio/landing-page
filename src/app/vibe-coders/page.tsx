@@ -1,9 +1,5 @@
 import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
-import { Testimonials } from '~/components/Testimonials'
-import { Pump } from '.basehub/react-pump'
-import { draftMode } from 'next/headers'
-import { landingPageFragment } from '~/lib/basehub-queries'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
@@ -47,30 +43,19 @@ export const viewport: Viewport = {
 
 export default function VibeCodersPage() {
   return (
-    <Pump
-      draft={draftMode().isEnabled}
-      next={{ revalidate: 30 }}
-      queries={[{ landingPage: landingPageFragment }]}
-    >
-      {async ([{ landingPage }]) => {
-        'use server'
-        return (
-          <>
-            <Suspense fallback={null}>
-              <Header className="!top-[0px] sm:!top-[0px]" />
-            </Suspense>
-            <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
-              <VibeCodersHero />
-              <VibeCodersProblem />
-              <VibeCodersExample />
-              <VibeCodersSteps />
-              <VibeCodersMCPCallout />
-              <VibeCodersCTA />
-            </PageContentAnimate>
-            <Footer />
-          </>
-        )
-      }}
-    </Pump>
+    <>
+      <Suspense fallback={null}>
+        <Header className="!top-[0px] sm:!top-[0px]" />
+      </Suspense>
+      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
+        <VibeCodersHero />
+        <VibeCodersProblem />
+        <VibeCodersExample />
+        <VibeCodersSteps />
+        <VibeCodersMCPCallout />
+        <VibeCodersCTA />
+      </PageContentAnimate>
+      <Footer />
+    </>
   )
 }

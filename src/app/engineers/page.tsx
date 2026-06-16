@@ -1,9 +1,6 @@
 import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { Testimonials } from '~/components/Testimonials'
-import { Pump } from '.basehub/react-pump'
-import { draftMode } from 'next/headers'
-import { landingPageFragment } from '~/lib/basehub-queries'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
@@ -45,30 +42,19 @@ export const viewport: Viewport = {
 
 export default function ForEngineersPage() {
   return (
-    <Pump
-      draft={draftMode().isEnabled}
-      next={{ revalidate: 30 }}
-      queries={[{ landingPage: landingPageFragment }]}
-    >
-      {async ([{ landingPage }]) => {
-        'use server'
-        return (
-          <>
-            <Suspense fallback={null}>
-              <Header className="!top-[0px] sm:!top-[0px]" />
-            </Suspense>
-            <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
-              <ForEngineersHero />
-              <EngineerProblem />
-              <EngineerBenefits />
-              <EngineerUseCases />
-              <Testimonials {...landingPage} />
-              <HomepageCTA backgroundColor="gray" />
-            </PageContentAnimate>
-            <Footer />
-          </>
-        )
-      }}
-    </Pump>
+    <>
+      <Suspense fallback={null}>
+        <Header className="!top-[0px] sm:!top-[0px]" />
+      </Suspense>
+      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
+        <ForEngineersHero />
+        <EngineerProblem />
+        <EngineerBenefits />
+        <EngineerUseCases />
+        <Testimonials />
+        <HomepageCTA backgroundColor="gray" />
+      </PageContentAnimate>
+      <Footer />
+    </>
   )
 }
