@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Metadata, Viewport } from 'next'
 import { Header } from '~/components/layout/header'
 import { Hero } from '~/components/sections/404/hero'
@@ -14,9 +13,7 @@ export const viewport: Viewport = {
 export default function NotFound() {
   return (
     <>
-      <Suspense fallback={null}>
-        <Header variant="dark" className="!border-none !bg-transparent" />
-      </Suspense>
+      <Header variant="dark" className="!border-none !bg-transparent" />
       <main className="pt-[var(--header-height)]">
         <Hero />
       </main>

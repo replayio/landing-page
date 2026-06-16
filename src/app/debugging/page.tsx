@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { DevTools } from '~/components/sections/DevTools'
 import { Metadata, Viewport } from 'next/types'
@@ -49,9 +48,7 @@ export const viewport: Viewport = {
 export default function DebuggingPage() {
   return (
     <>
-      <Suspense fallback={null}>
-        <Header className="!top-[0px] sm:!top-[0px]" />
-      </Suspense>
+      <Header className="!top-[0px] sm:!top-[0px]" />
       <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
         <DebuggingHero />
         <DebuggingProblem />

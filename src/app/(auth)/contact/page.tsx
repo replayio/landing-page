@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
 import Script from 'next/script'
@@ -19,9 +18,7 @@ const Contact = () => {
     <>
       <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
 
-      <Suspense fallback={null}>
-        <Header />
-      </Suspense>
+      <Header />
       <div>
         <ContactForm />
       </div>

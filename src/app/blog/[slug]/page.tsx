@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 import { Container } from '~/components/Container'
@@ -79,9 +78,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <Header className="!top-[0px] sm:!top-[0px]" />
-      </Suspense>
+      <Header className="!top-[0px] sm:!top-[0px]" />
 
       <main className="bg-white pb-20 pt-[calc(var(--header-height)+2rem)] sm:pt-[calc(var(--header-height)+3rem)]">
         <Container>

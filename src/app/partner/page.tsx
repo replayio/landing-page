@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
@@ -42,9 +41,7 @@ export const viewport: Viewport = {
 export default function PartnerPage() {
   return (
     <>
-      <Suspense fallback={null}>
-        <Header className="!top-[0px] sm:!top-[0px]" />
-      </Suspense>
+      <Header className="!top-[0px] sm:!top-[0px]" />
       <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
         <PartnerHero />
         <PartnerProblem />

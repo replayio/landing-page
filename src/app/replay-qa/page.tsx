@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
@@ -43,9 +42,7 @@ export const viewport: Viewport = {
 export default function LoopQAPage() {
   return (
     <>
-      <Suspense fallback={null}>
-        <Header className="!top-0 !mt-0 border-b border-gray-100 !bg-white shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]" />
-      </Suspense>
+      <Header className="!top-0 !mt-0 border-b border-gray-100 !bg-white shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]" />
       <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
         <LoopQAHero />
         <LoopQAProblem />
