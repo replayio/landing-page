@@ -4,8 +4,8 @@
  *
  * Post-build script that self-scrapes the Next.js production build to generate
  * agent-friendly markdown files. Runs `next start` temporarily, fetches each
- * marketing page, extracts main content via Readability, converts to markdown
- * via Turndown, and writes the results to public/agent/*.md + llms.txt files.
+ * marketing page, extracts the <main> content, converts to markdown via
+ * Turndown, and writes the results to public/agent/*.md + llms.txt files.
  *
  * Run after `next build`:
  *   yarn basehub-gen && next build && node scripts/generate-agent-markdown.mjs
@@ -14,7 +14,7 @@ import { spawn } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { extractContent, htmlToMarkdown } from 'web-to-markdown'
+import { htmlToMarkdown } from 'web-to-markdown'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -39,7 +39,11 @@ const ROUTES = [
   { pathname: '/about', slug: 'about', title: 'About — Replay' },
   { pathname: '/privacy-policy', slug: 'privacy-policy', title: 'Privacy Policy — Replay' },
   { pathname: '/terms-of-service', slug: 'terms-of-service', title: 'Terms of Service — Replay' },
-  { pathname: '/security-and-privacy', slug: 'security-and-privacy', title: 'Security & Privacy — Replay' },
+  {
+    pathname: '/security-and-privacy',
+    slug: 'security-and-privacy',
+    title: 'Security & Privacy — Replay'
+  }
 ]
 
 // ---------------------------------------------------------------------------
@@ -52,7 +56,7 @@ function startServer() {
     const proc = spawn('node_modules/.bin/next', ['start', '-p', String(PORT)], {
       cwd: ROOT,
       stdio: ['ignore', 'pipe', 'pipe'],
-      env: { ...process.env, NODE_ENV: 'production' },
+      env: { ...process.env, NODE_ENV: 'production' }
     })
 
     let started = false
@@ -111,6 +115,40 @@ async function withServer(fn) {
 // Page fetching & conversion
 // ---------------------------------------------------------------------------
 
+/**
+ * Extract FAQ entries from JSON-LD FAQPage schema in the HTML.
+ * Returns an array of { question, answer } objects, or empty array if none found.
+ */
+function extractFaqsFromJsonLd(html) {
+  const faqs = []
+  const ldBlocks = [...html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+  for (const block of ldBlocks) {
+    try {
+      const data = JSON.parse(block[1])
+      if (data['@type'] === 'FAQPage' && Array.isArray(data.mainEntity)) {
+        for (const item of data.mainEntity) {
+          if (item['@type'] === 'Question' && item.acceptedAnswer?.text) {
+            faqs.push({ question: item.name, answer: item.acceptedAnswer.text })
+          }
+        }
+      }
+    } catch {
+      // Malformed JSON-LD, skip
+    }
+  }
+  return faqs
+}
+
+/** Format FAQ entries as clean markdown. */
+function faqsToMarkdown(faqs) {
+  if (faqs.length === 0) return ''
+  const lines = ['## Frequently Asked Questions', '']
+  for (const { question, answer } of faqs) {
+    lines.push(`### ${question}`, '', answer, '')
+  }
+  return lines.join('\n')
+}
+
 /** Fetch a page from the local server and convert to markdown. */
 async function convertPage(route) {
   const url = `${BASE_URL}${route.pathname}`
@@ -119,7 +157,7 @@ async function convertPage(route) {
   // Fetch HTML (plain fetch, no Accept: text/markdown — avoids middleware rewrite)
   const res = await fetch(url, {
     headers: { Accept: 'text/html' },
-    signal: AbortSignal.timeout(15_000),
+    signal: AbortSignal.timeout(15_000)
   })
 
   if (!res.ok) {
@@ -128,19 +166,55 @@ async function convertPage(route) {
 
   const html = await res.text()
 
-  // Extract main content with Readability
-  const extracted = extractContent(html, canonicalUrl)
-  if (!extracted) {
-    console.warn(`  ⚠ Readability extraction failed for ${route.pathname}, using raw HTML fallback`)
-    // Fallback: convert entire body
-    const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i)
-    const bodyHtml = bodyMatch ? bodyMatch[1] : html
-    const markdown = htmlToMarkdown(bodyHtml, { baseUrl: canonicalUrl })
-    return { markdown, metadata: { title: route.title, excerpt: null } }
+  // Extract FAQ data from JSON-LD before stripping it from HTML.
+  // Radix accordions don't render closed item content to the DOM, so the
+  // JSON-LD FAQPage schema is the only source for all Q&A pairs.
+  const faqs = extractFaqsFromJsonLd(html)
+
+  // Extract <main> content directly — Readability strips too aggressively on
+  // marketing pages with card grids, accordions, and interactive components.
+  // Since this is our own site we can rely on <main> wrapping page content.
+  const mainMatch = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i)
+  if (!mainMatch) {
+    console.warn(`  ⚠ No <main> tag found for ${route.pathname}, falling back to <body>`)
+  }
+  let contentHtml = mainMatch
+    ? mainMatch[0]
+    : html.match(/<body[^>]*>([\s\S]*)<\/body>/i)?.[1] ?? html
+
+  // Strip JSON-LD script tags — they produce raw JSON noise in the markdown
+  contentHtml = contentHtml.replace(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, '')
+
+  // Extract metadata from <head>
+  const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i)
+  const descMatch =
+    html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i) ||
+    html.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i)
+  const metadata = {
+    title: titleMatch?.[1]?.trim() || route.title,
+    excerpt: descMatch?.[1]?.trim() || null
   }
 
-  const markdown = htmlToMarkdown(extracted.content, { baseUrl: canonicalUrl })
-  return { markdown, metadata: extracted.metadata }
+  let markdown = htmlToMarkdown(contentHtml, { baseUrl: canonicalUrl })
+
+  // Replace the partial FAQ section (only first answer rendered) with the
+  // complete FAQ from JSON-LD. Look for the "Common questions" heading that
+  // our accordion components render.
+  if (faqs.length > 0) {
+    const faqHeading = '## Common questions'
+    const faqIdx = markdown.indexOf(faqHeading)
+    if (faqIdx !== -1) {
+      // Find where the FAQ section ends: next ## heading, --- separator, or EOF
+      const afterFaq = markdown.substring(faqIdx + faqHeading.length)
+      const nextSectionMatch = afterFaq.match(/\n## (?!#)|\n---/)
+      const endIdx = nextSectionMatch
+        ? faqIdx + faqHeading.length + nextSectionMatch.index
+        : markdown.length
+      markdown = markdown.substring(0, faqIdx) + faqsToMarkdown(faqs) + '\n' + markdown.substring(endIdx)
+    }
+  }
+
+  return { markdown, metadata }
 }
 
 // ---------------------------------------------------------------------------
@@ -152,14 +226,7 @@ function postProcess(markdown, route, metadata) {
   const canonicalUrl = `${SITE_URL}${route.pathname === '/' ? '' : route.pathname}`
   const title = metadata?.title || route.title
 
-  const header = [
-    `# ${title}`,
-    '',
-    `**Canonical URL:** ${canonicalUrl}`,
-    '',
-    '---',
-    '',
-  ].join('\n')
+  const header = [`# ${title}`, '', `**Canonical URL:** ${canonicalUrl}`, '', '---', ''].join('\n')
 
   const footer = [
     '',
@@ -171,7 +238,7 @@ function postProcess(markdown, route, metadata) {
     `- [Documentation](https://docs.replay.io)`,
     `- [Pricing](${SITE_URL}/pricing)`,
     `- [About](${SITE_URL}/about)`,
-    '',
+    ''
   ].join('\n')
 
   return header + markdown + footer
@@ -188,16 +255,17 @@ function generateLlmsTxt(results) {
     '> Replay is an AI-native QA platform. Replay QA autonomously explores your web app, records every session with time-travel debugging, finds real bugs, and gives your coding agent the root cause and fix.',
     '',
     '## Pages',
-    '',
+    ''
   ]
 
   for (const { route, metadata } of results) {
     const title = metadata?.title || route.title
     const desc = metadata?.excerpt ? `: ${metadata.excerpt}` : ''
     // Link to the agent markdown version of each page
-    const mdUrl = route.pathname === '/'
-      ? `${SITE_URL}/agent/index.md`
-      : `${SITE_URL}/agent${route.pathname}.md`
+    const mdUrl =
+      route.pathname === '/'
+        ? `${SITE_URL}/agent/index.md`
+        : `${SITE_URL}/agent${route.pathname}.md`
     lines.push(`- [${title}](${mdUrl})${desc}`)
   }
 
