@@ -1,13 +1,10 @@
-import { LandingPageFragment } from '~/lib/basehub-queries'
 import Image from 'next/image'
 import Link from 'next/link'
 import TestimonialForSmallScreen from './TestimonialForSmallScreen'
+import { testimonialData } from '~/lib/testimonial-data'
 
 import styles from '../styles/Landingpage.module.css'
-import alex from '~/images/testimonials/alex.png'
-import algodaily from '~/images/testimonials/algodaily.png'
 import amjad from '~/images/testimonials/amjad.png'
-import cypress from '~/images/testimonials/cypress.png'
 import dan from '~/images/testimonials/dan-abramov.png'
 import david from '~/images/testimonials/david.png'
 import dom from '~/images/testimonials/dom.png'
@@ -17,7 +14,6 @@ import glide from '~/images/testimonials/glide.png'
 import guillermo from '~/images/testimonials/guillermo-rauch.jpg'
 import harald from '~/images/testimonials/harald.jpg'
 import ives from '~/images/testimonials/ives.png'
-import jacob from '~/images/testimonials/jacob.jpg'
 import jj from '~/images/testimonials/jj-kasper.png'
 import kenneth from '~/images/testimonials/kenneth.jpg'
 import lenz from '~/images/testimonials/lenz.png'
@@ -25,25 +21,20 @@ import marke from '~/images/testimonials/mark-erikson.png'
 import markp from '~/images/testimonials/mark-probst.jpg'
 import mateusz from '~/images/testimonials/mateusz.png'
 import matt from '~/images/testimonials/matt.png'
+import pantheon from '~/images/testimonials/pantheon.png'
 import ryan from '~/images/testimonials/ryan-carniato.png'
 import sebastian from '~/images/testimonials/sebastian.png'
 import shane from '~/images/testimonials/shane.jpg'
-import shawn from '~/images/testimonials/shawn.png'
 import simeon from '~/images/testimonials/simeon.jpg'
-import timh from '~/images/testimonials/tim-haines.jpg'
+import tablecheck from '~/images/testimonials/tablecheck.png'
 import timn from '~/images/testimonials/tim-neutkins.png'
 import zack from '~/images/testimonials/zack-rosen.jpg'
-import pantheon from '~/images/testimonials/pantheon.png'
-import tablecheck from '~/images/testimonials/tablecheck.png'
 import { classNames } from '~/lib/utils'
 import { ArrowIcon } from './icons'
 import { Eyebrow, Title } from './primitives/texts'
 
 const images = {
-  alex,
-  algodaily,
   amjad,
-  cypress,
   dan,
   david,
   dom,
@@ -53,7 +44,6 @@ const images = {
   guillermo,
   harald,
   ives,
-  jacob,
   jj,
   kenneth,
   lenz,
@@ -65,10 +55,8 @@ const images = {
   ryan,
   sebastian,
   shane,
-  shawn,
   simeon,
   tablecheck,
-  timh,
   timn,
   zack
 }
@@ -220,26 +208,26 @@ function TestimonialForLargeScreen({ testimonials }: { testimonials: Testimonial
   )
 }
 
-export function Testimonials({ testimonials }: LandingPageFragment) {
-  const newTestimonials = testimonials.testimonials.items.map((testimonial) => ({
-    body: testimonial.quote,
+export function Testimonials() {
+  const newTestimonials = testimonialData.testimonials.map((t) => ({
+    body: t.quote,
     author: {
-      name: testimonial._title,
-      handle: testimonial.title,
-      image: images[testimonial.image as keyof typeof images]
+      name: t.name,
+      handle: t.handle,
+      image: images[t.image as keyof typeof images]
     },
-    featured: testimonial.featured
+    featured: t.featured ?? false
   }))
 
-  const newCaseStudies = testimonials.caseStudies.items.map((testimonial) => ({
-    body: testimonial.quote,
+  const newCaseStudies = testimonialData.caseStudies.map((cs) => ({
+    body: cs.quote,
     author: {
-      name: testimonial.name,
-      handle: testimonial.handle,
-      image: images[testimonial.image as keyof typeof images],
-      logo: images[testimonial.logo as keyof typeof images]
+      name: cs.name,
+      handle: cs.handle,
+      image: images[cs.image as keyof typeof images],
+      logo: images[cs.logo as keyof typeof images]
     },
-    url: testimonial.url
+    url: cs.url
   }))
 
   const breaks = [0, 6, 10, 14, 19]
@@ -247,7 +235,7 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
   const featuredTestimonial = newTestimonials.filter((t) => t.featured)[0]
   const notFeaturedTestimonials = newTestimonials.filter((t) => !t.featured)
 
-  const baseHubTestimonials = [
+  const testimonialColumns = [
     [
       notFeaturedTestimonials.slice(breaks[0], breaks[1]),
       notFeaturedTestimonials.slice(breaks[1], breaks[2])
@@ -286,12 +274,12 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <Eyebrow>{testimonials.caseStudySubTitle}</Eyebrow>
+          <Eyebrow>{testimonialData.caseStudySubTitle}</Eyebrow>
           <Title
             as="h2"
             className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl"
           >
-            {testimonials.caseStudyTitle}
+            {testimonialData.caseStudyTitle}
           </Title>
         </div>
 
@@ -302,18 +290,18 @@ export function Testimonials({ testimonials }: LandingPageFragment) {
         </div>
 
         <div className="mx-auto mt-20 text-center">
-          <Eyebrow>{testimonials.subtitle}</Eyebrow>
+          <Eyebrow>{testimonialData.subtitle}</Eyebrow>
           <Title
             as="h2"
             className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl"
           >
-            {testimonials.title}
+            {testimonialData.title}
           </Title>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-y-8 text-sm leading-6 text-gray-900 sm:mt-20 sm:grid-cols-2 lg:gap-x-8 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
           <FeaturedTestimonial testimonial={featuredTestimonial} />
-          <TestimonialForSmallScreen testimonials={baseHubTestimonials} />
-          <TestimonialForLargeScreen testimonials={baseHubTestimonials} />
+          <TestimonialForSmallScreen testimonials={testimonialColumns} />
+          <TestimonialForLargeScreen testimonials={testimonialColumns} />
         </div>
       </div>
     </section>
