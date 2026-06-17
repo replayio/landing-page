@@ -8,7 +8,7 @@
  * Turndown, and writes the results to public/agent/*.md + llms.txt files.
  *
  * Run after `next build`:
- *   yarn basehub-gen && next build && node scripts/generate-agent-markdown.mjs
+ *   pnpm basehub-gen && next build && node scripts/generate-agent-markdown.mjs
  */
 import { spawn } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'

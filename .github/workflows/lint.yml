@@ -11,32 +11,19 @@ jobs:
     name: Trunk Check runner
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: volta-cli/action@v1
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 20.12.0
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "{dir}={$(yarn config get cacheFolder)}" >> $GITHUB_OUTPUT
-      - name: Restore yarn cache
-        uses: useblacksmith/cache@v5
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            **/node_modules
-          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
-          restore-keys: "yarn-cache-folder-"
-      # Actually install packages with Yarn
+          node-version: 20
+          cache: pnpm
       - name: Install packages
-        run: yarn install
-        env:
-          YARN_CHECKSUM_BEHAVIOR: "update"
+        run: pnpm install --frozen-lockfile
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
       - name: Next Build (because it's more strict)
-        run: yarn build
-        env: 
+        run: pnpm build
+        env:
           NEXT_PUBLIC_SITE_URL: "https://replay.io"
           BASEHUB_TOKEN: ${{ secrets.BASEHUB_TOKEN }}
           BASEHUB_DRAFT: true
