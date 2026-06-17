@@ -1,0 +1,3 @@
+allowBuilds:
+  '@replayio/playwright': true
+  sharp: true

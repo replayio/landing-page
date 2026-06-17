@@ -2,6 +2,7 @@
   "name": "replay-landing-page",
   "version": "7.0.0",
   "private": true,
+  "packageManager": "pnpm@11.7.0",
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/ensure-agent-tokens-stub.mjs && node scripts/generate-agent-skills.mjs && next build && node scripts/generate-agent-markdown.mjs",
@@ -43,6 +44,7 @@
     "autoprefixer": "^10.4.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "embla-carousel": "8.0.0-rc05",
     "embla-carousel-react": "8.0.0-rc05",
     "global": "^4.4.0",
     "gsap": "./src/lib/gsap/gsap-bonus.tgz",
@@ -91,12 +93,10 @@
     "web-to-markdown": "^0.1.1"
   },
   "engines": {
-    "node": "20.x",
-    "yarn": "4.x"
+    "node": ">=20",
+    "pnpm": ">=9"
   },
-  "packageManager": "yarn@4.1.1",
   "volta": {
-    "node": "20.12.0",
-    "yarn": "4.1.1"
+    "node": "24.13.0"
   }
 }
