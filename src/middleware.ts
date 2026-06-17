@@ -16,6 +16,17 @@ function blogLegacyRedirect(request: NextRequest): NextResponse | null {
   return NextResponse.redirect(target, 301)
 }
 
+// Send TAAFT (theresanaiforthat.com) referral traffic landing on the homepage
+// straight to qa.replay.io, preserving the original ref/UTM query string.
+function taaftReferralRedirect(request: NextRequest): NextResponse | null {
+  if (request.nextUrl.pathname !== '/') return null
+  if (request.nextUrl.searchParams.get('ref') !== 'taaft') return null
+
+  const target = new URL('https://qa.replay.io/')
+  target.search = request.nextUrl.search
+  return NextResponse.redirect(target)
+}
+
 // ad attribution — first-touch capture of paid-ad click IDs + utms as a
 // .replay.io cookie, so the value survives the replay.io -> app.replay.io
 // subdomain hop (localStorage is origin-scoped and wouldn't). the 90d
@@ -131,6 +142,9 @@ function appendDiscoveryLinkHeaders(response: NextResponse): void {
 export function middleware(request: NextRequest) {
   const blogRedirect = blogLegacyRedirect(request)
   if (blogRedirect) return blogRedirect
+
+  const taaftRedirect = taaftReferralRedirect(request)
+  if (taaftRedirect) return taaftRedirect
 
   const pathname = request.nextUrl.pathname
 
