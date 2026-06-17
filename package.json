@@ -43,6 +43,7 @@
     "autoprefixer": "^10.4.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "embla-carousel": "8.0.0-rc05",
     "embla-carousel-react": "8.0.0-rc05",
     "global": "^4.4.0",
     "gsap": "./src/lib/gsap/gsap-bonus.tgz",
