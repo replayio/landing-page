@@ -2,6 +2,7 @@
   "name": "replay-landing-page",
   "version": "7.0.0",
   "private": true,
+  "packageManager": "pnpm@9.1.0",
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/ensure-agent-tokens-stub.mjs && node scripts/generate-agent-skills.mjs && next build && node scripts/generate-agent-markdown.mjs",
