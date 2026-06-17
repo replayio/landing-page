@@ -2,7 +2,7 @@
   "name": "replay-landing-page",
   "version": "7.0.0",
   "private": true,
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@11.7.0",
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/ensure-agent-tokens-stub.mjs && node scripts/generate-agent-skills.mjs && next build && node scripts/generate-agent-markdown.mjs",
@@ -93,10 +93,10 @@
     "web-to-markdown": "^0.1.1"
   },
   "engines": {
-    "node": "20.x",
+    "node": ">=20",
     "pnpm": ">=9"
   },
   "volta": {
-    "node": "20.12.0"
+    "node": "24.13.0"
   }
 }
