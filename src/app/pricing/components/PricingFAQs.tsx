@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "What's the difference between the plans?",
     answer:
-      'The plans differ by analysis volume. Free gives you 20 AI analyses per month — enough to evaluate Replay with no time limit. Individual ($50/mo) and Team ($300/mo) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
+      'The plans differ by credit volume. Free gives you 25 credits per month — enough to evaluate Replay with no time limit. Individual ($20/mo or $204/yr) and Team ($200/mo or $2,040/yr) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
   },
   {
     question: 'Can I upgrade or downgrade at any time?',
@@ -22,12 +22,12 @@ const faqs = [
       "Yes. Start on Free and upgrade whenever you're ready — no commitment required. You can downgrade to a lower plan at the end of your billing period."
   },
   {
-    question: 'What counts as an analysis?',
+    question: 'What counts as a credit?',
     answer:
-      'An analysis is any time Replay examines a recording to produce an insight — a root cause, a bug report, a suggested fix. Each recording analyzed counts as one analysis, regardless of which Replay product triggered it.'
+      'A credit is used any time Replay examines a recording to produce an insight — a root cause, a bug report, a suggested fix. Each recording analyzed uses one credit, regardless of which Replay product triggered it.'
   },
   {
-    question: 'What happens if I hit my analysis limit?',
+    question: 'What happens if I hit my credit limit?',
     answer:
       "You'll be notified when you're approaching your limit. You can upgrade to a higher plan at any time — your existing recordings stay intact."
   },
