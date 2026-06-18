@@ -22,14 +22,14 @@ const faqs = [
       "Yes. Start on Free and upgrade whenever you're ready — no commitment required. You can downgrade to a lower plan at the end of your billing period."
   },
   {
-    question: 'What counts as an analysis?',
+    question: 'What counts as a credit?',
     answer:
-      'An analysis is any time Replay examines a recording to produce an insight — a root cause, a bug report, a suggested fix. Each recording analyzed counts as one analysis, regardless of which Replay product triggered it.'
+      'A credit maps to any meaningful work done by Replay QA. A user journey discovered, a bug found and analyzed. To run QA on a web app of average complexity, expect to spend around 20 credits. The more complex an app is, the more credits it will require.'
   },
   {
-    question: 'What happens if I hit my analysis limit?',
+    question: 'What happens if I hit my credit limit?',
     answer:
-      "You'll be notified when you're approaching your limit. You can upgrade to a higher plan at any time — your existing recordings stay intact."
+      "You can always upgrade to a higher plan, and the credits for the new plan will become available immediately. Additionally, you can earn credits by sharing your Replay QA projects on social platforms. Open the project's settings and paste in the link to your public social post. Once it's set, the project is free — all credits already spent on it are refunded, and future QA on it is free. That's it: QA runs exactly the same, at no cost. Shared projects are public and searchable, so others can see the results — it also works great for QA'ing an app someone else posted to help them out."
   },
   {
     question: 'How is this different from Datadog, Sentry, or LogRocket?',
