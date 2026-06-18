@@ -81,7 +81,7 @@ export function PricingTiers() {
               Try Replay with no commitment
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              20 analyses a month, no time limit, no credit card required.
+              20 credits a month, no time limit, no credit card required.
             </p>
             <Link
               href="https://qa.replay.io"
@@ -104,7 +104,7 @@ export function PricingTiers() {
               For individuals using Replay beyond the basics
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              50 analyses a month — the right volume for solo builders running a handful of apps or
+              50 credits a month — the right volume for solo builders running a handful of apps or
               workflows.
             </p>
             <Link
@@ -133,7 +133,7 @@ export function PricingTiers() {
               For startups and small teams moving fast
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              300 analyses a month for teams that ship often and need consistent coverage — however
+              300 credits a month for teams that ship often and need consistent coverage — however
               they use Replay.
             </p>
             <Link
@@ -158,7 +158,7 @@ export function PricingTiers() {
               For organizations using Replay at scale
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              Custom analysis volume, contracts, and support — for however your organization uses
+              Custom credit volume, contracts, and support — for however your organization uses
               Replay.
             </p>
             <Link
