@@ -8,13 +8,15 @@ import { Container } from '~/components/Container'
 export function PricingTiers() {
   const [annual, setAnnual] = useState(true)
 
-  const individualPrice = annual ? 42 : 49
+  const individualPrice = annual ? '204' : '20'
   const individualBillingNote = annual
-    ? 'per month · billed annually'
-    : 'per month · billed monthly'
+    ? 'per year · 50 credits/month'
+    : 'per month · 50 credits/month'
 
-  const teamPrice = annual ? 299 : 349
-  const teamBillingNote = annual ? 'per month · billed annually' : 'per month · billed monthly'
+  const teamPrice = annual ? '2,040' : '200'
+  const teamBillingNote = annual
+    ? 'per year · 500 credits/month'
+    : 'per month · 500 credits/month'
 
   return (
     <section className="relative bg-[#F8F7FB] py-16 md:py-20">
@@ -81,7 +83,7 @@ export function PricingTiers() {
               Try Replay with no commitment
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              20 analyses a month, no time limit, no credit card required.
+              25 credits/month, no time limit, no credit card required.
             </p>
             <Link
               href="https://qa.replay.io"
@@ -104,7 +106,7 @@ export function PricingTiers() {
               For individuals using Replay beyond the basics
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              50 analyses a month — the right volume for solo builders running a handful of apps or
+              50 credits/month — the right volume for solo builders running a handful of apps or
               workflows.
             </p>
             <Link
@@ -133,7 +135,7 @@ export function PricingTiers() {
               For startups and small teams moving fast
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              300 analyses a month for teams that ship often and need consistent coverage — however
+              500 credits/month for teams that ship often and need consistent coverage — however
               they use Replay.
             </p>
             <Link
@@ -158,7 +160,7 @@ export function PricingTiers() {
               For organizations using Replay at scale
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              Custom analysis volume, contracts, and support — for however your organization uses
+              Custom credit volume, contracts, and support — for however your organization uses
               Replay.
             </p>
             <Link
