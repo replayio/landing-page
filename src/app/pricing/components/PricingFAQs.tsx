@@ -7,14 +7,14 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '~/components/ui/accordion'
-import { useMemo, type ReactNode } from 'react'
+import { useMemo } from 'react'
 import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
-const faqs: Array<{ question: string; answer: ReactNode }> = [
+const faqs = [
   {
     question: "What's the difference between the plans?",
     answer:
-      'The plans differ by credit volume. Free gives you 25 credits per month — enough to evaluate Replay with no time limit. Individual ($20/mo or $204/yr) and Team ($200/mo or $2,040/yr) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
+      'The plans differ by analysis volume. Free gives you 20 AI analyses per month — enough to evaluate Replay with no time limit. Individual ($50/mo) and Team ($300/mo) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
   },
   {
     question: 'Can I upgrade or downgrade at any time?',
@@ -22,12 +22,12 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       "Yes. Start on Free and upgrade whenever you're ready — no commitment required. You can downgrade to a lower plan at the end of your billing period."
   },
   {
-    question: 'What counts as a credit?',
+    question: 'What counts as an analysis?',
     answer:
-      'A credit is used any time Replay examines a recording to produce an insight — a root cause, a bug report, a suggested fix. Each recording analyzed uses one credit, regardless of which Replay product triggered it.'
+      'An analysis is any time Replay examines a recording to produce an insight — a root cause, a bug report, a suggested fix. Each recording analyzed counts as one analysis, regardless of which Replay product triggered it.'
   },
   {
-    question: 'What happens if I hit my credit limit?',
+    question: 'What happens if I hit my analysis limit?',
     answer:
       "You'll be notified when you're approaching your limit. You can upgrade to a higher plan at any time — your existing recordings stay intact."
   },
@@ -38,25 +38,8 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   },
   {
     question: 'Does Replay work with my existing tools?',
-    answer: (
-      <>
-        <p className="mb-3">
-          Yes. You can ask your coding agent to run Replay QA on a web app you&apos;re building by
-          giving it the following prompt:
-        </p>
-        <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg bg-gray-900 p-4 text-xs leading-relaxed text-gray-100">
-          <code>{`Set up a continuous QA loop for the app we're building using Replay QA (https://qa.replay.io).
-
-Drive everything through the REST API at https://qa.replay.io/api/v1 — read the OpenAPI spec at /api/v1/openapi.json first; it documents the full workflow. Authenticate with my API token ("Authorization: Bearer lqa_..."), asking me for it if needed.
-
-Your job:
-1. Create a QA project for the running app — give it the target_url and a short note on the key flows. If the app is only reachable from this machine (e.g. http://localhost:3000), enable the reverse proxy and follow the spec's setup steps.
-2. Let QA run — poll the project status and don't kick off explorations or test runs yourself; QA drives those.
-3. For each open bug, read its full root-caused report and apply the fix directly in the codebase, then mark it fixed via the API.
-4. Keep looping until no open bugs remain.`}</code>
-        </pre>
-      </>
-    )
+    answer:
+      'Yes. Replay integrates with Playwright and Cypress for test recording, GitHub Actions, CircleCI, Jenkins, and BuildKite for CI, and Claude Code, Codex, Cursor, Copilot, and Windsurf for coding agents. Use whichever combination fits your workflow.'
   }
 ]
 
