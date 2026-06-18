@@ -7,10 +7,44 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '~/components/ui/accordion'
-import { useMemo } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
-const faqs = [
+const agentPrompt = `Set up a continuous QA loop for the app we're building using Replay QA (https://qa.replay.io).
+
+Drive everything through the REST API at https://qa.replay.io/api/v1 — read the OpenAPI spec at /api/v1/openapi.json first; it documents the full workflow. Authenticate with my API token ("Authorization: Bearer lqa_..."), asking me for it if needed.
+
+Your job:
+1. Create a QA project for the running app — give it the target_url and a short note on the key flows. If the app is only reachable from this machine (e.g. http://localhost:3000), enable the reverse proxy and follow the spec's setup steps.
+2. Let QA run — poll the project status and don't kick off explorations or test runs yourself; QA drives those.
+3. For each open bug, read its full root-caused report and apply the fix directly in the codebase, then mark it fixed via the API.
+4. Keep looping until no open bugs remain.`
+
+function CopyableCode({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  return (
+    <div className="relative mt-3">
+      <button
+        onClick={handleCopy}
+        className="absolute right-3 top-3 rounded-md bg-gray-700 px-2 py-1 text-[11px] font-medium text-gray-300 transition hover:bg-gray-600 hover:text-white"
+      >
+        {copied ? 'Copied!' : 'Copy'}
+      </button>
+      <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg bg-gray-900 p-4 pr-16 text-xs leading-relaxed text-gray-100">
+        <code>{text}</code>
+      </pre>
+    </div>
+  )
+}
+
+const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: "What's the difference between the plans?",
     answer:
@@ -37,9 +71,32 @@ const faqs = [
       'Those tools surface what went wrong. Replay captures the full runtime — every DOM mutation, network call, and JS execution frame — and analyzes it to tell you exactly why, with a specific fix. No human needs to read a trace.'
   },
   {
-    question: 'Does Replay work with my existing tools?',
-    answer:
-      'Yes. Replay integrates with Playwright and Cypress for test recording, GitHub Actions, CircleCI, Jenkins, and BuildKite for CI, and Claude Code, Codex, Cursor, Copilot, and Windsurf for coding agents. Use whichever combination fits your workflow.'
+    question: 'Does Replay QA work with my existing tooling?',
+    answer: (
+      <>
+        <p className="mb-4">
+          Yes. We&apos;ve built Replay QA to work well with your existing tooling.
+        </p>
+        <div className="space-y-5">
+          <div>
+            <p className="mb-3">
+              <span className="font-semibold text-gray-700">1)</span> You can ask your coding agent
+              to kick off a Replay QA project with a prompt. Then your agent will be able to get
+              updates on the progress, and when we find bugs, they&apos;ll be ingested automatically
+              for your agent to fix.
+            </p>
+            <CopyableCode text={agentPrompt} />
+          </div>
+          <p>
+            <span className="font-semibold text-gray-700">2)</span> If you&apos;ve got Playwright
+            tests set up in your CI/CD pipeline, you can configure your tests to also trigger Replay
+            recordings, and our Github bot will kick off analyses on failed tests automatically
+            (sending them to the Replay QA), and the root cause and suggested fixes will be posted
+            as a comment on your PRs. It&apos;s magical.
+          </p>
+        </div>
+      </>
+    )
   }
 ]
 
