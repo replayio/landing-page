@@ -7,10 +7,10 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '~/components/ui/accordion'
-import { useMemo } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
 
-const faqs = [
+const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: "What's the difference between the plans?",
     answer:
@@ -38,8 +38,25 @@ const faqs = [
   },
   {
     question: 'Does Replay work with my existing tools?',
-    answer:
-      'Yes. Replay integrates with Playwright and Cypress for test recording, GitHub Actions, CircleCI, Jenkins, and BuildKite for CI, and Claude Code, Codex, Cursor, Copilot, and Windsurf for coding agents. Use whichever combination fits your workflow.'
+    answer: (
+      <>
+        <p className="mb-3">
+          Yes. You can ask your coding agent to run Replay QA on a web app you&apos;re building by
+          giving it the following prompt:
+        </p>
+        <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg bg-gray-900 p-4 text-xs leading-relaxed text-gray-100">
+          <code>{`Set up a continuous QA loop for the app we're building using Replay QA (https://qa.replay.io).
+
+Drive everything through the REST API at https://qa.replay.io/api/v1 — read the OpenAPI spec at /api/v1/openapi.json first; it documents the full workflow. Authenticate with my API token ("Authorization: Bearer lqa_..."), asking me for it if needed.
+
+Your job:
+1. Create a QA project for the running app — give it the target_url and a short note on the key flows. If the app is only reachable from this machine (e.g. http://localhost:3000), enable the reverse proxy and follow the spec's setup steps.
+2. Let QA run — poll the project status and don't kick off explorations or test runs yourself; QA drives those.
+3. For each open bug, read its full root-caused report and apply the fix directly in the codebase, then mark it fixed via the API.
+4. Keep looping until no open bugs remain.`}</code>
+        </pre>
+      </>
+    )
   }
 ]
 
