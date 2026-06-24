@@ -8,13 +8,15 @@ import { Container } from '~/components/Container'
 export function PricingTiers() {
   const [annual, setAnnual] = useState(true)
 
-  const individualPrice = annual ? 42 : 49
+  const individualPrice = annual ? 17 : 20
   const individualBillingNote = annual
-    ? 'per month · billed annually'
+    ? 'per month · $204 billed annually'
     : 'per month · billed monthly'
 
-  const teamPrice = annual ? 299 : 349
-  const teamBillingNote = annual ? 'per month · billed annually' : 'per month · billed monthly'
+  const teamPrice = annual ? 170 : 200
+  const teamBillingNote = annual
+    ? 'per month · $2,040 billed annually'
+    : 'per month · billed monthly'
 
   return (
     <section className="relative bg-[#F8F7FB] py-16 md:py-20">
@@ -53,7 +55,7 @@ export function PricingTiers() {
           >
             Annual
             <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-600">
-              Save 14%
+              Save 15%
             </span>
           </button>
         </div>
@@ -81,7 +83,7 @@ export function PricingTiers() {
               Try Replay with no commitment
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              20 credits a month, no time limit, no credit card required.
+              25 credits a month, no time limit, no credit card required.
             </p>
             <Link
               href="https://qa.replay.io"
@@ -133,7 +135,7 @@ export function PricingTiers() {
               For startups and small teams moving fast
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              300 credits a month for teams that ship often and need consistent coverage — however
+              500 credits a month for teams that ship often and need consistent coverage — however
               they use Replay.
             </p>
             <Link
