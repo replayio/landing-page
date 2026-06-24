@@ -10,7 +10,7 @@ import { PricingFAQs } from './components/PricingFAQs'
 
 const title = 'Pricing — Replay'
 const description =
-  'Simple, usage-based pricing. Start free with 20 AI analyses per month. Upgrade as you grow.'
+  'Simple, usage-based pricing. Start free with 25 credits per month. Upgrade as you grow.'
 
 export const metadata: Metadata = {
   title,
