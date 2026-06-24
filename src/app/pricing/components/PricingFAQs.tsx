@@ -48,7 +48,7 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: "What's the difference between the plans?",
     answer:
-      'The plans differ by analysis volume. Free gives you 20 AI analyses per month — enough to evaluate Replay with no time limit. Individual ($50/mo) and Team ($300/mo) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
+      'The plans differ by analysis volume. Free gives you 25 credits per month — enough to evaluate Replay with no time limit. Individual ($20/mo) and Team ($200/mo) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
   },
   {
     question: 'Can I upgrade or downgrade at any time?',
