@@ -3,8 +3,20 @@
 import { useState } from 'react'
 import { Container } from '~/components/Container'
 
-function CopyPromptBlock({ prompt }: { prompt: string }) {
+function firstSentence(text: string): string {
+  const match = text.match(/^[\s\S]*?[.!?](?=\s|$)/)
+  return (match ? match[0] : text).trim()
+}
+
+function CopyPromptBlock({
+  prompt,
+  collapsible = false
+}: {
+  prompt: string
+  collapsible?: boolean
+}) {
   const [copied, setCopied] = useState(false)
+  const [expanded, setExpanded] = useState(false)
 
   const copy = async () => {
     await navigator.clipboard.writeText(prompt)
@@ -12,11 +24,36 @@ function CopyPromptBlock({ prompt }: { prompt: string }) {
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const isCollapsed = collapsible && !expanded
+  const visible = isCollapsed ? firstSentence(prompt) : prompt
+
   return (
     <div className="relative rounded-xl border border-accent/30 bg-white p-6 pr-14">
       <pre className="whitespace-pre-wrap break-words font-mono text-sm leading-relaxed text-gray-900">
-        {prompt}
+        {visible}
+        {isCollapsed ? <span className="text-gray-500">{' …'}</span> : null}
       </pre>
+      {collapsible ? (
+        <button
+          type="button"
+          onClick={() => setExpanded((value) => !value)}
+          className="mt-4 flex items-center gap-1.5 text-sm text-gray-600 transition hover:text-gray-900"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 16 16"
+            fill="none"
+            className={`stroke-current transition-transform ${expanded ? 'rotate-90' : ''}`}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 3l5 5-5 5" />
+          </svg>
+          {expanded ? 'Show less' : 'Show full prompt'}
+        </button>
+      ) : null}
       <button
         type="button"
         onClick={copy}
@@ -57,8 +94,6 @@ function CopyPromptBlock({ prompt }: { prompt: string }) {
   )
 }
 
-const SHORT_PROMPT = `Use Replay QA to test this app. Create a QA project for my running app, wait for the results, fix any open bugs, and keep looping until the app passes.`
-
 const FULL_PROMPT = `Set up a continuous QA loop for the app we're building using Replay QA (https://qa.replay.io).
 
 Drive everything through the REST API at https://qa.replay.io/api/v1 — read the OpenAPI spec at /api/v1/openapi.json first; it documents the full workflow. Authenticate with my API token ("Authorization: Bearer lqa_..."), asking me for it if needed.
@@ -85,29 +120,8 @@ export function AskYourAgent() {
           </div>
 
           <div className="mt-10">
-            <CopyPromptBlock prompt={SHORT_PROMPT} />
+            <CopyPromptBlock prompt={FULL_PROMPT} collapsible />
           </div>
-
-          <details className="group mt-4">
-            <summary className="mx-auto flex w-fit cursor-pointer list-none items-center gap-1.5 text-sm text-gray-600 transition hover:text-gray-900 [&::-webkit-details-marker]:hidden">
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 16 16"
-                fill="none"
-                className="stroke-current transition-transform group-open:rotate-90"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M6 3l5 5-5 5" />
-              </svg>
-              View full agent prompt
-            </summary>
-            <div className="mt-3">
-              <CopyPromptBlock prompt={FULL_PROMPT} />
-            </div>
-          </details>
 
           <p className="mt-5 text-center text-xs text-gray-500">
             Works with Codex, Claude Code, Cursor, and any agent you&apos;re using.

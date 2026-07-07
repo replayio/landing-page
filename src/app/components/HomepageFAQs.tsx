@@ -18,6 +18,16 @@ const faqs = [
       'Any web app accessible via a URL — marketing sites, SaaS products, internal tools, or all of the above. Replay QA explores whatever is at the URL you provide.'
   },
   {
+    question: 'How does the GitHub repo integration work?',
+    answer:
+      "Add your GitHub repo URL, authenticate with GitHub, and the Replay QA GitHub app installs — no test suite, no config. Then choose when it runs: on every update to your main branch, on every pull request, or both. Replay QA tests against your preview or staging environment and, for PR runs, posts the root cause and a suggested fix right on the pull request. It's a continuously-running quality gate, not a one-off."
+  },
+  {
+    question: 'GitHub repo or URL — which should I use?',
+    answer:
+      'Drop in a URL when you want a one-time bug report on whatever you just shipped — zero setup, ideal for solo builders, internal tools, and agency deliverables. Connect a GitHub repo when you want continuous coverage as your team keeps shipping — ideal for engineers and engineering teams who want a quality gate on every branch update or PR.'
+  },
+  {
     question: 'Can Replay QA test apps that require login?',
     answer:
       'Yes. Replay QA supports authenticated flows. You can provide login credentials and it will test behind your auth wall.'
@@ -48,16 +58,21 @@ const faqs = [
       "QA Wolf requires human QA engineers to build and maintain test suites. BrowserStack is a platform for running tests you've already written. Replay QA is fully autonomous — no tests to write, no humans to triage. It finds the flows, finds the bugs, and explains root cause."
   },
   {
+    question: 'Does Replay QA replace human QA teams?',
+    answer:
+      "For most of our users, there's no human QA team to replace — Replay QA is the only QA layer they have. For teams that do have QA, Replay QA handles the autonomous discovery work so human QA can focus on what actually needs human judgment."
+  },
+  {
     question: 'Can I connect Replay QA to my issue tracker?',
     answer:
-      "Yes. Replay QA supports a Bug Report Webhook — point it at your issue tracker's API and every bug Replay QA finds can be filed automatically. Works with Linear, GitHub Issues, Jira, and any tracker that accepts an HTTP endpoint."
+      "Yes. Replay QA supports a Bug Report Webhook — point it at your issue tracker's API (or a lightweight middleware) and every bug Replay QA finds can be filed automatically. The webhook sends a JSON POST with the bug description, a referrer identifying Replay QA as the source, and a callback URL. Once your team fixes the bug, POST to that URL to mark it resolved in Replay QA — which re-enables the associated journey for future test runs. You can control when bugs are submitted: manually, only when Replay QA has confirmed them as open, or for all reports including unconfirmed. Works with Linear, GitHub Issues, Jira, and any tracker that accepts an HTTP endpoint."
   },
   {
     question: 'How much does this cost?',
     answer: (
       <>
-        Free plan includes 20 analyses per month — no time limit, no credit card required. Paid
-        plans start at $49/month for individuals and $299/month (annual) for teams.{' '}
+        Free plan includes 25 credits per month — no time limit, no credit card required. Paid
+        plans start at $20/month for individuals and $200/month for teams.{' '}
         <Link
           href="/pricing"
           className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
@@ -88,7 +103,7 @@ export function HomepageFAQs() {
   return (
     <section
       id="faq"
-      className="relative isolate overflow-hidden bg-gray-200 pb-16 pt-12 md:pb-24 md:pt-20"
+      className="relative isolate overflow-hidden bg-white pb-16 pt-12 md:pb-24 md:pt-20"
     >
       <script
         type="application/ld+json"
