@@ -40,7 +40,7 @@ export function QAHowItWorks({ showLearnMoreLink = true }: { showLearnMoreLink?:
   const [active, setActive] = useState(0)
 
   return (
-    <section className="relative isolate overflow-hidden bg-white py-16 md:py-24">
+    <section className="relative isolate overflow-hidden bg-gray-200 py-16 md:py-24">
       <Container>
         <div className="text-center">
           <p className="text-sm font-bold uppercase tracking-wider text-accent">How it works</p>

@@ -48,8 +48,9 @@ export function Hero() {
                   <span className="text-accent">Replay QA finds what broke.</span>
                 </h1>
                 <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed tracking-tight text-slate-700 sm:text-lg">
-                  Give Replay QA a URL. It explores your web app, records every session, finds real
-                  bugs, and gives your coding agent the root cause and fix.
+                  Add your GitHub repo for continuous testing, or drop in a URL for a one-time
+                  check. Replay QA explores your app, records every session, finds real bugs, and
+                  gives your coding agent the root cause and fix.
                 </p>
                 <div className="mt-10">
                   <HeroUrlInput />

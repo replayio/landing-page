@@ -6,6 +6,7 @@ import { PageContentAnimate } from '~/components/common/page-content-animate'
 import { QAHowItWorks } from '~/app/components/QAHowItWorks'
 import { QAFinalCTA } from '~/app/components/QAFinalCTA'
 import { HowItWorksHero } from './components/HowItWorksHero'
+import { GitHubIntegrationSection } from './components/GitHubIntegrationSection'
 import { BugReportExample } from './components/BugReportExample'
 import { AskYourAgent } from './components/AskYourAgent'
 import { TechnologySection } from './components/TechnologySection'
@@ -47,6 +48,7 @@ export default function HowItWorksPage() {
       <PageContentAnimate>
         <HowItWorksHero />
         <QAHowItWorks showLearnMoreLink={false} />
+        <GitHubIntegrationSection />
         <BugReportExample />
         <AskYourAgent />
         <TechnologySection />
