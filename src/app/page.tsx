@@ -2,6 +2,7 @@ import { Footer } from '~/components/Footer'
 import { Hero } from './components/hero'
 import { ProductVideo } from './components/ProductVideo'
 import { AgentProblem } from './components/AgentProblem'
+import { QATwoWaysToRun } from './components/QATwoWaysToRun'
 import { QAHowItWorks } from './components/QAHowItWorks'
 import { QAUseCases } from './components/QAUseCases'
 import { HomepageTestimonials } from './components/HomepageTestimonials'
@@ -14,7 +15,7 @@ import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 const title = 'Replay QA — AI wrote the app. Replay QA finds what broke.'
 const description =
-  'Give Replay QA a URL. It explores your web app, records every session, finds real bugs, and gives your coding agent the root cause and fix.'
+  'Add your GitHub repo for continuous testing, or drop in a URL for a one-time check. Replay QA explores your app, finds real bugs, and gives your coding agent the root cause and fix.'
 
 export const metadata: Metadata = {
   title: {
@@ -56,6 +57,7 @@ export default function HomePage() {
         <Hero />
         <ProductVideo />
         <AgentProblem />
+        <QATwoWaysToRun />
         <QAHowItWorks />
         <QAUseCases />
         <HomepageTestimonials />
