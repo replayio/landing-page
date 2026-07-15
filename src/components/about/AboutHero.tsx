@@ -1,7 +1,4 @@
-import Image from 'next/image'
 import { Container } from '~/components/Container'
-
-const replayLogoGif = '/images/replay-logo-variations.gif'
 
 export function AboutHero() {
   return (
@@ -16,15 +13,18 @@ export function AboutHero() {
             you can&apos;t fix it. We built the technology to change that — for developers, for AI
             agents, and for anyone building with code.
           </p>
-          <div className="mx-auto mt-12 max-w-md">
-            <Image
-              src={replayLogoGif}
-              alt="Replay logo variations"
-              width={480}
-              height={270}
-              className="w-full rounded-xl border border-gray-200 shadow-sm"
-              unoptimized
-            />
+          <div className="mx-auto mt-12 max-w-2xl">
+            <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube.com/embed/h3mWlgZmatM?si=e8uPL_pA9MJYTHD4"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </Container>
