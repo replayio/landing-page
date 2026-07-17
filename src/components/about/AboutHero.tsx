@@ -17,10 +17,10 @@ export function AboutHero() {
             <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute inset-0 h-full w-full"
-                src="https://www.youtube.com/embed/h3mWlgZmatM?si=e8uPL_pA9MJYTHD4"
+                src="https://www.youtube.com/embed/h3mWlgZmatM?si=e8uPL_pA9MJYTHD4&mute=1"
                 title="YouTube video player"
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
               />
