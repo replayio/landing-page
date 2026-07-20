@@ -52,7 +52,7 @@ export const viewport: Viewport = {
 export default function HomePage() {
   return (
     <>
-      <Header className="!top-[0px] sm:!top-[0px]" />
+      <Header />
       <PageContentAnimate>
         <Hero />
         <ProductVideo />

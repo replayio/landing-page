@@ -44,8 +44,8 @@ export const viewport: Viewport = {
 export default function PrecogPage() {
   return (
     <>
-      <Header className="!top-[0px] sm:!top-[0px]" />
-      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
+      <Header />
+      <PageContentAnimate className="pt-[var(--site-header-offset)] sm:pt-[var(--site-header-offset)]">
         <PrecogHero />
         <PrecogProblem />
         <PrecogHowItWorks />

@@ -44,7 +44,7 @@ export const viewport: Viewport = {
 export default function HowItWorksPage() {
   return (
     <>
-      <Header className="!top-[0px] sm:!top-[0px]" />
+      <Header />
       <PageContentAnimate>
         <HowItWorksHero />
         <QAHowItWorks showLearnMoreLink={false} />

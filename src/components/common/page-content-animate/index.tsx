@@ -58,7 +58,7 @@ export function PageContentAnimate({ children, className }: PageContentAnimatePr
   return (
     <main
       ref={containerRef as React.RefObject<HTMLElement>}
-      className={clsx('pt-[calc(var(--header-height))]', className)}
+      className={clsx('pt-[var(--site-header-offset)]', className)}
     >
       {children}
     </main>

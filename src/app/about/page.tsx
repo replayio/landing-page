@@ -45,7 +45,7 @@ export const viewport: Viewport = {
 export default function AboutPage() {
   return (
     <>
-      <Header className="!top-[0px] sm:!top-[0px]" />
+      <Header />
       <PageContentAnimate>
         <AboutHero />
         <AboutWhereWeStarted />
