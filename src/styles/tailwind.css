@@ -12,8 +12,9 @@
 
 :root {
   /* Layout */
+  --banner-height: 40px;
   --header-height: 56px;
-  --banner-height: 0px;
+  --site-header-offset: calc(var(--banner-height) + var(--header-height));
 }
 
 @media (min-width: theme('screens.sm')) {

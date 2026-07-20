@@ -14,7 +14,7 @@ export default function NotFound() {
   return (
     <>
       <Header variant="dark" className="!border-none !bg-transparent" />
-      <main className="pt-[var(--header-height)]">
+      <main className="pt-[var(--site-header-offset)]">
         <Hero />
       </main>
     </>

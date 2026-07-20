@@ -42,8 +42,8 @@ export const viewport: Viewport = {
 export default function LoopQAPage() {
   return (
     <>
-      <Header className="!top-0 !mt-0 border-b border-gray-100 !bg-white shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]" />
-      <PageContentAnimate className="pt-[calc(var(--header-height))] sm:pt-[calc(var(--header-height))]">
+      <Header className="border-b border-gray-100 !bg-white shadow-[0px_2px_18px_0px_rgba(5,73,30,0.08)]" />
+      <PageContentAnimate className="pt-[var(--site-header-offset)] sm:pt-[var(--site-header-offset)]">
         <LoopQAHero />
         <LoopQAProblem />
         <LoopQAHowItWorks />
