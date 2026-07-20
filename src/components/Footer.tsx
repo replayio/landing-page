@@ -145,6 +145,22 @@ export function Footer() {
       </div>
       {/* Desktop Layout */}
       <div className="mx-auto hidden max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:block lg:px-8 lg:pt-32">
+        {/* Product Hunt Badge */}
+        <div className="mb-10 flex justify-center">
+          <a
+            href="https://www.producthunt.com/products/replayio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-replay-qa"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              alt="Replay QA - Replay QA tells you what is broken before your users do | Product Hunt"
+              width={250}
+              height={54}
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1186303&theme=neutral&t=1784570145347"
+            />
+          </a>
+        </div>
+
         {/* Top Section: Logo, Nav Links, Social Icons */}
         <div className="flex items-center justify-between gap-6 border-b border-gray-200 pb-6">
           {/* Logo */}
@@ -212,6 +228,20 @@ export function Footer() {
       {/* Mobile Layout */}
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:hidden">
         <div className="flex flex-col items-center gap-6">
+          {/* Product Hunt Badge */}
+          <a
+            href="https://www.producthunt.com/products/replayio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-replay-qa"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              alt="Replay QA - Replay QA tells you what is broken before your users do | Product Hunt"
+              width={250}
+              height={54}
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1186303&theme=neutral&t=1784570145347"
+            />
+          </a>
+
           {/* Logo */}
           <div className="relative h-[29px] w-[25px]">
             <Image
