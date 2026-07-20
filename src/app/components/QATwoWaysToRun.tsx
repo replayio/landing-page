@@ -86,7 +86,9 @@ export function QATwoWaysToRun() {
                   <li key={item}>&#10003; {item}</li>
                 ))}
               </ul>
-              <p className="mt-5 text-xs text-gray-500">Best for engineers and engineering teams.</p>
+              <p className="mt-5 text-xs text-gray-500">
+                Best for engineers and engineering teams.
+              </p>
               <Button
                 href="https://qa.replay.io/new"
                 target="_blank"
