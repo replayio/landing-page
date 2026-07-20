@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 export default function PricingPage() {
   return (
     <>
-      <Header className="!top-[0px] sm:!top-[0px]" />
+      <Header />
       <PageContentAnimate>
         <PricingHero />
         <PricingTiers />

@@ -71,8 +71,8 @@ const faqs = [
     question: 'How much does this cost?',
     answer: (
       <>
-        Free plan includes 25 credits per month — no time limit, no credit card required. Paid
-        plans start at $20/month for individuals and $200/month for teams.{' '}
+        Free plan includes 25 credits per month — no time limit, no credit card required. Paid plans
+        start at $20/month for individuals and $200/month for teams.{' '}
         <Link
           href="/pricing"
           className="font-medium text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"

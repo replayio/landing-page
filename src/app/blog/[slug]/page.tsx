@@ -78,9 +78,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <>
-      <Header className="!top-[0px] sm:!top-[0px]" />
+      <Header />
 
-      <main className="bg-white pb-20 pt-[calc(var(--header-height)+2rem)] sm:pt-[calc(var(--header-height)+3rem)]">
+      <main className="bg-white pb-20 pt-[calc(var(--site-header-offset)+2rem)] sm:pt-[calc(var(--site-header-offset)+3rem)]">
         <Container>
           <article className="mx-auto max-w-4xl">
             <p className="text-sm font-medium text-accent">
