@@ -19,8 +19,9 @@ export function TopBanner() {
   if (isHidden) return null
 
   return (
-    <div className="fixed top-0 z-[60] flex h-[var(--banner-height)] w-full items-center justify-center gap-3 bg-gradient-to-r from-rose-500 to-purple-600 px-4 text-sm text-white">
-      <span className="hidden sm:inline">
+    <div className="fixed top-0 z-[60] flex h-[var(--banner-height)] w-full items-center justify-center gap-2 bg-gradient-to-r from-rose-500 to-purple-600 px-3 text-white sm:gap-3 sm:px-4">
+      <span className="text-xs sm:hidden">We&apos;re live on ProductHunt!</span>
+      <span className="hidden text-sm sm:inline">
         <strong>We&apos;re on ProductHunt today, currently #3 on the leaderboard</strong>
       </span>
       <Link
