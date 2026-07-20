@@ -21,7 +21,7 @@ export function TopBanner() {
   return (
     <div className="fixed top-0 z-[60] flex h-[var(--banner-height)] w-full items-center justify-center gap-3 bg-gradient-to-r from-rose-500 to-purple-600 px-4 text-sm text-white">
       <span className="hidden sm:inline">
-        <strong>We're on ProductHunt today, currently #3 on the leaderboard</strong>
+        <strong>We&apos;re on ProductHunt today, currently #3 on the leaderboard</strong>
       </span>
       <Link
         href="https://www.producthunt.com/products/replayio"
