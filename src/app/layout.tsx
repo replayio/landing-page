@@ -7,7 +7,6 @@ import Script from 'next/script'
 import { ReactNode, Suspense } from 'react'
 import Analytics from '~/lib/analytics'
 import { RedditPixel } from '~/components/analytics/RedditPixel'
-import { TopBanner } from '~/components/TopBanner'
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
@@ -98,7 +97,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body className="overflow-x-clip">
-        <TopBanner />
         <noscript>
           <img
             height="1"

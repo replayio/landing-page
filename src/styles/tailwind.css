@@ -12,7 +12,7 @@
 
 :root {
   /* Layout */
-  --banner-height: 40px;
+  --banner-height: 0px;
   --header-height: 56px;
   --site-header-offset: calc(var(--banner-height) + var(--header-height));
 }
