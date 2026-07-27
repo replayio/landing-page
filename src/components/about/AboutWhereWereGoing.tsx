@@ -10,29 +10,31 @@ export function AboutWhereWereGoing() {
           </p>
           <div className="mt-6 space-y-6 text-base leading-relaxed text-gray-700 sm:text-lg">
             <p>
-              Today, AI agents write code faster than any human. But when a test fails in CI,
-              they&apos;re stuck — guessing at fixes with no way to see what went wrong at runtime.
-              They loop, retry, and burn through tokens on the same mistake.
+              Today, the way software gets built has fundamentally changed. AI agents write code,
+              spin up apps, and iterate faster than any human team could. But speed without
+              visibility creates a new problem: apps ship with bugs nobody caught, because nobody
+              was watching.
             </p>
             <p>
-              So we gave the time machine to the agent.{' '}
+              That&apos;s the gap Replay QA was built to close.{' '}
               <strong className="font-semibold text-gray-900">
-                Replay now enables your coding agent to time-travel through recordings and fix
-                failing tests without human intervention.
+                Replay QA autonomously explores your app, records every session, and surfaces real
+                bugs with root causes and suggested fixes
               </strong>{' '}
-              It turns out they&apos;re way better at it anyway — no fatigue, no missed details, no
-              wrong turns.
+              — before your users find them.
             </p>
             <p>
-              The Replay CI Agent watches every PR. When a test fails, it records the full runtime,
-              analyzes the execution, and posts the root cause plus a specific fix as a PR comment.
-              Replay MCP brings the same time-travel capability directly into your IDE, where your
-              coding agent already works.
+              We&apos;ve built Replay QA to work alongside your coding agent. Drop in a URL for
+              on-demand testing, or connect a GitHub repo for a continuous quality gate that runs
+              every time you ship. Either way, bugs are caught, analyzed, and handed back to your
+              agent to fix — automatically.
             </p>
             <p>
-              We&apos;re building toward a world where every test failure comes with a root cause,
-              every broken PR gets a fix, and no one — human or AI —{' '}
-              <strong className="font-semibold text-gray-900">has to debug blind.</strong>
+              We&apos;re building toward a world where shipping broken software is the exception,
+              not the rule — where every app gets tested, every bug gets caught, and{' '}
+              <strong className="font-semibold text-gray-900">
+                no user ever hits a problem that could have been found first.
+              </strong>
             </p>
           </div>
         </div>

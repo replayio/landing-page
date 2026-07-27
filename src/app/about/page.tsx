@@ -4,7 +4,6 @@ import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 import {
-  AboutCta,
   AboutHero,
   AboutHowWeWork,
   AboutPrinciples,
@@ -12,6 +11,7 @@ import {
   AboutWhereWeStarted,
   AboutWhereWereGoing
 } from '~/components/about'
+import { QAFinalCTA } from '../components/QAFinalCTA'
 
 export const metadata: Metadata = {
   title: 'About Replay — Making Software Visible',
@@ -53,7 +53,7 @@ export default function AboutPage() {
         <AboutHowWeWork />
         <AboutTeamSection />
         <AboutPrinciples />
-        <AboutCta />
+        <QAFinalCTA />
       </PageContentAnimate>
       <Footer />
     </>
