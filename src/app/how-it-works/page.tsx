@@ -3,7 +3,6 @@ import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
-import { QAHowItWorks } from '~/app/components/QAHowItWorks'
 import { QAFinalCTA } from '~/app/components/QAFinalCTA'
 import { HowItWorksHero } from './components/HowItWorksHero'
 import { GitHubIntegrationSection } from './components/GitHubIntegrationSection'
@@ -47,9 +46,8 @@ export default function HowItWorksPage() {
       <Header />
       <PageContentAnimate>
         <HowItWorksHero />
-        <QAHowItWorks showLearnMoreLink={false} />
-        <GitHubIntegrationSection />
         <BugReportExample />
+        <GitHubIntegrationSection />
         <AskYourAgent />
         <TechnologySection />
         <QAFinalCTA />
