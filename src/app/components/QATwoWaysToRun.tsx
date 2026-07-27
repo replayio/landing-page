@@ -62,8 +62,8 @@ export function QATwoWaysToRun() {
               Add your GitHub repo, or drop in a URL
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
-              Same autonomous QA, two ways to start — a continuous quality gate for teams, or a
-              one-time check for whatever you just shipped.
+              Same autonomous QA, two ways to start — a continuous quality gate for teams, or
+              on-demand testing for whatever you just shipped.
             </p>
           </div>
 
@@ -103,7 +103,7 @@ export function QATwoWaysToRun() {
               <div className="mb-4 flex items-center gap-2">
                 <LinkIcon />
                 <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  Run-it-once
+                  On-demand
                 </span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900">Drop in a URL</h3>

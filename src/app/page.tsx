@@ -15,7 +15,7 @@ import { PageContentAnimate } from '~/components/common/page-content-animate'
 
 const title = 'Replay QA — AI wrote the app. Replay QA finds what broke.'
 const description =
-  'Add your GitHub repo for continuous testing, or drop in a URL for a one-time check. Replay QA explores your app, finds real bugs, and gives your coding agent the root cause and fix.'
+  'Add the link to a GitHub repo for continuous testing, or drop in a URL for on-demand testing. Replay QA explores your app, finds real bugs, and gives your coding agent the root cause and fix.'
 
 export const metadata: Metadata = {
   title: {
