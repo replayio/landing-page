@@ -49,7 +49,7 @@ export function GitHubIntegrationSection() {
               Connect your GitHub repo
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
-              The URL drop is a run-it-once check. When you want a quality gate that stays on as
+              The URL drop is an on-demand check. When you want a quality gate that stays on as
               your team ships, connect a repo instead — same autonomous QA, running on every change.
               No test suite, no pipeline config.
             </p>

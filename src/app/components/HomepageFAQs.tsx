@@ -25,7 +25,7 @@ const faqs = [
   {
     question: 'GitHub repo or URL — which should I use?',
     answer:
-      'Drop in a URL when you want a one-time bug report on whatever you just shipped — zero setup, ideal for solo builders, internal tools, and agency deliverables. Connect a GitHub repo when you want continuous coverage as your team keeps shipping — ideal for engineers and engineering teams who want a quality gate on every branch update or PR.'
+      'Drop in a URL when you want on-demand testing on whatever you just shipped — zero setup, ideal for solo builders, internal tools, and agency deliverables. Connect a GitHub repo when you want continuous coverage as your team keeps shipping — ideal for engineers and engineering teams who want a quality gate on every branch update or PR.'
   },
   {
     question: 'Can Replay QA test apps that require login?',
