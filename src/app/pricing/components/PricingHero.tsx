@@ -24,8 +24,7 @@ export function PricingHero() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed tracking-tight text-gray-700">
-            Pay for the analyses you run — however you use Replay. Start free with 20 analyses a
-            month. Upgrade when you need more.
+            Start free with 25 credits a month. Upgrade when you need more.
           </p>
         </div>
       </Container>
