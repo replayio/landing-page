@@ -5,7 +5,7 @@ import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 import { Container } from '~/components/Container'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
-import { getBlogPostBySlug, getBlogPosts } from '~/lib/notion-blog'
+import { getBlogPostBySlug, getBlogPosts, getNotionIdToSlugMap } from '~/lib/notion-blog'
 import { BlogPostBody } from '../components/BlogPostBody'
 
 type BlogPostPageProps = {
@@ -69,7 +69,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export const revalidate = 1800
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const postData = await getBlogPostBySlug(params.slug)
+  const [postData, notionIdToSlug] = await Promise.all([
+    getBlogPostBySlug(params.slug),
+    getNotionIdToSlugMap()
+  ])
 
   if (!postData) notFound()
 
@@ -115,7 +118,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </header>
 
             <div className="prose prose-lg mt-10 max-w-none prose-headings:font-semibold prose-a:text-accent prose-pre:rounded-xl prose-img:rounded-xl">
-              <BlogPostBody markdown={markdown} />
+              <BlogPostBody markdown={markdown} notionIdToSlug={notionIdToSlug} />
             </div>
           </article>
         </Container>

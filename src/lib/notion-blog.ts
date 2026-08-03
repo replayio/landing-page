@@ -281,6 +281,25 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
   return cachedLoadBlogPostsFromNotion()
 }
 
+/** Notion page id with the dashes stripped, matching the bare ids that appear as hrefs. */
+const compactNotionId = (id: string) => id.replace(/-/g, '').toLowerCase()
+
+/**
+ * Maps compact Notion page ids to blog slugs.
+ *
+ * Links authored inside Notion serialise to a bare `/<32-hex-page-id>` href, which
+ * has no matching route on this site and 404s. Where the id belongs to a post in the
+ * blog database we can rewrite it to the real slug; see `resolveNotionHref`.
+ */
+export const getNotionIdToSlugMap = async (): Promise<Record<string, string>> => {
+  const posts = await getBlogPosts()
+  const map: Record<string, string> = {}
+  for (const post of posts) {
+    map[compactNotionId(post.id)] = post.slug
+  }
+  return map
+}
+
 export const getBlogPostBySlug = async (
   slug: string
 ): Promise<{ post: BlogPost; markdown: string } | null> => {
