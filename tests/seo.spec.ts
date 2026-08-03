@@ -19,28 +19,23 @@ const ROUTES = [
   '/about',
   '/blog',
   '/branding',
-  '/builder',
   '/contact',
   '/debugging',
-  '/engineers',
   '/how-it-works',
-  '/partner',
   '/precog',
   '/pricing',
   '/privacy-policy',
   '/replay-qa',
   '/roi-calculator',
   '/security-and-privacy',
-  '/terms-of-service',
-  '/vibe-coders'
+  '/terms-of-service'
 ]
 
 /**
- * Every route is length-checked. The six pages that were previously outside the
- * bands (/builder, /vibe-coders, /engineers, /partner, /how-it-works and
- * /roi-calculator) were never flagged by the original crawl only because they had
- * almost no incoming links and so were never reached. Their copy has since been
- * rewritten, so the whole site now conforms.
+ * Every route is length-checked. /how-it-works and /roi-calculator were rewritten
+ * during the audit; the other four pages that were out of band (/builder,
+ * /vibe-coders, /engineers and /partner) have since been retired and now redirect,
+ * so they are covered by the redirect tests below instead.
  */
 const LENGTH_CHECKED = ROUTES
 
@@ -80,7 +75,7 @@ test.describe('per-page SEO invariants', () => {
       }
 
       // og:url and canonical must be absolute and must point at this route, not
-      // at the homepage (which is what /builder used to do).
+      // at the homepage (which the retired /builder page used to do).
       const ogUrl = await meta(page, 'meta[property="og:url"]')
       expect(ogUrl, `${route} og:url must be absolute`).toMatch(/^https?:\/\//)
       expect(new URL(ogUrl!).pathname.replace(/\/$/, '')).toBe(route.replace(/\/$/, ''))
@@ -145,7 +140,7 @@ test.describe('sitemap', () => {
 
     // Every static route we advertise must be present.
     const paths = new Set(urls.map((u) => new URL(u).pathname))
-    for (const route of ['/', '/pricing', '/how-it-works', '/engineers', '/blog']) {
+    for (const route of ['/', '/pricing', '/how-it-works', '/debugging', '/blog']) {
       expect(paths.has(route), `sitemap is missing ${route}`).toBe(true)
     }
   })
@@ -171,7 +166,12 @@ test.describe('redirects', () => {
     ['/protocol/tot/Pause', 'https://static.replay.io/protocol/tot/Pause'],
     ['/protocol/tot/Debugger', 'https://static.replay.io/protocol/tot/Debugger'],
     ['/shoutouts', /\/$/],
-    ['/examples', 'https://docs.replay.io/']
+    ['/examples', 'https://docs.replay.io/'],
+    // Retired pages (Aug 2026). These must keep redirecting.
+    ['/engineers', /\/debugging$/],
+    ['/vibe-coders', /\/$/],
+    ['/partner', /\/contact$/],
+    ['/builder', /\/$/]
   ]
 
   for (const [from, to] of CASES) {
@@ -223,8 +223,8 @@ test.describe('internal links', () => {
       if (res.status() >= 400) broken.push(`${path} -> ${res.status()}`)
     }
 
-    // This is how /vibe-coders -> /for-engineers survived: that page had no
-    // incoming links, so the crawler never reached it.
+    // This is how the retired /vibe-coders page's link to /for-engineers survived:
+    // that page had no incoming links, so the crawler never reached it.
     expect(broken, `broken internal links found: ${broken.join(', ')}`).toEqual([])
   })
 })

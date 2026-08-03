@@ -70,6 +70,36 @@ const nextConfig = {
         destination: '/',
         permanent: true
       },
+      // Pages retired at the product team's request (Aug 2026). 301 rather than
+      // 410 so any accumulated link equity passes to the nearest live page.
+      //
+      // /engineers covered Replay MCP giving coding agents runtime context, which
+      // is what /debugging is now about.
+      {
+        source: '/engineers',
+        destination: '/debugging',
+        permanent: true
+      },
+      // /vibe-coders pitched the Chrome extension to non-engineers. The homepage
+      // is the closest general entry point.
+      {
+        source: '/vibe-coders',
+        destination: '/',
+        permanent: true
+      },
+      // /partner was an application form for the design partner programme, so
+      // /contact is where that intent now lands.
+      {
+        source: '/partner',
+        destination: '/contact',
+        permanent: true
+      },
+      // /builder was a separate product surface.
+      {
+        source: '/builder',
+        destination: '/',
+        permanent: true
+      },
       {
         source: '/driver',
         destination: 'https://static.replay.io/driver',
