@@ -5,6 +5,7 @@ import markProbst from '~/images/testimonials/mark-probst.jpg'
 import shane from '~/images/testimonials/shane.jpg'
 import kaiteeshiks from '~/images/testimonials/kaiteeshiks.jpg'
 import petermick from '~/images/testimonials/petermick.jpg'
+import danAbramov from '~/images/testimonials/danAbramov.webp'
 import glide from '~/images/testimonials/glide.png'
 import pantheon from '~/images/testimonials/pantheon.png'
 import mallow from '~/images/testimonials/mallow.svg'
@@ -55,7 +56,8 @@ const additionalTestimonials: Testimonial[] = [
   {
     quote: 'Replay.io is galaxy brain tooling. Real gamechanger.',
     name: 'Dan Abramov',
-    title: 'React Maintainer'
+    title: 'React Maintainer',
+    image: danAbramov
   },
   {
     quote:
