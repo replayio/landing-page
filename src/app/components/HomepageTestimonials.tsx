@@ -7,6 +7,7 @@ import timn from '~/images/testimonials/tim-neutkins.png'
 import glide from '~/images/testimonials/glide.png'
 import pantheon from '~/images/testimonials/pantheon.png'
 import vercel from '~/images/hero-logos/vercel.svg'
+import mallow from '~/images/testimonials/mallow.svg'
 
 type FeaturedTestimonial = {
   quote: string
@@ -20,6 +21,7 @@ type Testimonial = {
   quote: string
   name: string
   title: string
+  logo?: typeof glide
 }
 
 const featuredTestimonials: FeaturedTestimonial[] = [
@@ -59,13 +61,14 @@ const additionalTestimonials: Testimonial[] = [
     quote:
       "After seeing what Replay can do, I'm setting up a lot more Playwright tests on my PRs. I was afraid to before, due to the extra work of debugging failed tests.",
     name: 'Ben Ruckman',
-    title: 'Co-founder, Getmallow.com'
+    title: 'Co-founder, Getmallow.com',
+    logo: mallow
   },
   {
     quote:
-      "If I don't immediately know the answer to a bug, I immediately reach for Replay.io. It's like HMR for repros.",
-    name: 'Sebastian Markbåge',
-    title: 'React Maintainer'
+      'Blown away by what Replay QA discovered for my solo startup, helped me identify and fix bugs that could potentially affect conversions.',
+    name: '@thepetermick',
+    title: ''
   }
 ]
 
@@ -127,9 +130,20 @@ export function HomepageTestimonials() {
               <blockquote className="mb-4 flex-1 text-sm leading-relaxed text-gray-900">
                 &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
-              <figcaption className="text-sm">
-                <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                <p className="text-gray-500">{testimonial.title}</p>
+              <figcaption className="flex items-center justify-between gap-4 text-sm">
+                <div>
+                  <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                  {testimonial.title && <p className="text-gray-500">{testimonial.title}</p>}
+                </div>
+                {testimonial.logo && (
+                  <Image
+                    src={testimonial.logo}
+                    alt=""
+                    width={80}
+                    height={24}
+                    className="h-5 w-auto flex-none object-contain opacity-50"
+                  />
+                )}
               </figcaption>
             </figure>
           ))}
