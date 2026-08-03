@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/blog`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/blog`,
     title: 'Replay Blog: Debugging, Testing and Changelog',
     description: 'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',

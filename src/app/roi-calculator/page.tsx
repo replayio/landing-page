@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/roi-calculator`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/roi-calculator`,
     title,
     description,

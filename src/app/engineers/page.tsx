@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/for-engineers`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/for-engineers`,
     title: 'Replay for Engineers — Runtime Context for Your Coding Agent',
     description:

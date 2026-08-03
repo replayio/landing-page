@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/debugging`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/debugging`,
     title: "Individual Debugging — Fix bugs your agent can't figure out",
     description:
