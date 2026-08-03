@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from 'next'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
+import { siteOrigin } from '~/lib/constants'
 
 import s from '~/components/sections/branding/branding.module.scss'
 import LogoDownloadWidget from '~/components/sections/branding/LogoDownloadWidget'
@@ -11,7 +12,12 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Branding'
+  title: 'Replay Brand Assets: Logo and Styleguide',
+  description:
+    'Download the Replay logo as SVG and see our styleguide, including how we write product names and use sentence case across the brand.',
+  alternates: {
+    canonical: `${siteOrigin}/branding`
+  }
 }
 
 const Branding = () => {

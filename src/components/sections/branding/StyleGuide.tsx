@@ -7,7 +7,9 @@ import s from './branding.module.scss'
 const StyleGuide: FC = () => {
   return (
     <Section className={s.section}>
-      <h1 className={s['title']}>Our styleguide</h1>
+      {/* h2, not h1: this section sits below "Our logo" on /branding, which owns the
+          page's single h1. Styling comes from the class, so this is not a visual change. */}
+      <h2 className={s['title']}>Our styleguide</h2>
 
       <table className={s['copy-table']}>
         <thead>

@@ -4,9 +4,15 @@ import Script from 'next/script'
 
 import ContactForm from '~/components/sections/contact/ContactForm'
 import { Header } from '~/components/layout/header'
+import { siteOrigin } from '~/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Contact'
+  title: 'Contact Replay: Talk to the Team',
+  description:
+    'Get in touch with the Replay team. Send us a message with the contact form, or join our Discord to ask questions and share feedback.',
+  alternates: {
+    canonical: `${siteOrigin}/contact`
+  }
 }
 
 export const viewport: Viewport = {

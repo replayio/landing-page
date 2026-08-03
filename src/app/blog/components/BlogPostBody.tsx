@@ -48,6 +48,18 @@ function createMarked(idToSlug: Record<string, string>) {
 
   marked.use({
     renderer: {
+      /**
+       * The page already renders the post title as the document's `<h1>`, so a `#`
+       * heading in the Notion body produced a second one (Ahrefs flagged 27 posts
+       * for multiple H1 tags). Shift every body heading down one level so the title
+       * stays the sole h1 and the body reads as subsections beneath it. h6 is the
+       * floor, since there is no h7.
+       */
+      heading({ tokens, depth }) {
+        const text = this.parser.parseInline(tokens)
+        const level = Math.min(depth + 1, 6)
+        return `<h${level}>${text}</h${level}>`
+      },
       link({ href, title, tokens }) {
         const text = this.parser.parseInline(tokens)
         const resolved = resolveNotionHref(href, idToSlug)
