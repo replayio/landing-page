@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/partner`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/partner`,
     title: 'Design Partner Program — Replay',
     description:

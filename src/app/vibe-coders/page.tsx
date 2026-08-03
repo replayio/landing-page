@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/vibe-coders`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/vibe-coders`,
     title: 'Replay for Vibe Coders — Vibe Fearlessly',
     description:

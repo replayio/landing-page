@@ -9,22 +9,26 @@ import { Connectors } from '~/components/BuilderLanding/Connectors/Connectors'
 import { Pricing } from '~/components/BuilderLanding/Pricing/Pricing'
 import { FAQs } from '~/components/BuilderLanding/Faqs/FAQs'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
+import { siteOrigin } from '~/lib/constants'
 
 export const metadata: Metadata = {
   title:
     'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
   description:
     'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
+  alternates: {
+    canonical: `${siteOrigin}/builder`
+  },
   openGraph: {
     title:
       'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
     description:
       'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
-    url: 'https://www.replay.io/',
+    url: `${siteOrigin}/builder`,
     siteName: 'Replay',
     images: [
       {
-        url: '/images/og-image-builder.png',
+        url: `${siteOrigin}/images/og-image-builder.png`,
         width: 1200,
         height: 630,
         alt: 'Replay Builder'
@@ -39,7 +43,7 @@ export const metadata: Metadata = {
       'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
     description:
       'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
-    images: ['/images/og-image-builder.png']
+    images: [`${siteOrigin}/images/og-image-builder.png`]
   }
 }
 

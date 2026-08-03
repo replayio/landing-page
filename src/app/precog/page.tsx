@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/precog`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/precog`,
     title: 'Replay Precog',
     description:

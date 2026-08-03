@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/about`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/about`,
     title: 'About Replay — Making Software Visible',
     description:
