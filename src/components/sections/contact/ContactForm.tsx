@@ -89,9 +89,11 @@ const ContactForm: FC = () => {
     <Section className={s.section}>
       <div className={s.twoColumnLayout}>
         <div className={clsx(s.firstColumn, 'min-w-0')}>
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          {/* h1: this is the only top-level heading on /contact, which otherwise
+              renders no h1 at all. Styling is unchanged. */}
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Contact us
-          </h2>
+          </h1>
           <article className="mt-6 max-w-xl space-y-10">
             <p className="text-base leading-relaxed text-gray-700 sm:text-lg">
               We&apos;d love to hear from you. Reach out with the form,{' '}

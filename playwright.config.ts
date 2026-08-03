@@ -55,10 +55,24 @@ export default defineConfig({
     }
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'pnpm dev',
-    url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !process.env.CI
-  }
+  /*
+   * Run a local dev server before starting the tests.
+   *
+   * Skipped when BASE_URL is set, so the same suite can run against a preview or
+   * production deployment:  BASE_URL=https://<preview>.vercel.app pnpm playwright
+   *
+   * NEXT_PUBLIC_SITE_URL is required by src/lib/constants.ts, which throws without
+   * it. CI supplies it as a job env var; this default lets the suite run locally
+   * with no .env file.
+   */
+  webServer: process.env.BASE_URL
+    ? undefined
+    : {
+        command: 'pnpm dev',
+        url: 'http://127.0.0.1:3000',
+        reuseExistingServer: !process.env.CI,
+        env: {
+          NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+        }
+      }
 })

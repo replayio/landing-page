@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   description:
     'Replay MCP gives your coding agent the runtime context it needs to fix bugs — not loop on them. Root cause analysis, implementation-ready fixes, works in your existing workflow.',
   alternates: {
-    canonical: `${siteOrigin}/for-engineers`
+    canonical: `${siteOrigin}/engineers`
   },
   openGraph: {
     type: 'website',
-    url: `${siteOrigin}/for-engineers`,
+    url: `${siteOrigin}/engineers`,
     title: 'Replay for Engineers — Runtime Context for Your Coding Agent',
     description:
       'Replay MCP gives your coding agent the runtime context it needs to fix bugs — not loop on them.',
