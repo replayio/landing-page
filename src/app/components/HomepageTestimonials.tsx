@@ -3,10 +3,10 @@ import { Container } from '~/components/Container'
 
 import markProbst from '~/images/testimonials/mark-probst.jpg'
 import shane from '~/images/testimonials/shane.jpg'
-import timn from '~/images/testimonials/tim-neutkins.png'
+import kaiteeshiks from '~/images/testimonials/kaiteeshiks.jpg'
+import petermick from '~/images/testimonials/petermick.jpg'
 import glide from '~/images/testimonials/glide.png'
 import pantheon from '~/images/testimonials/pantheon.png'
-import vercel from '~/images/hero-logos/vercel.svg'
 import mallow from '~/images/testimonials/mallow.svg'
 
 type FeaturedTestimonial = {
@@ -14,7 +14,7 @@ type FeaturedTestimonial = {
   name: string
   title: string
   image: typeof markProbst
-  logo: typeof glide
+  logo?: typeof glide
 }
 
 type Testimonial = {
@@ -22,6 +22,7 @@ type Testimonial = {
   name: string
   title: string
   logo?: typeof glide
+  image?: typeof markProbst
 }
 
 const featuredTestimonials: FeaturedTestimonial[] = [
@@ -43,11 +44,10 @@ const featuredTestimonials: FeaturedTestimonial[] = [
   },
   {
     quote:
-      "Next.js App Router is now stable in 13.4. It wouldn't have been possible without Replay, we investigated so many super complicated bugs.",
-    name: 'Tim Neutkens',
-    title: 'Co-author of Next.js, Vercel',
-    image: timn,
-    logo: vercel
+      'What stood out to me was how quickly Replay QA went from setup to actionable feedback. Connecting my GitHub repository took only a few seconds, and the first run uncovered issues across functionality, UX, and accessibility that would\'ve been easy to miss manually. It gave me much more confidence before shipping the app.',
+    name: '@kaiteeshiks',
+    title: '',
+    image: kaiteeshiks
   }
 ]
 
@@ -68,7 +68,8 @@ const additionalTestimonials: Testimonial[] = [
     quote:
       'Blown away by what Replay QA discovered for my solo startup, helped me identify and fix bugs that could potentially affect conversions.',
     name: '@thepetermick',
-    title: ''
+    title: '',
+    image: petermick
   }
 ]
 
@@ -109,13 +110,15 @@ export function HomepageTestimonials() {
                     <p className="text-xs text-gray-500">{testimonial.title}</p>
                   </div>
                 </div>
-                <Image
-                  src={testimonial.logo}
-                  alt=""
-                  width={80}
-                  height={24}
-                  className="h-5 w-auto flex-none object-contain opacity-50"
-                />
+                {testimonial.logo && (
+                  <Image
+                    src={testimonial.logo}
+                    alt=""
+                    width={80}
+                    height={24}
+                    className="h-5 w-auto flex-none object-contain opacity-50"
+                  />
+                )}
               </figcaption>
             </figure>
           ))}
@@ -131,9 +134,20 @@ export function HomepageTestimonials() {
                 &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
               <figcaption className="flex items-center justify-between gap-4 text-sm">
-                <div>
-                  <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                  {testimonial.title && <p className="text-gray-500">{testimonial.title}</p>}
+                <div className="flex items-center gap-3">
+                  {testimonial.image && (
+                    <Image
+                      src={testimonial.image}
+                      alt=""
+                      width={36}
+                      height={36}
+                      className="h-9 w-9 rounded-full object-cover"
+                    />
+                  )}
+                  <div>
+                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                    {testimonial.title && <p className="text-gray-500">{testimonial.title}</p>}
+                  </div>
                 </div>
                 {testimonial.logo && (
                   <Image
