@@ -47,8 +47,8 @@ const featuredTestimonials: FeaturedTestimonial[] = [
   {
     quote:
       'What stood out to me was how quickly Replay QA went from setup to actionable feedback. Connecting my GitHub repository took only a few seconds, and the first run uncovered issues across functionality, UX, and accessibility that would\'ve been easy to miss manually. It gave me much more confidence before shipping the app.',
-    name: '@kaiteeshiks',
-    title: '',
+    name: 'Kaitee',
+    title: '@kaiteeshiks',
     image: kaiteeshiks
   }
 ]
@@ -71,8 +71,8 @@ const additionalTestimonials: Testimonial[] = [
   {
     quote:
       'Blown away by what Replay QA discovered for my solo startup, helped me identify and fix bugs that could potentially affect conversions.',
-    name: '@thepetermick',
-    title: '',
+    name: 'Peter Mick',
+    title: '@thepetermick',
     image: petermick
   }
 ]
