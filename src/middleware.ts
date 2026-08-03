@@ -74,10 +74,7 @@ function setAdAttributionCookieIfNeeded(request: NextRequest, response: NextResp
 const MARKDOWN_BY_PATH: Record<string, string> = {
   '/': '/agent/index.md',
   '/how-it-works': '/agent/how-it-works.md',
-  '/engineers': '/agent/engineers.md',
-  '/vibe-coders': '/agent/vibe-coders.md',
   '/precog': '/agent/precog.md',
-  '/partner': '/agent/partner.md',
   '/pricing': '/agent/pricing.md',
   '/debugging': '/agent/debugging.md',
   '/roi-calculator': '/agent/roi-calculator.md',

@@ -29,10 +29,7 @@ const SITE_URL = 'https://www.replay.io'
 const ROUTES = [
   { pathname: '/', slug: 'index', title: 'Replay — Home' },
   { pathname: '/how-it-works', slug: 'how-it-works', title: 'How It Works — Replay' },
-  { pathname: '/engineers', slug: 'engineers', title: 'For Engineers — Replay' },
-  { pathname: '/vibe-coders', slug: 'vibe-coders', title: 'For Vibe Coders — Replay' },
   { pathname: '/precog', slug: 'precog', title: 'Precog — Replay' },
-  { pathname: '/partner', slug: 'partner', title: 'Partner — Replay' },
   { pathname: '/pricing', slug: 'pricing', title: 'Pricing — Replay' },
   { pathname: '/debugging', slug: 'debugging', title: 'Debugging — Replay' },
   { pathname: '/roi-calculator', slug: 'roi-calculator', title: 'ROI Calculator — Replay' },
