@@ -14,6 +14,7 @@ type FeaturedTestimonial = {
   quote: string
   name: string
   title: string
+  titleHref?: string
   image: typeof markProbst
   logo?: typeof glide
 }
@@ -22,6 +23,7 @@ type Testimonial = {
   quote: string
   name: string
   title: string
+  titleHref?: string
   logo?: typeof glide
   logoSize?: 'sm'
   image?: typeof markProbst
@@ -49,6 +51,7 @@ const featuredTestimonials: FeaturedTestimonial[] = [
       'What stood out to me was how quickly Replay QA went from setup to actionable feedback. Connecting my GitHub repository took only a few seconds, and the first run uncovered issues across functionality, UX, and accessibility that would\'ve been easy to miss manually. It gave me much more confidence before shipping the app.',
     name: 'Kaitee',
     title: '@kaiteeshiks',
+    titleHref: 'https://x.com/KaiteeShiks',
     image: kaiteeshiks
   }
 ]
@@ -65,6 +68,7 @@ const additionalTestimonials: Testimonial[] = [
       "After seeing what Replay can do, I'm setting up a lot more Playwright tests on my PRs. I was afraid to before, due to the extra work of debugging failed tests.",
     name: 'Ben Ruckman',
     title: 'Co-founder, Getmallow.com',
+    titleHref: 'https://getmallow.com',
     logo: mallow,
     logoSize: 'sm'
   },
@@ -73,6 +77,7 @@ const additionalTestimonials: Testimonial[] = [
       'Blown away by what Replay QA discovered for my solo startup, helped me identify and fix bugs that could potentially affect conversions.',
     name: 'Peter Mick',
     title: '@thepetermick',
+    titleHref: 'https://x.com/ThePeterMick',
     image: petermick
   }
 ]
@@ -111,7 +116,11 @@ export function HomepageTestimonials() {
                   />
                   <div className="text-sm">
                     <p className="font-semibold leading-tight text-gray-900">{testimonial.name}</p>
-                    <p className="text-xs text-gray-500">{testimonial.title}</p>
+                    {testimonial.titleHref ? (
+                      <a href={testimonial.titleHref} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-500 no-underline">{testimonial.title}</a>
+                    ) : (
+                      <p className="text-xs text-gray-500">{testimonial.title}</p>
+                    )}
                   </div>
                 </div>
                 {testimonial.logo && (
@@ -150,7 +159,11 @@ export function HomepageTestimonials() {
                   )}
                   <div>
                     <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                    {testimonial.title && <p className="text-gray-500">{testimonial.title}</p>}
+                    {testimonial.title && (testimonial.titleHref ? (
+                      <a href={testimonial.titleHref} target="_blank" rel="noopener noreferrer" className="text-gray-500 no-underline">{testimonial.title}</a>
+                    ) : (
+                      <p className="text-gray-500">{testimonial.title}</p>
+                    ))}
                   </div>
                 </div>
                 {testimonial.logo && (
