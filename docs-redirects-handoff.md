@@ -52,7 +52,18 @@ www.replay.io, so they are live entry points, not just crawl artefacts.
 Note there is no `/learn/comparisons`, `/learn`, `/basics` or `/reference`
 index page (all 404), so a section index is not available as a fallback target.
 
-## 4. Separate bug: sitemap leaks a preview hostname
+## 4. No examples index exists
+
+`www.replay.io/examples` used to redirect to
+`/docs/resources-and-examples-d25ae319114e4d109022458cd47f38ec`, which now 404s,
+so the redirect was delivering visitors to a dead page. It has been repointed at
+the docs home as a stopgap.
+
+Docs now has `/learn/examples/nextjs`, `/learn/examples/playwright` and
+`/learn/examples/vercel`, but nothing above them (`/learn/examples` and `/learn`
+both 404). If an index is added, tell us and we will repoint `/examples` at it.
+
+## 5. Separate bug: sitemap leaks a preview hostname
 
 `https://docs.replay.io/sitemap.xml` lists all 71 URLs under
 `https://replay-documentation-4pxlvf4rd-replayio.vercel.app/` instead of

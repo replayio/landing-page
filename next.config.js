@@ -154,10 +154,13 @@ const nextConfig = {
           'https://docs.replay.io/docs/recording-bug-reports-80c37d7d6753485f81497570625d06f0',
         permanent: true
       },
+      // The old "Resources and Examples" page is gone (that URL 404s), so this
+      // redirect was sending traffic straight to a dead page. Docs now has
+      // /learn/examples/{nextjs,playwright,vercel} but no index above them, so
+      // the docs home is the nearest live target. Revisit if an index is added.
       {
         source: '/examples',
-        destination:
-          'https://docs.replay.io/docs/resources-and-examples-d25ae319114e4d109022458cd47f38ec',
+        destination: 'https://docs.replay.io/',
         permanent: true
       },
       {
