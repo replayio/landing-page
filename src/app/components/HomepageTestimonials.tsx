@@ -23,6 +23,7 @@ type Testimonial = {
   name: string
   title: string
   logo?: typeof glide
+  logoSize?: 'sm'
   image?: typeof markProbst
 }
 
@@ -64,7 +65,8 @@ const additionalTestimonials: Testimonial[] = [
       "After seeing what Replay can do, I'm setting up a lot more Playwright tests on my PRs. I was afraid to before, due to the extra work of debugging failed tests.",
     name: 'Ben Ruckman',
     title: 'Co-founder, Getmallow.com',
-    logo: mallow
+    logo: mallow,
+    logoSize: 'sm'
   },
   {
     quote:
@@ -155,9 +157,9 @@ export function HomepageTestimonials() {
                   <Image
                     src={testimonial.logo}
                     alt=""
-                    width={80}
-                    height={24}
-                    className="h-5 w-auto flex-none object-contain opacity-50"
+                    width={testimonial.logoSize === 'sm' ? 56 : 80}
+                    height={testimonial.logoSize === 'sm' ? 17 : 24}
+                    className={`w-auto flex-none object-contain opacity-50 ${testimonial.logoSize === 'sm' ? 'h-3.5' : 'h-5'}`}
                   />
                 )}
               </figcaption>
