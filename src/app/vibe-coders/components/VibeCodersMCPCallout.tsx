@@ -19,7 +19,7 @@ export function VibeCodersMCPCallout() {
               recording engine, deeper integration.
             </p>
             <Link
-              href="/for-engineers"
+              href="/engineers"
               className="mt-5 inline-flex items-center text-sm font-medium text-purple-600 transition-colors hover:text-purple-700"
             >
               Learn about Replay MCP
