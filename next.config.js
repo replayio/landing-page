@@ -56,6 +56,20 @@ const nextConfig = {
         destination: 'https://static.replay.io/protocol',
         permanent: true
       },
+      // Sub-paths were never covered by the `/protocol` rule above, so deep links
+      // from the old protocol docs (e.g. /protocol/tot/Pause) 404'd.
+      {
+        source: '/protocol/:path*',
+        destination: 'https://static.replay.io/protocol/:path*',
+        permanent: true
+      },
+      // Legacy testimonials page, removed in the Replay QA rewrite. Still linked
+      // from the archived blog.
+      {
+        source: '/shoutouts',
+        destination: '/',
+        permanent: true
+      },
       {
         source: '/driver',
         destination: 'https://static.replay.io/driver',
