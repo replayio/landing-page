@@ -13,7 +13,7 @@ import { HomepageCTA } from '~/app/components/HomepageCTA'
 export const metadata: Metadata = {
   title: 'Replay for Engineers — Runtime Context for Your Coding Agent',
   description:
-    'Replay MCP gives your coding agent the runtime context it needs to fix bugs — not loop on them. Root cause analysis, implementation-ready fixes, works in your existing workflow.',
+    'Replay MCP gives your coding agent the runtime context it needs to fix bugs instead of looping on them. Root cause analysis and ready-to-apply fixes.',
   alternates: {
     canonical: `${siteOrigin}/engineers`
   },

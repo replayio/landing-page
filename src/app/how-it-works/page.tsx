@@ -10,7 +10,7 @@ import { BugReportExample } from './components/BugReportExample'
 import { AskYourAgent } from './components/AskYourAgent'
 import { TechnologySection } from './components/TechnologySection'
 
-const title = 'How Replay QA Works'
+const title = 'How Replay QA Works: From URL to Bug Report'
 const description =
   'From URL to bug report — automatically. See how Replay QA explores your app, records every session, and delivers root cause and fix for every bug it finds.'
 

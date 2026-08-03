@@ -13,17 +13,17 @@ import { siteOrigin } from '~/lib/constants'
 
 export const metadata: Metadata = {
   title:
-    'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
+    'Replay Builder: Build Working Web Apps in Minutes',
   description:
-    'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
+    'Go from idea to a live web app in minutes. Replay Builder runs on our time-travel debugger, so it catches and fixes its own bugs as it builds.',
   alternates: {
     canonical: `${siteOrigin}/builder`
   },
   openGraph: {
     title:
-      'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
+      'Replay Builder: Build Working Web Apps in Minutes',
     description:
-      'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
+      'Go from idea to a live web app in minutes. Replay Builder runs on our time-travel debugger, so it catches and fixes its own bugs as it builds.',
     url: `${siteOrigin}/builder`,
     siteName: 'Replay',
     images: [
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title:
-      'Replay Builder - AI vibecoding tool that builds fully working web apps, and fixes its own bugs.',
+      'Replay Builder: Build Working Web Apps in Minutes',
     description:
-      'With Replay Builder, you can build and deploy your own custom SaaS tools. Built around our deterministic browser debugging devtools, Replay Builder succeeds where other AI coding tools fail, because it sees what actually happens throughout your entire codebase, and can fix itself.',
+      'Go from idea to a live web app in minutes. Replay Builder runs on our time-travel debugger, so it catches and fixes its own bugs as it builds.',
     images: [`${siteOrigin}/images/og-image-builder.png`]
   }
 }
