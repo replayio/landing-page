@@ -36,25 +36,13 @@ const ROUTES = [
 ]
 
 /**
- * Routes whose title/description lengths were corrected in the audit.
- *
- * The rest are excluded on purpose: they were never flagged, because they had almost
- * no incoming links and so were never crawled. Now that they are in the sitemap they
- * will be crawled, and several will be flagged for length. Fixing those means
- * rewriting marketing copy, which is a content decision rather than a mechanical one.
- * Move a route into this list once its copy has been signed off.
+ * Every route is length-checked. The six pages that were previously outside the
+ * bands (/builder, /vibe-coders, /engineers, /partner, /how-it-works and
+ * /roi-calculator) were never flagged by the original crawl only because they had
+ * almost no incoming links and so were never reached. Their copy has since been
+ * rewritten, so the whole site now conforms.
  */
-const LENGTH_CHECKED = [
-  '/',
-  '/about',
-  '/blog',
-  '/branding',
-  '/contact',
-  '/pricing',
-  '/privacy-policy',
-  '/security-and-privacy',
-  '/terms-of-service'
-]
+const LENGTH_CHECKED = ROUTES
 
 const TITLE_MIN = 30
 const TITLE_MAX = 60

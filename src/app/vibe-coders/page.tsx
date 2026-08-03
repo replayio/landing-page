@@ -12,16 +12,16 @@ import { VibeCodersCTA } from './components/VibeCodersCTA'
 import { HomepageCTA } from '~/app/components/HomepageCTA'
 
 export const metadata: Metadata = {
-  title: 'Replay for Vibe Coders — Vibe Fearlessly with the Replay Chrome Extension',
+  title: 'Vibe Fearlessly: The Replay Chrome Extension',
   description:
-    'The Replay Chrome extension is like having a senior engineer watching over your shoulder, catching bugs, finding root causes, and telling the AI exactly how to fix them.',
+    'Debugging tools assume you are an engineer. Replay does not. The Chrome extension finds the root cause and tells your AI exactly how to fix it.',
   alternates: {
     canonical: `${siteOrigin}/vibe-coders`
   },
   openGraph: {
     type: 'website',
     url: `${siteOrigin}/vibe-coders`,
-    title: 'Replay for Vibe Coders — Vibe Fearlessly',
+    title: 'Vibe Fearlessly: The Replay Chrome Extension',
     description:
       'The Replay Chrome extension catches bugs, finds root causes, and tells the AI exactly how to fix them. Built for Lovable, Replit, Base44, and Bolt users.',
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: defaultMeta.twitter.site,
-    title: 'Replay for Vibe Coders — Vibe Fearlessly',
+    title: 'Vibe Fearlessly: The Replay Chrome Extension',
     description:
       'The Replay Chrome extension catches bugs, finds root causes, and tells the AI exactly how to fix them.',
     creator: defaultMeta.twitter.handle,

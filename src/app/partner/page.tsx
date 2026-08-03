@@ -12,7 +12,7 @@ import { PartnerApplicationForm } from './components/PartnerApplicationForm'
 export const metadata: Metadata = {
   title: 'Design Partner Program — Replay',
   description:
-    'Join the Replay Design Partner Program. Get free access to Replay MCP, a direct line to the engineering team, and help shape the future of agent-powered debugging.',
+    'Join the Replay Design Partner Program. Get free access to Replay MCP, a direct line to our engineers, and help shape agent-powered debugging.',
   alternates: {
     canonical: `${siteOrigin}/partner`
   },
