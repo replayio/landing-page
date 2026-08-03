@@ -17,6 +17,9 @@ type FeaturedTestimonial = {
   titleHref?: string
   image: typeof markProbst
   logo?: typeof glide
+  /** Company the logo belongs to, used for the logo's alt text. Optional because
+      not every testimonial carries a logo. */
+  company?: string
 }
 
 type Testimonial = {
@@ -25,6 +28,8 @@ type Testimonial = {
   title: string
   titleHref?: string
   logo?: typeof glide
+  /** Company the logo belongs to, used for the logo's alt text. */
+  company?: string
   logoSize?: 'sm'
   image?: typeof markProbst
 }
@@ -36,7 +41,8 @@ const featuredTestimonials: FeaturedTestimonial[] = [
     name: 'Mark Probst',
     title: 'VP Engineering, Glide',
     image: markProbst,
-    logo: glide
+    logo: glide,
+    company: 'Glide'
   },
   {
     quote:
@@ -44,7 +50,8 @@ const featuredTestimonials: FeaturedTestimonial[] = [
     name: 'Shane Duff',
     title: 'Front End Lead, Pantheon',
     image: shane,
-    logo: pantheon
+    logo: pantheon,
+    company: 'Pantheon'
   },
   {
     quote:
@@ -70,6 +77,7 @@ const additionalTestimonials: Testimonial[] = [
     title: 'Co-founder, Getmallow.com',
     titleHref: 'https://getmallow.com',
     logo: mallow,
+    company: 'Mallow',
     logoSize: 'sm'
   },
   {
@@ -126,7 +134,7 @@ export function HomepageTestimonials() {
                 {testimonial.logo && (
                   <Image
                     src={testimonial.logo}
-                    alt=""
+                    alt={testimonial.company ? `${testimonial.company} logo` : ''}
                     width={80}
                     height={24}
                     className="h-5 w-auto flex-none object-contain opacity-50"
@@ -169,7 +177,7 @@ export function HomepageTestimonials() {
                 {testimonial.logo && (
                   <Image
                     src={testimonial.logo}
-                    alt=""
+                    alt={testimonial.company ? `${testimonial.company} logo` : ''}
                     width={testimonial.logoSize === 'sm' ? 56 : 80}
                     height={testimonial.logoSize === 'sm' ? 17 : 24}
                     className={`w-auto flex-none object-contain opacity-50 ${testimonial.logoSize === 'sm' ? 'h-3.5' : 'h-5'}`}
