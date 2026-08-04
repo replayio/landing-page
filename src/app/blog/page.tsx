@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 import { Container } from '~/components/Container'
@@ -8,7 +9,8 @@ import { BlogPostsExplorer } from './components/BlogPostsExplorer'
 
 export const metadata: Metadata = {
   title: 'Replay Blog: Debugging, Testing and Changelog',
-  description: 'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
+  description:
+    'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
   alternates: {
     canonical: `${siteOrigin}/blog`
   },
@@ -16,14 +18,16 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${siteOrigin}/blog`,
     title: 'Replay Blog: Debugging, Testing and Changelog',
-    description: 'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
+    description:
+      'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
     site: defaultMeta.twitter.site,
     title: 'Replay Blog: Debugging, Testing and Changelog',
-    description: 'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
+    description:
+      'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
     creator: defaultMeta.twitter.handle,
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   }
@@ -56,6 +60,16 @@ export default async function BlogPage() {
             </h1>
             <p className="mt-4 text-base text-gray-600 sm:text-lg">
               Product updates, case studies, and debugging insights from the Replay team.
+            </p>
+            {/* This page server-renders only its first batch of posts and loads the rest
+                client side, so crawlers never reach the remainder. The archive gives every
+                post one crawlable internal link. */}
+            <p className="mt-3 text-sm text-gray-500">
+              Looking for something older?{' '}
+              <Link href="/blog/archive" className="text-accent underline-offset-4 hover:underline">
+                Browse the full archive
+              </Link>
+              .
             </p>
           </section>
 

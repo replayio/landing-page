@@ -115,7 +115,9 @@ const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'ROI Calculator', href: '/roi-calculator' },
-  // { label: 'Debugging', href: '/debugging' },
+  // Restored: /debugging is in the sitemap but nothing linked to it, so Ahrefs
+  // reported it as an orphan page.
+  { label: 'Debugging', href: '/debugging' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: navigation.company[0].href },
   { label: 'Contact', href: '/contact' }
