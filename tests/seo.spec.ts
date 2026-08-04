@@ -198,6 +198,9 @@ test.describe('sitemap', () => {
   })
 
   test('every listed URL resolves 200 without redirecting', async ({ request }) => {
+    // Production advertises ~175 URLs and these are checked one at a time, which
+    // overruns the 30s default when run against a deployment rather than localhost.
+    test.setTimeout(5 * 60 * 1000)
     const res = await request.get(`${BASE}/sitemap.xml`)
     const xml = await res.text()
     const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
@@ -319,6 +322,9 @@ test.describe('blog', () => {
 
 test.describe('internal links', () => {
   test('no page links to a path that does not exist', async ({ request }) => {
+    // Crawls every route and then every distinct internal link it finds; too slow
+    // for the 30s default against a real deployment.
+    test.setTimeout(5 * 60 * 1000)
     const seen = new Set<string>()
 
     for (const route of ROUTES) {
