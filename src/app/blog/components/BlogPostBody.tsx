@@ -20,7 +20,19 @@ import 'prismjs/components/prism-yaml'
  * point at no recoverable target, so we render the text without an anchor instead of
  * emitting a link we know is broken.
  */
-const BARE_NOTION_ID = /^\/?([0-9a-f]{32})$/i
+/**
+ * A bare Notion page id used as a path, optionally followed by a block anchor or a
+ * query string: `/<32-hex>`, `/<32-hex>#<32-hex>`, `/<32-hex>?foo=bar`.
+ *
+ * The trailing group matters. An earlier version anchored straight to the end of
+ * the string, so links carrying a Notion block anchor (`/<id>#<id>`) fell through
+ * unrewritten and stayed as 404s.
+ *
+ * The path must be *only* the id, which is what keeps legitimate external links
+ * containing a 32-hex segment (Loom shares, GitHub gists, notion.so pages) from
+ * matching: those start with a scheme rather than the id.
+ */
+const BARE_NOTION_ID = /^\/?([0-9a-f]{32})(?:[?#].*)?$/i
 
 function resolveNotionHref(
   href: string | null | undefined,
