@@ -2,6 +2,7 @@ import { Marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import Prism from 'prismjs'
 import { resolveBlogRedirect } from '~/lib/blog-redirect'
+import { resolveDocsHref } from '~/lib/docs-links'
 import 'prismjs/components/prism-bash'
 import 'prismjs/components/prism-css'
 import 'prismjs/components/prism-diff'
@@ -59,7 +60,7 @@ function resolveNotionHref(
  * `blog.replay.io` paths go through the same slug mapping the middleware uses to 301
  * that host, so the two cannot drift apart.
  */
-function canonicaliseReplayHref(href: string): string {
+function canonicaliseReplayHref(href: string): string | null {
   let url: URL
   try {
     url = new URL(href)
@@ -80,6 +81,11 @@ function canonicaliseReplayHref(href: string): string {
 
   if (host === 'replay.io' || host === 'www.replay.io') {
     return `https://www.replay.io${url.pathname}${url.search}${url.hash}`
+  }
+
+  if (host === 'docs.replay.io') {
+    // May return null, meaning the target is gone with no equivalent.
+    return resolveDocsHref(url)
   }
 
   return href
@@ -116,6 +122,7 @@ function createMarked(idToSlug: Record<string, string>) {
         const notionResolved = resolveNotionHref(href, idToSlug)
         if (!notionResolved) return text
         const resolved = canonicaliseReplayHref(notionResolved)
+        if (!resolved) return text
 
         const isExternal = /^https?:\/\//i.test(resolved)
         const targetAttrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''
