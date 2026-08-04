@@ -241,6 +241,41 @@ test.describe('redirects', () => {
   })
 })
 
+test.describe('blog', () => {
+  test('no post links to a bare Notion page id', async ({ request }) => {
+    test.setTimeout(5 * 60 * 1000)
+
+    const xml = await (await request.get(`${BASE}/sitemap.xml`)).text()
+    const posts = [...xml.matchAll(/<loc>([^<]*\/blog\/[^<]+)<\/loc>/g)].map((m) => m[1])
+
+    if (posts.length === 0) {
+      // eslint-disable-next-line no-console
+      console.log('note: no blog posts available (NOTION_TOKEN unset); skipping')
+      return
+    }
+
+    // Links authored in Notion serialise as a bare page id and 404. The path must be
+    // only the id: external links that merely contain a 32-hex segment (Loom shares,
+    // GitHub gists, notion.so pages) are legitimate and must not be reported.
+    //
+    // The optional trailing group is the point of this test. The first version of the
+    // fix anchored to the end of the string, so `/<id>#<block-id>` links survived and
+    // stayed as 404s until Ahrefs found them.
+    const BARE_ID_HREF = /href="\/[0-9a-f]{32}(?:[?#][^"]*)?"/gi
+
+    const offenders: string[] = []
+    for (const url of posts) {
+      const html = await (await request.get(url)).text()
+      const hits = html.match(BARE_ID_HREF)
+      if (hits) offenders.push(`${new URL(url).pathname} -> ${[...new Set(hits)].join(' ')}`)
+    }
+
+    expect(offenders, `posts still linking to a bare Notion id:\n${offenders.join('\n')}`).toEqual(
+      []
+    )
+  })
+})
+
 test.describe('internal links', () => {
   test('no page links to a path that does not exist', async ({ request }) => {
     const seen = new Set<string>()
