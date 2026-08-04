@@ -69,7 +69,9 @@ function canonicaliseReplayHref(href: string): string {
 
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return href
 
-  const host = url.hostname.toLowerCase()
+  // Strip a fully-qualified trailing dot: one post links to `http://replay.io./`,
+  // which is a valid absolute form of the same host.
+  const host = url.hostname.toLowerCase().replace(/\.$/, '')
 
   if (host === 'blog.replay.io') {
     const path = resolveBlogRedirect(url.pathname)
