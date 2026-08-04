@@ -1,6 +1,8 @@
 import { Marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import Prism from 'prismjs'
+import { resolveBlogRedirect } from '~/lib/blog-redirect'
+import { resolveDocsHref } from '~/lib/docs-links'
 import 'prismjs/components/prism-bash'
 import 'prismjs/components/prism-css'
 import 'prismjs/components/prism-diff'
@@ -46,6 +48,49 @@ function resolveNotionHref(
   return slug ? `/blog/${slug}` : null
 }
 
+/**
+ * Point links at our own site straight at their canonical URL.
+ *
+ * Posts written over the years link to `http://replay.io/...`, the apex domain, and
+ * the retired `blog.replay.io`. Every one of those redirects, and the plain-http ones
+ * are worse than that: Ahrefs counts them as an HTTPS page linking to HTTP, which is
+ * an error rather than a warning. Rewriting them here removes the hop for readers and
+ * the finding for crawlers, without touching the Notion source.
+ *
+ * `blog.replay.io` paths go through the same slug mapping the middleware uses to 301
+ * that host, so the two cannot drift apart.
+ */
+function canonicaliseReplayHref(href: string): string | null {
+  let url: URL
+  try {
+    url = new URL(href)
+  } catch {
+    return href // relative, mailto:, anchors
+  }
+
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return href
+
+  // Strip a fully-qualified trailing dot: one post links to `http://replay.io./`,
+  // which is a valid absolute form of the same host.
+  const host = url.hostname.toLowerCase().replace(/\.$/, '')
+
+  if (host === 'blog.replay.io') {
+    const path = resolveBlogRedirect(url.pathname)
+    return `https://www.replay.io${path}${url.search}${url.hash}`
+  }
+
+  if (host === 'replay.io' || host === 'www.replay.io') {
+    return `https://www.replay.io${url.pathname}${url.search}${url.hash}`
+  }
+
+  if (host === 'docs.replay.io') {
+    // May return null, meaning the target is gone with no equivalent.
+    return resolveDocsHref(url)
+  }
+
+  return href
+}
+
 function createMarked(idToSlug: Record<string, string>) {
   const marked = new Marked(
     markedHighlight({
@@ -74,7 +119,9 @@ function createMarked(idToSlug: Record<string, string>) {
       },
       link({ href, title, tokens }) {
         const text = this.parser.parseInline(tokens)
-        const resolved = resolveNotionHref(href, idToSlug)
+        const notionResolved = resolveNotionHref(href, idToSlug)
+        if (!notionResolved) return text
+        const resolved = canonicaliseReplayHref(notionResolved)
         if (!resolved) return text
 
         const isExternal = /^https?:\/\//i.test(resolved)

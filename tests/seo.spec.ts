@@ -198,6 +198,9 @@ test.describe('sitemap', () => {
   })
 
   test('every listed URL resolves 200 without redirecting', async ({ request }) => {
+    // Production advertises ~175 URLs and these are checked one at a time, which
+    // overruns the 30s default when run against a deployment rather than localhost.
+    test.setTimeout(5 * 60 * 1000)
     const res = await request.get(`${BASE}/sitemap.xml`)
     const xml = await res.text()
     const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
@@ -247,7 +250,11 @@ test.describe('blog', () => {
     test.setTimeout(5 * 60 * 1000)
 
     const xml = await (await request.get(`${BASE}/sitemap.xml`)).text()
-    const posts = [...xml.matchAll(/<loc>([^<]*\/blog\/[^<]+)<\/loc>/g)].map((m) => m[1])
+    // The sitemap advertises absolute production URLs. Keep only the path, so this
+    // scans the deployment under test rather than always hitting www.replay.io.
+    const posts = [...xml.matchAll(/<loc>([^<]*\/blog\/[^<]+)<\/loc>/g)].map(
+      (m) => new URL(m[1]).pathname
+    )
 
     if (posts.length === 0) {
       // eslint-disable-next-line no-console
@@ -265,20 +272,59 @@ test.describe('blog', () => {
     const BARE_ID_HREF = /href="\/[0-9a-f]{32}(?:[?#][^"]*)?"/gi
 
     const offenders: string[] = []
-    for (const url of posts) {
-      const html = await (await request.get(url)).text()
+    for (const path of posts) {
+      const html = await (await request.get(`${BASE}${path}`)).text()
       const hits = html.match(BARE_ID_HREF)
-      if (hits) offenders.push(`${new URL(url).pathname} -> ${[...new Set(hits)].join(' ')}`)
+      if (hits) offenders.push(`${path} -> ${[...new Set(hits)].join(' ')}`)
     }
 
     expect(offenders, `posts still linking to a bare Notion id:\n${offenders.join('\n')}`).toEqual(
       []
     )
   })
+
+  test('no post links to our own site over http, the apex domain or blog.replay.io', async ({
+    request
+  }) => {
+    test.setTimeout(5 * 60 * 1000)
+
+    const xml = await (await request.get(`${BASE}/sitemap.xml`)).text()
+    // Paths only: see the note above about the sitemap carrying production URLs.
+    const posts = [...xml.matchAll(/<loc>([^<]*\/blog\/[^<]+)<\/loc>/g)]
+      .map((m) => new URL(m[1]).pathname)
+      .filter((p) => p !== '/blog/archive')
+
+    if (posts.length === 0) {
+      // eslint-disable-next-line no-console
+      console.log('note: no blog posts available (NOTION_TOKEN unset); skipping')
+      return
+    }
+
+    // Each of these redirects, and the http ones count as an HTTPS page linking to
+    // HTTP, which Ahrefs reports as an error rather than a warning. Sibling subdomains
+    // (docs, app, static) are separate properties and must not be rewritten, so they
+    // are deliberately absent from this pattern.
+    const NON_CANONICAL = /href="(http:\/\/(?:www\.)?replay\.io[^"]*|https?:\/\/replay\.io[^"]*|https?:\/\/blog\.replay\.io[^"]*)"/gi
+
+    const offenders: string[] = []
+    for (const path of posts) {
+      const html = await (await request.get(`${BASE}${path}`)).text()
+      const hits = html.match(NON_CANONICAL)
+      if (hits) offenders.push(`${path} -> ${[...new Set(hits)].join(' ')}`)
+    }
+
+    expect(
+      offenders,
+      `posts linking to a non-canonical Replay URL:\n${offenders.join('\n')}`
+    ).toEqual([])
+  })
 })
 
 test.describe('internal links', () => {
   test('no page links to a path that does not exist', async ({ request }) => {
+    // Crawls every route and then every distinct internal link it finds; too slow
+    // for the 30s default against a real deployment.
+    test.setTimeout(5 * 60 * 1000)
     const seen = new Set<string>()
 
     for (const route of ROUTES) {

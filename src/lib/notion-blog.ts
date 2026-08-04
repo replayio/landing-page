@@ -300,7 +300,7 @@ export const getNotionIdToSlugMap = async (): Promise<Record<string, string>> =>
   return map
 }
 
-export const getBlogPostBySlug = async (
+const loadBlogPostBySlug = async (
   slug: string
 ): Promise<{ post: BlogPost; markdown: string } | null> => {
   if (!hasNotionConfig() || !n2m) return null
@@ -320,4 +320,36 @@ export const getBlogPostBySlug = async (
     console.error(`[notion-blog] Failed to fetch markdown for slug "${slug}":`, error)
     return null
   }
+}
+
+/**
+ * Every route calls this twice: once from `generateMetadata` and once from the page
+ * itself. `pageToMarkdown` walks the page block by block, so each uncached call is
+ * many Notion requests, and at 161 posts that doubling was enough to get the build
+ * rate limited. A prerender then sat in `withNotionRetry`'s backoff until it blew
+ * past Next's static generation timeout and failed the deploy.
+ *
+ * Caching per slug collapses the pair back to one fetch. React's `cache()` would be
+ * the idiomatic way to dedupe between generateMetadata and the page, but this repo is
+ * on React 18.2, which does not export it.
+ *
+ * The revalidate window matches the posts list deliberately: markdown embeds the same
+ * ~1h presigned S3 image URLs, so it must not be held longer than that cache is.
+ */
+const cachedLoadBlogPostBySlug = (slug: string) =>
+  unstable_cache(() => loadBlogPostBySlug(slug), [NOTION_BLOG_POSTS_TAG, 'post', slug], {
+    tags: [NOTION_BLOG_POSTS_TAG],
+    revalidate: NOTION_BLOG_POSTS_REVALIDATE_SECONDS
+  })()
+
+export const getBlogPostBySlug = async (
+  slug: string
+): Promise<{ post: BlogPost; markdown: string } | null> => {
+  if (!hasNotionConfig() || !n2m) return null
+
+  if (process.env.NODE_ENV !== 'production') {
+    return loadBlogPostBySlug(slug)
+  }
+
+  return cachedLoadBlogPostBySlug(slug)
 }
