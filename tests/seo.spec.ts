@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 
 /**
  * Regression tests for the issues found in the Ahrefs audit (crawl of 28 Jul 2026).
@@ -44,70 +44,121 @@ const TITLE_MAX = 60
 const DESC_MIN = 110
 const DESC_MAX = 160
 
-async function meta(page: Page, selector: string) {
-  const el = page.locator(selector)
-  if ((await el.count()) === 0) return null
-  return el.first().getAttribute('content')
+/**
+ * These assertions read the server-rendered HTML rather than driving a browser.
+ *
+ * That is deliberate, and it is what a crawler actually indexes. Asserting against
+ * a live DOM made these tests flaky in two ways that only showed up in CI:
+ *
+ *  1. Third-party tracking scripts inject 1x1 pixels with no alt attribute (the
+ *     X/Twitter uwt.js tag adds two, on t.co and analytics.twitter.com). Whether
+ *     they had appeared yet depended entirely on network timing, and we cannot add
+ *     alt attributes to a vendor's pixels anyway.
+ *  2. With `waitUntil: 'domcontentloaded'`, streaming SSR had not always finished
+ *     delivering the head, so Open Graph tags were intermittently absent. /replay-qa
+ *     failed on a different og: tag on each retry, which is the giveaway.
+ *
+ * Reading the response body removes both races: it is exactly the markup the server
+ * produced, with no vendor scripts having run.
+ */
+
+const decodeEntities = (value: string) =>
+  value
+    .replace(/&#x27;/gi, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&apos;/gi, "'")
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&amp;/gi, '&')
+
+/** Content of a <meta> tag, tolerating either attribute order. */
+function metaContent(html: string, attr: 'name' | 'property', key: string): string | null {
+  const tag = html.match(new RegExp(`<meta[^>]+${attr}="${key}"[^>]*>`, 'i'))?.[0]
+  if (!tag) return null
+  const content = tag.match(/content="([^"]*)"/i)?.[1]
+  return content === undefined ? null : decodeEntities(content)
 }
+
+function titleOf(html: string): string {
+  return decodeEntities(html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? '')
+}
+
+function canonicalOf(html: string): string | null {
+  const tag = html.match(/<link[^>]+rel="canonical"[^>]*>/i)?.[0]
+  if (!tag) return null
+  return tag.match(/href="([^"]*)"/i)?.[1] ?? null
+}
+
+/** <img> tags in the server-rendered markup that carry no alt attribute at all. */
+function imgsWithoutAlt(html: string): string[] {
+  return (html.match(/<img\b[^>]*>/gi) ?? []).filter((tag) => !/\salt\s*=/i.test(tag))
+}
+
+const samePath = (a: string, b: string) => a.replace(/\/$/, '') === b.replace(/\/$/, '')
 
 test.describe('per-page SEO invariants', () => {
   for (const route of ROUTES) {
-    test(`${route} is structurally sound`, async ({ page }) => {
-      const response = await page.goto(`${BASE}${route}`, { waitUntil: 'domcontentloaded' })
-      expect(response?.status(), `${route} should return 200`).toBe(200)
+    test(`${route} is structurally sound`, async ({ request }) => {
+      const res = await request.get(`${BASE}${route}`)
+      expect(res.status(), `${route} should return 200`).toBe(200)
+      const html = await res.text()
 
       // Exactly one h1. Blog posts used to emit extras from Notion markdown headings,
       // and /contact used to emit none at all.
-      const h1s = page.locator('h1')
-      expect(await h1s.count(), `${route} should have exactly one h1`).toBe(1)
+      const h1Count = (html.match(/<h1[\s>]/gi) ?? []).length
+      expect(h1Count, `${route} should have exactly one h1`).toBe(1)
 
-      // Title and description must exist and be non-empty everywhere.
-      const title = await page.title()
-      expect(title.trim(), `${route} needs a title`).not.toBe('')
-
-      const description = await meta(page, 'meta[name="description"]')
-      expect(description?.trim(), `${route} needs a meta description`).toBeTruthy()
+      expect(titleOf(html).trim(), `${route} needs a title`).not.toBe('')
+      expect(
+        metaContent(html, 'name', 'description')?.trim(),
+        `${route} needs a meta description`
+      ).toBeTruthy()
 
       // Open Graph: og:type is the tag that was missing site-wide.
       for (const prop of ['og:title', 'og:description', 'og:image', 'og:url', 'og:type']) {
-        const value = await meta(page, `meta[property="${prop}"]`)
-        expect(value, `${route} needs ${prop}`).toBeTruthy()
+        expect(metaContent(html, 'property', prop), `${route} needs ${prop}`).toBeTruthy()
       }
 
       // og:url and canonical must be absolute and must point at this route, not
       // at the homepage (which the retired /builder page used to do).
-      const ogUrl = await meta(page, 'meta[property="og:url"]')
+      const ogUrl = metaContent(html, 'property', 'og:url')
       expect(ogUrl, `${route} og:url must be absolute`).toMatch(/^https?:\/\//)
-      expect(new URL(ogUrl!).pathname.replace(/\/$/, '')).toBe(route.replace(/\/$/, ''))
+      expect(samePath(new URL(ogUrl!).pathname, route), `${route} og:url is ${ogUrl}`).toBe(true)
 
-      const canonical = await page.locator('link[rel="canonical"]').first().getAttribute('href')
+      const canonical = canonicalOf(html)
       expect(canonical, `${route} needs a canonical`).toMatch(/^https?:\/\//)
-      expect(new URL(canonical!).pathname.replace(/\/$/, '')).toBe(route.replace(/\/$/, ''))
+      expect(
+        samePath(new URL(canonical!).pathname, route),
+        `${route} canonical is ${canonical}`
+      ).toBe(true)
 
       // og:image must be absolute: there is no metadataBase configured, so a
       // root-relative path would not resolve for crawlers.
-      const ogImage = await meta(page, 'meta[property="og:image"]')
-      expect(ogImage, `${route} og:image must be absolute`).toMatch(/^https?:\/\//)
+      expect(
+        metaContent(html, 'property', 'og:image'),
+        `${route} og:image must be absolute`
+      ).toMatch(/^https?:\/\//)
 
       // Content images need alt text. Decorative images legitimately use alt="",
       // so assert the attribute is present rather than non-empty.
-      const imgsMissingAlt = await page.locator('img:not([alt])').count()
-      expect(imgsMissingAlt, `${route} has images with no alt attribute`).toBe(0)
+      const missing = imgsWithoutAlt(html)
+      expect(missing, `${route} has images with no alt attribute: ${missing.join(' ')}`).toEqual([])
     })
   }
 
   for (const route of LENGTH_CHECKED) {
-    test(`${route} title and description are within length bands`, async ({ page }) => {
-      await page.goto(`${BASE}${route}`, { waitUntil: 'domcontentloaded' })
+    test(`${route} title and description are within length bands`, async ({ request }) => {
+      const html = await (await request.get(`${BASE}${route}`)).text()
 
-      const title = await page.title()
+      const title = titleOf(html)
       expect(
         title.length,
         `${route} title is ${title.length} chars: "${title}"`
       ).toBeGreaterThanOrEqual(TITLE_MIN)
       expect(title.length, `${route} title is ${title.length} chars`).toBeLessThanOrEqual(TITLE_MAX)
 
-      const description = (await meta(page, 'meta[name="description"]')) ?? ''
+      const description = metaContent(html, 'name', 'description') ?? ''
       expect(
         description.length,
         `${route} description is ${description.length} chars`
@@ -191,16 +242,13 @@ test.describe('redirects', () => {
 })
 
 test.describe('internal links', () => {
-  test('no page links to a path that does not exist', async ({ page, request }) => {
+  test('no page links to a path that does not exist', async ({ request }) => {
     const seen = new Set<string>()
 
     for (const route of ROUTES) {
-      await page.goto(`${BASE}${route}`, { waitUntil: 'domcontentloaded' })
-      const hrefs = await page.locator('a[href^="/"]').evaluateAll((els) =>
-        els.map((e) => e.getAttribute('href') ?? '')
-      )
-      for (const href of hrefs) {
-        const path = href.split('#')[0].split('?')[0]
+      const html = await (await request.get(`${BASE}${route}`)).text()
+      for (const m of html.matchAll(/<a\b[^>]*\shref="(\/[^"]*)"/gi)) {
+        const path = m[1].split('#')[0].split('?')[0]
         if (path && path.startsWith('/')) seen.add(path)
       }
     }
