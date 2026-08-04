@@ -18,6 +18,7 @@ const ROUTES = [
   '/',
   '/about',
   '/blog',
+  '/blog/archive',
   '/branding',
   '/contact',
   '/debugging',
@@ -292,7 +293,10 @@ test.describe('internal links', () => {
     // empty, so links to individual posts would 404 for reasons unrelated to this
     // check. Detect that and exclude post links rather than reporting false failures.
     const sitemapXml = await (await request.get(`${BASE}/sitemap.xml`)).text()
-    const blogAvailable = sitemapXml.includes('/blog/')
+    // Must exclude /blog/archive, which is a static route and present in the sitemap
+    // whether or not any posts exist. Matching a bare '/blog/' made this read as
+    // "posts available" with no Notion token, and the post links then 404'd.
+    const blogAvailable = /\/blog\/(?!archive\b)[^<"\s]+/.test(sitemapXml)
     if (!blogAvailable) {
       // eslint-disable-next-line no-console
       console.log('note: no blog posts available (NOTION_TOKEN unset); skipping /blog/* links')
@@ -300,7 +304,7 @@ test.describe('internal links', () => {
 
     const broken: string[] = []
     for (const path of seen) {
-      if (!blogAvailable && /^\/blog\/.+/.test(path)) continue
+      if (!blogAvailable && /^\/blog\/(?!archive$).+/.test(path)) continue
       const res = await request.get(`${BASE}${path}`, { maxRedirects: 0 })
       // 2xx is fine; 3xx is an intentional redirect. 4xx is not.
       if (res.status() >= 400) broken.push(`${path} -> ${res.status()}`)
