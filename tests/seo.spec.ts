@@ -275,6 +275,41 @@ test.describe('blog', () => {
       []
     )
   })
+
+  test('no post links to our own site over http, the apex domain or blog.replay.io', async ({
+    request
+  }) => {
+    test.setTimeout(5 * 60 * 1000)
+
+    const xml = await (await request.get(`${BASE}/sitemap.xml`)).text()
+    const posts = [...xml.matchAll(/<loc>([^<]*\/blog\/[^<]+)<\/loc>/g)]
+      .map((m) => m[1])
+      .filter((u) => !u.endsWith('/blog/archive'))
+
+    if (posts.length === 0) {
+      // eslint-disable-next-line no-console
+      console.log('note: no blog posts available (NOTION_TOKEN unset); skipping')
+      return
+    }
+
+    // Each of these redirects, and the http ones count as an HTTPS page linking to
+    // HTTP, which Ahrefs reports as an error rather than a warning. Sibling subdomains
+    // (docs, app, static) are separate properties and must not be rewritten, so they
+    // are deliberately absent from this pattern.
+    const NON_CANONICAL = /href="(http:\/\/(?:www\.)?replay\.io[^"]*|https?:\/\/replay\.io[^"]*|https?:\/\/blog\.replay\.io[^"]*)"/gi
+
+    const offenders: string[] = []
+    for (const url of posts) {
+      const html = await (await request.get(url)).text()
+      const hits = html.match(NON_CANONICAL)
+      if (hits) offenders.push(`${new URL(url).pathname} -> ${[...new Set(hits)].join(' ')}`)
+    }
+
+    expect(
+      offenders,
+      `posts linking to a non-canonical Replay URL:\n${offenders.join('\n')}`
+    ).toEqual([])
+  })
 })
 
 test.describe('internal links', () => {

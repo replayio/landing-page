@@ -6,6 +6,7 @@ import { Header } from '~/components/layout/header'
 import { Container } from '~/components/Container'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { getBlogPostBySlug, getBlogPosts, getNotionIdToSlugMap } from '~/lib/notion-blog'
+import { buildPostDescription, buildPostTitle } from '~/lib/blog-metadata'
 import { BlogPostBody } from '../components/BlogPostBody'
 
 type BlogPostPageProps = {
@@ -37,13 +38,19 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     }
   }
 
-  const { post } = postData
+  const { post, markdown } = postData
   const url = `${siteOrigin}/blog/${post.slug}`
-  const description = post.excerpt || 'Read the latest engineering updates from Replay.'
+  // Notion's Description property is frequently far under or over the length search
+  // engines will show, so top it up from the post body or trim it as needed.
+  const description = buildPostDescription(
+    post.excerpt,
+    markdown,
+    'Read the latest engineering updates from Replay.'
+  )
   const image = post.coverImageUrl || defaultMeta.ogImage
 
   return {
-    title: `${post.title} — Replay Blog`,
+    title: buildPostTitle(post.title),
     description,
     alternates: {
       canonical: url
