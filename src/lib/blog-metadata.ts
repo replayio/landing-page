@@ -79,12 +79,18 @@ export function buildPostDescription(excerpt: string, markdown = '', fallback = 
 }
 
 /**
- * Append the site suffix only when the result still fits inside the title limit.
+ * Build the `<title>` for a post.
  *
- * Long post titles are the author's words, so they are left intact rather than
- * truncated; this just stops the suffix making them worse.
+ * The site suffix is appended only when the result still fits the limit; adding it
+ * unconditionally was pushing already-long titles further over.
+ *
+ * A post title that exceeds the limit on its own is cut at a word boundary. Search
+ * engines truncate these in results regardless, so this only decides where the cut
+ * lands rather than letting it fall mid-word. The visible `<h1>` and the post itself
+ * are untouched: this affects the title tag alone.
  */
 export function buildPostTitle(postTitle: string, suffix = ' — Replay Blog'): string {
   const withSuffix = `${postTitle}${suffix}`
-  return withSuffix.length <= TITLE_MAX ? withSuffix : postTitle
+  if (withSuffix.length <= TITLE_MAX) return withSuffix
+  return truncateAtWord(postTitle, TITLE_MAX)
 }

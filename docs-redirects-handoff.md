@@ -1,5 +1,13 @@
 # docs.replay.io redirect handoff
 
+> **Status, 4 Aug 2026:** none of these had been actioned, so the marketing site now
+> rewrites these links in its blog renderer as a stopgap (`src/lib/docs-links.ts`).
+> That only repairs links on www.replay.io. Redirects on the docs property are still
+> the right fix: they would also repair external backlinks, bookmarks and Google's
+> index, and would let the shim be deleted. One extra finding while mapping them:
+> `/learn-more/contribute/how-replay-works/our-approach-for-source-maps` currently
+> 308s to the **Redux panel**, which looks like a mistake.
+
 Source: Ahrefs crawl of replay.io, 28 Jul 2026 (exports dated 2026-08-03).
 
 Two separate Ahrefs reports (`404 pages` and `Page has links to broken page`)
