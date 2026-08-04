@@ -7,22 +7,23 @@ import { getBlogPosts } from '~/lib/notion-blog'
 import { BlogPostsExplorer } from './components/BlogPostsExplorer'
 
 export const metadata: Metadata = {
-  title: 'Blog — Replay',
-  description: 'Engineering stories, changelog updates, and guides from the Replay team.',
+  title: 'Replay Blog: Debugging, Testing and Changelog',
+  description: 'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
   alternates: {
     canonical: `${siteOrigin}/blog`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/blog`,
-    title: 'Blog — Replay',
-    description: 'Engineering stories, changelog updates, and guides from the Replay team.',
+    title: 'Replay Blog: Debugging, Testing and Changelog',
+    description: 'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
     site: defaultMeta.twitter.site,
-    title: 'Blog — Replay',
-    description: 'Engineering stories, changelog updates, and guides from the Replay team.',
+    title: 'Replay Blog: Debugging, Testing and Changelog',
+    description: 'Engineering stories, changelog updates and guides from the Replay team on debugging, time-travel and automated QA for modern web apps.',
     creator: defaultMeta.twitter.handle,
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   }

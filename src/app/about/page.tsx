@@ -16,15 +16,16 @@ import { QAFinalCTA } from '../components/QAFinalCTA'
 export const metadata: Metadata = {
   title: 'About Replay — Making Software Visible',
   description:
-    "Replay records your software and shows you exactly what happened. Founded by ex-Mozilla engineers, we're building the debugging tools that AI agents and developers need to fix bugs on the first try.",
+    'Replay records your software and shows you exactly what happened. Founded by ex-Mozilla engineers, we build the debugging tools AI agents and developers need.',
   alternates: {
     canonical: `${siteOrigin}/about`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/about`,
     title: 'About Replay — Making Software Visible',
     description:
-      "Replay records your software and shows you exactly what happened. Founded by ex-Mozilla engineers, we're building the debugging tools that AI agents and developers need to fix bugs on the first try.",
+      'Replay records your software and shows you exactly what happened. Founded by ex-Mozilla engineers, we build the debugging tools AI agents and developers need.',
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   },
   twitter: {
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     site: defaultMeta.twitter.site,
     title: 'About Replay — Making Software Visible',
     description:
-      "Replay records your software and shows you exactly what happened. Founded by ex-Mozilla engineers, we're building the debugging tools that AI agents and developers need to fix bugs on the first try.",
+      'Replay records your software and shows you exactly what happened. Founded by ex-Mozilla engineers, we build the debugging tools AI agents and developers need.',
     creator: defaultMeta.twitter.handle,
     images: [{ url: defaultMeta.ogImage, width: 1200, height: 630 }]
   }

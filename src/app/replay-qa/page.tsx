@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/replay-qa`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/replay-qa`,
     title: 'Replay QA — Autonomous QA for the Vibecoding Era',
     description:

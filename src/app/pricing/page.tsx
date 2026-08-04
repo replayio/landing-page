@@ -8,9 +8,9 @@ import { PricingTiers } from './components/PricingTiers'
 import { PricingTestimonials } from './components/PricingTestimonials'
 import { PricingFAQs } from './components/PricingFAQs'
 
-const title = 'Pricing — Replay'
+const title = 'Replay QA Pricing: Start Free with 25 Credits'
 const description =
-  'Simple, usage-based pricing. Start free with 25 credits per month. Upgrade as you grow.'
+  'Simple, usage-based pricing for Replay QA. Start free with 25 credits a month, no credit card required, and upgrade only when you need more.'
 
 export const metadata: Metadata = {
   title,
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/pricing`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/pricing`,
     title,
     description,

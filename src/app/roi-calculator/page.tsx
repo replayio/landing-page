@@ -7,7 +7,7 @@ import { RoiHero } from './components/RoiHero'
 import { RoiCalculatorSection } from './components/RoiCalculatorSection'
 import { RoiTestimonial } from './components/RoiTestimonial'
 
-const title = 'ROI Calculator — Replay'
+const title = 'Debugging ROI Calculator: What Bugs Cost You'
 const description =
   'Estimate how much debugging time and engineering cost your team will save by plugging Replay into your CI/CD pipeline.'
 
@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     canonical: `${siteOrigin}/roi-calculator`
   },
   openGraph: {
+    type: 'website',
     url: `${siteOrigin}/roi-calculator`,
     title,
     description,

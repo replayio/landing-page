@@ -56,6 +56,50 @@ const nextConfig = {
         destination: 'https://static.replay.io/protocol',
         permanent: true
       },
+      // Sub-paths were never covered by the `/protocol` rule above, so deep links
+      // from the old protocol docs (e.g. /protocol/tot/Pause) 404'd.
+      {
+        source: '/protocol/:path*',
+        destination: 'https://static.replay.io/protocol/:path*',
+        permanent: true
+      },
+      // Legacy testimonials page, removed in the Replay QA rewrite. Still linked
+      // from the archived blog.
+      {
+        source: '/shoutouts',
+        destination: '/',
+        permanent: true
+      },
+      // Pages retired at the product team's request (Aug 2026). 301 rather than
+      // 410 so any accumulated link equity passes to the nearest live page.
+      //
+      // /engineers covered Replay MCP giving coding agents runtime context, which
+      // is what /debugging is now about.
+      {
+        source: '/engineers',
+        destination: '/debugging',
+        permanent: true
+      },
+      // /vibe-coders pitched the Chrome extension to non-engineers. The homepage
+      // is the closest general entry point.
+      {
+        source: '/vibe-coders',
+        destination: '/',
+        permanent: true
+      },
+      // /partner was an application form for the design partner programme, so
+      // /contact is where that intent now lands.
+      {
+        source: '/partner',
+        destination: '/contact',
+        permanent: true
+      },
+      // /builder was a separate product surface.
+      {
+        source: '/builder',
+        destination: '/',
+        permanent: true
+      },
       {
         source: '/driver',
         destination: 'https://static.replay.io/driver',
@@ -140,10 +184,13 @@ const nextConfig = {
           'https://docs.replay.io/docs/recording-bug-reports-80c37d7d6753485f81497570625d06f0',
         permanent: true
       },
+      // The old "Resources and Examples" page is gone (that URL 404s), so this
+      // redirect was sending traffic straight to a dead page. Docs now has
+      // /learn/examples/{nextjs,playwright,vercel} but no index above them, so
+      // the docs home is the nearest live target. Revisit if an index is added.
       {
         source: '/examples',
-        destination:
-          'https://docs.replay.io/docs/resources-and-examples-d25ae319114e4d109022458cd47f38ec',
+        destination: 'https://docs.replay.io/',
         permanent: true
       },
       {
