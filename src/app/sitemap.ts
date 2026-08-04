@@ -23,6 +23,7 @@ const ROUTES: Array<{ path: string; priority: number; changeFrequency: ChangeFre
   { path: '/precog', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/roi-calculator', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
+  { path: '/blog/archive', priority: 0.5, changeFrequency: 'weekly' },
   { path: '/about', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.6, changeFrequency: 'yearly' },
   { path: '/security-and-privacy', priority: 0.4, changeFrequency: 'yearly' },
