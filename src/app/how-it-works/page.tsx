@@ -112,7 +112,7 @@ export default function HowItWorksPage() {
         </section>
 
         {/* Steps + side nav */}
-        <div className="flex gap-12 max-w-6xl mx-auto px-6 pb-16">
+        <div className="flex gap-12 max-w-6xl mx-auto px-6">
           <StepSideNav />
 
           <div className="flex-1 min-w-0">
