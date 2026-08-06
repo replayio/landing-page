@@ -97,18 +97,26 @@ export default function HowItWorksPage() {
       <Header />
       <PageContentAnimate>
         {/* Hero */}
-        <section className="text-center px-6 pt-[120px] pb-8 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-200 bg-white text-sm text-gray-600 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-            How Replay QA works
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 mb-4">
-            Replay QA acts like a swarm of seasoned app testers.
-          </h1>
-          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            It explores your app on its own, detects the user journeys, and comes back with bug
-            reports so your agent can fix them.
-          </p>
+        <section className="relative overflow-hidden bg-white pb-16 pt-12 md:pb-24 md:pt-16">
+          <div
+            className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2"
+            style={{
+              background: 'radial-gradient(ellipse at 50% 0%, rgba(240,45,94,0.09) 0%, transparent 65%)'
+            }}
+          />
+          <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-slate-600">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+              How Replay QA works
+            </span>
+            <h1 className="font-display text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl xl:text-7xl">
+              Replay QA acts like a swarm of seasoned app testers.
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed tracking-tight text-gray-700">
+              It explores your app on its own, detects the user journeys, and comes back with bug
+              reports so your agent can fix them.
+            </p>
+          </div>
         </section>
 
         {/* Steps + side nav */}
