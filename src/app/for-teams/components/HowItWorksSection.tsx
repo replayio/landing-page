@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Container } from '~/components/Container'
-import { StepVideo } from '~/app/how-it-works/components/StepVideo'
+import { AutoplayVideo } from './AutoplayVideo'
 import { FaqAccordionList } from './FaqAccordionList'
 
 const stages = [
@@ -49,19 +49,18 @@ export function HowItWorksSection() {
             <p className="text-sm font-bold uppercase tracking-wider text-accent">
               How Replay QA works
             </p>
-            <h2 className="mt-3 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
+            <h2 className="mt-3 text-balance text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
               An agentic testing harness that works like a swarm of QA testers
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-pretty text-base leading-relaxed text-gray-600 sm:text-lg">
               Most QA tooling starts with flows your team defines. Replay QA begins by exploring the
               application and identifying flows worth verifying.
             </p>
           </div>
 
           <div className="mt-10 mix-blend-multiply">
-            <StepVideo
-              webmSrc="/02-Exploration-v2-Light.webm"
-              mp4Src="/02-Exploration-v2-Light.mp4"
+            <AutoplayVideo
+              src="/02-Exploration-v2-Light.mp4"
               label="Replay QA agents exploring an app, mapping pages and user journeys as a growing web of connections"
             />
           </div>

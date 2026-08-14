@@ -80,10 +80,18 @@ export function ForTeamsTestimonials() {
   useEffect(() => {
     const node = rootRef.current
     if (!node) return
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
-      threshold: 0.4
-    })
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.1, rootMargin: '0px 0px -5% 0px' }
+    )
     observer.observe(node)
+
+    // Start cycling immediately if the section is already on screen.
+    if (node.getBoundingClientRect().top < window.innerHeight * 0.85) {
+      setInView(true)
+    }
+
     return () => observer.disconnect()
   }, [])
 
@@ -116,7 +124,7 @@ export function ForTeamsTestimonials() {
                     active ? 'opacity-100' : 'opacity-0'
                   }`}
                 >
-                  <blockquote className="mb-8 text-xl font-medium leading-relaxed tracking-tight text-gray-900 sm:text-2xl">
+                  <blockquote className="mb-8 text-pretty text-xl font-medium leading-relaxed tracking-tight text-gray-900 sm:text-2xl">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                   <figcaption className="flex items-center justify-center gap-3.5">

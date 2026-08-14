@@ -27,8 +27,8 @@ export function SetupSection() {
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="text-sm font-bold uppercase tracking-wider text-accent">Setup</p>
-            <h2 className="mt-3 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-              Connect a GitHub repo in 5 minutes or less
+            <h2 className="mt-3 text-balance text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
+              Connect a GitHub repo in 5 minutes or&nbsp;less
             </h2>
           </div>
 

@@ -148,7 +148,6 @@ export default function HowItWorksPage() {
               headline="It discovers the user journeys"
               media={
                 <StepVideo
-                  webmSrc="/02-Exploration-v2-Light.webm"
                   mp4Src="/02-Exploration-v2-Light.mp4"
                   label="Replay QA agents exploring an app, mapping pages and user journeys as a growing web of connections"
                 />
@@ -168,7 +167,6 @@ export default function HowItWorksPage() {
               headline="It tests your app thoroughly"
               media={
                 <StepVideo
-                  webmSrc="/03-Testing-Light.webm"
                   mp4Src="/03-Testing-Light.mp4"
                   label="Parallel agent sessions running user journeys while every DOM mutation, network call, and JavaScript frame is recorded"
                 />
@@ -191,7 +189,6 @@ export default function HowItWorksPage() {
               headline="It analyzes the failed tests"
               media={
                 <StepVideo
-                  webmSrc="/04-Analysis-Light.webm"
                   mp4Src="/04-Analysis-Light.mp4"
                   label="An agent scrubbing a Replay Recording timeline, flagging a broken button, a slow network call, and a contrast warning"
                 />
@@ -222,7 +219,6 @@ export default function HowItWorksPage() {
               headline="It writes detailed bug reports"
               media={
                 <StepVideo
-                  webmSrc="/05-Reports-Light.webm"
                   mp4Src="/05-Reports-Light.mp4"
                   label="A bug report card assembling itself: video thumbnail, annotated screenshot, severity badge, and root-cause text"
                 />
@@ -253,7 +249,6 @@ export default function HowItWorksPage() {
               headline="Fix. Ship. Verify."
               media={
                 <StepVideo
-                  webmSrc="/06-TheLoop-Light.webm"
                   mp4Src="/06-TheLoop-Light.mp4"
                   label="Flywheel diagram cycling through Ship, Test, Bugs Found, and Fix"
                 />
