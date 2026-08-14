@@ -74,6 +74,7 @@ function setAdAttributionCookieIfNeeded(request: NextRequest, response: NextResp
 const MARKDOWN_BY_PATH: Record<string, string> = {
   '/': '/agent/index.md',
   '/how-it-works': '/agent/how-it-works.md',
+  '/for-teams': '/agent/for-teams.md',
   '/precog': '/agent/precog.md',
   '/pricing': '/agent/pricing.md',
   '/debugging': '/agent/debugging.md',
