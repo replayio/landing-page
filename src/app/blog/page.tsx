@@ -5,7 +5,6 @@ import { Header } from '~/components/layout/header'
 import { Container } from '~/components/Container'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { getBlogPosts } from '~/lib/notion-blog'
-import { BLOG_INITIAL_PAGE_SIZE } from './constants'
 import { BlogPostsExplorer } from './components/BlogPostsExplorer'
 
 export const metadata: Metadata = {
@@ -39,9 +38,11 @@ export const metadata: Metadata = {
 // is just a backstop for the rendered HTML.
 export const revalidate = 1800
 
+const INITIAL_PAGE_SIZE = 24
+
 export default async function BlogPage() {
   const posts = await getBlogPosts()
-  const initialPosts = posts.slice(0, BLOG_INITIAL_PAGE_SIZE)
+  const initialPosts = posts.slice(0, INITIAL_PAGE_SIZE)
   const initialTags = Array.from(new Set(initialPosts.flatMap((post) => post.tags)))
 
   return (
