@@ -129,13 +129,13 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
 
             <div className="mt-auto flex animate-fadeIn flex-col gap-2 pb-5">
               <Button
-                href="https://docs.replay.io/basics/replay-mcp/overview"
+                href="https://qa.replay.io"
                 variant="solid"
                 size="sm"
                 color="default"
                 className="w-full px-8 py-6"
               >
-                Try Replay Free
+                Try Replay QA
               </Button>
             </div>
           </div>
