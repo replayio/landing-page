@@ -9,7 +9,7 @@ import { StepVideo } from './components/StepVideo'
 
 const title = 'How Replay QA Works: From URL to Bug Report'
 const description =
-  'One URL in, a full QA team\'s worth of work out. See how Replay QA explores your app, runs every journey, time-travels through the recordings, and delivers root-caused bug reports automatically.'
+  'One URL in, a full QA workflow out. Replay QA explores your app, runs every journey, time-travels recordings, and delivers root-caused bug reports auto.'
 
 export const metadata: Metadata = {
   title,

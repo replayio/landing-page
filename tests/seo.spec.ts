@@ -23,6 +23,7 @@ const ROUTES = [
   '/contact',
   '/debugging',
   '/how-it-works',
+  '/for-teams',
   '/precog',
   '/pricing',
   '/privacy-policy',

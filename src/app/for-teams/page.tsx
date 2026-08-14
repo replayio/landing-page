@@ -14,7 +14,7 @@ import { ForTeamsCTA } from './components/ForTeamsCTA'
 
 const title = 'Replay QA for Teams — Verification for Agent-Written Code'
 const description =
-  'Replay QA explores your app, finds what\'s broken, works out why, and delivers a fix your coding agent can apply. Connect a GitHub repo and it runs on every update. Built for startups, agencies, and dev shops.'
+  'Replay QA finds bugs, explains why, and gives your coding agent the fix. Connect a GitHub repo for continuous testing on every update — for startups.'
 
 export const metadata: Metadata = {
   title,
