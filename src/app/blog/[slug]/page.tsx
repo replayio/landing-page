@@ -7,6 +7,7 @@ import { Container } from '~/components/Container'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { getBlogPostBySlug, getBlogPosts, getNotionIdToSlugMap } from '~/lib/notion-blog'
 import { buildPostDescription, buildPostTitle } from '~/lib/blog-metadata'
+import { BLOG_INITIAL_PAGE_SIZE } from '../constants'
 import { BlogPostBody } from '../components/BlogPostBody'
 
 type BlogPostPageProps = {
@@ -24,10 +25,16 @@ const formatDate = (date: string | null) => {
   })
 }
 
+// Pre-render only the recent batch that /blog surfaces up front. Older posts
+// are still in the sitemap and /blog/archive; they generate on first request
+// and cache via revalidate below. That keeps deploys from hammering Notion
+// with ~161 parallel pageToMarkdown calls.
 export async function generateStaticParams() {
   const posts = await getBlogPosts()
-  return posts.map((post) => ({ slug: post.slug }))
+  return posts.slice(0, BLOG_INITIAL_PAGE_SIZE).map((post) => ({ slug: post.slug }))
 }
+
+export const dynamicParams = true
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const postData = await getBlogPostBySlug(params.slug)
