@@ -19,6 +19,7 @@ const ROUTES: Array<{ path: string; priority: number; changeFrequency: ChangeFre
   { path: '/', priority: 1.0, changeFrequency: 'weekly' },
   { path: '/pricing', priority: 0.9, changeFrequency: 'weekly' },
   { path: '/how-it-works', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/for-teams', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/debugging', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/precog', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/roi-calculator', priority: 0.7, changeFrequency: 'monthly' },

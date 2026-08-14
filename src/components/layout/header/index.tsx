@@ -21,6 +21,7 @@ export type Navlink = {
 const NAVLINKS: Navlink[] = [
   { href: '/', label: 'Home' },
   { href: '/how-it-works', label: 'How It Works' },
+  { href: '/for-teams', label: 'For Teams' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' }
@@ -29,6 +30,7 @@ const NAVLINKS: Navlink[] = [
 const MobileNavlinks: Navlink[] = [
   { href: '/', label: 'Home' },
   { href: '/how-it-works', label: 'How It Works' },
+  { href: '/for-teams', label: 'For Teams' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' }

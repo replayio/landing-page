@@ -29,6 +29,7 @@ const SITE_URL = 'https://www.replay.io'
 const ROUTES = [
   { pathname: '/', slug: 'index', title: 'Replay — Home' },
   { pathname: '/how-it-works', slug: 'how-it-works', title: 'How It Works — Replay' },
+  { pathname: '/for-teams', slug: 'for-teams', title: 'For Teams — Replay' },
   { pathname: '/precog', slug: 'precog', title: 'Precog — Replay' },
   { pathname: '/pricing', slug: 'pricing', title: 'Pricing — Replay' },
   { pathname: '/debugging', slug: 'debugging', title: 'Debugging — Replay' },
