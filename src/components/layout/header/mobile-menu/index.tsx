@@ -13,6 +13,7 @@ import { Button } from '~/components/Button'
 import { clsx } from 'clsx'
 import { usePathname } from 'next/navigation'
 import useHash from '~/hooks/use-hash'
+import { qaSignInUrl } from '~/lib/constants'
 
 type MobileMenuProps = ToggleState & {
   burgerClassName?: string
@@ -128,6 +129,14 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
             </ul>
 
             <div className="mt-auto flex animate-fadeIn flex-col gap-2 pb-5">
+              <Button
+                href={qaSignInUrl}
+                variant="outline"
+                size="sm"
+                className="w-full border border-gray-200 px-8 py-6"
+              >
+                Sign In
+              </Button>
               <Button
                 href="https://qa.replay.io"
                 variant="solid"
