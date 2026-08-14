@@ -17,10 +17,10 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src')]
   },
-  // Only the most recent blog posts are prerendered at build; older ones use ISR.
-  // `pageToMarkdown` still walks a page block by block, and when Notion rate limits
-  // the build, withNotionRetry's exponential backoff can push a single long post
-  // past Next's 60s default. 180s leaves room for the retries to settle.
+  // Blog posts are prerendered from Notion, and `pageToMarkdown` walks a page block
+  // by block. When Notion rate limits the build, withNotionRetry's exponential
+  // backoff can legitimately push a single long post past Next's 60s default and
+  // fail the whole deploy. 180s leaves room for the retries to settle.
   staticPageGenerationTimeout: 180,
   async rewrites() {
     return [
