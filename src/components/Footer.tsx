@@ -113,6 +113,7 @@ const NAV_LINKS = [
   // { label: 'How It Works', href: '/how-it-works' },
   // { label: 'For Engineers', href: '/engineers' },
   { label: 'Home', href: '/' },
+  { label: 'For Teams', href: '/for-teams' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'ROI Calculator', href: '/roi-calculator' },
   // Restored: /debugging is in the sitemap but nothing linked to it, so Ahrefs
