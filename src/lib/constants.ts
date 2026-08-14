@@ -57,5 +57,8 @@ export const breakpoints = {
   screenXl: 1280
 }
 
+/** Auth0 login entrypoint on Replay QA — matches loop-qa UserMenu login(). */
+export const qaSignInUrl = 'https://qa.replay.io/api/auth-login?returnTo=%2F'
+
 // TODO: add variable (NEXT_PUBLIC_GA_TRACKING_ID) to env if necessary
 export const gaTrackingId = process.env.NEXT_PUBLIC_GA_TRACKING_ID

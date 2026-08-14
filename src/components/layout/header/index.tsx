@@ -12,6 +12,7 @@ import useHash from '~/hooks/use-hash'
 import { Button } from '~/components/Button'
 import { MobileMenu } from './mobile-menu'
 import { useToggleState } from '~/hooks/use-toggle-state'
+import { qaSignInUrl } from '~/lib/constants'
 
 export type Navlink = {
   href: string
@@ -125,6 +126,14 @@ export const Header: FC<HeaderProps> = ({ variant = 'light', className, ...rest 
               </div>
             ) : (
               <div className="hidden md:flex md:items-center md:gap-x-4">
+                <Button
+                  href={qaSignInUrl}
+                  variant="outline"
+                  size="sm"
+                  className="border border-gray-200 px-6 py-4"
+                >
+                  Sign In
+                </Button>
                 <Button
                   href="https://qa.replay.io"
                   target="_blank"
