@@ -119,7 +119,7 @@ export function ForTeamsTestimonials() {
               return (
                 <figure
                   key={t.name}
-                  {...(!active ? { inert: '' as const } : {})}
+                  {...(!active ? { inert: true } : {})}
                   className={`col-start-1 row-start-1 m-0 transition-opacity duration-300 ${
                     active ? 'opacity-100' : 'opacity-0'
                   }`}
