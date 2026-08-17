@@ -71,7 +71,7 @@ export const aboutTeam: TeamMember[] = [
   {
     name: 'Michael Ward',
     role: 'Dev Ops',
-    photo: '/images/team/Michael.png',
+    photo: '/images/team/Michael.jpg',
     linkedin: null,
     bio: "Michael ward is an infrastructure engineer at replay.io, where he works on backend infrastructure, build pipelines, and whatever else keeps the lights on. he's been writing code long enough to know that 'it works on my machine' is a red flag, not a defense. outside of work he enjoys the outdoors, video games, and family time'bio",
     timeTravelDestination: null
