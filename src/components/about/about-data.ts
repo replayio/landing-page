@@ -67,15 +67,15 @@ export const aboutTeam: TeamMember[] = [
     bio: 'Frontend Software Engineer focused on building clean, intuitive user experiences that make complex technology feel simple. Strider specializes in React, TypeScript, and modern UI architecture, turning ambitious ideas into polished, scalable products. With experience across startups, product design, and fast-moving engineering teams, he enjoys solving hard problems through thoughtful design and efficient code. Outside of tech, he brings an adventurous mindset shaped by years as a wingsuit BASE jumper, skydiving instructor, photographer, and creator.',
     timeTravelDestination:
       "I would go back in time to the recording of Led Zeppelin's live at the BBC album."
-  }
-  // {
-  //   name: 'Michael Ward',
-  //   role: 'Dev Ops',
-  //   photo: null,
-  //   linkedin: null,
-  //   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum. Cras mattis consectetur purus sit amet fermentum aenean lacinia bibendum nulla sed.',
-  //   timeTravelDestination: null
-  // },
+  },
+  {
+    name: 'Michael Ward',
+    role: 'Dev Ops',
+    photo: '/images/team/Michael.png',
+    linkedin: null,
+    bio: "Michael ward is an infrastructure engineer at replay.io, where he works on backend infrastructure, build pipelines, and whatever else keeps the lights on. he's been writing code long enough to know that 'it works on my machine' is a red flag, not a defense. outside of work he enjoys the outdoors, video games, and family time'bio",
+    timeTravelDestination: null
+  },
   // {
   //   name: 'Brett Lamy',
   //   role: 'Staff Software Engineer',
@@ -84,13 +84,13 @@ export const aboutTeam: TeamMember[] = [
   //   bio: 'Staff Software Engineer with 15 years of experience delivering full-stack products for small startups and large high scale enterprises.',
   //   timeTravelDestination: null
   // },
-  // {
-  //   name: 'Mateusz Burzyński',
-  //   role: 'Software Engineer',
-  //   photo: '/images/team/mateusz.png',
-  //   linkedin: 'https://www.linkedin.com/in/mateusz-burzy%C5%84ski-5183b0a3/',
-  //   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu leo quam pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis est non commodo luctus.',
-  //   timeTravelDestination:
-  //     "I'd either travel backward to my first Harry Potter read or forward 20 years to see if GRRM finally finished the damn thing or not."
-  // },
+  {
+    name: 'Mateusz Burzyński',
+    role: 'Software Engineer',
+    photo: '/images/team/Mateusz.jpeg',
+    linkedin: 'https://www.linkedin.com/in/mateusz-burzy%C5%84ski-5183b0a3/',
+    bio: "Andarist maintains a bunch of popular JavaScript libraries. He's a TypeScript aficionado, avid tabletop gamer and an active fantasy reader. When not squashing bugs he likes to make people sweat with his forehand on a squash court.",
+    timeTravelDestination:
+      "I'd either travel backward to my first Harry Potter read or forward 20 years to see if GRRM finally finished the damn thing or not."
+  },
 ]
