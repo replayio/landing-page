@@ -76,14 +76,14 @@ export const aboutTeam: TeamMember[] = [
     bio: "Michael ward is an infrastructure engineer at replay.io, where he works on backend infrastructure, build pipelines, and whatever else keeps the lights on. he's been writing code long enough to know that 'it works on my machine' is a red flag, not a defense. outside of work he enjoys the outdoors, video games, and family time'bio",
     timeTravelDestination: null
   },
-  // {
-  //   name: 'Brett Lamy',
-  //   role: 'Staff Software Engineer',
-  //   photo: '/images/team/brett.jpeg',
-  //   linkedin: 'https://www.linkedin.com/in/blamy/',
-  //   bio: 'Staff Software Engineer with 15 years of experience delivering full-stack products for small startups and large high scale enterprises.',
-  //   timeTravelDestination: null
-  // },
+  {
+    name: 'Brett Lamy',
+    role: 'Staff Software Engineer',
+    photo: '/images/team/brett.png',
+    linkedin: 'https://www.linkedin.com/in/blamy/',
+    bio: 'Staff Software Engineer with 15 years of experience delivering full-stack products for small startups and large high scale enterprises.',
+    timeTravelDestination: null
+  },
   {
     name: 'Mateusz Burzyński',
     role: 'Software Engineer',
