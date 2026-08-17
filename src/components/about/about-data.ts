@@ -78,10 +78,10 @@ export const aboutTeam: TeamMember[] = [
   },
   {
     name: 'Brett Lamy',
-    role: 'Staff Software Engineer',
+    role: 'Software Engineer',
     photo: '/images/team/brett.png',
     linkedin: 'https://www.linkedin.com/in/blamy/',
-    bio: 'Staff Software Engineer with 15 years of experience delivering full-stack products for small startups and large high scale enterprises.',
+    bio: 'Software Engineer with 15 years of experience delivering full-stack products for small startups and large high scale enterprises.',
     timeTravelDestination: null
   },
   {
