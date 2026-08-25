@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '~/components/Button'
 import { REPLAY_MONTHLY_COST } from './config'
 import { StatCard } from './StatCard'
@@ -125,28 +124,17 @@ export function ResultsPanel({ inputs, results }: ResultsPanelProps) {
       </div>
 
       {/* CTA */}
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <Button
-          variant="solid"
-          color="default"
-          size="base"
-          href="https://docs.replay.io/basics/getting-started/record-your-playwright-tests"
-          target="_blank"
-          className="flex-1 px-6"
-        >
-          Install the CI Agent
-        </Button>
-        <Button
-          variant="outline"
-          color="blue"
-          href="https://docs.replay.io/basics/replay-mcp/quickstart"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 px-6"
-        >
-          Add Replay MCP
-        </Button>
-      </div>
+      <Button
+        variant="solid"
+        color="default"
+        size="base"
+        href="https://qa.replay.io/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full px-6 sm:w-auto"
+      >
+        Test Replay QA for Free
+      </Button>
     </div>
   )
 }
