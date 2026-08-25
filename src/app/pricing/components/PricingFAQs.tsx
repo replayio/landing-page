@@ -48,7 +48,7 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: "What's the difference between the plans?",
     answer:
-      'The plans differ by credit allotment. Free gives you 25 credits per month — enough to evaluate Replay QA with no time limit. Individual ($20/mo) and Team ($200/mo) unlock more volume and all integrations. Enterprise is custom-scoped for high-volume usage.'
+      'The plans differ by credit allotment. Free gives you 25 credits per month — enough to evaluate Replay QA with no time limit. Standard ($20/mo) and Pro ($200/mo) unlock more volume and all integrations. Private Cloud and On-Prem are for organizations that need dedicated data ownership or self-hosted infrastructure.'
   },
   {
     question: 'Can I upgrade or downgrade at any time?',
