@@ -8,13 +8,13 @@ import { Container } from '~/components/Container'
 export function PricingTiers() {
   const [annual, setAnnual] = useState(true)
 
-  const individualPrice = annual ? 17 : 20
-  const individualBillingNote = annual
+  const standardPrice = annual ? 17 : 20
+  const standardBillingNote = annual
     ? 'per month · $204 billed annually'
     : 'per month · billed monthly'
 
-  const teamPrice = annual ? 170 : 200
-  const teamBillingNote = annual
+  const proPrice = annual ? 170 : 200
+  const proBillingNote = annual
     ? 'per month · $2,040 billed annually'
     : 'per month · billed monthly'
 
@@ -70,7 +70,7 @@ export function PricingTiers() {
           </Link>
         </p>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <div className="relative flex flex-col rounded-xl border border-gray-200 bg-white p-7">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-gray-400">
               Free
@@ -95,13 +95,13 @@ export function PricingTiers() {
 
           <div className="relative flex flex-col rounded-xl border border-gray-200 bg-white p-7">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-gray-400">
-              Individual
+              Standard
             </p>
             <div className="mb-1 text-[38px] font-semibold leading-none tracking-tight text-gray-900">
               <sup className="mr-0.5 align-top text-lg font-medium">$</sup>
-              {individualPrice}
+              {standardPrice}
             </div>
-            <p className="mb-6 text-xs text-gray-500">{individualBillingNote}</p>
+            <p className="mb-6 text-xs text-gray-500">{standardBillingNote}</p>
             <h2 className="mb-2 text-lg font-semibold leading-snug tracking-tight text-gray-900">
               For individuals using Replay beyond the basics
             </h2>
@@ -124,13 +124,13 @@ export function PricingTiers() {
               </span>
             </div>
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">
-              Team
+              Pro
             </p>
             <div className="mb-1 text-[38px] font-semibold leading-none tracking-tight text-gray-900">
               <sup className="mr-0.5 align-top text-lg font-medium">$</sup>
-              {teamPrice}
+              {proPrice}
             </div>
-            <p className="mb-6 text-xs text-gray-500">{teamBillingNote}</p>
+            <p className="mb-6 text-xs text-gray-500">{proBillingNote}</p>
             <h2 className="mb-2 text-lg font-semibold leading-snug tracking-tight text-gray-900">
               For startups and small teams moving fast
             </h2>
@@ -148,26 +148,47 @@ export function PricingTiers() {
 
           <div className="relative flex flex-col rounded-xl border border-gray-200 bg-white p-7">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-gray-400">
-              Enterprise
+              Private Cloud
             </p>
             <div className="mb-1 text-[30px] font-semibold leading-none tracking-tight text-gray-900">
-              Custom
+              $1,000+
             </div>
-            <p className="mb-6 text-xs text-gray-500">
-              usage-based or seat-based · negotiated together
-            </p>
+            <p className="mb-6 text-xs text-gray-500">per month · starting price</p>
             <h2 className="mb-2 text-lg font-semibold leading-snug tracking-tight text-gray-900">
-              For organizations using Replay at scale
+              For organizations that need to own their data
             </h2>
             <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
-              Custom credit volume, contracts, and support — for however your organization uses
-              Replay.
+              A storage bucket your company owns, with no egress to other systems, and cluster
+              resources dedicated to processing your data alone.
             </p>
             <Link
               href="/contact"
               className="block w-full rounded-xl border border-gray-200 py-3 text-center text-sm font-medium text-gray-600 transition hover:border-accent hover:bg-accent/[0.06] hover:text-accent"
             >
-              Talk to us
+              Contact sales
+            </Link>
+          </div>
+
+          <div className="relative flex flex-col rounded-xl border border-gray-200 bg-white p-7">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-gray-400">
+              On-Prem
+            </p>
+            <div className="mb-1 text-[30px] font-semibold leading-none tracking-tight text-gray-900">
+              $5,000+
+            </div>
+            <p className="mb-6 text-xs text-gray-500">per month · starting price</p>
+            <h2 className="mb-2 text-lg font-semibold leading-snug tracking-tight text-gray-900">
+              For running Replay inside your own infrastructure
+            </h2>
+            <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600">
+              Complete ownership of the entire pipeline — data and compute — running on
+              infrastructure you control. Volume-based usage can increase this price.
+            </p>
+            <Link
+              href="/contact"
+              className="block w-full rounded-xl border border-gray-200 py-3 text-center text-sm font-medium text-gray-600 transition hover:border-accent hover:bg-accent/[0.06] hover:text-accent"
+            >
+              Contact sales
             </Link>
           </div>
         </div>
