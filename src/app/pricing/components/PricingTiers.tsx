@@ -8,8 +8,8 @@ import { Container } from '~/components/Container'
 export function PricingTiers() {
   const [annual, setAnnual] = useState(true)
 
-  const standardPrice = annual ? 17 : 20
-  const standardBillingNote = annual
+  const starterPrice = annual ? 17 : 20
+  const starterBillingNote = annual
     ? 'per month · $204 billed annually'
     : 'per month · billed monthly'
 
@@ -95,13 +95,13 @@ export function PricingTiers() {
 
           <div className="relative flex flex-col rounded-xl border border-gray-200 bg-white p-7">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-gray-400">
-              Standard
+              Starter
             </p>
             <div className="mb-1 text-[38px] font-semibold leading-none tracking-tight text-gray-900">
               <sup className="mr-0.5 align-top text-lg font-medium">$</sup>
-              {standardPrice}
+              {starterPrice}
             </div>
-            <p className="mb-6 text-xs text-gray-500">{standardBillingNote}</p>
+            <p className="mb-6 text-xs text-gray-500">{starterBillingNote}</p>
             <h2 className="mb-2 text-lg font-semibold leading-snug tracking-tight text-gray-900">
               For individuals using Replay beyond the basics
             </h2>
