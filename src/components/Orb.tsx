@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Mesh, Program, Renderer, Triangle, Vec3 } from 'ogl'
 
 interface OrbProps {
@@ -11,6 +11,9 @@ interface OrbProps {
   backgroundColor?: string
 }
 
+const ORB_FALLBACK_GRADIENT =
+  'radial-gradient(circle at 50% 50%, rgba(156, 67, 254, 0.35) 0%, rgba(76, 194, 233, 0.2) 35%, transparent 70%)'
+
 export function Orb({
   hue = 0,
   hoverIntensity = 0.2,
@@ -19,6 +22,7 @@ export function Orb({
   backgroundColor = '#ffffff'
 }: OrbProps) {
   const ctnDom = useRef<HTMLDivElement>(null)
+  const [showFallback, setShowFallback] = useState(false)
 
   const vert = /* glsl */ `
     precision highp float;
@@ -186,32 +190,71 @@ export function Orb({
     const container = ctnDom.current
     if (!container) return
 
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false })
+    let renderer: Renderer | null = null
+    let rafId = 0
+    let disposed = false
+
+    const enableFallback = () => {
+      if (disposed) return
+      disposed = true
+      cancelAnimationFrame(rafId)
+      setShowFallback(true)
+    }
+
+    try {
+      renderer = new Renderer({ alpha: true, premultipliedAlpha: false })
+    } catch {
+      enableFallback()
+      return
+    }
+
     const gl = renderer.gl
+    if (!gl) {
+      enableFallback()
+      return
+    }
+
     gl.clearColor(0, 0, 0, 0)
     container.appendChild(gl.canvas)
 
-    const geometry = new Triangle(gl)
-    const program = new Program(gl, {
-      vertex: vert,
-      fragment: frag,
-      uniforms: {
-        iTime: { value: 0 },
-        iResolution: {
-          value: new Vec3(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
-        },
-        hue: { value: hue },
-        hover: { value: 0 },
-        rot: { value: 0 },
-        hoverIntensity: { value: hoverIntensity },
-        backgroundColor: { value: hexToVec3(backgroundColor) }
-      }
-    })
+    let geometry: Triangle
+    let program: Program
+    let mesh: Mesh
 
-    const mesh = new Mesh(gl, { geometry, program })
+    try {
+      geometry = new Triangle(gl)
+      program = new Program(gl, {
+        vertex: vert,
+        fragment: frag,
+        uniforms: {
+          iTime: { value: 0 },
+          iResolution: {
+            value: new Vec3(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+          },
+          hue: { value: hue },
+          hover: { value: 0 },
+          rot: { value: 0 },
+          hoverIntensity: { value: hoverIntensity },
+          backgroundColor: { value: hexToVec3(backgroundColor) }
+        }
+      })
+      mesh = new Mesh(gl, { geometry, program })
+    } catch {
+      if (container.contains(gl.canvas)) container.removeChild(gl.canvas)
+      enableFallback()
+      return
+    }
+
+    const handleContextLost = (event: Event) => {
+      event.preventDefault()
+      if (container.contains(gl.canvas)) container.removeChild(gl.canvas)
+      enableFallback()
+    }
+
+    gl.canvas.addEventListener('webglcontextlost', handleContextLost)
 
     function resize() {
-      if (!container) return
+      if (!container || !renderer || !gl || disposed) return
       const dpr = window.devicePixelRatio || 1
       const width = container.clientWidth
       const height = container.clientHeight
@@ -251,33 +294,40 @@ export function Orb({
     container.addEventListener('mousemove', handleMouseMove)
     container.addEventListener('mouseleave', handleMouseLeave)
 
-    let rafId: number
     const update = (t: number) => {
+      if (disposed) return
       rafId = requestAnimationFrame(update)
-      const dt = (t - lastTime) * 0.001
-      lastTime = t
-      program.uniforms.iTime.value = t * 0.001
-      program.uniforms.hue.value = hue
-      program.uniforms.hoverIntensity.value = hoverIntensity
-      program.uniforms.backgroundColor.value = hexToVec3(backgroundColor)
 
-      const effectiveHover = forceHoverState ? 1 : targetHover
-      program.uniforms.hover.value += (effectiveHover - program.uniforms.hover.value) * 0.1
+      try {
+        const dt = (t - lastTime) * 0.001
+        lastTime = t
+        program.uniforms.iTime.value = t * 0.001
+        program.uniforms.hue.value = hue
+        program.uniforms.hoverIntensity.value = hoverIntensity
+        program.uniforms.backgroundColor.value = hexToVec3(backgroundColor)
 
-      if (rotateOnHover && effectiveHover > 0.5) {
-        currentRot += dt * rotationSpeed
+        const effectiveHover = forceHoverState ? 1 : targetHover
+        program.uniforms.hover.value += (effectiveHover - program.uniforms.hover.value) * 0.1
+
+        if (rotateOnHover && effectiveHover > 0.5) {
+          currentRot += dt * rotationSpeed
+        }
+        program.uniforms.rot.value = currentRot
+
+        renderer!.render({ scene: mesh })
+      } catch {
+        enableFallback()
       }
-      program.uniforms.rot.value = currentRot
-
-      renderer.render({ scene: mesh })
     }
     rafId = requestAnimationFrame(update)
 
     return () => {
+      disposed = true
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', resize)
       container.removeEventListener('mousemove', handleMouseMove)
       container.removeEventListener('mouseleave', handleMouseLeave)
+      gl.canvas.removeEventListener('webglcontextlost', handleContextLost)
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas)
       gl.getExtension('WEBGL_lose_context')?.loseContext()
     }
@@ -285,7 +335,15 @@ export function Orb({
   }, [hue, hoverIntensity, rotateOnHover, forceHoverState, backgroundColor])
 
   return (
-    <div ref={ctnDom} style={{ position: 'relative', zIndex: 0, width: '100%', height: '100%' }} />
+    <div ref={ctnDom} style={{ position: 'relative', zIndex: 0, width: '100%', height: '100%' }}>
+      {showFallback ? (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{ background: ORB_FALLBACK_GRADIENT }}
+        />
+      ) : null}
+    </div>
   )
 }
 
