@@ -48,7 +48,7 @@ export function SecurityWhatYouGetSection() {
 
           <div className="mt-10 overflow-hidden rounded-xl border border-gray-200 shadow-2xl">
             <AutoplayVideo
-              src="/ReplayQA_exampleBug.mp4"
+              src="/replayQA_IDOR-bugreport.mp4"
               label="Replay QA Security Scan bug report for an IDOR vulnerability"
             />
           </div>
