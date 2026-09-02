@@ -1,5 +1,4 @@
 import { Container } from '~/components/Container'
-import { AutoplayVideo } from '~/app/for-teams/components/AutoplayVideo'
 import { FaqAccordionList } from '~/app/for-teams/components/FaqAccordionList'
 
 const outputFaqs = [
@@ -16,12 +15,12 @@ const outputFaqs = [
   {
     question: 'Does Replay QA verify that the vulnerability is actually exploitable?',
     answer:
-      'Yes. Security Scan sends real attack traffic against your running app — it doesn\'t guess from source code or config files. If it reports an IDOR, it confirmed that one authenticated session can access another user\'s data. If it reports a broken access control finding, it confirmed that an unprivileged request returned something it shouldn\'t have.'
+      "Yes. Security Scan sends real attack traffic against your running app — it doesn't guess from source code or config files. If it reports an IDOR, it confirmed that one authenticated session can access another user's data. If it reports a broken access control finding, it confirmed that an unprivileged request returned something it shouldn't have."
   },
   {
     question: 'How is this different from a static analysis or SAST tool?',
     answer:
-      'Static analysis reads your code without running the app. It can flag patterns that look risky but can\'t confirm whether a real attacker could exploit them. Security Scan drives your live app the way an attacker would — it finds vulnerabilities that only exist at runtime, in the interaction between your frontend, backend, and database, under real conditions.'
+      "Static analysis reads your code without running the app. It can flag patterns that look risky but can't confirm whether a real attacker could exploit them. Security Scan drives your live app the way an attacker would — it finds vulnerabilities that only exist at runtime, in the interaction between your frontend, backend, and database, under real conditions."
   },
   {
     question: 'How is this different from a manual pen test?',
@@ -46,14 +45,7 @@ export function SecurityWhatYouGetSection() {
             </p>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-xl border border-gray-200 shadow-2xl">
-            <AutoplayVideo
-              src="/replayQA_IDOR-bugreport.mp4"
-              label="Replay QA Security Scan bug report for an IDOR vulnerability"
-            />
-          </div>
-
-          <div className="mx-auto mt-12 max-w-3xl">
+          <div className="mx-auto mt-10 max-w-3xl">
             <FaqAccordionList faqs={outputFaqs} />
           </div>
         </div>
