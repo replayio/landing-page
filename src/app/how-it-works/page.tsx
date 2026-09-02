@@ -207,7 +207,8 @@ export default function HowItWorksPage() {
                   'Deep runtime bugs: React component failures, elusive state mutations, race conditions, async timing',
                   'UI glitches: layout shifts, broken buttons, elements hidden behind overlays',
                   'Accessibility failures: WCAG contrast violations, missing ARIA labels, keyboard traps',
-                  'Performance problems: slow network calls, render-blocking resources, long tasks'
+                  'Performance problems: slow network calls, render-blocking resources, long tasks',
+                  'Security vulnerabilities: injection flaws, broken access control, IDOR, cross-tenant data exposure, weak authentication'
                 ]}
               />
             </Step>
@@ -261,7 +262,8 @@ export default function HowItWorksPage() {
               </p>
               <p>
                 If you&apos;re running this on a GitHub repo, a new test run triggers on every push
-                to main and with every PR (configurable).
+                to main and with every PR (configurable). You can also set a daily or weekly
+                schedule — useful for overnight runs that give your team fresh issues every morning.
               </p>
             </Step>
           </div>

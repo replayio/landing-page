@@ -6,7 +6,7 @@ const outputFaqs = [
   {
     question: 'What types of issues does Replay QA look for?',
     answer:
-      "Deep runtime bugs (race conditions, async timing, elusive state mutations, React component failures), UI glitches (layout shifts, broken buttons, elements hidden behind overlays), accessibility failures (WCAG contrast violations, missing ARIA labels, keyboard traps), and performance problems (slow network calls, render-blocking resources, long tasks). We've got plans to continue rolling out new QA capabilities."
+      "Deep runtime bugs (race conditions, async timing, elusive state mutations, React component failures), UI glitches (layout shifts, broken buttons, elements hidden behind overlays), accessibility failures (WCAG contrast violations, missing ARIA labels, keyboard traps), performance problems (slow network calls, render-blocking resources, long tasks), and security vulnerabilities (injection flaws, broken access control, weak authentication, IDOR, and cross-tenant data exposure via the Security Scan pass)."
   },
   {
     question: 'How does Replay QA find these issues? Are you analyzing code?',

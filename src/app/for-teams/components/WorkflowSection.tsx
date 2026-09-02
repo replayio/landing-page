@@ -6,6 +6,14 @@ const workflow = [
     body: 'Add your GitHub repo and authenticate. The Replay QA GitHub app installs itself and runs a new pass whenever your codebase changes: every push to main, every pull request, or both. No config file, no CI changes.'
   },
   {
+    title: 'Set your testing schedule',
+    body: 'Run Replay QA on every push, every PR, or on a fixed schedule. Daily or weekly runs let your team wake up to a fresh batch of issues — ready for coding agents to work through before the day starts.'
+  },
+  {
+    title: 'Test across every environment',
+    body: 'Point a project at dev, staging, production, or localhost. Switch environments in settings or manage them via the REST API. Consistent QA coverage no matter which environment you\'re looking at.'
+  },
+  {
     title: 'Every pull request gets checked',
     body: 'PR runs test against your preview deployment and post the root cause and suggested fix as a comment on the pull request, next to the diff that caused it.'
   },

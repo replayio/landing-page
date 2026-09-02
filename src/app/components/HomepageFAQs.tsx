@@ -63,6 +63,21 @@ const faqs = [
       "For most of our users, there's no human QA team to replace — Replay QA is the only QA layer they have. For teams that do have QA, Replay QA handles the autonomous discovery work so human QA can focus on what actually needs human judgment."
   },
   {
+    question: 'Does Replay QA do security testing?',
+    answer:
+      "Yes. The Security Scan pass covers the full scope you'd expect from a penetration test: injection vulnerabilities, broken access control, weak authentication, and insecure API behavior. It also reasons about how the app is supposed to work, which lets it surface business logic gaps like IDOR and cross-tenant data exposure — things a generic scanner misses."
+  },
+  {
+    question: 'Can I schedule test runs?',
+    answer:
+      'Yes. In your project settings you can configure daily or weekly runs on a fixed schedule. Teams often set an overnight run so they wake up to a fresh batch of issues, ready for coding agents or a software factory to work through.'
+  },
+  {
+    question: 'Can I test against multiple environments?',
+    answer:
+      'Yes. A Replay QA project can target dev, staging, production, or localhost. You can switch environments in project settings, or manage them programmatically via the REST API.'
+  },
+  {
     question: 'Can I connect Replay QA to my issue tracker?',
     answer:
       "Yes. Replay QA supports a Bug Report Webhook — point it at your issue tracker's API (or a lightweight middleware) and every bug Replay QA finds can be filed automatically. The webhook sends a JSON POST with the bug description, a referrer identifying Replay QA as the source, and a callback URL. Once your team fixes the bug, POST to that URL to mark it resolved in Replay QA — which re-enables the associated journey for future test runs. You can control when bugs are submitted: manually, only when Replay QA has confirmed them as open, or for all reports including unconfirmed. Works with Linear, GitHub Issues, Jira, and any tracker that accepts an HTTP endpoint."

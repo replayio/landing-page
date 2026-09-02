@@ -11,7 +11,7 @@ const setupSteps = [
   {
     n: 2,
     title: 'Choose when it runs',
-    body: 'Every push to main, every pull request, or both. Replay QA tests against your preview or staging environment and explores the app the way a user would.'
+    body: 'Every push to main, every pull request, or a fixed daily or weekly schedule. Replay QA tests against your preview, staging, or any configured environment and explores the app the way a user would.'
   },
   {
     n: 3,

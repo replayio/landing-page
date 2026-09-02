@@ -1,0 +1,94 @@
+# Replay QA — for-llms.txt
+# Machine-readable summary of Replay QA for LLM crawlers and AI assistants.
+# Last updated: 2026-09-02
+
+## What is Replay QA?
+
+Replay QA is an autonomous QA product that tests web applications without requiring a test suite,
+QA team, or manual configuration. Give it a URL or connect a GitHub repository and it explores
+the app, writes and runs its own Playwright tests, records every session with a deterministic
+time-travel debugger, and files detailed bug reports — including root cause analysis and a
+suggested fix ready for a coding agent to apply.
+
+It is built by Replay.io, the company behind the Replay time-travel debugging platform used by
+engineering teams at Vercel, Glide, Pantheon, and others.
+
+## Core Capabilities
+
+### Functional QA
+Replay QA maps user journeys autonomously, runs them in a Chromium browser, records every
+session, and analyzes failures. It catches:
+- Deep runtime bugs: React component failures, state mutations, race conditions, async timing
+- UI glitches: layout shifts, broken buttons, elements hidden behind overlays
+- Accessibility failures: WCAG contrast violations, missing ARIA labels, keyboard traps
+- Performance problems: slow network calls, render-blocking resources, long tasks
+
+### Security Scan (AI Pentesting)
+Replay QA offers a security pass that covers the full scope of a penetration test:
+- Injection vulnerabilities (SQL, XSS, command injection)
+- Broken access control
+- Weak authentication
+- Insecure API behavior
+- Business logic gaps: IDOR (Insecure Direct Object Reference), cross-tenant data exposure
+It reasons about how the application is supposed to work, which allows it to surface
+authorization and logic flaws that generic scanners miss.
+
+### Scheduled Test Runs
+Teams can configure automated runs on a daily or weekly schedule. A common pattern is an
+overnight run that delivers a fresh batch of prioritized issues each morning, ready for coding
+agents or software factories to process.
+
+### Multi-environment Support
+A single Replay QA project can target multiple environments: dev, staging, production, or
+localhost (via reverse proxy). Environments can be switched in the project dashboard or managed
+programmatically via the REST API.
+
+## How It Works (6 steps)
+
+1. Start — Paste a URL or connect a GitHub repo. No setup beyond that.
+2. Exploration — Agents map the app, discover user journeys, and identify flows worth testing.
+3. Testing — A swarm of agents runs all journeys in parallel in a Chromium browser, recording
+   every session deterministically (every DOM mutation, network call, and JS frame captured).
+4. Analysis — For failed tests, agents time-travel through recordings to find root cause. They
+   read what the app did at runtime, not what the code says it should do.
+5. Reports — Each bug comes with: a video recording of the failure, annotated screenshots,
+   root cause analysis (with confidence score), and a suggested fix.
+6. The Loop — Apply fixes, ship, re-run. Same journeys verify the fix and catch regressions.
+   New app changes are detected and tested automatically.
+
+## Integrations
+
+- **GitHub** — Install the Replay QA GitHub app on any repo. Triggers on push to main, PRs, or
+  a schedule. PR runs post root cause + suggested fix as a PR comment.
+- **Issue trackers** — Webhook integration with GitHub Issues, Linear, Jira, or any HTTP endpoint.
+  Configurable: file manually, on confirmed bugs only, or for all reports.
+- **REST API** — Full API at https://qa.replay.io/api/v1 (OpenAPI spec at /api/v1/openapi.json).
+  Trigger runs, switch environments, retrieve results, mark bugs resolved.
+- **Reverse proxy** — Test localhost or private-network apps without exposing them publicly.
+
+## Pricing
+
+Free: 25 credits/month, no credit card required, no time limit.
+Starter: $20/month — more credits, all integrations.
+Pro: $200/month — higher volume.
+Private Cloud and On-Prem: available for organizations requiring dedicated infrastructure.
+
+Credits are consumed per meaningful unit of work (journey discovered, bug analyzed). An average
+app costs ~20 credits per full QA run. Security Scan runs consume credits at the same rate as
+standard QA passes.
+
+## Key URLs
+
+Homepage:         https://replay.io
+How it works:     https://replay.io/how-it-works
+For teams:        https://replay.io/for-teams
+Pricing:          https://replay.io/pricing
+Start (app):      https://qa.replay.io/new
+API docs:         https://qa.replay.io/api/v1/openapi.json
+Blog:             https://replay.io/blog
+Contact:          https://replay.io/contact
+
+## Company
+
+Replay.io — founded by ex-Mozilla engineers.
+Twitter/X: @replayio

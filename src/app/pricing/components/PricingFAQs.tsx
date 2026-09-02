@@ -71,6 +71,16 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       'Those tools surface what went wrong. Replay captures the full runtime — every DOM mutation, network call, and JS execution frame — and analyzes it to tell you exactly why, with a specific fix. No human needs to read a trace.'
   },
   {
+    question: 'Does the Security Scan cost extra credits?',
+    answer:
+      'Security Scan runs are billed the same way as standard QA passes — credits consumed depend on the complexity of your app, not the scan type. The same credit allotments apply across all QA modes.'
+  },
+  {
+    question: 'Can I schedule Replay QA to run on a set cadence?',
+    answer:
+      'Yes. You can configure daily or weekly scheduled runs in project settings. Great for teams who want a nightly batch of fresh issues ready when the workday starts.'
+  },
+  {
     question: 'Does Replay QA work with my existing tooling?',
     answer: (
       <>
