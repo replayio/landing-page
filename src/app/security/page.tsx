@@ -7,6 +7,7 @@ import { HowItWorksSection } from '~/app/for-teams/components/HowItWorksSection'
 import { WorkflowSection } from '~/app/for-teams/components/WorkflowSection'
 import { ForTeamsTestimonials } from '~/app/for-teams/components/ForTeamsTestimonials'
 import { SecurityHero } from './components/SecurityHero'
+import { SecurityProofSection } from './components/SecurityProofSection'
 import { SecurityWhatYouGetSection } from './components/SecurityWhatYouGetSection'
 import { SecurityProblemSection } from './components/SecurityProblemSection'
 import { SecuritySetupSection } from './components/SecuritySetupSection'
@@ -50,6 +51,7 @@ export default function SecurityPage() {
       <Header />
       <PageContentAnimate>
         <SecurityHero />
+        <SecurityProofSection />
         <SecurityWhatYouGetSection />
         <SecurityProblemSection />
         <HowItWorksSection />
