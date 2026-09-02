@@ -17,7 +17,7 @@ const stages = [
   {
     n: 3,
     title: 'Investigate & Report',
-    body: 'Our QA agents look for bugs across a range of types: deep runtime bugs, UI glitches, accessibility issues, and performance problems (more coming soon). They deliver robust bug reports with a root cause and a suggested fix.'
+    body: 'Our QA agents look for bugs across a range of types: deep runtime bugs, UI glitches, accessibility issues, performance problems, and security vulnerabilities — including security scanning for injection, access control, and business logic gaps. They deliver robust bug reports with a root cause and a suggested fix.'
   }
 ]
 

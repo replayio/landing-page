@@ -15,7 +15,7 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: 'Can it test our staging or preview environments?',
     answer:
-      'Yes. Replay QA tests against whatever URL you point it at, including Vercel or Netlify preview deployments for pull requests.'
+      'Yes. Each project can target dev, staging, production, or localhost — switch environments in settings or configure them via the REST API.'
   },
   {
     question: 'Can Replay QA test my app if it has authentication enabled?',
@@ -36,6 +36,21 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
     question: 'What happens after we fix a bug?',
     answer:
       'The webhook sends a callback URL with every report. POST to it when the fix ships and Replay QA marks the bug resolved, then re-enables that user journey for future runs so you find out immediately if it regresses.'
+  },
+  {
+    question: 'Does Replay QA do security testing?',
+    answer:
+      "Yes. The Security Scan pass covers the full scope you'd expect from a penetration test: injection vulnerabilities, broken access control, weak authentication, and insecure API behavior. It also reasons about how the app is supposed to work, which lets it surface business logic gaps like IDOR and cross-tenant data exposure — things a generic scanner misses."
+  },
+  {
+    question: 'Can I schedule automated test runs?',
+    answer:
+      'Yes. In your project settings you can configure daily or weekly runs on a fixed schedule. Teams often set an overnight run so they wake up to a fresh batch of issues, ready for coding agents or a software factory to work through.'
+  },
+  {
+    question: "What's the REST API for?",
+    answer:
+      'The REST API lets you trigger test runs, switch environments, and retrieve results programmatically. Useful for software factories, CI pipelines, or any workflow where you want Replay QA to run without touching the dashboard.'
   },
   {
     question: 'How much does it cost for a team?',

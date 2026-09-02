@@ -42,7 +42,7 @@ export const basementLog = `
 export const defaultMeta = {
   title: 'Replay QA — Autonomous QA for the Vibecoding Era',
   description:
-    'Drop in a URL. Replay QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
+    'Replay QA autonomously tests your web app for functional bugs, security vulnerabilities, accessibility failures, and performance problems — then files root-caused bug reports your coding agent can act on immediately.',
   ogImage: `${siteOrigin}/replayQA_og-image.png`,
   twitter: {
     handle: '@replayio',
