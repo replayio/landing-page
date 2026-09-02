@@ -1,42 +1,6 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
 import { Container } from '~/components/Container'
 import { AutoplayVideo } from '~/app/for-teams/components/AutoplayVideo'
-
-const verifyPrompt = `My web app needs to serve a short ownership verification file for Replay QA Security Scan.
-
-Add a route that serves the following text file at this exact path:
-
-  /.well-known/replay-qa-verify.txt
-
-The file content should be exactly:
-  replay-qa-verified
-
-No authentication, no redirect — the file must be publicly accessible at that URL. Once it's live, let me know and I'll verify it in the Replay QA dashboard to enable Security Scan.`
-
-function CopyablePrompt() {
-  const [copied, setCopied] = useState(false)
-
-  return (
-    <div className="relative mt-3">
-      <button
-        onClick={() => {
-          navigator.clipboard.writeText(verifyPrompt)
-          setCopied(true)
-          setTimeout(() => setCopied(false), 2000)
-        }}
-        className="absolute right-3 top-3 rounded-md bg-gray-700 px-2 py-1 text-[11px] font-medium text-gray-300 transition hover:bg-gray-600 hover:text-white"
-      >
-        {copied ? 'Copied!' : 'Copy'}
-      </button>
-      <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg bg-gray-900 p-4 pr-16 text-xs leading-relaxed text-gray-100">
-        <code>{verifyPrompt}</code>
-      </pre>
-    </div>
-  )
-}
 
 const setupSteps = [
   {
@@ -47,7 +11,7 @@ const setupSteps = [
   {
     n: 2,
     title: 'Verify you own the app',
-    body: null // rendered separately with the copyable prompt
+    body: "The first time you run a Security Scan on a web app, we'll walk you through a quick ownership verification. Security testing sends real attack traffic, so we only run it against apps you control."
   },
   {
     n: 3,
@@ -93,21 +57,7 @@ export function SecuritySetupSection() {
                   <h3 className="mb-2 text-base font-semibold tracking-tight text-gray-900">
                     {step.title}
                   </h3>
-                  {step.n === 2 ? (
-                    <div className="text-sm leading-relaxed text-gray-600">
-                      <p>
-                        Security testing sends real attack traffic, so we only run it against an app
-                        you control. Proving that means serving one short text file from the app
-                        itself — something only someone with access can do.
-                      </p>
-                      <p className="mt-3">
-                        Paste this prompt into your coding agent and it will set it up for you:
-                      </p>
-                      <CopyablePrompt />
-                    </div>
-                  ) : (
-                    <p className="text-sm leading-relaxed text-gray-600">{step.body}</p>
-                  )}
+                  <p className="text-sm leading-relaxed text-gray-600">{step.body}</p>
                 </div>
               </div>
             ))}
