@@ -5,10 +5,12 @@ import { useEffect, useRef } from 'react'
 export function AutoplayVideo({
   src,
   label,
+  poster,
   className = 'w-full h-auto block'
 }: {
   src: string
   label: string
+  poster?: string
   className?: string
 }) {
   const ref = useRef<HTMLVideoElement>(null)
@@ -33,7 +35,15 @@ export function AutoplayVideo({
   }, [])
 
   return (
-    <video ref={ref} className={className} loop muted playsInline aria-label={label}>
+    <video
+      ref={ref}
+      className={className}
+      loop
+      muted
+      playsInline
+      aria-label={label}
+      poster={poster}
+    >
       <source src={src} type="video/mp4" />
     </video>
   )
