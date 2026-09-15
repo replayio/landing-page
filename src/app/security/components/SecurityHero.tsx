@@ -20,7 +20,7 @@ export function SecurityHero() {
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               New — Security Scan
             </span>
-            <h1 className="font-display text-balance text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="font-display text-balance text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl xl:text-7xl">
               Replay QA now does penetration testing.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
