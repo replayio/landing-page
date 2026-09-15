@@ -16,7 +16,6 @@
   "dependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
     "@juggle/resize-observer": "^3.4.0",
-    "@mux/mux-player-react": "^3.13.3",
     "@notionhq/client": "^5.20.0",
     "@radix-ui/react-accordion": "^1.2.2",
     "@tailwindcss/forms": "^0.5.7",
@@ -28,6 +27,7 @@
     "clsx": "^2.1.0",
     "global": "^4.4.0",
     "gsap": "./src/lib/gsap/gsap-bonus.tgz",
+    "hls.js": "~1.6.19",
     "lodash": "^4.17.21",
     "logrocket": "^4.0.3",
     "lucide-react": "^0.577.0",
