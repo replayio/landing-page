@@ -27,6 +27,13 @@ const nextConfig = {
   // backoff can legitimately push a single long post past Next's 60s default and
   // fail the whole deploy. 180s leaves room for the retries to settle.
   staticPageGenerationTimeout: 180,
+  experimental: {
+    // Next 15+ prerenders up to 8 pages at once per build worker (Next 14 did one).
+    // Every blog post walks Notion block by block, so 8x the parallel requests got
+    // the build rate limited and pushed posts past the timeout above. One page per
+    // worker matches the Next 14 behaviour that deployed cleanly.
+    staticGenerationMaxConcurrency: 1
+  },
   async rewrites() {
     return [
       {
