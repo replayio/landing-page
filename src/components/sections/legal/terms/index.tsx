@@ -446,18 +446,18 @@ export const TermsOfService: FC = () => {
             Please contact Replay&apos;s Designated Agent at the following address:
             <br />
             <br />
-            <div className={s.contact}>
-              Record Replay Inc.
-              <br />
-              Attn: DMCA Designated Agent
-              <br />
-              Brian Hackett
-              <br />
-              548 Market St, PMB 78081, San Francisco, CA 94104
-              <br />
-              <Link href="mailto:support@replay.io">support@replay.io</Link>
-            </div>
           </p>
+          <div className={s.contact}>
+            Record Replay Inc.
+            <br />
+            Attn: DMCA Designated Agent
+            <br />
+            Brian Hackett
+            <br />
+            548 Market St, PMB 78081, San Francisco, CA 94104
+            <br />
+            <Link href="mailto:support@replay.io">support@replay.io</Link>
+          </div>
         </div>
 
         <Heading as="h2">Who is responsible for what I see and do on the Services?</Heading>
