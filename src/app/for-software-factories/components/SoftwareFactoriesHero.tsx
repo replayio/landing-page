@@ -27,14 +27,15 @@ export function SoftwareFactoriesHero() {
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               Replay QA for Software Factories
             </span>
-            <h1 className="text-balance font-display text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl">
-              You built the factory. Verification is the ceiling.
+            <h1 className="font-display text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl xl:text-7xl">
+              Your factory scales.
+              <br />
+              Bug reproduction doesn&apos;t.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
-              Replay QA is a runtime verification layer that fits into the pipeline you already
-              built. It starts your real app, signs in, exercises the changed flows, and returns
-              structured evidence your agents can act on. Trigger it from your own orchestration via
-              REST API.
+              Replay QA attaches a deterministic recording to every failure your pipeline finds. Your
+              agents get a reproduction, a root cause, and a suggested fix — not a stack trace to
+              guess from. Trigger it from your own orchestration via REST API.
             </p>
             <div className="mt-10">
               <Button href="https://cal.com/bhackett/30min" size="base">
