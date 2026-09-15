@@ -1,4 +1,4 @@
-export const RightArrowIcon = (props: JSX.IntrinsicElements['svg']) => {
+export const RightArrowIcon = (props: React.JSX.IntrinsicElements['svg']) => {
   const { width = 16, height = 16 } = props
   return (
     <svg

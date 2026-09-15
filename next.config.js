@@ -12,9 +12,14 @@ const nextConfig = {
       { hostname: 'notion.so' },
       { hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com' },
       { hostname: 's3.us-west-2.amazonaws.com' }
-    ]
+    ],
+    // Next 16 only accepts quality 75 unless listed here. Blog cover images use 70.
+    qualities: [70, 75]
   },
   sassOptions: {
+    // Turbopack (the default bundler since Next 16) uses the modern Sass API, which
+    // reads `loadPaths`. `includePaths` is kept for `next build --webpack`.
+    loadPaths: [path.join(__dirname, 'src')],
     includePaths: [path.join(__dirname, 'src')]
   },
   // Blog posts are prerendered from Notion, and `pageToMarkdown` walks a page block

@@ -22,7 +22,7 @@ export function extractTextFromNode(node: string | React.ReactNode): string {
   }
 
   if (typeof node === 'object' && 'props' in node) {
-    const reactElement = node as React.ReactElement
+    const reactElement = node as React.ReactElement<{ children?: React.ReactNode }>
     const { props } = reactElement
 
     // Check the element type to handle specific HTML elements

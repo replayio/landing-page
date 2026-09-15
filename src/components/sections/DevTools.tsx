@@ -156,7 +156,7 @@ export function DevTools() {
                     '--controls': 'none',
                     '--media-object-fit': 'cover',
                     '--media-object-position': 'center'
-                  } as React.CSSProperties
+                  } as React.CSSProperties & Record<`--${string}`, string>
                 }
               />
             </div>
