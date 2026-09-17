@@ -2,17 +2,16 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
+import { qaNewProjectLoginUrl } from '~/lib/constants'
 
 export function HeroUrlInput({ className }: { className?: string }) {
   const [url, setUrl] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const base = 'https://qa.replay.io/new'
     const raw = url.trim()
     const normalized = raw && !/^https?:\/\//i.test(raw) ? `https://${raw}` : raw
-    const destination = normalized ? `${base}?url=${encodeURIComponent(normalized)}` : base
-    window.open(destination, '_blank', 'noopener,noreferrer')
+    window.open(qaNewProjectLoginUrl(normalized || undefined), '_blank', 'noopener,noreferrer')
   }
 
   return (
