@@ -33,8 +33,8 @@ export function SoftwareFactoriesHero() {
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
               Replay QA attaches a deterministic recording to every failure your pipeline finds. Your
-              agents get a reproduction, a root cause, and a suggested fix — not a stack trace to
-              guess from. Trigger it from your own orchestration via REST API.
+              agents get a reproduction, a root cause, and a suggested fix, rather than a stack trace
+              to guess from. Trigger it from your own orchestration via REST API.
             </p>
             <div className="mt-10">
               <Button href="https://cal.com/bhackett/30min" size="base">
