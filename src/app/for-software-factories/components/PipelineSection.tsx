@@ -1,5 +1,4 @@
 import { Container } from '~/components/Container'
-import { AutoplayVideo } from '~/app/for-teams/components/AutoplayVideo'
 
 const integrationBlocks = [
   {
@@ -25,13 +24,6 @@ export function PipelineSection() {
           <h2 className="mt-3 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
             Your orchestration calls it. Your agents read the output.
           </h2>
-
-          <div className="mt-8 overflow-hidden rounded-xl border border-gray-200 shadow-lg">
-            <AutoplayVideo
-              src="/pipeline-integration.mp4"
-              label="REST API trigger and structured output flow animation"
-            />
-          </div>
 
           <div className="mt-10 flex flex-col gap-8">
             {integrationBlocks.map((block, i) => (
