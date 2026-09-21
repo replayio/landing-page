@@ -4,11 +4,9 @@ import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 import { SoftwareFactoriesHero } from './components/SoftwareFactoriesHero'
-import { FactoryArchitectureSection } from './components/FactoryArchitectureSection'
 import { VerifyLayerSection } from './components/VerifyLayerSection'
 import { EvidenceSection } from './components/EvidenceSection'
 import { PipelineSection } from './components/PipelineSection'
-import { SecurityAndProofSection } from './components/SecurityAndProofSection'
 import { SoftwareFactoriesFAQs } from './components/SoftwareFactoriesFAQs'
 import { SoftwareFactoriesCTA } from './components/SoftwareFactoriesCTA'
 
@@ -50,10 +48,8 @@ export default function ForSoftwareFactoriesPage() {
       <PageContentAnimate>
         <SoftwareFactoriesHero />
         <EvidenceSection />
-        <FactoryArchitectureSection />
         <VerifyLayerSection />
         <PipelineSection />
-        <SecurityAndProofSection />
         <SoftwareFactoriesFAQs />
         <SoftwareFactoriesCTA />
       </PageContentAnimate>
