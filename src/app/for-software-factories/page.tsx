@@ -10,7 +10,7 @@ import { PipelineSection } from './components/PipelineSection'
 import { SoftwareFactoriesFAQs } from './components/SoftwareFactoriesFAQs'
 import { SoftwareFactoriesCTA } from './components/SoftwareFactoriesCTA'
 
-const title = 'Replay QA for Software Factories — Runtime Verification for Autonomous Pipelines'
+const title = 'Replay QA for Software Factories: Runtime Verification for Autonomous Pipelines'
 const description =
   'Replay QA plugs a runtime verification layer into the pipeline you already built. Trigger via REST API, get structured bug reports back, and give your agents the evidence they need to ship with confidence.'
 

@@ -5,31 +5,19 @@ const reviewLayers = [
   {
     layer: 'AI code review',
     inspects: 'The diff',
-    cannotTell: 'Whether the app works',
-    isRuntime: false
-  },
-  {
-    layer: 'Adversarial model review',
-    inspects: 'Intent versus implementation in code',
-    cannotTell: 'What happens at runtime',
-    isRuntime: false
-  },
-  {
-    layer: 'Static security analysis',
-    inspects: 'Code paths and data flow',
-    cannotTell: 'Whether a finding is exploitable',
+    cannotTell: 'Whether the changed flow works in the running app',
     isRuntime: false
   },
   {
     layer: 'Unit and integration tests',
-    inspects: 'What someone thought to assert',
+    inspects: 'The journeys someone thought to assert',
     cannotTell: 'The flows nobody wrote a test for',
     isRuntime: false
   },
   {
-    layer: 'Runtime verification',
-    inspects: 'The running app',
-    cannotTell: ' ',
+    layer: 'Replay QA',
+    inspects: 'The running app and its user journeys',
+    cannotTell: 'It adds runtime evidence. It does not replace the other layers.',
     isRuntime: true
   }
 ]
@@ -62,11 +50,11 @@ export function VerifyLayerSection() {
             Runtime verification
           </p>
           <h2 className="mt-3 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            Your reviewers can read the code. Replay QA runs the app.
+            The missing layer is runtime verification.
           </h2>
           <p className="mt-6 leading-relaxed text-gray-600">
-            Code review, static analysis, and tests are useful layers. They still leave one question
-            unanswered: did the changed flow work in the running application?
+            Code review and tests should stay in the pipeline. Replay QA adds the question they
+            cannot answer on their own: did the changed user flow work in the running application?
           </p>
 
           <div className="mt-10 overflow-x-auto">

@@ -7,12 +7,12 @@ export function SoftwareFactoriesCTA() {
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            Bring your architecture
+            Map Replay QA into your pipeline
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-gray-600 sm:text-lg">
-            If you&apos;ve built a factory, you&apos;ll want to know how this sits inside it before
-            you try it — trigger model, output shape, throughput, failure modes, what happens when a
-            run is wrong. That&apos;s the conversation we&apos;d rather have than a demo.
+            Bring your trigger model, environments, expected run volume, and the decision you need a
+            failed run to support. We will work through where Replay QA fits and whether it is the
+            right setup for your team.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button href="https://qa.replay.io/new" target="_blank" size="base">

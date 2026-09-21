@@ -3,16 +3,16 @@ import { AutoplayVideo } from '~/app/for-teams/components/AutoplayVideo'
 
 const integrationBlocks = [
   {
-    title: 'Trigger it however you already work.',
-    body: 'REST API from your own orchestration, every main-branch update, every PR, or on a daily or weekly schedule. Input is a URL, a recording ID, or a GitHub repo.'
+    title: 'Send a run from your orchestration.',
+    body: 'Use the REST API to set the target and trigger timing. Add it to pull-request checks, main-branch updates, or a scheduled verification pass.'
   },
   {
-    title: 'Get structured output back.',
-    body: 'Not a dashboard to check — a structured bug report with root cause and suggested fix, with structured error codes, consumable headlessly. Your build agents pull it through Replay MCP and get time-travel debugging on their own failures.'
+    title: 'Get reviewable runtime evidence back.',
+    body: 'Each failure returns a structured report with the recording and diagnostic context a reviewer or agent needs to decide the next step.'
   },
   {
-    title: 'One project, every environment.',
-    body: 'Dev, staging, production, and localhost via reverse proxy, including ephemeral preview environments. Switch in settings or manage it programmatically.'
+    title: 'Use the same project across environments.',
+    body: 'Target dev, staging, production, localhost via reverse proxy, or a per-PR preview environment. Switch in settings or manage it programmatically.'
   }
 ]
 
