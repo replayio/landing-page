@@ -15,10 +15,11 @@ type Generated = {
 
 const { skills } = generated as Generated
 
-type Params = { params: { file: string } }
+type Params = { params: Promise<{ file: string }> }
 
-export function GET(_request: Request, { params }: Params) {
-  if (params.file !== 'index.json') {
+export async function GET(_request: Request, { params }: Params) {
+  const { file } = await params
+  if (file !== 'index.json') {
     return new NextResponse(null, { status: 404 })
   }
 

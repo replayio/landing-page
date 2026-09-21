@@ -137,7 +137,7 @@ function appendDiscoveryLinkHeaders(response: NextResponse): void {
   response.headers.append('Link', '<https://www.replay.io/sitemap.xml>; rel="sitemap"')
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const blogRedirect = blogLegacyRedirect(request)
   if (blogRedirect) return blogRedirect
 

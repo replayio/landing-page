@@ -8,7 +8,7 @@ export type LinkProps = {
   children?: React.ReactNode
   unstyled?: boolean
   asChild?: boolean
-} & JSX.IntrinsicElements['a'] &
+} & React.JSX.IntrinsicElements['a'] &
   Omit<NextLinkProps, 'as' | 'passHref'>
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
