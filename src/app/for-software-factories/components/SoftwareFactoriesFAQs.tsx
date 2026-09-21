@@ -13,11 +13,6 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       'CodeRabbit, Qodo, and a cold-read model pass all read the diff. Replay QA runs the app. Same position in your pipeline, different layer. Most teams run both, because "the code looks right" and "the app works" are different questions.'
   },
   {
-    question: 'Do we have to write tests?',
-    answer:
-      'No. Replay QA discovers user journeys and writes and runs its own tests. If you already have a Playwright suite, it integrates with it. Nothing needs authoring for Replay QA to start finding bugs.'
-  },
-  {
     question: 'Does it work behind auth, and on ephemeral preview environments?',
     answer:
       'Yes to both. It signs in and exercises authenticated flows, and a single project can target dev, staging, production, localhost via reverse proxy, and per-PR preview URLs.'
@@ -45,11 +40,6 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
         </Link>
       </>
     )
-  },
-  {
-    question: 'What happens to the harness we already built?',
-    answer:
-      'Most teams keep it for a while and run both, then narrow theirs to the handful of app-specific assertions that are genuinely theirs. The goal is not to delete your work. It is to stop you maintaining the generic 90% of it.'
   }
 ]
 
