@@ -1,5 +1,5 @@
+import Image from 'next/image'
 import { Container } from '~/components/Container'
-import { AutoplayVideo } from '~/app/for-teams/components/AutoplayVideo'
 
 export function EvidenceSection() {
   return (
@@ -24,10 +24,14 @@ export function EvidenceSection() {
             </p>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-xl border border-gray-200 shadow-2xl">
-            <AutoplayVideo
-              src="/ReplayQA_exampleBug.mp4"
-              label="Replay QA structured bug report with recording"
+          <div className="mt-10 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl">
+            <Image
+              src="/software-factories-runtime-report.png"
+              alt="Replay QA report showing a runtime bundle-loading issue, expected behavior, root cause, and supporting evidence"
+              width={1756}
+              height={1080}
+              className="block h-auto w-full"
+              priority
             />
           </div>
         </div>
