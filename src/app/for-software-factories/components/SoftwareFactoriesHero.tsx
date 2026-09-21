@@ -32,18 +32,22 @@ export function SoftwareFactoriesHero() {
               Bug reproduction doesn&apos;t.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
-              Replay QA attaches a deterministic recording to every failure your pipeline finds. Your
-              agents get a reproduction, a root cause, and a suggested fix, rather than a stack trace
-              to guess from. Trigger it from your own orchestration via REST API.
+              Replay QA attaches a deterministic recording to every failure your pipeline finds.
+              Your agents get a reproduction, a root cause, and a suggested fix, rather than a stack
+              trace to guess from. Trigger it from your own orchestration via REST API.
             </p>
-            <div className="mt-10">
-              <Button href="https://cal.com/bhackett/30min" size="base">
-                Discuss your verification architecture
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Button href="https://qa.replay.io/new" target="_blank" size="base">
+                Set up Replay QA
               </Button>
-              <p className="mt-3 text-sm text-gray-500">
-                Bring your trigger model, environments, and expected run volume.
-              </p>
+              <Button href="/contact" variant="outline" size="base">
+                Talk to us
+              </Button>
             </div>
+            <p className="mt-3 text-sm text-gray-500">
+              Start on your own, or talk through your trigger model, environments, and expected run
+              volume with the team.
+            </p>
           </div>
 
           <div className="mx-auto mt-14 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
