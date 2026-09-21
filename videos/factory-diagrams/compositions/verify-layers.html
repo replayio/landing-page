@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Stage Layer Stack</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f8f9fa;
+      overflow: hidden;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    #stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      background: #f8f9fa;
+      overflow: hidden;
+    }
+
+    .section-header {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      opacity: 0;
+    }
+
+    .layer-card {
+      position: absolute;
+      left: 510px;
+      width: 900px;
+      height: 90px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .layer-card .col {
+      flex: 1;
+      padding: 0 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .layer-card .col + .col {
+      border-left: 1px solid #e5e7eb;
+    }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .col-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111827;
+      line-height: 1.3;
+    }
+
+    /* Card 1 */
+    #card-1 { top: 180px; }
+
+    /* Card 2 */
+    #card-2 { top: 286px; }
+
+    /* Card 3 */
+    #card-3 { top: 392px; }
+
+    /* Card 4 */
+    #card-4 { top: 498px; }
+
+    /* Card 5 — Runtime (accent) */
+    #card-5 {
+      top: 638px;
+      background: rgba(240, 45, 94, 0.06);
+      border: 2px solid #f02d5e;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .runtime-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #f02d5e;
+      text-align: center;
+    }
+
+    .runtime-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f02d5e;
+      text-align: center;
+    }
+
+    .runtime-subtitle {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(240, 45, 94, 0.7);
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .footer-callout {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 760px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: #374151;
+      opacity: 0;
+      padding: 0 200px;
+      line-height: 1.6;
+    }
+
+    .card-layer-label {
+      position: absolute;
+      right: -120px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #d1d5db;
+    }
+  </style>
+</head>
+<body>
+  <div
+    id="stage"
+    data-composition-id="verify-layers"
+    data-start="0"
+    data-duration="10"
+    data-fps="30"
+    data-width="1920"
+    data-height="1080"
+  >
+    <!-- Section header -->
+    <div class="section-header" id="section-header">Your Verify Stage</div>
+
+    <!-- Card 1: AI code review -->
+    <div class="layer-card" id="card-1">
+      <div class="col">
+        <span class="col-label">Reads</span>
+        <span class="col-value">The diff</span>
+      </div>
+      <div class="col">
+        <span class="col-label">Can't tell you</span>
+        <span class="col-value">Whether the app actually works</span>
+      </div>
+      <div class="card-layer-label">AI code review</div>
+    </div>
+
+    <!-- Card 2: Adversarial model review -->
+    <div class="layer-card" id="card-2">
+      <div class="col">
+        <span class="col-label">Reads</span>
+        <span class="col-value">Intent vs. implementation</span>
+      </div>
+      <div class="col">
+        <span class="col-label">Can't tell you</span>
+        <span class="col-value">What happens at runtime</span>
+      </div>
+      <div class="card-layer-label">Adversarial model</div>
+    </div>
+
+    <!-- Card 3: SAST -->
+    <div class="layer-card" id="card-3">
+      <div class="col">
+        <span class="col-label">Reads</span>
+        <span class="col-value">Code paths &amp; data flow</span>
+      </div>
+      <div class="col">
+        <span class="col-label">Can't tell you</span>
+        <span class="col-value">Whether it's exploitable</span>
+      </div>
+      <div class="card-layer-label">Static security (SAST)</div>
+    </div>
+
+    <!-- Card 4: Unit & integration tests -->
+    <div class="layer-card" id="card-4">
+      <div class="col">
+        <span class="col-label">Reads</span>
+        <span class="col-value">What someone asserted</span>
+      </div>
+      <div class="col">
+        <span class="col-label">Can't tell you</span>
+        <span class="col-value">Untested flows</span>
+      </div>
+      <div class="card-layer-label">Unit &amp; integration tests</div>
+    </div>
+
+    <!-- Card 5: Runtime verification (accent) -->
+    <div class="layer-card" id="card-5">
+      <span class="runtime-eyebrow">Runtime verification</span>
+      <span class="runtime-title">The running app</span>
+      <span class="runtime-subtitle">The only layer that answers: does it work?</span>
+    </div>
+
+    <!-- Footer callout -->
+    <div class="footer-callout" id="footer-callout">
+      The only layer that answers "does it work" is the only layer you had to build yourself.
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    const tl = gsap.timeline({ paused: true });
+
+    // t=0.0–0.4: background is already set by CSS; fade in header
+    tl.fromTo(
+      "#section-header",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4, ease: "power2.out" },
+      0.2
+    );
+
+    // t=0.4–5.0: cards 1–4 slide in from left, staggered 0.8s apart
+    const cardIds = ["#card-1", "#card-2", "#card-3", "#card-4"];
+    cardIds.forEach((id, i) => {
+      tl.fromTo(
+        id,
+        { x: -60, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+        0.4 + i * 0.8
+      );
+    });
+
+    // t=5.2: runtime card slides up from below
+    tl.fromTo(
+      "#card-5",
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.4)" },
+      5.2
+    );
+
+    // t=5.8: footer text fades in
+    tl.fromTo(
+      "#footer-callout",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: "power2.out" },
+      5.8
+    );
+
+    // t=6.5–7.5: runtime card glow pulse
+    tl.fromTo(
+      "#card-5",
+      { boxShadow: "0 0 0 0px rgba(240,45,94,0)" },
+      { boxShadow: "0 0 0 4px rgba(240,45,94,0.3)", duration: 0.5, ease: "power2.out", immediateRender: false },
+      6.5
+    );
+    tl.to(
+      "#card-5",
+      { boxShadow: "0 0 0 0px rgba(240,45,94,0)", duration: 0.5, ease: "power2.in" },
+      7.0
+    );
+
+    // t=8.0–9.0: hold (nothing to add, timeline naturally holds)
+
+    // t=9.0–10.0: everything fades to opacity 0
+    tl.to(
+      ["#section-header", "#card-1", "#card-2", "#card-3", "#card-4", "#card-5", "#footer-callout"],
+      { opacity: 0, duration: 1.0, ease: "power2.inOut" },
+      9.0
+    );
+
+    tl.seek(0);
+
+    window.__timelines["verify-layers"] = tl;
+  </script>
+</body>
+</html>

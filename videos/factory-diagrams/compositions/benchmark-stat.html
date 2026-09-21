@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmark Stat — Web Debug Bench</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+
+    #stage {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      background: #f8f9fa;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* Header section */
+    #header {
+      position: absolute;
+      top: 140px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      opacity: 0;
+    }
+
+    #eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    #subtitle {
+      font-size: 18px;
+      color: #6b7280;
+      font-weight: 400;
+    }
+
+    /* Bar chart container */
+    #chart {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    /* Bar column layout:
+       Total bars width: 200+120+200 = 520px
+       Center at 960: left edge = 960 - 260 = 700
+       Bar1 center: 700 + 100 = 800
+       Bar2 center: 700 + 320 = 1020
+       Wait — let me re-center:
+       Bar1 left: 700, width 200, center 800
+       Gap: 120
+       Bar2 left: 1020, width 200, center 1120
+       Total width: 520, center = 700 + 260 = 960 ✓
+    */
+
+    .bar-col {
+      position: absolute;
+      width: 200px;
+      bottom: 400px; /* baseline at y=680, bottom of 1080 = 1080-680=400 */
+    }
+
+    #col1 {
+      left: 700px;
+    }
+
+    #col2 {
+      left: 1020px;
+    }
+
+    /* Bar track (background) */
+    .bar-track {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200px;
+      height: 400px;
+      background: #e5e7eb;
+      border-radius: 4px 4px 0 0;
+      opacity: 0;
+    }
+
+    /* The fill bar — grows upward via scaleY */
+    .bar-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200px;
+      border-radius: 4px 4px 0 0;
+      transform-origin: bottom center;
+      transform: scaleY(0);
+    }
+
+    #bar1-fill {
+      height: 244px; /* 61% of 400 */
+      background: #d1d5db;
+    }
+
+    #bar2-fill {
+      height: 304px; /* 76% of 400 */
+      background: #f02d5e;
+    }
+
+    /* Count number — positioned above bar */
+    .bar-count {
+      position: absolute;
+      width: 200px;
+      left: 0;
+      text-align: center;
+      font-size: 48px;
+      font-weight: 700;
+      color: #111827;
+      opacity: 0;
+      /* will be positioned via JS or fixed at bar top minus offset */
+    }
+
+    #count1 {
+      /* bar1 top at max fill: baseline(680) - 244 = 436. Count at 436-60=376.
+         bar-col bottom is 400px from bottom of 1920x1080 stage = y=680.
+         bar-col top relative to stage: 680-400=280.
+         count should be at stage y=376.
+         relative to bar-col top (y=280): 376-280=96px from top of bar-col.
+         But bar-col is height 400px positioned at bottom:400px.
+         Let's place count absolutely from bottom of bar-col:
+         bar1 fill height=244, count y = -(60+48) above fill top
+         bottom: 244+60+48 = 352px from bottom of bar-col */
+      bottom: 352px;
+    }
+
+    #count2 {
+      /* bar2 fill height=304, count bottom: 304+60+48=412px */
+      bottom: 412px;
+    }
+
+    /* Bar label below baseline */
+    .bar-label {
+      position: absolute;
+      width: 220px;
+      left: -10px;
+      text-align: center;
+      font-size: 14px;
+      color: #6b7280;
+      font-weight: 500;
+      top: 20px; /* below baseline of bar-col, which ends at bottom:400px */
+      /* bar-col bottom is at y=680, label at y=700 → 20px below baseline */
+      opacity: 0;
+    }
+
+    /* Callout */
+    #callout {
+      position: absolute;
+      top: 790px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      opacity: 0;
+    }
+
+    #callout-text {
+      font-size: 16px;
+      font-style: italic;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    #callout-link {
+      font-size: 16px;
+      color: #f02d5e;
+      font-weight: 500;
+    }
+
+    /* Fade overlay for end fade */
+    #fade-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      background: #f8f9fa;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div
+    id="stage"
+    data-composition-id="benchmark-stat"
+    data-start="0"
+    data-duration="8"
+    data-fps="30"
+    data-width="1920"
+    data-height="1080"
+  >
+    <!-- Section header -->
+    <div id="header">
+      <div id="eyebrow">Web Debug Bench — Apr 2026</div>
+      <div id="subtitle">177 real bugs in agent-built web apps</div>
+    </div>
+
+    <!-- Chart area -->
+    <div id="chart">
+      <!-- Bar column 1: Code review alone -->
+      <div class="bar-col" id="col1">
+        <div class="bar-track" id="track1"></div>
+        <div class="bar-fill" id="bar1-fill"></div>
+        <div class="bar-count" id="count1">0%</div>
+        <div class="bar-label" id="label1">Code review alone</div>
+      </div>
+
+      <!-- Bar column 2: With runtime access -->
+      <div class="bar-col" id="col2">
+        <div class="bar-track" id="track2"></div>
+        <div class="bar-fill" id="bar2-fill"></div>
+        <div class="bar-count" id="count2">0%</div>
+        <div class="bar-label" id="label2">With runtime access</div>
+      </div>
+    </div>
+
+    <!-- Callout -->
+    <div id="callout">
+      <div id="callout-text">Largest single delta of any configuration tested.</div>
+      <div id="callout-link">→ blog.replay.io/web-debug-bench</div>
+    </div>
+
+    <!-- End fade overlay -->
+    <div id="fade-overlay"></div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    (function () {
+      // Proxy objects for count-up (seek-safe)
+      var proxy1 = { value: 0 };
+      var proxy2 = { value: 0 };
+
+      var num1El = document.getElementById('count1');
+      var num2El = document.getElementById('count2');
+
+      var tl = gsap.timeline({ paused: true });
+
+      // t=0.0–0.4: background and header fade in
+      tl.to('#header', { opacity: 1, duration: 0.4, ease: 'power1.out' }, 0.0);
+
+      // t=0.5–0.8: bar track backgrounds appear
+      tl.to(['#track1', '#track2'], { opacity: 1, duration: 0.3, ease: 'power1.out', stagger: 0.08 }, 0.5);
+
+      // t=0.6–0.9: labels fade in with tracks
+      tl.to(['#label1', '#label2'], { opacity: 1, duration: 0.3, ease: 'power1.out', stagger: 0.08 }, 0.6);
+
+      // t=0.8–3.5: both bars grow simultaneously (scaleY 0→1)
+      tl.to('#bar1-fill', { scaleY: 1, duration: 2.7, ease: 'power2.out' }, 0.8);
+      tl.to('#bar2-fill', { scaleY: 1, duration: 2.7, ease: 'power2.out' }, 0.8);
+
+      // Count-up numbers appear as bars grow
+      tl.to('#count1', { opacity: 1, duration: 0.2, ease: 'power1.out' }, 0.8);
+      tl.to('#count2', { opacity: 1, duration: 0.2, ease: 'power1.out' }, 0.8);
+
+      // t=0.8–3.5: count-up proxy tweens (seek-safe)
+      tl.to(proxy1, {
+        value: 61,
+        duration: 2.7,
+        ease: 'power2.out',
+        onUpdate: function () {
+          num1El.textContent = Math.round(proxy1.value) + '%';
+        }
+      }, 0.8);
+
+      tl.to(proxy2, {
+        value: 76,
+        duration: 2.7,
+        ease: 'power2.out',
+        onUpdate: function () {
+          num2El.textContent = Math.round(proxy2.value) + '%';
+        }
+      }, 0.8);
+
+      // t=3.5–4.0: bar2 (accent) gets subtle scale pop (scale 1→1.03→1)
+      tl.to('#col2', {
+        scale: 1.03,
+        duration: 0.25,
+        ease: 'power2.out',
+        transformOrigin: 'bottom center'
+      }, 3.5);
+      tl.to('#col2', {
+        scale: 1,
+        duration: 0.25,
+        ease: 'power2.in'
+      }, 3.75);
+
+      // t=4.0–4.5: callout fades in
+      tl.to('#callout', { opacity: 1, duration: 0.5, ease: 'power1.out' }, 4.0);
+
+      // t=5.5–6.5: hold (no-op, just time passing)
+
+      // t=6.5–8.0: fade everything out via overlay
+      tl.to('#fade-overlay', { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, 6.5);
+
+      // Seek to frame 0 — never play
+      tl.seek(0);
+
+      window.__timelines['benchmark-stat'] = tl;
+    })();
+  </script>
+</body>
+</html>
