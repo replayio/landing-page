@@ -4,7 +4,9 @@ const useCases = [
   {
     title: 'Software factories & vibecoding platforms',
     description:
-      'Embed Replay QA as a quality gate in your AI-powered development platform. Every app generated gets automatically tested before it ships — no human QA required.'
+      'Embed Replay QA as a runtime verification layer in your AI-powered development platform. Every generated app gets tested before it ships, with evidence a reviewer or build agent can act on.',
+    href: '/for-software-factories',
+    linkLabel: 'See the Software Factories overview'
   },
   {
     title: 'Early-stage startups without dedicated QA',
@@ -43,6 +45,14 @@ export function LoopQAUseCases() {
             <div key={uc.title} className="rounded-xl border border-gray-200 bg-white p-7">
               <h3 className="mb-2 text-base font-semibold text-gray-900">{uc.title}</h3>
               <p className="text-sm leading-relaxed text-gray-500">{uc.description}</p>
+              {uc.href && (
+                <a
+                  href={uc.href}
+                  className="mt-4 inline-flex text-sm font-medium text-accent transition hover:opacity-80"
+                >
+                  {uc.linkLabel} →
+                </a>
+              )}
             </div>
           ))}
           <div className="flex flex-col justify-center rounded-xl border border-dashed border-accent/40 bg-accent/[0.02] p-7">

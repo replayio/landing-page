@@ -18,11 +18,6 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       'Yes to both. It signs in and exercises authenticated flows, and a single project can target dev, staging, production, localhost via reverse proxy, and per-PR preview URLs.'
   },
   {
-    question: 'What counts as a recording?',
-    answer:
-      'A recording is the deterministic capture of one browser session while Replay QA exercises a flow in your running app. The number of recordings depends on the journeys and environments you ask Replay QA to verify.'
-  },
-  {
     question: 'Can our orchestration trigger it, and our agents read the results?',
     answer:
       'Yes. REST API to trigger runs and switch environments, structured output with structured error codes, and Replay MCP so your build agents can time-travel debug their own failures.'
