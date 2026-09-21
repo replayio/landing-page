@@ -10,22 +10,12 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: 'How is this different from AI code review?',
     answer:
-      'CodeRabbit, Qodo, and a cold-read model pass all read the diff. Replay QA runs the app. Same position in your pipeline, different layer — most teams run both, because "the code looks right" and "the app works" are different questions.'
-  },
-  {
-    question: 'Do we have to write tests?',
-    answer:
-      'No. Replay QA discovers user journeys and writes and runs its own tests. If you already have a Playwright suite, it integrates with it — but nothing needs authoring for Replay QA to start finding bugs.'
+      'CodeRabbit, Qodo, and a cold-read model pass all read the diff. Replay QA runs the app. Same position in your pipeline, different layer. Most teams run both, because "the code looks right" and "the app works" are different questions.'
   },
   {
     question: 'Does it work behind auth, and on ephemeral preview environments?',
     answer:
       'Yes to both. It signs in and exercises authenticated flows, and a single project can target dev, staging, production, localhost via reverse proxy, and per-PR preview URLs.'
-  },
-  {
-    question: 'What volume can it sustain?',
-    answer:
-      "Designed for 10k+ recordings/day without degradation. If your pipeline is above that, that's a conversation worth having directly."
   },
   {
     question: 'Can our orchestration trigger it, and our agents read the results?',
@@ -38,18 +28,13 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       <>
         Runs consume credits; the Pro plan is $200/month for 500 credits with team collaboration.
         Continuous PR runs across several environments plus nightly runs and a security pass will
-        exceed that — at which point it&apos;s a volume conversation, not a plan upgrade. We price
+        exceed that. At that point it is a volume conversation, not a plan upgrade. We price
         committed volume for teams running at pipeline scale.{' '}
         <Link href="/pricing" className="font-medium text-accent transition hover:opacity-80">
           See plans →
         </Link>
       </>
     )
-  },
-  {
-    question: 'What happens to the harness we already built?',
-    answer:
-      "Most teams keep it for a while and run both, then narrow theirs to the handful of app-specific assertions that are genuinely theirs. The goal isn't to delete your work — it's to stop you maintaining the generic 90% of it."
   }
 ]
 
@@ -84,13 +69,8 @@ export function SoftwareFactoriesFAQs() {
           <FaqAccordionList faqs={faqs} defaultOpenIndex={0} />
           <p className="mt-8 text-center text-sm text-gray-600">
             Architecture questions?{' '}
-            <a
-              href="https://cal.com/bhackett/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-accent transition hover:opacity-80"
-            >
-              Schedule a call
+            <a href="/contact" className="font-medium text-accent transition hover:opacity-80">
+              Talk to us
             </a>
             .
           </p>

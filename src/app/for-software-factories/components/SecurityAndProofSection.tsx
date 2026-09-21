@@ -36,6 +36,10 @@ export function SecurityAndProofSection() {
                 runs: serve a short plain-text file from your app at a given path. Staging is the
                 recommended target. Billed at the same rate as a standard pass.
               </p>
+              <p>
+                Security Scan adds runtime evidence to your security workflow. It does not replace a
+                specialist assessment where your compliance, customer, or risk model requires one.
+              </p>
             </div>
             <p className="mt-6 text-sm text-gray-600">
               <Link

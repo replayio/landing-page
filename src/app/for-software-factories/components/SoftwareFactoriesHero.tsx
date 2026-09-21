@@ -5,13 +5,6 @@ import { Button } from '~/components/Button'
 import Hyperspace from '~/app/components/hero/hyperspace'
 import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 
-const capabilities = [
-  'Built for 10k+ recordings/day',
-  'Five test passes per run',
-  'REST API + MCP',
-  'Dev, staging, production, localhost'
-]
-
 export function SoftwareFactoriesHero() {
   const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
 
@@ -33,24 +26,21 @@ export function SoftwareFactoriesHero() {
               Bug reproduction doesn&apos;t.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
-              Replay QA attaches a deterministic recording to every failure your pipeline finds. Your
-              agents get a reproduction, a root cause, and a suggested fix — not a stack trace to
-              guess from. Trigger it from your own orchestration via REST API.
+              An autonomous factory is not complete when it generates code. It is complete when a
+              failed run creates evidence an agent can act on, and the next run verifies the fix.
             </p>
-            <div className="mt-10">
-              <Button href="https://cal.com/bhackett/30min" size="base">
-                Schedule a call
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Button href="https://qa.replay.io/new" target="_blank" size="base">
+                Set up Replay QA
+              </Button>
+              <Button href="/contact" variant="outline" size="base">
+                Talk to us
               </Button>
             </div>
-          </div>
-
-          <div className="mx-auto mt-14 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {capabilities.map((cap, i) => (
-              <span key={i} className="flex items-center gap-2 text-sm text-gray-500">
-                {i > 0 && <span className="hidden text-gray-300 sm:inline">·</span>}
-                {cap}
-              </span>
-            ))}
+            <p className="mt-3 text-sm text-gray-500">
+              Start on your own, or talk through your trigger model, environments, and expected run
+              volume with the team.
+            </p>
           </div>
         </Container>
       </div>

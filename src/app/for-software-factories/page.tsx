@@ -4,15 +4,13 @@ import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 import { SoftwareFactoriesHero } from './components/SoftwareFactoriesHero'
-import { FactoryArchitectureSection } from './components/FactoryArchitectureSection'
 import { VerifyLayerSection } from './components/VerifyLayerSection'
 import { EvidenceSection } from './components/EvidenceSection'
 import { PipelineSection } from './components/PipelineSection'
-import { SecurityAndProofSection } from './components/SecurityAndProofSection'
 import { SoftwareFactoriesFAQs } from './components/SoftwareFactoriesFAQs'
 import { SoftwareFactoriesCTA } from './components/SoftwareFactoriesCTA'
 
-const title = 'Replay QA for Software Factories — Runtime Verification for Autonomous Pipelines'
+const title = 'Replay QA for Software Factories: Runtime Verification for Autonomous Pipelines'
 const description =
   'Replay QA plugs a runtime verification layer into the pipeline you already built. Trigger via REST API, get structured bug reports back, and give your agents the evidence they need to ship with confidence.'
 
@@ -49,11 +47,9 @@ export default function ForSoftwareFactoriesPage() {
       <Header />
       <PageContentAnimate>
         <SoftwareFactoriesHero />
-        <FactoryArchitectureSection />
-        <VerifyLayerSection />
         <EvidenceSection />
+        <VerifyLayerSection />
         <PipelineSection />
-        <SecurityAndProofSection />
         <SoftwareFactoriesFAQs />
         <SoftwareFactoriesCTA />
       </PageContentAnimate>
