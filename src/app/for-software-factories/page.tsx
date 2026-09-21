@@ -49,9 +49,9 @@ export default function ForSoftwareFactoriesPage() {
       <Header />
       <PageContentAnimate>
         <SoftwareFactoriesHero />
+        <EvidenceSection />
         <FactoryArchitectureSection />
         <VerifyLayerSection />
-        <EvidenceSection />
         <PipelineSection />
         <SecurityAndProofSection />
         <SoftwareFactoriesFAQs />
