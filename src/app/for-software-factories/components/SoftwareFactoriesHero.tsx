@@ -38,8 +38,11 @@ export function SoftwareFactoriesHero() {
             </p>
             <div className="mt-10">
               <Button href="https://cal.com/bhackett/30min" size="base">
-                Schedule a call
+                Discuss your verification architecture
               </Button>
+              <p className="mt-3 text-sm text-gray-500">
+                Bring your trigger model, environments, and expected run volume.
+              </p>
             </div>
           </div>
 
