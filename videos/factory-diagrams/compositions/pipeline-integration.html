@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipeline Integration</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #f8f9fa;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    #stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+
+    /* Top label */
+    #top-label {
+      position: absolute;
+      top: 230px;
+      left: 0;
+      width: 1920px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      opacity: 0;
+    }
+
+    /* Cards */
+    .card {
+      position: absolute;
+      width: 320px;
+      height: 200px;
+      top: 380px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1.5px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0;
+    }
+
+    #card-1 { left: 280px; }
+    #card-2 {
+      left: 800px;
+      background: rgba(240, 45, 94, 0.04);
+      border-color: rgba(240, 45, 94, 0.3);
+    }
+    #card-3 { left: 1320px; }
+
+    .card-icon {
+      font-size: 32px;
+      line-height: 1;
+      color: #6b7280;
+    }
+    #card-2 .card-icon {
+      font-size: 28px;
+      color: #f02d5e;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      text-align: center;
+    }
+    #card-2 .card-title {
+      font-size: 20px;
+      color: #f02d5e;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: #9ca3af;
+      text-align: center;
+      line-height: 1.5;
+      max-width: 260px;
+    }
+    #card-2 .card-subtitle {
+      color: #6b7280;
+    }
+
+    /* SVG arrows overlay */
+    #arrows-svg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      pointer-events: none;
+    }
+
+    /* Traveling dot */
+    .dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #f02d5e;
+      top: 474px; /* 480 - 6 (radius) */
+      opacity: 0;
+    }
+    #dot-1 { left: 600px; }
+    #dot-2 { left: 600px; }
+    #dot-3 { left: 600px; }
+
+    /* Bug report label */
+    #bug-label {
+      position: absolute;
+      top: 610px;
+      left: 1320px;
+      width: 320px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 5px 12px;
+      opacity: 0;
+    }
+
+    /* Fade overlay for fade-out */
+    #fade-overlay {
+      position: absolute;
+      inset: 0;
+      background: #f8f9fa;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div
+  id="stage"
+  data-composition-id="pipeline-integration"
+  data-start="0"
+  data-duration="9"
+  data-fps="30"
+  data-width="1920"
+  data-height="1080"
+>
+
+  <!-- Top label -->
+  <div id="top-label">
+    Your orchestration calls it. Your agents read the output.
+  </div>
+
+  <!-- Column cards -->
+  <div id="card-1" class="card">
+    <div class="card-icon" style="font-family: 'Courier New', monospace;">{ }</div>
+    <div class="card-title">Your orchestration</div>
+    <div class="card-subtitle">REST API · GitHub webhook · schedule</div>
+  </div>
+
+  <div id="card-2" class="card">
+    <div class="card-icon">▶</div>
+    <div class="card-title">Replay QA</div>
+    <div class="card-subtitle">Starts app · signs in · exercises flows</div>
+  </div>
+
+  <div id="card-3" class="card">
+    <div class="card-icon">✦</div>
+    <div class="card-title">Your agents</div>
+    <div class="card-subtitle">Structured bug report · root cause · fix</div>
+  </div>
+
+  <!-- SVG arrows overlay -->
+  <svg id="arrows-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Arrowhead for arrow 1 -->
+      <marker id="arrowhead-1" markerWidth="8" markerHeight="6"
+              refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#d1d5db" />
+      </marker>
+      <!-- Arrowhead for arrow 2 -->
+      <marker id="arrowhead-2" markerWidth="8" markerHeight="6"
+              refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#d1d5db" />
+      </marker>
+    </defs>
+
+    <!-- Arrow 1: Col1 right (600) to Col2 left (800), y=480 -->
+    <line
+      id="arrow-1"
+      x1="600" y1="480"
+      x2="800" y2="480"
+      stroke="#d1d5db"
+      stroke-width="2"
+      marker-end="url(#arrowhead-1)"
+      stroke-dasharray="200"
+      stroke-dashoffset="200"
+    />
+
+    <!-- Arrow 2: Col2 right (1120) to Col3 left (1320), y=480 -->
+    <line
+      id="arrow-2"
+      x1="1120" y1="480"
+      x2="1320" y2="480"
+      stroke="#d1d5db"
+      stroke-width="2"
+      marker-end="url(#arrowhead-2)"
+      stroke-dasharray="200"
+      stroke-dashoffset="200"
+    />
+  </svg>
+
+  <!-- Traveling dots (3 passes) -->
+  <div id="dot-1" class="dot"></div>
+  <div id="dot-2" class="dot"></div>
+  <div id="dot-3" class="dot"></div>
+
+  <!-- Bug report label -->
+  <div id="bug-label">bug-report.json · 2 issues found</div>
+
+  <!-- Fade overlay -->
+  <div id="fade-overlay"></div>
+
+</div>
+
+<script>
+(function () {
+  if (!window.__timelines) window.__timelines = {};
+
+  const tl = gsap.timeline({ paused: true });
+
+  // ── t=0.0–0.2: label fade in
+  tl.to("#top-label", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.2);
+
+  // ── t=0.0–0.6: cards stagger in
+  tl.to("#card-1", { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.0);
+  tl.to("#card-2", { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.15);
+  tl.to("#card-3", { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.30);
+
+  // ── t=0.6–1.0: arrows draw on (stroke-dashoffset 200→0)
+  tl.to("#arrow-1", { strokeDashoffset: 0, duration: 0.35, ease: "power2.inOut" }, 0.6);
+  tl.to("#arrow-2", { strokeDashoffset: 0, duration: 0.35, ease: "power2.inOut" }, 0.75);
+
+  // Helper: build a dot-pass sub-animation at time offset t0
+  function addDotPass(dotId, t0) {
+    const dot = "#" + dotId;
+
+    // Appear, travel arrow1 (600→800, i.e. x moves 200px)
+    tl.set(dot, { x: 0, opacity: 0 }, t0);
+    tl.to(dot, { opacity: 1, duration: 0.08, ease: "none" }, t0);
+    tl.to(dot, { x: 200, duration: 0.55, ease: "power1.inOut" }, t0 + 0.08);
+
+    // Brief pause — col2 highlight pulse (card-2 border brightens)
+    // land at col1-right + 200 = 800, dot left = 600, so x=200 puts dot at 800
+    // col2 flash
+    tl.to("#card-2", { boxShadow: "0 0 0 2px rgba(240,45,94,0.5)", duration: 0.1, ease: "none" }, t0 + 0.63);
+    tl.to("#card-2", { boxShadow: "0 0 0 0px rgba(240,45,94,0)", duration: 0.15, ease: "none" }, t0 + 0.73);
+
+    // Teleport dot to start of arrow2 (x resets, left is still 600px, move to 1120: that's x=520)
+    // We set x to 520 (no transition) so dot appears at 1120
+    tl.set(dot, { x: 520 }, t0 + 0.65);
+
+    // Travel arrow2 (1120→1320, i.e. x moves another 200px → total x=720)
+    tl.to(dot, { x: 720, duration: 0.55, ease: "power1.inOut" }, t0 + 0.65);
+
+    // Fade out dot
+    tl.to(dot, { opacity: 0, duration: 0.1, ease: "none" }, t0 + 1.15);
+  }
+
+  // ── Three dot passes
+  addDotPass("dot-1", 1.0);
+  addDotPass("dot-2", 4.0);
+  addDotPass("dot-3", 7.0);
+
+  // ── t=3.0: bug report label fades in/out
+  tl.to("#bug-label", { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.0);
+  tl.to("#bug-label", { opacity: 0, duration: 0.3, ease: "power2.in" }, 3.8);
+
+  // ── t=8.0–9.0: global fade out
+  tl.to("#fade-overlay", { opacity: 1, duration: 1.0, ease: "power2.inOut" }, 8.0);
+
+  // Register and seek
+  window.__timelines["pipeline-integration"] = tl;
+  tl.seek(0);
+})();
+</script>
+
+</body>
+</html>

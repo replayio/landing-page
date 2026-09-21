@@ -1,0 +1,8 @@
+{
+  "assets/fonts/Caveat-700-latin.woff2": "891951df5e8b5b0f0bc760d31375405e795c666b5add70437de12d4a6482b33f",
+  "compositions/components/animated-bar-chart.html": "ceae5ee442ace07edfc115ed509982805c311e0c57a07517d3c95e1d60c898f2",
+  "compositions/components/hw-arrow.html": "73585adc010db9ec60568eabeb1afb544601e6deef19ac22e2db3a1a380f0dad",
+  "compositions/components/keyframe-scrub-stack.html": "0503cd50418f097c92f38a1454e755a0c1cecfc1850beb9b5651b05d6d0feb15",
+  "compositions/components/panel-reveal.html": "0fbb1c9685a80e10e577d405544bf8db35ec1a27cb0c8bed55a4a1f5fd88d376",
+  "compositions/hw-pipeline.html": "664026da23a2d3aadf214106b77c920d9ac4548083963e994f53f6e9bb938ac2"
+}
