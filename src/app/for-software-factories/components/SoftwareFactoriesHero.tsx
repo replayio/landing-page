@@ -26,10 +26,11 @@ export function SoftwareFactoriesHero() {
               Bug reproduction doesn&apos;t.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
-              Replay QA attaches a deterministic recording to every failure your pipeline finds.
-              Your agents get a reproduction and the runtime context they need to investigate,
-              rather than a stack trace to guess from. Trigger it from your own orchestration via
-              REST API.
+              When agents can generate and deploy faster than a team can verify runtime behavior,
+              unreviewed failures become a release risk. Replay QA attaches a deterministic
+              recording to every failure your pipeline finds, so your agents get a reproduction and
+              the runtime context they need to investigate, rather than a stack trace to guess from.
+              Trigger it from your own orchestration via REST API.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <Button href="https://qa.replay.io/new" target="_blank" size="base">
