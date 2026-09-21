@@ -5,12 +5,6 @@ import { Button } from '~/components/Button'
 import Hyperspace from '~/app/components/hero/hyperspace'
 import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 
-const capabilities = [
-  'Built for 10k+ recordings/day',
-  'REST API + MCP',
-  'Dev, staging, production, localhost'
-]
-
 export function SoftwareFactoriesHero() {
   const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
 
@@ -49,15 +43,6 @@ export function SoftwareFactoriesHero() {
               Start on your own, or talk through your trigger model, environments, and expected run
               volume with the team.
             </p>
-          </div>
-
-          <div className="mx-auto mt-14 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {capabilities.map((cap, i) => (
-              <span key={i} className="flex items-center gap-2 text-sm text-gray-500">
-                {i > 0 && <span className="hidden text-gray-300 sm:inline">·</span>}
-                {cap}
-              </span>
-            ))}
           </div>
         </Container>
       </div>
