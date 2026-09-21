@@ -14,9 +14,12 @@ export function SoftwareFactoriesCTA() {
             you try it — trigger model, output shape, throughput, failure modes, what happens when a
             run is wrong. That&apos;s the conversation we&apos;d rather have than a demo.
           </p>
-          <div className="mt-10">
-            <Button href="https://cal.com/bhackett/30min" size="base">
-              Schedule a call
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Button href="https://qa.replay.io/new" target="_blank" size="base">
+              Set up Replay QA
+            </Button>
+            <Button href="/contact" variant="outline" size="base">
+              Talk to us
             </Button>
           </div>
         </div>

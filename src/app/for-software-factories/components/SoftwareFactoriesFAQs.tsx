@@ -89,13 +89,8 @@ export function SoftwareFactoriesFAQs() {
           <FaqAccordionList faqs={faqs} defaultOpenIndex={0} />
           <p className="mt-8 text-center text-sm text-gray-600">
             Architecture questions?{' '}
-            <a
-              href="https://cal.com/bhackett/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-accent transition hover:opacity-80"
-            >
-              Schedule a call
+            <a href="/contact" className="font-medium text-accent transition hover:opacity-80">
+              Talk to us
             </a>
             .
           </p>
