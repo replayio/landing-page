@@ -23,6 +23,11 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       'Yes to both. It signs in and exercises authenticated flows, and a single project can target dev, staging, production, localhost via reverse proxy, and per-PR preview URLs.'
   },
   {
+    question: 'What counts as a recording?',
+    answer:
+      'A recording is the deterministic capture of one browser session while Replay QA exercises a flow in your running app. The number of recordings depends on the journeys and environments you ask Replay QA to verify.'
+  },
+  {
     question: 'What volume can it sustain?',
     answer:
       "Designed for 10k+ recordings/day without degradation. If your pipeline is above that, that's a conversation worth having directly."

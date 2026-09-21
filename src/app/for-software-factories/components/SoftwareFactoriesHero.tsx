@@ -7,7 +7,6 @@ import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 
 const capabilities = [
   'Built for 10k+ recordings/day',
-  'Five test passes per run',
   'REST API + MCP',
   'Dev, staging, production, localhost'
 ]
