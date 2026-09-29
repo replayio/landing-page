@@ -16,10 +16,6 @@ export function ForTeamsHero() {
       <div className="relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pb-16 pt-[120px] lg:pb-20 lg:pt-[160px]">
           <div ref={heroContentRef} className="mx-auto max-w-3xl text-center">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/15 bg-accent/5 px-3 py-1 text-sm text-slate-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              Replay QA for Teams
-            </span>
             <h1 className="font-display text-balance text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
               Autonomous QA for teams shipping faster than manual verification can keep up.
             </h1>
