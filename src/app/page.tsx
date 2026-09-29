@@ -14,7 +14,7 @@ import { ForTeamsCTA } from './components/ForTeamsCTA'
 
 const title = 'Replay QA — Autonomous QA for the Vibecoding Era'
 const description =
-  'Replay QA autonomously tests your web app for functional bugs, security vulnerabilities, accessibility failures, and performance problems — then files root-caused bug reports your coding agent can act on immediately.'
+  'Replay QA autonomously tests every build for bugs, security flaws, and accessibility failures — then files root-caused bug reports your team can act on.'
 
 export const metadata: Metadata = {
   title: {
