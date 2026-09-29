@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useMemo, type ReactNode } from 'react'
 import { Container } from '~/components/Container'
 import { extractTextFromNode } from '~/lib/utils/extractTextFromNode'
-import { FaqAccordionList } from '~/app/for-teams/components/FaqAccordionList'
+import { FaqAccordionList } from '~/app/components/FaqAccordionList'
 
 const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
