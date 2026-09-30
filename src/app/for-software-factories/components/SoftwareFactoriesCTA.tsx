@@ -15,7 +15,7 @@ export function SoftwareFactoriesCTA() {
             right setup for your team.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Button href="https://qa.replay.io/new" target="_blank" size="base">
+            <Button href="https://qa.replay.io/new?utm_source=for-software-factories" target="_blank" size="base">
               Set up Replay QA
             </Button>
             <Button href="/contact" variant="outline" size="base">

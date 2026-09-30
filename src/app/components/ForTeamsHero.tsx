@@ -24,7 +24,7 @@ export function ForTeamsHero() {
               sends your team evidence they can fix before users discover&nbsp;the bug.
             </p>
             <div className="mt-10">
-              <Button href="https://qa.replay.io/new" target="_blank" size="base">
+              <Button href="https://qa.replay.io/new?utm_source=homepage" target="_blank" size="base">
                 Test Replay QA on my app
               </Button>
             </div>

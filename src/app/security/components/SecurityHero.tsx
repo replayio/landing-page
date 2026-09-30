@@ -29,7 +29,7 @@ export function SecurityHero() {
               AI-written code introduces at scale.
             </p>
             <div className="mt-10">
-              <Button href="https://qa.replay.io/new" target="_blank" size="base">
+              <Button href="https://qa.replay.io/new?utm_source=security" target="_blank" size="base">
                 Run a Security Scan
               </Button>
             </div>

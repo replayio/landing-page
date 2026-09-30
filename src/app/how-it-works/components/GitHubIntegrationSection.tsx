@@ -73,7 +73,7 @@ export function GitHubIntegrationSection() {
           </div>
 
           <div className="mt-12 flex justify-center">
-            <Button href="https://qa.replay.io/new" target="_blank" size="sm" className="gap-2">
+            <Button href="https://qa.replay.io/new?utm_source=how-it-works" target="_blank" size="sm" className="gap-2">
               <GitHubIcon />
               Connect your GitHub repo
             </Button>

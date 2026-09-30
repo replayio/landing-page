@@ -15,7 +15,7 @@ export function ForTeamsCTA() {
             journeys, and hunting for bugs.
           </p>
           <div className="mt-8">
-            <Button href="https://qa.replay.io/new" target="_blank" size="base">
+            <Button href="https://qa.replay.io/new?utm_source=homepage" target="_blank" size="base">
               Test Replay QA on my app
             </Button>
           </div>
