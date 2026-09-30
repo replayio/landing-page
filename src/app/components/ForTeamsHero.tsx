@@ -17,7 +17,7 @@ export function ForTeamsHero() {
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pb-16 pt-[120px] lg:pb-20 lg:pt-[160px]">
           <div ref={heroContentRef} className="mx-auto max-w-3xl text-center">
             <h1 className="font-display text-balance text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-              Autonomous QA for teams shipping faster than manual verification can keep up.
+              Autonomous QA for teams shipping faster than ever before.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
               Replay QA autonomously explores every new build, reproduces the failures it finds, and
