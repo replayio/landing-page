@@ -1,21 +1,20 @@
 import { Footer } from '~/components/Footer'
-import { Hero } from './components/hero'
-import { ProductVideo } from './components/ProductVideo'
-import { AgentProblem } from './components/AgentProblem'
-import { QATwoWaysToRun } from './components/QATwoWaysToRun'
-import { QAHowItWorks } from './components/QAHowItWorks'
-import { QAUseCases } from './components/QAUseCases'
-import { HomepageTestimonials } from './components/HomepageTestimonials'
-import { HomepageFAQs } from './components/HomepageFAQs'
-import { QAFinalCTA } from './components/QAFinalCTA'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
+import { ForTeamsHero } from './components/ForTeamsHero'
+import { WhatYouGetSection, VerificationProblemSection } from './components/WhatYouGetSection'
+import { HowItWorksSection } from './components/HowItWorksSection'
+import { WorkflowSection } from './components/WorkflowSection'
+import { ForTeamsTestimonials } from './components/ForTeamsTestimonials'
+import { SetupSection } from './components/SetupSection'
+import { ForTeamsFAQs } from './components/ForTeamsFAQs'
+import { ForTeamsCTA } from './components/ForTeamsCTA'
 
-const title = 'Replay QA — AI wrote the app. Replay QA finds what broke.'
+const title = 'Replay QA — Autonomous QA for the Vibecoding Era'
 const description =
-  'Connect a GitHub repo for continuous testing, or drop in a URL to test on demand. Replay QA finds real bugs and gives your coding agent the root cause and fix.'
+  'Replay QA autonomously tests every build for bugs, security flaws, and accessibility failures — then files root-caused bug reports your team can act on.'
 
 export const metadata: Metadata = {
   title: {
@@ -55,15 +54,15 @@ export default function HomePage() {
     <>
       <Header />
       <PageContentAnimate>
-        <Hero />
-        <ProductVideo />
-        <AgentProblem />
-        <QATwoWaysToRun />
-        <QAHowItWorks />
-        <QAUseCases />
-        <HomepageTestimonials />
-        <HomepageFAQs />
-        <QAFinalCTA />
+        <ForTeamsHero />
+        <WhatYouGetSection />
+        <VerificationProblemSection />
+        <HowItWorksSection />
+        <WorkflowSection />
+        <ForTeamsTestimonials />
+        <SetupSection />
+        <ForTeamsFAQs />
+        <ForTeamsCTA />
       </PageContentAnimate>
       <Footer />
     </>

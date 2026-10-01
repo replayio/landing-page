@@ -97,6 +97,12 @@ const nextConfig = {
         destination: '/debugging',
         permanent: true
       },
+      // /for-teams content was promoted to the homepage (Sep 2026).
+      {
+        source: '/for-teams',
+        destination: '/',
+        permanent: true
+      },
       // /vibe-coders pitched the Chrome extension to non-engineers. The homepage
       // is the closest general entry point.
       {

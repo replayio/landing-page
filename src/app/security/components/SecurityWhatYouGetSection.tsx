@@ -1,5 +1,5 @@
 import { Container } from '~/components/Container'
-import { FaqAccordionList } from '~/app/for-teams/components/FaqAccordionList'
+import { FaqAccordionList } from '~/app/components/FaqAccordionList'
 
 const outputFaqs = [
   {

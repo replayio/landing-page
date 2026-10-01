@@ -5,7 +5,7 @@ import { Button } from '~/components/Button'
 import Hyperspace from '~/app/components/hero/hyperspace'
 import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 
-export function SecurityHero() {
+export function ForTeamsHero() {
   const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
 
   return (
@@ -16,25 +16,20 @@ export function SecurityHero() {
       <div className="relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pb-16 pt-[120px] lg:pb-20 lg:pt-[160px]">
           <div ref={heroContentRef} className="mx-auto max-w-3xl text-center">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/15 bg-accent/5 px-3 py-1 text-sm text-slate-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              New — Security Scan
-            </span>
-            <h1 className="font-display text-balance text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl xl:text-7xl">
-              Replay QA now does penetration testing.
+            <h1 className="font-display text-balance text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+              Autonomous QA for teams shipping faster than ever before.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
-              Security Scan runs a full pentesting pass against your web app — injection flaws,
-              broken access control, IDOR, cross-tenant data exposure — the vulnerabilities that
-              AI-written code introduces at scale.
+              Replay QA autonomously explores every new build, reproduces the failures it finds, and
+              sends your team evidence they can fix before users discover&nbsp;the bug.
             </p>
             <div className="mt-10">
-              <Button href="https://qa.replay.io/new?utm_source=security" target="_blank" size="base">
-                Run a Security Scan
+              <Button href="https://qa.replay.io/new?utm_source=homepage" target="_blank" size="base">
+                Test Replay QA on my app
               </Button>
             </div>
             <p className="mt-4 text-xs text-gray-500">
-              No credit card. Ownership verification required.
+              No credit card. No existing test suite required.
             </p>
           </div>
         </Container>

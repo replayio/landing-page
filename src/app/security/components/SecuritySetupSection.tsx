@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Container } from '~/components/Container'
-import { AutoplayVideo } from '~/app/for-teams/components/AutoplayVideo'
+import { AutoplayVideo } from '~/app/components/AutoplayVideo'
 
 const setupSteps = [
   {
