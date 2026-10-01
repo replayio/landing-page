@@ -10,9 +10,9 @@ import { buildPostDescription, buildPostTitle } from '~/lib/blog-metadata'
 import { BlogPostBody } from '../components/BlogPostBody'
 
 type BlogPostPageProps = {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 const formatDate = (date: string | null) => {
@@ -30,7 +30,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const postData = await getBlogPostBySlug(params.slug)
+  const { slug } = await params
+  const postData = await getBlogPostBySlug(slug)
 
   if (!postData) {
     return {
@@ -76,8 +77,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export const revalidate = 1800
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params
   const [postData, notionIdToSlug] = await Promise.all([
-    getBlogPostBySlug(params.slug),
+    getBlogPostBySlug(slug),
     getNotionIdToSlugMap()
   ])
 

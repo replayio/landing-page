@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const Portal: React.FC<Props> = ({ children, id = 'my-awesome-portal', onMount }) => {
-  const ref = React.useRef<HTMLElement>()
+  const ref = React.useRef<HTMLElement>(undefined)
   const [isMounted, setIsMounted] = React.useState(false)
 
   React.useEffect(() => {

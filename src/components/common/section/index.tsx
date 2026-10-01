@@ -5,7 +5,7 @@ import { Heading } from '~/components/common/heading'
 
 import s from './section.module.scss'
 
-type SectionProps = JSX.IntrinsicElements['section']
+type SectionProps = React.JSX.IntrinsicElements['section']
 
 export const Section = forwardRef<HTMLDivElement, SectionProps>(({ className, ...props }, ref) => (
   <section className={clsx(s['section'], className)} {...props} ref={ref} />

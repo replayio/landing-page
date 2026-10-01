@@ -10,7 +10,7 @@ type HeadingProps = {
   as?: HeadingElement
   centered?: boolean
   id?: string
-} & JSX.IntrinsicElements[HeadingElement]
+} & React.JSX.IntrinsicElements[HeadingElement]
 
 export const Heading: FC<HeadingProps> = ({
   as = 'h2',

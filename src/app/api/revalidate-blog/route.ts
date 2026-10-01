@@ -252,7 +252,7 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    revalidateTag(NOTION_BLOG_POSTS_TAG)
+    revalidateTag(NOTION_BLOG_POSTS_TAG, 'max')
     revalidatePath('/blog')
     revalidatePath('/blog/[slug]', 'page')
 
@@ -264,7 +264,7 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  revalidateTag(NOTION_BLOG_POSTS_TAG)
+  revalidateTag(NOTION_BLOG_POSTS_TAG, 'max')
   revalidatePath('/blog')
   const slug = parseSlug(request, body)
 

@@ -6,7 +6,7 @@ import s from './container.module.scss'
 type Props = {
   size?: 'sm' | 'md' | 'lg' /* Not in use just for compatibility */
   as?: 'div' | 'section'
-} & JSX.IntrinsicElements['div']
+} & React.JSX.IntrinsicElements['div']
 
 export const Container = forwardRef<HTMLDivElement, Props>(
   ({ className, as = 'div', size = 'md', ...props }, ref) => {

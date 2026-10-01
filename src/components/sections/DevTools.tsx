@@ -2,12 +2,12 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
-import MuxPlayer from '@mux/mux-player-react/lazy'
 
 import { Container } from '~/components/Container'
 import { RightArrowIcon } from '~/components/icons/rightArrow'
 import { Chat } from './devtools/Chat'
 import { EventList } from './devtools/EventList'
+import { StreamVideo } from './devtools/StreamVideo'
 import { StreamEvent } from './devtools/types'
 import buttonDoesntWork from './devtools/transcripts/button-doesnt-work.json'
 import brokenDataImport from './devtools/transcripts/broken-data-import.json'
@@ -139,25 +139,10 @@ export function DevTools() {
           <div className="flex flex-col gap-6 lg:col-span-8">
             {/* Video area */}
             <div className="relative overflow-hidden rounded-lg border border-gray-700 bg-gray-800 shadow-xl">
-              <MuxPlayer
-                loading="viewport"
-                streamType="on-demand"
+              <StreamVideo
                 playbackId={selected.muxPlaybackId}
-                primaryColor="#FFFFFF"
-                secondaryColor="#000000"
-                minResolution="720p"
-                muted={true}
-                autoPlay={true}
-                loop={true}
-                style={
-                  {
-                    aspectRatio: '554/327',
-                    display: 'block',
-                    '--controls': 'none',
-                    '--media-object-fit': 'cover',
-                    '--media-object-position': 'center'
-                  } as React.CSSProperties
-                }
+                className="block w-full object-cover object-center"
+                style={{ aspectRatio: '554/327' }}
               />
             </div>
 

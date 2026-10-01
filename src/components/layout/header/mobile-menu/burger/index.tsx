@@ -4,7 +4,7 @@ import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { gsap } from '~/lib/gsap'
 
 export const Burger = ({ isOpen }: { isOpen: boolean }) => {
-  const tl = useRef<GSAPTimeline>()
+  const tl = useRef<GSAPTimeline>(undefined)
   const topRef = useRef(null)
   const middleRef = useRef(null)
   const bottomRef = useRef(null)
