@@ -145,6 +145,20 @@ export function proxy(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
 
+  // Next's built-in trailing-slash redirect is switched off (skipTrailingSlashRedirect in
+  // next.config.js) because it was bouncing the PostHog proxy's /rly/e/ style paths with a 308
+  // before they reached the rewrite — a redirect per captured event, which sendBeacon does not
+  // follow. The marketing routes still need one canonical URL per page, so the redirect is
+  // reinstated here. /rly sits outside this middleware's matcher and so keeps its trailing slashes.
+  // Built from request.url rather than nextUrl.clone(): NextURL re-applies the framework's own
+  // trailing-slash normalisation on write, which puts the slash straight back and redirects the
+  // page to itself.
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    const target = new URL(request.url)
+    target.pathname = pathname.replace(/\/+$/, '')
+    return NextResponse.redirect(target, 308)
+  }
+
   if (wantsMarkdown(request)) {
     const target = markdownRewriteTarget(pathname)
     if (target) {
@@ -181,5 +195,8 @@ export const config = {
   // that need to flow through this middleware so they can be 301'd. for replay.io
   // traffic, shouldSkipAgentHeaders short-circuits those same paths inside the
   // handler, so the extra invocations are cheap.
-  matcher: ['/', '/((?!_next|_vercel|api).*)']
+  // `rly` is the PostHog reverse proxy (see the rewrites in next.config.js). It is excluded rather
+  // than short-circuited inside the handler because it is machine traffic on every pageview, and
+  // the handler would otherwise hang agent discovery Link headers off analytics ingest responses.
+  matcher: ['/', '/((?!_next|_vercel|api|rly).*)']
 }

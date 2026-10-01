@@ -1,3 +1,5 @@
 allowBuilds:
   '@replayio/playwright': true
+  # posthog-js pulls in core-js, whose postinstall script only prints a funding banner.
+  core-js: false
   sharp: true
