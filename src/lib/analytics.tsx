@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import Script from 'next/script'
 import LogRocket from 'logrocket'
 import mixpanel from 'mixpanel-browser'
+import { initPostHog } from '~/lib/posthog'
 
 const GA_MEASUREMENT_ID = 'G-244NMJ9B93'
 
@@ -17,6 +18,7 @@ export default function Analytics() {
       track_pageview: 'url-with-path'
     })
     mixpanel.track('Loaded www.replay.io')
+    initPostHog()
   }, [])
 
   return (

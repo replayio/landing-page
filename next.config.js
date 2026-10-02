@@ -1,5 +1,10 @@
 const path = require('path')
 
+// PostHog Cloud region hosts backing the /rly proxy. Swap `us` for `eu` in both if the project is
+// moved — they must match the region the project token belongs to or ingest returns 401.
+const POSTHOG_INGEST_HOST = 'us.i.posthog.com'
+const POSTHOG_ASSET_HOST = 'us-assets.i.posthog.com'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -34,8 +39,24 @@ const nextConfig = {
     // worker matches the Next 14 behaviour that deployed cleanly.
     staticGenerationMaxConcurrency: 1
   },
+  // The PostHog proxy below forwards paths verbatim. Next's default trailing-slash redirect would
+  // bounce some of the SDK's requests before they ever reach the rewrite.
+  skipTrailingSlashRedirect: true,
   async rewrites() {
     return [
+      // Proxy PostHog through replay.io so ingest and the SDK's lazily-loaded assets are served
+      // from our own origin instead of a hostname tracking blockers filter on. `/rly` is matched by
+      // api_host in src/lib/posthog.ts, and qa.replay.io proxies the same path in its netlify.toml.
+      // Assets live on a separate PostHog host that (unlike the ingest host) returns usable
+      // cache-control headers, so they need their own rule ahead of the catch-all.
+      {
+        source: '/rly/static/:path*',
+        destination: `https://${POSTHOG_ASSET_HOST}/static/:path*`
+      },
+      {
+        source: '/rly/:path*',
+        destination: `https://${POSTHOG_INGEST_HOST}/:path*`
+      },
       {
         source: '/knowledge-base',
         destination: 'https://intercom.help/replay-builder'
