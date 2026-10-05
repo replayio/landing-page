@@ -47,6 +47,64 @@ const notionDatabaseId = parseNotionDatabaseId(process.env.NOTION_BLOG_DATABASE_
 const notion = notionToken ? new Client({ auth: notionToken }) : null
 const n2m = notion ? new NotionToMarkdown({ notionClient: notion as unknown as never }) : null
 
+/**
+ * Extract the video id from a YouTube URL (watch, short, embed, youtu.be).
+ * Returns `null` for non-YouTube URLs.
+ */
+function extractYouTubeId(url: string): string | null {
+  try {
+    const parsed = new URL(url)
+    const host = parsed.hostname.replace(/^www\./, '')
+    if (host === 'youtu.be') return parsed.pathname.slice(1).split('/')[0] || null
+    if (host === 'youtube.com' || host === 'm.youtube.com') {
+      if (parsed.pathname === '/watch') return parsed.searchParams.get('v')
+      const embedMatch = parsed.pathname.match(/^\/(?:embed|shorts)\/([^/?]+)/)
+      if (embedMatch) return embedMatch[1]
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+/** Responsive 16:9 iframe wrapper for a YouTube embed. */
+function youTubeEmbed(videoId: string): string {
+  return [
+    '<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:0.75rem;">',
+    `<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" `,
+    `src="https://www.youtube.com/embed/${videoId}" `,
+    `allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" `,
+    `allowfullscreen></iframe>`,
+    '</div>'
+  ].join('')
+}
+
+if (n2m) {
+  n2m.setCustomTransformer('video', async (block) => {
+    const video = (block as Record<string, any>).video
+    if (!video) return ''
+    const url: string | undefined =
+      video.type === 'external' ? video.external?.url : video.file?.url
+    if (!url) return ''
+
+    const ytId = extractYouTubeId(url)
+    if (ytId) return youTubeEmbed(ytId)
+
+    return `<video controls style="width:100%;border-radius:0.75rem;"><source src="${url}" /></video>`
+  })
+
+  n2m.setCustomTransformer('embed', async (block) => {
+    const embed = (block as Record<string, any>).embed
+    const url: string | undefined = embed?.url
+    if (!url) return ''
+
+    const ytId = extractYouTubeId(url)
+    if (ytId) return youTubeEmbed(ytId)
+
+    return `[${url}](${url})`
+  })
+}
+
 let cachedDataSourceId: string | null = null
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
