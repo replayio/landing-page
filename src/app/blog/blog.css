@@ -38,7 +38,7 @@
 .prose .notion-image {
   margin: 2em auto;
   text-align: center;
-  max-width: min(100%, 720px);
+  max-width: min(100%, 540px);
 }
 
 .prose .notion-image img {
