@@ -80,6 +80,42 @@ function youTubeEmbed(videoId: string): string {
 }
 
 if (n2m) {
+  /**
+   * Notion stores images at full resolution regardless of the display width the
+   * user set in the editor. The public API does not expose that display width, so
+   * without intervention every image stretches to 100% of the prose container.
+   *
+   * This transformer outputs a centered <figure> and checks the block for any
+   * format/width metadata the API may return (undocumented but observed in some
+   * responses). When width data is absent it defers to the CSS default in blog.css.
+   */
+  n2m.setCustomTransformer('image', async (block) => {
+    const b = block as Record<string, any>
+    const image = b.image
+    if (!image) return ''
+
+    const url: string | undefined =
+      image.type === 'external' ? image.external?.url : image.file?.url
+    if (!url) return ''
+
+    const caption = (image.caption ?? []).map((c: any) => c.plain_text).join('')
+    const alt = caption.replace(/"/g, '&quot;')
+
+    const blockWidth: number | undefined = b.format?.block_width ?? image.width
+    const widthAttr = blockWidth ? ` style="max-width:${blockWidth}px;"` : ''
+
+    const captionHtml = caption
+      ? `<figcaption class="notion-image-caption">${caption}</figcaption>`
+      : ''
+
+    return [
+      `<figure class="notion-image"${widthAttr}>`,
+      `<img src="${url}" alt="${alt}" loading="lazy" />`,
+      captionHtml,
+      `</figure>`
+    ].join('')
+  })
+
   n2m.setCustomTransformer('video', async (block) => {
     const video = (block as Record<string, any>).video
     if (!video) return ''
