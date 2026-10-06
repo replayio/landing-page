@@ -79,15 +79,49 @@ function youTubeEmbed(videoId: string): string {
   ].join('')
 }
 
+/**
+ * Named size presets for the `[size]` caption hint. Authors add one of these
+ * (wrapped in square brackets) anywhere in a Notion image caption to control
+ * how wide the image renders on the blog:
+ *
+ *   [small]      → 420px   – pull-quotes, icons, small charts
+ *   [medium]     → 540px   – default when no hint is given
+ *   [large]      → 720px   – wide diagrams, screenshots
+ *   [full]       → 100%    – edge-to-edge in the prose container
+ *   [width:600]  → 600px   – any arbitrary pixel value
+ *
+ * The hint is stripped from the visible caption text.
+ */
+const IMAGE_SIZE_PRESETS: Record<string, string> = {
+  small: '420px',
+  medium: '540px',
+  large: '720px',
+  full: '100%'
+}
+const IMAGE_SIZE_DEFAULT = '540px'
+
+/** Match `[small]`, `[large]`, `[full]`, `[width:600]`, etc. in a caption. */
+const SIZE_HINT_RE = /\[(?:(small|medium|large|full)|width:(\d+))\]/i
+
+function parseImageCaption(raw: string): { caption: string; maxWidth: string } {
+  const match = raw.match(SIZE_HINT_RE)
+  if (!match) return { caption: raw.trim(), maxWidth: IMAGE_SIZE_DEFAULT }
+
+  const caption = raw.replace(SIZE_HINT_RE, '').trim()
+  if (match[2]) return { caption, maxWidth: `${match[2]}px` }
+  return { caption, maxWidth: IMAGE_SIZE_PRESETS[match[1].toLowerCase()] ?? IMAGE_SIZE_DEFAULT }
+}
+
 if (n2m) {
   /**
    * Notion stores images at full resolution regardless of the display width the
-   * user set in the editor. The public API does not expose that display width, so
-   * without intervention every image stretches to 100% of the prose container.
+   * user set in the editor. The public API does not expose that display width.
    *
-   * This transformer outputs a centered <figure> and checks the block for any
-   * format/width metadata the API may return (undocumented but observed in some
-   * responses). When width data is absent it defers to the CSS default in blog.css.
+   * This transformer outputs a centered <figure> with a max-width derived from
+   * (in priority order):
+   *   1. A `[size]` hint in the Notion caption  — author-controlled
+   *   2. Undocumented `format.block_width` data  — if the API ever returns it
+   *   3. The default (540px)                     — matches typical Notion charts
    */
   n2m.setCustomTransformer('image', async (block) => {
     const b = block as Record<string, any>
@@ -98,18 +132,21 @@ if (n2m) {
       image.type === 'external' ? image.external?.url : image.file?.url
     if (!url) return ''
 
-    const caption = (image.caption ?? []).map((c: any) => c.plain_text).join('')
+    const rawCaption = (image.caption ?? []).map((c: any) => c.plain_text).join('')
+    const { caption, maxWidth } = parseImageCaption(rawCaption)
     const alt = caption.replace(/"/g, '&quot;')
 
-    const blockWidth: number | undefined = b.format?.block_width ?? image.width
-    const widthAttr = blockWidth ? ` style="max-width:${blockWidth}px;"` : ''
+    // Undocumented API width takes precedence over the CSS default but not a
+    // caption hint (authors always win).
+    const apiWidth: number | undefined = b.format?.block_width ?? image.width
+    const finalWidth = rawCaption.match(SIZE_HINT_RE) ? maxWidth : apiWidth ? `${apiWidth}px` : maxWidth
 
     const captionHtml = caption
       ? `<figcaption class="notion-image-caption">${caption}</figcaption>`
       : ''
 
     return [
-      `<figure class="notion-image"${widthAttr}>`,
+      `<figure class="notion-image" style="max-width:${finalWidth};">`,
       `<img src="${url}" alt="${alt}" loading="lazy" />`,
       captionHtml,
       `</figure>`

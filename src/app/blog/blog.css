@@ -23,12 +23,12 @@
 }
 
 /*
- * Blog images from Notion are high-res but typically displayed at 50–75% of the
- * content width. The Notion API does not expose the user-set display width, so we
- * centre images and cap them at a comfortable editorial width by default.
+ * Blog image sizing.
  *
- * When the custom image transformer in notion-blog.ts finds explicit width data on
- * the block it sets an inline max-width on the <figure>, which overrides this.
+ * The Notion API does not expose the display width users set in the editor.
+ * The custom image transformer in notion-blog.ts sets an inline max-width
+ * on each <figure> derived from caption hints ([small], [large], [full],
+ * [width:N]) or a 540px default. See that file for the full list of presets.
  */
 .prose img {
   max-width: 100%;
@@ -38,7 +38,6 @@
 .prose .notion-image {
   margin: 2em auto;
   text-align: center;
-  max-width: min(100%, 540px);
 }
 
 .prose .notion-image img {
