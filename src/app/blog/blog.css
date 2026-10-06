@@ -22,9 +22,35 @@
   content: '';
 }
 
+/*
+ * Blog image sizing.
+ *
+ * The Notion API does not expose the display width users set in the editor.
+ * The custom image transformer in notion-blog.ts sets an inline max-width
+ * on each <figure> derived from caption hints ([small], [large], [full],
+ * [width:N]) or a 540px default. See that file for the full list of presets.
+ */
 .prose img {
   max-width: 100%;
   height: auto;
+}
+
+.prose .notion-image {
+  margin: 2em auto;
+  text-align: center;
+}
+
+.prose .notion-image img {
+  display: inline-block;
+  max-width: 100%;
+  border-radius: 0.75rem;
+}
+
+.prose .notion-image-caption {
+  margin-top: 0.5em;
+  font-size: 0.875em;
+  color: #6b7280;
+  font-style: italic;
 }
 
 .prose .token.comment,
