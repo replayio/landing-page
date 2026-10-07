@@ -3,10 +3,12 @@ import { Viewport } from 'next'
 import { Inter, Lexend } from 'next/font/google'
 import clsx from 'clsx'
 import Script from 'next/script'
+import dynamic from 'next/dynamic'
 
 import { ReactNode, Suspense } from 'react'
-import Analytics from '~/lib/analytics'
 import { RedditPixel } from '~/components/analytics/RedditPixel'
+
+const Analytics = dynamic(() => import('~/lib/analytics'), { ssr: false })
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
@@ -32,6 +34,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={clsx('h-full scroll-smooth bg-white antialiased', inter.variable, lexend.variable)}
     >
       <head>
+        {/*
+         * Analytics is dynamically imported with ssr:false so its JS (Mixpanel,
+         * PostHog, GA) is not part of the initial server-rendered bundle and only
+         * loads after hydration. Inside the component, heavy SDKs are further
+         * deferred via requestIdleCallback.
+         */}
         <Analytics />
         <Suspense fallback={null}>
           <RedditPixel />
@@ -42,10 +50,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           src="https://replay-analytics.netlify.app/umami.js"
           data-website-id="fbe91bf5-8681-4948-a34b-8f2200a4d18f"
           data-host-url="https://replay-analytics.netlify.app"
+          strategy="lazyOnload"
         />
         <Script
           id="apollo-website-tracker"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               function initApollo(){
@@ -65,7 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <Script
           id="linkedin-insight-tag"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window._linkedin_partner_id = "8830930";
@@ -85,7 +94,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <Script
           id="x-conversion-tracking"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);

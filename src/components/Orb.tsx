@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Mesh, Program, Renderer, Triangle, Vec3 } from 'ogl'
 
 interface OrbProps {
   hue?: number
@@ -190,9 +189,9 @@ export function Orb({
     const container = ctnDom.current
     if (!container) return
 
-    let renderer: Renderer | null = null
     let rafId = 0
     let disposed = false
+    let cleanupFn: (() => void) | undefined
 
     const enableFallback = () => {
       if (disposed) return
@@ -201,41 +200,46 @@ export function Orb({
       setShowFallback(true)
     }
 
-    try {
-      renderer = new Renderer({ alpha: true, premultipliedAlpha: false })
-    } catch {
-      enableFallback()
-      return
-    }
+    import('ogl').then(({ Mesh, Program, Renderer, Triangle, Vec3: V3 }) => {
+      if (disposed) return
 
-    const gl = renderer.gl
-    if (!gl) {
-      enableFallback()
-      return
-    }
+      let renderer: InstanceType<typeof Renderer> | null = null
 
-    gl.clearColor(0, 0, 0, 0)
-    container.appendChild(gl.canvas)
+      try {
+        renderer = new Renderer({ alpha: true, premultipliedAlpha: false })
+      } catch {
+        enableFallback()
+        return
+      }
 
-    let geometry: Triangle
-    let program: Program
-    let mesh: Mesh
+      const gl = renderer.gl
+      if (!gl) {
+        enableFallback()
+        return
+      }
 
-    try {
-      geometry = new Triangle(gl)
-      program = new Program(gl, {
+      gl.clearColor(0, 0, 0, 0)
+      container.appendChild(gl.canvas)
+
+      let geometry: InstanceType<typeof Triangle>
+      let program: InstanceType<typeof Program>
+      let mesh: InstanceType<typeof Mesh>
+
+      try {
+        geometry = new Triangle(gl)
+        program = new Program(gl, {
         vertex: vert,
         fragment: frag,
         uniforms: {
           iTime: { value: 0 },
           iResolution: {
-            value: new Vec3(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+            value: new V3(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
           },
           hue: { value: hue },
           hover: { value: 0 },
           rot: { value: 0 },
           hoverIntensity: { value: hoverIntensity },
-          backgroundColor: { value: hexToVec3(backgroundColor) }
+          backgroundColor: { value: new V3(...hexToRgb(backgroundColor)) }
         }
       })
       mesh = new Mesh(gl, { geometry, program })
@@ -304,7 +308,7 @@ export function Orb({
         program.uniforms.iTime.value = t * 0.001
         program.uniforms.hue.value = hue
         program.uniforms.hoverIntensity.value = hoverIntensity
-        program.uniforms.backgroundColor.value = hexToVec3(backgroundColor)
+        program.uniforms.backgroundColor.value = new V3(...hexToRgb(backgroundColor))
 
         const effectiveHover = forceHoverState ? 1 : targetHover
         program.uniforms.hover.value += (effectiveHover - program.uniforms.hover.value) * 0.1
@@ -319,17 +323,24 @@ export function Orb({
         enableFallback()
       }
     }
-    rafId = requestAnimationFrame(update)
+      rafId = requestAnimationFrame(update)
+
+      cleanupFn = () => {
+        cancelAnimationFrame(rafId)
+        window.removeEventListener('resize', resize)
+        container.removeEventListener('mousemove', handleMouseMove)
+        container.removeEventListener('mouseleave', handleMouseLeave)
+        gl.canvas.removeEventListener('webglcontextlost', handleContextLost)
+        if (container.contains(gl.canvas)) container.removeChild(gl.canvas)
+        gl.getExtension('WEBGL_lose_context')?.loseContext()
+      }
+    }).catch(() => {
+      enableFallback()
+    })
 
     return () => {
       disposed = true
-      cancelAnimationFrame(rafId)
-      window.removeEventListener('resize', resize)
-      container.removeEventListener('mousemove', handleMouseMove)
-      container.removeEventListener('mouseleave', handleMouseLeave)
-      gl.canvas.removeEventListener('webglcontextlost', handleContextLost)
-      if (container.contains(gl.canvas)) container.removeChild(gl.canvas)
-      gl.getExtension('WEBGL_lose_context')?.loseContext()
+      cleanupFn?.()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hue, hoverIntensity, rotateOnHover, forceHoverState, backgroundColor])
@@ -347,14 +358,14 @@ export function Orb({
   )
 }
 
-function hexToVec3(color: string): Vec3 {
+function hexToRgb(color: string): [number, number, number] {
   if (color.startsWith('#')) {
     const r = parseInt(color.slice(1, 3), 16) / 255
     const g = parseInt(color.slice(3, 5), 16) / 255
     const b = parseInt(color.slice(5, 7), 16) / 255
-    return new Vec3(r, g, b)
+    return [r, g, b]
   }
   const rgb = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/)
-  if (rgb) return new Vec3(+rgb[1] / 255, +rgb[2] / 255, +rgb[3] / 255)
-  return new Vec3(1, 1, 1)
+  if (rgb) return [+rgb[1] / 255, +rgb[2] / 255, +rgb[3] / 255]
+  return [1, 1, 1]
 }

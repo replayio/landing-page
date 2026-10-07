@@ -67,8 +67,7 @@ export function initPostHog(): void {
     // Injecting the SDK's lazily-loaded scripts into <body> races React hydration in Next.
     external_scripts_inject_target: 'head',
 
-    // LogRocket already records this site, and replays proxied through Next would be billed against
-    // our own bandwidth. Revisit once we decide which recorder we are standardizing on.
+    // Session recording proxied through Next would be billed against our own bandwidth.
     disable_session_recording: true
   })
 }
