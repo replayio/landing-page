@@ -5,32 +5,20 @@ import Script from 'next/script'
 
 const GA_MEASUREMENT_ID = 'G-244NMJ9B93'
 
-/**
- * Schedule a callback for when the browser is idle. Falls back to a 1s
- * setTimeout on Safari and older browsers that lack requestIdleCallback.
- */
-function whenIdle(fn: () => void) {
-  if (typeof requestIdleCallback === 'function') {
-    requestIdleCallback(fn)
-  } else {
-    setTimeout(fn, 1_000)
-  }
-}
-
 export default function Analytics() {
   useEffect(() => {
-    whenIdle(async () => {
-      const [{ default: mixpanel }, { initPostHog }] = await Promise.all([
-        import('mixpanel-browser'),
-        import('~/lib/posthog')
-      ])
-
-      mixpanel.init('ffaeda9ef8fb976a520ca3a65bba5014', {
-        track_pageview: 'url-with-path'
+    import('mixpanel-browser')
+      .then(({ default: mixpanel }) => {
+        mixpanel.init('ffaeda9ef8fb976a520ca3a65bba5014', {
+          track_pageview: 'url-with-path'
+        })
+        mixpanel.track('Loaded www.replay.io')
       })
-      mixpanel.track('Loaded www.replay.io')
-      initPostHog()
-    })
+      .catch(() => {})
+
+    import('~/lib/posthog')
+      .then(({ initPostHog }) => initPostHog())
+      .catch(() => {})
   }, [])
 
   return (
