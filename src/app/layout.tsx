@@ -42,10 +42,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           src="https://replay-analytics.netlify.app/umami.js"
           data-website-id="fbe91bf5-8681-4948-a34b-8f2200a4d18f"
           data-host-url="https://replay-analytics.netlify.app"
+          strategy="lazyOnload"
         />
         <Script
           id="apollo-website-tracker"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               function initApollo(){
@@ -65,7 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <Script
           id="linkedin-insight-tag"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window._linkedin_partner_id = "8830930";
@@ -85,7 +86,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <Script
           id="x-conversion-tracking"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);

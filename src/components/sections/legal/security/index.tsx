@@ -118,12 +118,11 @@ export const Security: FC = () => {
         </Heading>
         <div className={s.content}>
           <p>
-            Replay uses <Link href="https://logrocket.com/">LogRocket</Link> to record user sessions
-            in order to diagnose issues after the fact and better understand how improve the
-            product.
+            Replay uses session analytics to diagnose issues after the fact and better understand
+            how to improve the product.
           </p>
           <ul>
-            <li>LogRocket can be disabled in Preferences</li>
+            <li>Session analytics can be disabled in Preferences</li>
             <li>Sensitive user information is redacted</li>
             <li>
               Intellectual property such as source code, filenames, and runtime data is redacted
