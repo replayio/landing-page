@@ -27,6 +27,39 @@ const outputFaqs = [
     question: 'Does Replay QA categorize and prioritize the issues it finds?',
     answer:
       'Yes. Reports are grouped by type and severity, and each root-cause analysis carries a confidence score, so you can start with the high-severity, high-confidence findings instead of reading the whole list.'
+  },
+  {
+    question: 'Can I run Replay QA from my coding agent?',
+    answer: (
+      <>
+        100% yes. We&apos;ve got a robust REST API and MCP and a solid prompt to have your agent
+        get everything set up.{' '}
+        <a
+          href="https://docs.replay.io/reference/replay-qa/api"
+          className="underline hover:text-gray-900"
+        >
+          Learn more in our docs
+        </a>
+        .
+      </>
+    )
+  },
+  {
+    question: 'Can I use this with my software factory?',
+    answer: (
+      <>
+        That is music to our ears! Replay QA is a perfect addition to any software factory loop, to
+        serve as an important verification layer that goes beyond static code analysis. In fact, we
+        wrote up a{' '}
+        <a
+          href="https://www.replay.io/blog/what-our-experimental-self-healing-software-loop-shipped-in-two-weeks"
+          className="underline hover:text-gray-900"
+        >
+          blog post
+        </a>{' '}
+        about how we use Replay QA in our own software factory loop.
+      </>
+    )
   }
 ]
 
