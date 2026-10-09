@@ -70,13 +70,13 @@ export function VerificationProblemSection() {
         <div className="mx-auto max-w-3xl">
           <p className="text-sm font-bold uppercase tracking-wider text-accent">The problem</p>
           <h2 className="mt-3 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            Your team ships 47 pull requests a week. Nobody can check them all.
+            Your team ships more pull requests than anyone can review.
           </h2>
           <div className="mt-6 space-y-4 leading-relaxed text-gray-600">
             <p>
               Agents wrote most of that code. Static analysis passes on all of it, because static
-              analysis reads the code without ever running the app. Nobody can review 47 pull
-              requests by hand, let alone click through what each one changed.
+              analysis reads the code without ever running the app. Nobody can review them all by
+              hand, let alone click through what each one changed.
             </p>
             <p>
               So it ships to staging and looks fine, because the happy path is fine. Three days later
