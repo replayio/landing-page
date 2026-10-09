@@ -1,6 +1,6 @@
 # Replay QA — for-llms.txt
 # Machine-readable summary of Replay QA for LLM crawlers and AI assistants.
-# Last updated: 2026-09-02
+# Last updated: 2026-10-09
 
 ## What is Replay QA?
 
@@ -10,8 +10,8 @@ the app, writes and runs its own Playwright tests, records every session with a 
 time-travel debugger, and files detailed bug reports — including root cause analysis and a
 suggested fix ready for a coding agent to apply.
 
-It is built by Replay.io, the company behind the Replay time-travel debugging platform used by
-engineering teams at Vercel, Glide, Pantheon, and others.
+It is built by Replay.io, the company behind the Replay time-travel debugging platform. Replay QA
+is used by engineering teams and software factories running autonomous coding pipelines at scale.
 
 ## Core Capabilities
 
@@ -43,6 +43,12 @@ A single Replay QA project can target multiple environments: dev, staging, produ
 localhost (via reverse proxy). Environments can be switched in the project dashboard or managed
 programmatically via the REST API.
 
+### Software Factory Integration
+Replay QA is designed to plug into autonomous coding pipelines as a runtime verification layer.
+Trigger runs via REST API from your own orchestration, receive structured bug reports your agents
+can act on, and give your human reviewers a recording of every failure rather than a diff to
+guess from. Used by teams shipping more pull requests than anyone can review by hand.
+
 ## How It Works (6 steps)
 
 1. Start — Paste a URL or connect a GitHub repo. No setup beyond that.
@@ -64,13 +70,15 @@ programmatically via the REST API.
   Configurable: file manually, on confirmed bugs only, or for all reports.
 - **REST API** — Full API at https://qa.replay.io/api/v1 (OpenAPI spec at /api/v1/openapi.json).
   Trigger runs, switch environments, retrieve results, mark bugs resolved.
+- **Replay MCP** — Agents can pull structured bug reports and time-travel debug their own failures
+  via the Replay MCP server.
 - **Reverse proxy** — Test localhost or private-network apps without exposing them publicly.
 
 ## Pricing
 
 Free: 25 credits/month, no credit card required, no time limit.
 Starter: $20/month — more credits, all integrations.
-Pro: $200/month — higher volume.
+Pro: $200/month — higher volume, team collaboration.
 Private Cloud and On-Prem: available for organizations requiring dedicated infrastructure.
 
 Credits are consumed per meaningful unit of work (journey discovered, bug analyzed). An average
@@ -79,14 +87,15 @@ standard QA passes.
 
 ## Key URLs
 
-Homepage:         https://replay.io
-How it works:     https://replay.io/how-it-works
-For teams:        https://replay.io/for-teams
-Pricing:          https://replay.io/pricing
-Start (app):      https://qa.replay.io/new
-API docs:         https://qa.replay.io/api/v1/openapi.json
-Blog:             https://replay.io/blog
-Contact:          https://replay.io/contact
+Homepage:                  https://replay.io
+How it works:              https://replay.io/how-it-works
+For software factories:    https://replay.io/for-software-factories
+Security Scan:             https://replay.io/security
+Pricing:                   https://replay.io/pricing
+Start (app):               https://qa.replay.io/new
+API docs:                  https://qa.replay.io/api/v1/openapi.json
+Blog:                      https://replay.io/blog
+Contact:                   https://replay.io/contact
 
 ## Company
 
