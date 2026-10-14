@@ -1076,7 +1076,7 @@ export const compareHub = {
   titleTag: 'Replay QA Alternatives & Comparisons',
   metaDescription:
     'How Replay QA compares with Momentic, QA Wolf, Meticulous, Playwright, BrowserStack, PostHog and your coding agent: setup, evidence, root cause and pricing.',
-  eyebrow: 'Compare',
+  eyebrow: 'Replay QA comparisons',
   h1: 'How Replay QA compares',
   subhead:
     'Some tools are alternatives to Replay QA. Others run your test suite, catch regressions or watch production, and work well alongside it. Here is an honest look at each.',

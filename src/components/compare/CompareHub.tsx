@@ -3,20 +3,21 @@ import { Container } from '~/components/Container'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
-import { BugReportSection, Faqs, FinalCTA, Hero } from '~/components/seo-landing/SeoLandingPage'
+import { BugReportSection, Faqs, FinalCTA } from '~/components/seo-landing/SeoLandingPage'
+import { ContentPageHeader } from '~/components/content-page/ContentPageHeader'
 import { seoVariants } from '~/components/seo-landing/content'
 import { ComparisonTable } from './ComparisonTable'
-import { formatVerified } from './ComparePage'
+import { COMPARE_HUB_PATH, formatVerified } from './ComparePage'
 import { RELATIONSHIP_GROUPS, compareHub, competitors, replayColumn } from './content'
 
-function Matrix() {
-  const latest = competitors
-    .map((c) => c.lastVerified)
-    .sort()
-    .at(-1)!
+const latestVerified = competitors
+  .map((c) => c.lastVerified)
+  .sort()
+  .at(-1)!
 
+function Matrix() {
   return (
-    <section className="bg-gray-50 py-16 md:py-20">
+    <section id="side-by-side" className="scroll-mt-24 bg-gray-50 py-16 md:py-20">
       <Container>
         <div className="mx-auto max-w-7xl">
           <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl">
@@ -37,8 +38,8 @@ function Matrix() {
           </div>
           <p className="mt-4 text-xs leading-relaxed text-gray-500">
             Based on each vendor’s public site and documentation, last verified{' '}
-            {formatVerified(latest)}. Sources are listed on each comparison page. Product names are
-            trademarks of their respective owners and are used for identification only.
+            {formatVerified(latestVerified)}. Sources are listed on each comparison page. Product
+            names are trademarks of their respective owners and are used for identification only.
           </p>
         </div>
       </Container>
@@ -48,7 +49,7 @@ function Matrix() {
 
 function Groups() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white pb-16 md:pb-20">
       <Container>
         <div className="mx-auto flex max-w-5xl flex-col gap-12">
           {RELATIONSHIP_GROUPS.map((group) => (
@@ -88,11 +89,21 @@ export function CompareHub() {
     <>
       <Header />
       <PageContentAnimate>
-        <Hero
+        <ContentPageHeader
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Compare', href: COMPARE_HUB_PATH }
+          ]}
           eyebrow={compareHub.eyebrow}
-          h1={compareHub.h1}
-          subhead={compareHub.subhead}
-          utmSource="compare"
+          title={compareHub.h1}
+          intro={compareHub.subhead}
+          meta={[
+            `${competitors.length} comparisons`,
+            `Last verified ${formatVerified(latestVerified)}`,
+            <a key="table" href="#side-by-side" className="text-accent hover:opacity-80">
+              Jump to the side-by-side table
+            </a>
+          ]}
         />
         <Groups />
         <Matrix />

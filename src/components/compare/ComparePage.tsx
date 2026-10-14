@@ -2,10 +2,16 @@ import { Container } from '~/components/Container'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
-import { siteOrigin } from '~/lib/constants'
-import { BugReportSection, Faqs, FinalCTA, Hero } from '~/components/seo-landing/SeoLandingPage'
+import { BugReportSection, Faqs, FinalCTA } from '~/components/seo-landing/SeoLandingPage'
+import { ContentPageHeader, SummaryCard } from '~/components/content-page/ContentPageHeader'
 import { ComparisonTable } from './ComparisonTable'
-import { competitors, replayColumn, type Competitor, type Point } from './content'
+import {
+  RELATIONSHIP_GROUPS,
+  competitors,
+  replayColumn,
+  type Competitor,
+  type Point
+} from './content'
 
 export const COMPARE_HUB_PATH = '/compare'
 
@@ -82,31 +88,9 @@ function PointSection({
   )
 }
 
-function Summary({ competitor }: { competitor: Competitor }) {
-  return (
-    <section className="bg-white py-16 md:py-20">
-      <Container>
-        <div className="mx-auto max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-wider text-accent">
-            The short version
-          </p>
-          <ul className="mt-6 flex flex-col gap-4">
-            {competitor.tldr.map((line) => (
-              <li key={line} className="flex gap-3 text-lg leading-relaxed text-gray-700">
-                <span className="mt-3 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent" />
-                {line}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Container>
-    </section>
-  )
-}
-
 function AtAGlance({ competitor }: { competitor: Competitor }) {
   return (
-    <section className="bg-gray-50 py-16 md:py-20">
+    <section id="at-a-glance" className="scroll-mt-24 bg-gray-50 py-16 md:py-20">
       <Container>
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl">
@@ -203,35 +187,6 @@ function Choose({ competitor }: { competitor: Competitor }) {
   )
 }
 
-function Breadcrumbs({ competitor }: { competitor: Competitor }) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteOrigin}/` },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Compare',
-        item: `${siteOrigin}${COMPARE_HUB_PATH}`
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: headings(competitor).eyebrow,
-        item: `${siteOrigin}${competitor.path}`
-      }
-    ]
-  }
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  )
-}
-
 function relatedLinks(competitor: Competitor) {
   const sameGroup = competitors
     .filter((c) => c.key !== competitor.key && c.relationship === competitor.relationship)
@@ -245,6 +200,7 @@ function relatedLinks(competitor: Competitor) {
 export function ComparePage({ competitor }: { competitor: Competitor }) {
   const h = headings(competitor)
   const { relationship, together = [], replayFurther, strongerAt } = competitor
+  const group = RELATIONSHIP_GROUPS.find((g) => g.relationship === relationship)
 
   // Section order carries the framing: complementary tools lead with how they fit together,
   // alternatives lead with differences, and the DIY page leads with what the agent does well.
@@ -270,15 +226,25 @@ export function ComparePage({ competitor }: { competitor: Competitor }) {
   return (
     <>
       <Header />
-      <Breadcrumbs competitor={competitor} />
       <PageContentAnimate>
-        <Hero
-          eyebrow={h.eyebrow}
-          h1={competitor.h1}
-          subhead={competitor.subhead}
-          utmSource={`compare-${competitor.key}`}
-        />
-        <Summary competitor={competitor} />
+        <ContentPageHeader
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Compare', href: COMPARE_HUB_PATH },
+            { label: h.eyebrow, href: competitor.path }
+          ]}
+          eyebrow={group?.heading}
+          title={competitor.h1}
+          intro={competitor.subhead}
+          meta={[
+            `Last verified ${formatVerified(competitor.lastVerified)}`,
+            <a key="table" href="#at-a-glance" className="text-accent hover:opacity-80">
+              Jump to the comparison table
+            </a>
+          ]}
+        >
+          <SummaryCard items={competitor.tldr} />
+        </ContentPageHeader>
         <AtAGlance competitor={competitor} />
         {sections
           .filter((s) => s.points.length > 0)
