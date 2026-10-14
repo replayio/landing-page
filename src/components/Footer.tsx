@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getImageSizes } from '~/lib/utils/image'
+import { competitors } from '~/components/compare/content'
 import { seoVariants } from '~/components/seo-landing/content'
 
 const navigation = {
@@ -128,6 +129,12 @@ const NAV_LINKS = [
 // SEO landing pages. Linked here so they are not orphans; they stay out of the header nav.
 const USE_CASE_LINKS = seoVariants.map((v) => ({ label: v.eyebrow, href: v.path }))
 
+// Comparison pages, same reasoning as above.
+const COMPARE_LINKS = [
+  { label: 'All comparisons', href: '/compare' },
+  ...competitors.map((c) => ({ label: c.name, href: c.path }))
+]
+
 export function Footer() {
   return (
     <footer className="relative isolate z-10 bg-white" aria-labelledby="footer-heading">
@@ -238,6 +245,22 @@ export function Footer() {
           ))}
         </nav>
 
+        <nav
+          aria-label="Compare"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-sm"
+        >
+          <span className="text-gray-500">Compare</span>
+          {COMPARE_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-gray-700 transition-colors hover:text-accent"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
         {/* Bottom Section: Copyright and Legal Links */}
         <div className="flex items-center justify-between pt-6">
           <p className="text-sm text-gray-500">Copyright {new Date().getFullYear()} © Replay.io</p>
@@ -314,6 +337,22 @@ export function Footer() {
           <nav aria-label="Use cases" className="flex flex-col items-center gap-3 text-sm">
             <span className="text-gray-500">Use cases</span>
             {USE_CASE_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-gray-700 transition-colors hover:text-accent"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <nav
+            aria-label="Compare"
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-sm"
+          >
+            <span className="w-full text-center text-gray-500">Compare</span>
+            {COMPARE_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
