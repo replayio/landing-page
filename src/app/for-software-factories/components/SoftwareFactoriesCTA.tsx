@@ -1,4 +1,5 @@
 import { Container } from '~/components/Container'
+import { CopyAgentPrompt } from '~/app/components/CopyAgentPrompt'
 import { Button } from '~/components/Button'
 
 export function SoftwareFactoriesCTA() {
@@ -22,6 +23,7 @@ export function SoftwareFactoriesCTA() {
               Talk to us
             </Button>
           </div>
+          <CopyAgentPrompt />
         </div>
       </Container>
     </section>

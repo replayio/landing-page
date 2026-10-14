@@ -1,6 +1,7 @@
 'use client'
 
 import { Container } from '~/components/Container'
+import { CopyAgentPrompt } from '~/app/components/CopyAgentPrompt'
 import { Button } from '~/components/Button'
 import Hyperspace from '~/app/components/hero/hyperspace'
 import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
@@ -31,6 +32,7 @@ export function ForTeamsHero() {
             <p className="mt-4 text-xs text-gray-500">
               No credit card. No existing test suite required.
             </p>
+            <CopyAgentPrompt />
           </div>
         </Container>
       </div>

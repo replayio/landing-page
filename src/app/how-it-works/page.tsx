@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Footer } from '~/components/Footer'
 import { Metadata, Viewport } from 'next/types'
 import { Header } from '~/components/layout/header'
@@ -138,7 +139,11 @@ export default function HowItWorksPage() {
             >
               <p>
                 Paste any live web app URL and Replay QA gets to work immediately. No test suite to
-                write or maintain. It handles all of it.
+                write or maintain. It&apos;s{' '}
+                <Link href="/automated-qa-testing" className="font-medium text-accent hover:opacity-80">
+                  automated QA testing
+                </Link>{' '}
+                that handles all of it.
               </p>
             </Step>
 

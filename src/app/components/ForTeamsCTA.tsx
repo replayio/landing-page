@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Container } from '~/components/Container'
+import { CopyAgentPrompt } from '~/app/components/CopyAgentPrompt'
 import { Button } from '~/components/Button'
 
 export function ForTeamsCTA() {
@@ -22,6 +23,7 @@ export function ForTeamsCTA() {
           <p className="mt-4 text-xs text-gray-500">
             No credit card. No existing test suite required.
           </p>
+          <CopyAgentPrompt />
           <p className="mt-8 text-sm text-gray-600">
             Running Replay QA across a lot of projects?{' '}
             <a

@@ -32,6 +32,21 @@ const ROUTES = [
   { pathname: '/precog', slug: 'precog', title: 'Precog — Replay' },
   { pathname: '/pricing', slug: 'pricing', title: 'Pricing — Replay' },
   { pathname: '/debugging', slug: 'debugging', title: 'Debugging — Replay' },
+  {
+    pathname: '/web-application-testing',
+    slug: 'web-application-testing',
+    title: 'Web Application Testing Service — Replay'
+  },
+  {
+    pathname: '/continuous-testing',
+    slug: 'continuous-testing',
+    title: 'Continuous Testing Platform — Replay'
+  },
+  {
+    pathname: '/automated-qa-testing',
+    slug: 'automated-qa-testing',
+    title: 'Automated QA Testing Tool — Replay'
+  },
   { pathname: '/roi-calculator', slug: 'roi-calculator', title: 'ROI Calculator — Replay' },
   { pathname: '/about', slug: 'about', title: 'About — Replay' },
   { pathname: '/privacy-policy', slug: 'privacy-policy', title: 'Privacy Policy — Replay' },

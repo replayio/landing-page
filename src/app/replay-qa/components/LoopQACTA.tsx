@@ -1,4 +1,5 @@
 import { Container } from '~/components/Container'
+import { CopyAgentPrompt } from '~/app/components/CopyAgentPrompt'
 import { Button } from '~/components/Button'
 
 export function LoopQACTA() {
@@ -26,6 +27,7 @@ export function LoopQACTA() {
         <p className="mt-3 text-xs text-gray-400">
           No test suite required &middot; Works with any web app
         </p>
+        <CopyAgentPrompt />
       </Container>
     </section>
   )
