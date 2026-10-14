@@ -1,4 +1,5 @@
 import { Container } from '~/components/Container'
+import { CopyAgentPrompt } from '~/app/components/CopyAgentPrompt'
 import { HeroUrlInput } from './HeroUrlInput'
 
 export function QAFinalCTA() {
@@ -15,6 +16,7 @@ export function QAFinalCTA() {
           <div className="mt-8">
             <HeroUrlInput />
           </div>
+          <CopyAgentPrompt />
         </div>
       </Container>
     </section>

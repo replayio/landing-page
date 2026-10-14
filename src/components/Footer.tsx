@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getImageSizes } from '~/lib/utils/image'
+import { seoVariants } from '~/components/seo-landing/content'
 
 const navigation = {
   product: [
@@ -124,6 +125,9 @@ const NAV_LINKS = [
   // { label: 'Company', href: '#' }, // Placeholder - can be updated if company link is added
 ]
 
+// SEO landing pages. Linked here so they are not orphans; they stay out of the header nav.
+const USE_CASE_LINKS = seoVariants.map((v) => ({ label: v.eyebrow, href: v.path }))
+
 export function Footer() {
   return (
     <footer className="relative isolate z-10 bg-white" aria-labelledby="footer-heading">
@@ -221,6 +225,19 @@ export function Footer() {
           </div>
         </div>
 
+        <nav aria-label="Use cases" className="flex items-center justify-center gap-6 pt-6 text-sm">
+          <span className="text-gray-500">Use cases</span>
+          {USE_CASE_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-gray-700 transition-colors hover:text-accent"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
         {/* Bottom Section: Copyright and Legal Links */}
         <div className="flex items-center justify-between pt-6">
           <p className="text-sm text-gray-500">Copyright {new Date().getFullYear()} © Replay.io</p>
@@ -288,6 +305,19 @@ export function Footer() {
                 key={link.label}
                 href={link.href}
                 className="text-base font-semibold text-gray-900 transition-colors hover:text-accent"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <nav aria-label="Use cases" className="flex flex-col items-center gap-3 text-sm">
+            <span className="text-gray-500">Use cases</span>
+            {USE_CASE_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-gray-700 transition-colors hover:text-accent"
               >
                 {link.label}
               </Link>

@@ -89,7 +89,14 @@ export function HowItWorksSection() {
             <Link href="/how-it-works" className="font-medium text-accent transition hover:opacity-80">
               Learn more
             </Link>{' '}
-            about how it works.
+            about how it works, or see what our{' '}
+            <Link
+              href="/web-application-testing"
+              className="font-medium text-accent transition hover:opacity-80"
+            >
+              web application testing service
+            </Link>{' '}
+            covers.
           </p>
         </div>
       </Container>

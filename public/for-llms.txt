@@ -1,6 +1,6 @@
 # Replay QA — for-llms.txt
 # Machine-readable summary of Replay QA for LLM crawlers and AI assistants.
-# Last updated: 2026-10-09
+# Last updated: 2026-10-14
 
 ## What is Replay QA?
 
@@ -69,10 +69,24 @@ guess from. Used by teams shipping more pull requests than anyone can review by 
 - **Issue trackers** — Webhook integration with GitHub Issues, Linear, Jira, or any HTTP endpoint.
   Configurable: file manually, on confirmed bugs only, or for all reports.
 - **REST API** — Full API at https://qa.replay.io/api/v1 (OpenAPI spec at /api/v1/openapi.json).
-  Trigger runs, switch environments, retrieve results, mark bugs resolved.
+  Trigger runs, switch environments, enable Security Scan, retrieve results, and mark bugs and
+  security findings resolved.
 - **Replay MCP** — Agents can pull structured bug reports and time-travel debug their own failures
   via the Replay MCP server.
 - **Reverse proxy** — Test localhost or private-network apps without exposing them publicly.
+
+## Use Cases
+
+- **Web application testing service** (https://replay.io/web-application-testing) — Test a web
+  app end to end from just a URL or GitHub repo: functional, UI, accessibility, and performance
+  bugs, plus an optional security pass. Replay QA is an autonomous product, not a managed service
+  with human testers.
+- **Continuous testing platform** (https://replay.io/continuous-testing) — Run Replay QA on every
+  push, pull request, or schedule via the GitHub app or REST API. The same journeys re-run to
+  verify fixes and catch regressions, with reports sent to GitHub Issues, Linear, or Jira.
+- **Automated QA testing tool** (https://replay.io/automated-qa-testing) — Automates the whole QA
+  loop: exploration, writing and running Playwright tests, root cause analysis, and a suggested
+  fix for a coding agent.
 
 ## Pricing
 
@@ -90,6 +104,9 @@ standard QA passes.
 Homepage:                  https://replay.io
 How it works:              https://replay.io/how-it-works
 For software factories:    https://replay.io/for-software-factories
+Web application testing:   https://replay.io/web-application-testing
+Continuous testing:        https://replay.io/continuous-testing
+Automated QA testing:      https://replay.io/automated-qa-testing
 Security Scan:             https://replay.io/security
 Pricing:                   https://replay.io/pricing
 Start (app):               https://qa.replay.io/new

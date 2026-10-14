@@ -70,6 +70,13 @@ export function SetupSection() {
             </Link>{' '}
             to see it in action.
           </p>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Once connected, Replay QA works as a{' '}
+            <Link href="/continuous-testing" className="font-medium text-accent transition hover:opacity-80">
+              continuous testing platform
+            </Link>{' '}
+            that re-tests every change.
+          </p>
         </div>
       </Container>
     </section>

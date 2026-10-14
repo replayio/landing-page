@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Container } from '~/components/Container'
 
 const integrationBlocks = [
@@ -38,6 +39,14 @@ export function PipelineSection() {
               </div>
             ))}
           </div>
+
+          <p className="mt-10 text-sm text-gray-600">
+            Running it on every change?{' '}
+            <Link href="/continuous-testing" className="font-medium text-accent transition hover:opacity-80">
+              See Replay QA as a continuous testing platform
+            </Link>
+            .
+          </p>
         </div>
       </Container>
     </section>

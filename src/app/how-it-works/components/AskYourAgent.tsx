@@ -94,7 +94,7 @@ function CopyPromptBlock({
   )
 }
 
-const FULL_PROMPT = `Set up a continuous QA loop for the app we're building using Replay QA (https://qa.replay.io).
+export const FULL_PROMPT = `Set up a continuous QA loop for the app we're building using Replay QA (https://qa.replay.io).
 
 Drive everything through the REST API at https://qa.replay.io/api/v1 — read the OpenAPI spec at /api/v1/openapi.json first; it documents the full workflow. Authenticate with my API token ("Authorization: Bearer lqa_..."), asking me for it if needed.
 
