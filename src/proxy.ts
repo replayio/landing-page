@@ -37,6 +37,8 @@ const AD_ATTR_KEYS = [
   'li_fat_id',
   'twclid',
   'rdt_cid',
+  'fbclid',
+  'gclid',
   'utm_source',
   'utm_medium',
   'utm_campaign',
