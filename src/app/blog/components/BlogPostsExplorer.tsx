@@ -9,9 +9,9 @@ import { BlogPostCard } from './BlogPostCard'
 
 const ALL_FILTER = 'All'
 const LOAD_MORE_BATCH = 24
-const PRIORITY_CARD_COUNT = 3
+const PRIORITY_CARD_COUNT = 2
 /** Delay before kicking off the background prefetch so it never competes with LCP/initial paint. */
-const BACKGROUND_PREFETCH_DELAY_MS = 1500
+const BACKGROUND_PREFETCH_DELAY_MS = 4000
 
 type BlogPostsExplorerProps = {
   initialPosts: BlogPost[]

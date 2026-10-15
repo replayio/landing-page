@@ -402,11 +402,24 @@ const cachedLoadBlogPostsFromNotion = unstable_cache(
   }
 )
 
+/**
+ * In-memory cache for dev mode. The Notion API pagination through 100+ posts
+ * takes several seconds; without this, every dev refresh re-fetches everything.
+ * TTL is kept short so edits still appear quickly.
+ */
+let devPostsCache: { posts: BlogPost[]; expiry: number } | null = null
+const DEV_CACHE_TTL_MS = 60_000
+
 export const getBlogPosts = async (): Promise<BlogPost[]> => {
   if (!hasNotionConfig()) return []
 
   if (process.env.NODE_ENV !== 'production') {
-    return loadBlogPostsFromNotion()
+    if (devPostsCache && Date.now() < devPostsCache.expiry) {
+      return devPostsCache.posts
+    }
+    const posts = await loadBlogPostsFromNotion()
+    devPostsCache = { posts, expiry: Date.now() + DEV_CACHE_TTL_MS }
+    return posts
   }
 
   return cachedLoadBlogPostsFromNotion()

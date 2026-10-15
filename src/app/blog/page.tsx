@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 // is just a backstop for the rendered HTML.
 export const revalidate = 1800
 
-const INITIAL_PAGE_SIZE = 24
+const INITIAL_PAGE_SIZE = 12
 
 export default async function BlogPage() {
   const posts = await getBlogPosts()
