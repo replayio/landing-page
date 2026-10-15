@@ -1,11 +1,14 @@
 import clsx from 'clsx'
-import { gsap } from '~/lib/gsap'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import mergeRefs from 'react-merge-refs'
 
 import { useMeasure } from '~/hooks/use-measure'
 
 import s from './sky.module.scss'
+
+function rand(min: number, max: number) {
+  return min + Math.random() * (max - min)
+}
 
 type SkyElement =
   | {
@@ -28,11 +31,11 @@ export const Sky = ({ withGradient = true, count = 40, withAsteroids = true }) =
 
   const generated = useMemo(() => {
     const gen: SkyElement[] = [...Array(count)].map((_) => {
-      const isAsteroid = withAsteroids ? gsap.utils.random(0, 1) > 0.95 : false // 5% chance of being an asteroid
+      const isAsteroid = withAsteroids ? rand(0, 1) > 0.95 : false
 
       if (isAsteroid) {
-        const x1 = gsap.utils.random(-1, 1)
-        const x2 = gsap.utils.random(
+        const x1 = rand(-1, 1)
+        const x2 = rand(
           ...(x1 < 0 ? ([0, 1] as [number, number]) : ([-1, 0] as [number, number]))
         )
 
@@ -43,13 +46,13 @@ export const Sky = ({ withGradient = true, count = 40, withAsteroids = true }) =
         }
       }
 
-      const isSmall = gsap.utils.random(0, 1) > 0.6 // 40% chance of being small
+      const isSmall = rand(0, 1) > 0.6
 
       return {
         type: 'star',
-        x: gsap.utils.random(-1, 1),
-        y: gsap.utils.random(-1, 1),
-        delayFactor: gsap.utils.random(0, 1),
+        x: rand(-1, 1),
+        y: rand(-1, 1),
+        delayFactor: rand(0, 1),
         isSmall
       }
     })
@@ -61,31 +64,36 @@ export const Sky = ({ withGradient = true, count = 40, withAsteroids = true }) =
     if (!skyRef.current || !render || generated === null) return
 
     const asteroids = skyRef.current.querySelectorAll(`.${s['asteroid-wrapper']}`)
+    if (asteroids.length === 0) return
 
-    const tl = gsap.timeline({
-      repeat: -1,
-      delay: 2,
-      repeatDelay: 10,
-      defaults: { ease: 'none', duration: 1.25 }
-    })
+    let tl: any
 
-    asteroids.forEach((a) => {
-      tl.fromTo(
-        a,
-        { ['--progress']: 0, ['--brightness-factor']: 0 },
-        {
-          ['--progress']: 1,
-          ['--brightness-factor']: 1,
-          modifiers: {
-            ['--brightness-factor']: (v) => Math.sin(v * Math.PI)
-          }
-        },
-        `>+=${gsap.utils.random(0, 1)}`
-      )
+    import('~/lib/gsap').then(({ gsap }) => {
+      tl = gsap.timeline({
+        repeat: -1,
+        delay: 2,
+        repeatDelay: 10,
+        defaults: { ease: 'none', duration: 1.25 }
+      })
+
+      asteroids.forEach((a) => {
+        tl.fromTo(
+          a,
+          { ['--progress']: 0, ['--brightness-factor']: 0 },
+          {
+            ['--progress']: 1,
+            ['--brightness-factor']: 1,
+            modifiers: {
+              ['--brightness-factor']: (v: number) => Math.sin(v * Math.PI)
+            }
+          },
+          `>+=${rand(0, 1)}`
+        )
+      })
     })
 
     return () => {
-      tl.kill()
+      tl?.kill()
     }
   }, [render, generated])
 

@@ -1,11 +1,9 @@
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { Portal } from '~/components/primitives/portal'
-import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
 import { useTabletLgBreakpoint } from '~/hooks/use-media'
 import type { ToggleState } from '~/hooks/use-toggle-state'
-import { DURATION, gsap } from '~/lib/gsap'
 
 import { Burger } from './burger'
 import { Navlink } from '..'
@@ -28,48 +26,51 @@ export const MobileMenu = ({ isOn, handleToggle, handleOff, links, variant }: Mo
   const pathname = usePathname()
   const hash = useHash()
 
-  useIsomorphicLayoutEffect(() => {
-    const tl = gsap.timeline({
-      smoothChildTiming: true
+  useEffect(() => {
+    let killed = false
+
+    import('~/lib/gsap').then(({ gsap, DURATION }) => {
+      if (killed) return
+
+      const tl = gsap.timeline({ smoothChildTiming: true })
+
+      if (isOn) {
+        tl.to(mobileMenuRef.current, {
+          height: 'calc(100dvh - var(--site-header-offset))',
+          autoAlpha: 1
+        }).to(
+          mobileMenuInnerRef.current,
+          { autoAlpha: 1 },
+          '>-0.2'
+        )
+      } else {
+        tl.to(mobileMenuInnerRef.current, {
+          autoAlpha: 0,
+          duration: DURATION / 1.6
+        }).to(
+          mobileMenuRef.current,
+          { height: 0, autoAlpha: 0 },
+          '>-0.3'
+        )
+      }
+
+      // Store for cleanup
+      ;(mobileMenuRef.current as any)?.__tl?.kill()
+      if (mobileMenuRef.current) (mobileMenuRef.current as any).__tl = tl
     })
 
-    if (isOn) {
-      tl.to(mobileMenuRef.current, {
-        height: 'calc(100dvh - var(--site-header-offset))',
-        autoAlpha: 1
-      }).to(
-        mobileMenuInnerRef.current,
-        {
-          autoAlpha: 1
-        },
-        '>-0.2'
-      )
-    } else {
-      tl.to(mobileMenuInnerRef.current, {
-        autoAlpha: 0,
-        duration: DURATION / 1.6
-      }).to(
-        mobileMenuRef.current,
-        {
-          height: 0,
-          autoAlpha: 0
-        },
-        '>-0.3'
-      )
-    }
-
     return () => {
-      tl.kill()
+      killed = true
+      ;(mobileMenuRef.current as any)?.__tl?.kill()
     }
   }, [isOn])
 
-  // lock scroll when mobile menu is open
-  useIsomorphicLayoutEffect(() => {
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
     if (isOn && isTablet) {
-      gsap.set('body', { overflow: 'hidden' })
-
+      document.body.style.overflow = 'hidden'
       return () => {
-        gsap.set('body', { overflow: 'unset' })
+        document.body.style.overflow = ''
       }
     }
 

@@ -92,6 +92,9 @@ const Hyperspace: FC<HyperspaceProps> = ({ style, ...rest }) => {
   useLayoutEffect(() => {
     if (!canvasRef.current) return
 
+    // Skip continuous animation on mobile to save CPU/battery
+    if (window.matchMedia('(max-width: 768px)').matches) return
+
     const stars = starsList.current
     const canvas = canvasRef.current
     canvas.width = canvasRef.current.clientWidth
