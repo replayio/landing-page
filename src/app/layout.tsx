@@ -32,6 +32,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={clsx('h-full scroll-smooth bg-white antialiased', inter.variable, lexend.variable)}
     >
       <head>
+        <link rel="preconnect" href="https://assets.apollo.io" />
+        <link rel="preconnect" href="https://snap.licdn.com" />
+        <link rel="preconnect" href="https://static.ads-twitter.com" />
+        <link rel="dns-prefetch" href="https://www.redditstatic.com" />
+        <link rel="dns-prefetch" href="https://replay-analytics.netlify.app" />
+
         <Analytics />
         <Suspense fallback={null}>
           <RedditPixel />

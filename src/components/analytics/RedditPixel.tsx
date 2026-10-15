@@ -27,7 +27,7 @@ export function RedditPixel() {
 
     let cancelled = false
     let tries = 0
-    const maxTries = 60
+    const maxTries = 10
 
     const id = setInterval(() => {
       if (cancelled) {
@@ -49,7 +49,7 @@ export function RedditPixel() {
       if (lastTrackedKey.current === pathKey) return
       lastTrackedKey.current = pathKey
       window.rdt('track', 'PageVisit')
-    }, 50)
+    }, 500)
 
     return () => {
       cancelled = true
@@ -62,7 +62,7 @@ export function RedditPixel() {
   return (
     <Script
       id="reddit-pixel"
-      strategy="afterInteractive"
+      strategy="lazyOnload"
       dangerouslySetInnerHTML={{ __html: snippet }}
     />
   )

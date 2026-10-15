@@ -41,6 +41,7 @@ export function AutoplayVideo({
       loop
       muted
       playsInline
+      preload="none"
       aria-label={label}
       poster={poster}
     >
