@@ -72,7 +72,9 @@ guess from. Used by teams shipping more pull requests than anyone can review by 
   Trigger runs, switch environments, enable Security Scan, retrieve results, and mark bugs and
   security findings resolved.
 - **Replay MCP** — Agents can pull structured bug reports and time-travel debug their own failures
-  via the Replay MCP server.
+  via the Replay MCP server. On Web Debug Bench (Apr 2026; 177 hard, realistic bugs in agent-built
+  web apps, https://blog.replay.io/web-debug-bench), an agent with runtime access solved 76%; the
+  same agent reading code alone solved 61%.
 - **Reverse proxy** — Test localhost or private-network apps without exposing them publicly.
 
 ## Use Cases
@@ -87,6 +89,42 @@ guess from. Used by teams shipping more pull requests than anyone can review by 
 - **Automated QA testing tool** (https://replay.io/automated-qa-testing) — Automates the whole QA
   loop: exploration, writing and running Playwright tests, root cause analysis, and a suggested
   fix for a coding agent.
+
+## Comparisons
+
+Overview: https://replay.io/compare. Competitor details below are from each vendor's public site
+and documentation as of 2026-10-14. Replay QA tests web apps only; tools listed with native mobile
+support cover something Replay QA does not.
+
+- **Momentic** (https://replay.io/compare/momentic) — Alternative. Momentic's Mo agent explores
+  from a brief (target, scope, accounts, test data) and Momentic also offers plain-English YAML
+  tests and native iOS/Android testing. Replay QA starts from a URL, records every session
+  deterministically, and includes root cause and a suggested fix in each report.
+- **Ranger** (https://replay.io/compare/ranger) — Alternative. Ranger verifies scenarios written by
+  your coding agent, locally, before the agent finishes a feature. Replay QA explores the whole app
+  and runs on every PR, push or schedule.
+- **Tester Army** (https://replay.io/compare/tester-army) — Alternative. Plain-English test runs and
+  goal-driven discovery runs on web and native mobile, with video, screenshots and logs. Replay QA
+  needs no tests and adds root cause and a suggested fix.
+- **PostHog self-driving** (https://replay.io/compare/posthog) — Different stage. PostHog finds
+  issues in production user data and opens fix PRs. Replay QA tests before release and needs no
+  users. Many teams use both.
+- **QA Wolf** (https://replay.io/compare/qa-wolf) — Works alongside. QA Wolf builds and maintains
+  Playwright and Appium regression suites, self-serve or managed. Replay QA explores beyond the
+  suite and diagnoses app bugs with a suggested code fix.
+- **Meticulous** (https://replay.io/compare/meticulous) — Works alongside. Meticulous generates
+  visual regression tests from recorded sessions and diffs every PR. Replay QA explores the app
+  for bugs without a recorder script.
+- **BrowserStack** (https://replay.io/compare/browserstack) and **Sauce Labs**
+  (https://replay.io/compare/sauce-labs) — Work alongside. Real-device clouds for running your test
+  suites, with AI authoring and failure analysis. Replay QA explores web apps without a suite and
+  diagnoses from a deterministic recording.
+- **Playwright** (https://replay.io/compare/playwright) — Replay QA is built on Playwright. Playwright
+  Test Agents' healer repairs test code and marks a test test.fixme() when the app looks broken;
+  Replay QA reports that bug with root cause and a suggested fix.
+- **Your coding agent** (https://replay.io/compare/coding-agents) — Claude Code or Codex can check a
+  flow in a live browser. Replay QA tests every journey systematically, on every PR or schedule,
+  keeps a deterministic recording of each failure, and hands the agent root cause via Replay MCP.
 
 ## Pricing
 
@@ -107,6 +145,7 @@ For software factories:    https://replay.io/for-software-factories
 Web application testing:   https://replay.io/web-application-testing
 Continuous testing:        https://replay.io/continuous-testing
 Automated QA testing:      https://replay.io/automated-qa-testing
+Comparisons:               https://replay.io/compare
 Security Scan:             https://replay.io/security
 Pricing:                   https://replay.io/pricing
 Start (app):               https://qa.replay.io/new
