@@ -127,7 +127,10 @@ const NAV_LINKS = [
 ]
 
 // SEO landing pages. Linked here so they are not orphans; they stay out of the header nav.
-const USE_CASE_LINKS = seoVariants.map((v) => ({ label: v.eyebrow, href: v.path }))
+const USE_CASE_LINKS = [
+  ...seoVariants.map((v) => ({ label: v.eyebrow, href: v.path })),
+  { label: 'Software factories', href: '/for-software-factories' }
+]
 
 // Comparison pages, same reasoning as above.
 const COMPARE_LINKS = [
