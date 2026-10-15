@@ -42,6 +42,10 @@ export default {
           from: { opacity: '0' },
           to: { opacity: '1' }
         },
+        fadeInUp: {
+          from: { opacity: '0', transform: 'translateY(15px)' },
+          to: { opacity: '1', transform: 'translateY(0)' }
+        },
         slideDownAndFade: {
           from: { opacity: '0', transform: 'translateY(-2px)' },
           to: { opacity: '1', transform: 'translateY(0)' }
@@ -69,6 +73,7 @@ export default {
         slideUpAndFade: 'slideUpAndFade 100ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideRightAndFade: 'slideRightAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
         fadeIn: 'fadeIn 1s ease-in-out forwards',
+        fadeInUp: 'fadeInUp 0.9s ease-out forwards',
         gradientShift: 'gradientShift 5s ease-in-out infinite'
       },
       backgroundSize: {
