@@ -468,7 +468,7 @@ export const SITEMAP: Record<SitemapKeys, SitemapType> = {
           links: [
             {
               id: 0,
-              href: 'https://www.replay.io/discord',
+              href: 'https://replay.io/discord',
               label: 'Discord'
             },
             {

@@ -5,7 +5,7 @@ import { resolveBlogRedirect } from './lib/blog-redirect'
 const MARKDOWN_TOKEN_BY_PATH = markdownAgentTokens as Record<string, number>
 
 const BLOG_LEGACY_HOST = 'blog.replay.io'
-const BLOG_NEW_ORIGIN = 'https://www.replay.io'
+const BLOG_NEW_ORIGIN = 'https://replay.io'
 
 function blogLegacyRedirect(request: NextRequest): NextResponse | null {
   const host = request.headers.get('host')
@@ -136,7 +136,7 @@ function appendDiscoveryLinkHeaders(response: NextResponse): void {
     'Link',
     '</.well-known/agent-skills/index.json>; rel="related"; title="Agent Skills"'
   )
-  response.headers.append('Link', '<https://www.replay.io/sitemap.xml>; rel="sitemap"')
+  response.headers.append('Link', '<https://replay.io/sitemap.xml>; rel="sitemap"')
 }
 
 export function proxy(request: NextRequest) {
