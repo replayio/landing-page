@@ -52,7 +52,7 @@ const outputFaqs = [
         serve as an important verification layer that goes beyond static code analysis. In fact, we
         wrote up a{' '}
         <a
-          href="https://www.replay.io/blog/what-our-experimental-self-healing-software-loop-shipped-in-two-weeks"
+          href="https://replay.io/blog/what-our-experimental-self-healing-software-loop-shipped-in-two-weeks"
           className="underline hover:text-gray-900"
         >
           blog post

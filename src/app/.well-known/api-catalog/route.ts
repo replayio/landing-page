@@ -11,7 +11,7 @@ const BODY = {
         { href: 'https://docs.replay.io/basics/replay-mcp/quickstart', type: 'text/html' }
       ],
       'service-meta': [
-        { href: 'https://www.replay.io/.well-known/mcp/server-card.json', type: 'application/json' }
+        { href: 'https://replay.io/.well-known/mcp/server-card.json', type: 'application/json' }
       ]
     }
   ]

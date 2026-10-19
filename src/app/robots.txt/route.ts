@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { siteOrigin } from '~/lib/constants'
 
 const ROBOTS = `User-agent: *
 Allow: /
@@ -40,7 +41,7 @@ Disallow: /
 User-agent: anthropic-ai
 Disallow: /
 
-Sitemap: https://www.replay.io/sitemap.xml
+Sitemap: ${siteOrigin}/sitemap.xml
 `
 
 export function GET() {
