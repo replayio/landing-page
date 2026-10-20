@@ -1,7 +1,4 @@
-import { useRef } from 'react'
-
-import { useIsomorphicLayoutEffect } from '~/hooks/use-isomorphic-layout-effect'
-import { gsap } from '~/lib/gsap'
+import { useEffect, useRef } from 'react'
 
 export const Burger = ({ isOpen }: { isOpen: boolean }) => {
   const tl = useRef<GSAPTimeline>(undefined)
@@ -9,39 +6,45 @@ export const Burger = ({ isOpen }: { isOpen: boolean }) => {
   const middleRef = useRef(null)
   const bottomRef = useRef(null)
 
-  useIsomorphicLayoutEffect(() => {
-    tl.current = gsap.timeline({
-      paused: true,
-      smoothChildTiming: true
+  useEffect(() => {
+    let killed = false
+    import('~/lib/gsap').then(({ gsap }) => {
+      if (killed) return
+
+      tl.current = gsap.timeline({
+        paused: true,
+        smoothChildTiming: true
+      })
+
+      tl.current
+        .to(topRef.current, {
+          y: -3,
+          transformOrigin: '50% 50%'
+        })
+        .to(
+          bottomRef.current,
+          {
+            y: 3,
+            transformOrigin: '50% 50%'
+          },
+          '<'
+        )
+        .to(middleRef.current, { xPercent: -25, autoAlpha: 0 }, '<')
+        .add('rotate')
+        .to(topRef.current, { y: 6 }, 'rotate')
+        .to(bottomRef.current, { y: -6 }, 'rotate')
+        .to(topRef.current, { rotationZ: 45, transformOrigin: '50% 50%' }, 'rotate')
+        .to(bottomRef.current, { rotationZ: -45, transformOrigin: '50% 50%' }, 'rotate')
+        .timeScale(2.6)
     })
 
-    tl.current
-      .to(topRef.current, {
-        y: -3,
-        transformOrigin: '50% 50%'
-      })
-      .to(
-        bottomRef.current,
-        {
-          y: 3,
-          transformOrigin: '50% 50%'
-        },
-        '<'
-      )
-      .to(middleRef.current, { xPercent: -25, autoAlpha: 0 }, '<')
-      .add('rotate')
-      .to(topRef.current, { y: 6 }, 'rotate')
-      .to(bottomRef.current, { y: -6 }, 'rotate')
-      .to(topRef.current, { rotationZ: 45, transformOrigin: '50% 50%' }, 'rotate')
-      .to(bottomRef.current, { rotationZ: -45, transformOrigin: '50% 50%' }, 'rotate')
-      .timeScale(2.6)
-
     return () => {
+      killed = true
       tl.current?.kill()
     }
   }, [])
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       tl.current?.play()
     } else {

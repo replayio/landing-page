@@ -262,12 +262,12 @@ const nextConfig = {
       },
       {
         source: '/terms-of-use',
-        destination: 'https://www.replay.io/terms-of-service',
+        destination: '/terms-of-service',
         permanent: true
       },
       {
         source: '/security-privacy',
-        destination: 'https://www.replay.io/security-and-privacy',
+        destination: '/security-and-privacy',
         permanent: true
       },
       {

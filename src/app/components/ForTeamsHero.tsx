@@ -1,14 +1,9 @@
-'use client'
-
 import { Container } from '~/components/Container'
 import { CopyAgentPrompt } from '~/app/components/CopyAgentPrompt'
 import { Button } from '~/components/Button'
 import Hyperspace from '~/app/components/hero/hyperspace'
-import { usePageSectionAnimation } from '~/hooks/use-page-section-animation'
 
 export function ForTeamsHero() {
-  const heroContentRef = usePageSectionAnimation<HTMLDivElement>()
-
   return (
     <section className="relative flex overflow-hidden bg-[#FCFCFC]">
       <div className="absolute -top-[30%] left-0 h-[130%] w-full animate-fadeIn lg:-left-[35%] lg:top-0 lg:h-full lg:w-[135%]">
@@ -16,20 +11,20 @@ export function ForTeamsHero() {
       </div>
       <div className="relative z-10 flex max-w-full flex-1 flex-col">
         <Container className="relative z-10 flex w-full max-w-7xl flex-col pb-16 pt-[120px] lg:pb-20 lg:pt-[160px]">
-          <div ref={heroContentRef} className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-display text-balance text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
               Autonomous QA for teams shipping faster than ever before.
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
+            <p className="mx-auto mt-6 max-w-2xl animate-fadeInUp text-pretty text-lg leading-relaxed text-gray-700 opacity-0" style={{ animationDelay: '0.12s' }}>
               Replay QA autonomously explores every new build, reproduces the failures it finds, and
               sends your team evidence they can fix before users discover&nbsp;the bug.
             </p>
-            <div className="mt-10">
+            <div className="mt-10 animate-fadeInUp opacity-0" style={{ animationDelay: '0.24s' }}>
               <Button href="https://qa.replay.io/new?utm_source=homepage" target="_blank" size="base">
                 Test Replay QA on my app
               </Button>
             </div>
-            <p className="mt-4 text-xs text-gray-500">
+            <p className="mt-4 animate-fadeInUp text-xs text-gray-500 opacity-0" style={{ animationDelay: '0.36s' }}>
               No credit card. No existing test suite required.
             </p>
             <CopyAgentPrompt />

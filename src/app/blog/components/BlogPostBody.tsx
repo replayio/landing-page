@@ -76,11 +76,11 @@ function canonicaliseReplayHref(href: string): string | null {
 
   if (host === 'blog.replay.io') {
     const path = resolveBlogRedirect(url.pathname)
-    return `https://www.replay.io${path}${url.search}${url.hash}`
+    return `https://replay.io${path}${url.search}${url.hash}`
   }
 
   if (host === 'replay.io' || host === 'www.replay.io') {
-    return `https://www.replay.io${url.pathname}${url.search}${url.hash}`
+    return `https://replay.io${url.pathname}${url.search}${url.hash}`
   }
 
   if (host === 'docs.replay.io') {
