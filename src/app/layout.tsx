@@ -7,6 +7,7 @@ import Script from 'next/script'
 import { ReactNode, Suspense } from 'react'
 import Analytics from '~/lib/analytics'
 import { RedditPixel } from '~/components/analytics/RedditPixel'
+import { MetaPixel, META_PIXEL_ID } from '~/components/analytics/MetaPixel'
 
 export const viewport: Viewport = {
   themeColor: '#FFF'
@@ -36,11 +37,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="preconnect" href="https://snap.licdn.com" />
         <link rel="preconnect" href="https://static.ads-twitter.com" />
         <link rel="dns-prefetch" href="https://www.redditstatic.com" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://replay-analytics.netlify.app" />
 
         <Analytics />
         <Suspense fallback={null}>
           <RedditPixel />
+        </Suspense>
+        <Suspense fallback={null}>
+          <MetaPixel />
         </Suspense>
 
         <Script
@@ -111,6 +116,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             style={{ display: 'none' }}
             alt=""
             src="https://px.ads.linkedin.com/collect/?pid=8830930&fmt=gif"
+          />
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            alt=""
+            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
         {children}
