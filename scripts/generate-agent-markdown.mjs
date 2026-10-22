@@ -57,6 +57,7 @@ const ROUTES = [
   { pathname: '/compare/browserstack', slug: 'compare-browserstack', title: 'Replay QA vs BrowserStack — Replay' },
   { pathname: '/compare/sauce-labs', slug: 'compare-sauce-labs', title: 'Replay QA vs Sauce Labs — Replay' },
   { pathname: '/compare/playwright', slug: 'compare-playwright', title: 'Replay QA vs Playwright — Replay' },
+  { pathname: '/compare/qodo', slug: 'compare-qodo', title: 'Replay QA vs Qodo — Replay' },
   { pathname: '/compare/coding-agents', slug: 'compare-coding-agents', title: 'Replay QA vs Your Coding Agent — Replay' },
   { pathname: '/roi-calculator', slug: 'roi-calculator', title: 'ROI Calculator — Replay' },
   { pathname: '/about', slug: 'about', title: 'About — Replay' },

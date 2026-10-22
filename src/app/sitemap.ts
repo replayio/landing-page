@@ -35,6 +35,7 @@ const ROUTES: Array<{ path: string; priority: number; changeFrequency: ChangeFre
   { path: '/compare/browserstack', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/compare/sauce-labs', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/compare/playwright', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/compare/qodo', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/compare/coding-agents', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/precog', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/roi-calculator', priority: 0.7, changeFrequency: 'monthly' },

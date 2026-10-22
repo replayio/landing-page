@@ -1,6 +1,6 @@
 # Replay QA — for-llms.txt
 # Machine-readable summary of Replay QA for LLM crawlers and AI assistants.
-# Last updated: 2026-10-14
+# Last updated: 2026-10-22
 
 ## What is Replay QA?
 
@@ -93,7 +93,7 @@ guess from. Used by teams shipping more pull requests than anyone can review by 
 ## Comparisons
 
 Overview: https://replay.io/compare. Competitor details below are from each vendor's public site
-and documentation as of 2026-10-14. Replay QA tests web apps only; tools listed with native mobile
+and documentation, verified 2026-10-14 to 2026-10-22. Replay QA tests web apps only; tools listed with native mobile
 support cover something Replay QA does not.
 
 - **Momentic** (https://replay.io/compare/momentic) — Alternative. Momentic's Mo agent explores
@@ -122,6 +122,9 @@ support cover something Replay QA does not.
 - **Playwright** (https://replay.io/compare/playwright) — Replay QA is built on Playwright. Playwright
   Test Agents' healer repairs test code and marks a test test.fixme() when the app looks broken;
   Replay QA reports that bug with root cause and a suggested fix.
+- **Qodo** (https://replay.io/compare/qodo) — Works alongside. Qodo is AI code review and
+  governance: it reviews each PR against the whole repository and can apply fixes. Replay QA tests
+  the running app in a browser and finds bugs that only appear at runtime.
 - **Your coding agent** (https://replay.io/compare/coding-agents) — Claude Code or Codex can check a
   flow in a live browser. Replay QA tests every journey systematically, on every PR or schedule,
   keeps a deterministic recording of each failure, and hands the agent root cause via Replay MCP.

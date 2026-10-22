@@ -12,6 +12,7 @@ export type CompetitorKey =
   | 'browserstack'
   | 'sauce-labs'
   | 'playwright'
+  | 'qodo'
   | 'coding-agents'
 
 export type Relationship = 'alternative' | 'alongside' | 'diy'
@@ -949,6 +950,117 @@ export const competitors: Competitor[] = [
       'https://github.com/microsoft/playwright/blob/main/packages/playwright/src/agents/playwright-test-healer.agent.md',
       'https://playwright.dev/docs/trace-viewer',
       'https://github.com/microsoft/playwright-mcp'
+    ]
+  },
+
+  {
+    key: 'qodo',
+    name: 'Qodo',
+    relationship: 'alongside',
+    path: '/compare/qodo',
+    titleTag: 'Replay QA vs Qodo: Code Review vs Runtime QA',
+    metaDescription:
+      'Replay QA vs Qodo: AI code review that reads your repository, or runtime QA that tests the running app, records every session and suggests the fix.',
+    h1: 'Replay QA vs Qodo',
+    subhead:
+      'Qodo reviews the code in every pull request, in the context of your whole repository. Replay QA tests what the app actually does in a browser after the change. One checks the code; the other checks that the app works.',
+    oneLiner: 'AI code review and governance for pull requests.',
+    tldr: [
+      'Qodo’s agents review each PR against the full repository, linked tickets and your rules. Replay QA explores and tests the running app.',
+      'Qodo flags issues in the code and can apply fixes. Replay QA finds bugs that only show up at runtime, like race conditions, broken flows and accessibility failures, and suggests the fix.',
+      'Both install on your repo and comment on PRs. They answer different questions, so many teams run both.'
+    ],
+    matrix: {
+      setup: { text: 'Connect a Git provider: GitHub, GitLab, Bitbucket, Azure DevOps or Gerrit.' },
+      testSuite: { text: 'Not applicable. Reviews code rather than running tests.' },
+      discovery: { text: 'Agents review each PR in the context of the whole repository.' },
+      evidence: { text: 'PR comments ranked by severity, plus a PR summary.' },
+      rootCause: { verdict: 'partial', text: 'Explains why each finding matters, from the code.' },
+      codeFix: {
+        verdict: 'yes',
+        text: 'Apply suggestions in one click, or hand them to a coding agent.'
+      },
+      traffic: { verdict: 'no', text: 'No.' },
+      mobile: { text: 'Not applicable. Reviews source code, including mobile code.' },
+      agents: {
+        verdict: 'yes',
+        text: 'CLI, MCP server, and plugins for Claude Code, Codex and Kiro.'
+      },
+      pricing: { text: '14-day trial; Pro Team from $30 with usage credits; Enterprise.' }
+    },
+    together: [
+      {
+        title: 'Code layer and runtime layer',
+        body: 'Qodo answers “is this change well written and does it follow our rules?” Replay QA answers “does the app still work after this change?” A PR can pass one and fail the other.'
+      },
+      {
+        title: 'Same place in your workflow',
+        body: 'Both install on your repo and post on pull requests. Replay QA PR runs add root cause and a suggested fix as a PR comment, next to Qodo’s review.'
+      }
+    ],
+    replayFurther: [
+      {
+        title: 'It runs the app',
+        body: 'Replay QA explores the app in a Chromium browser, discovers user journeys, and runs them in parallel. It catches bugs that only appear at runtime, which no amount of reading the diff will reveal.'
+      },
+      {
+        title: 'Evidence from execution',
+        body: 'Every session is recorded deterministically, capturing every DOM mutation, network call and JS frame. Root cause comes from what the app actually did, not what the code says it should do.'
+      },
+      {
+        title: 'Beyond the diff',
+        body: 'Replay QA tests the whole app on PRs, pushes or a schedule, and checks accessibility, performance and, with Security Scan, logic flaws like cross-tenant data exposure.'
+      }
+    ],
+    strongerAt: [
+      {
+        title: 'Code quality and standards',
+        body: 'Qodo reviews against your organisation’s rules, can mine rules from your codebase, and reviews across multiple repositories.'
+      },
+      {
+        title: 'Enterprise governance',
+        body: 'SSO, audit logs, bring-your-own-key, and single-tenant, on-prem or air-gapped deployment.'
+      },
+      {
+        title: 'Git provider coverage',
+        body: 'Qodo works with GitHub, GitLab, Bitbucket, Azure DevOps and Gerrit. Replay QA’s app is for GitHub, with a REST API for everything else.'
+      }
+    ],
+    chooseThemIf: [
+      'You want AI review of code quality and standards on every PR.',
+      'You need governance features or on-prem deployment for code review.'
+    ],
+    chooseReplayIf: [
+      'You want to know the app actually works after each change.',
+      'You want runtime bugs found with root cause and a suggested fix.',
+      'You want accessibility, performance and security checked in the same run.'
+    ],
+    faqs: [
+      {
+        question: 'Is Replay QA a Qodo alternative?',
+        answer:
+          'Not really. Qodo reviews code; Replay QA tests the running app. They work at different layers, and teams often run both on the same pull requests.'
+      },
+      {
+        question: 'We already use AI code review. Why add Replay QA?',
+        answer:
+          'Code review catches problems visible in the code. Replay QA catches problems that only appear when the app runs, like race conditions, broken user flows and accessibility failures, and records exactly what happened.'
+      },
+      {
+        question: 'Does Replay QA comment on pull requests?',
+        answer:
+          'Yes. Install the GitHub app and PR runs post root cause and a suggested fix as a PR comment.'
+      },
+      { question: 'How much does Replay QA cost?', answer: pricingAnswer }
+    ],
+    lastVerified: '2026-10-22',
+    sources: [
+      'https://www.qodo.ai/',
+      'https://qodo.ai/blog/introducing-qodo-3-0',
+      'https://docs.qodo.ai/code-review/overview',
+      'https://docs.qodo.ai/code-review/remediate-findings-in-prs',
+      'https://docs.qodo.ai/agentic-toolbox/mcp',
+      'https://www.qodo.ai/pricing/'
     ]
   },
 

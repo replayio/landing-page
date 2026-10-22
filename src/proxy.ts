@@ -92,6 +92,7 @@ const MARKDOWN_BY_PATH: Record<string, string> = {
   '/compare/browserstack': '/agent/compare-browserstack.md',
   '/compare/sauce-labs': '/agent/compare-sauce-labs.md',
   '/compare/playwright': '/agent/compare-playwright.md',
+  '/compare/qodo': '/agent/compare-qodo.md',
   '/compare/coding-agents': '/agent/compare-coding-agents.md',
   '/roi-calculator': '/agent/roi-calculator.md',
   '/about': '/agent/about.md',

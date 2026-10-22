@@ -30,6 +30,7 @@ const ROUTES = [
   '/compare/browserstack',
   '/compare/sauce-labs',
   '/compare/playwright',
+  '/compare/qodo',
   '/compare/coding-agents',
   '/contact',
   '/debugging',
