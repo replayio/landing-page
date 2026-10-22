@@ -8,7 +8,13 @@ import { ContentPageHeader } from '~/components/content-page/ContentPageHeader'
 import { seoVariants } from '~/components/seo-landing/content'
 import { ComparisonTable } from './ComparisonTable'
 import { COMPARE_HUB_PATH, formatVerified } from './ComparePage'
-import { RELATIONSHIP_GROUPS, compareHub, competitors, replayColumn } from './content'
+import {
+  RELATIONSHIP_GROUPS,
+  compareHub,
+  competitors,
+  replayColumn,
+  type Relationship
+} from './content'
 
 const latestVerified = competitors
   .map((c) => c.lastVerified)
@@ -47,12 +53,20 @@ function Matrix() {
   )
 }
 
-function Groups() {
+function Groups({
+  relationships,
+  className
+}: {
+  relationships: Relationship[]
+  className: string
+}) {
+  const groups = relationships.map((r) => RELATIONSHIP_GROUPS.find((g) => g.relationship === r)!)
+
   return (
-    <section className="bg-white pb-16 md:pb-20">
+    <section className={className}>
       <Container>
         <div className="mx-auto flex max-w-5xl flex-col gap-12">
-          {RELATIONSHIP_GROUPS.map((group) => (
+          {groups.map((group) => (
             <div key={group.relationship}>
               <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl">
                 {group.heading}
@@ -105,8 +119,11 @@ export function CompareHub() {
             </a>
           ]}
         />
-        <Groups />
+        {/* Tools that work alongside Replay QA come first: most visitors already use one of
+            them, so the page starts from "how does this fit my stack" before head-to-heads. */}
+        <Groups relationships={['alongside', 'diy']} className="bg-white pb-16 md:pb-20" />
         <Matrix />
+        <Groups relationships={['alternative']} className="bg-white py-16 md:py-20" />
         <BugReportSection />
         <div className="bg-white pt-16 md:pt-24" />
         <Faqs

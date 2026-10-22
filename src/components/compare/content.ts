@@ -1064,7 +1064,7 @@ export const competitors: Competitor[] = [
     ]
   },
 
-  // ---------------------------------------------------------------- Doing it yourself
+  // ---------------------------------------------------------------- Using your coding agent
   {
     key: 'coding-agents',
     name: 'Your coding agent',
@@ -1176,7 +1176,7 @@ export const competitors: Competitor[] = [
 export const RELATIONSHIP_GROUPS: Array<{ relationship: Relationship; heading: string }> = [
   { relationship: 'alternative', heading: 'Alternatives to Replay QA' },
   { relationship: 'alongside', heading: 'Works alongside Replay QA' },
-  { relationship: 'diy', heading: 'Doing it yourself' }
+  { relationship: 'diy', heading: 'Using your coding agent' }
 ]
 
 export function getCompetitor(key: string) {
