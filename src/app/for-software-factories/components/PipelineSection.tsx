@@ -42,8 +42,21 @@ export function PipelineSection() {
 
           <p className="mt-10 text-sm text-gray-600">
             Running it on every change?{' '}
-            <Link href="/continuous-testing" className="font-medium text-accent transition hover:opacity-80">
+            <Link
+              href="/continuous-testing"
+              className="font-medium text-accent transition hover:opacity-80"
+            >
               See Replay QA as a continuous testing platform
+            </Link>
+            .
+          </p>
+          <p className="mt-2 text-sm text-gray-600">
+            Why not just ask your coding agent to test it?{' '}
+            <Link
+              href="/compare/coding-agents"
+              className="font-medium text-accent transition hover:opacity-80"
+            >
+              See what Replay QA adds
             </Link>
             .
           </p>

@@ -25,7 +25,7 @@ const PORT = 3099
 const BASE_URL = `http://127.0.0.1:${PORT}`
 const SITE_URL = 'https://www.replay.io'
 
-// Same route mapping as MARKDOWN_BY_PATH in src/middleware.ts
+// Same route mapping as MARKDOWN_BY_PATH in src/proxy.ts
 const ROUTES = [
   { pathname: '/', slug: 'index', title: 'Replay — Home' },
   { pathname: '/how-it-works', slug: 'how-it-works', title: 'How It Works — Replay' },
@@ -47,6 +47,18 @@ const ROUTES = [
     slug: 'automated-qa-testing',
     title: 'Automated QA Testing Tool — Replay'
   },
+  { pathname: '/compare', slug: 'compare', title: 'Replay QA Comparisons — Replay' },
+  { pathname: '/compare/momentic', slug: 'compare-momentic', title: 'Replay QA vs Momentic — Replay' },
+  { pathname: '/compare/ranger', slug: 'compare-ranger', title: 'Replay QA vs Ranger — Replay' },
+  { pathname: '/compare/tester-army', slug: 'compare-tester-army', title: 'Replay QA vs Tester Army — Replay' },
+  { pathname: '/compare/posthog', slug: 'compare-posthog', title: 'Replay QA vs PostHog — Replay' },
+  { pathname: '/compare/qa-wolf', slug: 'compare-qa-wolf', title: 'Replay QA vs QA Wolf — Replay' },
+  { pathname: '/compare/meticulous', slug: 'compare-meticulous', title: 'Replay QA vs Meticulous — Replay' },
+  { pathname: '/compare/browserstack', slug: 'compare-browserstack', title: 'Replay QA vs BrowserStack — Replay' },
+  { pathname: '/compare/sauce-labs', slug: 'compare-sauce-labs', title: 'Replay QA vs Sauce Labs — Replay' },
+  { pathname: '/compare/playwright', slug: 'compare-playwright', title: 'Replay QA vs Playwright — Replay' },
+  { pathname: '/compare/qodo', slug: 'compare-qodo', title: 'Replay QA vs Qodo — Replay' },
+  { pathname: '/compare/coding-agents', slug: 'compare-coding-agents', title: 'Replay QA vs Your Coding Agent — Replay' },
   { pathname: '/roi-calculator', slug: 'roi-calculator', title: 'ROI Calculator — Replay' },
   { pathname: '/about', slug: 'about', title: 'About — Replay' },
   { pathname: '/privacy-policy', slug: 'privacy-policy', title: 'Privacy Policy — Replay' },
@@ -197,14 +209,21 @@ async function convertPage(route) {
   // Strip JSON-LD script tags — they produce raw JSON noise in the markdown
   contentHtml = contentHtml.replace(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, '')
 
-  // Extract metadata from <head>
+  // Extract metadata from <head>. React escapes &, quotes and apostrophes in these values.
+  const decode = (text) =>
+    text
+      .replace(/&quot;/g, '"')
+      .replace(/&#x27;|&#39;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
   const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i)
   const descMatch =
     html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i) ||
     html.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i)
   const metadata = {
-    title: titleMatch?.[1]?.trim() || route.title,
-    excerpt: descMatch?.[1]?.trim() || null
+    title: titleMatch?.[1] ? decode(titleMatch[1].trim()) : route.title,
+    excerpt: descMatch?.[1] ? decode(descMatch[1].trim()) : null
   }
 
   let markdown = htmlToMarkdown(contentHtml, { baseUrl: canonicalUrl })
@@ -273,11 +292,9 @@ function generateLlmsTxt(results) {
   for (const { route, metadata } of results) {
     const title = metadata?.title || route.title
     const desc = metadata?.excerpt ? `: ${metadata.excerpt}` : ''
-    // Link to the agent markdown version of each page
-    const mdUrl =
-      route.pathname === '/'
-        ? `${SITE_URL}/agent/index.md`
-        : `${SITE_URL}/agent${route.pathname}.md`
+    // Link to the agent markdown version of each page. Use the slug, which is the file name:
+    // nested paths like /compare/momentic are written as compare-momentic.md.
+    const mdUrl = `${SITE_URL}/agent/${route.slug}.md`
     lines.push(`- [${title}](${mdUrl})${desc}`)
   }
 

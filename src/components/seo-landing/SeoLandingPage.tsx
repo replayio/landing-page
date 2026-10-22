@@ -24,8 +24,15 @@ function keywordLabel(keyword: string) {
   return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
-export function seoLandingMetadata(key: SeoVariantKey): Metadata {
-  const { titleTag: title, metaDescription: description, path } = getVariant(key)
+export function buildMetadata({
+  titleTag: title,
+  metaDescription: description,
+  path
+}: {
+  titleTag: string
+  metaDescription: string
+  path: string
+}): Metadata {
   const url = `${siteOrigin}${path}`
 
   return {
@@ -50,7 +57,13 @@ export function seoLandingMetadata(key: SeoVariantKey): Metadata {
   }
 }
 
-function Hero({ variant }: { variant: SeoVariant }) {
+export function seoLandingMetadata(key: SeoVariantKey): Metadata {
+  return buildMetadata(getVariant(key))
+}
+
+type HeroProps = { eyebrow: string; h1: string; subhead: string; utmSource: string }
+
+export function Hero({ eyebrow, h1, subhead, utmSource }: HeroProps) {
   return (
     <section className="relative flex overflow-hidden bg-[#FCFCFC]">
       <div className="absolute inset-0 animate-fadeIn">
@@ -60,16 +73,20 @@ function Hero({ variant }: { variant: SeoVariant }) {
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/15 bg-accent/5 px-3 py-1 text-sm text-slate-700">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            {variant.eyebrow}
+            {eyebrow}
           </span>
           <h1 className="text-balance font-display text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl">
-            {variant.h1}
+            {h1}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-gray-700">
-            {variant.subhead}
+            {subhead}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Button href={`https://qa.replay.io/new?utm_source=${variant.key}`} target="_blank" size="base">
+            <Button
+              href={`https://qa.replay.io/new?utm_source=${utmSource}`}
+              target="_blank"
+              size="base"
+            >
               Start free
             </Button>
             <Button href="/how-it-works" variant="outline" size="base">
@@ -92,7 +109,7 @@ const reportParts = [
 ]
 
 // Shown on every page: seeing a real bug report is the "aha" moment in customer interviews.
-function BugReportSection() {
+export function BugReportSection() {
   return (
     <section className="relative isolate overflow-hidden bg-gray-200 py-16 md:py-24">
       <Container>
@@ -211,17 +228,24 @@ function Highlight({ variant }: { variant: SeoVariant }) {
   )
 }
 
-function Faqs({ variant }: { variant: SeoVariant }) {
+type Faq = { question: string; answer: string }
+
+export function Faqs({
+  faqs,
+  related
+}: {
+  faqs: Faq[]
+  related: Array<{ label: string; href: string }>
+}) {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: variant.faqs.map((faq) => ({
+    mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
       acceptedAnswer: { '@type': 'Answer', text: faq.answer }
     }))
   }
-  const related = seoVariants.filter((v) => v.key !== variant.key)
 
   return (
     <section className="bg-white pb-16 md:pb-24">
@@ -234,14 +258,17 @@ function Faqs({ variant }: { variant: SeoVariant }) {
           <h2 className="mb-10 text-center text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
             Frequently asked questions
           </h2>
-          <FaqAccordionList faqs={variant.faqs} defaultOpenIndex={0} />
+          <FaqAccordionList faqs={faqs} defaultOpenIndex={0} />
           <p className="mt-8 text-center text-sm text-gray-600">
             Related:{' '}
-            {related.map((v, i) => (
-              <span key={v.key}>
+            {related.map((link, i) => (
+              <span key={link.href}>
                 {i > 0 && ' · '}
-                <Link href={v.path} className="font-medium text-accent transition hover:opacity-80">
-                  {keywordLabel(v.keyword)}
+                <Link
+                  href={link.href}
+                  className="font-medium text-accent transition hover:opacity-80"
+                >
+                  {link.label}
                 </Link>
               </span>
             ))}
@@ -252,7 +279,7 @@ function Faqs({ variant }: { variant: SeoVariant }) {
   )
 }
 
-function FinalCTA({ variant }: { variant: SeoVariant }) {
+export function FinalCTA({ utmSource }: { utmSource: string }) {
   return (
     <section className="bg-gray-200 py-16 md:py-24">
       <Container>
@@ -265,7 +292,11 @@ function FinalCTA({ variant }: { variant: SeoVariant }) {
             app uses about 20 credits per full QA run.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Button href={`https://qa.replay.io/new?utm_source=${variant.key}`} target="_blank" size="base">
+            <Button
+              href={`https://qa.replay.io/new?utm_source=${utmSource}`}
+              target="_blank"
+              size="base"
+            >
               Start free
             </Button>
             <Button href="/pricing" variant="outline" size="base">
@@ -286,13 +317,24 @@ export function SeoLandingPage({ variantKey }: { variantKey: SeoVariantKey }) {
     <>
       <Header />
       <PageContentAnimate>
-        <Hero variant={variant} />
+        <Hero
+          eyebrow={variant.eyebrow}
+          h1={variant.h1}
+          subhead={variant.subhead}
+          utmSource={variant.key}
+        />
         <BugReportSection />
         <FeatureGrid variant={variant} />
         <StepList variant={variant} />
         <Highlight variant={variant} />
-        <Faqs variant={variant} />
-        <FinalCTA variant={variant} />
+        <Faqs
+          faqs={variant.faqs}
+          related={seoVariants
+            .filter((v) => v.key !== variant.key)
+            .map((v) => ({ label: keywordLabel(v.keyword), href: v.path }))
+            .concat({ label: 'How Replay QA compares', href: '/compare' })}
+        />
+        <FinalCTA utmSource={variant.key} />
       </PageContentAnimate>
       <Footer />
     </>

@@ -145,6 +145,13 @@ export default function HowItWorksPage() {
                 </Link>{' '}
                 that handles all of it.
               </p>
+              <p>
+                Wondering how that differs from the tools you already use?{' '}
+                <Link href="/compare" className="font-medium text-accent hover:opacity-80">
+                  See how Replay QA compares
+                </Link>
+                .
+              </p>
             </Step>
 
             <Step
@@ -206,7 +213,14 @@ export default function HowItWorksPage() {
                 of a guess. They can see the state of the page, the network calls, and the code
                 that ran.
               </p>
-              <p>They&apos;re reading what your app did, not what the code says it should do.</p>
+              <p>
+                They&apos;re reading what your app did, not what the code says it should do.
+                That&apos;s the difference between runtime QA and{' '}
+                <Link href="/compare/qodo" className="font-medium text-accent hover:opacity-80">
+                  AI code review
+                </Link>
+                .
+              </p>
               <Checklist
                 items={[
                   'Deep runtime bugs: React component failures, elusive state mutations, race conditions, async timing',

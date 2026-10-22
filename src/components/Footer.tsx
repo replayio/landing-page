@@ -115,6 +115,7 @@ const NAV_LINKS = [
   // { label: 'For Engineers', href: '/engineers' },
   { label: 'Home', href: '/' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Compare', href: '/compare' },
   { label: 'ROI Calculator', href: '/roi-calculator' },
   // Restored: /debugging is in the sitemap but nothing linked to it, so Ahrefs
   // reported it as an orphan page.
