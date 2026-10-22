@@ -25,7 +25,7 @@ const PORT = 3099
 const BASE_URL = `http://127.0.0.1:${PORT}`
 const SITE_URL = 'https://www.replay.io'
 
-// Same route mapping as MARKDOWN_BY_PATH in src/middleware.ts
+// Same route mapping as MARKDOWN_BY_PATH in src/proxy.ts
 const ROUTES = [
   { pathname: '/', slug: 'index', title: 'Replay — Home' },
   { pathname: '/how-it-works', slug: 'how-it-works', title: 'How It Works — Replay' },
@@ -209,14 +209,21 @@ async function convertPage(route) {
   // Strip JSON-LD script tags — they produce raw JSON noise in the markdown
   contentHtml = contentHtml.replace(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, '')
 
-  // Extract metadata from <head>
+  // Extract metadata from <head>. React escapes &, quotes and apostrophes in these values.
+  const decode = (text) =>
+    text
+      .replace(/&quot;/g, '"')
+      .replace(/&#x27;|&#39;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
   const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i)
   const descMatch =
     html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i) ||
     html.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i)
   const metadata = {
-    title: titleMatch?.[1]?.trim() || route.title,
-    excerpt: descMatch?.[1]?.trim() || null
+    title: titleMatch?.[1] ? decode(titleMatch[1].trim()) : route.title,
+    excerpt: descMatch?.[1] ? decode(descMatch[1].trim()) : null
   }
 
   let markdown = htmlToMarkdown(contentHtml, { baseUrl: canonicalUrl })
@@ -285,11 +292,9 @@ function generateLlmsTxt(results) {
   for (const { route, metadata } of results) {
     const title = metadata?.title || route.title
     const desc = metadata?.excerpt ? `: ${metadata.excerpt}` : ''
-    // Link to the agent markdown version of each page
-    const mdUrl =
-      route.pathname === '/'
-        ? `${SITE_URL}/agent/index.md`
-        : `${SITE_URL}/agent${route.pathname}.md`
+    // Link to the agent markdown version of each page. Use the slug, which is the file name:
+    // nested paths like /compare/momentic are written as compare-momentic.md.
+    const mdUrl = `${SITE_URL}/agent/${route.slug}.md`
     lines.push(`- [${title}](${mdUrl})${desc}`)
   }
 

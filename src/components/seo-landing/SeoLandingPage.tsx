@@ -331,7 +331,8 @@ export function SeoLandingPage({ variantKey }: { variantKey: SeoVariantKey }) {
           faqs={variant.faqs}
           related={seoVariants
             .filter((v) => v.key !== variant.key)
-            .map((v) => ({ label: keywordLabel(v.keyword), href: v.path }))}
+            .map((v) => ({ label: keywordLabel(v.keyword), href: v.path }))
+            .concat({ label: 'How Replay QA compares', href: '/compare' })}
         />
         <FinalCTA utmSource={variant.key} />
       </PageContentAnimate>
