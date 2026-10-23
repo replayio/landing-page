@@ -86,36 +86,7 @@ export function StepVideoPlayer() {
 
   return (
     <div ref={rootRef} className="mt-10">
-      <div className="grid overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
-        {steps.map((step, i) => (
-          <video
-            key={step.src}
-            ref={(el) => {
-              videoRefs.current[i] = el
-            }}
-            src={step.src}
-            muted
-            playsInline
-            preload={i === active || i === next(active) ? 'auto' : 'metadata'}
-            aria-label={step.label}
-            className={clsx(
-              'col-start-1 row-start-1 block h-auto w-full transition-opacity duration-300',
-              i === active ? 'opacity-100' : 'opacity-0'
-            )}
-            onTimeUpdate={(e) => {
-              if (i !== active) return
-              const video = e.currentTarget
-              const length = Math.min(STEP_SECONDS, video.duration || STEP_SECONDS)
-              setProgress(Math.min(video.currentTime / length, 1))
-              if (video.currentTime >= STEP_SECONDS) show(next(i))
-            }}
-            onEnded={() => i === active && show(next(i))}
-            // A clip that fails to load hands off to the next one instead of stalling the loop.
-            onError={() => i === active && window.setTimeout(() => show(next(i)), 1500)}
-          />
-        ))}
-      </div>
-      <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((step, i) => {
           const isActive = i === active
           return (
@@ -155,6 +126,35 @@ export function StepVideoPlayer() {
           )
         })}
       </ol>
+      <div className="mt-4 grid overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+        {steps.map((step, i) => (
+          <video
+            key={step.src}
+            ref={(el) => {
+              videoRefs.current[i] = el
+            }}
+            src={step.src}
+            muted
+            playsInline
+            preload={i === active || i === next(active) ? 'auto' : 'metadata'}
+            aria-label={step.label}
+            className={clsx(
+              'col-start-1 row-start-1 block h-auto w-full transition-opacity duration-300',
+              i === active ? 'opacity-100' : 'opacity-0'
+            )}
+            onTimeUpdate={(e) => {
+              if (i !== active) return
+              const video = e.currentTarget
+              const length = Math.min(STEP_SECONDS, video.duration || STEP_SECONDS)
+              setProgress(Math.min(video.currentTime / length, 1))
+              if (video.currentTime >= STEP_SECONDS) show(next(i))
+            }}
+            onEnded={() => i === active && show(next(i))}
+            // A clip that fails to load hands off to the next one instead of stalling the loop.
+            onError={() => i === active && window.setTimeout(() => show(next(i)), 1500)}
+          />
+        ))}
+      </div>
     </div>
   )
 }
