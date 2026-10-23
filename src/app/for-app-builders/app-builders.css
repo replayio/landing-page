@@ -1,0 +1,81 @@
+/* /for-app-builders: styles Tailwind can't express inline — the animated diagrams' keyframes,
+   the verbatim bug-report HTML in the modal, and the rrweb-player reskin. */
+
+/* Builder loop diagram */
+.ab-loop .ab-loop-track { animation: ab-loop-march 1s linear infinite; }
+@keyframes ab-loop-march { to { stroke-dashoffset: -12; } }
+.ab-loop .ab-loop-dot { opacity: 0; transition: opacity 0.2s; }
+.ab-loop [data-node] { transition: stroke 0.25s, stroke-width 0.25s, fill 0.25s; }
+.ab-loop [data-node].lit { stroke: #f02d5e; stroke-width: 2; }
+.ab-loop [data-node='qa'].lit { stroke-width: 3; }
+.ab-loop [data-node='bugs'].lit { fill: #fff1f4; }
+.ab-loop [data-node='done'].lit { stroke: #16a34a; fill: #f0fdf4; }
+
+/* Post-launch sequence: connectors between steps and the loop-back rail */
+.ab-seq-flow { position: absolute; left: 33px; top: 100%; width: 2px; height: 22px; background: #e5e7eb; }
+.ab-seq-flow::after { content: ''; position: absolute; left: -3px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #f02d5e; opacity: 0; }
+.ab-seq li.active .ab-seq-flow::after { animation: ab-seq-drop 1.7s ease-in forwards; }
+@keyframes ab-seq-drop { 0%, 55% { top: -4px; opacity: 0; } 60% { opacity: 1; } 100% { top: 18px; opacity: 1; } }
+.ab-seq-rail { position: absolute; left: 8px; top: 30px; bottom: 80px; width: 16px; border: 2px dashed rgba(240, 45, 94, 0.3); border-right: 0; border-radius: 12px 0 0 12px; transition: border-color 0.3s; }
+.ab-seq-rail::before { content: ''; position: absolute; right: -6px; top: -6px; border: 5px solid transparent; border-left: 7px solid #f02d5e; }
+.ab-seq-rail i { position: absolute; left: -6px; bottom: 0; width: 10px; height: 10px; border-radius: 50%; background: #f02d5e; box-shadow: 0 0 0 4px rgba(240, 45, 94, 0.2); opacity: 0; }
+.ab-seq.looping .ab-seq-rail { border-color: #f02d5e; }
+.ab-seq.looping .ab-seq-rail i { animation: ab-seq-climb 1.5s ease-in-out forwards; }
+@keyframes ab-seq-climb { 0% { bottom: 0; opacity: 1; } 90% { opacity: 1; } 100% { bottom: calc(100% - 6px); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-loop .ab-loop-track { animation: none; }
+}
+
+/* Bug report modal */
+.ab-bug-modal { width: min(880px, calc(100vw - 32px)); max-height: calc(100vh - 48px); margin: auto; padding: 0; border: 0; border-radius: 16px; background: #fff; color: #4b5563; box-shadow: 0 24px 64px rgba(17, 24, 39, 0.3); overflow-y: auto; overscroll-behavior: contain; }
+.ab-bug-modal::backdrop { background: rgba(17, 24, 39, 0.55); backdrop-filter: blur(3px); }
+html:has(.ab-bug-modal[open]) { overflow: hidden; }
+
+/* Verbatim ticket HTML (data/bugs.json) */
+.ab-bug-body { font-size: 15px; line-height: 1.65; }
+.ab-bug-body > * + * { margin-top: 14px; }
+.ab-bug-body > :first-child { margin-top: 18px; }
+.ab-bug-body h2 { font-size: 19px; font-weight: 700; color: #111827; margin: 32px 0 10px; padding-top: 22px; border-top: 1px solid #e5e7eb; }
+.ab-bug-body h3 { font-size: 15px; font-weight: 600; color: #111827; margin: 18px 0 6px; }
+.ab-bug-body h3 img { display: block; width: 100%; max-width: 520px; border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 6px; }
+.ab-bug-body img { max-width: 100%; height: auto; }
+.ab-bug-body p + p { margin-top: 10px; }
+.ab-bug-body a { color: #f02d5e; font-weight: 500; }
+.ab-bug-body a:hover { opacity: 0.8; }
+.ab-bug-body strong { color: #111827; font-weight: 600; }
+.ab-bug-body em { color: #6b7280; }
+.ab-bug-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.86em; background: #f3f4f6; padding: 1px 6px; border-radius: 4px; color: #111827; }
+.ab-bug-body table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.ab-bug-body th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; padding: 10px 12px; border-bottom: 1px solid #e5e7eb; }
+.ab-bug-body td { padding: 12px; border-bottom: 1px solid #f3f4f6; vertical-align: top; color: #111827; }
+.ab-bug-body pre { margin-top: 10px; background: #111827; color: #e5e7eb; border-radius: 10px; padding: 14px 16px; overflow-x: auto; font-size: 12px; line-height: 1.55; }
+.ab-bug-body pre code { background: none; padding: 0; color: inherit; font-size: inherit; white-space: pre; }
+.ab-bug-body details { margin-top: 10px; border: 1px solid #e5e7eb; border-radius: 10px; padding: 8px 14px; background: #f9fafb; }
+.ab-bug-body details summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #374151; }
+.ab-bug-body details[open] summary { margin-bottom: 4px; }
+.ab-bug-body .bug-hint { border-left: 3px solid #f02d5e; background: rgba(240, 45, 94, 0.05); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+.ab-bug-body .bug-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ab-bug-body .bug-columns > div { border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; }
+.ab-bug-body .bug-columns h3 { margin-top: 0; }
+.ab-bug-body .bug-steps { counter-reset: step; list-style: none; padding: 0; }
+.ab-bug-body .bug-steps > li { counter-increment: step; position: relative; padding: 0 0 14px 38px; border-left: 2px solid #e5e7eb; margin-left: 12px; }
+.ab-bug-body .bug-steps > li:last-child { border-left-color: transparent; }
+.ab-bug-body .bug-steps > li::before { content: counter(step); position: absolute; left: -13px; top: 0; width: 24px; height: 24px; border-radius: 50%; background: #f02d5e; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.ab-bug-body .bug-steps > li > :first-child { margin-top: 0; }
+@media (max-width: 640px) { .ab-bug-body .bug-columns { grid-template-columns: 1fr; } }
+
+/* Session replay (rrweb-player), reskinned to the site's red. Its styles use svelte-scoped classes, so overrides need !important. */
+.ab-bug-body .bug-replay { min-height: 200px; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: #f9fafb; }
+.ab-bug-body .bug-replay-status { padding: 80px 20px; text-align: center; font-size: 14px; color: #6b7280; }
+.ab-bug-body .bug-replay .rr-player { width: 100% !important; height: auto !important; box-shadow: none !important; border-radius: 0 !important; float: none !important; }
+.ab-bug-body .bug-replay .rr-controller { border-top: 1px solid #e5e7eb; border-radius: 0 !important; }
+.ab-bug-body .bug-replay .rr-timeline__time { color: #111827 !important; font-variant-numeric: tabular-nums; }
+.ab-bug-body .bug-replay .rr-progress { background: #f3f4f6 !important; }
+.ab-bug-body .bug-replay .rr-progress__step { background: #fbc5d3 !important; }
+.ab-bug-body .bug-replay .rr-progress__handler,
+.ab-bug-body .bug-replay .rr-controller__btns button.active { background: #f02d5e !important; }
+.ab-bug-body .bug-replay .rr-controller__btns button:active { background: rgba(240, 45, 94, 0.08) !important; }
+.ab-bug-body .bug-replay .switch input[type='checkbox']:checked + label::before { background: #f02d5e !important; }
+.ab-bug-body .bug-replay .switch label::before { background: rgba(240, 45, 94, 0.35) !important; }
+.ab-bug-body .bug-replay .replayer-mouse::after { background: #f02d5e !important; }
