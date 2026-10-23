@@ -6,7 +6,7 @@ export function AudosSpotlight() {
     <section className="relative isolate overflow-hidden bg-white py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-wider text-accent">
+          <p className="text-center text-sm font-bold uppercase tracking-wider text-accent">
             Customer Spotlight
           </p>
           <Image
@@ -14,9 +14,9 @@ export function AudosSpotlight() {
             alt="Audos"
             width={104}
             height={30}
-            className="mt-5 h-[30px] w-auto"
+            className="mx-auto mt-5 h-[30px] w-auto"
           />
-          <h2 className="mt-5 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
+          <h2 className="mt-5 text-center text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
             Replay QA enabled a first-party QA experience for Audos&apos; platform for
             entrepreneur/builders.
           </h2>

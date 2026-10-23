@@ -54,14 +54,14 @@ export function CompareSection() {
     <section className="relative isolate overflow-hidden bg-gray-50 py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-4xl">
-          <p className="text-sm font-bold uppercase tracking-wider text-accent">
+          <p className="text-center text-sm font-bold uppercase tracking-wider text-accent">
             Why it&apos;s different
           </p>
-          <h2 className="mt-3 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
+          <h2 className="mt-3 text-center text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
             Isn&apos;t this just Playwright with a browser agent? Why can&apos;t my coding agent do
             it?
           </h2>
-          <p className="mt-6 leading-relaxed text-gray-600">
+          <p className="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-gray-600">
             Browser agents and coding agents can tell you that something looks wrong. Replay QA
             records the runtime, so it can tell you why, and prove when it&apos;s fixed.
           </p>

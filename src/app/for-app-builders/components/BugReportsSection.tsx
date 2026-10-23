@@ -6,7 +6,7 @@ export function BugReportsSection() {
     <section className="relative isolate overflow-hidden bg-gray-50 py-16 md:py-24">
       <Container>
         <div className="mx-auto max-w-5xl">
-          <div className="max-w-3xl">
+          <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
               Examples of real agent-ready bug reports with evidence.
             </h2>

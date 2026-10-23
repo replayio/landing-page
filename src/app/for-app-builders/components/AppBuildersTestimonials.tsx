@@ -1,5 +1,4 @@
 import Image, { type StaticImageData } from 'next/image'
-import Link from 'next/link'
 import { Container } from '~/components/Container'
 import daveMonk from '~/images/testimonials/davemonk.jpg'
 import markProbst from '~/images/testimonials/mark-probst.jpg'
@@ -62,27 +61,6 @@ export function AppBuildersTestimonials() {
               </figure>
             ))}
           </div>
-          <Link
-            href="/blog/customer-profile-natacha-grey-of-swoon-ai"
-            className="group mt-4 block rounded-xl border border-accent/30 bg-white p-6 transition hover:border-accent hover:shadow-lg"
-          >
-            <p className="text-xs font-bold uppercase tracking-wider text-gray-500">
-              Customer profile
-            </p>
-            <h3 className="mt-2 text-lg font-semibold text-gray-900">Natacha Grey, Swoon.ai</h3>
-            <p className="mt-2 leading-relaxed text-gray-600">
-              Natacha runs Swoon.ai, an agency that builds custom marketing lead journeys for many
-              clients at once, with no dedicated QA team. She wired Replay QA into a stack of AI
-              agents she built herself.
-            </p>
-            <p className="mt-4 border-l-4 border-accent pl-5 text-lg font-semibold italic text-gray-900">
-              &ldquo;My aha moment was realizing that Replay was helping me find new customer
-              journeys that I didn&apos;t even think about.&rdquo;
-            </p>
-            <span className="mt-4 inline-block text-sm font-semibold text-accent">
-              Read the customer profile →
-            </span>
-          </Link>
         </div>
       </Container>
     </section>
