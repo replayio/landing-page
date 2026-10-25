@@ -127,12 +127,6 @@ export function CompareSection() {
               </div>
             ))}
           </div>
-
-          <p className="mt-8 leading-relaxed text-gray-600">
-            Already testing inside your builder? Keep it. Replay QA is the second opinion with
-            evidence, and it goes deep on the failures a visual check can see but can&apos;t
-            explain: race conditions, stale state, and async timing bugs.
-          </p>
         </div>
       </Container>
     </section>

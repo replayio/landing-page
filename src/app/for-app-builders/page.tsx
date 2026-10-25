@@ -6,6 +6,7 @@ import { PageContentAnimate } from '~/components/common/page-content-animate'
 import { AppBuildersHero } from './components/AppBuildersHero'
 import { WhatItIsSection } from './components/WhatItIsSection'
 import { CompareSection } from './components/CompareSection'
+import { BuiltInTestingSection } from './components/BuiltInTestingSection'
 import { BugKindsSection } from './components/BugKindsSection'
 import { BugReportsSection } from './components/BugReportsSection'
 import { PreLaunchSection } from './components/PreLaunchSection'
@@ -58,6 +59,7 @@ export default function ForAppBuildersPage() {
         <AppBuildersHero />
         <WhatItIsSection />
         <CompareSection />
+        <BuiltInTestingSection />
         <BugKindsSection />
         <BugReportsSection />
         <PreLaunchSection />
