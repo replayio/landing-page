@@ -134,6 +134,7 @@ export default function HowItWorksPage() {
                 <StepVideo
                   mp4Src="/03-UrlInput-Light.mp4"
                   mobileMp4Src="/03-UrlInput-Light_mobile.mp4"
+                  poster="/posters/03-UrlInput-Light.webp"
                   label="A URL being typed into Replay QA to kick off a test run"
                 />
               }
@@ -163,6 +164,7 @@ export default function HowItWorksPage() {
                 <StepVideo
                   mp4Src="/02-Exploration-v2-Light.mp4"
                   mobileMp4Src="/02-Exploration-v2-Light_mobile.mp4"
+                  poster="/posters/02-Exploration-v2-Light.webp"
                   label="Replay QA agents exploring an app, mapping pages and user journeys as a growing web of connections"
                 />
               }
@@ -183,6 +185,7 @@ export default function HowItWorksPage() {
                 <StepVideo
                   mp4Src="/03-Testing-Light.mp4"
                   mobileMp4Src="/03-Testing-Light_mobile.mp4"
+                  poster="/posters/03-Testing-Light.webp"
                   label="Parallel agent sessions running user journeys while every DOM mutation, network call, and JavaScript frame is recorded"
                 />
               }
@@ -206,6 +209,7 @@ export default function HowItWorksPage() {
                 <StepVideo
                   mp4Src="/04-Analysis-Light.mp4"
                   mobileMp4Src="/04-Analysis-Light_mobile.mp4"
+                  poster="/posters/04-Analysis-Light.webp"
                   label="An agent scrubbing a Replay Recording timeline, flagging a broken button, a slow network call, and a contrast warning"
                 />
               }
@@ -245,6 +249,7 @@ export default function HowItWorksPage() {
                 <StepVideo
                   mp4Src="/05-Reports-Light.mp4"
                   mobileMp4Src="/05-Reports-Light_mobile.mp4"
+                  poster="/posters/05-Reports-Light.webp"
                   label="A bug report card assembling itself: video thumbnail, annotated screenshot, severity badge, and root-cause text"
                 />
               }
@@ -276,6 +281,7 @@ export default function HowItWorksPage() {
                 <StepVideo
                   mp4Src="/06-TheLoop-Light.mp4"
                   mobileMp4Src="/06-TheLoop-Light_mobile.mp4"
+                  poster="/posters/06-TheLoop-Light.webp"
                   label="Flywheel diagram cycling through Ship, Test, Bugs Found, and Fix"
                 />
               }

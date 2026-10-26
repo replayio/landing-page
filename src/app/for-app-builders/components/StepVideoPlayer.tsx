@@ -12,6 +12,7 @@ const steps: Array<{
   body: string
   src: string
   mobileSrc: string
+  poster: string
   label: string
 }> = [
   {
@@ -19,6 +20,7 @@ const steps: Array<{
     body: 'Opens the app in a real browser and discovers its user journeys, including ones nobody specified.',
     src: '/02-Exploration-v2-Light.mp4',
     mobileSrc: '/02-Exploration-v2-Light_mobile.mp4',
+    poster: '/posters/02-Exploration-v2-Light.webp',
     label:
       'Replay QA agents exploring an app, mapping pages and user journeys as a growing web of connections'
   },
@@ -27,6 +29,7 @@ const steps: Array<{
     body: 'Writes and runs its own tests against those journeys in our instrumented Chromium browser.',
     src: '/03-Testing-Light.mp4',
     mobileSrc: '/03-Testing-Light_mobile.mp4',
+    poster: '/posters/03-Testing-Light.webp',
     label:
       'Parallel agent sessions running user journeys while every DOM mutation, network call, and JavaScript frame is recorded'
   },
@@ -35,6 +38,7 @@ const steps: Array<{
     body: 'Captures every run as a deterministic recording of the whole runtime.',
     src: '/04-Analysis-Light.mp4',
     mobileSrc: '/04-Analysis-Light_mobile.mp4',
+    poster: '/posters/04-Analysis-Light.webp',
     label:
       'An agent scrubbing a Replay Recording timeline, flagging a broken button, a slow network call, and a contrast warning'
   },
@@ -43,6 +47,7 @@ const steps: Array<{
     body: 'Returns each bug with its root cause, a suggested fix, and the recording, ready for your build loop.',
     src: '/05-Reports-Light.mp4',
     mobileSrc: '/05-Reports-Light_mobile.mp4',
+    poster: '/posters/05-Reports-Light.webp',
     label:
       'A bug report card assembling itself: video thumbnail, annotated screenshot, severity badge, and root-cause text'
   }
@@ -65,6 +70,8 @@ export function StepVideoPlayer() {
   const [active, setActive] = useState(0)
   const [progress, setProgress] = useState(0)
   const activeRef = useRef(0)
+  // Nothing downloads until the player is within a screen of the viewport.
+  const [near, setNear] = useState(false)
   const visible = useRef(false)
   const reduced = useRef(false)
   const isMobile = useSyncExternalStore(subscribeMobile, getMobile, () => false)
@@ -88,6 +95,21 @@ export function StepVideoPlayer() {
     },
     [play]
   )
+
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setNear(true)
+        observer.disconnect()
+      },
+      { rootMargin: '100% 0px' }
+    )
+    observer.observe(root)
+    return () => observer.disconnect()
+  }, [isMobile])
 
   useEffect(() => {
     reduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -186,7 +208,8 @@ export function StepVideoPlayer() {
       }}
       muted
       playsInline
-      preload={i === active || i === next(active) ? 'auto' : 'metadata'}
+      preload={near && (i === active || i === next(active)) ? 'auto' : 'none'}
+      poster={step.poster}
       aria-label={step.label}
       className={className}
       onTimeUpdate={(e) => {
@@ -227,7 +250,7 @@ export function StepVideoPlayer() {
               className="flex w-[85%] shrink-0 snap-start snap-always flex-col gap-3"
             >
               <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
-                {video(step, i, 'block h-auto w-full')}
+                {video(step, i, 'block aspect-video h-auto w-full')}
               </div>
               {card(step, i)}
             </div>
@@ -268,7 +291,7 @@ export function StepVideoPlayer() {
               step,
               i,
               clsx(
-                'block h-auto w-full transition-opacity duration-300',
+                'block aspect-video h-auto w-full transition-opacity duration-300',
                 i === active ? 'opacity-100' : 'opacity-0'
               )
             )}
