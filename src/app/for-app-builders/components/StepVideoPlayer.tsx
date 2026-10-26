@@ -7,12 +7,11 @@ import { MOBILE_MEDIA } from '~/app/components/AutoplayVideo'
 // Each step plays the first STEP_SECONDS of its /how-it-works clip, then the next step takes over, on a loop.
 const STEP_SECONDS = 5
 
-// 03-Testing has no mobile cut yet, so that step serves the full-size clip everywhere.
 const steps: Array<{
   title: string
   body: string
   src: string
-  mobileSrc?: string
+  mobileSrc: string
   label: string
 }> = [
   {
@@ -27,6 +26,7 @@ const steps: Array<{
     title: 'Tests',
     body: 'Writes and runs its own tests against those journeys in our instrumented Chromium browser.',
     src: '/03-Testing-Light.mp4',
+    mobileSrc: '/03-Testing-Light_mobile.mp4',
     label:
       'Parallel agent sessions running user journeys while every DOM mutation, network call, and JavaScript frame is recorded'
   },
@@ -161,9 +161,7 @@ export function StepVideoPlayer() {
             }}
             onEnded={() => i === active && show(next(i))}
           >
-            {step.mobileSrc && (
-              <source src={step.mobileSrc} type="video/mp4" media={MOBILE_MEDIA} />
-            )}
+            <source src={step.mobileSrc} type="video/mp4" media={MOBILE_MEDIA} />
             {/* With <source> children, a failed load fires error on the last source rather than the
                 video. A clip that fails hands off to the next one instead of stalling the loop. */}
             <source

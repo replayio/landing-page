@@ -182,6 +182,7 @@ export default function HowItWorksPage() {
               media={
                 <StepVideo
                   mp4Src="/03-Testing-Light.mp4"
+                  mobileMp4Src="/03-Testing-Light_mobile.mp4"
                   label="Parallel agent sessions running user journeys while every DOM mutation, network call, and JavaScript frame is recorded"
                 />
               }
