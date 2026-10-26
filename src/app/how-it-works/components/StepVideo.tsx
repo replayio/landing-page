@@ -7,11 +7,13 @@ export function StepVideo({
   webmSrc,
   mp4Src,
   mobileMp4Src,
+  poster,
   label
 }: {
   webmSrc?: string
   mp4Src: string
   mobileMp4Src?: string
+  poster?: string
   label: string
 }) {
   const ref = useRef<HTMLVideoElement>(null)
@@ -20,7 +22,18 @@ export function StepVideo({
     const video = ref.current
     if (!video) return
 
-    const io = new IntersectionObserver(
+    // Nothing downloads on page load (preload="none"); start buffering once the video is
+    // within a screen of the viewport so it's ready by the time it scrolls into view.
+    const loader = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        video.preload = 'auto'
+        loader.disconnect()
+      },
+      { rootMargin: '100% 0px' }
+    )
+
+    const player = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           video.play().catch(() => {})
@@ -31,17 +44,24 @@ export function StepVideo({
       { threshold: 0.25 }
     )
 
-    io.observe(video)
-    return () => io.disconnect()
+    loader.observe(video)
+    player.observe(video)
+    return () => {
+      loader.disconnect()
+      player.disconnect()
+    }
   }, [])
 
   return (
     <video
       ref={ref}
-      className="w-full rounded-xl border border-gray-200"
+      // aspect-video reserves the 16:9 box before any video data has loaded, so nothing shifts.
+      className="aspect-video w-full rounded-xl border border-gray-200"
       loop
       muted
       playsInline
+      preload="none"
+      poster={poster}
       aria-label={label}
     >
       {mobileMp4Src && <source src={mobileMp4Src} type="video/mp4" media={MOBILE_MEDIA} />}
