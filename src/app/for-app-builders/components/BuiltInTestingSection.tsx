@@ -35,7 +35,7 @@ export function BuiltInTestingSection() {
             Works alongside built-in testing
           </p>
           <h2 className="mt-3 text-center text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            We already do browser-testing on the apps we build. How is this different?
+            How is this different than the browser-testing in your platform?
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-gray-600">
             Built-in browser testing shows your agent what a user would see. Replay QA records what
