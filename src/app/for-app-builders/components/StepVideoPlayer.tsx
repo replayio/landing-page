@@ -2,15 +2,24 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
+import { MOBILE_MEDIA } from '~/app/components/AutoplayVideo'
 
 // Each step plays the first STEP_SECONDS of its /how-it-works clip, then the next step takes over, on a loop.
 const STEP_SECONDS = 5
 
-const steps = [
+// 03-Testing has no mobile cut yet, so that step serves the full-size clip everywhere.
+const steps: Array<{
+  title: string
+  body: string
+  src: string
+  mobileSrc?: string
+  label: string
+}> = [
   {
     title: 'Explores',
     body: 'Opens the app in a real browser and discovers its user journeys, including ones nobody specified.',
     src: '/02-Exploration-v2-Light.mp4',
+    mobileSrc: '/02-Exploration-v2-Light_mobile.mp4',
     label:
       'Replay QA agents exploring an app, mapping pages and user journeys as a growing web of connections'
   },
@@ -25,6 +34,7 @@ const steps = [
     title: 'Records',
     body: 'Captures every run as a deterministic recording of the whole runtime.',
     src: '/04-Analysis-Light.mp4',
+    mobileSrc: '/04-Analysis-Light_mobile.mp4',
     label:
       'An agent scrubbing a Replay Recording timeline, flagging a broken button, a slow network call, and a contrast warning'
   },
@@ -32,6 +42,7 @@ const steps = [
     title: 'Reports',
     body: 'Returns each bug with its root cause, a suggested fix, and the recording, ready for your build loop.',
     src: '/05-Reports-Light.mp4',
+    mobileSrc: '/05-Reports-Light_mobile.mp4',
     label:
       'A bug report card assembling itself: video thumbnail, annotated screenshot, severity badge, and root-cause text'
   }
@@ -133,7 +144,6 @@ export function StepVideoPlayer() {
             ref={(el) => {
               videoRefs.current[i] = el
             }}
-            src={step.src}
             muted
             playsInline
             preload={i === active || i === next(active) ? 'auto' : 'metadata'}
@@ -150,9 +160,18 @@ export function StepVideoPlayer() {
               if (video.currentTime >= STEP_SECONDS) show(next(i))
             }}
             onEnded={() => i === active && show(next(i))}
-            // A clip that fails to load hands off to the next one instead of stalling the loop.
-            onError={() => i === active && window.setTimeout(() => show(next(i)), 1500)}
-          />
+          >
+            {step.mobileSrc && (
+              <source src={step.mobileSrc} type="video/mp4" media={MOBILE_MEDIA} />
+            )}
+            {/* With <source> children, a failed load fires error on the last source rather than the
+                video. A clip that fails hands off to the next one instead of stalling the loop. */}
+            <source
+              src={step.src}
+              type="video/mp4"
+              onError={() => i === active && window.setTimeout(() => show(next(i)), 1500)}
+            />
+          </video>
         ))}
       </div>
     </div>

@@ -1,14 +1,17 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { MOBILE_MEDIA } from '~/app/components/AutoplayVideo'
 
 export function StepVideo({
   webmSrc,
   mp4Src,
+  mobileMp4Src,
   label
 }: {
   webmSrc?: string
   mp4Src: string
+  mobileMp4Src?: string
   label: string
 }) {
   const ref = useRef<HTMLVideoElement>(null)
@@ -41,6 +44,7 @@ export function StepVideo({
       playsInline
       aria-label={label}
     >
+      {mobileMp4Src && <source src={mobileMp4Src} type="video/mp4" media={MOBILE_MEDIA} />}
       {webmSrc && <source src={webmSrc} type="video/webm" />}
       <source src={mp4Src} type="video/mp4" />
     </video>
