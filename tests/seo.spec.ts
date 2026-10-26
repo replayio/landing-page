@@ -209,6 +209,37 @@ test.describe('sitemap', () => {
     }
   })
 
+  test('product and comparison pages carry a valid lastmod', async ({ request }) => {
+    const res = await request.get(`${BASE}/sitemap.xml`)
+    const xml = await res.text()
+    const lastmods = new Map(
+      [...xml.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*(?:<lastmod>([^<]+)<\/lastmod>)?/g)].map(
+        (m) => [new URL(m[1]).pathname, m[2]]
+      )
+    )
+
+    // Search engines only use lastmod for prioritising recrawls while it stays accurate, so
+    // these are hand-maintained content dates (see ROUTES in src/app/sitemap.ts). A date in
+    // the future is always wrong.
+    const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000)
+    const expected = [
+      '/',
+      '/pricing',
+      '/how-it-works',
+      '/security',
+      '/for-software-factories',
+      '/compare',
+      ...[...lastmods.keys()].filter((p) => p.startsWith('/compare/'))
+    ]
+    for (const path of expected) {
+      const lastmod = lastmods.get(path)
+      expect(lastmod, `${path} has no lastmod`).toBeTruthy()
+      const date = new Date(lastmod!)
+      expect(Number.isNaN(date.getTime()), `${path} lastmod "${lastmod}" is not a date`).toBe(false)
+      expect(date < tomorrow, `${path} lastmod ${lastmod} is in the future`).toBe(true)
+    }
+  })
+
   test('every listed URL resolves 200 without redirecting', async ({ request }) => {
     // Production advertises ~175 URLs and these are checked one at a time, which
     // overruns the 30s default when run against a deployment rather than localhost.
@@ -269,7 +300,6 @@ test.describe('blog', () => {
     )
 
     if (posts.length === 0) {
-      // eslint-disable-next-line no-console
       console.log('note: no blog posts available (NOTION_TOKEN unset); skipping')
       return
     }
@@ -307,7 +337,6 @@ test.describe('blog', () => {
       .filter((p) => p !== '/blog/archive')
 
     if (posts.length === 0) {
-      // eslint-disable-next-line no-console
       console.log('note: no blog posts available (NOTION_TOKEN unset); skipping')
       return
     }
@@ -316,7 +345,8 @@ test.describe('blog', () => {
     // HTTP, which Ahrefs reports as an error rather than a warning. Sibling subdomains
     // (docs, app, static) are separate properties and must not be rewritten, so they
     // are deliberately absent from this pattern.
-    const NON_CANONICAL = /href="(http:\/\/(?:www\.)?replay\.io[^"]*|https?:\/\/replay\.io[^"]*|https?:\/\/blog\.replay\.io[^"]*)"/gi
+    const NON_CANONICAL =
+      /href="(http:\/\/(?:www\.)?replay\.io[^"]*|https?:\/\/replay\.io[^"]*|https?:\/\/blog\.replay\.io[^"]*)"/gi
 
     const offenders: string[] = []
     for (const path of posts) {
@@ -356,7 +386,6 @@ test.describe('internal links', () => {
     // "posts available" with no Notion token, and the post links then 404'd.
     const blogAvailable = /\/blog\/(?!archive\b)[^<"\s]+/.test(sitemapXml)
     if (!blogAvailable) {
-      // eslint-disable-next-line no-console
       console.log('note: no blog posts available (NOTION_TOKEN unset); skipping /blog/* links')
     }
 

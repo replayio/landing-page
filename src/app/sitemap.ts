@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { siteOrigin } from '~/lib/constants'
 import { getBlogPosts } from '~/lib/notion-blog'
+import { COMPARE_PAGES_UPDATED, competitors } from '~/components/compare/content'
 
 type ChangeFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
 
@@ -14,30 +15,50 @@ type ChangeFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
  * trailing slash, so entries used to be emitted as `https://www.replay.io//about`.
  * That double slash redirects, which made all 169 sitemap URLs 3XX redirects
  * pointing at their own canonical form.
+ *
+ * `lastModified` is the date of the last change a reader would notice (copy, title, layout),
+ * as YYYY-MM-DD. Leave out performance, tracking and refactor commits, and update it by hand in
+ * the same PR as the content change. Search engines stop trusting lastmod that is wrong, so
+ * routes without a confident date carry none rather than a build timestamp.
  */
-const ROUTES: Array<{ path: string; priority: number; changeFrequency: ChangeFrequency }> = [
-  { path: '/', priority: 1.0, changeFrequency: 'weekly' },
-  { path: '/pricing', priority: 0.9, changeFrequency: 'weekly' },
-  { path: '/how-it-works', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/security', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/for-software-factories', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/debugging', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/web-application-testing', priority: 0.8, changeFrequency: 'monthly' },
-  { path: '/continuous-testing', priority: 0.8, changeFrequency: 'monthly' },
-  { path: '/automated-qa-testing', priority: 0.8, changeFrequency: 'monthly' },
-  { path: '/compare', priority: 0.8, changeFrequency: 'monthly' },
-  { path: '/compare/momentic', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/ranger', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/tester-army', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/posthog', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/qa-wolf', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/meticulous', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/browserstack', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/sauce-labs', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/playwright', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/qodo', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/compare/coding-agents', priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/precog', priority: 0.8, changeFrequency: 'monthly' },
+type Route = {
+  path: string
+  priority: number
+  changeFrequency: ChangeFrequency
+  lastModified?: string
+}
+
+const ROUTES: Route[] = [
+  { path: '/', priority: 1.0, changeFrequency: 'weekly', lastModified: '2026-10-26' },
+  { path: '/pricing', priority: 0.9, changeFrequency: 'weekly', lastModified: '2026-09-02' },
+  { path: '/how-it-works', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-10-22' },
+  { path: '/security', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-10-14' },
+  {
+    path: '/for-software-factories',
+    priority: 0.9,
+    changeFrequency: 'monthly',
+    lastModified: '2026-10-22'
+  },
+  { path: '/debugging', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-08-03' },
+  {
+    path: '/web-application-testing',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+    lastModified: '2026-10-22'
+  },
+  {
+    path: '/continuous-testing',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+    lastModified: '2026-10-22'
+  },
+  {
+    path: '/automated-qa-testing',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+    lastModified: '2026-10-22'
+  },
+  { path: '/precog', priority: 0.8, changeFrequency: 'monthly', lastModified: '2026-08-03' },
   { path: '/roi-calculator', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/blog/archive', priority: 0.5, changeFrequency: 'weekly' },
@@ -48,21 +69,44 @@ const ROUTES: Array<{ path: string; priority: number; changeFrequency: ChangeFre
   { path: '/terms-of-service', priority: 0.3, changeFrequency: 'yearly' }
 ]
 
+/**
+ * Comparison pages come from the compare content file, so a new competitor is listed
+ * automatically. Each page changes when it is re-verified or the shared template changes;
+ * the hub changes whenever any of them does.
+ */
+function compareRoutes(): Route[] {
+  const later = (a: string, b: string) => (a > b ? a : b)
+  const pages = competitors.map((c) => ({
+    path: c.path,
+    priority: 0.7,
+    changeFrequency: 'monthly' as const,
+    lastModified: later(c.lastVerified, COMPARE_PAGES_UPDATED)
+  }))
+  const hubModified = pages.map((p) => p.lastModified).reduce(later, COMPARE_PAGES_UPDATED)
+
+  return [
+    { path: '/compare', priority: 0.8, changeFrequency: 'monthly', lastModified: hubModified },
+    ...pages
+  ]
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPosts = await getBlogPosts().catch(() => [])
 
-  const pages: MetadataRoute.Sitemap = ROUTES.map(({ path, priority, changeFrequency }) => ({
-    url: `${siteOrigin}${path}`,
-    changeFrequency,
-    priority
-  }))
+  const pages: MetadataRoute.Sitemap = [...ROUTES, ...compareRoutes()].map(
+    ({ path, priority, changeFrequency, lastModified }) => ({
+      url: `${siteOrigin}${path}`,
+      lastModified,
+      changeFrequency,
+      priority
+    })
+  )
 
   for (const post of blogPosts) {
     pages.push({
       url: `${siteOrigin}/blog/${post.slug}`,
-      // Real edit time from Notion. Static routes deliberately carry no
-      // lastModified rather than a build timestamp, which would claim every
-      // page changed on every deploy.
+      // Real edit time from Notion. Never use a build timestamp for lastModified:
+      // it would claim every page changed on every deploy.
       lastModified: post.lastEditedTime,
       changeFrequency: 'monthly',
       priority: 0.5
