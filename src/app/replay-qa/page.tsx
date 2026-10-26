@@ -11,7 +11,7 @@ import { LoopQAFAQs } from './components/LoopQAFAQs'
 import { LoopQACTA } from './components/LoopQACTA'
 
 export const metadata: Metadata = {
-  title: 'Replay QA — Autonomous QA for the Vibecoding Era',
+  title: 'Replay QA – Autonomous app testing for teams moving faster than ever',
   description:
     'Drop in a URL. Replay QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
   alternates: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: `${siteOrigin}/replay-qa`,
-    title: 'Replay QA — Autonomous QA for the Vibecoding Era',
+    title: 'Replay QA – Autonomous app testing for teams moving faster than ever',
     description:
       'Drop in a URL. Replay QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
     images: [{ url: `${siteOrigin}/replayQA_og-image.png`, width: 1200, height: 630 }]
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: defaultMeta.twitter.site,
-    title: 'Replay QA — Autonomous QA for the Vibecoding Era',
+    title: 'Replay QA – Autonomous app testing for teams moving faster than ever',
     description:
       'Drop in a URL. Replay QA explores your app, writes Playwright tests, captures Replay recordings, and files detailed bug reports — automatically.',
     creator: defaultMeta.twitter.handle,

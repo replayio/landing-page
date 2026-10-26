@@ -12,7 +12,7 @@ import { SetupSection } from './components/SetupSection'
 import { ForTeamsFAQs } from './components/ForTeamsFAQs'
 import { ForTeamsCTA } from './components/ForTeamsCTA'
 
-const title = 'Replay QA — Autonomous QA for the Vibecoding Era'
+const title = 'Replay QA – Autonomous app testing for teams moving faster than ever'
 const description =
   'Replay QA autonomously tests every build for bugs, security flaws, and accessibility failures — then files root-caused bug reports your team can act on.'
 
