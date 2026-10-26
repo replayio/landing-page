@@ -72,8 +72,7 @@ export function BugKindsSection() {
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-              Our runtime recording and analysis catches issues that static code review can&apos;t
-              see.
+              Catch issues that static code review can&apos;t see.
             </h2>
             <p className="mt-6 leading-relaxed text-gray-600">
               Built upon our core time-travel debugging infrastructure, Replay QA explores each
