@@ -97,6 +97,13 @@ const VERIFIED = '2026-10-14'
 const pricingAnswer =
   'Replay QA has a free plan with 25 credits a month and no credit card. Starter is $20/month and Pro is $200/month, with Private Cloud and On-Prem available. An average app costs about 20 credits per full QA run.'
 
+/**
+ * Last change to the shared comparison template or hub copy, as YYYY-MM-DD. Each page's sitemap
+ * lastmod is the later of this and its own `lastVerified`, so bump this when a template or hub
+ * change alters what readers see, not for refactors or styling.
+ */
+export const COMPARE_PAGES_UPDATED = '2026-10-22'
+
 export const competitors: Competitor[] = [
   // ---------------------------------------------------------------- Alternatives
   {
