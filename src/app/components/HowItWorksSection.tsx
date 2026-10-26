@@ -61,6 +61,7 @@ export function HowItWorksSection() {
           <div className="mt-10 mix-blend-multiply">
             <AutoplayVideo
               src="/02-Exploration-v2-Light.mp4"
+              mobileSrc="/02-Exploration-v2-Light_mobile.mp4"
               label="Replay QA agents exploring an app, mapping pages and user journeys as a growing web of connections"
             />
           </div>
