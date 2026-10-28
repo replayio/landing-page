@@ -5,7 +5,6 @@ import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 import { AppBuildersHero } from './components/AppBuildersHero'
 import { WhatItIsSection } from './components/WhatItIsSection'
-import { CompareSection } from './components/CompareSection'
 import { BuiltInTestingSection } from './components/BuiltInTestingSection'
 import { BugKindsSection } from './components/BugKindsSection'
 import { BugReportsSection } from './components/BugReportsSection'
@@ -58,7 +57,6 @@ export default function ForAppBuildersPage() {
       <PageContentAnimate>
         <AppBuildersHero />
         <WhatItIsSection />
-        <CompareSection />
         <BuiltInTestingSection />
         <BugKindsSection />
         <BugReportsSection />
