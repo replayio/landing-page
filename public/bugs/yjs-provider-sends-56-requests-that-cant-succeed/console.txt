@@ -1,0 +1,2 @@
+2026-09-22T07:03:01.171Z [error] [workspace-index] error {…}
+2026-09-22T07:03:05.109Z [error] [yjs-provider] error Error:

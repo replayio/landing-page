@@ -1,0 +1,32 @@
+2026-06-24T05:27:02.096Z [info] [vite] connecting...
+2026-06-24T05:27:02.784Z [info] [vite] connected.
+2026-06-24T05:27:16.781Z [info] [vite] connecting...
+2026-06-24T05:27:17.048Z [info] [vite] connected.
+2026-06-24T05:27:30.870Z [info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+2026-06-24T05:27:31.020Z [error] A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components
+2026-06-24T05:27:31.441Z [warn] LogRocket: script could not load. Check that you have a valid network connection.
+2026-06-24T05:27:39.580Z [info] [vite] connecting...
+2026-06-24T05:27:40.395Z [info] [vite] connected.
+2026-06-24T05:27:49.187Z [info] [vite] connecting...
+2026-06-24T05:27:49.474Z [info] [vite] connected.
+2026-06-24T05:28:01.155Z [info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+2026-06-24T05:28:01.272Z [error] A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components
+2026-06-24T05:28:01.542Z [info] DetectedError Object {time: "2026-06-24T05:28:03.509Z", message: "Network request not JSON", details: "http://localhost:5173/api/bugs/breakdown?project_id=mock-proj-checkout did not return valid JSON", data: {…}}
+2026-06-24T05:28:01.780Z [warn] LogRocket: script could not load. Check that you have a valid network connection.
+2026-06-24T05:28:03.273Z [info] DetectedError Object {time: "2026-06-24T05:28:10.012Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:04.780Z [info] DetectedError Object {time: "2026-06-24T05:28:15.677Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:05.505Z [info] DetectedError Object {time: "2026-06-24T05:28:18.401Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:06.150Z [info] DetectedError Object {time: "2026-06-24T05:28:20.827Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:06.762Z [info] DetectedError Object {time: "2026-06-24T05:28:23.128Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:07.493Z [info] DetectedError Object {time: "2026-06-24T05:28:25.873Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:08.221Z [info] DetectedError Object {time: "2026-06-24T05:28:28.612Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:08.920Z [info] DetectedError Object {time: "2026-06-24T05:28:31.238Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:09.345Z [info] DetectedError Object {time: "2026-06-24T05:28:32.834Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:09.643Z [info] DetectedError Object {time: "2026-06-24T05:28:33.956Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:10.638Z [info] DetectedError Object {time: "2026-06-24T05:28:37.696Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:11.459Z [info] DetectedError Object {time: "2026-06-24T05:28:40.782Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:12.233Z [info] DetectedError Object {time: "2026-06-24T05:28:43.692Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:12.900Z [info] DetectedError Object {time: "2026-06-24T05:28:46.197Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:13.869Z [info] DetectedError Object {time: "2026-06-24T05:28:49.839Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:15.040Z [info] DetectedError Object {time: "2026-06-24T05:28:54.240Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}
+2026-06-24T05:28:16.792Z [info] DetectedError Object {time: "2026-06-24T05:29:00.825Z", message: "Network request failed", details: "http://localhost:5173/api/append-session-chunk failed with status 404", data: {…}}

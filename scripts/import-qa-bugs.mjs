@@ -10,7 +10,8 @@
  * kept as plain text beside it, under `evidence`. Screenshots are copied to public/bugs/shots.
  * The session replay's files (the recording, and the network.har, console.log, evidence.json and
  * captions.vtt its embed names) are copied to public/bugs/<slug>/ for the replay player
- * (src/components/replay). The recording and the HAR get .json names so hosts serve them compressed,
+ * (src/components/replay). The console log becomes console.txt, since .gitignore drops *.log files.
+ * The recording and the HAR get .json names so hosts serve them compressed,
  * and the HAR drops the response bodies of scripts, stylesheets, images, fonts and source maps (by
  * resource type, MIME type or a .map URL): the app's whole bundle, which made up most of each file. Those requests stay listed, with
  * status and timing; API responses keep their bodies.
@@ -119,7 +120,7 @@ function chronologyStep(md, blocks) {
 // copied beside each other and the props point at their public URLs, keeping the #t= window.
 const EMBED_FILES = {
   har: ['network.har', 'network.json'],
-  log: ['console.log', 'console.log'],
+  log: ['console.log', 'console.txt'],
   evidence: ['evidence.json', 'evidence.json'],
   captions: ['captions.vtt', 'captions.vtt']
 }
