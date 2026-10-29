@@ -1,0 +1,115 @@
+{
+  "title": "Inviting a teammate throws ‘object is not extensible’",
+  "severity": "high",
+  "category": "silent",
+  "why": "The error names property '2' on an object you never wrote. The actual cause is a push onto frozen Redux state, several layers away.",
+  "project": "loop-qa",
+  "discovered": "2026-06-24",
+  "report": "https://qa.replay.io/projects/proj-loop-qa-mqrlm482/bugs/bug-mqrn56nz-wdbe",
+  "finding": "`projectMembers/invite` rejected with `TypeError: Cannot add property 2, object is not extensible`. The members list stayed at 2 and the email stayed in the input.",
+  "actual": "The invite thunk throws a TypeError 'Cannot add property 2, object is not extensible' (projectMembers/invite/rejected). No member is added — the list still shows only dev@example.local (Owner) and collaborator@example.com (Member), and newmember@example.com remains in the input field.",
+  "expected": "Clicking Invite with a valid email should add the new member to the Team Members list as a 'Member' (e.g. newmember@example.com shown with a Member badge) and clear the input field.",
+  "replay": {
+    "url": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/recording.json#t=4.5,10",
+    "title": "Session replay",
+    "har": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/network.json",
+    "log": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/console.txt",
+    "captions": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:07.0",
+      "shot": "/bugs/shots/1ee752f4-9be3-4845-acad-746c46ce9cfa-screenshot-265947.jpg",
+      "text": "On the Settings tab, in the Team Members section, the user has typed 'newmember@example.com' into the 'Enter email address to invite' field (which enabled the Invite button) and clicks the 'Invite' button — a \\<button type=\"submit\" class=\"settings-section__save-btn\" data-testid=\"invite-btn\" data-analytics-event=\"project-members-invite-submit\">. The user expects this to add newmember@example.com to the Team Members list as a Member. _User interaction._",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, InspectElement)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"click\",\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ # User Interactions\n\n**Filter:** click only\n**Showing 1–2 of 2 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 245158ms | click | Click at (769, 138) | Point:1 |\n| 1 | 265962ms | click | Click at (1155, 652) | Point:2 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type",
+            "InspectElement {\"point\":\"Point:2\",\"element\":\"[data-testid=\\\"invite-btn\\\"]\",\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ Element:2 is `<button type=\"submit\" class=\"settings-section__save-btn\" data-testid=\"invite-btn\" data-analytics-event=\"project-members-invite-submit\"></button>`.\nNo elements are obstructing the center point of this element.\n\nElement:2 has 92.484375px width and 36.796875px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 8px right 18px bottom 8px left 18px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left overflows parent by 799.52px\n\n### Parent Element:3\n\nElement:3 is `<div class=\"settings-section__input-row\"></div>`.\n\nElement:3 has 892px width and 36.796875px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:4\n\nElement:4 is `<form class=\"members-invite\" data-testid=\"invite-form\"></form>`.\n\nElement:4 has 892px width and 36.796875px height.\nMargin: top 4px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 212.73px\n- Right overflows parent by 21.00px\n- Bottom overflows parent by 21.00px\n- Left overflows parent by 21.00px\n\n### Parent Element:5\n\nElement:5 is `<section class=\"settings-section\" data-testi…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:07.4",
+      "shot": "/bugs/shots/1ee752f4-9be3-4845-acad-746c46ce9cfa-screenshot-267597.jpg",
+      "text": "Immediately after the click, the invite fails: the Redux thunk projectMembers/invite is rejected with TypeError 'Cannot add property 2, object is not extensible'. The Team Members list is unchanged — it still shows only dev@example.local (Owner) and collaborator@example.com (Member); newmember@example.com was NOT added and remains in the invite input field. The user is left with an error and no new member.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (ReduxActions)",
+          "probes": [
+            "ReduxActions {\"mode\":\"action-detail\",\"actionIndex\":231,\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ # Action #231: `projectMembers/invite/rejected`\n\n- **Time:** 266.03s\n- **Execution point:** `486777830492395309155877143239983117`\n\n## Action Object\n\n```json\n{\n  \"type\": \"projectMembers/invite/rejected\",\n  \"meta\": {\n    \"arg\": {\n      \"projectId\": \"mock-proj-checkout\",\n      \"email\": \"newmember@example.com\"\n    },\n    \"requestId\": \"nFYQl1YyQjuA8n1JtqDeu\",\n    \"rejectedWithValue\": false,\n    \"requestStatus\": \"rejected\",\n    \"aborted\": false,\n    \"condition\": false\n  },\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot add property 2, object is not extensible\",\n    \"stack\": \"TypeError: Cannot add property 2, object is not extensible\\n    at Array.push (<anonymous>)\\n    at Module.mockInviteMember (http://localhost:5173/src/dev/mockPipeline.ts:1219:8)\\n    at http://localhost:5173/src/slices/projectMembersSlice.ts:31:34\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:2554:79\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:2588:10\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:1631:14\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:1898:34\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:1722:12\\n    at handleInvite (http://localhost:5173/src/components/ProjectMembers.tsx:39:5)\\n    at executeDispatch (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=aa8f336a:13622:11)\"\n  }\n}\n``…"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Open the app at localhost:5173.",
+      "evidence": []
+    },
+    {
+      "text": "Open a project (e.g. 'Checkout demo' at /projects/mock-proj-checkout/overview).",
+      "evidence": []
+    },
+    {
+      "text": "Click the 'Settings' tab.",
+      "evidence": []
+    },
+    {
+      "text": "Scroll to the 'Team Members' section (current members: dev@example.local Owner, collaborator@example.com Member).",
+      "evidence": []
+    },
+    {
+      "text": "Type a valid email (e.g. newmember@example.com) into the 'Enter email address to invite' field — the Invite button becomes enabled.",
+      "evidence": []
+    },
+    {
+      "text": "Click the 'Invite' button.",
+      "evidence": []
+    },
+    {
+      "text": "Observe: an error 'Cannot add property 2, object is not extensible' appears and the member is not added to the list.",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "In src/dev/mockPipeline.ts, mockInviteMember reads the project's member array with `const list = store.membersByProject[projectId] ?? []` and then calls `list.push(m)` (mockPipeline.ts:1365-1366). That array is the exact same object reference that was previously stored into Redux state at src/slices/projectMembersSlice.ts:106 (`state.items = action.payload.items`), because mockFetchProjectMembers returns `store.membersByProject[projectId]` directly (mockPipeline.ts:1349). Redux Toolkit (Immer) freezes state in development, so once that array was placed in the store it became non-extensible. Calling Array.push on the now-frozen array throws 'TypeError: Cannot add property 2, object is not extensible' (the existing array already holds 2 members at indices 0 and 1, so adding index 2 fails). The rejected projectMembers/invite action's error has name 'TypeError', message 'Cannot add property 2, object is not extensible', and a stack of 'at Array.push → at Module.mockInviteMember (mockPipeline.ts) → at handleInvite (ProjectMembers.tsx:39)'. The thunk rejects, no member is appended, and the member is never added.",
+    "evidence": [
+      {
+        "summary": "2 evidence probes (ReduxActions, SearchSources)",
+        "probes": [
+          "ReduxActions {\"mode\":\"action-detail\",\"actionIndex\":231,\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ # Action #231: `projectMembers/invite/rejected`\n\n- **Time:** 266.03s\n- **Execution point:** `486777830492395309155877143239983117`\n\n## Action Object\n\n```json\n{\n  \"type\": \"projectMembers/invite/rejected\",\n  \"meta\": {\n    \"arg\": {\n      \"projectId\": \"mock-proj-checkout\",\n      \"email\": \"newmember@example.com\"\n    },\n    \"requestId\": \"nFYQl1YyQjuA8n1JtqDeu\",\n    \"rejectedWithValue\": false,\n    \"requestStatus\": \"rejected\",\n    \"aborted\": false,\n    \"condition\": false\n  },\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot add property 2, object is not extensible\",\n    \"stack\": \"TypeError: Cannot add property 2, object is not extensible\\n    at Array.push (<anonymous>)\\n    at Module.mockInviteMember (http://localhost:5173/src/dev/mockPipeline.ts:1219:8)\\n    at http://localhost:5173/src/slices/projectMembersSlice.ts:31:34\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:2554:79\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:2588:10\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:1631:14\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:1898:34\\n    at http://localhost:5173/node_modules/.vite/deps/chunk-6CSVRG6I.js?v=aa8f336a:1722:12\\n    at handleInvite (http://localhost:5173/src/components/ProjectMembers.tsx:39:5)\\n    at executeDispatch (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=aa8f336a:13622:11)\"\n  }\n}\n``…",
+          "SearchSources {\"pattern\":\"list.push|membersByProject\",\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ ### http://localhost:5173/src/components/PolishTab.tsx\n hits | L | code \n------|------|------\n   2 |    1 | import { Fragment, memo, useEffect, useState, useMemo } from 'react' \n\n   0 |   32 |     const list = map.get(key) ?? [] \n   0 |  *33 |     list.push(item) \n   0 |   34 |     map.set(key, list)\n### http://localhost:5173/src/dev/mockPipeline.ts\n hits | L | code \n------|------|------\n     |    1 | import type { Project } from '../slices/projectsSlice' \n\n     |   80 |   polishTasks: PolishTask[] \n     |  *81 |   membersByProject: Record<string, ProjectMember[]> \n     |   82 | } \n\n     |  720 |     polishTasks, \n     | *721 |     membersByProject: { \n     |  722 |       [PJ1]: [ \n\n   0 |  796 |   store.projects.unshift(p) \n   0 | *797 |   store.membersByProject[id] = [ \n     |  798 |     { \n\n   0 |  816 |   store.polishTasks = store.polishTasks.filter((t) => t.project_id !== id) \n   0 | *817 |   delete store.membersByProject[id] \n     |  818 | } \n\n     | 1348 | export function mockFetchProjectMembers(projectId: string): { items: ProjectMember[]; role: string } { \n   2 | *1349 |   const items = store.membersByProject[projectId] ?? [] \n   2 | 1350 |   const mine = items.find((m) => m.email === MOCK_AUTH_USER.email) \n\n     | 1364 |   } \n   1 | *1365 |   const list = store.membersByProject[projectId] ?? [] \n   1 | *1366 |   list.push(m) \n   0 | *1367 |   store.membersByProject[projectId] = list \n   0 | 1368 |   return m \n\n     | 1371 | export function mockRemoveMember(memberId:…"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The user clicks the Invite button (Element:2, \\<button data-testid=\"invite-btn\" data-analytics-event=\"project-members-invite-submit\">), which submits the invite form and calls handleInvite, dispatching the inviteProjectMember thunk.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, InspectElement)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"click\",\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ # User Interactions\n\n**Filter:** click only\n**Showing 1–2 of 2 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 245158ms | click | Click at (769, 138) | Point:1 |\n| 1 | 265962ms | click | Click at (1155, 652) | Point:2 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type",
+            "InspectElement {\"point\":\"Point:2\",\"element\":\"[data-testid=\\\"invite-btn\\\"]\",\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ Element:2 is `<button type=\"submit\" class=\"settings-section__save-btn\" data-testid=\"invite-btn\" data-analytics-event=\"project-members-invite-submit\"></button>`.\nNo elements are obstructing the center point of this element.\n\nElement:2 has 92.484375px width and 36.796875px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 8px right 18px bottom 8px left 18px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left overflows parent by 799.52px\n\n### Parent Element:3\n\nElement:3 is `<div class=\"settings-section__input-row\"></div>`.\n\nElement:3 has 892px width and 36.796875px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:4\n\nElement:4 is `<form class=\"members-invite\" data-testid=\"invite-form\"></form>`.\n\nElement:4 has 892px width and 36.796875px height.\nMargin: top 4px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 212.73px\n- Right overflows parent by 21.00px\n- Bottom overflows parent by 21.00px\n- Left overflows parent by 21.00px\n\n### Parent Element:5\n\nElement:5 is `<section class=\"settings-section\" data-testi…"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The thunk calls mockInviteMember, which runs `list.push(m)` on store.membersByProject[projectId] — the same array reference Immer froze when it became Redux state.items. Array.push on the frozen array throws 'TypeError: Cannot add property 2, object is not extensible', so the thunk dispatches projectMembers/invite/rejected and the member is never appended to the list.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (ReduxActions)",
+          "probes": [
+            "ReduxActions {\"mode\":\"actions\",\"actionType\":\"projectMembers/invite\",\"recordingId\":\"1ee752f4-9be3-4845-acad-746c46ce9cfa\"}\n→ # Redux Actions\n\n**Filters:** type contains \"projectMembers/invite\"\n**Showing 1–2 of 2 actions**\n\n| # | Action Type | Time | Origin | Duration | Affected | Wasted |\n|---|-------------|------|--------|----------|----------|--------|\n| 230 | `projectMembers/invite/pending` | 265.97s | — | — | — | — |\n| 231 | `projectMembers/invite/rejected` | 266.03s | — | — | — | — |"
+          ]
+        }
+      ]
+    }
+  ]
+}

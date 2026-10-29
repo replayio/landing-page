@@ -1,0 +1,53 @@
+{
+  "title": "Bottom sheet stuck 9px off-screen by a leftover transform",
+  "severity": "medium",
+  "category": "flash",
+  "why": "It looks like an animation frame until you check that the transform never resets.",
+  "project": "Github Clone",
+  "discovered": "2026-09-01",
+  "report": "https://qa.replay.io/projects/proj-electric-forest-ms8w0nv1/bugs/bug-mti5q9ei-n8bx",
+  "finding": "The sheet has inline `bottom:10px`, but a leftover `translateY(9.51004%)` (19.5px) stays in place until the end of the recording. Rect bottom is 729 in a 720px viewport.",
+  "actual": "The caption renders at 3.98:1: its computed color rgb(116, 121, 119) is too close in luminance to the rgb(24, 25, 25) surface painted by the panel div beneath it, so the text reads as faint dark-gray-on-dark-gray and is hard to read.",
+  "expected": "The helper caption should render at a contrast ratio of at least 4.5:1 against the dark panel surface it sits on (WCAG AA for text under 18pt/14pt-bold), e.g. a gray of roughly rgb(138, 143, 141) or lighter on the rgb(24, 25, 25) backdrop.",
+  "replay": {
+    "url": "/bugs/bottom-sheet-stuck-9px-off-screen-by-a-leftover-transform/recording.json#t=8.5",
+    "title": "Session replay",
+    "har": "/bugs/bottom-sheet-stuck-9px-off-screen-by-a-leftover-transform/network.json",
+    "captions": "/bugs/bottom-sheet-stuck-9px-off-screen-by-a-leftover-transform/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:09.0",
+      "shot": "/bugs/shots/c05ec324-4b87-4f94-8eb9-9c84602eb4f5-screenshot-39648.jpg",
+      "text": "At the end of the recording the New workspace bottom panel is open with the workspace name filled; along the very bottom of the panel, the helper caption \"Creates one `ns.org.create` event on the root namespace stream.\" is visible as faint dark-gray text on the panel's dark surface — a hit-test at the caption's center confirms the \\<small> itself is the topmost element (nothing covers it), and its computed foreground rgb(116, 121, 119) against the resolved backdrop rgb(24, 25, 25) yields a contrast ratio of 3.98:1, below the 4.5:1 WCAG AA minimum.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "The \\<small> element in form.new-repository-form (inside the mobile-a11y-credenza bottom panel) is styled with color rgb(116, 121, 119) — a muted 'faint text' token intended for light surfaces — while the surface actually painted beneath it is the panel's own dark background rgb(24, 25, 25) (all intervening ancestors have transparent background-color, so the panel div is the effective backdrop). The relative luminances of that pair give a contrast ratio of 3.98:1, which fails the WCAG AA threshold of 4.5:1 required for this ~12px caption text.",
+    "evidence": [
+      {
+        "summary": "2 evidence probes (Evaluate)",
+        "probes": [
+          "Evaluate {\"point\":\"Point:57\",\"scope\":\"global\",\"expression\":\"(() => { try { var el = document.querySelector(\\\"div > div > form.new-repository-form > small\\\"); if (!el) return JSON.stringify({ found: false, selector: \\\"div > div > form.new-repository-form > small\\\" }); var r = el.getBoundingClientRect(); var cs = getComputedStyle(el); var cn = el.className; cn = (cn && cn.baseVal !== undefined) ? cn.baseVal : cn; return JSON.stringify({ found: true, tag: el.tagName.toLowerCase(), className: (cn == null ? '' : String(cn)).slice(0, 200), id: el.id || '', rect: { x: Math.round(r.x), y: Math.round(r.y), w: M…\n→ \"{\\\"found\\\":true,\\\"tag\\\":\\\"small\\\",\\\"className\\\":\\\"\\\",\\\"id\\\":\\\"\\\",\\\"rect\\\":{\\\"x\\\":10,\\\"y\\\":706,\\\"w\\\":1260,\\\"h\\\":15},\\\"viewport\\\":{\\\"w\\\":1280,\\\"h\\\":720},\\\"display\\\":\\\"block\\\",\\\"position\\\":\\\"static\\\",\\\"visibility\\\":\\\"visible\\\",\\\"opacity\\\":\\\"1\\\",\\\"overflow\\\":\\\"visible\\\",\\\"color\\\":\\\"rgb(116, 121, 119)\\\",\\\"backgroundColor\\\":\\\"rgba(0, 0, 0, 0)\\\",\\\"fontSize\\\":\\\"13.3333px\\\",\\\"fontWeight\\\":\\\"400\\\",\\\"zIndex\\\":\\\"auto\\\",\\\"text\\\":\\\"Creates one `ns.org.create` event on the root namespace stream.\\\"}\"",
+          "Evaluate {\"point\":\"Point:57\",\"scope\":\"global\",\"expression\":\"(() => { try { var el = document.querySelector(\\\"div > div > form.new-repository-form > small\\\"); if (!el) return JSON.stringify({ found: false, selector: \\\"div > div > form.new-repository-form > small\\\" }); var r = el.getBoundingClientRect(); var cs = getComputedStyle(el); var parseC = function (s) { if (!s || s === 'transparent') return null; var i = s.indexOf('('), j = s.indexOf(')'); if (i < 0 || j < 0) return null; var p = s.slice(i + 1, j).split(',').map(function (x) { return parseFloat(x); }); if (p.length < 3 || isNaN(p[0]) || isNaN(p[…\n→ \"{\\\"found\\\":true,\\\"tag\\\":\\\"small\\\",\\\"text\\\":\\\"Creates one `ns.org.create` event on the root namespace stream.\\\",\\\"rect\\\":{\\\"x\\\":10,\\\"y\\\":706,\\\"w\\\":1260,\\\"h\\\":15},\\\"viewport\\\":{\\\"w\\\":1280,\\\"h\\\":720},\\\"textColor\\\":\\\"rgb(116, 121, 119)\\\",\\\"ownBackgroundColor\\\":\\\"rgba(0, 0, 0, 0)\\\",\\\"effectiveBackdrop\\\":\\\"rgb(24, 25, 25)\\\",\\\"effectiveBackdropSource\\\":\\\"div.mobile-a11y-credenza-_r_0_\\\",\\\"effectiveBackdropDefaulted\\\":false,\\\"contrastRatio\\\":3.98,\\\"invisible\\\":false,\\\"fontSize\\\":\\\"13.3333px\\\",\\\"fontWeight\\\":\\\"400\\\"}\""
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The New workspace panel (div.mobile-a11y-credenza-_r_0_) paints a dark opaque background rgb(24, 25, 25); the form's ancestors between the panel and the caption (form.new-repository-form and its parent divs) all have transparent background-color, so the panel surface is the caption's effective backdrop.",
+      "evidence": []
+    },
+    {
+      "text": "The caption \\<small> is given color rgb(116, 121, 119) — a token too close in luminance to that dark surface — producing a measured contrast ratio of 3.98:1, below the 4.5:1 WCAG AA minimum for small text.",
+      "evidence": []
+    },
+    {
+      "text": "Because the caption is visible and unobscured at the bottom of the open panel (hit-test confirms it is topmost at its center), the user directly sees this faint dark-gray-on-dark-gray helper text alongside the panel's clearly legible white labels and button text.",
+      "evidence": []
+    }
+  ]
+}

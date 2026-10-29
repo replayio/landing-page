@@ -1,0 +1,59 @@
+{
+  "title": "Live sync re-downloads everything 258 times because the checkpoint never advances",
+  "severity": "medium",
+  "category": "perf",
+  "why": "Each request looks fine (200 OK). It's only wrong across the whole session.",
+  "project": "Github Clone",
+  "discovered": "2026-09-04",
+  "report": "https://qa.replay.io/projects/proj-electric-forest-ms8w0nv1/bugs/bug-mtmk9vtr-21c2",
+  "finding": "`checkpoint=-1` on every round for about 160s: 258 back-to-back GETs to `/pulls?live=1`, about 631ms each, with only 2 clicks the whole time.",
+  "actual": "The client sends checkpoint=-1 on every round for the whole session: 258 sequential GET requests to /api/repos/maple/reading-room/pulls (257 x HTTP 200, 1 no-response), each ~575–760ms, back-to-back with ~600–750ms between request starts, re-downloading/re-processing the same projection continuously while the user does nothing.",
+  "expected": "A checkpoint-based live sync should send the most recently received checkpoint on each round so the server returns only new data since that checkpoint (or holds the request until there is new data). Once the projection is loaded, the client should reuse it and only fetch deltas, keeping network activity near zero while nothing changes.",
+  "replay": {
+    "url": "/bugs/live-sync-re-downloads-everything-258-times-because-the-chec/recording.json#t=7.2",
+    "title": "Session replay",
+    "har": "/bugs/live-sync-re-downloads-everything-258-times-because-the-chec/network.json",
+    "captions": "/bugs/live-sync-re-downloads-everything-258-times-because-the-chec/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:07.5",
+      "shot": "/bugs/shots/b9048c2d-5f11-4e69-ae9c-46f5923a3358-screenshot-15290.jpg",
+      "text": "The recording's network log shows a continuous sequential GET loop against /api/repos/maple/reading-room/pulls with checkpoint pinned at -1: requests at 15292ms, 15627ms, 16342ms, ... 175614ms — one starting as soon as the previous finishes, all 200, ~600–750ms cadence, while the user performs no interactions.",
+      "evidence": []
+    },
+    {
+      "time": "0:05.3",
+      "shot": null,
+      "text": "At the end of the recording (~175s), request #254 still carries the identical query checkpoint=-1, and 258 total requests to the endpoint have accumulated (257 x 200). The checkpoint cursor never advanced even once across the entire session, proving the loop re-fetches the full projection from the beginning every round.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "The live-sync client for the PR index never advances its checkpoint cursor: every long-poll round sends checkpoint=-1 (initial 'from the beginning' value) instead of the checkpoint returned by the previous response, so the server can never short-circuit an idle round with an empty delta and the client re-downloads and re-processes the full pulls projection ~every 600ms for the whole session (258 requests).",
+    "evidence": [
+      {
+        "summary": "2 evidence probes (NetworkRequest)",
+        "probes": [
+          "NetworkRequest {\"mode\":\"requests\",\"limit\":3,\"format\":\"json\",\"urlFilter\":\"/api/repos/maple/reading-room/pulls\"}\n→ {\"mode\":\"requests\",\"data\":{\"requests\":[{\"index\":0,\"timeMs\":15292,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index\",\"status\":200,\"durationMs\":334,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"},{\"index\":1,\"timeMs\":15627,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index&live=1&checkpoint=-1&waitMs=500\",\"status\":200,\"durationMs\":714,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"},{\"index\":2,\"timeMs\":16342,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index&live=1&checkpoint=-1&waitMs=500\",\"status\":200,\"durationMs\":760,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"}],\"total\":258,\"offset\":0,\"limit\":3,\"hasMore\":true,\"filters\":{\"urlFilter\":\"/api/repos/maple/reading-room/pulls\"}}}",
+          "NetworkRequest {\"mode\":\"requests\",\"limit\":5,\"format\":\"json\",\"offset\":250,\"urlFilter\":\"/api/repos/maple/reading-room/pulls\"}\n→ {\"mode\":\"requests\",\"data\":{\"requests\":[{\"index\":250,\"timeMs\":173113,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index&live=1&checkpoint=-1&waitMs=500\",\"status\":200,\"durationMs\":715,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"},{\"index\":251,\"timeMs\":173829,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index&live=1&checkpoint=-1&waitMs=500\",\"status\":200,\"durationMs\":590,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"},{\"index\":252,\"timeMs\":174419,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index&live=1&checkpoint=-1&waitMs=500\",\"status\":200,\"durationMs\":590,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"},{\"index\":253,\"timeMs\":175009,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index&live=1&checkpoint=-1&waitMs=500\",\"status\":200,\"durationMs\":604,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"},{\"index\":254,\"timeMs\":175614,\"method\":\"GET\",\"url\":\"http://127.0.0.1:61787/api/repos/maple/reading-room/pulls?projection=1&reducer=pr-index&live=1&checkpoint=-1&waitMs=500\",\"status\":200,\"durationMs\":594,\"requestCause\":\"fetch\",\"hostname\":\"127.0.0.1\"}],\"total\":258,\"offset\":250,\"limit\":5,\"hasMore\":true,\"filters\":{\"urlFilter\":\"/api/repos/maple/reading-room/pulls\"}}}"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The PR-index view mounts and starts a live long-poll loop with live=1&checkpoint=-1&waitMs=500.",
+      "evidence": []
+    },
+    {
+      "text": "Each response returns 200 but the client's next request still carries checkpoint=-1 (verified at request #0-#2 and again at requests #250-#254, 160s later), so the cursor never advances.",
+      "evidence": []
+    },
+    {
+      "text": "Because the server is always asked for 'everything since -1', no idle round can return an empty delta; the loop re-fetches the full projection back-to-back forever — 258 GETs (~600-750ms cadence, avg 631ms) — consuming network/server capacity continuously for data the client already had.",
+      "evidence": []
+    }
+  ]
+}

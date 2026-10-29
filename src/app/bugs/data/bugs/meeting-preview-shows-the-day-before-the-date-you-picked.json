@@ -1,0 +1,136 @@
+{
+  "title": "Meeting preview shows the day before the date you picked",
+  "severity": "medium",
+  "category": "state",
+  "why": "The date input holds the right value. The shift only appears when a date-only string is formatted in a time zone west of UTC.",
+  "project": "workspaces",
+  "discovered": "2026-10-19",
+  "report": "https://qa.replay.io/projects/proj-bench-workspaces-mvfqprii/bugs/bug-mvfvx9ru-w6en",
+  "finding": "`parseDateInput('2026-10-20')` is `new Date(value)`, which means UTC midnight. Formatted in `America/New_York` that is 8 PM on Oct 19, so the preview read ‘lunes, 19 de octubre’ for a meeting on the 20th.",
+  "actual": "The preview line reads \"Reunión el lunes, 19 de octubre de 2026 a las 09:30\" — one day earlier than the selected date 2026-10-20 — and the same one-day shift appears for every date entered (the prefilled 2026-10-19 rendered as \"Reunión el domingo, 18 de octubre de 2026 a las 10:00\"). The date input and time select correctly hold 2026-10-20 and 09:30, but the preview shows the previous calendar day.",
+  "expected": "With the date field set to 2026-10-20 and time 09:30, the live preview line under the form should read \"Reunión el martes, 20 de octubre de 2026 a las 09:30\" — the same calendar date (Tuesday, October 20, 2026) that the user selected in the date input, so the form gives feedback matching the chosen schedule.",
+  "replay": {
+    "url": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/recording.json#t=8,11.85",
+    "title": "Session replay",
+    "har": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/network.json",
+    "log": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/console.txt",
+    "captions": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:08.6",
+      "shot": "/bugs/shots/92991ea0-1f75-4ae9-a7a6-0302894fbcb9-screenshot-50817.jpg",
+      "text": "The user fills the meeting date field with 2026-10-20 (the form previously held the prefilled date 2026-10-19).",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (PlaywrightSteps, InspectElement)",
+          "probes": [
+            "PlaywrightSteps {\"mode\":\"step-detail\",\"stepNumber\":308}\n→ Step 308: locator.fill\n============================================================\nTime: 50901ms\nDuration: 19ms\nAPI: locator.fill\nCategory: command\nParams: {\"selector\":\"html:nth-of-type(1) > body:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > section:nth-of-type(1) > form:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)\",\"value\":\"2026-10-20\",\"strict\":true,\"timeout\":15000}\n\nStack trace:\n    at invoke scripts/journey/run-script.bundle.cjs:21828:40\n    at scripts/journey/run-script.bundle.cjs:21851:62\n    at recordOperation scripts/journey/run-script.bundle.cjs:87803:30\n    at scripts/journey/run-script.bundle.cjs:21851:22\n\nInspector Commands (7):\n------------------------------------------------------------\n  [50904ms, point: 69446970483661523371120521428079285] Runtime.callFunctionOn (id: 1655)\n    params: {\"functionDeclaration\":\"(utilityScript, ...args) => utilityScript.evaluate(...args)\",\"objectId\":\"-2036979632787793438.10.2\",\"arguments\":[{\"objectId\":\"-2036979632787793438.10.2\"},{\"value\":true},{\"value\":false},{\"value\":\"(injected, { info, callId }) => {\\n            const elements = injected.querySelectorAll(info.parsed, document);\\n            if (callId)\\n              injected.markTargetElements(new Set(elements), callId);\\n            const element3 = elements[0];\\n            let log3 = \\\"\\\";\\n            if (elements.length > 1) {\\n          …",
+            "InspectElement {\"point\":\"69446970483673458414536211507974851\",\"element\":\"input[name=\\\"date\\\"]\"}\n→ Element:18 is `<input class=\"input\" type=\"date\" name=\"date\" required=\"\" value=\"2026-10-20\">`.\nElement:18 is rendered by React component Schedule at Point:39:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 103 column 18\nNo elements are obstructing the center point of this element.\n\nElement:18 has 256.65625px width and 36px height.\nThe width is set by these rules: 100% (100px)\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 8px right 10px bottom 8px left 10px.\nOverflow: hidden.\n\nDistances to its parent element:\n- Top overflows parent by 21.00px\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:19\n\nElement:19 is `<label class=\"field\"></label>`.\nElement:19 is rendered by React component Schedule at Point:40:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 101 column 16\n\nElement:19 has 256.65625px width and 57px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right overflows parent by 270.67px\n- Bottom overflows parent by 71.00px\n- Left is aligned with parent boundary\n\n### Parent Element:15\n\nElement:15 is `<div class=\"form-grid\"></div>`.\nElement:15 is rendered by React component Schedule at Point:41:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 100 column 14\n\nElement:15 has 527.328125px width and 1…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:10.3",
+      "shot": "/bugs/shots/92991ea0-1f75-4ae9-a7a6-0302894fbcb9-screenshot-54934.jpg",
+      "text": "The user picks 09:30 from the time dropdown (the form previously showed time 10:00).",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (PlaywrightSteps, InspectElement)",
+          "probes": [
+            "PlaywrightSteps {\"mode\":\"step-detail\",\"stepNumber\":359}\n→ Step 359: locator.selectOption\n============================================================\nTime: 57172ms\nDuration: 15ms\nAPI: locator.selectOption\nCategory: command\nParams: {\"selector\":\"html:nth-of-type(1) > body:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > section:nth-of-type(1) > form:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > select:nth-of-type(1)\",\"options\":[{\"label\":\"09:30\"}],\"strict\":true,\"timeout\":15000}\n\nStack trace:\n    at invoke scripts/journey/run-script.bundle.cjs:21828:40\n    at scripts/journey/run-script.bundle.cjs:21851:62\n    at recordOperation scripts/journey/run-script.bundle.cjs:87803:30\n    at scripts/journey/run-script.bundle.cjs:21851:22\n\nInspector Commands (7):\n------------------------------------------------------------\n  [57174ms, point: 78533489986135754479609360358053007] Runtime.callFunctionOn (id: 1837)\n    params: {\"functionDeclaration\":\"(utilityScript, ...args) => utilityScript.evaluate(...args)\",\"objectId\":\"-2036979632787793438.10.2\",\"arguments\":[{\"objectId\":\"-2036979632787793438.10.2\"},{\"value\":true},{\"value\":false},{\"value\":\"(injected, { info, callId }) => {\\n            const elements = injected.querySelectorAll(info.parsed, document);\\n            if (callId)\\n              injected.markTargetElements(new Set(elements), callId);\\n            const element3 = elements[0];\\n            let log3 = \\\"\\\";\\n            if (elements…",
+            "InspectElement {\"point\":\"78533489986147145344074876006175901\",\"element\":\"select[name=\\\"time\\\"]\"}\n→ Element:13 is `<select class=\"input\" name=\"time\"></select>`.\nElement:13 is rendered by React component Schedule at Point:34:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 107 column 18\nNo elements are obstructing the center point of this element.\n\nElement:13 has 256.671875px width and 36px height.\nThe width is set by these rules: 100% (100px)\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 8px right 10px bottom 8px left 10px.\n\nDistances to its parent element:\n- Top overflows parent by 21.00px\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:14\n\nElement:14 is `<label class=\"field\"></label>`.\nElement:14 is rendered by React component Schedule at Point:35:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 105 column 16\n\nElement:14 has 256.671875px width and 57px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom overflows parent by 71.00px\n- Left overflows parent by 270.66px\n\n### Parent Element:15\n\nElement:15 is `<div class=\"form-grid\"></div>`.\nElement:15 is rendered by React component Schedule at Point:36:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 100 column 14\n\nElement:15 has 527.328125px width and 128px height.\nMargin: top 0px right 0px bottom 0px…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:11.5",
+      "shot": "/bugs/shots/92991ea0-1f75-4ae9-a7a6-0302894fbcb9-screenshot-57934.jpg",
+      "text": "The schedule preview under the form shows 'Reunión el lunes, 19 de octubre de 2026 a las 09:30' — Monday, October 19 — while the date input holds 2026-10-20 and the time select holds 09:30. The preview is one day earlier than the selected date.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (Evaluate, InspectElement)",
+          "probes": [
+            "Evaluate {\"point\":\"78533489986147145344074876006175901\",\"scope\":\"global\",\"expression\":\"(() => { const dateEl = document.querySelector('input[name=\\\"date\\\"]'); const timeEl = document.querySelector('select[name=\\\"time\\\"]'); const preview = document.querySelector('[data-testid=\\\"schedule-preview\\\"]'); return { dateValue: dateEl.value, timeValue: timeEl.value, previewText: preview ? preview.textContent : null }; })()\"}\n→ {\n  \"dateValue\": \"2026-10-20\",\n  \"timeValue\": \"09:30\",\n  \"previewText\": \"Reunión el lunes, 19 de octubre de 2026 a las 09:30\"\n}",
+            "InspectElement {\"point\":\"78533489986147145344074876006175901\",\"element\":\"[data-testid=\\\"schedule-preview\\\"]\"}\n→ Element:7 is `<p class=\"preview\" data-testid=\"schedule-preview\"></p>`.\nElement:7 is rendered by React component Schedule at Point:25:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 127 column 16\nNo elements are obstructing the center point of this element.\n\nElement:7 has 527.328125px width and 36px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 10px right 12px bottom 10px left 12px.\n\nDistances to its parent element:\n- Top overflows parent by 211.00px\n- Right is aligned with parent boundary\n- Bottom overflows parent by 48.00px\n- Left is aligned with parent boundary\n\n### Parent Element:8\n\nElement:8 is `<form class=\"schedule-form\" data-testid=\"schedule-form\"></form>`.\nElement:8 is rendered by React component Schedule at Point:26:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 95 column 12\n\nElement:8 has 527.328125px width and 295px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 52.00px\n- Right overflows parent by 21.00px\n- Bottom overflows parent by 21.00px\n- Left overflows parent by 21.00px\n\n### Parent Element:9\n\nElement:9 is `<section class=\"card\"></section>`.\nElement:9 is rendered by React component Schedule at Point:27:\nRelevant code: http://localhost:3204/src/pages/Schedule.jsx line 90 column 8\n\nElement:9 has 569.328125px width and 368px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: t…"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Verify the starting page",
+      "evidence": []
+    },
+    {
+      "text": "Type a title for the new meeting into the meeting title field",
+      "evidence": []
+    },
+    {
+      "text": "Set the meeting date to a near-future date",
+      "evidence": []
+    },
+    {
+      "text": "Pick a start time from the time dropdown",
+      "evidence": []
+    },
+    {
+      "text": "Pick a duration from the duration dropdown",
+      "evidence": []
+    },
+    {
+      "text": "Before submitting, read the live 'Meeting on …' summary line shown under the form",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "In src/lib/dates.js, parseDateInput(value) returns `new Date(value)`. For the date-only string '2026-10-20', `new Date('2026-10-20')` constructs a Date at UTC midnight (2026-10-20T00:00:00.000Z). Schedule.jsx line 77 (describe = (dateStr) => formatLongDate(parseDateInput(dateStr), language, timeZone)) then passes that instant to formatLongDate, which formats it with Intl.DateTimeFormat in the workspace timeZone 'America/New_York' (UTC-4 in October). At 2026-10-20T00:00:00Z it is 20:00 on 2026-10-19 in New York, so the preview renders 'lunes, 19 de octubre de 2026' — one day earlier than the selected date. The date-only input value must be parsed as a local (or UTC-timezone) date rather than left at UTC midnight when formatted in a non-UTC timezone.",
+    "evidence": [
+      {
+        "summary": "2 evidence probes (Evaluate, SearchSources)",
+        "probes": [
+          "Evaluate {\"point\":\"78533489986147145344074876006175901\",\"scope\":\"global\",\"expression\":\"(() => { const d = new Date('2026-10-20'); const fmt = new Intl.DateTimeFormat('es', { timeZone: 'America/New_York', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); return { iso: d.toISOString(), formattedNY: fmt.format(d) }; })()\"}\n→ {\n  \"iso\": \"2026-10-20T00:00:00.000Z\",\n  \"formattedNY\": \"lunes, 19 de octubre de 2026\"\n}",
+          "SearchSources {\"pattern\":\"parseDateInput\"}\n→ ### http://localhost:3204/src/lib/dates.js\n hits | L | code \n------|------|------\n   1 |    1 | export const TIMEZONES = [ \n\n     |   12 |  \n     |  *13 | export function parseDateInput(value) { \n   4 |   14 |   return new Date(value);\n### http://localhost:3204/src/pages/Schedule.jsx\n hits | L | code \n------|------|------\n     |    4 | import { useWorkspaceSettings } from '../lib/settings.js'; \n     |   *5 | import { parseDateInput, formatLongDate, formatShortDate, toDateInputValue } from '../lib/dates.js'; \n     |    6 |  \n\n  10 |   12 | export default function Schedule() /*<HIT>*/{ \n\n     |   76 |  \n   4 |  *77 |   const describe = (dateStr) => formatLongDate(/*<HIT>*/parseDateInput(dateStr), language, timeZone); \n     |   78 |  \n\n   0 |  152 |               {meetings.map((m) => { \n   0 | *153 |                 const day = parseDateInput(m.date); \n     |  154 |                 return ("
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "SearchSources 'parseDateInput' shows the function defined in src/lib/dates.js line 14 as `return new Date(value)` and that Schedule.jsx line 77 formats it via describe = (dateStr) => formatLongDate(parseDateInput(dateStr), language, timeZone), i.e. the preview's date goes through the UTC-midnight parse and the timezone-aware formatter.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (SearchSources)",
+          "probes": [
+            "SearchSources {\"pattern\":\"parseDateInput\"}\n→ ### http://localhost:3204/src/lib/dates.js\n hits | L | code \n------|------|------\n   1 |    1 | export const TIMEZONES = [ \n\n     |   12 |  \n     |  *13 | export function parseDateInput(value) { \n   4 |   14 |   return new Date(value);\n### http://localhost:3204/src/pages/Schedule.jsx\n hits | L | code \n------|------|------\n     |    4 | import { useWorkspaceSettings } from '../lib/settings.js'; \n     |   *5 | import { parseDateInput, formatLongDate, formatShortDate, toDateInputValue } from '../lib/dates.js'; \n     |    6 |  \n\n  10 |   12 | export default function Schedule() /*<HIT>*/{ \n\n     |   76 |  \n   4 |  *77 |   const describe = (dateStr) => formatLongDate(/*<HIT>*/parseDateInput(dateStr), language, timeZone); \n     |   78 |  \n\n   0 |  152 |               {meetings.map((m) => { \n   0 | *153 |                 const day = parseDateInput(m.date); \n     |  154 |                 return ("
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Evaluating new Date('2026-10-20') in the workspace timezone proves the shift: the string parses to ISO 2026-10-20T00:00:00.000Z and Intl.DateTimeFormat with timeZone 'America/New_York' formats that instant as 'lunes, 19 de octubre de 2026'.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"78533489986147145344074876006175901\",\"scope\":\"global\",\"expression\":\"(() => { const d = new Date('2026-10-20'); const fmt = new Intl.DateTimeFormat('es', { timeZone: 'America/New_York', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); return { iso: d.toISOString(), formattedNY: fmt.format(d) }; })()\"}\n→ {\n  \"iso\": \"2026-10-20T00:00:00.000Z\",\n  \"formattedNY\": \"lunes, 19 de octubre de 2026\"\n}"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The visible state after the time selection confirms the defect: the date input holds '2026-10-20', the time select holds '09:30', and the rendered [data-testid=schedule-preview] element contains 'Reunión el lunes, 19 de octubre de 2026 a las 09:30' — the one-day-earlier date.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"78533489986147145344074876006175901\",\"scope\":\"global\",\"expression\":\"(() => { const dateEl = document.querySelector('input[name=\\\"date\\\"]'); const timeEl = document.querySelector('select[name=\\\"time\\\"]'); const preview = document.querySelector('[data-testid=\\\"schedule-preview\\\"]'); return { dateValue: dateEl.value, timeValue: timeEl.value, previewText: preview ? preview.textContent : null }; })()\"}\n→ {\n  \"dateValue\": \"2026-10-20\",\n  \"timeValue\": \"09:30\",\n  \"previewText\": \"Reunión el lunes, 19 de octubre de 2026 a las 09:30\"\n}"
+          ]
+        }
+      ]
+    }
+  ]
+}

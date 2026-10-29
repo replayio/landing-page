@@ -1,0 +1,98 @@
+{
+  "title": "Search shows results for the previous keystroke",
+  "severity": "medium",
+  "category": "race",
+  "why": "Typing 'tea' shows the right result for a split second, then the results for 'te' replace it. Whether it happens depends on network timing, so it's flaky by nature.",
+  "project": "ExampleApps PR #6 · todoist-clone",
+  "discovered": "2026-06-12",
+  "report": "https://qa.replay.io/projects/proj-exampleapps-pr-6-todoist-clone-mqbayr6x/bugs/bug-mqbf8akk-6ws5",
+  "finding": "Each keystroke sends its own `/api/search` request. The response for `q=te` arrived after the one for `q=tea` and overwrote it. The server returned 1 match for 'tea'; the list showed 4, including 'Write blog post'.",
+  "actual": "The input shows 'tea' but the list shows '4 results' — the results for the earlier query 'te' (Plan team offsite, Update onboarding docs, Write blog post, Prepare investor update). The correct 'tea' result (1 task) is briefly shown and then replaced by the late-arriving 'te' response. 'Write blog post', which contains no 'tea', remains visible.",
+  "expected": "After the input settles on 'tea', the list should show only the result(s) for 'tea'. The server returns exactly one task for /api/search?q=tea ('Plan team offsite'), so only that task should be displayed; non-matching tasks like 'Write blog post' should not appear.",
+  "replay": {
+    "url": "/bugs/search-shows-results-for-the-previous-keystroke/recording.json#t=4.7,7.4",
+    "title": "Session replay",
+    "har": "/bugs/search-shows-results-for-the-previous-keystroke/network.json",
+    "captions": "/bugs/search-shows-results-for-the-previous-keystroke/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:05.4",
+      "shot": "/bugs/shots/4c95a896-279b-400b-8f8f-c3bcf44a5acf-screenshot-31252.jpg",
+      "text": "On the Search view the user clicks the 'Search tasks' input and types the query 'tea' (keypresses t, e, a recorded at 30226-30242ms; Points 8-10). The input correctly shows 'tea'. At this moment the list still shows '11 results' from the even-earlier 'q=t' response, indicating the result list is being driven by stale per-keystroke responses. _User interaction._",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, InspectElement)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"keypress\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\"}\n→ # User Interactions\n\n**Filter:** keypress only\n**Showing 1–25 of 28 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 15264ms | keypress | Key Press: B | Point:3 |\n| 1 | 15278ms | keypress | Key Press: L | Point:4 |\n| 2 | 15290ms | keypress | Key Press: O | Point:5 |\n| 3 | 15300ms | keypress | Key Press: G | Point:6 |\n| 4 | 30226ms | keypress | Key Press: t | Point:8 |\n| 5 | 30235ms | keypress | Key Press: e | Point:9 |\n| 6 | 30242ms | keypress | Key Press: a | Point:10 |\n| 7 | 61076ms | keypress | Key Press: s | Point:12 |\n| 8 | 61091ms | keypress | Key Press: e | Point:13 |\n| 9 | 61098ms | keypress | Key Press: t | Point:14 |\n| 10 | 61108ms | keypress | Key Press:   | Point:15 |\n| 11 | 61114ms | keypress | Key Press: u | Point:16 |\n| 12 | 61128ms | keypress | Key Press: p | Point:17 |\n| 13 | 61139ms | keypress | Key Press:   | Point:18 |\n| 14 | 61145ms | keypress | Key Press: c | Point:19 |\n| 15 | 61157ms | keypress | Key Press: i | Point:20 |\n| 16 | 76208ms | keypress | Key Press: z | Point:22 |\n| 17 | 76216ms | keypress | Key Press: z | Point:23 |\n| 18 | 76225ms | keypress | Key Press: q | Point:24 |\n| 19 | 76230ms | keypress | Key Press: q | Point:25 |\n| 20 | 76240ms | keypress | Key Press: x | Point:32 |\n| 21 | 76245ms | keypress | Key Press: x | Point:33 |\n| 22 | 89543ms | keypress | Key Press: r | Point:34 |\n| 23 | 89558ms | keypress | Key Press: e | Point:35 |\n| 24 | 89578ms | keypress | Key Press: v | Point:36 |\n\n_Use `o…",
+            "InspectElement {\"point\":\"Point:10\",\"element\":\"input[placeholder=\\\"Search tasks\\\"]\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\"}\n→ Element:1 is `<input placeholder=\"Search tasks\" class=\"w-full bg-transparent text-sm outline-none\" value=\"te\" style=\"\">`.\nNo elements are obstructing the center point of this element.\n\nElement:1 has 718.5px width and 20px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 9.00px\n- Right overflows parent by 13.00px\n- Bottom overflows parent by 9.00px\n- Left overflows parent by 36.50px\n\n### Parent Element:2\n\nElement:2 is `<div class=\"mx-auto flex max-w-3xl items-center gap-2 rounded-md border bg-muted/40 px-3 py-2\"></div>`.\n\nElement:2 has 768px width and 38px height.\nMargin: top 0px right 74px bottom 0px left 74px.\nPadding: top 8px right 12px bottom 8px left 12px.\n\nDistances to its parent element:\n- Top overflows parent by 12.00px\n- Right overflows parent by 106.00px\n- Bottom overflows parent by 13.00px\n- Left overflows parent by 106.00px\n\n### Parent Element:3\n\nElement:3 is `<div class=\"border-b px-8 py-3\"></div>`.\n\nElement:3 has 980px width and 63px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 12px right 32px bottom 12px left 32px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom overflows parent by 657.00px\n- Left is aligned with parent boundary\n\n### Parent Element:4\n\nElement:4 is `<div class=\"flex h-full flex-col\"></div>`.\n\nElement:4 has 980px width and 720px height.\nM…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:05.8",
+      "shot": "/bugs/shots/4c95a896-279b-400b-8f8f-c3bcf44a5acf-screenshot-35252.jpg",
+      "text": "After typing finishes, the list settles showing '4 results' while the input still reads 'tea': 'Plan team offsite', 'Update onboarding docs', 'Write blog post', and 'Prepare investor update'. Only 'Plan team offsite' actually contains 'tea'; the other three do not. These four tasks are exactly the response body of /api/search?q=te, whereas /api/search?q=tea returned only the single task 'Plan team offsite'. The displayed list therefore corresponds to the stale query 'te', not the current query 'tea'.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"2465.48\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\"}\n→ A GET network request with ID 2465.48 was made to https://deploy-preview-6--todoist-clone-loopqa-4271.netlify.app/api/search?q=tea:\n<request_summary>\nThe response had status 200 ().\n</request_summary>\nInitiated at Point:29 @ 30245.00ms\nEvents:\n  request @ 30245ms\n  response @ 31514ms\n  response-body @ 31515ms\n  request-done @ 31515ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \ncontent-type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nx-nf-request-id: 01KTYT8MFGXSH7NPA97NKFE3V1\ndate: Fri, 12 Jun 2026 21:02:04 GMT\ncontent-encoding: br\nx-content-type-options: nosniff\nstrict-transport-security: max-age=31536000; includeSubDomains; preload\nnetlify-vary: query\nserver: Netlify\nage: 1\ncache-status: \"Netlify Durable\"; fwd=bypass, \"Netlify Edge\"; fwd=miss\nvary: Accept-Encoding\ncontent-type: application/json\ncache-control: no-cache\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n{\"query\":\"tea\",\"results\":[{\"id\":\"t4\",\"content\":\"Plan team offsite\",\"description\":\"Find a venue and draft an agenda for the summer offsite.\",\"projectId\":\"slmobbin\",\"priority\":4,\"dueDate\":\"2026-06-10\",\"completed\":false,\"labels\":[],\"order\":4,\"createdAt\":\"2026-06-03T10:00:00.000Z\"}]}\n</responseBody>",
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"2465.47\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\"}\n→ A GET network request with ID 2465.47 was made to https://deploy-preview-6--todoist-clone-loopqa-4271.netlify.app/api/search?q=te:\n<request_summary>\nThe response had status 200 ().\n</request_summary>\nInitiated at Point:30 @ 30238.00ms\nEvents:\n  request @ 30239ms\n  response @ 31711ms\n  response-body @ 31712ms\n  request-done @ 31712ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \ncontent-type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nx-nf-request-id: 01KTYT8MF9DPY1RTZEBY3E3W3B\ndate: Fri, 12 Jun 2026 21:02:04 GMT\ncontent-encoding: br\nx-content-type-options: nosniff\nstrict-transport-security: max-age=31536000; includeSubDomains; preload\nnetlify-vary: query\nserver: Netlify\nage: 1\ncache-status: \"Netlify Durable\"; fwd=bypass, \"Netlify Edge\"; fwd=miss\nvary: Accept-Encoding\ncontent-type: application/json\ncache-control: no-cache\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n{\"query\":\"te\",\"results\":[{\"id\":\"t4\",\"content\":\"Plan team offsite\",\"description\":\"Find a venue and draft an agenda for the summer offsite.\",\"projectId\":\"slmobbin\",\"priority\":4,\"dueDate\":\"2026-06-10\",\"completed\":false,\"labels\":[],\"order\":4,\"createdAt\":\"2026-06-03T10:00:00.000Z\"},{\"id\":\"t5\",\"content\":\"Update onboarding docs\",\"description\":\"Refresh the new-hire checklist with the late…"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Open the app and click 'Search' in the sidebar.",
+      "evidence": []
+    },
+    {
+      "text": "In the 'Search tasks' input type a query whose intermediate prefixes match many tasks but whose final value matches few — e.g. type 'tea'.",
+      "evidence": []
+    },
+    {
+      "text": "Observe the results list after typing finishes.",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "The Search view runs a useEffect keyed only on the query string that, for every change, issues GET /api/search?q=\\<query> and unconditionally writes the response into result state — `useEffect(()=>{let t=e.trim();if(!t){r([]);return}a(!0),Or.search(t).then(e=>{r(e.results),a(!1)})},[e])`, where `search:e=>Dr(`/search?q=${encodeURIComponent(e)}`)`. The effect uses no AbortController and performs no check that the resolving response belongs to the current query, so the result state is set by whichever request resolves last rather than the most recent query. Because each keystroke starts its own request and the requests have varying durations, an earlier request can resolve after a later one and overwrite the correct results. For 'tea', /api/search?q=tea resolved at 31515ms but the earlier /api/search?q=te resolved later at 31712ms, so the stale 'te' results (4 tasks) replaced the correct 'tea' result (1 task) and remained on screen.",
+    "evidence": [
+      {
+        "summary": "2 evidence probes (SearchSources)",
+        "probes": [
+          "SearchSources {\"pattern\":\"search\\\\(t\\\\)\\\\.then\\\\(.=>\\\\{\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\",\"includeGenerated\":true}\n→ ### https://deploy-preview-6--todoist-clone-loopqa-4271.netlify.app/assets/index-Cpj-tLYa.js\nL53:60370: ...useEffect)(()=>{let t=e.trim();if(!t){r([]);return}a(!0),Or.search(t).then(e=>{r(e.results),a(!1)})},[e]),(0,R.jsxs)(`di...",
+          "SearchSources {\"pattern\":\"search:e=>Dr\\\\(`/search\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\",\"includeGenerated\":true}\n→ ### https://deploy-preview-6--todoist-clone-loopqa-4271.netlify.app/assets/index-Cpj-tLYa.js\nL9:107140: .../labels`),getTasks:e=>Dr(`/tasks${e?`?projectId=${e}`:``}`),search:e=>Dr(`/search?q=${encodeURIComponent(e)}`),createTas..."
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "Typing 'tea' fired three separate uncancelled requests: /api/search?q=t (start 30230ms), /api/search?q=te (start 30239ms, duration 1473ms, response-body at 31712ms) and /api/search?q=tea (start 30245ms, duration 1270ms, response-body at 31515ms). The requests therefore completed out of order: the later-issued 'tea' request finished ~197ms before the earlier-issued 'te' request.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"/search\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\"}\n→ # Network Requests\n\n**Filters:** URL contains \"/search\"\n**Showing 1–25 of 28 requests**\n\n_All URLs relative to https://deploy-preview-6--todoist-clone-loopqa-4271.netlify.app_\n\n| # | Time | Method | URL | Status | Duration | Type |\n|---|------|--------|-----|--------|----------|------|\n| 0 | 15271ms | GET | /api/search?q=B | 200 | 777ms | fetch |\n| 1 | 15282ms | GET | /api/search?q=BL | 200 | 1363ms | fetch |\n| 2 | 15296ms | GET | /api/search?q=BLO | 200 | 1434ms | fetch |\n| 3 | 15304ms | GET | /api/search?q=BLOG | 200 | 1282ms | fetch |\n| 4 | 30230ms | GET | /api/search?q=t | 200 | 721ms | fetch |\n| 5 | 30239ms | GET | /api/search?q=te | 200 | 1473ms | fetch |\n| 6 | 30245ms | GET | /api/search?q=tea | 200 | 1270ms | fetch |\n| 7 | 61082ms | GET | /api/search?q=s | 200 | 778ms | fetch |\n| 8 | 61096ms | GET | /api/search?q=se | 200 | 1535ms | fetch |\n| 9 | 61102ms | GET | /api/search?q=set | 200 | 1426ms | fetch |\n| 10 | 61112ms | GET | /api/search?q=set | 200 | 1947ms | fetch |\n| 11 | 61118ms | GET | /api/search?q=set%20u | 200 | 1191ms | fetch |\n| 12 | 61131ms | GET | /api/search?q=set%20up | 200 | 1099ms | fetch |\n| 13 | 61143ms | GET | /api/search?q=set%20up | 200 | 1347ms | fetch |\n| 14 | 61148ms | GET | /api/search?q=set%20up%20c | 200 | 886ms | fetch |\n| 15 | 61160ms | GET | /api/search?q=set%20up%20ci | 200 | 976ms | fetch |\n| 16 | 76211ms | GET | /api/search?q=z | 200 | 726ms | fetch |\n| 17 | 76218ms | GET | /api/search?q=zz | 200 | 1471ms | fetch |\n| 18 | 76228ms | GE…"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Because the .then handler writes whichever response arrives last into state without verifying it matches the current input, the last-arriving q=te response — whose body is the four tasks t4 'Plan team offsite', t5 'Update onboarding docs', t12 'Write blog post', t13 'Prepare investor update' — overwrote the already-applied q=tea result (single task t4). The UI consequently displays '4 results' for the query 'tea', including the non-matching 'Write blog post'.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"2465.47\",\"recordingId\":\"4c95a896-279b-400b-8f8f-c3bcf44a5acf\"}\n→ A GET network request with ID 2465.47 was made to https://deploy-preview-6--todoist-clone-loopqa-4271.netlify.app/api/search?q=te:\n<request_summary>\nThe response had status 200 ().\n</request_summary>\nInitiated at Point:30 @ 30238.00ms\nEvents:\n  request @ 30239ms\n  response @ 31711ms\n  response-body @ 31712ms\n  request-done @ 31712ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \ncontent-type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nx-nf-request-id: 01KTYT8MF9DPY1RTZEBY3E3W3B\ndate: Fri, 12 Jun 2026 21:02:04 GMT\ncontent-encoding: br\nx-content-type-options: nosniff\nstrict-transport-security: max-age=31536000; includeSubDomains; preload\nnetlify-vary: query\nserver: Netlify\nage: 1\ncache-status: \"Netlify Durable\"; fwd=bypass, \"Netlify Edge\"; fwd=miss\nvary: Accept-Encoding\ncontent-type: application/json\ncache-control: no-cache\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n{\"query\":\"te\",\"results\":[{\"id\":\"t4\",\"content\":\"Plan team offsite\",\"description\":\"Find a venue and draft an agenda for the summer offsite.\",\"projectId\":\"slmobbin\",\"priority\":4,\"dueDate\":\"2026-06-10\",\"completed\":false,\"labels\":[],\"order\":4,\"createdAt\":\"2026-06-03T10:00:00.000Z\"},{\"id\":\"t5\",\"content\":\"Update onboarding docs\",\"description\":\"Refresh the new-hire checklist with the late…"
+          ]
+        }
+      ]
+    }
+  ]
+}

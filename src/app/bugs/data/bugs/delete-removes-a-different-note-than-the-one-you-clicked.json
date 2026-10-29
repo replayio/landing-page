@@ -1,0 +1,160 @@
+{
+  "title": "Delete removes a different note than the one you clicked",
+  "severity": "high",
+  "category": "state",
+  "why": "Something does get deleted, just not visibly. The targeted note stays put, and the deleted one was off-screen.",
+  "project": "collaborative-ai-editor",
+  "discovered": "2026-09-08",
+  "report": "https://qa.replay.io/projects/proj-collaborative-ai-editor-brett-lamy-workers-dev-mqqwem6e/bugs/bug-mtscslgc-nx5d",
+  "finding": "The store's `deleteNote` ran with id `3111cdbd`. The clicked row was `845761ce`, which stayed in the list with `aria-selected=\"true\"`.",
+  "actual": "The note \"Sample content for the new note.\" (id 845761ce) remains in the sidebar (still marked aria-selected=\"true\") and its content stays in the editor. The store's deleteNote ran and removed a DIFFERENT note (id 3111cdbd, not visible near the top or bottom of the list), leaving the targeted note untouched.",
+  "expected": "Clicking the Delete control on a note row should remove that specific note from the sidebar list; since it was the selected note, the editor should transition to the empty \"No note selected\" state.",
+  "replay": {
+    "url": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/recording.json#t=15.5",
+    "title": "Session replay",
+    "har": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/network.json",
+    "log": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/console.txt",
+    "evidence": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/evidence.json",
+    "captions": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:16.8",
+      "shot": "/bugs/shots/64d518ad-a5de-42a7-bca6-33927d820ab0-screenshot-163166.jpg",
+      "text": "After creating a new note and typing 'Sample content for the new note.' into it, the journey clicked that note's Delete control in the notes sidebar (Playwright step 273: locator.click on the button matching 'aside > div:nth-of-type(2) > div:nth-of-type(45) > div:nth-of-type(1) > button' at coordinates (243.25, 544.25), step time 163240ms).",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (PlaywrightSteps, InspectElement)",
+          "probes": [
+            "PlaywrightSteps {\"mode\":\"steps\",\"offset\":270,\"testIndex\":0}\n→ # Steps: QA Run: run-mtsblv0h-q7d7 ❌\n\n**494 steps** (showing 271-295 of 494)\n\n  271. [159166ms, duration: 42ms] page.screenshot\n    params: {\"type\":\"jpeg\",\"quality\":60,\"timeout\":15000}\n    at JourneyThumbnailCapture.capture scripts/journey/run-script.bundle.cjs:47191:30\n    at Timeout._onTimeout scripts/journey/run-script.bundle.cjs:47179:47\n\n  272. [162166ms, duration: 44ms] page.screenshot\n    params: {\"type\":\"jpeg\",\"quality\":60,\"timeout\":15000}\n    at JourneyThumbnailCapture.capture scripts/journey/run-script.bundle.cjs:47191:30\n    at Timeout._onTimeout scripts/journey/run-script.bundle.cjs:47179:47\n\n  273. [162198ms, duration: 9ms] locator.count\n    params: {\"selector\":\"body:nth-of-type(1) > main:nth-of-type(1) > aside:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(45) > div:nth-of-type(1) > button:nth-of-type(1) >> nth=0\"}\n    at waitForRecordedTarget scripts/journey/run-script.bundle.cjs:4608:17\n    at executeAction scripts/journey/run-script.bundle.cjs:5830:15\n    at _JourneySteps.execute scripts/journey/run-script.bundle.cjs:6476:12\n    at scripts/journey/run-script.bundle.cjs:50548:70\n    at traceJourneyExecution scripts/journey/run-script.bundle.cjs:47718:18\n\n  274. [162207ms, duration: 4ms] locator.count\n    at containerClickTarget scripts/journey/run-script.bundle.cjs:5711:69\n    at executeAction scripts/journey/run-script.bundle.cjs:5832:21\n\n  275. [162211ms, duration: 38ms] Evaluate\n    at containerTextInput scripts/journey/run-script.bundle.cjs:5699:32\n…",
+            "InspectElement {\"point\":\"Point:7\",\"element\":\".note-item__delete\"}\n→ Element:12 is `<button class=\"note-item__delete\" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Delete Sample content for the new note.\" id=\"react-aria9339112786-:r7k:\"></button>`.\nElement:12 is rendered by React component Rt at Point:68:\nRelevant code: https://collaborative-ai-editor.brett-lamy.workers.dev/assets/Button-BWCcBaVH.js line 293 column 30\nNo elements are obstructing the center point of this element.\n\nElement:12 has 24px width and 24px height.\nThe width is set by these rules: 24px\nThe height is set by these rules: 24px\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 1px right 6px bottom 1px left 6px.\n\nDistances to its parent element:\n- Top distance: 1601.75px\n- Right distance: 255.25px\n- Bottom overflows parent by 1577.75px\n- Left overflows parent by 231.25px\n\n### Parent Element:13\n\nElement:13 is `<div role=\"gridcell\" aria-colindex=\"1\" style=\"display: contents;\"></div>`.\nElement:13 is rendered by React component Rt at Point:69:\nRelevant code: https://collaborative-ai-editor.brett-lamy.workers.dev/assets/Button-BWCcBaVH.js line 293 column 30\n\nElement:13 has 0px width and 0px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 1613.00px\n- Right overflows parent by 264.00px\n- Bottom distance: 1566.50px\n- Left distance: 7.00px\n\n### Parent Element:14\n\nElement:14 is `<div class=\"note-item\" data-rac=\"\" tabindex=…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:17.0",
+      "shot": "/bugs/shots/64d518ad-a5de-42a7-bca6-33927d820ab0-screenshot-165213.jpg",
+      "text": "The note 'Sample content for the new note.' is still listed in the sidebar (row data-key='845761ce', aria-selected='true') and the editor pane header and body still display 'Sample content for the new note.' — the targeted note was not removed and the editor did not switch to the 'No note selected' empty state.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:7\",\"scope\":\"global\",\"expression\":\"(() => { const rows = Array.from(document.querySelectorAll('.note-item')).map(r => ({ key: r.dataset.key, label: r.getAttribute('aria-label'), sel: r.getAttribute('aria-selected') })); return { url: location.href, total: rows.length, has3111cdbd: rows.some(r => r.key === '3111cdbd'), first4: rows.slice(0, 4) }; })()\"}\n→ {\n  \"url\": \"https://collaborative-ai-editor.brett-lamy.workers.dev/w/apple/845761ce\",\n  \"total\": 48,\n  \"has3111cdbd\": true,\n  \"first4\": [\n    {\n      \"key\": \"845761ce\",\n      \"label\": \"Sample content for the new note.\",\n      \"sel\": \"true\"\n    },\n    {\n      \"key\": \"7b24f6b3\",\n      \"label\": \"Poem In the quiet margin of the day, a small wind folds the light away. Dust turns gold, then disappears, soft as memory\",\n      \"sel\": \"false\"\n    },\n    {\n      \"key\": \"24c2354c\",\n      \"label\": \"New Note\",\n      \"sel\": \"false\"\n    },\n    {\n      \"key\": \"0b0ba0c5\",\n      \"label\": \"New Note\",\n      \"sel\": \"false\"\n    }\n  ]\n}"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:20.4",
+      "shot": "/bugs/shots/64d518ad-a5de-42a7-bca6-33927d820ab0-screenshot-507266.jpg",
+      "text": "The stale note persists to the end of the recording (over 5 minutes after the Delete click): the note item is still present in the sidebar (its text node sits at y = -1606 px in a 720-px viewport, scrolled out of view), and the editor pane still displays the note's title and content with no error or empty state.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:7\",\"scope\":\"global\",\"expression\":\"(() => { const aside = document.querySelector('aside'); const nodes = Array.from(aside ? aside.querySelectorAll('*') : []).filter(e => e.children.length === 0 && (e.textContent || '').trim() === 'Sample content for the new note.'); const el = nodes[0]; if (!el) return { found: false }; const r = el.getBoundingClientRect(); return { found: true, rect: { x: r.x, y: r.y, w: r.width, h: r.height }, innerWidth: innerWidth, innerHeight: innerHeight }; })()\"}\n→ {\n  \"found\": true,\n  \"rect\": {\n    \"x\": 36.75,\n    \"y\": -1606,\n    \"w\": 187.5,\n    \"h\": 17.0625\n  },\n  \"innerWidth\": 1280,\n  \"innerHeight\": 720\n}"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Navigate to the collaborative AI editor app",
+      "evidence": []
+    },
+    {
+      "text": "Fill in the display name field with a test name",
+      "evidence": []
+    },
+    {
+      "text": "Open the Apple workspace",
+      "evidence": []
+    },
+    {
+      "text": "Click the New note button to create a new note",
+      "evidence": []
+    },
+    {
+      "text": "Type sample content into the editor surface of the newly created note",
+      "evidence": []
+    },
+    {
+      "text": "Delete the currently selected note by clicking its delete button in the toolbar",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "The sidebar note-item Delete control's onPress handler passes a stale/mismatched note id to the store's deleteNote action: the Logpoint instrumentation on the deleteNote body captured the call with deleteId '3111cdbd' while the button clicked was the one rendered for note '845761ce' (title 'Sample content for the new note.'). The loop inside deleteNote matched and removed the entry with id '3111cdbd' (t.notes.delete(f, 1) executed with notesLen 48), so a different note was deleted while the targeted note stayed in the list and remained selected in the editor. The DOM confirms the outcome: the row with data-key='845761ce' / aria-label 'Sample content for the new note.' is still present with aria-selected='true', and no row with key '3111cdbd' exists anywhere in the list.",
+    "evidence": [
+      {
+        "summary": "4 evidence probes (Logpoint, InspectElement, SearchSources)",
+        "probes": [
+          "Logpoint {\"line\":5142,\"path\":\"https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js\",\"expression\":\"JSON.stringify({deleteId: d, notesLen: a.length})\"}\n→ Found 1 total hit at https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js:5142\n\nHit 1 at point Point:71 @ 163302.36ms:\n  Expression: JSON.stringify({deleteId: d, notesLen: a.length})\n  Result: \"{\\\"deleteId\\\":\\\"3111cdbd\\\",\\\"notesLen\\\":48}\"\n",
+          "Logpoint {\"line\":5141,\"path\":\"https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js\",\"expression\":\"JSON.stringify({id: a[f].get(\\\"id\\\"), title: a[f].get(\\\"title\\\"), updatedAt: a[f].get(\\\"updatedAt\\\")})\"}\n→ Found 44 total hits at https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js:5141 (showing first 20)\n\nHit 1 at point Point:73 @ 163302.34ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\"), updatedAt: a[f].get(\"updatedAt\")})\n  Result: \"{\\\"id\\\":\\\"845761ce\\\",\\\"title\\\":\\\"Sample content for the new note.\\\",\\\"updatedAt\\\":1788851218535}\"\n\nHit 2 at point Point:74 @ 163302.34ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\"), updatedAt: a[f].get(\"updatedAt\")})\n  Result: \"{\\\"id\\\":\\\"d8b10b2c\\\",\\\"title\\\":\\\"\\\",\\\"updatedAt\\\":1788252120740}\"\n\nHit 3 at point Point:75 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\"), updatedAt: a[f].get(\"updatedAt\")})\n  Result: \"{\\\"id\\\":\\\"0b0ba0c5\\\",\\\"title\\\":\\\"\\\",\\\"updatedAt\\\":1788252210471}\"\n\nHit 4 at point Point:76 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\"), updatedAt: a[f].get(\"updatedAt\")})\n  Result: \"{\\\"id\\\":\\\"da20d313\\\",\\\"title\\\":\\\"\\\",\\\"updatedAt\\\":1788250553411}\"\n\nHit 5 at point Point:77 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\"), updatedAt: a[f].get(\"updatedAt\")})\n  Result: \"{\\\"id\\\":\\\"c8b602f9\\\",\\\"title\\\":\\\"\\\",\\\"updatedAt\\\":1788250830125}\"\n\nHit 6 at point Point:78 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\"), updatedAt: a[f].get(\"updatedAt\")})\n  Result: \"{\\\"id\\\":\\\"4fd68ab7\\\",\\\"title\\\":\\\"\\…",
+          "InspectElement {\"point\":\"Point:7\",\"element\":\".note-item__delete\"}\n→ Element:12 is `<button class=\"note-item__delete\" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Delete Sample content for the new note.\" id=\"react-aria9339112786-:r7k:\"></button>`.\nElement:12 is rendered by React component Rt at Point:68:\nRelevant code: https://collaborative-ai-editor.brett-lamy.workers.dev/assets/Button-BWCcBaVH.js line 293 column 30\nNo elements are obstructing the center point of this element.\n\nElement:12 has 24px width and 24px height.\nThe width is set by these rules: 24px\nThe height is set by these rules: 24px\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 1px right 6px bottom 1px left 6px.\n\nDistances to its parent element:\n- Top distance: 1601.75px\n- Right distance: 255.25px\n- Bottom overflows parent by 1577.75px\n- Left overflows parent by 231.25px\n\n### Parent Element:13\n\nElement:13 is `<div role=\"gridcell\" aria-colindex=\"1\" style=\"display: contents;\"></div>`.\nElement:13 is rendered by React component Rt at Point:69:\nRelevant code: https://collaborative-ai-editor.brett-lamy.workers.dev/assets/Button-BWCcBaVH.js line 293 column 30\n\nElement:13 has 0px width and 0px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 1613.00px\n- Right overflows parent by 264.00px\n- Bottom distance: 1566.50px\n- Left distance: 7.00px\n\n### Parent Element:14\n\nElement:14 is `<div class=\"note-item\" data-rac=\"\" tabindex=…",
+          "SearchSources {\"pattern\":\"onPress: \\\\(\\\\) => d\\\\(a.id\\\\)\"}\n→ ### https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js\n hits | L | code \n------|------|------\n 200 | 5018 |       a => T.jsxs( \n\n 200 | 5053 |                 \"aria-label\": `Delete ${Oe(a.title)}`, \n   1 | *5054 |                 onPress: () => d(a.id), \n     | 5055 |                 slot: null,"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "### ![Screenshot at 2:43.3](/shots/64d518ad-a5de-42a7-bca6-33927d820ab0-screenshot-163166.jpg \"thumbnail: 2:43.3\")\n\nAt 163240ms the Playwright runner clicked the button matching selector 'aside > div:nth-of-type(2) > div:nth-of-type(45) > div:nth-of-type(1) > button' at coordinates (243.25, 544.25), inside the notes sidebar.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (PlaywrightSteps)",
+          "probes": [
+            "PlaywrightSteps {\"mode\":\"steps\",\"offset\":270,\"testIndex\":0}\n→ # Steps: QA Run: run-mtsblv0h-q7d7 ❌\n\n**494 steps** (showing 271-295 of 494)\n\n  271. [159166ms, duration: 42ms] page.screenshot\n    params: {\"type\":\"jpeg\",\"quality\":60,\"timeout\":15000}\n    at JourneyThumbnailCapture.capture scripts/journey/run-script.bundle.cjs:47191:30\n    at Timeout._onTimeout scripts/journey/run-script.bundle.cjs:47179:47\n\n  272. [162166ms, duration: 44ms] page.screenshot\n    params: {\"type\":\"jpeg\",\"quality\":60,\"timeout\":15000}\n    at JourneyThumbnailCapture.capture scripts/journey/run-script.bundle.cjs:47191:30\n    at Timeout._onTimeout scripts/journey/run-script.bundle.cjs:47179:47\n\n  273. [162198ms, duration: 9ms] locator.count\n    params: {\"selector\":\"body:nth-of-type(1) > main:nth-of-type(1) > aside:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(45) > div:nth-of-type(1) > button:nth-of-type(1) >> nth=0\"}\n    at waitForRecordedTarget scripts/journey/run-script.bundle.cjs:4608:17\n    at executeAction scripts/journey/run-script.bundle.cjs:5830:15\n    at _JourneySteps.execute scripts/journey/run-script.bundle.cjs:6476:12\n    at scripts/journey/run-script.bundle.cjs:50548:70\n    at traceJourneyExecution scripts/journey/run-script.bundle.cjs:47718:18\n\n  274. [162207ms, duration: 4ms] locator.count\n    at containerClickTarget scripts/journey/run-script.bundle.cjs:5711:69\n    at executeAction scripts/journey/run-script.bundle.cjs:5832:21\n\n  275. [162211ms, duration: 38ms] Evaluate\n    at containerTextInput scripts/journey/run-script.bundle.cjs:5699:32\n…"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The element at those coordinates is BUTTON.note-item__delete (aria-label 'Delete New Note'), nested inside a .note-item row inside .notes-list, confirming a sidebar delete control was clicked.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:7\",\"scope\":\"global\",\"expression\":\"(() => { const el = document.elementFromPoint(243, 544); if (!el) return { found: false }; let chain = []; let cur = el; for (let i = 0; i < 6 && cur; i++) { chain.push({ tag: cur.tagName, cls: (cur.className || '').toString().slice(0, 80), role: cur.getAttribute ? cur.getAttribute('role') : null, ariaLabel: cur.getAttribute ? cur.getAttribute('aria-label') : null }); cur = cur.parentElement; } return { found: true, chain }; })()\"}\n→ {\n  \"found\": true,\n  \"chain\": [\n    {\n      \"tag\": \"svg\",\n      \"cls\": \"[object SVGAnimatedString]\",\n      \"role\": null,\n      \"ariaLabel\": null\n    },\n    {\n      \"tag\": \"BUTTON\",\n      \"cls\": \"note-item__delete\",\n      \"role\": null,\n      \"ariaLabel\": \"Delete New Note\"\n    },\n    {\n      \"tag\": \"DIV\",\n      \"cls\": \"\",\n      \"role\": \"gridcell\",\n      \"ariaLabel\": null\n    },\n    {\n      \"tag\": \"DIV\",\n      \"cls\": \"note-item\",\n      \"role\": \"row\",\n      \"ariaLabel\": \"New Note\"\n    },\n    {\n      \"tag\": \"DIV\",\n      \"cls\": \"notes-list\",\n      \"role\": \"grid\",\n      \"ariaLabel\": \"Notes in apple\"\n    },\n    {\n      \"tag\": \"ASIDE\",\n      \"cls\": \"notes-sidebar\",\n      \"role\": null,\n      \"ariaLabel\": null\n    }\n  ]\n}"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The store's deleteNote action executed at 163302ms with id '3111cdbd' over the 48-note array; the first array entry has id '845761ce' (title 'Sample content for the new note.'), so the removed entry is not the note whose delete button was clicked.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (Logpoint)",
+          "probes": [
+            "Logpoint {\"line\":5142,\"path\":\"https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js\",\"expression\":\"JSON.stringify({deleteId: d, notesLen: a.length})\"}\n→ Found 1 total hit at https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js:5142\n\nHit 1 at point Point:71 @ 163302.36ms:\n  Expression: JSON.stringify({deleteId: d, notesLen: a.length})\n  Result: \"{\\\"deleteId\\\":\\\"3111cdbd\\\",\\\"notesLen\\\":48}\"\n",
+            "Logpoint {\"line\":5141,\"path\":\"https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js\",\"expression\":\"JSON.stringify({id: a[f].get(\\\"id\\\"), title: a[f].get(\\\"title\\\")})\"}\n→ Found 44 total hits at https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js:5141 (showing first 20)\n\nHit 1 at point Point:73 @ 163302.34ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"845761ce\\\",\\\"title\\\":\\\"Sample content for the new note.\\\"}\"\n\nHit 2 at point Point:74 @ 163302.34ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"d8b10b2c\\\",\\\"title\\\":\\\"\\\"}\"\n\nHit 3 at point Point:75 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"0b0ba0c5\\\",\\\"title\\\":\\\"\\\"}\"\n\nHit 4 at point Point:76 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"da20d313\\\",\\\"title\\\":\\\"\\\"}\"\n\nHit 5 at point Point:77 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"c8b602f9\\\",\\\"title\\\":\\\"\\\"}\"\n\nHit 6 at point Point:78 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"4fd68ab7\\\",\\\"title\\\":\\\"\\\"}\"\n\nHit 7 at point Point:79 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"c980f5a1\\\",\\\"title\\\":\\\"\\\"}\"\n\nHit 8 at point Point:80 @ 163302.35ms:\n  Expression: JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})\n  Result: \"{\\\"id\\\":\\\"4c35e1b5\\\",\\\"title\\\":\\\"\\\"}\"\n\nHit 9 a…"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "### ![Screenshot at 2:46.0](/shots/64d518ad-a5de-42a7-bca6-33927d820ab0-screenshot-165213.jpg \"thumbnail: 2:46.0\")\n\nAfter the click, the sidebar still contains the row data-key='845761ce' / aria-label 'Sample content for the new note.' with aria-selected='true', the editor still shows that title and content, and no row with key '3111cdbd' exists anywhere in the list, proving the wrong note was deleted.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:7\",\"scope\":\"global\",\"expression\":\"(() => { const rows = Array.from(document.querySelectorAll('.note-item')).map(r => ({ key: r.dataset.key, label: r.getAttribute('aria-label'), sel: r.getAttribute('aria-selected') })); return { url: location.href, total: rows.length, has3111cdbd: rows.some(r => r.key === '3111cdbd'), first4: rows.slice(0, 4) }; })()\"}\n→ {\n  \"url\": \"https://collaborative-ai-editor.brett-lamy.workers.dev/w/apple/845761ce\",\n  \"total\": 48,\n  \"has3111cdbd\": true,\n  \"first4\": [\n    {\n      \"key\": \"845761ce\",\n      \"label\": \"Sample content for the new note.\",\n      \"sel\": \"true\"\n    },\n    {\n      \"key\": \"7b24f6b3\",\n      \"label\": \"Poem In the quiet margin of the day, a small wind folds the light away. Dust turns gold, then disappears, soft as memory\",\n      \"sel\": \"false\"\n    },\n    {\n      \"key\": \"24c2354c\",\n      \"label\": \"New Note\",\n      \"sel\": \"false\"\n    },\n    {\n      \"key\": \"0b0ba0c5\",\n      \"label\": \"New Note\",\n      \"sel\": \"false\"\n    }\n  ]\n}"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "### ![Screenshot at 8:27.3](/shots/64d518ad-a5de-42a7-bca6-33927d820ab0-screenshot-507266.jpg \"thumbnail: 8:27.3\")\n\nThe stale state persists to the end of the recording: the targeted note remains in the sidebar (its text node sits at y = -1606 px in a 720 px viewport, scrolled out of view) and the editor still renders its title and content.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:7\",\"scope\":\"global\",\"expression\":\"(() => { const aside = document.querySelector('aside'); const nodes = Array.from(aside ? aside.querySelectorAll('*') : []).filter(e => e.children.length === 0 && (e.textContent || '').trim() === 'Sample content for the new note.'); const el = nodes[0]; if (!el) return { found: false }; const r = el.getBoundingClientRect(); return { found: true, rect: { x: r.x, y: r.y, w: r.width, h: r.height }, innerWidth: innerWidth, innerHeight: innerHeight }; })()\"}\n→ {\n  \"found\": true,\n  \"rect\": {\n    \"x\": 36.75,\n    \"y\": -1606,\n    \"w\": 187.5,\n    \"h\": 17.0625\n  },\n  \"innerWidth\": 1280,\n  \"innerHeight\": 720\n}"
+          ]
+        }
+      ]
+    }
+  ]
+}

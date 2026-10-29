@@ -22,7 +22,7 @@
   --tertiary-foreground: rgba(60, 60, 67, 0.33);
 }
 
-/* The report's pre-rendered prose (data/bugs.json) */
+/* A bug report's prose (markdown from data/bugs/*.json) */
 .bug-prose { font-size: 15px; line-height: 1.7; color: #4b5563; overflow-wrap: anywhere; }
 .bug-prose > * + * { margin-top: 10px; }
 .bug-prose strong { color: #111827; font-weight: 600; }

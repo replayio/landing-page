@@ -1,0 +1,126 @@
+{
+  "title": "Undo uses up its history entry but doesn't revert the checklist",
+  "severity": "medium",
+  "category": "state",
+  "why": "Undo looks like it worked: the button disables and the board re-renders. The snapshot it restored had already been changed by the edit it was meant to undo.",
+  "project": "taskboard",
+  "discovered": "2026-10-19",
+  "report": "https://qa.replay.io/projects/proj-bench-taskboard-mvfquo23/bugs/bug-mvfw0mt7-fgor",
+  "finding": "`SET_CHECK_ITEM` sets `item.done` in place, and `snapshot()` only shallow-copies cards. A logpoint at `boardReducer.js:55` returned `sharedItemObject: true`: the saved past state and the live board shared the same checklist item.",
+  "actual": "The Undo button in the board header consumed a history entry (its state flipped from enabled to disabled), but the board it was supposed to revert did not change: the Review card \"Customer interview synthesis\" still displays checklist badge \"☑ 1/2\" instead of being restored to \"☑ 0/2\". The undo action fired yet produced no visible revert of the checklist edit.",
+  "expected": "Clicking \"↶ Undo\" in the board header should revert the last board mutation — the checklist edit — so the Review-column card \"Customer interview synthesis\" badge is restored to \"☑ 0/2\" (its pre-edit state), while consuming that one history entry.",
+  "replay": {
+    "url": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/recording.json#t=4",
+    "title": "Session replay",
+    "har": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/network.json",
+    "log": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/console.txt",
+    "evidence": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/evidence.json",
+    "captions": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:04.5",
+      "shot": "/bugs/shots/6f639895-bf6c-40d4-a5a2-740311ff9e92-screenshot-56538.jpg",
+      "text": "Toggle the first checklist item checkbox (\"Tag transcripts\") in the \"Customer interview synthesis\" card detail dialog, changing it from unchecked to checked.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, InspectElement)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"click\"}\n→ # User Interactions\n\n**Filter:** click only\n**Showing 1–4 of 4 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 21395ms | click | Click at (889, 375) | Point:1 |\n| 1 | 57208ms | click | Click at (302, 307) | Point:2 |\n| 2 | 73540ms | click | Click at (983, 108) | Point:3 |\n| 3 | 102096ms | click | Click at (1218, 110) | Point:4 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type\n\n## Playwright-triggered interactions (driver-dispatched input)\n\nThe rows and counts above enumerate DOM-recorded input events only. Input a test driver dispatched\nprogrammatically (a Playwright `keyboard.press`, `fill`, driver `click`, ...) can be absent from them\nentirely; these are the driver-dispatched input steps of this recording's Playwright run, distilled\nfrom `PlaywrightSteps`. A completed row is affirmative evidence the input WAS dispatched; a failed row\nis one attempt, never evidence that none was dispatched.\n\n**Playwright key presses:** 0 — 0 completed, 0 failed\n**Playwright pointer input:** 8 — 8 completed, 0 failed\n\n| Step | Time | Method | Params | Result |\n| --- | --- | --- | --- | --- |\n| 188 | 20433ms | mouse.move | {\"x\":889.59375,\"y\":375.671875,\"steps\":24} | completed |\n| 196 | 21376ms | locator.click |  | completed |\n| 289 | 5623…",
+            "InspectElement {\"point\":\"Point:2\",\"element\":\"main input[type=checkbox]\"}\n→ Element:7 is `<input type=\"checkbox\" style=\"\">`.\nElement:7 is rendered by React component CardModal at Point:34:\nRelevant code: http://localhost:3203/src/components/CardModal.jsx line 132 column 22\nNo elements are obstructing the center point of this element.\n\nElement:7 has 13px width and 13px height.\nMargin: top 3px right 3px bottom 3px left 4px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 8.00px\n- Right overflows parent by 459.00px\n- Bottom overflows parent by 8.00px\n- Left overflows parent by 8.00px\n\n### Parent Element:8\n\nElement:8 is `<label></label>`.\nElement:8 is rendered by React component CardModal at Point:35:\nRelevant code: http://localhost:3203/src/components/CardModal.jsx line 131 column 20\n\nElement:8 has 480px width and 29px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 5px right 4px bottom 5px left 4px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:9\n\nElement:9 is `<li></li>`.\nElement:9 is rendered by React component CardModal at Point:36:\nRelevant code: http://localhost:3203/src/components/CardModal.jsx line 130 column 18\n\nElement:9 has 480px width and 29px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top is aligned wit…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:08.2",
+      "shot": "/bugs/shots/6f639895-bf6c-40d4-a5a2-740311ff9e92-screenshot-101486.jpg",
+      "text": "After the dialog was closed, click the \"↶ Undo\" button in the board header. At this moment the Review card \"Customer interview synthesis\" shows badge \"☑ 1/2\".",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, InspectElement)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"click\"}\n→ # User Interactions\n\n**Filter:** click only\n**Showing 1–4 of 4 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 21395ms | click | Click at (889, 375) | Point:1 |\n| 1 | 57208ms | click | Click at (302, 307) | Point:2 |\n| 2 | 73540ms | click | Click at (983, 108) | Point:3 |\n| 3 | 102096ms | click | Click at (1218, 110) | Point:4 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type\n\n## Playwright-triggered interactions (driver-dispatched input)\n\nThe rows and counts above enumerate DOM-recorded input events only. Input a test driver dispatched\nprogrammatically (a Playwright `keyboard.press`, `fill`, driver `click`, ...) can be absent from them\nentirely; these are the driver-dispatched input steps of this recording's Playwright run, distilled\nfrom `PlaywrightSteps`. A completed row is affirmative evidence the input WAS dispatched; a failed row\nis one attempt, never evidence that none was dispatched.\n\n**Playwright key presses:** 0 — 0 completed, 0 failed\n**Playwright pointer input:** 8 — 8 completed, 0 failed\n\n| Step | Time | Method | Params | Result |\n| --- | --- | --- | --- | --- |\n| 188 | 20433ms | mouse.move | {\"x\":889.59375,\"y\":375.671875,\"steps\":24} | completed |\n| 196 | 21376ms | locator.click |  | completed |\n| 289 | 5623…",
+            "InspectElement {\"point\":\"Point:4\",\"element\":\".board-actions button\"}\n→ Element:1 is `<button class=\"btn\" title=\"Undo (Ctrl+Z)\"></button>`.\nElement:1 is rendered by React component BoardPage at Point:7:\nRelevant code: http://localhost:3203/src/pages/BoardPage.jsx line 52 column 10\nNo elements are obstructing the center point of this element.\n\nElement:1 has 75.359375px width and 32px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 7px right 12px bottom 7px left 12px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:2\n\nElement:2 is `<div class=\"board-actions\"></div>`.\nElement:2 is rendered by React component BoardPage at Point:8:\nRelevant code: http://localhost:3203/src/pages/BoardPage.jsx line 51 column 8\n\nElement:2 has 75.359375px width and 32px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 14.00px\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left overflows parent by 1156.64px\n\n### Parent Element:3\n\nElement:3 is `<div class=\"board-header\"></div>`.\nElement:3 is rendered by React component BoardPage at Point:9:\nRelevant code: http://localhost:3203/src/pages/BoardPage.jsx line 44 column 6\n\nElement:3 has 1232px width and 46px height.\nMargin: top 0px right 0px bottom 20px left 0px.\nPadding: top 0px right 0px bottom 0p…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:08.2",
+      "shot": "/bugs/shots/6f639895-bf6c-40d4-a5a2-740311ff9e92-screenshot-102252.jpg",
+      "text": "After clicking Undo, the board re-rendered but the \"Customer interview synthesis\" card still shows badge \"☑ 1/2\", and the Undo button is now disabled (its history entry was consumed) — the checklist edit was not reverted.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"scope\":\"global\",\"expression\":\"(() => { const badgeEls = Array.from(document.querySelectorAll('*')).filter(e => e.children.length === 0 && /☑|✓/.test(e.textContent || '') && /\\\\d\\\\/\\\\d/.test(e.textContent || '')); const undoBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Undo')); return { badgeTexts: badgeEls.map(e => e.textContent.trim()).filter(t => /1\\\\/2|0\\\\/2/.test(t)), undoDisabled: undoBtn ? undoBtn.disabled : null }; })()\"}\n→ Evaluated at Point:33 (last rendered frame, scope global).\n{\n  \"badgeTexts\": [\n    \"☑ 0/2\",\n    \"☑ 0/2\",\n    \"☑ 1/2\"\n  ],\n  \"undoDisabled\": true\n}"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Verify the starting page",
+      "evidence": []
+    },
+    {
+      "text": "Open the Review-column card whose checklist has zero of two items done",
+      "evidence": []
+    },
+    {
+      "text": "Toggle the checkbox of the first checklist item",
+      "evidence": []
+    },
+    {
+      "text": "Close the card detail dialog",
+      "evidence": []
+    },
+    {
+      "text": "Click the Undo control in the board header",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "The undo snapshot shares the very object that SET_CHECK_ITEM mutates. In http://localhost:3203/src/store/boardReducer.js the SET_CHECK_ITEM case (lines 48-56) finds the checklist item and writes `item.done = action.done` directly onto the existing item object, then records the pre-edit cards into `state.past` via record() -> history.js snapshot(). But snapshot() only shallow-copies each card (`{ ...card }`), so the recorded past snapshot shares the same checklist item objects as the live state. When the checkbox is toggled, the in-place mutation writes through to the snapshot that was just stored in state.past. The Logpoint at boardReducer.js:55 confirms this: the past snapshot's first checklist item is already `done: true` AND `sharedItemObject: true` (past snapshot item === current card item). When Undo then dispatches UNDO (boardReducer.js:86-91) it restores `cards: state.past[state.past.length - 1]` — which already contains `done: true` — so the badge stays \"☑ 1/2\" even though the past entry is consumed and the Undo button becomes disabled.",
+    "evidence": [
+      {
+        "summary": "4 evidence probes (Logpoint, ReadSource, SearchSources)",
+        "probes": [
+          "Logpoint {\"line\":55,\"path\":\"http://localhost:3203/src/store/boardReducer.js\",\"expression\":\"(() => { const pastCard = past[past.length-1].find(c => c.title && c.title.includes('Customer')); const curCard = cards.find(c => c.id === pastCard.id); return { cardTitle: pastCard.title, pastDone: pastCard.checklist.map(i => i.done), curDone: curCard.checklist.map(i => i.done), sharedItemObject: pastCard.checklist[0] === curCard.checklist[0] }; })()\"}\n→ Found 1 total hit at http://localhost:3203/src/store/boardReducer.js:55\n\nHit 1 at point Point:6 @ 57212.16ms:\n  Expression: (() => { const pastCard = past[past.length-1].find(c => c.title && c.title.includes('Customer')); const curCard = cards.find(c => c.id === pastCard.id); return { cardTitle: pastCard.title, pastDone: pastCard.checklist.map(i => i.done), curDone: curCard.checklist.map(i => i.done), sharedItemObject: pastCard.checklist[0] === curCard.checklist[0] }; })()\n  Result: {\n  \"cardTitle\": \"Customer interview synthesis\",\n  \"pastDone\": [\n    true,\n    false\n  ],\n  \"curDone\": [\n    true,\n    false\n  ],\n  \"sharedItemObject\": true\n}\n",
+          "ReadSource {\"line\":48,\"path\":\"http://localhost:3203/src/store/boardReducer.js\"}\n→  hits | L | code \n------|------|------\n     |   23 |         board: action.board, \n     |   24 |         columns: action.columns, \n     |   25 |         cards: action.cards, \n     |   26 |       }; \n     |   27 |  \n     |   28 |     case 'LOAD_FAILED': \n   0 |   29 |       return { ...state, status: state.cards.length ? 'ready' : 'error', error: action.error }; \n     |   30 |  \n     |   31 |     case 'MOVE_CARD': { \n   0 |   32 |       const card = state.cards.find((c) => c.id === action.cardId); \n   0 |   33 |       if (!card || card.columnId === action.columnId) return state; \n   0 |   34 |       return { \n     |   35 |         ...state, \n   0 |   36 |         past: record(state.past, state.cards), \n   0 |   37 |         cards: [...state.cards.filter((c) => c.id !== card.id), { ...card, columnId: action.columnId }], \n     |   38 |       }; \n     |   39 |     } \n     |   40 |  \n     |   41 |     case 'UPDATE_CARD': \n   0 |   42 |       return { \n     |   43 |         ...state, \n   0 |   44 |         past: record(state.past, state.cards), \n   0 |   45 |         cards: replaceCard(state.cards, action.cardId, (card) => ({ ...card, ...action.changes })), \n     |   46 |       }; \n     |   47 |  \n     |  *48 |     case 'SET_CHECK_ITEM': { \n   1 |   49 |       const past = record(state.past, state.cards); \n   1 |   50 |       const cards = replaceCard(state.cards, action.cardId, (card) => { \n   1 |   51 |         const item = card.checklist.find((i) => i.id === action.itemId); \n   …",
+          "ReadSource {\"line\":3,\"path\":\"http://localhost:3203/src/store/history.js\"}\n→  hits | L | code \n------|------|------\n   1 |    1 | const LIMIT = 50; \n     |    2 |  \n     |   *3 | export function snapshot(cards) { \n  18 |    4 |   return cards.map((card) => (/*<HIT>*/{ ...card })); \n     |    5 | } \n     |    6 |  \n     |    7 | export function record(past, cards) { \n   1 |    8 |   const next = [...past, snapshot(cards)]; \n   0 |    9 |   return next.length > LIMIT ? next./*<HIT>*/slice(next.length - LIMIT) : next; \n     |   10 | } \n     |   11 |  ",
+          "SearchSources {\"pattern\":\"toggleChecklist|checklist.*item|UNDO|undo\",\"pathGlob\":\"**/src/store/*\"}\n→ ### http://localhost:3203/src/store/BoardContext.jsx\n hits | L | code \n------|------|------\n   1 |    1 | import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react'; \n\n     |    7 | export function BoardProvider({ children }) { \n\n     |  110 |  \n   5 | *111 |   const undo = useCallback(async () => { \n   1 |  112 |     const { past } = stateRef.current; \n\n   1 |  114 |     const restored = past[past.length - 1]; \n   1 | *115 |     dispatch({ type: 'UNDO' }); \n     |  116 |     try { \n\n     |  118 |     } catch (err) { \n   0 | *119 |       notify(`Couldn't undo: ${err.message}`); \n     |  120 |     } \n\n     |  141 |       deleteCard, \n     | *142 |       undo, \n     |  143 |       resetDemo, \n     |  144 |     }), \n     | *145 |     [state, members, notice, refresh, moveCard, updateCard, setChecklistItem, addChecklistItem, addCard, deleteCard, undo, resetDemo] \n     |  146 |   );\n### http://localhost:3203/src/store/boardReducer.js\n hits | L | code \n------|------|------\n   1 |    1 | import { record } from \"/src/store/history.js\"; \n\n     |   16 | export function boardReducer(state, action) { \n\n   1 |   50 |       const cards = replaceCard(state.cards, action.cardId, (card) => { \n   1 |  *51 |         const item = card.checklist.find((i) => i.id === action.itemId); \n   1 |   52 |         if (item) item.done = action.done; \n\n     |   62 |           ...card, \n     |  *63 |           checklist: [...card.checklist, action.item], \n…"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "Toggling the checklist checkbox dispatches SET_CHECK_ITEM, which in boardReducer.js mutates the existing checklist item in place (item.done = action.done, lines 48-56) and stores a snapshot of the cards into state.past; because history.js snapshot() shallow-copies cards ({ ...card }, lines 3-5), that stored snapshot shares the same (now-mutated) checklist item object — the Logpoint at boardReducer.js:55 returns pastDone [true, false] and sharedItemObject true for the \"Customer interview synthesis\" card.",
+      "evidence": [
+        {
+          "summary": "3 evidence probes (Logpoint, ReadSource)",
+          "probes": [
+            "Logpoint {\"line\":55,\"path\":\"http://localhost:3203/src/store/boardReducer.js\",\"expression\":\"(() => { const pastCard = past[past.length-1].find(c => c.title && c.title.includes('Customer')); const curCard = cards.find(c => c.id === pastCard.id); return { cardTitle: pastCard.title, pastDone: pastCard.checklist.map(i => i.done), curDone: curCard.checklist.map(i => i.done), sharedItemObject: pastCard.checklist[0] === curCard.checklist[0] }; })()\"}\n→ Found 1 total hit at http://localhost:3203/src/store/boardReducer.js:55\n\nHit 1 at point Point:6 @ 57212.16ms:\n  Expression: (() => { const pastCard = past[past.length-1].find(c => c.title && c.title.includes('Customer')); const curCard = cards.find(c => c.id === pastCard.id); return { cardTitle: pastCard.title, pastDone: pastCard.checklist.map(i => i.done), curDone: curCard.checklist.map(i => i.done), sharedItemObject: pastCard.checklist[0] === curCard.checklist[0] }; })()\n  Result: {\n  \"cardTitle\": \"Customer interview synthesis\",\n  \"pastDone\": [\n    true,\n    false\n  ],\n  \"curDone\": [\n    true,\n    false\n  ],\n  \"sharedItemObject\": true\n}\n",
+            "ReadSource {\"line\":48,\"path\":\"http://localhost:3203/src/store/boardReducer.js\"}\n→  hits | L | code \n------|------|------\n     |   23 |         board: action.board, \n     |   24 |         columns: action.columns, \n     |   25 |         cards: action.cards, \n     |   26 |       }; \n     |   27 |  \n     |   28 |     case 'LOAD_FAILED': \n   0 |   29 |       return { ...state, status: state.cards.length ? 'ready' : 'error', error: action.error }; \n     |   30 |  \n     |   31 |     case 'MOVE_CARD': { \n   0 |   32 |       const card = state.cards.find((c) => c.id === action.cardId); \n   0 |   33 |       if (!card || card.columnId === action.columnId) return state; \n   0 |   34 |       return { \n     |   35 |         ...state, \n   0 |   36 |         past: record(state.past, state.cards), \n   0 |   37 |         cards: [...state.cards.filter((c) => c.id !== card.id), { ...card, columnId: action.columnId }], \n     |   38 |       }; \n     |   39 |     } \n     |   40 |  \n     |   41 |     case 'UPDATE_CARD': \n   0 |   42 |       return { \n     |   43 |         ...state, \n   0 |   44 |         past: record(state.past, state.cards), \n   0 |   45 |         cards: replaceCard(state.cards, action.cardId, (card) => ({ ...card, ...action.changes })), \n     |   46 |       }; \n     |   47 |  \n     |  *48 |     case 'SET_CHECK_ITEM': { \n   1 |   49 |       const past = record(state.past, state.cards); \n   1 |   50 |       const cards = replaceCard(state.cards, action.cardId, (card) => { \n   1 |   51 |         const item = card.checklist.find((i) => i.id === action.itemId); \n   …",
+            "ReadSource {\"line\":3,\"path\":\"http://localhost:3203/src/store/history.js\"}\n→  hits | L | code \n------|------|------\n   1 |    1 | const LIMIT = 50; \n     |    2 |  \n     |   *3 | export function snapshot(cards) { \n  18 |    4 |   return cards.map((card) => (/*<HIT>*/{ ...card })); \n     |    5 | } \n     |    6 |  \n     |    7 | export function record(past, cards) { \n   1 |    8 |   const next = [...past, snapshot(cards)]; \n   0 |    9 |   return next.length > LIMIT ? next./*<HIT>*/slice(next.length - LIMIT) : next; \n     |   10 | } \n     |   11 |  "
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Clicking Undo dispatches UNDO which restores cards from state.past[state.past.length-1] and slices the past entry; since the restored snapshot already contains done:true, the Review card badge stays \"☑ 1/2\" while the history entry is consumed — the Evaluate at the final frame returns undoDisabled:true and the badge text \"☑ 1/2\" still present.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (Evaluate, ReadSource)",
+          "probes": [
+            "Evaluate {\"scope\":\"global\",\"expression\":\"(() => { const badgeEls = Array.from(document.querySelectorAll('*')).filter(e => e.children.length === 0 && /☑|✓/.test(e.textContent || '') && /\\\\d\\\\/\\\\d/.test(e.textContent || '')); const undoBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Undo')); return { badgeTexts: badgeEls.map(e => e.textContent.trim()).filter(t => /1\\\\/2|0\\\\/2/.test(t)), undoDisabled: undoBtn ? undoBtn.disabled : null }; })()\"}\n→ Evaluated at Point:33 (last rendered frame, scope global).\n{\n  \"badgeTexts\": [\n    \"☑ 0/2\",\n    \"☑ 0/2\",\n    \"☑ 1/2\"\n  ],\n  \"undoDisabled\": true\n}",
+            "ReadSource {\"line\":86,\"path\":\"http://localhost:3203/src/store/boardReducer.js\"}\n→  hits | L | code \n------|------|------\n     |   48 |     case 'SET_CHECK_ITEM': { \n   1 |   49 |       const past = record(state.past, state.cards); \n   1 |   50 |       const cards = replaceCard(state.cards, action.cardId, (card) => { \n   1 |   51 |         const item = card.checklist.find((i) => i.id === action.itemId); \n   1 |   52 |         if (item) item.done = action.done; \n   1 |   53 |         return { ...card, checklist: [...card.checklist] }; \n     |   54 |       }); \n   1 |   55 |       return { ...state, past, cards }; \n     |   56 |     } \n     |   57 |  \n     |   58 |     case 'ADD_CHECK_ITEM': \n   0 |   59 |       return { \n     |   60 |         ...state, \n   0 |   61 |         cards: replaceCard(state.cards, action.cardId, (card) => ({ \n     |   62 |           ...card, \n     |   63 |           checklist: [...card.checklist, action.item], \n     |   64 |         })), \n     |   65 |       }; \n     |   66 |  \n     |   67 |     case 'DELETE_CARD': \n   0 |   68 |       return { \n     |   69 |         ...state, \n   0 |   70 |         past: record(state.past, state.cards), \n   0 |   71 |         cards: state.cards.filter((c) => c.id !== action.cardId), \n     |   72 |       }; \n     |   73 |  \n     |   74 |     case 'CARD_ADDED': \n   0 |   75 |       return { ...state, cards: [...state.cards, action.card] }; \n     |   76 |  \n     |   77 |     case 'CARD_SAVED': { \n   0 |   78 |       const existing = state.cards.find((c) => c.id === action.card.id); \n   0 |   79 |     …"
+          ]
+        }
+      ]
+    }
+  ]
+}

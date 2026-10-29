@@ -1,0 +1,123 @@
+{
+  "title": "‘Saved!’ toast on a profile save that failed with 409",
+  "severity": "medium",
+  "category": "silent",
+  "why": "The toast and the reset form both say success, and nothing reaches the console. The edit is simply gone the next time the page loads.",
+  "project": "account-center",
+  "discovered": "2026-10-19",
+  "report": "https://qa.replay.io/projects/proj-bench-account-center-mvfq68yw/bugs/bug-mvfwoinv-91is",
+  "finding": "`PATCH /api/profile` returned 409 `{\"error\":\"Profile was modified since it was loaded\"}`. `handleSubmit` never checks `res.ok`, and a logpoint on `setVersion` showed the success path running on the 409 response.",
+  "actual": "Clicking \"Save changes\" shows a green \"Saved!\" toast in the bottom-right even though the PATCH request fails with HTTP 409. The edits (bio \"Owns the onboarding pipeline and quarterly vendor reviews. Now leads vendor reviews end to end.\") are treated as saved — the form's dirty state is reset — but they are not persisted, and the profile header continues to show a stale \"Last updated 15m ago\" instead of \"just now\".",
+  "expected": "When the PATCH /api/profile request returns a non-2xx status (409 Conflict), the app must NOT report success: it should surface the conflict error (e.g. \"Profile was modified since it was loaded\"), keep the user's typed edits in the form so they can resolve the conflict, and not show a \"Saved!\" confirmation. Only a successful 2xx response should clear the dirty state and refresh the header's \"Last updated\" status.",
+  "replay": {
+    "url": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/recording.json#t=8",
+    "title": "Session replay",
+    "har": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/network.json",
+    "log": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/console.txt",
+    "evidence": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/evidence.json",
+    "captions": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:08.7",
+      "shot": "/bugs/shots/2ea80850-595d-4d25-bba5-d69713f25b10-screenshot-86232.jpg",
+      "text": "On the Account Center Profile page, the user clicks the 'Save changes' button (button type=submit) in the Personal information section. The frame shows the form with Job title 'Operations Director', the edited Bio, the enabled Save changes button, and the header still reading 'Last updated 15m ago'.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (PlaywrightSteps, InspectElement)",
+          "probes": [
+            "PlaywrightSteps {\"mode\":\"step-detail\",\"stepNumber\":512}\n→ Step 512: locator.click\n============================================================\nTime: 86258ms\nDuration: 28ms\nAPI: locator.click\nCategory: command\nParams: {\"selector\":\"html:nth-of-type(1) > body:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > form:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(2)\",\"strict\":true,\"timeout\":3000}\n\nStack trace:\n    at invoke scripts/journey/run-script.bundle.cjs:21788:40\n    at scripts/journey/run-script.bundle.cjs:21811:62\n    at recordOperation scripts/journey/run-script.bundle.cjs:87762:30\n    at scripts/journey/run-script.bundle.cjs:21811:22\n\nInspector Commands (11):\n------------------------------------------------------------\n  [86260ms, point: 122992531837815596714131762570074558] Runtime.callFunctionOn (id: 2719)\n    params: {\"functionDeclaration\":\"(utilityScript, ...args) => utilityScript.evaluate(...args)\",\"objectId\":\"-4280474253936279394.4.2\",\"arguments\":[{\"objectId\":\"-4280474253936279394.4.2\"},{\"value\":true},{\"value\":false},{\"value\":\"(injected, { info, callId }) => {\\n            const elements = injected.querySelectorAll(info.parsed, document);\\n            if (callId)\\n              injected.markTargetElements(new Set(elements), callId);\\n            const element3 = elements[0];\\n            let log3 = \\\"\\\";\\n            if (elements.length > 1) {\\n              if (info.strict)\\n                throw injected.strictModeViolationError(info.parsed, elements);\\n      …",
+            "InspectElement {\"point\":\"Point:11\",\"element\":\"main form div:nth-of-type(3) button:nth-of-type(2)\"}\n→ Element:1 is `<button type=\"submit\" class=\"button\"></button>`.\nElement:1 is rendered by React component ProfileSection at Point:19:\nRelevant code: http://localhost:3205/src/pages/Profile.jsx line 107 column 8\nNo elements are obstructing the center point of this element.\n\nElement:1 has 127.390625px width and 36px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 9px right 16px bottom 9px left 16px.\n\nDistances to its parent element:\n- Top overflows parent by 17.00px\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left overflows parent by 794.61px\n\n### Parent Element:2\n\nElement:2 is `<div class=\"panel-actions\"></div>`.\nElement:2 is rendered by React component ProfileSection at Point:20:\nRelevant code: http://localhost:3205/src/pages/Profile.jsx line 103 column 6\n\nElement:2 has 922px width and 53px height.\nMargin: top 18px right 0px bottom 0px left 0px.\nPadding: top 16px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 330.00px\n- Right overflows parent by 23.00px\n- Bottom overflows parent by 23.00px\n- Left overflows parent by 23.00px\n\n### Parent Element:3\n\nElement:3 is `<form class=\"panel\"></form>`.\nElement:3 is rendered by React component ProfileSection at Point:21:\nRelevant code: http://localhost:3205/src/pages/Profile.jsx line 74 column 4\n\nElement:3 has 968px width and 406px height.\nMargin: top 0px right 0px bottom 20px left 0px.\nPadding: top 22px right 22px bottom 22px left 22px.\n…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:08.7",
+      "shot": null,
+      "text": "The click sends the save: `PATCH /api/profile` with the edited bio and `\"version\":2`. The server answers **409 Conflict** 66 ms later, `{\"error\":\"Profile was modified since it was loaded\"}`, so nothing was saved. This is the request the replay's DevTools opens on.",
+      "evidence": []
+    },
+    {
+      "time": "0:08.8",
+      "shot": "/bugs/shots/2ea80850-595d-4d25-bba5-d69713f25b10-screenshot-86474.jpg",
+      "text": "A green 'Saved!' toast appears in the bottom-right corner while the profile header still reads 'Last updated 15m ago' (not refreshed to 'just now'). The PATCH /api/profile request actually failed with HTTP 409 and the edits were not persisted.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Verify the starting page",
+      "evidence": []
+    },
+    {
+      "text": "Clear the Job title field and type a new job title",
+      "evidence": []
+    },
+    {
+      "text": "Type the new job title",
+      "evidence": []
+    },
+    {
+      "text": "Clear the Bio field and type a new bio",
+      "evidence": []
+    },
+    {
+      "text": "Type the new bio",
+      "evidence": []
+    },
+    {
+      "text": "Click the Personal information section's Save changes button",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "In Profile.jsx, ProfileSection.handleSubmit (lines 51-71) never checks res.ok or the HTTP status: inside the try block it unconditionally does await res.json(), setVersion(updated.version), setInitial(values), queryClient.invalidateQueries(...), and toast('Saved!'). The catch block only fires on network-level failures. So when PATCH /api/profile returns 409 with body {\"error\":\"Profile was modified since it was loaded\"}, the code takes the success path: a Logpoint at line 61 (setVersion) shows res.status === 409 and updated === the error body at the moment of execution, and line 65 then shows toast('Saved!'). This yields a false success confirmation and discards the user's edits (setInitial(values) resets the dirty state).",
+    "evidence": [
+      {
+        "summary": "3 evidence probes (Logpoint, NetworkRequest, SearchSources)",
+        "probes": [
+          "Logpoint {\"line\":61,\"path\":\"http://localhost:3205/src/pages/Profile.jsx\",\"expression\":\"({ line61_setVersion_updated: updated, resStatus: res.status })\"}\n→ Found 1 total hit at http://localhost:3205/src/pages/Profile.jsx:61\n\nHit 1 at point Point:18 @ 86467.05ms:\n  Expression: ({ line61_setVersion_updated: updated, resStatus: res.status })\n  Result: {\n  \"line61_setVersion_updated\": {\n    \"error\": \"Profile was modified since it was loaded\"\n  },\n  \"resStatus\": 409\n}\n",
+          "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"744.59\"}\n→ A PATCH network request with ID 744.59 was made to http://localhost:3205/api/profile:\n<request_summary>\nThe response had status 409 (Conflict).\n</request_summary>\nInitiated at Point:3 @ 86278.00ms\nEvents:\n  request @ 86278ms\n  request-body @ 86278ms\n  response @ 86466ms\n  response-body @ 86467ms\n  request-done @ 86467ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Mon, 19 Oct 2026 23:43:24 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 52\netag: W/\"34-go2K6deri6ziiR4tYLVppx0Ngxs\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"bio\":\"Owns the onboarding pipeline and quarterly vendor reviews. Now leads vendor reviews end to end.\",\"version\":2}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"error\":\"Profile was modified since it was loaded\"}\n</responseBody>\n\n_Previous: `requestId: \"744.58\"` | Next: `requestId: \"744.60\"`_",
+          "SearchSources {\"pattern\":\"Saved!\"}\n→ ### http://localhost:3205/src/pages/Profile.jsx\n hits | L | code \n------|------|------\n     |   37 | function ProfileSection({ title, description, fields, profile }) { \n\n   1 |   64 |       queryClient.invalidateQueries({ queryKey: ['account'] }); \n   1 |  *65 |       toast('Saved!'); \n     |   66 |     } catch {"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The PATCH /api/profile request made at 86278ms returns HTTP 409 with response body {\"error\":\"Profile was modified since it was loaded\"} (request body carries version:2 and the edited bio).",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"744.59\"}\n→ A PATCH network request with ID 744.59 was made to http://localhost:3205/api/profile:\n<request_summary>\nThe response had status 409 (Conflict).\n</request_summary>\nInitiated at Point:3 @ 86278.00ms\nEvents:\n  request @ 86278ms\n  request-body @ 86278ms\n  response @ 86466ms\n  response-body @ 86467ms\n  request-done @ 86467ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Mon, 19 Oct 2026 23:43:24 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 52\netag: W/\"34-go2K6deri6ziiR4tYLVppx0Ngxs\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"bio\":\"Owns the onboarding pipeline and quarterly vendor reviews. Now leads vendor reviews end to end.\",\"version\":2}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"error\":\"Profile was modified since it was loaded\"}\n</responseBody>\n\n_Previous: `requestId: \"744.58\"` | Next: `requestId: \"744.60\"`_"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Despite the 409, handleSubmit executes the success path: the Logpoint at line 61 fires with resStatus 409 and updated equal to the error body, and line 65 runs toast('Saved!') unconditionally (no res.ok guard exists between them).",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (Logpoint, SearchSources)",
+          "probes": [
+            "Logpoint {\"line\":61,\"path\":\"http://localhost:3205/src/pages/Profile.jsx\",\"expression\":\"({ line61_setVersion_updated: updated, resStatus: res.status })\"}\n→ Found 1 total hit at http://localhost:3205/src/pages/Profile.jsx:61\n\nHit 1 at point Point:18 @ 86467.05ms:\n  Expression: ({ line61_setVersion_updated: updated, resStatus: res.status })\n  Result: {\n  \"line61_setVersion_updated\": {\n    \"error\": \"Profile was modified since it was loaded\"\n  },\n  \"resStatus\": 409\n}\n",
+            "SearchSources {\"pattern\":\"Saved!\"}\n→ ### http://localhost:3205/src/pages/Profile.jsx\n hits | L | code \n------|------|------\n     |   37 | function ProfileSection({ title, description, fields, profile }) { \n\n   1 |   64 |       queryClient.invalidateQueries({ queryKey: ['account'] }); \n   1 |  *65 |       toast('Saved!'); \n     |   66 |     } catch {"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Because setInitial(values) resets the form to the typed (unsaved) values, the app shows the stale 'Saved!' confirmation and the profile header keeps its old 'Last updated 15m ago' text — an Evaluate at the save point measured the header still reading 'Last updated 15m ago' with the unsaved bio present in the textarea.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:11\",\"scope\":\"global\",\"expression\":\"(() => { const all = [...document.querySelectorAll('*')]; const lastUpd = all.find(el => el.children.length === 0 && /Last updated/.test(el.textContent || '')); const bio = document.querySelector('textarea'); return { lastUpdated: lastUpd ? lastUpd.textContent.trim() : null, bioValue: bio ? bio.value : null }; })()\"}\n→ {\n  \"lastUpdated\": \"Last updated 15m ago\",\n  \"bioValue\": \"Owns the onboarding pipeline and quarterly vendor reviews. Now leads vendor reviews end to end.\"\n}"
+          ]
+        }
+      ]
+    }
+  ]
+}

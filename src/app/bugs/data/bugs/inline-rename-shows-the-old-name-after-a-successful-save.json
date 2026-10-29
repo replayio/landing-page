@@ -1,0 +1,116 @@
+{
+  "title": "Inline rename shows the old name after a successful save",
+  "severity": "medium",
+  "category": "race",
+  "why": "The save succeeds and the toast confirms the new name. The row is wrong only because a page refresh reached the server before the save did.",
+  "project": "team-portal",
+  "discovered": "2026-10-19",
+  "report": "https://qa.replay.io/projects/proj-bench-team-portal-mvfqamty/bugs/bug-mvfrmdt9-9rdw",
+  "finding": "`save()` fires the PATCH without awaiting it, then calls `router.refresh()`. The refetch started 3ms after the PATCH and came back first; the PATCH took 1025ms, so the refreshed row still had the old name.",
+  "actual": "After clicking Save, the inline editor closes and the toast \"Renamed to “Website Refresh Round Trip”\" appears, but the row's name link/text continues to show the old name \"Website Refresh QA Renamed\" — the row is never updated with the committed name.",
+  "expected": "After clicking Save in the inline rename form, the renamed project's row in the projects table should be refreshed to display the newly saved name \"Website Refresh Round Trip\" (matching the PATCH response body and the confirmation toast).",
+  "replay": {
+    "url": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/recording.json#t=4.4",
+    "title": "Session replay",
+    "har": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/network.json",
+    "log": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/console.txt",
+    "evidence": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/evidence.json",
+    "captions": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:06.4",
+      "shot": "/bugs/shots/dfbd2864-ed3c-4cf9-a69e-b2af28c1cf9b-screenshot-109683.jpg",
+      "text": "On the Projects dashboard, the inline rename editor for the first row is open with the input filled with the new name \"Website Refresh Round Trip\" and Save/Cancel buttons visible; the user clicks the row's Save control to commit the rename.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, InspectElement)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"click\"}\n→ # User Interactions\n\n**Filter:** click only\n**Showing 1–3 of 3 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 43969ms | click | Click at (369, 235) | Point:4 |\n| 1 | 95451ms | click | Click at (243, 238) | Point:5 |\n| 2 | 109965ms | click | Click at (389, 238) | Point:6 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type\n\n## Playwright-triggered interactions (driver-dispatched input)\n\nThe rows and counts above enumerate DOM-recorded input events only. Input a test driver dispatched\nprogrammatically (a Playwright `keyboard.press`, `fill`, driver `click`, ...) can be absent from them\nentirely; these are the driver-dispatched input steps of this recording's Playwright run, distilled\nfrom `PlaywrightSteps`. A completed row is affirmative evidence the input WAS dispatched; a failed row\nis one attempt, never evidence that none was dispatched.\n\n**Playwright key presses:** 3 — 3 completed, 0 failed\n**Playwright pointer input:** 5 — 5 completed, 0 failed\n\n| Step | Time | Method | Params | Result |\n| --- | --- | --- | --- | --- |\n| 199 | 43003ms | mouse.move | {\"x\":369.0625,\"y\":235.5,\"steps\":24} | completed |\n| 206 | 43951ms | locator.click |  | completed |\n| 268 | 77076ms | keyboard.press | {\"key\":\"Control+A\"} | completed |\n| 269 …",
+            "InspectElement {\"point\":\"Point:3\",\"element\":\"table.list tbody tr td form button.btn-primary\"}\n→ Element:1 is `<button type=\"submit\" class=\"btn btn-primary\"></button>`.\nNo elements are obstructing the center point of this element.\n\nElement:1 has 61.921875px width and 32px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 7px right 14px bottom 7px left 14px.\n\nDistances to its parent element:\n- Top overflows parent by 0.25px\n- Right overflows parent by 158.98px\n- Bottom overflows parent by 0.25px\n- Left overflows parent by 226.00px\n\n### Parent Element:2\n\nElement:2 is `<form class=\"name-cell\"></form>`.\n\nElement:2 has 446.90625px width and 32.5px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 12.50px\n- Right overflows parent by 12.00px\n- Bottom overflows parent by 12.50px\n- Left overflows parent by 12.00px\n\n### Parent Element:3\n\nElement:3 is `<td></td>`.\n\nElement:3 has 470.90625px width and 57.5px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 12px right 12px bottom 12px left 12px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right overflows parent by 567.09px\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:4\n\nElement:4 is `<tr></tr>`.\n\nElement:4 has 1038px width and 57.5px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top is aligned with parent bou…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:06.5",
+      "shot": "/bugs/shots/dfbd2864-ed3c-4cf9-a69e-b2af28c1cf9b-screenshot-110611.jpg",
+      "text": "After Save is clicked, the app shows the toast \"Renamed to 'Website Refresh Round Trip'\" but the first row's Name column still displays the old name \"Website Refresh QA Renamed\" — the row was not refreshed with the committed name.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Verify the starting page",
+      "evidence": []
+    },
+    {
+      "text": "Click the ✎ rename affordance on any one project row in the projects table to open that row's inline rename editor",
+      "evidence": []
+    },
+    {
+      "text": "Clear the inline 'Project name' field in the renaming row",
+      "evidence": []
+    },
+    {
+      "text": "Type the project's new name into the inline 'Project name' field",
+      "evidence": []
+    },
+    {
+      "text": "Click the row's Save control to commit the rename",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "In components/ProjectsTable.tsx, ProjectName.save() fires the PATCH fetch without awaiting it, then immediately calls router.refresh() and onRenamed(name) on the same tick. Because router.refresh() triggers a concurrent RSC refetch (GET /projects?_rsc=1qm1g initiated at 109972ms, just 3ms after the PATCH started at 109969ms) while the PATCH is still in flight (it completes 1025ms later at 110992ms), the refetched payload still contains the pre-rename project name, so the table row continues rendering \"Website Refresh QA Renamed\". The toast \"Renamed to “Website Refresh Round Trip”\" is shown optimistically via onRenamed(name) using the draft name, masking that the row was never updated with the committed name.",
+    "evidence": [
+      {
+        "summary": "5 evidence probes (ReadSource, NetworkRequest, Logpoint, Evaluate)",
+        "probes": [
+          "ReadSource {\"line\":19,\"path\":\"webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx\"}\n→  hits | L | code \n------|------|------\n 104 |    9 | function ProjectName({ project, onRenamed }: { project: Project; onRenamed: (name: string) => void }) { \n 104 |   10 |   const router = useRouter(); \n 104 |   11 |   const [editing, setEditing] = useState(false); \n 104 |   12 |   const [draft, setDraft] = useState(project.name); \n     |   13 |  \n     |   14 |   function startEditing() { \n   1 |   15 |     setDraft(project.name); \n   1 |   16 |     setEditing(true); \n     |   17 |   } \n     |   18 |  \n     |  *19 |   function save() { \n   1 |   20 |     const name = draft.trim(); \n   1 |   21 |     setEditing(false); \n   0 |   22 |     if (!name || name === project.name) /*<HIT>*/return; \n     |   23 |  \n   1 |   24 |     fetch(`/api/projects/${project.id}`, { \n     |   25 |       method: \"PATCH\", \n     |   26 |       headers: { \"Content-Type\": \"application/json\" }, \n   1 |   27 |       body: JSON.stringify({ name }), \n     |   28 |     }); \n   1 |   29 |     router.refresh(); \n   1 |   30 |     onRenamed(name); \n     |   31 |   } \n     |   32 |  \n 104 |   33 |   if (editing) { \n     |   34 |     return ( \n  56 |   35 |       <form \n     |   36 |         className=\"name-cell\" \n     |   37 |         onSubmit={(e) => { \n   1 |   38 |           e.preventDefault(); \n   1 |   39 |           save(); \n     |   40 |         }} \n     |   41 |       > \n  56 |   42 |         <input \n     |   43 |           autoFocus \n     |   44 |           aria-label=\"Project name\" \n     |   45 |     …",
+          "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"748.71\"}\n→ A PATCH network request with ID 748.71 was made to http://localhost:3201/api/projects/p-101:\n<request_summary>\nThe response had status 200 (OK).\n</request_summary>\nInitiated at Point:1 @ 109969.00ms\nEvents:\n  request @ 109969ms\n  request-body @ 109969ms\n  response @ 110992ms\n  response-body @ 110993ms\n  request-done @ 110994ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\ndate: Mon, 19 Oct 2026 21:16:11 GMT\nconnection: keep-alive\nkeep-alive: timeout=5\nvary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch\ntransfer-encoding: chunked\ncontent-type: application/json\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"name\":\"Website Refresh Round Trip\"}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"id\":\"p-101\",\"name\":\"Website Refresh Round Trip\",\"description\":\"Overview rewritten by the edit-persistence smoke test.\",\"owner\":\"Priya Raman\",\"status\":\"on-hold\",\"dueDate\":\"2027-03-15\",\"progress\":62,\"updatedAt\":\"2026-10-19T21:16:11.951Z\"}\n</responseBody>\n\n_Previous: `requestId: \"748.70\"` | Next: `requestId: \"748.72\"`_",
+          "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"/projects\"}\n→ # Network Requests\n\n**Filters:** URL contains \"/projects\"\n**Showing 1–6 of 6 requests**\n\n_All URLs relative to http://localhost:3201_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 748.1 | 0ms | GET | /projects | 200 | 138ms | (unknown) |\n| 1 | 748.10 | 132ms | GET | /_next/static/chunks/app/projects/page.js | 200 | 1449ms | script |\n| 2 | 748.26 | 2169ms | GET | /_next/static/chunks/app/projects/page.js | 200 | 1054ms | fetch |\n| 3 | 748.69 | 12771ms | GET | /_next/static/chunks/app/projects/page.js | 200 | 367ms | fetch |\n| 4 | 748.71 | 109969ms | PATCH | /api/projects/p-101 | 200 | 1025ms | fetch |\n| 5 | 748.72 | 109972ms | GET | /projects?_rsc=1qm1g | 200 | 431ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list",
+          "Logpoint {\"line\":30,\"path\":\"webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx\",\"expression\":\"project.name + \\\" -> \\\" + name\"}\n→ Found 1 total hit at webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx:30\n\nHit 1 at point Point:3 @ 109923.81ms:\n  Expression: project.name + \" -> \" + name\n  Result: \"Website Refresh QA Renamed -> Website Refresh Round Trip\"\n",
+          "Evaluate {\"point\":\"Point:7\",\"scope\":\"global\",\"expression\":\"(() => { const body = document.body.innerText; return { hasNewName: body.includes('Website Refresh Round Trip'), hasOldName: body.includes('Website Refresh QA Renamed'), firstRow: (document.querySelector('table.list tbody tr td .name-cell a strong') || {}).textContent || null }; })()\"}\n→ {\n  \"hasNewName\": false,\n  \"hasOldName\": true,\n  \"firstRow\": \"Website Refresh QA Renamed\"\n}"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The save() function in components/ProjectsTable.tsx issues the PATCH fetch (line 24), calls router.refresh() (line 29) and onRenamed(name) (line 30) all on the same tick; the Logpoint at line 30 confirms onRenamed fired with the new name \"Website Refresh Round Trip\".",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (ReadSource, Logpoint)",
+          "probes": [
+            "ReadSource {\"line\":19,\"path\":\"webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx\"}\n→  hits | L | code \n------|------|------\n 104 |    9 | function ProjectName({ project, onRenamed }: { project: Project; onRenamed: (name: string) => void }) { \n 104 |   10 |   const router = useRouter(); \n 104 |   11 |   const [editing, setEditing] = useState(false); \n 104 |   12 |   const [draft, setDraft] = useState(project.name); \n     |   13 |  \n     |   14 |   function startEditing() { \n   1 |   15 |     setDraft(project.name); \n   1 |   16 |     setEditing(true); \n     |   17 |   } \n     |   18 |  \n     |  *19 |   function save() { \n   1 |   20 |     const name = draft.trim(); \n   1 |   21 |     setEditing(false); \n   0 |   22 |     if (!name || name === project.name) /*<HIT>*/return; \n     |   23 |  \n   1 |   24 |     fetch(`/api/projects/${project.id}`, { \n     |   25 |       method: \"PATCH\", \n     |   26 |       headers: { \"Content-Type\": \"application/json\" }, \n   1 |   27 |       body: JSON.stringify({ name }), \n     |   28 |     }); \n   1 |   29 |     router.refresh(); \n   1 |   30 |     onRenamed(name); \n     |   31 |   } \n     |   32 |  \n 104 |   33 |   if (editing) { \n     |   34 |     return ( \n  56 |   35 |       <form \n     |   36 |         className=\"name-cell\" \n     |   37 |         onSubmit={(e) => { \n   1 |   38 |           e.preventDefault(); \n   1 |   39 |           save(); \n     |   40 |         }} \n     |   41 |       > \n  56 |   42 |         <input \n     |   43 |           autoFocus \n     |   44 |           aria-label=\"Project name\" \n     |   45 |     …",
+            "Logpoint {\"line\":30,\"path\":\"webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx\",\"expression\":\"project.name + \\\" -> \\\" + name\"}\n→ Found 1 total hit at webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx:30\n\nHit 1 at point Point:3 @ 109923.81ms:\n  Expression: project.name + \" -> \" + name\n  Result: \"Website Refresh QA Renamed -> Website Refresh Round Trip\"\n"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The PATCH /api/projects/p-101 (initiated 109969ms) and the router.refresh RSC refetch GET /projects?_rsc=1qm1g (initiated 109972ms) run concurrently; the PATCH takes 1025ms and only responds at 110992ms, so the earlier-completed RSC refetch (109972→110403ms) returns the pre-rename payload.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"/projects\"}\n→ # Network Requests\n\n**Filters:** URL contains \"/projects\"\n**Showing 1–6 of 6 requests**\n\n_All URLs relative to http://localhost:3201_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 748.1 | 0ms | GET | /projects | 200 | 138ms | (unknown) |\n| 1 | 748.10 | 132ms | GET | /_next/static/chunks/app/projects/page.js | 200 | 1449ms | script |\n| 2 | 748.26 | 2169ms | GET | /_next/static/chunks/app/projects/page.js | 200 | 1054ms | fetch |\n| 3 | 748.69 | 12771ms | GET | /_next/static/chunks/app/projects/page.js | 200 | 367ms | fetch |\n| 4 | 748.71 | 109969ms | PATCH | /api/projects/p-101 | 200 | 1025ms | fetch |\n| 5 | 748.72 | 109972ms | GET | /projects?_rsc=1qm1g | 200 | 431ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list",
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"748.72\"}\n→ A GET network request with ID 748.72 was made to http://localhost:3201/projects?_rsc=1qm1g:\n<request_summary>\nThe response had status 200 (OK).\n</request_summary>\nInitiated at Point:9 @ 109972.00ms\nEvents:\n  request @ 109972ms\n  response @ 110348ms\n  response-body @ 110349ms\n  request-done @ 110403ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nnext-router-state-tree: %5B%22%22%2C%7B%22children%22%3A%5B%22projects%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2Cnull%2Cnull%5D%7D%2Cnull%2Cnull%5D%7D%2Cnull%2C%22refetch%22%5D\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nrsc: 1\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\ndate: Mon, 19 Oct 2026 21:16:11 GMT\ncontent-encoding: gzip\nvary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding\ntransfer-encoding: chunked\ncontent-type: text/x-component\ncache-control: no-store, must-revalidate\nconnection: keep-alive\nkeep-alive: timeout=5\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n2:I[\"(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js\",[\"app-pages-internals\",\"static/chunks/app-pages-internals.js\"],\"SegmentViewNode\"]\n4:\"$Sreact.fragment\"\n12:I[\"(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js\",[\"app-pages-internals\",\"static/chunks/app-page…"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Consequently the rendered table row still shows the old name \"Website Refresh QA Renamed\" in the DOM at the end state, even though the PATCH succeeded and returned the new name.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:7\",\"scope\":\"global\",\"expression\":\"(() => { const body = document.body.innerText; return { hasNewName: body.includes('Website Refresh Round Trip'), hasOldName: body.includes('Website Refresh QA Renamed'), firstRow: (document.querySelector('table.list tbody tr td .name-cell a strong') || {}).textContent || null }; })()\"}\n→ {\n  \"hasNewName\": false,\n  \"hasOldName\": true,\n  \"firstRow\": \"Website Refresh QA Renamed\"\n}"
+          ]
+        }
+      ]
+    }
+  ]
+}

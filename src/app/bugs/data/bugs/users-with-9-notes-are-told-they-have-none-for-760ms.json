@@ -1,0 +1,82 @@
+{
+  "title": "Users with 9 notes are told they have none for 760ms",
+  "severity": "medium",
+  "category": "flash",
+  "why": "A flash of wrong content during the initial sync. Data loads fine, and it's gone before anyone can point at it.",
+  "project": "collaborative-ai-editor",
+  "discovered": "2026-06-23",
+  "report": "https://qa.replay.io/projects/proj-collaborative-ai-editor-brett-lamy-workers-dev-mqqwem6e/bugs/bug-mqqxdyum-nwou",
+  "finding": "`.notes-list[data-empty=\"true\"]` rendered 'No notes yet' from 54545ms to 55306ms, while the Yjs index snapshot GET had already returned 200.",
+  "actual": "On opening the workspace the sidebar shows 'No notes yet. Create your first note.' for ~760ms (54545ms → 55306ms), then replaces it with the 9 real notes once the Yjs index document finishes syncing.",
+  "expected": "While the index document is still syncing the sidebar should show a loading indicator/skeleton (or nothing), and only fall back to the 'No notes yet' empty state after sync completes and confirms the workspace genuinely has zero notes. The user should never be told they have no notes when they do.",
+  "replay": {
+    "url": "/bugs/users-with-9-notes-are-told-they-have-none-for-760ms/recording.json#t=0.2,2.4",
+    "title": "Session replay",
+    "har": "/bugs/users-with-9-notes-are-told-they-have-none-for-760ms/network.json",
+    "captions": "/bugs/users-with-9-notes-are-told-they-have-none-for-760ms/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:00.0",
+      "shot": "/bugs/shots/c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f-screenshot-2099.jpg",
+      "text": "User clicks the 'Open Apple workspace' button on the landing page to enter the workspace. _User interaction._",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, InspectElement)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"recordingId\":\"c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f\"}\n→ # User Interactions\n\n**Showing 1–14 of 14 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 54040ms | click | Click at (640, 399) | Point:1 |\n| 1 | 64205ms | click | Click at (135, 74) | Point:2 |\n| 2 | 82558ms | click | Click at (480, 21) | Point:3 |\n| 3 | 106002ms | click | Click at (1257, 21) | Point:4 |\n| 4 | 116515ms | click | Click at (686, 412) | Point:5 |\n| 5 | 118788ms | click | Click at (1112, 21) | Point:6 |\n| 6 | 135943ms | click | Click at (691, 396) | Point:7 |\n| 7 | 138353ms | click | Click at (409, 21) | Point:8 |\n| 8 | 162551ms | click | Click at (605, 511) | Point:9 |\n| 9 | 196115ms | keypress | Key Press: / | Point:10 |\n| 10 | 209555ms | click | Click at (605, 511) | Point:11 |\n| 11 | 220331ms | keypress | Key Press: / | Point:12 |\n| 12 | 244222ms | click | Click at (1201, 61) | Point:13 |\n| 13 | 264849ms | click | Click at (1201, 61) | Point:14 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type",
+            "InspectElement {\"point\":\"Point:1\",\"element\":\".doc-picker-button--landing\",\"recordingId\":\"c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f\"}\n→ Element:6 is `<button type=\"submit\" tabindex=\"0\" class=\"doc-picker-button doc-picker-button--landing\"></button>`.\nNo elements are obstructing the center point of this element.\n\nElement:6 has 422px width and 34px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 12.25px bottom 0px left 12.25px.\n\nDistances to its parent element:\n- Top overflows parent by 131.00px\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:7\n\nElement:7 is `<form class=\"landing-form\"></form>`.\n\nElement:7 has 422px width and 165px height.\nMargin: top 17.5px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 130.06px\n- Right overflows parent by 29.00px\n- Bottom overflows parent by 25.50px\n- Left overflows parent by 29.00px\n\n### Parent Element:8\n\nElement:8 is `<div class=\"landing-card\"></div>`.\n\nElement:8 has 480px width and 320.5625px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 24.5px right 28px bottom 24.5px left 28px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom overflows parent by 156.03px\n- Left is aligned with parent boundary\n\n### Parent Element:9\n\nElement:9 is `<div class=\"landing-stack\"></div>`.\n\nElement:9 has 480px width and 476.59375px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPaddin…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:00.9",
+      "shot": "/bugs/shots/c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f-screenshot-54521.jpg",
+      "text": "481ms after the click (54545ms) the notes sidebar renders the empty state: '.notes-list' carries data-empty=\"true\" and shows 'No notes yet. Create your first note.' — only 1 interactive element exists in the sidebar (the + add button). The workspace actually has 9 notes, so this empty state is false.",
+      "evidence": []
+    },
+    {
+      "time": "0:01.0",
+      "shot": "/bugs/shots/c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f-screenshot-55295.jpg",
+      "text": "~760ms later (55306ms), once the Yjs index document finishes syncing, the empty state is replaced by the list of 9 real notes (Edge Cases, Poem, New Note, hey, ...) — the sidebar now contains 10 interactive elements. The content the user sees changes from 'no notes' to a full list.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "In assets/_workspace-Jnfl8jZH.js the notes GridList is rendered with `renderEmptyState: () => <div className=\"notes-list__empty\">No notes yet. Create your first note.</div>` and `children: t.map(...)` where `t` is the notes array. The empty-state branch is gated solely on the notes array being empty — there is no loading/synced flag. During the initial Yjs index-document sync the notes array is empty, so the GridList renders the false 'No notes yet' empty state until the snapshot arrives and populates the array.",
+    "evidence": [
+      {
+        "summary": "1 evidence probe (SearchSources)",
+        "probes": [
+          "SearchSources {\"pattern\":\"No notes yet|Create your first note\",\"recordingId\":\"c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f\",\"includeGenerated\":true}\n→ ### https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js\nL1:101184: ...te:()=>T.jsx(\"div\",{className:\"notes-list__empty\",children:\"No notes yet. Create your first note.\"}),children:t.map(a=>T...\nL1:101198: ...div\",{className:\"notes-list__empty\",children:\"No notes yet. Create your first note.\"}),children:t.map(a=>T.jsxs(hr,{id:a..."
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "At Point:19 (54545ms) the '.notes-list' element has attribute data-empty=\"true\" and renders 'No notes yet. Create your first note.', while at Point:20 (55306ms) the same sidebar contains 10 interactive items (the 9 notes plus the add button) — proving the empty state was a transient render, not the real state.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Evaluate)",
+          "probes": [
+            "Evaluate {\"point\":\"Point:19\",\"expression\":\"(()=>{const a=document.querySelector('aside');const e=[...document.querySelectorAll('*')].find(x=>x.children.length===0&&/No notes yet/.test(x.textContent));return {emptyText:e?.textContent,interactive:a?.querySelectorAll('a,button,li').length};})()\",\"recordingId\":\"c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f\"}\n→ {\n  \"emptyText\": \"No notes yet. Create your first note.\",\n  \"interactive\": 1\n}"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The data load actually succeeds: the Yjs index-document request GET /api/yjs/docs/rooms/ws-apple-index/v3/collaboration?offset=snapshot fires at 54558ms (just after the empty state renders) and the index requests return HTTP 200, after which the notes populate. The empty state was therefore shown during a successful load, not a failed one.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"ws-apple-index\",\"recordingId\":\"c8afcbcf-c6de-46ca-8cdc-b3fd3941b07f\"}\n→ # Network Requests\n\n**Filters:** URL contains \"ws-apple-index\"\n**Showing 1–14 of 14 requests**\n\n_All URLs relative to https://collaborative-ai-editor.brett-lamy.workers.dev_\n\n| # | Time | Method | URL | Status | Duration | Type |\n|---|------|--------|-----|--------|----------|------|\n| 0 | 54219ms | PUT | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration | 200 | 338ms | fetch |\n| 1 | 54558ms | GET | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration?offset=snapshot | — | — | fetch |\n| 2 | 54750ms | GET | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration?offset=snapshot&live=sse | 200 | 60375ms | fetch |\n| 3 | 54750ms | GET | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration?offset=snapshot&live=sse | 200 | 60375ms | fetch |\n| 4 | 64616ms | POST | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration | 204 | 488ms | fetch |\n| 5 | 65693ms | POST | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration | 204 | 270ms | fetch |\n| 6 | 115127ms | GET | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration?offset=dbb4c_000000000000... | 200 | 60148ms | fetch |\n| 7 | 174150ms | POST | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration | 204 | 509ms | fetch |\n| 8 | 175276ms | GET | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration?offset=dbb4c_000000000000... | 200 | 60162ms | fetch |\n| 9 | 184041ms | POST | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration | 204 | 243ms | fetch |\n| 10 | 196154ms | POST | /api/yjs/docs/rooms/ws-apple-index/v3/collaboration | 204 | 446ms | fetch |\n…"
+          ]
+        }
+      ]
+    }
+  ]
+}

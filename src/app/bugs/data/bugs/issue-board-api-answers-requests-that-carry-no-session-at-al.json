@@ -1,0 +1,61 @@
+{
+  "title": "Issue board API answers requests that carry no session at all",
+  "severity": "high",
+  "category": "state",
+  "why": "The Issues board renders normally for a signed-in user. Replay shows the board requests carry no cookie and no Authorization header, so the endpoint never checks who is asking.",
+  "project": "electric-forest",
+  "discovered": "2026-10-27",
+  "report": "https://qa.replay.io/projects/proj-electric-forest-production-up-railway-app-mvqn0vn3/bugs/bug-mvqqhtrd-mn6e",
+  "finding": "The app polled `GET /api/repos/qa-exploration-workspace/qa-demo-repo/board` without a Cookie or Authorization header (request 3581.160) and got 200 with the board. A probe sent the same request with no session, from a foreign Origin, and got the same 200.",
+  "actual": "GET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board returns HTTP 200 with the full board body ({\"board\":{...\"closed\":{\"count\":1,\"issues\":[\"new-issue\"]}...}}) to a request that carries no session or Authorization credential.",
+  "expected": "The /api/repos/:workspace/:repo/board endpoint should require an authenticated session and return 401/403 with no board data when no valid credential is presented.",
+  "replay": {
+    "url": "/bugs/issue-board-api-answers-requests-that-carry-no-session-at-al/recording.json",
+    "title": "Session replay",
+    "har": "/bugs/issue-board-api-answers-requests-that-carry-no-session-at-al/network.json",
+    "captions": "/bugs/issue-board-api-answers-requests-that-carry-no-session-at-al/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "2:49.4",
+      "shot": null,
+      "text": "The app is rendering the Issues board for qa-exploration-workspace/qa-demo-repo (URL /orgs/qa-exploration-workspace/repos/qa-demo-repo/issues, showing the Open/In progress/Done columns of the board). This board is served by the .../board endpoint, which the probe proved responds with HTTP 200 and the board's issue data to a completely unauthenticated request. The recorded frame shows the board page as it renders from this endpoint's data.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (ProvidedData, Screenshot)",
+          "probes": [
+            "ProvidedData {\"label\":\"probe-finding\"}\n→ [missing-authorization] GET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board returned HTTP 200 with a response body and NO authentication — the endpoint does not require a session.\n\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200\n{\"board\":{\"columns\":{\"closed\":{\"count\":1,\"issues\":[\"new-issue\"]},\"done\":{\"count\":0,\"issues\":[]},\"in-progress\":{\"count\":0,\"issues\":[]},\"open\":{\"count\":0,\"issues\":[]},\"wont-do\":{\"count\":0,\"issues\":[]}},\"labels\":{\"qa-bug\":{\"color\":\"#0969da\",\"issues\":[],\"name\":\"QA Bug\"}},\"reducer\":\"issue-board@1\",\"v\":1},\"digest\":\"554e4088e62a23ad3a069fcef59579d32e49f28d644f1f71a101ac9fee6150aa\",\"provenance\":{\"inputs\":",
+            "Screenshot {\"label\":\"probe-transcript\",\"timestamp\":169400}\n→ GET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — CORS check with Origin: https://loopqa-probe.example\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — CORS check with Origin: null\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — CORS check with Origin: https://electric-forest-production.up.railway.app.loopqa-probe.example\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — missing-authorization: unauthenticated request"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "The server-side GET handler for /api/repos/:workspace/:repo/board performs no authentication/authorization check before serving board data. The security probe's unauthenticated request to the live endpoint returned HTTP 200 with the board body, and the recorded session's own polls of the same URL (request 3581.160, headers carrying neither Authorization nor Cookie) each received HTTP 200 with the board payload — so no credential is required for this endpoint to disclose the board.",
+    "evidence": [
+      {
+        "summary": "2 evidence probes (ProvidedData, NetworkRequest)",
+        "probes": [
+          "ProvidedData {\"label\":\"probe-finding\"}\n→ [missing-authorization] GET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board returned HTTP 200 with a response body and NO authentication — the endpoint does not require a session.\n\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200\n{\"board\":{\"columns\":{\"closed\":{\"count\":1,\"issues\":[\"new-issue\"]},\"done\":{\"count\":0,\"issues\":[]},\"in-progress\":{\"count\":0,\"issues\":[]},\"open\":{\"count\":0,\"issues\":[]},\"wont-do\":{\"count\":0,\"issues\":[]}},\"labels\":{\"qa-bug\":{\"color\":\"#0969da\",\"issues\":[],\"name\":\"QA Bug\"}},\"reducer\":\"issue-board@1\",\"v\":1},\"digest\":\"554e4088e62a23ad3a069fcef59579d32e49f28d644f1f71a101ac9fee6150aa\",\"provenance\":{\"inputs\":",
+          "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"3581.160\"}\n→ A GET network request with ID 3581.160 was made to https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board?projection=1&reducer=issue-board%401:\n<request_summary>\nThe response had status 200 ().\n</request_summary>\nInitiated at Point:51 @ 169217.00ms\nEvents:\n  request @ 169217ms\n  response @ 169454ms\n  response-body @ 169455ms\n  request-done @ 169456ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \naccept: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\ndate: Tue, 27 Oct 2026 13:20:20 GMT\ncontent-encoding: gzip\nreferrer-policy: same-origin\nx-content-type-options: nosniff\nserver: railway-hikari\nvary: Accept-Encoding\ncontent-type: application/json\nx-railway-edge: jfk1\nx-hikari-trace: jfk1.cv40\nx-railway-request-id: n44Ezat2TgKwyDL20_TJvA\ncontent-length: 495\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n{\"ok\":true,\"events\":[{\"offset\":\"0000000000000000_0000000000000000\",\"type\":\"issue-board.replaced\",\"payload\":{\"board\":{\"columns\":{\"closed\":{\"count\":0,\"issues\":[]},\"done\":{\"count\":0,\"issues\":[]},\"in-progress\":{\"count\":0,\"issues\":[]},\"open\":{\"count\":0,\"issues\":[]},\"wont-do\":{\"count\":0,\"issues\":[]}},\"labels\":{},\"reducer\":\"issue-board@1\",\"v\":1},\"provenance\":{\"inputs\":[{\"offset\":\"-1\",\"streamId\":\"repo-issues:qa-ex…"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The app's issue-board client fetches .../board with a plain fetch that attaches no session credential — the recorded request 3581.160 sends only sec-ch-ua/accept/User-Agent headers, no Authorization and no Cookie — yet the server answers HTTP 200 with the board body. The security probe reproduced the identical request with no session at all (from a foreign Origin) and received the same HTTP 200 containing the board's issue data (\"new-issue\"), demonstrating the endpoint discloses the board to anyone.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (Screenshot, NetworkRequest)",
+          "probes": [
+            "Screenshot {\"label\":\"probe-transcript\",\"timestamp\":169400}\n→ GET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — CORS check with Origin: https://loopqa-probe.example\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — CORS check with Origin: null\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — CORS check with Origin: https://electric-forest-production.up.railway.app.loopqa-probe.example\nGET https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board → 200 — missing-authorization: unauthenticated request",
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"3581.160\"}\n→ A GET network request with ID 3581.160 was made to https://electric-forest-production.up.railway.app/api/repos/qa-exploration-workspace/qa-demo-repo/board?projection=1&reducer=issue-board%401:\n<request_summary>\nThe response had status 200 ().\n</request_summary>\nInitiated at Point:51 @ 169217.00ms\nEvents:\n  request @ 169217ms\n  response @ 169454ms\n  response-body @ 169455ms\n  request-done @ 169456ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \naccept: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\ndate: Tue, 27 Oct 2026 13:20:20 GMT\ncontent-encoding: gzip\nreferrer-policy: same-origin\nx-content-type-options: nosniff\nserver: railway-hikari\nvary: Accept-Encoding\ncontent-type: application/json\nx-railway-edge: jfk1\nx-hikari-trace: jfk1.cv40\nx-railway-request-id: n44Ezat2TgKwyDL20_TJvA\ncontent-length: 495\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n{\"ok\":true,\"events\":[{\"offset\":\"0000000000000000_0000000000000000\",\"type\":\"issue-board.replaced\",\"payload\":{\"board\":{\"columns\":{\"closed\":{\"count\":0,\"issues\":[]},\"done\":{\"count\":0,\"issues\":[]},\"in-progress\":{\"count\":0,\"issues\":[]},\"open\":{\"count\":0,\"issues\":[]},\"wont-do\":{\"count\":0,\"issues\":[]}},\"labels\":{},\"reducer\":\"issue-board@1\",\"v\":1},\"provenance\":{\"inputs\":[{\"offset\":\"-1\",\"streamId\":\"repo-issues:qa-ex…"
+          ]
+        }
+      ]
+    }
+  ]
+}
