@@ -120,7 +120,7 @@
    "url": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/recording.json#t=16.5",
    "title": "Session replay",
    "har": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/network.json",
-   "log": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/console.log",
+   "log": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/console.txt",
    "captions": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/captions.vtt"
   },
   "chronology": [
@@ -269,7 +269,7 @@
    "url": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/recording.json#t=0.7,3.5",
    "title": "Session replay",
    "har": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/network.json",
-   "log": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/console.log",
+   "log": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/console.txt",
    "evidence": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/evidence.json",
    "captions": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/captions.vtt"
   },
@@ -414,7 +414,7 @@
    "url": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/recording.json#t=4.5,10",
    "title": "Session replay",
    "har": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/network.json",
-   "log": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/console.log",
+   "log": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/console.txt",
    "captions": "/bugs/inviting-a-teammate-throws-object-is-not-extensible/captions.vtt"
   },
   "chronology": [
@@ -650,7 +650,7 @@
    "url": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/recording.json#t=15.5",
    "title": "Session replay",
    "har": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/network.json",
-   "log": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/console.log",
+   "log": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/console.txt",
    "evidence": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/evidence.json",
    "captions": "/bugs/delete-removes-a-different-note-than-the-one-you-clicked/captions.vtt"
   },
@@ -1075,7 +1075,7 @@
    "url": "/bugs/pressing-enter-after-a-heading-deletes-the-heading/recording.json#t=17.6",
    "title": "Session replay",
    "har": "/bugs/pressing-enter-after-a-heading-deletes-the-heading/network.json",
-   "log": "/bugs/pressing-enter-after-a-heading-deletes-the-heading/console.log",
+   "log": "/bugs/pressing-enter-after-a-heading-deletes-the-heading/console.txt",
    "captions": "/bugs/pressing-enter-after-a-heading-deletes-the-heading/captions.vtt"
   },
   "chronology": [
@@ -1328,7 +1328,7 @@
    "url": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/recording.json#t=7.8,12.3",
    "title": "Session replay",
    "har": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/network.json",
-   "log": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/console.log",
+   "log": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/console.txt",
    "evidence": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/evidence.json",
    "captions": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/captions.vtt"
   },
@@ -1402,7 +1402,7 @@
    "url": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/recording.json#t=8",
    "title": "Session replay",
    "har": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/network.json",
-   "log": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/console.log",
+   "log": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/console.txt",
    "evidence": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/evidence.json",
    "captions": "/bugs/saved-toast-on-a-profile-save-that-failed-with-409/captions.vtt"
   },
@@ -1586,7 +1586,7 @@
    "url": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/recording.json#t=4.4",
    "title": "Session replay",
    "har": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/network.json",
-   "log": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/console.log",
+   "log": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/console.txt",
    "evidence": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/evidence.json",
    "captions": "/bugs/inline-rename-shows-the-old-name-after-a-successful-save/captions.vtt"
   },
@@ -1769,7 +1769,7 @@
    "url": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/recording.json#t=8,11.85",
    "title": "Session replay",
    "har": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/network.json",
-   "log": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/console.log",
+   "log": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/console.txt",
    "captions": "/bugs/meeting-preview-shows-the-day-before-the-date-you-picked/captions.vtt"
   },
   "chronology": [
@@ -1975,7 +1975,7 @@
    "url": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/recording.json#t=4",
    "title": "Session replay",
    "har": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/network.json",
-   "log": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/console.log",
+   "log": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/console.txt",
    "evidence": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/evidence.json",
    "captions": "/bugs/undo-uses-up-its-history-entry-but-doesnt-revert-the-checkli/captions.vtt"
   },
