@@ -69,6 +69,14 @@ const html = (md) => marked.parse(md.trim(), { async: false }).trim()
 const hint = (md, style) =>
   md.match(new RegExp(`{% hint style="${style}" %}\\n([\\s\\S]*?)\\n{% endhint %}`))?.[1].trim()
 
+// The `**Actual** — …` or `**Expected** — …` hint, found by its label rather than its style: a ticket can
+// have them in the wrong colors (checkout-charges-the-pre-discount-total… puts Expected in danger).
+function labeledHint(md, label) {
+  const lead = new RegExp(`^\\*\\*${label}\\*\\*\\s*—\\s*`)
+  const text = ['danger', 'success'].map((style) => hint(md, style)).find((t) => t && lead.test(t))
+  return text?.replace(lead, '') ?? ''
+}
+
 const steps = (md) => [...md.matchAll(/{% step %}([\s\S]*?){% endstep %}/g)].map((m) => m[1].trim())
 
 // A ticket's evidence: `<details><summary>2 evidence probes (…)</summary> ~~~~txt … ~~~~ … </details>`.
@@ -196,8 +204,8 @@ for (const slug of readdirSync(ticketsDir)) {
     homepage: HOMEPAGE.includes(slug),
     thumbnail: chronology.find((s) => s.shot)?.shot ?? null,
     finding: html(hint(intro, 'info')?.replace(/^\*\*What the recording showed\.\*\*\s*/, '') ?? ''),
-    actual: html(hint(intro, 'danger')?.replace(/^\*\*Actual\*\*\s*—\s*/, '') ?? ''),
-    expected: html(hint(intro, 'success')?.replace(/^\*\*Expected\*\*\s*—\s*/, '') ?? ''),
+    actual: html(labeledHint(intro, 'Actual')),
+    expected: html(labeledHint(intro, 'Expected')),
     replay: replayProps(slug, body),
     chronology,
     reproduce: steps(parts['Steps to reproduce'] ?? '').map((md) => prose(md, blocks)),

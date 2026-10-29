@@ -114,8 +114,8 @@
   "homepage": true,
   "thumbnail": "/bugs/shots/c8705e33-a892-4efe-bfab-6752b99d0f10-screenshot-147852.jpg",
   "finding": "<p><code>placeOrder</code> is memoized with <code>useCallback(…, [cart?.id])</code>, so it kept the total from before the promo. <code>POST /api/orders</code> sent <code>amount: 130</code> while the button read <code>Pay $117.00</code>, and order #10422 was charged $130.00.</p>\n<h2></h2>",
-  "actual": "<p><strong>Expected</strong> — After applying WELCOME10 and seeing Total $117.00 / &quot;Pay $117.00&quot;, placing the order should submit amount 117, and the order confirmation for Order #10422 should show the discounted total charged (e.g. $117.00 with the -$13.00 discount reflected), matching what the shopper agreed to pay at checkout.</p>",
-  "expected": "<p><strong>Actual</strong> — The POST /api/orders request body sends &quot;amount&quot;:130 even though the pay button just read &quot;Pay $117.00&quot;; the server creates order #10422 with amount 130, and the order confirmation page displays &quot;Total charged $130.00&quot; with no discount amount shown — the applied WELCOME10 promo is silently dropped from the charged total.</p>",
+  "actual": "<p>The POST /api/orders request body sends &quot;amount&quot;:130 even though the pay button just read &quot;Pay $117.00&quot;; the server creates order #10422 with amount 130, and the order confirmation page displays &quot;Total charged $130.00&quot; with no discount amount shown — the applied WELCOME10 promo is silently dropped from the charged total.</p>",
+  "expected": "<p>After applying WELCOME10 and seeing Total $117.00 / &quot;Pay $117.00&quot;, placing the order should submit amount 117, and the order confirmation for Order #10422 should show the discounted total charged (e.g. $117.00 with the -$13.00 discount reflected), matching what the shopper agreed to pay at checkout.</p>",
   "replay": {
    "url": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/recording.json#t=16.5",
    "title": "Session replay",
