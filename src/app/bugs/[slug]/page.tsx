@@ -105,20 +105,20 @@ export default async function BugPage({ params }: Props) {
             {bug.finding && (
               <div className="mt-8 rounded-r-xl border-l-4 border-accent bg-accent/5 px-5 py-4">
                 <p className="text-sm font-bold text-gray-900">What the recording showed</p>
-                <Prose html={bug.finding} className="mt-1" />
+                <Prose markdown={bug.finding} className="mt-1" />
               </div>
             )}
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="rounded-xl border border-red-200 bg-red-50/50 p-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-red-700">Actual</p>
-                <Prose html={bug.actual} className="mt-2" />
+                <Prose markdown={bug.actual} className="mt-2" />
               </div>
               <div className="rounded-xl border border-green-200 bg-green-50/50 p-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-green-700">
                   Expected
                 </p>
-                <Prose html={bug.expected} className="mt-2" />
+                <Prose markdown={bug.expected} className="mt-2" />
               </div>
             </div>
 
@@ -143,7 +143,7 @@ export default async function BugPage({ params }: Props) {
             )}
 
             <Section title="Root cause">
-              <Prose html={bug.rootCause.html} />
+              <Prose markdown={bug.rootCause.text} />
               <EvidenceList evidence={bug.rootCause.evidence} />
             </Section>
 

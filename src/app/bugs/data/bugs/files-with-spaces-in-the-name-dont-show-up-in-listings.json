@@ -1,0 +1,105 @@
+{
+  "title": "Files with spaces in the name don't show up in listings",
+  "severity": "high",
+  "category": "state",
+  "why": "Only one specific file is missing, and the rest of the directory looks right.",
+  "project": "Github Clone",
+  "discovered": "2026-09-03",
+  "report": "https://qa.replay.io/projects/proj-electric-forest-ms8w0nv1/bugs/bug-mtks5a2s-w2ba",
+  "finding": "A logpoint in `RepositoryTree` sampled 84 renders across the recording. 'chapter-one' was present in every one, and 'my file' was missing (index −1) in every one.",
+  "actual": "The docs directory listing renders only chapter-one.md, notes/draft.md, src/index.ts, guide-old.md and README.md. No entry named \"my file.md\" is rendered anywhere in the listing: a Logpoint inside the RepositoryTree component (84 sampled tree renders spanning the whole recording) reads the tree's rendered shadow-DOM text at URL /tree/main/docs and returns hasChapter=true but idxMyFile=-1 — the string \"my file\" never appears in any sampled render, including after the user scrolls to look for it below the fold.",
+  "expected": "At /maple/reading-room/tree/main/docs the listing should show every file in the docs directory, including both \"chapter-one.md\" and the file named exactly \"my file.md\", as the journey scenario requires (\"verify chapter-one.md and the file named exactly my file.md are both visible and the breadcrumb path is docs\"). A file whose name contains a space should render in the directory listing like any other entry.",
+  "replay": {
+    "url": "/bugs/files-with-spaces-in-the-name-dont-show-up-in-listings/recording.json#t=12.7",
+    "title": "Session replay",
+    "har": "/bugs/files-with-spaces-in-the-name-dont-show-up-in-listings/network.json",
+    "evidence": "/bugs/files-with-spaces-in-the-name-dont-show-up-in-listings/evidence.json",
+    "captions": "/bugs/files-with-spaces-in-the-name-dont-show-up-in-listings/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:13.7",
+      "shot": "/bugs/shots/9e1ce044-badc-4544-a639-90ef5a0a50e1-screenshot-82506.jpg",
+      "text": "The user activates the 'docs' directory link in the reading-room file tree with a real pointer click; the app navigates from /maple/reading-room/tree/main to /maple/reading-room/tree/main/docs (confirmed by the URL change and the breadcrumb 'reading-room / docs').",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (UserInteractions, GetPointComponent)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"click\"}\n→ # User Interactions\n\n**Filter:** click only\n**Showing 1–3 of 3 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 18848ms | click | Click at (640, 429) | Point:1 |\n| 1 | 32196ms | click | Click at (593, 488) | Point:2 |\n| 2 | 82528ms | click | Click at (769, 360) | Point:3 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type",
+            "GetPointComponent {\"point\":\"Point:66\"}\n→ ⚠️ **React is present in this recording, but could not be analyzed** — library sources could not be located.\n\nNo component could be resolved for this point. Any conclusion about this app's React behavior would be unsupported. Treat the recording as unmeasured — this is **not** a clean bill of health.\n\nEvidence React is present: runtime."
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:14.5",
+      "shot": "/bugs/shots/9e1ce044-badc-4544-a639-90ef5a0a50e1-screenshot-87640.jpg",
+      "text": "The docs directory view renders (live status, breadcrumb 'reading-room / docs') but the listing shows only five entries — chapter-one.md, notes/draft.md, src/index.ts, guide-old.md, README.md. No 'my file.md' entry is rendered anywhere in the listing; a Logpoint inside the RepositoryTree component at this state reads the tree's rendered content and finds 'chapter-one' present but the string 'my file' absent (index -1).",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Logpoint)",
+          "probes": [
+            "Logpoint {\"line\":71,\"path\":\"http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js\",\"beginPoint\":\"Point:65\",\"expression\":\"(() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\"}\n→ Found 84 total hits at http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js:71 (showing first 20)\n\nHit 1 at point Point:65 @ 82474.83ms:\n  Expression: (() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\n  Result: {\n  \"url\": \"http://127.0.0.1:61787/maple/reading-room/tree/main\",\n  \"hasMyFileAny\": false,\n  \"idxMyFile\": -1,\n  \"hasChapter\": true,\n  \"hasDocs\": true\n}\n\nHit 2 at point Point:66 @ 82504.19ms:\n  Expression: (() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\n  Result: {\n  \"url\": \"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\n  \"hasMyFileAny\": false,\n  \"idxMyFile\": -1,\n  \"hasChapter\": true,\n  \"hasDocs\": true\n}\n\nHit 3 at point Point…"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Exercise the following existing saved scenario in the app and confirm it works:",
+      "evidence": []
+    },
+    {
+      "text": "Use the Replay QA tunnel only, not a local browser URL. Sign in with the available fixture identity if prompted. Open /maple/reading-room/tree/main, verify sorted root rows, live status, reducer version 2, checkpoint, and digest. Activate the docs directory link with a real pointer or keyboard action; verify chapter-one.md and the file named exactly my file.md are both visible and the breadcrumb path is docs. Return to root using the visible breadcrumb. Observe live guide-old.md to guide.md rename and obsolete.txt delete then recreate without a document navigation; verify stale names disappear and the digest/checkpoint advance. Activate docs again, leaving the route at /tree/main/docs, then observe the populated docs directory rename to archive-docs; verify the nested view becomes empty while the old docs path is not repopulated. Check final digest/checkpoint against the visible live state, no uncaught console errors, repository /api/repos/.../events projection requests only, no /streams requests or Electric credentials, and no full-page reload for the live mutation sequence. This is a focused regression journey, not an exploration.",
+      "evidence": []
+    },
+    {
+      "text": "Additional checks:",
+      "evidence": []
+    },
+    {
+      "text": "Use the Replay QA tunnel only, not a local browser URL. Sign in with the available fixture identity if prompted. Open /maple/reading-room/tree/main, verify sorted root rows, live status, reducer version 2, checkpoint, and digest. Activate the docs directory link with a real pointer or keyboard action; verify chapter-one.md and the file named exactly my file.md are both visible and the breadcrumb path is docs. Return to root using the visible breadcrumb. Observe live guide-old.md to guide.md rename and obsolete.txt delete then recreate without a document navigation; verify stale names disappear and the digest/checkpoint advance. Activate docs again, leaving the route at /tree/main/docs, then observe the populated docs directory rename to archive-docs; verify the nested view becomes empty while the old docs path is not repopulated. Check final digest/checkpoint against the visible live state, no uncaught console errors, repository /api/repos/.../events projection requests only, no /streams requests or Electric credentials, and no full-page reload for the live mutation sequence. This is a focused regression journey, not an exploration.",
+      "evidence": []
+    },
+    {
+      "text": "If the app cannot perform this or behaves incorrectly, report FAIL describing the defect; otherwise report DONE.",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "The RepositoryTree file-tree component (assets/RepositoryTree-BIhBVSqC.js, function Uc) never renders a row for the file named with a space (\"my file.md\") in the docs directory view: a Logpoint evaluation anchored inside the component (Point:80, ~90066ms, URL http://127.0.0.1:61787/maple/reading-room/tree/main/docs) reads the component's rendered shadow-DOM text and returns hasChapter=true while idxMyFile=-1 — the string \"my file\" appears in none of the 84 sampled tree renders across the recording, so the docs listing renders only chapter-one.md, notes/draft.md, src/index.ts, guide-old.md and README.md and omits the required \"my file.md\" entry the journey fixture seeds. The filename containing a space is dropped from the listing the tree component renders.",
+    "evidence": [
+      {
+        "summary": "1 evidence probe (Logpoint)",
+        "probes": [
+          "Logpoint {\"line\":71,\"path\":\"http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js\",\"beginPoint\":\"Point:65\",\"expression\":\"(() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\"}\n→ Found 84 total hits at http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js:71 (showing first 20)\n\nHit 1 at point Point:65 @ 82474.83ms:\n  Expression: (() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\n  Result: {\n  \"url\": \"http://127.0.0.1:61787/maple/reading-room/tree/main\",\n  \"hasMyFileAny\": false,\n  \"idxMyFile\": -1,\n  \"hasChapter\": true,\n  \"hasDocs\": true\n}\n\nHit 2 at point Point:66 @ 82504.19ms:\n  Expression: (() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\n  Result: {\n  \"url\": \"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\n  \"hasMyFileAny\": false,\n  \"idxMyFile\": -1,\n  \"hasChapter\": true,\n  \"hasDocs\": true\n}\n\nHit 3 at point Point…"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "### ![Screenshot at 1:22.5](/shots/9e1ce044-badc-4544-a639-90ef5a0a50e1-screenshot-82506.jpg \"thumbnail: 1:22.5\")\n\nThe user clicks the 'docs' directory entry in the file tree; the app navigates from /maple/reading-room/tree/main to /maple/reading-room/tree/main/docs (Logpoint hit at Point:66, ~82504ms, shows location.href change to /tree/main/docs and the breadcrumb renders 'reading-room / docs').",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (UserInteractions)",
+          "probes": [
+            "UserInteractions {\"mode\":\"interactions\",\"type\":\"click\"}\n→ # User Interactions\n\n**Filter:** click only\n**Showing 1–3 of 3 interactions**\n\n| # | Time | Type | Detail | Point |\n|---|------|------|--------|-------|\n| 0 | 18848ms | click | Click at (640, 429) | Point:1 |\n| 1 | 32196ms | click | Click at (593, 488) | Point:2 |\n| 2 | 82528ms | click | Click at (769, 360) | Point:3 |\n\n## Next Steps\n\n- Use DescribePoint with a point reference to inspect the code at a specific interaction\n- Use Evaluate with a point reference for ad-hoc value inspection at that moment\n- Use `type: 'click'` or `type: 'keypress'` to filter by interaction type"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "### ![Screenshot at 1:30.0](/shots/9e1ce044-badc-4544-a639-90ef5a0a50e1-screenshot-87640.jpg \"thumbnail: 1:30.0\")\n\nAt the docs route the RepositoryTree component renders the listing without any 'my file' text: Logpoint hits at Point:80 (~90066ms) show the rendered shadow-DOM content contains 'chapter-one' (hasChapter=true) while 'my file' is absent (idxMyFile=-1), so the listing shows only five entries and the required file is invisible — the journey's docs-view verification fails.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (Logpoint)",
+          "probes": [
+            "Logpoint {\"line\":71,\"path\":\"http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js\",\"beginPoint\":\"Point:65\",\"expression\":\"(() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\"}\n→ Found 84 total hits at http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js:71 (showing first 20)\n\nHit 1 at point Point:65 @ 82474.83ms:\n  Expression: (() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\n  Result: {\n  \"url\": \"http://127.0.0.1:61787/maple/reading-room/tree/main\",\n  \"hasMyFileAny\": false,\n  \"idxMyFile\": -1,\n  \"hasChapter\": true,\n  \"hasDocs\": true\n}\n\nHit 2 at point Point:66 @ 82504.19ms:\n  Expression: (() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()\n  Result: {\n  \"url\": \"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\n  \"hasMyFileAny\": false,\n  \"idxMyFile\": -1,\n  \"hasChapter\": true,\n  \"hasDocs\": true\n}\n\nHit 3 at point Point…"
+          ]
+        }
+      ]
+    }
+  ]
+}

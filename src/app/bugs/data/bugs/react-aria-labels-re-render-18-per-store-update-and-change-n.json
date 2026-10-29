@@ -1,0 +1,62 @@
+{
+  "title": "React Aria labels re-render 18× per store update and change nothing",
+  "severity": "medium",
+  "category": "perf",
+  "why": "The component is a minified, anonymous <code>ForwardRef(t)</code>. You'd never find it by name.",
+  "project": "Reminders · CircleCI",
+  "discovered": "2026-09-11",
+  "report": "https://qa.replay.io/projects/proj-127-0-0-1-mtvx8dgt/bugs/bug-mtxgmrb4-njng",
+  "finding": "The commit at T=9.3s blocked for 66.2ms with 143 fibers, 124 of them wasted. `ForwardRef(t)` at `0fea-ihv~kq4d.js:657` re-rendered 18 of 19 instances. The same pattern repeats at T=9.8s.",
+  "actual": "The paragraph renders at rgb(154, 155, 163) on an effective backdrop of rgb(251, 251, 252), a contrast ratio of 2.67:1 — below the 4.5:1 WCAG AA minimum — so the text appears as faint gray that is hard to read on the white empty-state card.",
+  "expected": "The helper paragraph text should have a contrast ratio of at least 4.5:1 against the white empty-state card background (WCAG AA for 13px normal text), e.g. by using a darker gray token like the heading's #4a4b53 or another ≥4.5:1 muted color.",
+  "replay": {
+    "url": "/bugs/react-aria-labels-re-render-18-per-store-update-and-change-n/recording.json#t=25.2,29.4",
+    "title": "Session replay",
+    "har": "/bugs/react-aria-labels-re-render-18-per-store-update-and-change-n/network.json",
+    "captions": "/bugs/react-aria-labels-re-render-18-per-store-update-and-change-n/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:26.9",
+      "shot": "/bugs/shots/e1fa46a8-fa53-44cb-9b4e-e6a84d721eb7-screenshot-159523.jpg",
+      "text": "On the Reminders \"Today\" view with the search term \"haircut\" yielding 0 reminders, the empty-state card (\"Nothing here yet\") is displayed and its helper line \"Try a different search or clear the filter.\" renders as faint gray text on the near-white card — measured contrast 2.67:1 (foreground rgb(154, 155, 163) on effective backdrop rgb(251, 251, 252) from the painted-below div.rounded-2xl), below the 4.5:1 WCAG AA minimum.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "The reminders empty-state component hardcodes the helper paragraph's text color as text-[#9a9ba3] (rgb(154, 155, 163)) at 13px (source: reminders empty-state JSX, class \"mx-auto mt-2 max-w-xs text-[13px] leading-5 text-[#9a9ba3]\"). Against the card's near-white effective backdrop rgb(251, 251, 252) (the div.rounded-2xl painted beneath the transparent-background paragraph), rgb(154, 155, 163) has a relative-luminance contrast ratio of 2.67:1 — below the 4.5:1 WCAG AA minimum for normal-size text. The token itself is simply too light for body-size text on this surface; the adjacent heading uses #4a4b53 and passes.",
+    "evidence": [
+      {
+        "summary": "3 evidence probes (SearchSources, ReadSource, Evaluate)",
+        "probes": [
+          "SearchSources {\"pattern\":\"Try a different search or clear the filter\"}\n→ ### http://127.0.0.1:3000/_next/static/chunks/0fea-ihv~kq4d.js\n hits | L | code \n------|------|------\n     |   46 | }, 21800, e => { \n\n     | 7327 |                     children: o \n     | *7328 |                               ? \"Try a different search or clear the filter.\" \n     | 7329 |                               : \"A quiet list is a good place to start.\"",
+          "ReadSource {\"line\":7326,\"path\":\"http://127.0.0.1:3000/_next/static/chunks/0fea-ihv~kq4d.js\"}\n→  hits | L | code \n------|------|------\n     | 7301 |              children: [ \n     | 7302 |                (0, \n   0 | 7303 |                 c.jsx)( \n     | 7304 |                   \"span\", \n     | 7305 |                   { \n     | 7306 |                     className: \"mx-auto mb-4 grid size-12 place-items-center rounded-2xl bg-[#f0f0f4] text-[#a4a5ad]\", \n     | 7307 |                     children: (0, \n   0 | 7308 |                                c.jsx)( \n     | 7309 |                                  C, \n     | 7310 |                                  { className: \"size-6\", \"aria-hidden\": \"true\" } \n     | 7311 |                                ) \n     | 7312 |                   } \n     | 7313 |                 ), \n     | 7314 |                (0, \n   0 | 7315 |                 c.jsx)( \n     | 7316 |                   \"h2\", \n     | 7317 |                   { \n     | 7318 |                     className: \"text-[15px] font-semibold text-[#4a4b53]\", \n     | 7319 |                     children: \"Nothing here yet\" \n     | 7320 |                   } \n     | 7321 |                 ), \n     | 7322 |                (0, \n   0 | 7323 |                 c.jsx)( \n     | 7324 |                   \"p\", \n     | 7325 |                   { \n     | *7326 |                     className: \"mx-auto mt-2 max-w-xs text-[13px] leading-5 text-[#9a9ba3]\", \n     | 7327 |                     children: o \n     | 7328 |                               ? \"Try a different search or clear the filter.\" \n     | …",
+          "Evaluate {\"point\":\"Point:49\",\"scope\":\"global\",\"expression\":\"(() => { try { var el = document.querySelector(\\\"div.min-h-0.flex-1 > div.mx-auto.w-full > div.rounded-2xl.border:nth-of-type(2) > p.mx-auto.mt-2\\\"); if (!el) return JSON.stringify({ found: false, selector: \\\"div.min-h-0.flex-1 > div.mx-auto.w-full > div.rounded-2xl.border:nth-of-type(2) > p.mx-auto.mt-2\\\" }); var r = el.getBoundingClientRect(); var cs = getComputedStyle(el); var parseC = function (s) { if (!s || s === 'transparent') return null; var i = s.indexOf('('), j = s.indexOf(')'); if (i < 0 || j < 0) return null; var p = s.slice(i + 1…\n→ \"{\\\"found\\\":true,\\\"tag\\\":\\\"p\\\",\\\"text\\\":\\\"Try a different search or clear the filter.\\\",\\\"rect\\\":{\\\"x\\\":623,\\\"y\\\":467,\\\"w\\\":320,\\\"h\\\":20},\\\"viewport\\\":{\\\"w\\\":1280,\\\"h\\\":720},\\\"textColor\\\":\\\"rgb(154, 155, 163)\\\",\\\"ownBackgroundColor\\\":\\\"rgba(0, 0, 0, 0)\\\",\\\"effectiveBackdrop\\\":\\\"rgb(251, 251, 252)\\\",\\\"effectiveBackdropSource\\\":\\\"div.rounded-2xl\\\",\\\"effectiveBackdropDefaulted\\\":false,\\\"contrastRatio\\\":2.67,\\\"invisible\\\":false,\\\"fontSize\\\":\\\"13px\\\",\\\"fontWeight\\\":\\\"400\\\"}\""
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The reminders empty-state component assigns the hardcoded token text-[#9a9ba3] (rgb(154, 155, 163)) to the helper paragraph \"Try a different search or clear the filter.\" — confirmed in the bundle source where the paragraph is created with class \"mx-auto mt-2 max-w-xs text-[13px] leading-5 text-[#9a9ba3]\".",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (SearchSources, ReadSource)",
+          "probes": [
+            "SearchSources {\"pattern\":\"Try a different search or clear the filter\"}\n→ ### http://127.0.0.1:3000/_next/static/chunks/0fea-ihv~kq4d.js\n hits | L | code \n------|------|------\n     |   46 | }, 21800, e => { \n\n     | 7327 |                     children: o \n     | *7328 |                               ? \"Try a different search or clear the filter.\" \n     | 7329 |                               : \"A quiet list is a good place to start.\"",
+            "ReadSource {\"line\":7326,\"path\":\"http://127.0.0.1:3000/_next/static/chunks/0fea-ihv~kq4d.js\"}\n→  hits | L | code \n------|------|------\n     | 7301 |              children: [ \n     | 7302 |                (0, \n   0 | 7303 |                 c.jsx)( \n     | 7304 |                   \"span\", \n     | 7305 |                   { \n     | 7306 |                     className: \"mx-auto mb-4 grid size-12 place-items-center rounded-2xl bg-[#f0f0f4] text-[#a4a5ad]\", \n     | 7307 |                     children: (0, \n   0 | 7308 |                                c.jsx)( \n     | 7309 |                                  C, \n     | 7310 |                                  { className: \"size-6\", \"aria-hidden\": \"true\" } \n     | 7311 |                                ) \n     | 7312 |                   } \n     | 7313 |                 ), \n     | 7314 |                (0, \n   0 | 7315 |                 c.jsx)( \n     | 7316 |                   \"h2\", \n     | 7317 |                   { \n     | 7318 |                     className: \"text-[15px] font-semibold text-[#4a4b53]\", \n     | 7319 |                     children: \"Nothing here yet\" \n     | 7320 |                   } \n     | 7321 |                 ), \n     | 7322 |                (0, \n   0 | 7323 |                 c.jsx)( \n     | 7324 |                   \"p\", \n     | 7325 |                   { \n     | *7326 |                     className: \"mx-auto mt-2 max-w-xs text-[13px] leading-5 text-[#9a9ba3]\", \n     | 7327 |                     children: o \n     | 7328 |                               ? \"Try a different search or clear the filter.\" \n     | …"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The paragraph's own background is transparent, so the browser paints the text over the near-white div.rounded-2xl card surface beneath it — the resolved effective backdrop is rgb(251, 251, 252) (measured via ancestor background walk at Point:49).",
+      "evidence": []
+    },
+    {
+      "text": "rgb(154, 155, 163) on rgb(251, 251, 252) computes to a 2.67:1 contrast ratio (measured), below the 4.5:1 WCAG AA minimum for 13px normal text, so the user sees the empty-state helper line as faint gray that is difficult to read on the white card.",
+      "evidence": []
+    }
+  ]
+}

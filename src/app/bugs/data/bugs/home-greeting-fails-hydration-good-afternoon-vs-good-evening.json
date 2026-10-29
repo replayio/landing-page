@@ -1,0 +1,55 @@
+{
+  "title": "Home greeting fails hydration: ‘Good afternoon’ vs ‘Good evening’",
+  "severity": "medium",
+  "category": "race",
+  "why": "React regenerates the tree on the client, so the page ends up looking right. The mismatch only exists between the server HTML and the first client render.",
+  "project": "team-portal",
+  "discovered": "2026-10-19",
+  "report": "https://qa.replay.io/projects/proj-bench-team-portal-mvfqamty/bugs/bug-mvfqqbwz-f2bj",
+  "finding": "`Greeting.tsx` creates `new Date()` in a `useState` initializer on both sides. The server rendered an afternoon hour and ‘Good afternoon’; the client rendered 8:55 PM and ‘Good evening’, so React threw #418.",
+  "actual": "React error #418: Hydration failed. This error causes visual inconsistencies — the UI may not match what the server rendered Hydration failed. First occurrence: \"Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used: -…\". Suggested action: The server-rendered HTML doesn't match what the client renders. Common cause: using browser-only values (Date.now(), window.*) during SSR.",
+  "expected": "The server-rendered HTML and the client's first (hydration) render should produce identical text — the hero \\<h1> should read the same greeting (e.g. \"Good evening, Dana\") during hydration, with no React error #418 and no regeneration of the server tree. Time-dependent text should be rendered deterministically (e.g. computed only after mount via useEffect, or initialized from a timestamp passed from the server).",
+  "replay": {
+    "url": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/recording.json#t=0.7,3.5",
+    "title": "Session replay",
+    "har": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/network.json",
+    "log": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/console.txt",
+    "evidence": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/evidence.json",
+    "captions": "/bugs/home-greeting-fails-hydration-good-afternoon-vs-good-evening/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:25.9",
+      "shot": "/bugs/shots/1806d8d5-fec0-4eaa-9f15-0e637b604150-screenshot-1230.jpg",
+      "text": "Homepage first paint: the hero card shows \"Good evening, Dana\" with the local date/time \"Monday, October 19 · 8:55:48 PM\" below it. The server had rendered \"Good afternoon\" into the same \\<h1>, so React logged \"Hydration failed because the server rendered text didn't match the client\" (error #418) and regenerated the tree on the client — the visible text is the client's re-render, not the hydrated server HTML.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "components/Greeting.tsx initializes time-dependent state with a fresh Date on both server and client: line 12 `const [now, setNow] = useState(() => new Date())`, and the render at line 22 calls `greetingFor(now.getHours())`. The server rendered the page when `now.getHours()` fell in the 12–17 bucket, so greetingFor returned \"Good afternoon\"; the client's first render created a different Date (local time 8:55 PM, hour 20), so greetingFor returned \"Good evening\". The two text nodes for the same \\<h1> differ, hydration fails with React error #418, and React throws away the server tree and regenerates it on the client (onRecoverableError → recoverable hydration error).",
+    "evidence": [
+      {
+        "summary": "2 evidence probes (ReadSource, ConsoleMessages)",
+        "probes": [
+          "ReadSource {\"line\":12,\"path\":\"webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/Greeting.tsx\"}\n→  hits | L | code \n------|------|------\n     |    1 | \"use client\"; \n     |    2 |  \n     |    3 | import { useEffect, useState } from \"react\"; \n     |    4 |  \n     |    5 | function greetingFor(hour: number) { \n   0 |    6 |   if (hour < 12) return /*<HIT>*/\"Good morning\"; \n   0 |    7 |   if (hour < 18) return /*<HIT>*/\"Good afternoon\"; \n  80 |    8 |   return \"Good evening\"; \n     |    9 | } \n     |   10 |  \n  81 |   11 | export default function Greeting({ name }: { name: string }) { \n   4 |  *12 |   const [now, setNow] = useState(() => /*<HIT>*/new Date()); \n     |   13 |  \n  80 |   14 |   useEffect(() => { \n  38 |   15 |     const t = setInterval(() => /*<HIT>*/setNow(new Date()), 1000); \n   2 |   16 |     return () => clearInterval(t); \n     |   17 |   }, []); \n     |   18 |  \n     |   19 |   return ( \n  80 |   20 |     <div> \n  80 |   21 |       <h1> \n  80 |   22 |         {greetingFor(now.getHours())}, {name} \n     |   23 |       </h1> \n  80 |   24 |       <div className=\"muted\"> \n  80 |   25 |         {now.toLocaleDateString(\"en-US\", { weekday: \"long\", month: \"long\", day: \"numeric\" })} \n     |   26 |         {\" · \"} \n  80 |   27 |         {now.toLocaleTimeString(\"en-US\", { hour: \"numeric\", minute: \"2-digit\", second: \"2-digit\" })} \n     |   28 |       </div> \n     |   29 |     </div> \n     |   30 |   ); \n     |   31 | } \n     |   32 |  ",
+          "ConsoleMessages {\"mode\":\"messages\",\"level\":\"error\"}\n→ 1 console messages (level=error)\n[console.error] (Point:3): \"Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\\n\\n- A server/client branch `if (typeof window !== 'undefined')`.\\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\\n- Date formatting in a user's locale which doesn't match the server.\\n- External changing data without sending a snapshot of it along with the HTML.\\n- Invalid HTML tag nesting.\\n\\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\\n\\nhttps://react.dev/link/hydration-mismatch\\n\\n  ...\\n    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>\\n      <LoadingBoundary loading={null}>\\n        <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\\n          <HTTPAccessFallbackErrorBoundary pathname=\\\"/\\\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\\n            <RedirectBoundary>\\n              <RedirectErrorBoundary router={{...}}>\\n                <InnerLayoutRouter url=\\\"/\\\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\\n                  <SegmentViewNode type=\\\"page\\\" pagePath=\\\"page.tsx\\\">\\n                    <SegmentTrieNode>\\n                    <HomePage>\\n                  …"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "Greeting.tsx line 12 calls `useState(() => new Date())` — a variable, clock-dependent initializer that runs once on the server and once on the client. The server's Date (afternoon hours) makes line 22 render \"Good afternoon, Dana\"; the client's Date (20:55 local) makes the same \\<h1> render \"Good evening, Dana\". React's hydration diff finds the mismatched text, raises recoverable error #418 (logged by onRecoverableError in on-recoverable-error.ts:30), and regenerates the whole tree on the client. The user sees the greeting text flip from the server's \"Good afternoon\" to the client's \"Good evening\" on first paint, and the page loses the benefit of hydration (full client re-render) on every load where the server and client hour buckets differ.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (ReadSource, UncaughtException)",
+          "probes": [
+            "ReadSource {\"line\":12,\"path\":\"webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/Greeting.tsx\"}\n→  hits | L | code \n------|------|------\n     |    1 | \"use client\"; \n     |    2 |  \n     |    3 | import { useEffect, useState } from \"react\"; \n     |    4 |  \n     |    5 | function greetingFor(hour: number) { \n   0 |    6 |   if (hour < 12) return /*<HIT>*/\"Good morning\"; \n   0 |    7 |   if (hour < 18) return /*<HIT>*/\"Good afternoon\"; \n  80 |    8 |   return \"Good evening\"; \n     |    9 | } \n     |   10 |  \n  81 |   11 | export default function Greeting({ name }: { name: string }) { \n   4 |  *12 |   const [now, setNow] = useState(() => /*<HIT>*/new Date()); \n     |   13 |  \n  80 |   14 |   useEffect(() => { \n  38 |   15 |     const t = setInterval(() => /*<HIT>*/setNow(new Date()), 1000); \n   2 |   16 |     return () => clearInterval(t); \n     |   17 |   }, []); \n     |   18 |  \n     |   19 |   return ( \n  80 |   20 |     <div> \n  80 |   21 |       <h1> \n  80 |   22 |         {greetingFor(now.getHours())}, {name} \n     |   23 |       </h1> \n  80 |   24 |       <div className=\"muted\"> \n  80 |   25 |         {now.toLocaleDateString(\"en-US\", { weekday: \"long\", month: \"long\", day: \"numeric\" })} \n     |   26 |         {\" · \"} \n  80 |   27 |         {now.toLocaleTimeString(\"en-US\", { hour: \"numeric\", minute: \"2-digit\", second: \"2-digit\" })} \n     |   28 |       </div> \n     |   29 |     </div> \n     |   30 |   ); \n     |   31 | } \n     |   32 |  ",
+            "UncaughtException {}\n→ This line threw an uncaught exception \"Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>\n      <LoadingBoundary loading={null}>\n        <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n          <HTTPAccessFallbackErrorBoundary pathname=\"/\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n            <RedirectBoundary>\n              <RedirectErrorBoundary router={{...}}>\n                <InnerLayoutRouter url=\"/\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n                  <SegmentViewNode type=\"page\" pagePath=\"page.tsx\">\n                    <SegmentTrieNode>\n                    <HomePage>\n                      <div className=\"stack\">\n                        <section c…"
+          ]
+        }
+      ]
+    }
+  ]
+}

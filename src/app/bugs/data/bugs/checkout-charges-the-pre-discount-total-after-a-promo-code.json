@@ -1,0 +1,145 @@
+{
+  "title": "Checkout charges the pre-discount total after a promo code",
+  "severity": "high",
+  "category": "state",
+  "why": "The button says Pay $117.00 and the order goes through. Only the amount charged is wrong, and only when the promo is applied after the checkout page has loaded.",
+  "project": "storefront",
+  "discovered": "2026-10-20",
+  "report": "https://qa.replay.io/projects/proj-bench-storefront-mvfqigu9/bugs/bug-mvfxehit-mapl",
+  "finding": "`placeOrder` is memoized with `useCallback(…, [cart?.id])`, so it kept the total from before the promo. `POST /api/orders` sent `amount: 130` while the button read `Pay $117.00`, and order #10422 was charged $130.00.",
+  "actual": "The POST /api/orders request body sends \"amount\":130 even though the pay button just read \"Pay $117.00\"; the server creates order #10422 with amount 130, and the order confirmation page displays \"Total charged $130.00\" with no discount amount shown — the applied WELCOME10 promo is silently dropped from the charged total.",
+  "expected": "After applying WELCOME10 and seeing Total $117.00 / \"Pay $117.00\", placing the order should submit amount 117, and the order confirmation for Order #10422 should show the discounted total charged (e.g. $117.00 with the -$13.00 discount reflected), matching what the shopper agreed to pay at checkout.",
+  "replay": {
+    "url": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/recording.json#t=16.5",
+    "title": "Session replay",
+    "har": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/network.json",
+    "log": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/console.txt",
+    "captions": "/bugs/checkout-charges-the-pre-discount-total-after-a-promo-code/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:18.4",
+      "shot": "/bugs/shots/c8705e33-a892-4efe-bfab-6752b99d0f10-screenshot-147852.jpg",
+      "text": "On the checkout page the shopper types WELCOME10 into the Promo code field and clicks Apply (the promo Apply button at Checkout.jsx line 157, element .promo form submit).",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (PlaywrightSteps, InspectElement)",
+          "probes": [
+            "PlaywrightSteps {\"last\":120,\"mode\":\"steps\",\"testIndex\":0}\n→ # Steps: QA Run: run-mvfvs2t3-aybt ❌ (last 120)\n\n**120 steps** (showing 1-25 of 120)\n\n  🔄 **7x** frame.evaluate (steps 728-734)\n\n  735. [151886ms, duration: 524ms] page.evaluate\n    at _RecordedPageObserver.flushRowsFor scripts/journey/run-script.bundle.cjs:86552:14\n    at scripts/journey/run-script.bundle.cjs:86643:86\n    at scripts/journey/run-script.bundle.cjs:681:22\n    at measureOperation scripts/journey/run-script.bundle.cjs:679:16\n    at _RecordedPageObserver.observeMeasured scripts/journey/run-script.bundle.cjs:86643:22\n\n  736. [152411ms, duration: 123ms] page.evaluate\n    at measureVisibleNodes scripts/journey/run-script.bundle.cjs:32368:10\n    at measure scripts/journey/run-script.bundle.cjs:86646:30\n    at measureIntoSetMeasured scripts/journey/run-script.bundle.cjs:12122:22\n    at scripts/journey/run-script.bundle.cjs:12093:84\n    at scripts/journey/run-script.bundle.cjs:681:22\n    at measureOperation scripts/journey/run-script.bundle.cjs:679:16\n    at measureIntoSet scripts/journey/run-script.bundle.cjs:12093:10\n    at BrowserHistory.observe scripts/journey/run-script.bundle.cjs:13898:38\n    at _RecordedPageObserver.observeMeasured scripts/journey/run-script.bundle.cjs:86647:37\n\n  737. [153740ms, duration: 5ms] page.evaluate\n    at scripts/journey/run-script.bundle.cjs:86901:14\n    at scripts/journey/run-script.bundle.cjs:681:22\n    at measureOperation scripts/journey/run-script.bundle.cjs:679:16\n    at _RecordedPageObserver.readMissedOnscreenText scripts/journe…",
+            "InspectElement {\"point\":\"Point:5\",\"element\":\"html:nth-of-type(1) > body:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > aside:nth-of-type(1) > form:nth-of-type(1) > button:nth-of-type(1)\"}\n→ Element:1 is `<button type=\"submit\" class=\"btn btn-secondary\"></button>`.\nElement:1 is rendered by React component Checkout at Point:7:\nRelevant code: http://localhost:3202/src/pages/Checkout.jsx line 157 column 10\nNo elements are obstructing the center point of this element.\n\nElement:1 has 89.203125px width and 41px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 10px right 18px bottom 10px left 18px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right is aligned with parent boundary\n- Bottom is aligned with parent boundary\n- Left overflows parent by 208.80px\n\n### Parent Element:2\n\nElement:2 is `<form class=\"promo\"></form>`.\nElement:2 is rendered by React component Checkout at Point:8:\nRelevant code: http://localhost:3202/src/pages/Checkout.jsx line 150 column 8\n\nElement:2 has 298px width and 41px height.\nMargin: top 14px right 0px bottom 6px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top overflows parent by 171.00px\n- Right overflows parent by 21.00px\n- Bottom overflows parent by 145.00px\n- Left overflows parent by 21.00px\n\n### Parent Element:3\n\nElement:3 is `<aside class=\"summary\"></aside>`.\nElement:3 is rendered by React component Checkout at Point:9:\nRelevant code: http://localhost:3202/src/pages/Checkout.jsx line 131 column 6\n\nElement:3 has 340px width and 357px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 20px right 20px bottom 20px left 20px.\n\nDi…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:20.1",
+      "shot": "/bugs/shots/c8705e33-a892-4efe-bfab-6752b99d0f10-screenshot-159950.jpg",
+      "text": "The promo is accepted: /api/promo returns {\"code\":\"WELCOME10\",\"percent\":10}, and the order summary re-renders to Subtotal $130.00, Discount (WELCOME10) -$13.00, Shipping Free, Total $117.00, with the pay button now reading 'Pay $117.00'.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"1626.66\"}\n→ A POST network request with ID 1626.66 was made to http://localhost:3202/api/promo:\n<request_summary>\nThe response had status 200 (OK).\n</request_summary>\nInitiated at Point:5 @ 149839.00ms\nEvents:\n  request @ 149839ms\n  request-body @ 149839ms\n  response @ 150148ms\n  response-body @ 150149ms\n  request-done @ 150150ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Tue, 20 Oct 2026 00:03:05 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 62\netag: W/\"3e-ZbeolwYF5E9nNdwrt6OAJdfHKiE\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"code\":\"WELCOME10\"}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"code\":\"WELCOME10\",\"percent\":10,\"label\":\"10% off your order\"}\n</responseBody>\n\n_Previous: `requestId: \"1626.65\"` | Next: `requestId: \"1626.67\"`_"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:20.5",
+      "shot": "/bugs/shots/c8705e33-a892-4efe-bfab-6752b99d0f10-screenshot-162950.jpg",
+      "text": "The shopper clicks the 'Pay $117.00' button (element .checkout-form submit, Checkout.jsx line 125) to place the order.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (PlaywrightSteps, InspectElement)",
+          "probes": [
+            "PlaywrightSteps {\"last\":60,\"mode\":\"steps\",\"testIndex\":0}\n→ # Steps: QA Run: run-mvfvs2t3-aybt ❌ (last 60)\n\n**60 steps** (showing 1-25 of 60)\n\n  788. [165024ms, duration: 1ms] cdpSession.send\n    at apply scripts/journey/run-script.bundle.cjs:31814:17\n\n  🔄 **4x** frame.evaluate (steps 789-792)\n\n  793. [165243ms, duration: 2ms] response.text\n    at JourneyBrowserSession.recordOffsiteHandoffResponse scripts/journey/run-script.bundle.cjs:84518:36\n    at _Page.<anonymous> scripts/journey/run-script.bundle.cjs:84931:17\n\n  🔄 **7x** frame.evaluate (steps 794-800)\n\n  801. [165640ms, duration: 2ms] frame.evaluate\n    at readFrameProbe scripts/journey/run-script.bundle.cjs:11901:22\n    at scripts/journey/run-script.bundle.cjs:11922:55\n    at readSettleProbe scripts/journey/run-script.bundle.cjs:11922:44\n    at waitForActionQuiet scripts/journey/run-script.bundle.cjs:11942:25\n\n  802. [165694ms, duration: 4ms] frame.evaluate\n    at readFrameProbe scripts/journey/run-script.bundle.cjs:11901:22\n    at scripts/journey/run-script.bundle.cjs:11922:55\n    at readSettleProbe scripts/journey/run-script.bundle.cjs:11922:44\n    at waitForActionQuiet scripts/journey/run-script.bundle.cjs:11942:25\n\n  803. [165698ms, duration: 502ms] page.evaluate\n    at _RecordedPageObserver.flushRowsFor scripts/journey/run-script.bundle.cjs:86552:14\n    at scripts/journey/run-script.bundle.cjs:86643:86\n    at scripts/journey/run-script.bundle.cjs:681:22\n    at measureOperation scripts/journey/run-script.bundle.cjs:679:16\n    at _RecordedPageObserver.observeMeasured script…",
+            "InspectElement {\"point\":\"Point:1\",\"element\":\"html:nth-of-type(1) > body:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > form:nth-of-type(1) > button:nth-of-type(1)\"}\n→ Element:7 is `<button type=\"submit\" class=\"btn btn-primary btn-block\" disabled=\"\"></button>`.\nElement:7 is rendered by React component Checkout at Point:12:\nRelevant code: http://localhost:3202/src/pages/Checkout.jsx line 125 column 8\nNo elements are obstructing the center point of this element.\n\nElement:7 has 708px width and 49px height.\nThe width is set by these rules: 100% (100px)\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 14px right 14px bottom 14px left 14px.\n\nDistances to its parent element:\n- Top overflows parent by 502.00px\n- Right is aligned with parent boundary\n- Bottom overflows parent by 41.00px\n- Left is aligned with parent boundary\n\n### Parent Element:8\n\nElement:8 is `<form class=\"checkout-form\"></form>`.\nElement:8 is rendered by React component Checkout at Point:13:\nRelevant code: http://localhost:3202/src/pages/Checkout.jsx line 86 column 6\n\nElement:8 has 708px width and 592px height.\nMargin: top 0px right 0px bottom 0px left 0px.\nPadding: top 0px right 0px bottom 0px left 0px.\n\nDistances to its parent element:\n- Top is aligned with parent boundary\n- Right overflows parent by 372.00px\n- Bottom is aligned with parent boundary\n- Left is aligned with parent boundary\n\n### Parent Element:4\n\nElement:4 is `<div class=\"checkout\"></div>`.\nElement:4 is rendered by React component Checkout at Point:14:\nRelevant code: http://localhost:3202/src/pages/Checkout.jsx line 85 column 4\n\nElement:4 has 1080px width and 592px height.\nMargin: top 0px right 0px bot…"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:22.3",
+      "shot": "/bugs/shots/c8705e33-a892-4efe-bfab-6752b99d0f10-screenshot-207947.jpg",
+      "text": "The order confirmation page for Order #10422 shows the items (1x Paper Pendant Shade $38.00, 2x Clamp Task Lamp $92.00) and 'Total charged $130.00' — the undiscounted subtotal, with no discount shown anywhere.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"1626.69\"}\n→ A GET network request with ID 1626.69 was made to http://localhost:3202/api/orders/10422:\n<request_summary>\nThe response had status 200 (OK).\n</request_summary>\nInitiated at Point:2 @ 165017.00ms\nEvents:\n  request @ 165017ms\n  response @ 165233ms\n  response-body @ 165234ms\n  request-done @ 165234ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Tue, 20 Oct 2026 00:03:20 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 441\netag: W/\"1b9-yp6IxMPzxtTo2IHpvOa9Yf5kcew\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n{\"id\":\"10422\",\"createdAt\":\"2026-10-20T00:03:20.005Z\",\"items\":[{\"productId\":\"p04\",\"slug\":\"paper-pendant-shade\",\"name\":\"Paper Pendant Shade\",\"price\":38,\"color\":\"#efe6d6\",\"qty\":1},{\"productId\":\"p03\",\"slug\":\"clamp-task-lamp\",\"name\":\"Clamp Task Lamp\",\"price\":46,\"color\":\"#7a8a99\",\"qty\":2}],\"shipping\":{\"name\":\"Alex Rivera\",\"address\":\"214 Elm Street\",\"city\":\"Portland\",\"postal\":\"97205\",\"country\":\"US\"},\"amount\":130,\"paymentToken\":\"tok_tyg49vtbfe\"}\n</responseBody>\n\n_Previous: `requestId: \"1626.68\"` | Next: `requestId: \"1626.70\"`_"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [
+    {
+      "text": "Exercise the following scenario in the app and confirm it works:",
+      "evidence": []
+    },
+    {
+      "text": "The core shopper journey for Hearth & Field, starting on the storefront (shop listing surface): a shopper browses the All products grid, filters to a category, and sorts the listing; they add one product to the cart directly from the listing grid and open another product's detail page to add it from there, confirming the cart badge updates with the items; then they open the cart, review the line items and adjust a quantity, apply the promo code shown on the storefront banner (WELCOME10) and verify the discount changes the total, and proceed through checkout paying with the saved card, verifying an order confirmation is shown. This exercises the store's primary end-to-end commerce flow — browse → product page → cart management → promo checkout — and fails if any link in that chain is broken.",
+      "evidence": []
+    },
+    {
+      "text": "Additional checks:",
+      "evidence": []
+    },
+    {
+      "text": "The core shopper journey for Hearth & Field, starting on the storefront (shop listing surface): a shopper browses the All products grid, filters to a category, and sorts the listing; they add one product to the cart directly from the listing grid and open another product's detail page to add it from there, confirming the cart badge updates with the items; then they open the cart, review the line items and adjust a quantity, apply the promo code shown on the storefront banner (WELCOME10) and verify the discount changes the total, and proceed through checkout paying with the saved card, verifying an order confirmation is shown. This exercises the store's primary end-to-end commerce flow — browse → product page → cart management → promo checkout — and fails if any link in that chain is broken.",
+      "evidence": []
+    },
+    {
+      "text": "If the app cannot perform this or behaves incorrectly, report FAIL describing the defect; otherwise report DONE.",
+      "evidence": []
+    }
+  ],
+  "rootCause": {
+    "text": "In src/pages/Checkout.jsx, the order submit handler placeOrder is created with useCallback(..., [cart?.id]) and posts amount: total (line 56) from its closure. total is derived as round2(subtotal - discount + shipping) (line 34) where discount = subtotal * promo.percent / 100 (line 32). When the WELCOME10 promo is applied, setPromo re-renders and total falls from 130 to 117, but because the only dependency cart?.id is unchanged, React keeps the previously memoized handler which still closes over the old total = 130. Clicking 'Pay $117.00' therefore executes the stale closure and sends amount:130 to POST /api/orders (verified: request body {\"cartId\":\"1335c46e-06eb-495c-8e0e-9392c5d6dee8\",\"amount\":130,...} at 164639ms, after the promo was applied at ~150000ms), so the placed order records the full undiscounted charge.",
+    "evidence": [
+      {
+        "summary": "3 evidence probes (NetworkRequest, SearchSources)",
+        "probes": [
+          "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"1626.67\"}\n→ A POST network request with ID 1626.67 was made to http://localhost:3202/api/orders:\n<request_summary>\nThe response had status 201 (Created).\n</request_summary>\nInitiated at Point:1 @ 164639.00ms\nEvents:\n  request @ 164639ms\n  request-body @ 164639ms\n  response @ 164959ms\n  response-body @ 164960ms\n  request-done @ 164960ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Tue, 20 Oct 2026 00:03:20 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 441\netag: W/\"1b9-yp6IxMPzxtTo2IHpvOa9Yf5kcew\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"cartId\":\"1335c46e-06eb-495c-8e0e-9392c5d6dee8\",\"amount\":130,\"token\":\"tok_tyg49vtbfe\",\"shipping\":{\"name\":\"Alex Rivera\",\"address\":\"214 Elm Street\",\"city\":\"Portland\",\"postal\":\"97205\",\"country\":\"US\"}}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"id\":\"10422\",\"createdAt\":\"2026-10-20T00:03:20.005Z\",\"items\":[{\"productId\":\"p04\",\"slug\":\"paper-pendant-shade\",\"name\":\"Paper Pendant Shade\",\"price\":38,\"color\":\"#efe6d6\",\"qty\":1},{\"productId\":\"p03\",\"slug\":\"clamp-task-lamp\",\"name\":\"Clamp Task Lamp\",\"price\":46,\"color\":\"#7a8a99\",\"qty\":2}],\"shipping\":{\"name\":\"Alex Rivera\",\"address\":\"214 Elm Street\",\"city\":\"P…",
+          "SearchSources {\"pattern\":\"discount|promo\"}\n→ ### http://localhost:3202/src/api.js\n hits | L | code \n------|------|------\n   1 |    1 | async function request(method, url, body) { \n\n   2 |   16 | export const getOffer = (cartId) => /*<HIT>*/request('GET', `/api/offers?cartId=${cartId}`); \n   1 |  *17 | export const checkPromo = (code) => request('POST', '/api/promo', { code }); \n   1 |   18 | export const createOrder = (order) => request('POST', '/api/orders', order);\n### http://localhost:3202/src/pages/Checkout.jsx\n hits | L | code \n------|------|------\n   1 |    1 | import { useCallback, useEffect, useState } from 'react'; \n\n     |   17 | export default function Checkout() { \n\n  13 |   20 |   const [country, setCountry] = useState('US'); \n  13 |  *21 |   const [promo, setPromo] = useState(null); \n  13 |  *22 |   const [promoCode, setPromoCode] = useState(''); \n  13 |  *23 |   const [promoError, setPromoError] = useState(''); \n  13 |   24 |   const [placing, setPlacing] = useState(false); \n\n  13 |   31 |   const subtotal = subtotalOf(items); \n   2 |  *32 |   const discount = promo ? /*<HIT>*/round2((subtotal * promo.percent) / 100) : 0; \n  13 |  *33 |   const shipping = shippingFor(country, subtotal - discount); \n  13 |  *34 |   const total = round2(subtotal - discount + shipping); \n     |   35 |  \n\n     |   39 |     try { \n   1 |  *40 |       setPromo(await checkPromo(promoCode)); \n   1 |   41 |       setPromoCode(''); \n\n     |  149 |         ))} \n  13 | *150 |         <form className=\"promo\" onSubmit={applyPromo}> \n  …",
+          "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"1626.66\"}\n→ A POST network request with ID 1626.66 was made to http://localhost:3202/api/promo:\n<request_summary>\nThe response had status 200 (OK).\n</request_summary>\nInitiated at Point:5 @ 149839.00ms\nEvents:\n  request @ 149839ms\n  request-body @ 149839ms\n  response @ 150148ms\n  response-body @ 150149ms\n  request-done @ 150150ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Tue, 20 Oct 2026 00:03:05 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 62\netag: W/\"3e-ZbeolwYF5E9nNdwrt6OAJdfHKiE\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"code\":\"WELCOME10\"}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"code\":\"WELCOME10\",\"percent\":10,\"label\":\"10% off your order\"}\n</responseBody>\n\n_Previous: `requestId: \"1626.65\"` | Next: `requestId: \"1626.67\"`_"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The promo endpoint confirms WELCOME10 = 10% off ({\"code\":\"WELCOME10\",\"percent\":10}), and the checkout UI recomputes the summary to Total $117.00 with the discount line -$13.00 — the app is fully aware of the discounted total at click time.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"1626.66\"}\n→ A POST network request with ID 1626.66 was made to http://localhost:3202/api/promo:\n<request_summary>\nThe response had status 200 (OK).\n</request_summary>\nInitiated at Point:5 @ 149839.00ms\nEvents:\n  request @ 149839ms\n  request-body @ 149839ms\n  response @ 150148ms\n  response-body @ 150149ms\n  request-done @ 150150ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Tue, 20 Oct 2026 00:03:05 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 62\netag: W/\"3e-ZbeolwYF5E9nNdwrt6OAJdfHKiE\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"code\":\"WELCOME10\"}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"code\":\"WELCOME10\",\"percent\":10,\"label\":\"10% off your order\"}\n</responseBody>\n\n_Previous: `requestId: \"1626.65\"` | Next: `requestId: \"1626.67\"`_"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Clicking Pay invokes the memoized placeOrder handler, which still holds the pre-promo total of 130 and posts {\"amount\":130,...} to POST /api/orders; the server (201) stores the order with amount 130.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"1626.67\"}\n→ A POST network request with ID 1626.67 was made to http://localhost:3202/api/orders:\n<request_summary>\nThe response had status 201 (Created).\n</request_summary>\nInitiated at Point:1 @ 164639.00ms\nEvents:\n  request @ 164639ms\n  request-body @ 164639ms\n  response @ 164959ms\n  response-body @ 164960ms\n  request-done @ 164960ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nContent-Type: application/json\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Tue, 20 Oct 2026 00:03:20 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 441\netag: W/\"1b9-yp6IxMPzxtTo2IHpvOa9Yf5kcew\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n:\n<requestBody>\n{\"cartId\":\"1335c46e-06eb-495c-8e0e-9392c5d6dee8\",\"amount\":130,\"token\":\"tok_tyg49vtbfe\",\"shipping\":{\"name\":\"Alex Rivera\",\"address\":\"214 Elm Street\",\"city\":\"Portland\",\"postal\":\"97205\",\"country\":\"US\"}}\n</requestBody>\n\nThe response body was\n:\n<responseBody>\n{\"id\":\"10422\",\"createdAt\":\"2026-10-20T00:03:20.005Z\",\"items\":[{\"productId\":\"p04\",\"slug\":\"paper-pendant-shade\",\"name\":\"Paper Pendant Shade\",\"price\":38,\"color\":\"#efe6d6\",\"qty\":1},{\"productId\":\"p03\",\"slug\":\"clamp-task-lamp\",\"name\":\"Clamp Task Lamp\",\"price\":46,\"color\":\"#7a8a99\",\"qty\":2}],\"shipping\":{\"name\":\"Alex Rivera\",\"address\":\"214 Elm Street\",\"city\":\"P…"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The confirmation page fetches GET /api/orders/10422, whose response body is {\"id\":\"10422\",...,\"amount\":130}, so it renders 'Total charged $130.00' — the shopper is charged the undiscounted total and no discount appears on the confirmation.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"detail\",\"requestId\":\"1626.69\"}\n→ A GET network request with ID 1626.69 was made to http://localhost:3202/api/orders/10422:\n<request_summary>\nThe response had status 200 (OK).\n</request_summary>\nInitiated at Point:2 @ 165017.00ms\nEvents:\n  request @ 165017ms\n  response @ 165233ms\n  response-body @ 165234ms\n  request-done @ 165234ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\nkeep-alive: timeout=5\ndate: Tue, 20 Oct 2026 00:03:20 GMT\nconnection: keep-alive\nx-powered-by: Express\ncontent-length: 441\netag: W/\"1b9-yp6IxMPzxtTo2IHpvOa9Yf5kcew\"\ncontent-type: application/json; charset=utf-8\n</responseHeaders>\n\nThe request body was\n EMPTY.\n\nThe response body was\n:\n<responseBody>\n{\"id\":\"10422\",\"createdAt\":\"2026-10-20T00:03:20.005Z\",\"items\":[{\"productId\":\"p04\",\"slug\":\"paper-pendant-shade\",\"name\":\"Paper Pendant Shade\",\"price\":38,\"color\":\"#efe6d6\",\"qty\":1},{\"productId\":\"p03\",\"slug\":\"clamp-task-lamp\",\"name\":\"Clamp Task Lamp\",\"price\":46,\"color\":\"#7a8a99\",\"qty\":2}],\"shipping\":{\"name\":\"Alex Rivera\",\"address\":\"214 Elm Street\",\"city\":\"Portland\",\"postal\":\"97205\",\"country\":\"US\"},\"amount\":130,\"paymentToken\":\"tok_tyg49vtbfe\"}\n</responseBody>\n\n_Previous: `requestId: \"1626.68\"` | Next: `requestId: \"1626.70\"`_"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "title": "Yjs provider sends 56 requests that can't succeed",
+  "severity": "high",
+  "category": "perf",
+  "why": "The visible symptom is just 'Editor disconnected'. The retry storm behind it is invisible.",
+  "project": "collaborative-ai-editor (production)",
+  "discovered": "2026-09-22",
+  "report": "https://qa.replay.io/projects/proj-collaborative-ai-editor-brett-lamy-workers-dev-mqqwem6e/bugs/bug-mucck2sh-fsh2",
+  "finding": "The first `PUT` returned 530 'error code: 1016' at 107988ms. 37ms later the provider (`Ry.ensureDocument`) started re-POSTing awareness with no backoff: 56 times, all 530.",
+  "actual": "The provider issues an unbounded series of POSTs to /api/yjs/docs/rooms/ws-apple-note-458f1c9f/v3/collaboration?awareness=default — 56 requests in this recording, starting 37ms after the initial PUT fails at 107988ms and continuing until the end of the session — and every single one returns HTTP 530 with body \"error code: 1016\". The editor status bar shows \"Editor disconnected\" and \"Participants 0\" throughout, and content typed by the user is never synced.",
+  "expected": "The provider should treat the document-creation failure (HTTP 530, \"error code: 1016\") as terminal for the session after a bounded number of retries: stop re-POSTing to /v3/collaboration, surface a clear error to the user, and reuse a single pending request instead of re-issuing per sync/awareness update. The editor should show an explicit 'could not connect' error rather than silently hammering a dead origin.",
+  "replay": {
+    "url": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/recording.json#t=7.8,12.3",
+    "title": "Session replay",
+    "har": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/network.json",
+    "log": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/console.txt",
+    "evidence": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/evidence.json",
+    "captions": "/bugs/yjs-provider-sends-56-requests-that-cant-succeed/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:07.8",
+      "shot": "/bugs/shots/892cb352-d26b-4bd1-bc44-acf005d0a4f4-screenshot-101930.jpg",
+      "text": "The user has opened the app and created a new note; the app shows the editor screen. Immediately after, the Yjs provider attempts to create the collaboration document room for note ws-apple-note-458f1c9f via PUT /api/yjs/docs/rooms/ws-apple-note-458f1c9f/v3/collaboration.",
+      "evidence": []
+    },
+    {
+      "time": "0:08.4",
+      "shot": "/bugs/shots/892cb352-d26b-4bd1-bc44-acf005d0a4f4-screenshot-108084.jpg",
+      "text": "Document creation fails: the PUT at 107988ms returns HTTP 530 (\"error code: 1016\"), and the provider immediately fires the first of the doomed POSTs to /api/yjs/docs/rooms/ws-apple-note-458f1c9f/v3/collaboration?awareness=default (108045ms and 108071ms, both 530). The editor status bar already shows \"Editor disconnected\" and \"Participants 0\". Two console errors record \"Failed to create document: 530 error code: 1016\". From here the POSTs repeat without pause — 56 in total, every one 530.",
+      "evidence": []
+    },
+    {
+      "time": "0:10.5",
+      "shot": "/bugs/shots/892cb352-d26b-4bd1-bc44-acf005d0a4f4-screenshot-149964.jpg",
+      "text": "Over a minute later the provider is STILL re-POSTing to the same dead endpoint (POSTs continue at 122088ms, 127489ms, 132626ms, 141739ms…, all HTTP 530). The editor status bar still reads \"Editor disconnected · Chat connecting · Participants 0\"; the note is empty and the user's typing is never synced. The doomed request firehose runs for the rest of the recording with no backoff, no user-visible error, and no recovery.",
+      "evidence": []
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "The Yjs provider class Ry in assets/main-BIfeKqPq.js has no failure handling for a dead sync origin: ensureDocument() throws (\"Failed to create document: 530 error code: 1016\", recorded in the console.error at [workspace-index] error / [yjs-provider] error), but the provider's update/awareness handlers keep calling the sync endpoint on every document update and awareness tick regardless. Because the connection never succeeds, the doc/awareness state never reaches \"synced\", so each local change and awareness ping re-queues another POST to the same /v3/collaboration URL — 56 identical POSTs, all answered HTTP 530 \"error code: 1016\", with no backoff, deduplication, or abort. The bug in the client is that failing sync is retried indefinitely instead of being detected, capped, and reported, so a dead origin turns into an endless firehose of doomed requests and an editor that never syncs.",
+    "evidence": [
+      {
+        "summary": "5 evidence probes (ProvidedData, NetworkRequest, ConsoleMessages, ReadSource)",
+        "probes": [
+          "ProvidedData {\"label\":\"pass-1-network-finding\"}\n→ the same endpoint was requested 56× (https://collaborative-ai-editor.brett-lamy.workers.dev/api/yjs/docs/rooms/ws-apple-note-458f1c9f/v3/collaboration) and EVERY response that could be read failed (HTTP 530) — these requests cannot succeed, so this is not mere over-fetching: report the failing writes and the load they add, and check whether anything on the page is waiting behind them",
+          "NetworkRequest {\"mode\":\"summary\",\"urlFilter\":\"v3/collaboration\",\"slowThresholdMs\":2000}\n→ # Network Requests — Summary\n\n**Filters:** URL contains \"v3/collaboration\"\n**Total requests:** 57 (of 86 total)\n**Failed (HTTP ≥400):** 57\n**Slow (≥2000ms):** 0\n\n**Response times:** avg 36ms, median 17ms, max 372ms\n\n## Status Distribution\n\n| Status | Count |\n|--------|-------|\n| 5xx | 57 |\n\n## Top Domains\n\n| Domain | Count |\n|--------|-------|\n| collaborative-ai-editor.brett-lamy.workers.dev | 57 |\n\n## HTTP Methods\n\n| Method | Count |\n|--------|-------|\n| POST | 55 |\n| PUT | 2 |\n\n## Next Steps\n\n- Use `mode: 'requests'` to browse the full request list with pagination\n- Use `urlFilter` to narrow to failing endpoints",
+          "NetworkRequest {\"mode\":\"detail\",\"startTime\":107000,\"requestIndex\":4}\n→ A POST network request with ID 1251.42 was made to https://collaborative-ai-editor.brett-lamy.workers.dev/api/yjs/docs/rooms/ws-apple-note-458f1c9f/v3/collaboration?awareness=default:\n<request_summary>\nThe response had status 530 ().\n</request_summary>\nInitiated at Point:42 @ 108045.00ms\nEvents:\n  request @ 108045ms\n  request-body @ 108045ms\n  response @ 108416ms\n  response-body @ 108417ms\n  request-done @ 108417ms\nRequest headers:\n<requestHeaders>\nsec-ch-ua: \ncontent-type: application/octet-stream\nsec-ch-ua-mobile: ?0\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/108.0.5359.0 Safari/537.36\nsec-ch-ua-platform: \n</requestHeaders>\nResponse headers:\n<responseHeaders>\ndate: Tue, 22 Sep 2026 07:04:44 GMT\nreferrer-policy: same-origin\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\nx-frame-options: SAMEORIGIN\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=iyUWk%2B47d07lpXCmBDwvjNGctaZBcaHi8sRAhWQ0r17l7nROC3MD1Ra%2FWpnR%2FnRz0FrLZqQ48eQMtdAIrbxAzM2BQd%2F2z4v6K7ImtCBBYEBsbb3XW3lVkXNwsY0kn%2FsOiMwkI6w9ToFaJD2pmDtDqx7KIiy1E3FA30LvUm8eeAH1\"}]}\ncontent-type: text/plain; charset=UTF-8\ncache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0\nserver-timing: cfExtPri\ncf-ray: a3ef750e8f79224d-CMH\nalt-svc: h3=\":443\"; ma=86400\npriority: u=1,i=?0\ncontent-length: 16\nexpires: Thu, 01 Jan 1970 00:00:01 GMT\n</r…",
+          "ConsoleMessages {\"mode\":\"summary\"}\n→ Console Messages Summary: 2 total messages\nBreakdown: 2 errors\n\nAll 2 error/warning messages:\n[console.error] (Point:1): \"[workspace-index] error\" {\"__class\":\"Error\",\"stack\":\"Error: Failed to create document: 530 error code: 1016\\n    at Ry.ensureDocument (https://collaborative-ai-editor.brett-lamy.workers.dev/assets/main-BIfeKqPq.js:94:25955)\\n    at async Ry.connect (https://collaborative-ai-editor.brett-lamy.workers.dev/assets/main-BIfeKqPq.js:94:24369)\",\"message\":\"Failed to create document: 530 error code: 1016\"}\n[console.error] (Point:2): \"[yjs-provider] error\" {\"__class\":\"Error\",\"stack\":\"Error: Failed to create document: 530 error code: 1016\\n    at Ry.ensureDocument (https://collaborative-ai-editor.brett-lamy.workers.dev/assets/main-BIfeKqPq.js:94:25955)\\n    at async Ry.connect (https://collaborative-ai-editor.brett-lamy.workers.dev/assets/main-BIfeKqPq.js:94:24369)\",\"message\":\"Failed to create document: 530 error code: 1016\"}\n\nNext Steps:\n• Use mode=\"messages\" to see the full paginated message list\n• Use mode=\"messages\", level=\"error\" to see all error messages\n• Use mode=\"message-detail\", point=\"Point:N\" to inspect a specific message",
+          "ReadSource {\"line\":34880,\"path\":\"https://collaborative-ai-editor.brett-lamy.workers.dev/assets/main-BIfeKqPq.js\"}\n→  hits | L | code \n------|------|------\n   0 | 34855 |        this.pendingAwareness = null) \n     | 34856 |     } \n     | 34857 |     destroy() { \n   0 | 34858 |       this.disconnect().catch(() => { \n     | 34859 |       }), \n   0 | 34860 |       this.doc.off(\"update\", this.handleDocumentUpdate), \n   0 | 34861 |       this.awareness && this.awareness.off(\"update\", this.handleAwarenessUpdate), \n   0 | 34862 |       super.destroy() \n     | 34863 |     } \n     | 34864 |     async flush() { \n   0 | 34865 |       this._ctx?.producer && await this._ctx.producer.flush() \n     | 34866 |     } \n     | 34867 |     docUrl() { \n   0 | 34868 |       return `${this.baseUrl}/docs/${this.docId}` \n     | 34869 |     } \n     | 34870 |     awarenessUrl(e=\"default\") { \n   0 | 34871 |       return `${this.docUrl()}?awareness=${encodeURIComponent(e)}` \n     | 34872 |     } \n     | 34873 |     async ensureDocument(e) { \n   0 | 34874 |       const n = this.docUrl(), \n   0 | 34875 |         r = await fetch( \n     | 34876 |           n, \n     | 34877 |           { \n     | 34878 |             method: \"PUT\", \n     | 34879 |             headers: { \n     | *34880 |               ...this.headers, \n     | 34881 |               \"content-type\": \"application/octet-stream\" \n     | 34882 |             }, \n     | 34883 |             signal: e.controller.signal \n     | 34884 |           } \n     | 34885 |         ); \n   0 | 34886 |       if (r.status === 201 || r.status === 200) { \n   0 | 34887 |         await r.ar…"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "The origin behind the /v3/collaboration endpoint is unreachable: the initial PUT document-creation request at 107988ms is answered HTTP 530 with body \"error code: 1016\", and ensureDocument() throws (console.error \"Failed to create document: 530 error code: 1016\" at Ry.ensureDocument in assets/main-BIfeKqPq.js).",
+      "evidence": []
+    },
+    {
+      "text": "The Yjs provider class Ry has no cap/backoff/abort for this failure: its document-update and awareness handlers keep issuing POSTs to the same /v3/collaboration?awareness=default URL on every local update and awareness tick. The first two POSTs fire within 83ms of the failed PUT, and the series continues for the whole session — 56 POSTs in total, every one answered HTTP 530 \"error code: 1016\" (e.g. at 122088ms, 127489ms, 132626ms, 141739ms, all 530).",
+      "evidence": []
+    },
+    {
+      "text": "User-visible result: the sync never succeeds, so the editor status bar shows \"Editor disconnected\" and \"Participants 0\" from 108100ms through the end of the recording (still present at 150000ms), and content the user types into the note is never saved/synced — while the client continues to burn 56 failed requests against a dead origin.",
+      "evidence": []
+    }
+  ]
+}

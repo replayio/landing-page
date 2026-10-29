@@ -1,17 +1,14 @@
 import Image from 'next/image'
-import type { Evidence } from '../data/bugs'
+import { marked } from 'marked'
+import type { Evidence, Step } from '../data/bugs'
 import { EvidenceProbes } from './EvidenceProbes'
 
-export type Step = {
-  html: string
-  evidence: Evidence[]
-  /** A chronology step's timestamp and screenshot. */
-  time?: string | null
-  shot?: string | null
-}
-
-export const Prose = ({ html, className }: { html: string; className?: string }) => (
-  <div className={`bug-prose ${className ?? ''}`} dangerouslySetInnerHTML={{ __html: html }} />
+/** A bug's markdown, rendered on the server. */
+export const Prose = ({ markdown, className }: { markdown: string; className?: string }) => (
+  <div
+    className={`bug-prose ${className ?? ''}`}
+    dangerouslySetInnerHTML={{ __html: marked.parse(markdown, { async: false }) }}
+  />
 )
 
 export function EvidenceList({ evidence }: { evidence: Evidence[] }) {
@@ -48,7 +45,7 @@ export function BugStepper({ steps }: { steps: Step[] }) {
         const body = (
           <>
             {step.time && <div className="bug-step-title">{step.time}</div>}
-            <Prose html={step.html} />
+            <Prose markdown={step.text} />
             <EvidenceList evidence={step.evidence} />
           </>
         )

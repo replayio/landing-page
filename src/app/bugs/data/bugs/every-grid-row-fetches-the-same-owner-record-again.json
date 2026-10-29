@@ -1,0 +1,113 @@
+{
+  "title": "Every grid row fetches the same owner record again",
+  "severity": "medium",
+  "category": "perf",
+  "why": "Each request returns 200 and the owner cells fill in. Only the network timeline shows the same user being fetched over and over.",
+  "project": "analytics-grid",
+  "discovered": "2026-10-19",
+  "report": "https://qa.replay.io/projects/proj-bench-analytics-grid-mvfrd5s6/bugs/bug-mvfs2kj5-mkg8",
+  "finding": "Each `OwnerCell` calls `fetchUser(ownerId)` on mount. 7 identical `GET /api/users/23` fired within 99ms at load and 2 more on each row click, 11 in all, although `fetchUsers(ids)` already exists for batching.",
+  "actual": "11 identical GET requests to /api/users/23 are issued: 7 in a burst at initial load (1576ms, 1578ms, 1602ms, 1624ms, 1635ms, 1645ms, 1675ms — all 200, durations 1133ms to 9310ms), 2 more after the first row click at 121264ms/121288ms, and 2 more after the second click at 167697ms/167699ms. Each OwnerCell mounts its own fetch and the results are never shared, so the same user record is transferred and processed repeatedly.",
+  "expected": "The owner for ownerId 23 should be fetched once (deduplicated across the 50 OwnerCell instances, or fetched for all rows in a single batched call via the existing fetchUsers(ids) endpoint) and reused from a shared cache/state; owner names should appear after one request round-trip.",
+  "replay": {
+    "url": "/bugs/every-grid-row-fetches-the-same-owner-record-again/recording.json#t=12.4,21",
+    "title": "Session replay",
+    "har": "/bugs/every-grid-row-fetches-the-same-owner-record-again/network.json",
+    "evidence": "/bugs/every-grid-row-fetches-the-same-owner-record-again/evidence.json",
+    "captions": "/bugs/every-grid-row-fetches-the-same-owner-record-again/captions.vtt"
+  },
+  "chronology": [
+    {
+      "time": "0:02.7",
+      "shot": "/bugs/shots/06c5afa0-885f-4961-9f85-3dccbf0d4004-screenshot-1563.jpg",
+      "text": "At page load (1576–1675ms) the grid mounts 50 rows, each rendering an OwnerCell for ownerId 23; 7 identical GET requests to /api/users/23 fire within 99ms (durations 1133–9310ms), and the owner cells remain in their skeleton 'owner-loading' state while these redundant requests are in flight.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"api/users/23\"}\n→ # Network Requests\n\n**Filters:** URL contains \"api/users/23\"\n**Showing 1–11 of 11 requests**\n\n_All URLs relative to http://localhost:3207_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 747.20 | 1576ms | GET | /api/users/23 | 200 | 1133ms | fetch |\n| 1 | 747.23 | 1578ms | GET | /api/users/23 | 200 | 1131ms | fetch |\n| 2 | 747.65 | 1602ms | GET | /api/users/23 | 200 | 3379ms | fetch |\n| 3 | 747.104 | 1624ms | GET | /api/users/23 | 200 | 5356ms | fetch |\n| 4 | 747.124 | 1635ms | GET | /api/users/23 | 200 | 6488ms | fetch |\n| 5 | 747.142 | 1645ms | GET | /api/users/23 | 200 | 7181ms | fetch |\n| 6 | 747.194 | 1675ms | GET | /api/users/23 | 200 | 9310ms | fetch |\n| 7 | 747.217 | 121264ms | GET | /api/users/23 | 200 | 499ms | fetch |\n| 8 | 747.256 | 121288ms | GET | /api/users/23 | 200 | 2684ms | fetch |\n| 9 | 747.272 | 167697ms | GET | /api/users/23 | 200 | 973ms | fetch |\n| 10 | 747.275 | 167699ms | GET | /api/users/23 | 200 | 832ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list"
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:15.0",
+      "shot": "/bugs/shots/06c5afa0-885f-4961-9f85-3dccbf0d4004-screenshot-120585.jpg",
+      "text": "User clicks a grid row at 121171ms (Playwright locator.click); remounting OwnerCell(s) triggers 2 more identical GETs to /api/users/23 at 121264ms and 121288ms. _User interaction._",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (NetworkRequest, GetPointComponent)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"requests\",\"endTime\":125000,\"startTime\":120000,\"urlFilter\":\"api/users/23\"}\n→ # Network Requests\n\n**Filters:** URL contains \"api/users/23\", after 120000ms, before 125000ms\n**Showing 1–2 of 2 requests**\n\n_All URLs relative to http://localhost:3207_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 747.217 | 121264ms | GET | /api/users/23 | 200 | 499ms | fetch |\n| 1 | 747.256 | 121288ms | GET | /api/users/23 | 200 | 2684ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list",
+            "GetPointComponent {\"point\":\"Point:1\"}\n→ No React component is being rendered at this point."
+          ]
+        }
+      ]
+    },
+    {
+      "time": "0:20.1",
+      "shot": null,
+      "text": "A second row click at 167519ms again produces 2 duplicate GETs to /api/users/23 (167697ms, 167699ms) — bringing the total to 11 identical requests for one user record that was already available after the first response.",
+      "evidence": [
+        {
+          "summary": "1 evidence probe (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"requests\",\"endTime\":170000,\"startTime\":166000,\"urlFilter\":\"api/users/23\"}\n→ # Network Requests\n\n**Filters:** URL contains \"api/users/23\", after 166000ms, before 170000ms\n**Showing 1–2 of 2 requests**\n\n_All URLs relative to http://localhost:3207_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 747.272 | 167697ms | GET | /api/users/23 | 200 | 973ms | fetch |\n| 1 | 747.275 | 167699ms | GET | /api/users/23 | 200 | 832ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": [],
+  "rootCause": {
+    "text": "src/components/OwnerCell.jsx issues fetchUser(ownerId) inside a useEffect that runs on every component mount (line 9), and src/state/columns.jsx line 97 renders one \\<OwnerCell ownerId={r.ownerId}/> per grid row. With 50 rows all referencing ownerId 23, every mounting row independently requests the same /api/users/23 endpoint — 11 mounts fired during the recording — with no deduplication, shared cache, or use of the existing batch endpoint fetchUsers(ids) in src/lib/api.js (line 28). Confirmed by the network log: 11 GETs to /api/users/23, all 200, including 7 within 99ms at load with durations 1133–9310ms.",
+    "evidence": [
+      {
+        "summary": "3 evidence probes (ReadSource, NetworkRequest)",
+        "probes": [
+          "ReadSource {\"line\":9,\"path\":\"http://localhost:3207/src/components/OwnerCell.jsx\"}\n→  hits | L | code \n------|------|------\n     |    1 | import { useEffect, useState } from 'react'; \n     |    2 | import { fetchUser } from '../lib/api.js'; \n     |    3 |  \n     |    4 | export default function OwnerCell({ ownerId }) { \n 200 |    5 |   const [owner, setOwner] = useState(null); \n     |    6 |  \n 200 |    7 |   useEffect(() => { \n 200 |    8 |     let active = true; \n 200 |   *9 |     fetchUser(ownerId) \n 200 |   10 |       .then((user) => { \n 200 |   11 |         if (active) setOwner(user); \n     |   12 |       }) \n 200 |   13 |       .catch(() => {}); \n 200 |   14 |     return () => { \n 200 |   15 |       active = false; \n     |   16 |     }; \n     |   17 |   }, [ownerId]); \n     |   18 |  \n 200 |   19 |   if (!owner) { \n     |   20 |     return ( \n 200 |   21 |       <span className=\"owner owner-loading\"> \n 200 |   22 |         <span className=\"avatar avatar-placeholder\" /> \n 200 |   23 |         <span className=\"owner-name skeleton-text\" /> \n     |   24 |       </span> \n     |   25 |     ); \n     |   26 |   } \n     |   27 |  \n     |   28 |   return ( \n     |   29 |     <span className=\"owner\" title={owner.email}> \n 200 |   30 |       <span className=\"avatar\" style={{ background: owner.color }}> \n     |   31 |         {owner.initials} \n     |   32 |       </span> \n 200 |   33 |       <span className=\"owner-name\">{owner.name}</span> \n     |   34 |     </span> \n     |   35 |   ); \n     |   36 | } \n     |   37 |  ",
+          "ReadSource {\"line\":97,\"path\":\"http://localhost:3207/src/state/columns.jsx\"}\n→  hits | L | code \n------|------|------\n     |   72 |     key: 'health', \n     |   73 |     label: 'Health', \n     |   74 |     width: 120, \n     |   75 |     defaultDir: 'desc', \n     |   76 |     render: (r) => ( \n 200 |   77 |       <div className=\"health\"> \n 200 |   78 |         <div className=\"health-bar\"> \n 200 |   79 |           <div className=\"health-fill\" style={{ width: `${r.health}%`, background: healthColor(r.health) }} /> \n     |   80 |         </div> \n 200 |   81 |         <span className=\"health-num\">{r.health}</span> \n     |   82 |       </div> \n     |   83 |     ), \n     |   84 |   }, \n     |   85 |   { \n     |   86 |     key: 'trend', \n     |   87 |     label: '12-mo trend', \n     |   88 |     width: 100, \n     |   89 |     sortable: false, \n 200 |   90 |     render: (r) => <Sparkline values={r.trend} />, \n     |   91 |   }, \n     |   92 |   { \n     |   93 |     key: 'owner', \n     |   94 |     label: 'Owner', \n     |   95 |     width: 170, \n   0 |   96 |     sortValue: (r) => r.ownerId, \n 200 |  *97 |     render: (r) => <OwnerCell ownerId={r.ownerId} />, \n     |   98 |   }, \n     |   99 |   { \n     |  100 |     key: 'lastActive', \n     |  101 |     label: 'Last active', \n     |  102 |     width: 110, \n     |  103 |     defaultDir: 'desc', \n   0 |  104 |     sortValue: (r) => timestampSortKey(r.lastActive), \n 200 |  105 |     render: (r) => <span title={formatTimestamp(r.lastActive)}>{formatRelative(r.lastActive)}</span>, \n     |  106 |   }, \n     |  107 |   …",
+          "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"api/users/23\"}\n→ # Network Requests\n\n**Filters:** URL contains \"api/users/23\"\n**Showing 1–11 of 11 requests**\n\n_All URLs relative to http://localhost:3207_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 747.20 | 1576ms | GET | /api/users/23 | 200 | 1133ms | fetch |\n| 1 | 747.23 | 1578ms | GET | /api/users/23 | 200 | 1131ms | fetch |\n| 2 | 747.65 | 1602ms | GET | /api/users/23 | 200 | 3379ms | fetch |\n| 3 | 747.104 | 1624ms | GET | /api/users/23 | 200 | 5356ms | fetch |\n| 4 | 747.124 | 1635ms | GET | /api/users/23 | 200 | 6488ms | fetch |\n| 5 | 747.142 | 1645ms | GET | /api/users/23 | 200 | 7181ms | fetch |\n| 6 | 747.194 | 1675ms | GET | /api/users/23 | 200 | 9310ms | fetch |\n| 7 | 747.217 | 121264ms | GET | /api/users/23 | 200 | 499ms | fetch |\n| 8 | 747.256 | 121288ms | GET | /api/users/23 | 200 | 2684ms | fetch |\n| 9 | 747.272 | 167697ms | GET | /api/users/23 | 200 | 973ms | fetch |\n| 10 | 747.275 | 167699ms | GET | /api/users/23 | 200 | 832ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list"
+        ]
+      }
+    ]
+  },
+  "rootCauseSteps": [
+    {
+      "text": "src/state/columns.jsx line 97 renders one \\<OwnerCell ownerId={r.ownerId}/> per grid row; 50 rows share ownerId 23, so 50 OwnerCell instances mount with the same prop.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (ReadSource, SearchSources)",
+          "probes": [
+            "ReadSource {\"line\":97,\"path\":\"http://localhost:3207/src/state/columns.jsx\"}\n→  hits | L | code \n------|------|------\n     |   72 |     key: 'health', \n     |   73 |     label: 'Health', \n     |   74 |     width: 120, \n     |   75 |     defaultDir: 'desc', \n     |   76 |     render: (r) => ( \n 200 |   77 |       <div className=\"health\"> \n 200 |   78 |         <div className=\"health-bar\"> \n 200 |   79 |           <div className=\"health-fill\" style={{ width: `${r.health}%`, background: healthColor(r.health) }} /> \n     |   80 |         </div> \n 200 |   81 |         <span className=\"health-num\">{r.health}</span> \n     |   82 |       </div> \n     |   83 |     ), \n     |   84 |   }, \n     |   85 |   { \n     |   86 |     key: 'trend', \n     |   87 |     label: '12-mo trend', \n     |   88 |     width: 100, \n     |   89 |     sortable: false, \n 200 |   90 |     render: (r) => <Sparkline values={r.trend} />, \n     |   91 |   }, \n     |   92 |   { \n     |   93 |     key: 'owner', \n     |   94 |     label: 'Owner', \n     |   95 |     width: 170, \n   0 |   96 |     sortValue: (r) => r.ownerId, \n 200 |  *97 |     render: (r) => <OwnerCell ownerId={r.ownerId} />, \n     |   98 |   }, \n     |   99 |   { \n     |  100 |     key: 'lastActive', \n     |  101 |     label: 'Last active', \n     |  102 |     width: 110, \n     |  103 |     defaultDir: 'desc', \n   0 |  104 |     sortValue: (r) => timestampSortKey(r.lastActive), \n 200 |  105 |     render: (r) => <span title={formatTimestamp(r.lastActive)}>{formatRelative(r.lastActive)}</span>, \n     |  106 |   }, \n     |  107 |   …",
+            "SearchSources {\"pattern\":\"OwnerCell ownerId\",\"includeGenerated\":true}\n→ ### http://localhost:3207/src/components/DetailPanel.jsx\n hits | L | code \n------|------|------\n     |    1 | import { useEffect, useState } from 'react'; \n\n   0 |   74 |             <h3>Account owner</h3> \n   0 |  *75 |             <OwnerCell ownerId={detail.ownerId} /> \n   0 |   76 |           </section>\n### http://localhost:3207/src/state/columns.jsx\n hits | L | code \n------|------|------\n     |    1 | import { formatValue, formatInt, formatRelative, formatShortDate } from '@gridline/formatters'; \n\n   0 |   96 |     sortValue: (r) => r.ownerId, \n 200 |  *97 |     render: (r) => <OwnerCell ownerId={r.ownerId} />, \n     |   98 |   },"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Each OwnerCell's useEffect (src/components/OwnerCell.jsx line 9) calls fetchUser(ownerId) on mount with no cache or deduplication, issuing an independent GET /api/users/23 per mounting row — 11 requests in the recording (7 within the first 99ms, all 200, durations 1133–9310ms).",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (ReadSource, NetworkRequest)",
+          "probes": [
+            "ReadSource {\"line\":9,\"path\":\"http://localhost:3207/src/components/OwnerCell.jsx\"}\n→  hits | L | code \n------|------|------\n     |    1 | import { useEffect, useState } from 'react'; \n     |    2 | import { fetchUser } from '../lib/api.js'; \n     |    3 |  \n     |    4 | export default function OwnerCell({ ownerId }) { \n 200 |    5 |   const [owner, setOwner] = useState(null); \n     |    6 |  \n 200 |    7 |   useEffect(() => { \n 200 |    8 |     let active = true; \n 200 |   *9 |     fetchUser(ownerId) \n 200 |   10 |       .then((user) => { \n 200 |   11 |         if (active) setOwner(user); \n     |   12 |       }) \n 200 |   13 |       .catch(() => {}); \n 200 |   14 |     return () => { \n 200 |   15 |       active = false; \n     |   16 |     }; \n     |   17 |   }, [ownerId]); \n     |   18 |  \n 200 |   19 |   if (!owner) { \n     |   20 |     return ( \n 200 |   21 |       <span className=\"owner owner-loading\"> \n 200 |   22 |         <span className=\"avatar avatar-placeholder\" /> \n 200 |   23 |         <span className=\"owner-name skeleton-text\" /> \n     |   24 |       </span> \n     |   25 |     ); \n     |   26 |   } \n     |   27 |  \n     |   28 |   return ( \n     |   29 |     <span className=\"owner\" title={owner.email}> \n 200 |   30 |       <span className=\"avatar\" style={{ background: owner.color }}> \n     |   31 |         {owner.initials} \n     |   32 |       </span> \n 200 |   33 |       <span className=\"owner-name\">{owner.name}</span> \n     |   34 |     </span> \n     |   35 |   ); \n     |   36 | } \n     |   37 |  ",
+            "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"api/users/23\"}\n→ # Network Requests\n\n**Filters:** URL contains \"api/users/23\"\n**Showing 1–11 of 11 requests**\n\n_All URLs relative to http://localhost:3207_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 747.20 | 1576ms | GET | /api/users/23 | 200 | 1133ms | fetch |\n| 1 | 747.23 | 1578ms | GET | /api/users/23 | 200 | 1131ms | fetch |\n| 2 | 747.65 | 1602ms | GET | /api/users/23 | 200 | 3379ms | fetch |\n| 3 | 747.104 | 1624ms | GET | /api/users/23 | 200 | 5356ms | fetch |\n| 4 | 747.124 | 1635ms | GET | /api/users/23 | 200 | 6488ms | fetch |\n| 5 | 747.142 | 1645ms | GET | /api/users/23 | 200 | 7181ms | fetch |\n| 6 | 747.194 | 1675ms | GET | /api/users/23 | 200 | 9310ms | fetch |\n| 7 | 747.217 | 121264ms | GET | /api/users/23 | 200 | 499ms | fetch |\n| 8 | 747.256 | 121288ms | GET | /api/users/23 | 200 | 2684ms | fetch |\n| 9 | 747.272 | 167697ms | GET | /api/users/23 | 200 | 973ms | fetch |\n| 10 | 747.275 | 167699ms | GET | /api/users/23 | 200 | 832ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The redundant requests occupy server connections for up to 9.3s each and contend with the grid's own data fetches (205 of 311 requests in the recording took ≥2s), so the owner cells' skeleton 'owner-loading' placeholders persist visibly longer than a single round-trip would require, and the same user record is re-downloaded on every row interaction.",
+      "evidence": [
+        {
+          "summary": "2 evidence probes (NetworkRequest)",
+          "probes": [
+            "NetworkRequest {\"mode\":\"summary\"}\n→ # Network Requests — Summary\n\n**Total requests:** 311\n**Failed (HTTP ≥400):** 0\n**Slow (≥2000ms):** 205\n\n**Response times:** avg 4132ms, median 3124ms, max 10285ms\n\n**Breakdown:** 308 API calls, 3 asset/other loads\n\n## Status Distribution\n\n| Status | Count |\n|--------|-------|\n| 2xx | 311 |\n\n## Top Domains\n\n| Domain | Count |\n|--------|-------|\n| localhost | 311 |\n\n## Request Types\n\n| Type | Count |\n|------|-------|\n| fetch | 308 |\n| (unknown) | 1 |\n| script | 1 |\n| stylesheet | 1 |\n\n## Next Steps\n\n- Use `mode: 'requests'` to browse the full request list with pagination\n- Use `mode: 'requests'` to identify slow requests, then `mode: 'detail'` for timing breakdown",
+            "NetworkRequest {\"mode\":\"requests\",\"urlFilter\":\"api/users/23\"}\n→ # Network Requests\n\n**Filters:** URL contains \"api/users/23\"\n**Showing 1–11 of 11 requests**\n\n_All URLs relative to http://localhost:3207_\n\n| # | ID | Time | Method | URL | Status | Duration | Type |\n|---|-----|------|--------|-----|--------|----------|------|\n| 0 | 747.20 | 1576ms | GET | /api/users/23 | 200 | 1133ms | fetch |\n| 1 | 747.23 | 1578ms | GET | /api/users/23 | 200 | 1131ms | fetch |\n| 2 | 747.65 | 1602ms | GET | /api/users/23 | 200 | 3379ms | fetch |\n| 3 | 747.104 | 1624ms | GET | /api/users/23 | 200 | 5356ms | fetch |\n| 4 | 747.124 | 1635ms | GET | /api/users/23 | 200 | 6488ms | fetch |\n| 5 | 747.142 | 1645ms | GET | /api/users/23 | 200 | 7181ms | fetch |\n| 6 | 747.194 | 1675ms | GET | /api/users/23 | 200 | 9310ms | fetch |\n| 7 | 747.217 | 121264ms | GET | /api/users/23 | 200 | 499ms | fetch |\n| 8 | 747.256 | 121288ms | GET | /api/users/23 | 200 | 2684ms | fetch |\n| 9 | 747.272 | 167697ms | GET | /api/users/23 | 200 | 973ms | fetch |\n| 10 | 747.275 | 167699ms | GET | /api/users/23 | 200 | 832ms | fetch |\n\n## Next Steps\n\n- Use `mode: 'detail'` with `requestId` (from the ID column) to see full headers, body, and timing for a specific request\n- Use `urlFilter`, `startTime`, `endTime` to narrow the list"
+          ]
+        }
+      ]
+    }
+  ]
+}
