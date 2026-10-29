@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:00.549 --> 00:00:02.549
+Step 1: Navigate to the app home page
+
+00:00:01.472 --> 00:00:03.472
+Step 2: Fill in a display name
+
+00:00:02.929 --> 00:00:04.929
+Step 3: Open the Apple workspace
+
+00:00:04.871 --> 00:00:10.956
+Step 4: Select an existing note from the sidebar to open it in the editor
+
+00:00:10.956 --> 00:00:12.956
+Step 5: Click Share note
+
+00:00:12.736 --> 00:00:14.736
+Step 6: Verify the Share URL field is populated with a valid link
+
+00:00:13.013 --> 00:00:15.013
+Step 7: Click Copy URL
+
+00:00:14.743 --> 00:00:17.077
+Step 8: Click Close to dismiss share dialog

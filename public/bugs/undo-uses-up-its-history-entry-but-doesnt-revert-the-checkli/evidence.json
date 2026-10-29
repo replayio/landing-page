@@ -1,0 +1,917 @@
+{
+ "sources": [
+  {
+   "path": "http://localhost:3203/src/store/boardReducer.js",
+   "lines": [
+    {
+     "line": 23,
+     "text": "        board: action.board,"
+    },
+    {
+     "line": 24,
+     "text": "        columns: action.columns,"
+    },
+    {
+     "line": 25,
+     "text": "        cards: action.cards,"
+    },
+    {
+     "line": 26,
+     "text": "      };"
+    },
+    {
+     "line": 27,
+     "text": ""
+    },
+    {
+     "line": 28,
+     "text": "    case 'LOAD_FAILED':"
+    },
+    {
+     "line": 29,
+     "text": "      return { ...state, status: state.cards.length ? 'ready' : 'error', error: action.error };",
+     "hits": 0
+    },
+    {
+     "line": 30,
+     "text": ""
+    },
+    {
+     "line": 31,
+     "text": "    case 'MOVE_CARD': {"
+    },
+    {
+     "line": 32,
+     "text": "      const card = state.cards.find((c) => c.id === action.cardId);",
+     "hits": 0
+    },
+    {
+     "line": 33,
+     "text": "      if (!card || card.columnId === action.columnId) return state;",
+     "hits": 0
+    },
+    {
+     "line": 34,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 35,
+     "text": "        ...state,"
+    },
+    {
+     "line": 36,
+     "text": "        past: record(state.past, state.cards),",
+     "hits": 0
+    },
+    {
+     "line": 37,
+     "text": "        cards: [...state.cards.filter((c) => c.id !== card.id), { ...card, columnId: action.columnId }],",
+     "hits": 0
+    },
+    {
+     "line": 38,
+     "text": "      };"
+    },
+    {
+     "line": 39,
+     "text": "    }"
+    },
+    {
+     "line": 40,
+     "text": ""
+    },
+    {
+     "line": 41,
+     "text": "    case 'UPDATE_CARD':"
+    },
+    {
+     "line": 42,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 43,
+     "text": "        ...state,"
+    },
+    {
+     "line": 44,
+     "text": "        past: record(state.past, state.cards),",
+     "hits": 0
+    },
+    {
+     "line": 45,
+     "text": "        cards: replaceCard(state.cards, action.cardId, (card) => ({ ...card, ...action.changes })),",
+     "hits": 0
+    },
+    {
+     "line": 46,
+     "text": "      };"
+    },
+    {
+     "line": 47,
+     "text": ""
+    },
+    {
+     "line": 49,
+     "text": "      const past = record(state.past, state.cards);",
+     "hits": 1
+    },
+    {
+     "line": 50,
+     "text": "      const cards = replaceCard(state.cards, action.cardId, (card) => {",
+     "hits": 1
+    },
+    {
+     "line": 51,
+     "text": "        const item = card.checklist.find((i) => i.id === action.itemId);",
+     "hits": 1
+    },
+    {
+     "line": 52,
+     "text": "        if (item) item.done = action.done;",
+     "hits": 1
+    },
+    {
+     "line": 53,
+     "text": "        return { ...card, checklist: [...card.checklist] };",
+     "hits": 1
+    },
+    {
+     "line": 54,
+     "text": "      });"
+    },
+    {
+     "line": 55,
+     "text": "      return { ...state, past, cards };",
+     "hits": 1
+    },
+    {
+     "line": 56,
+     "text": "    }"
+    },
+    {
+     "line": 57,
+     "text": ""
+    },
+    {
+     "line": 58,
+     "text": "    case 'ADD_CHECK_ITEM':"
+    },
+    {
+     "line": 59,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 60,
+     "text": "        ...state,"
+    },
+    {
+     "line": 61,
+     "text": "        cards: replaceCard(state.cards, action.cardId, (card) => ({",
+     "hits": 0
+    },
+    {
+     "line": 62,
+     "text": "          ...card,"
+    },
+    {
+     "line": 63,
+     "text": "          checklist: [...card.checklist, action.item],"
+    },
+    {
+     "line": 64,
+     "text": "        })),"
+    },
+    {
+     "line": 65,
+     "text": "      };"
+    },
+    {
+     "line": 66,
+     "text": ""
+    },
+    {
+     "line": 67,
+     "text": "    case 'DELETE_CARD':"
+    },
+    {
+     "line": 68,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 69,
+     "text": "        ...state,"
+    },
+    {
+     "line": 70,
+     "text": "        past: record(state.past, state.cards),",
+     "hits": 0
+    },
+    {
+     "line": 71,
+     "text": "        cards: state.cards.filter((c) => c.id !== action.cardId),",
+     "hits": 0
+    },
+    {
+     "line": 72,
+     "text": "      };"
+    },
+    {
+     "line": 73,
+     "text": ""
+    }
+   ],
+   "focus": [
+    48
+   ]
+  },
+  {
+   "path": "http://localhost:3203/src/store/history.js",
+   "lines": [
+    {
+     "line": 1,
+     "text": "const LIMIT = 50;",
+     "hits": 1
+    },
+    {
+     "line": 2,
+     "text": ""
+    },
+    {
+     "line": 4,
+     "text": "  return cards.map((card) => ({ ...card }));",
+     "hits": 18
+    },
+    {
+     "line": 5,
+     "text": "}"
+    },
+    {
+     "line": 6,
+     "text": ""
+    },
+    {
+     "line": 7,
+     "text": "export function record(past, cards) {"
+    },
+    {
+     "line": 8,
+     "text": "  const next = [...past, snapshot(cards)];",
+     "hits": 1
+    },
+    {
+     "line": 9,
+     "text": "  return next.length > LIMIT ? next.slice(next.length - LIMIT) : next;",
+     "hits": 0
+    },
+    {
+     "line": 10,
+     "text": "}"
+    },
+    {
+     "line": 11,
+     "text": ""
+    }
+   ],
+   "focus": [
+    3,
+    4,
+    9
+   ]
+  },
+  {
+   "path": "http://localhost:3203/src/store/boardReducer.js",
+   "lines": [
+    {
+     "line": 48,
+     "text": "    case 'SET_CHECK_ITEM': {"
+    },
+    {
+     "line": 49,
+     "text": "      const past = record(state.past, state.cards);",
+     "hits": 1
+    },
+    {
+     "line": 50,
+     "text": "      const cards = replaceCard(state.cards, action.cardId, (card) => {",
+     "hits": 1
+    },
+    {
+     "line": 51,
+     "text": "        const item = card.checklist.find((i) => i.id === action.itemId);",
+     "hits": 1
+    },
+    {
+     "line": 52,
+     "text": "        if (item) item.done = action.done;",
+     "hits": 1
+    },
+    {
+     "line": 53,
+     "text": "        return { ...card, checklist: [...card.checklist] };",
+     "hits": 1
+    },
+    {
+     "line": 54,
+     "text": "      });"
+    },
+    {
+     "line": 55,
+     "text": "      return { ...state, past, cards };",
+     "hits": 1
+    },
+    {
+     "line": 56,
+     "text": "    }"
+    },
+    {
+     "line": 57,
+     "text": ""
+    },
+    {
+     "line": 58,
+     "text": "    case 'ADD_CHECK_ITEM':"
+    },
+    {
+     "line": 59,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 60,
+     "text": "        ...state,"
+    },
+    {
+     "line": 61,
+     "text": "        cards: replaceCard(state.cards, action.cardId, (card) => ({",
+     "hits": 0
+    },
+    {
+     "line": 62,
+     "text": "          ...card,"
+    },
+    {
+     "line": 63,
+     "text": "          checklist: [...card.checklist, action.item],"
+    },
+    {
+     "line": 64,
+     "text": "        })),"
+    },
+    {
+     "line": 65,
+     "text": "      };"
+    },
+    {
+     "line": 66,
+     "text": ""
+    },
+    {
+     "line": 67,
+     "text": "    case 'DELETE_CARD':"
+    },
+    {
+     "line": 68,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 69,
+     "text": "        ...state,"
+    },
+    {
+     "line": 70,
+     "text": "        past: record(state.past, state.cards),",
+     "hits": 0
+    },
+    {
+     "line": 71,
+     "text": "        cards: state.cards.filter((c) => c.id !== action.cardId),",
+     "hits": 0
+    },
+    {
+     "line": 72,
+     "text": "      };"
+    },
+    {
+     "line": 73,
+     "text": ""
+    },
+    {
+     "line": 74,
+     "text": "    case 'CARD_ADDED':"
+    },
+    {
+     "line": 75,
+     "text": "      return { ...state, cards: [...state.cards, action.card] };",
+     "hits": 0
+    },
+    {
+     "line": 76,
+     "text": ""
+    },
+    {
+     "line": 77,
+     "text": "    case 'CARD_SAVED': {"
+    },
+    {
+     "line": 78,
+     "text": "      const existing = state.cards.find((c) => c.id === action.card.id);",
+     "hits": 0
+    },
+    {
+     "line": 79,
+     "text": "      if (!existing) return state;",
+     "hits": 0
+    },
+    {
+     "line": 80,
+     "text": "      if (existing.columnId !== action.card.columnId) {",
+     "hits": 0
+    },
+    {
+     "line": 81,
+     "text": "        return { ...state, cards: [...state.cards.filter((c) => c.id !== action.card.id), action.card] };",
+     "hits": 0
+    },
+    {
+     "line": 82,
+     "text": "      }"
+    },
+    {
+     "line": 83,
+     "text": "      return { ...state, cards: replaceCard(state.cards, action.card.id, () => action.card) };",
+     "hits": 0
+    },
+    {
+     "line": 84,
+     "text": "    }"
+    },
+    {
+     "line": 85,
+     "text": ""
+    },
+    {
+     "line": 87,
+     "text": "      if (!state.past.length) return state;",
+     "hits": 0
+    },
+    {
+     "line": 88,
+     "text": "      return {",
+     "hits": 1
+    },
+    {
+     "line": 89,
+     "text": "        ...state,"
+    },
+    {
+     "line": 90,
+     "text": "        cards: state.past[state.past.length - 1],"
+    },
+    {
+     "line": 91,
+     "text": "        past: state.past.slice(0, -1),",
+     "hits": 1
+    },
+    {
+     "line": 92,
+     "text": "      };"
+    },
+    {
+     "line": 93,
+     "text": "    }"
+    },
+    {
+     "line": 94,
+     "text": ""
+    },
+    {
+     "line": 95,
+     "text": "    default:"
+    },
+    {
+     "line": 96,
+     "text": "      return state;",
+     "hits": 0
+    },
+    {
+     "line": 97,
+     "text": "  }"
+    },
+    {
+     "line": 98,
+     "text": "}"
+    }
+   ],
+   "focus": [
+    86,
+    87
+   ]
+  },
+  {
+   "path": "http://localhost:3203/src/store/boardReducer.js",
+   "lines": [
+    {
+     "line": 23,
+     "text": "        board: action.board,"
+    },
+    {
+     "line": 24,
+     "text": "        columns: action.columns,"
+    },
+    {
+     "line": 25,
+     "text": "        cards: action.cards,"
+    },
+    {
+     "line": 26,
+     "text": "      };"
+    },
+    {
+     "line": 27,
+     "text": ""
+    },
+    {
+     "line": 28,
+     "text": "    case 'LOAD_FAILED':"
+    },
+    {
+     "line": 29,
+     "text": "      return { ...state, status: state.cards.length ? 'ready' : 'error', error: action.error };",
+     "hits": 0
+    },
+    {
+     "line": 30,
+     "text": ""
+    },
+    {
+     "line": 31,
+     "text": "    case 'MOVE_CARD': {"
+    },
+    {
+     "line": 32,
+     "text": "      const card = state.cards.find((c) => c.id === action.cardId);",
+     "hits": 0
+    },
+    {
+     "line": 33,
+     "text": "      if (!card || card.columnId === action.columnId) return state;",
+     "hits": 0
+    },
+    {
+     "line": 34,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 35,
+     "text": "        ...state,"
+    },
+    {
+     "line": 36,
+     "text": "        past: record(state.past, state.cards),",
+     "hits": 0
+    },
+    {
+     "line": 37,
+     "text": "        cards: [...state.cards.filter((c) => c.id !== card.id), { ...card, columnId: action.columnId }],",
+     "hits": 0
+    },
+    {
+     "line": 38,
+     "text": "      };"
+    },
+    {
+     "line": 39,
+     "text": "    }"
+    },
+    {
+     "line": 40,
+     "text": ""
+    },
+    {
+     "line": 41,
+     "text": "    case 'UPDATE_CARD':"
+    },
+    {
+     "line": 42,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 43,
+     "text": "        ...state,"
+    },
+    {
+     "line": 44,
+     "text": "        past: record(state.past, state.cards),",
+     "hits": 0
+    },
+    {
+     "line": 45,
+     "text": "        cards: replaceCard(state.cards, action.cardId, (card) => ({ ...card, ...action.changes })),",
+     "hits": 0
+    },
+    {
+     "line": 46,
+     "text": "      };"
+    },
+    {
+     "line": 47,
+     "text": ""
+    },
+    {
+     "line": 49,
+     "text": "      const past = record(state.past, state.cards);",
+     "hits": 1
+    },
+    {
+     "line": 50,
+     "text": "      const cards = replaceCard(state.cards, action.cardId, (card) => {",
+     "hits": 1
+    },
+    {
+     "line": 51,
+     "text": "        const item = card.checklist.find((i) => i.id === action.itemId);",
+     "hits": 1
+    },
+    {
+     "line": 52,
+     "text": "        if (item) item.done = action.done;",
+     "hits": 1
+    },
+    {
+     "line": 53,
+     "text": "        return { ...card, checklist: [...card.checklist] };",
+     "hits": 1
+    },
+    {
+     "line": 54,
+     "text": "      });"
+    },
+    {
+     "line": 55,
+     "text": "      return { ...state, past, cards };",
+     "hits": 1
+    },
+    {
+     "line": 56,
+     "text": "    }"
+    },
+    {
+     "line": 57,
+     "text": ""
+    },
+    {
+     "line": 58,
+     "text": "    case 'ADD_CHECK_ITEM':"
+    },
+    {
+     "line": 59,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 60,
+     "text": "        ...state,"
+    },
+    {
+     "line": 61,
+     "text": "        cards: replaceCard(state.cards, action.cardId, (card) => ({",
+     "hits": 0
+    },
+    {
+     "line": 62,
+     "text": "          ...card,"
+    },
+    {
+     "line": 63,
+     "text": "          checklist: [...card.checklist, action.item],"
+    },
+    {
+     "line": 64,
+     "text": "        })),"
+    },
+    {
+     "line": 65,
+     "text": "      };"
+    },
+    {
+     "line": 66,
+     "text": ""
+    },
+    {
+     "line": 67,
+     "text": "    case 'DELETE_CARD':"
+    },
+    {
+     "line": 68,
+     "text": "      return {",
+     "hits": 0
+    },
+    {
+     "line": 69,
+     "text": "        ...state,"
+    },
+    {
+     "line": 70,
+     "text": "        past: record(state.past, state.cards),",
+     "hits": 0
+    },
+    {
+     "line": 71,
+     "text": "        cards: state.cards.filter((c) => c.id !== action.cardId),",
+     "hits": 0
+    },
+    {
+     "line": 72,
+     "text": "      };"
+    },
+    {
+     "line": 73,
+     "text": ""
+    }
+   ],
+   "focus": [
+    48
+   ]
+  },
+  {
+   "path": "http://localhost:3203/src/store/history.js",
+   "lines": [
+    {
+     "line": 1,
+     "text": "const LIMIT = 50;",
+     "hits": 1
+    },
+    {
+     "line": 2,
+     "text": ""
+    },
+    {
+     "line": 4,
+     "text": "  return cards.map((card) => ({ ...card }));",
+     "hits": 18
+    },
+    {
+     "line": 5,
+     "text": "}"
+    },
+    {
+     "line": 6,
+     "text": ""
+    },
+    {
+     "line": 7,
+     "text": "export function record(past, cards) {"
+    },
+    {
+     "line": 8,
+     "text": "  const next = [...past, snapshot(cards)];",
+     "hits": 1
+    },
+    {
+     "line": 9,
+     "text": "  return next.length > LIMIT ? next.slice(next.length - LIMIT) : next;",
+     "hits": 0
+    },
+    {
+     "line": 10,
+     "text": "}"
+    },
+    {
+     "line": 11,
+     "text": ""
+    }
+   ],
+   "focus": [
+    3,
+    4,
+    9
+   ]
+  },
+  {
+   "path": "http://localhost:3203/src/store/boardReducer.js",
+   "lines": [
+    {
+     "line": 43,
+     "text": "        ...state,"
+    },
+    {
+     "line": 44,
+     "text": "        past: record(state.past, state.cards),"
+    },
+    {
+     "line": 45,
+     "text": "        cards: replaceCard(state.cards, action.cardId, (card) => ({ ...card, ...action.changes })),"
+    },
+    {
+     "line": 46,
+     "text": "      };"
+    },
+    {
+     "line": 47,
+     "text": ""
+    },
+    {
+     "line": 48,
+     "text": "    case 'SET_CHECK_ITEM': {"
+    },
+    {
+     "line": 49,
+     "text": "      const past = record(state.past, state.cards);"
+    },
+    {
+     "line": 50,
+     "text": "      const cards = replaceCard(state.cards, action.cardId, (card) => {"
+    },
+    {
+     "line": 51,
+     "text": "        const item = card.checklist.find((i) => i.id === action.itemId);"
+    },
+    {
+     "line": 52,
+     "text": "        if (item) item.done = action.done;"
+    },
+    {
+     "line": 53,
+     "text": "        return { ...card, checklist: [...card.checklist] };"
+    },
+    {
+     "line": 54,
+     "text": "      });"
+    },
+    {
+     "line": 55,
+     "text": "      return { ...state, past, cards };"
+    },
+    {
+     "line": 56,
+     "text": "    }"
+    },
+    {
+     "line": 57,
+     "text": ""
+    },
+    {
+     "line": 58,
+     "text": "    case 'ADD_CHECK_ITEM':"
+    },
+    {
+     "line": 59,
+     "text": "      return {"
+    },
+    {
+     "line": 60,
+     "text": "        ...state,"
+    },
+    {
+     "line": 61,
+     "text": "        cards: replaceCard(state.cards, action.cardId, (card) => ({"
+    },
+    {
+     "line": 62,
+     "text": "          ...card,"
+    },
+    {
+     "line": 63,
+     "text": "          checklist: [...card.checklist, action.item],"
+    },
+    {
+     "line": 64,
+     "text": "        })),"
+    },
+    {
+     "line": 65,
+     "text": "      };"
+    },
+    {
+     "line": 66,
+     "text": ""
+    },
+    {
+     "line": 67,
+     "text": "    case 'DELETE_CARD':"
+    }
+   ]
+  }
+ ],
+ "logpoints": [
+  {
+   "path": "http://localhost:3203/src/store/boardReducer.js",
+   "line": 55,
+   "expression": "(() => { const pastCard = past[past.length-1].find(c => c.title && c.title.includes('Customer')); const curCard = cards.find(c => c.id === pastCard.id); return { cardTitle: pastCard.title, pastDone: pastCard.checklist.map(i => i.done), curDone: curCard.checklist.map(i => i.done), sharedItemObject: pastCard.checklist[0] === curCard.checklist[0] }; })()",
+   "hits": [
+    {
+     "at": "2026-10-19T23:23:44.754Z",
+     "value": "{\"cardTitle\":\"Customer interview synthesis\",\"pastDone\":[true,false],\"curDone\":[true,false],\"sharedItemObject\":true}"
+    }
+   ]
+  }
+ ],
+ "screenshots": []
+}

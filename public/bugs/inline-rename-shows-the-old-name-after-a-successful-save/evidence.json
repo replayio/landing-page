@@ -1,0 +1,593 @@
+{
+ "sources": [
+  {
+   "path": "webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx",
+   "lines": [
+    {
+     "line": 9,
+     "text": "function ProjectName({ project, onRenamed }: { project: Project; onRenamed: (name: string) => void }) {",
+     "hits": 104
+    },
+    {
+     "line": 10,
+     "text": "  const router = useRouter();",
+     "hits": 104
+    },
+    {
+     "line": 11,
+     "text": "  const [editing, setEditing] = useState(false);",
+     "hits": 104
+    },
+    {
+     "line": 12,
+     "text": "  const [draft, setDraft] = useState(project.name);",
+     "hits": 104
+    },
+    {
+     "line": 13,
+     "text": ""
+    },
+    {
+     "line": 14,
+     "text": "  function startEditing() {"
+    },
+    {
+     "line": 15,
+     "text": "    setDraft(project.name);",
+     "hits": 1
+    },
+    {
+     "line": 16,
+     "text": "    setEditing(true);",
+     "hits": 1
+    },
+    {
+     "line": 17,
+     "text": "  }"
+    },
+    {
+     "line": 18,
+     "text": ""
+    },
+    {
+     "line": 20,
+     "text": "    const name = draft.trim();",
+     "hits": 1
+    },
+    {
+     "line": 21,
+     "text": "    setEditing(false);",
+     "hits": 1
+    },
+    {
+     "line": 22,
+     "text": "    if (!name || name === project.name) return;",
+     "hits": 0
+    },
+    {
+     "line": 23,
+     "text": ""
+    },
+    {
+     "line": 24,
+     "text": "    fetch(`/api/projects/${project.id}`, {",
+     "hits": 1
+    },
+    {
+     "line": 25,
+     "text": "      method: \"PATCH\","
+    },
+    {
+     "line": 26,
+     "text": "      headers: { \"Content-Type\": \"application/json\" },"
+    },
+    {
+     "line": 27,
+     "text": "      body: JSON.stringify({ name }),",
+     "hits": 1
+    },
+    {
+     "line": 28,
+     "text": "    });"
+    },
+    {
+     "line": 29,
+     "text": "    router.refresh();",
+     "hits": 1
+    },
+    {
+     "line": 30,
+     "text": "    onRenamed(name);",
+     "hits": 1
+    },
+    {
+     "line": 31,
+     "text": "  }"
+    },
+    {
+     "line": 32,
+     "text": ""
+    },
+    {
+     "line": 33,
+     "text": "  if (editing) {",
+     "hits": 104
+    },
+    {
+     "line": 34,
+     "text": "    return ("
+    },
+    {
+     "line": 35,
+     "text": "      <form",
+     "hits": 56
+    },
+    {
+     "line": 36,
+     "text": "        className=\"name-cell\""
+    },
+    {
+     "line": 37,
+     "text": "        onSubmit={(e) => {"
+    },
+    {
+     "line": 38,
+     "text": "          e.preventDefault();",
+     "hits": 1
+    },
+    {
+     "line": 39,
+     "text": "          save();",
+     "hits": 1
+    },
+    {
+     "line": 40,
+     "text": "        }}"
+    },
+    {
+     "line": 41,
+     "text": "      >"
+    },
+    {
+     "line": 42,
+     "text": "        <input",
+     "hits": 56
+    },
+    {
+     "line": 43,
+     "text": "          autoFocus"
+    },
+    {
+     "line": 44,
+     "text": "          aria-label=\"Project name\""
+    },
+    {
+     "line": 45,
+     "text": "          value={draft}"
+    },
+    {
+     "line": 46,
+     "text": "          onChange={(e) => setDraft(e.target.value)}",
+     "hits": 27
+    },
+    {
+     "line": 47,
+     "text": "          onKeyDown={(e) => {"
+    },
+    {
+     "line": 48,
+     "text": "            if (e.key === \"Escape\") setEditing(false);",
+     "hits": 0
+    },
+    {
+     "line": 49,
+     "text": "          }}"
+    },
+    {
+     "line": 50,
+     "text": "        />"
+    },
+    {
+     "line": 51,
+     "text": "        <button type=\"submit\" className=\"btn btn-primary\">Save</button>",
+     "hits": 56
+    },
+    {
+     "line": 52,
+     "text": "        <button type=\"button\" className=\"btn\" onClick={() => setEditing(false)}>Cancel</button>",
+     "hits": 0
+    },
+    {
+     "line": 53,
+     "text": "      </form>"
+    },
+    {
+     "line": 54,
+     "text": "    );"
+    },
+    {
+     "line": 55,
+     "text": "  }"
+    },
+    {
+     "line": 56,
+     "text": ""
+    },
+    {
+     "line": 57,
+     "text": "  return ("
+    },
+    {
+     "line": 58,
+     "text": "    <div className=\"name-cell\">",
+     "hits": 48
+    },
+    {
+     "line": 59,
+     "text": "      <Link href={`/projects/${project.id}`}>",
+     "hits": 48
+    }
+   ],
+   "focus": [
+    19,
+    22,
+    48,
+    52
+   ]
+  },
+  {
+   "path": "webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx",
+   "lines": [
+    {
+     "line": 9,
+     "text": "function ProjectName({ project, onRenamed }: { project: Project; onRenamed: (name: string) => void }) {",
+     "hits": 104
+    },
+    {
+     "line": 10,
+     "text": "  const router = useRouter();",
+     "hits": 104
+    },
+    {
+     "line": 11,
+     "text": "  const [editing, setEditing] = useState(false);",
+     "hits": 104
+    },
+    {
+     "line": 12,
+     "text": "  const [draft, setDraft] = useState(project.name);",
+     "hits": 104
+    },
+    {
+     "line": 13,
+     "text": ""
+    },
+    {
+     "line": 14,
+     "text": "  function startEditing() {"
+    },
+    {
+     "line": 15,
+     "text": "    setDraft(project.name);",
+     "hits": 1
+    },
+    {
+     "line": 16,
+     "text": "    setEditing(true);",
+     "hits": 1
+    },
+    {
+     "line": 17,
+     "text": "  }"
+    },
+    {
+     "line": 18,
+     "text": ""
+    },
+    {
+     "line": 20,
+     "text": "    const name = draft.trim();",
+     "hits": 1
+    },
+    {
+     "line": 21,
+     "text": "    setEditing(false);",
+     "hits": 1
+    },
+    {
+     "line": 22,
+     "text": "    if (!name || name === project.name) return;",
+     "hits": 0
+    },
+    {
+     "line": 23,
+     "text": ""
+    },
+    {
+     "line": 24,
+     "text": "    fetch(`/api/projects/${project.id}`, {",
+     "hits": 1
+    },
+    {
+     "line": 25,
+     "text": "      method: \"PATCH\","
+    },
+    {
+     "line": 26,
+     "text": "      headers: { \"Content-Type\": \"application/json\" },"
+    },
+    {
+     "line": 27,
+     "text": "      body: JSON.stringify({ name }),",
+     "hits": 1
+    },
+    {
+     "line": 28,
+     "text": "    });"
+    },
+    {
+     "line": 29,
+     "text": "    router.refresh();",
+     "hits": 1
+    },
+    {
+     "line": 30,
+     "text": "    onRenamed(name);",
+     "hits": 1
+    },
+    {
+     "line": 31,
+     "text": "  }"
+    },
+    {
+     "line": 32,
+     "text": ""
+    },
+    {
+     "line": 33,
+     "text": "  if (editing) {",
+     "hits": 104
+    },
+    {
+     "line": 34,
+     "text": "    return ("
+    },
+    {
+     "line": 35,
+     "text": "      <form",
+     "hits": 56
+    },
+    {
+     "line": 36,
+     "text": "        className=\"name-cell\""
+    },
+    {
+     "line": 37,
+     "text": "        onSubmit={(e) => {"
+    },
+    {
+     "line": 38,
+     "text": "          e.preventDefault();",
+     "hits": 1
+    },
+    {
+     "line": 39,
+     "text": "          save();",
+     "hits": 1
+    },
+    {
+     "line": 40,
+     "text": "        }}"
+    },
+    {
+     "line": 41,
+     "text": "      >"
+    },
+    {
+     "line": 42,
+     "text": "        <input",
+     "hits": 56
+    },
+    {
+     "line": 43,
+     "text": "          autoFocus"
+    },
+    {
+     "line": 44,
+     "text": "          aria-label=\"Project name\""
+    },
+    {
+     "line": 45,
+     "text": "          value={draft}"
+    },
+    {
+     "line": 46,
+     "text": "          onChange={(e) => setDraft(e.target.value)}",
+     "hits": 27
+    },
+    {
+     "line": 47,
+     "text": "          onKeyDown={(e) => {"
+    },
+    {
+     "line": 48,
+     "text": "            if (e.key === \"Escape\") setEditing(false);",
+     "hits": 0
+    },
+    {
+     "line": 49,
+     "text": "          }}"
+    },
+    {
+     "line": 50,
+     "text": "        />"
+    },
+    {
+     "line": 51,
+     "text": "        <button type=\"submit\" className=\"btn btn-primary\">Save</button>",
+     "hits": 56
+    },
+    {
+     "line": 52,
+     "text": "        <button type=\"button\" className=\"btn\" onClick={() => setEditing(false)}>Cancel</button>",
+     "hits": 0
+    },
+    {
+     "line": 53,
+     "text": "      </form>"
+    },
+    {
+     "line": 54,
+     "text": "    );"
+    },
+    {
+     "line": 55,
+     "text": "  }"
+    },
+    {
+     "line": 56,
+     "text": ""
+    },
+    {
+     "line": 57,
+     "text": "  return ("
+    },
+    {
+     "line": 58,
+     "text": "    <div className=\"name-cell\">",
+     "hits": 48
+    },
+    {
+     "line": 59,
+     "text": "      <Link href={`/projects/${project.id}`}>",
+     "hits": 48
+    }
+   ],
+   "focus": [
+    19,
+    22,
+    48,
+    52
+   ]
+  },
+  {
+   "path": "webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx",
+   "lines": [
+    {
+     "line": 18,
+     "text": ""
+    },
+    {
+     "line": 19,
+     "text": "  function save() {"
+    },
+    {
+     "line": 20,
+     "text": "    const name = draft.trim();"
+    },
+    {
+     "line": 21,
+     "text": "    setEditing(false);"
+    },
+    {
+     "line": 22,
+     "text": "    if (!name || name === project.name) return;"
+    },
+    {
+     "line": 23,
+     "text": ""
+    },
+    {
+     "line": 24,
+     "text": "    fetch(`/api/projects/${project.id}`, {"
+    },
+    {
+     "line": 25,
+     "text": "      method: \"PATCH\","
+    },
+    {
+     "line": 26,
+     "text": "      headers: { \"Content-Type\": \"application/json\" },"
+    },
+    {
+     "line": 27,
+     "text": "      body: JSON.stringify({ name }),"
+    },
+    {
+     "line": 28,
+     "text": "    });"
+    },
+    {
+     "line": 29,
+     "text": "    router.refresh();"
+    },
+    {
+     "line": 30,
+     "text": "    onRenamed(name);"
+    },
+    {
+     "line": 31,
+     "text": "  }"
+    },
+    {
+     "line": 32,
+     "text": ""
+    },
+    {
+     "line": 33,
+     "text": "  if (editing) {"
+    },
+    {
+     "line": 34,
+     "text": "    return ("
+    },
+    {
+     "line": 35,
+     "text": "      <form"
+    },
+    {
+     "line": 36,
+     "text": "        className=\"name-cell\""
+    },
+    {
+     "line": 37,
+     "text": "        onSubmit={(e) => {"
+    },
+    {
+     "line": 38,
+     "text": "          e.preventDefault();"
+    },
+    {
+     "line": 39,
+     "text": "          save();"
+    },
+    {
+     "line": 40,
+     "text": "        }}"
+    },
+    {
+     "line": 41,
+     "text": "      >"
+    },
+    {
+     "line": 42,
+     "text": "        <input"
+    }
+   ]
+  }
+ ],
+ "logpoints": [
+  {
+   "path": "webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/ProjectsTable.tsx",
+   "line": 30,
+   "expression": "project.name + \" -> \" + name",
+   "hits": [
+    {
+     "at": "2026-10-19T21:14:28.041Z",
+     "value": "Website Refresh QA Renamed -> Website Refresh Round Trip"
+    }
+   ]
+  }
+ ],
+ "screenshots": []
+}

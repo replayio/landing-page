@@ -10,7 +10,9 @@ export default defineConfig([
     'design-mocks/**',
     'test-results/**',
     'playwright-report/**',
-    'next-env.d.ts'
+    'next-env.d.ts',
+    // Copied from docstream as-is; see its README.
+    'src/components/replay/**'
   ]),
   ...nextCoreWebVitals,
   prettierRecommended,

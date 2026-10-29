@@ -1,0 +1,199 @@
+{
+ "sources": [
+  {
+   "path": "http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js",
+   "lines": [
+    {
+     "line": 59,
+     "text": "    const s = e?.contextMenu,"
+    },
+    {
+     "line": 60,
+     "text": "      l = s?.onClose,"
+    },
+    {
+     "line": 61,
+     "text": "      a = s?.onOpen;"
+    },
+    {
+     "line": 62,
+     "text": "    i.contextMenu = { ...s??{}, enabled: !0, onClose: () => {"
+    },
+    {
+     "line": 63,
+     "text": "      l?.(), r()"
+    },
+    {
+     "line": 64,
+     "text": "    }, onOpen: (h, p) => {"
+    },
+    {
+     "line": 65,
+     "text": "      o(h, p), a?.(h, p)"
+    },
+    {
+     "line": 66,
+     "text": "    } }, delete i.contextMenu.render"
+    },
+    {
+     "line": 67,
+     "text": "  }"
+    },
+    {
+     "line": 68,
+     "text": "  return i.header != null || i.contextMenu != null ? i : void 0"
+    },
+    {
+     "line": 69,
+     "text": "}"
+    },
+    {
+     "line": 70,
+     "text": "function Uc({ header: e, id: t, model: n, preloadedData: r, renderContextMenu: o, ...i }) {"
+    },
+    {
+     "line": 71,
+     "text": "  const[s, l] = me.useState(null),"
+    },
+    {
+     "line": 72,
+     "text": "    [a, h] = me.useState(null),"
+    },
+    {
+     "line": 73,
+     "text": "    p = me.useRef(n.getComposition()),"
+    },
+    {
+     "line": 74,
+     "text": "    m = me.useRef(n);"
+    },
+    {
+     "line": 75,
+     "text": "  m.current !== n && (m.current = n, p.current = n.getComposition());"
+    },
+    {
+     "line": 76,
+     "text": "  const u = o != null,"
+    },
+    {
+     "line": 77,
+     "text": "    y = me.useCallback(() => {"
+    },
+    {
+     "line": 78,
+     "text": "      l(null)"
+    },
+    {
+     "line": 79,
+     "text": "    }, []),"
+    },
+    {
+     "line": 80,
+     "text": "    v = me.useCallback((_, N) => {"
+    },
+    {
+     "line": 81,
+     "text": "      l({ context: N, item: _ })"
+    },
+    {
+     "line": 82,
+     "text": "    }, []),"
+    },
+    {
+     "line": 83,
+     "text": "    b = p.current,"
+    }
+   ]
+  }
+ ],
+ "logpoints": [
+  {
+   "path": "http://127.0.0.1:61787/assets/RepositoryTree-BIhBVSqC.js",
+   "line": 71,
+   "expression": "(() => { function collect(root, out) { root.querySelectorAll('*').forEach(el => { if (el.shadowRoot) collect(el.shadowRoot, out); }); const text = root.textContent || ''; if (text) out.push(text); return out; } const all = collect(document, []); const joined = all.join('\\n'); return { url: location.href, hasMyFileAny: joined.includes('my file'), idxMyFile: joined.indexOf('my file'), hasChapter: joined.includes('chapter-one'), hasDocs: joined.includes('docs') }; })()",
+   "hits": [
+    {
+     "at": "2026-09-03T00:10:27.806Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:27.811Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:27.813Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":false,\"hasDocs\":false}"
+    },
+    {
+     "at": "2026-09-03T00:10:27.855Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:27.998Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.015Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.157Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.231Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.357Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.363Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.476Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.537Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.701Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.760Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.843Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.912Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:28.974Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:29.060Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:29.116Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    },
+    {
+     "at": "2026-09-03T00:10:29.264Z",
+     "value": "{\"url\":\"http://127.0.0.1:61787/maple/reading-room/tree/main/docs\",\"hasMyFileAny\":false,\"idxMyFile\":-1,\"hasChapter\":true,\"hasDocs\":true}"
+    }
+   ]
+  }
+ ],
+ "screenshots": []
+}

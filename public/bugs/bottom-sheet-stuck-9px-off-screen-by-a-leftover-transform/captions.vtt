@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:01.356 --> 00:00:03.356
+Step 1: Start from a clean public browser session
+
+00:00:02.845 --> 00:00:04.845
+Step 2: Click the Log in link in the site navigation to reach the Auth0 account chooser
+
+00:00:04.808 --> 00:00:07.998
+Step 3: Click the testuser@auth0.local account button to sign in without entering credentials
+
+00:00:07.998 --> 00:00:10.022
+Step 4: Click 'Add workspace' to open the New workspace dialog
+
+00:00:10.022 --> 00:00:12.022
+Step 5: Type a workspace name into the 'Workspace name' field
+
+00:00:10.742 --> 00:00:13.331
+Step 6: Click 'Create workspace' to commit the new workspace
+
+00:00:13.331 --> 00:00:13.585
+Step 7: Verify the session ended cleanly with no uncaught console errors or failed network requests during the create-workspace flow

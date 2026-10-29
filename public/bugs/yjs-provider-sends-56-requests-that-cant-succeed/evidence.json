@@ -1,0 +1,234 @@
+{
+ "sources": [
+  {
+   "path": "https://collaborative-ai-editor.brett-lamy.workers.dev/assets/main-BIfeKqPq.js",
+   "lines": [
+    {
+     "line": 34855,
+     "text": "       this.pendingAwareness = null)",
+     "hits": 0
+    },
+    {
+     "line": 34856,
+     "text": "    }"
+    },
+    {
+     "line": 34857,
+     "text": "    destroy() {"
+    },
+    {
+     "line": 34858,
+     "text": "      this.disconnect().catch(() => {",
+     "hits": 0
+    },
+    {
+     "line": 34859,
+     "text": "      }),"
+    },
+    {
+     "line": 34860,
+     "text": "      this.doc.off(\"update\", this.handleDocumentUpdate),",
+     "hits": 0
+    },
+    {
+     "line": 34861,
+     "text": "      this.awareness && this.awareness.off(\"update\", this.handleAwarenessUpdate),",
+     "hits": 0
+    },
+    {
+     "line": 34862,
+     "text": "      super.destroy()",
+     "hits": 0
+    },
+    {
+     "line": 34863,
+     "text": "    }"
+    },
+    {
+     "line": 34864,
+     "text": "    async flush() {"
+    },
+    {
+     "line": 34865,
+     "text": "      this._ctx?.producer && await this._ctx.producer.flush()",
+     "hits": 0
+    },
+    {
+     "line": 34866,
+     "text": "    }"
+    },
+    {
+     "line": 34867,
+     "text": "    docUrl() {"
+    },
+    {
+     "line": 34868,
+     "text": "      return `${this.baseUrl}/docs/${this.docId}`",
+     "hits": 0
+    },
+    {
+     "line": 34869,
+     "text": "    }"
+    },
+    {
+     "line": 34870,
+     "text": "    awarenessUrl(e=\"default\") {"
+    },
+    {
+     "line": 34871,
+     "text": "      return `${this.docUrl()}?awareness=${encodeURIComponent(e)}`",
+     "hits": 0
+    },
+    {
+     "line": 34872,
+     "text": "    }"
+    },
+    {
+     "line": 34873,
+     "text": "    async ensureDocument(e) {"
+    },
+    {
+     "line": 34874,
+     "text": "      const n = this.docUrl(),",
+     "hits": 0
+    },
+    {
+     "line": 34875,
+     "text": "        r = await fetch(",
+     "hits": 0
+    },
+    {
+     "line": 34876,
+     "text": "          n,"
+    },
+    {
+     "line": 34877,
+     "text": "          {"
+    },
+    {
+     "line": 34878,
+     "text": "            method: \"PUT\","
+    },
+    {
+     "line": 34879,
+     "text": "            headers: {"
+    },
+    {
+     "line": 34881,
+     "text": "              \"content-type\": \"application/octet-stream\""
+    },
+    {
+     "line": 34882,
+     "text": "            },"
+    },
+    {
+     "line": 34883,
+     "text": "            signal: e.controller.signal"
+    },
+    {
+     "line": 34884,
+     "text": "          }"
+    },
+    {
+     "line": 34885,
+     "text": "        );"
+    },
+    {
+     "line": 34886,
+     "text": "      if (r.status === 201 || r.status === 200) {",
+     "hits": 0
+    },
+    {
+     "line": 34887,
+     "text": "        await r.arrayBuffer();",
+     "hits": 0
+    },
+    {
+     "line": 34888,
+     "text": "        return",
+     "hits": 0
+    },
+    {
+     "line": 34889,
+     "text": "      }"
+    },
+    {
+     "line": 34890,
+     "text": "      if (r.status === 409) {",
+     "hits": 0
+    },
+    {
+     "line": 34891,
+     "text": "        await r.arrayBuffer();",
+     "hits": 0
+    },
+    {
+     "line": 34892,
+     "text": "        return",
+     "hits": 0
+    },
+    {
+     "line": 34893,
+     "text": "      }"
+    },
+    {
+     "line": 34894,
+     "text": "      const s = await r.text().catch(() => \"\");",
+     "hits": 0
+    },
+    {
+     "line": 34895,
+     "text": "      throw new Error(`Failed to create document: ${r.status} ${s}`)",
+     "hits": 0
+    },
+    {
+     "line": 34896,
+     "text": "    }"
+    },
+    {
+     "line": 34897,
+     "text": "    async discoverSnapshot(e) {"
+    },
+    {
+     "line": 34898,
+     "text": "      const n = `${this.docUrl()}?offset=snapshot`,",
+     "hits": 0
+    },
+    {
+     "line": 34899,
+     "text": "        r = await fetch(",
+     "hits": 0
+    },
+    {
+     "line": 34900,
+     "text": "          n,"
+    },
+    {
+     "line": 34901,
+     "text": "          {"
+    },
+    {
+     "line": 34902,
+     "text": "            method: \"GET\","
+    },
+    {
+     "line": 34903,
+     "text": "            headers: this.headers,"
+    },
+    {
+     "line": 34904,
+     "text": "            redirect: \"manual\","
+    },
+    {
+     "line": 34905,
+     "text": "            signal: e.controller.signal"
+    }
+   ],
+   "focus": [
+    34880
+   ]
+  }
+ ],
+ "logpoints": [],
+ "screenshots": []
+}

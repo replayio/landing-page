@@ -1,0 +1,34 @@
+WEBVTT
+
+00:00:00.655 --> 00:00:02.655
+Loaded the Linear app preview; about to snapshot the page to find the Inbox sidebar link.
+
+00:00:00.921 --> 00:00:02.921
+I see the Linear sidebar with an 'Inbox' button; clicking it to open the triage view.
+
+00:00:01.117 --> 00:00:03.117
+Inbox view opened with heading 'Inbox' and subtitle 'Triage new issues', but it shows 'No issues here.' — no issues to triage.
+
+00:00:01.697 --> 00:00:03.697
+Inbox is empty; the issues API returns i2-i8 with statuses todo/backlog/in_progress/in_review/done and none are 'triage'. Issue i1 is missing and a 'Delete an issue' run overlapped. I'll create a new issue to see if it lands in the triage Inbox.
+
+00:00:02.458 --> 00:00:04.458
+New issue dialog has no status field, so the server assigns a default status. Typing a title to create a test issue and see if it appears in the Inbox triage list.
+
+00:00:03.175 --> 00:00:05.193
+Clicking 'Create issue' to create the test issue and then check the Inbox.
+
+00:00:05.193 --> 00:00:07.193
+Inbox now shows 3 Backlog issues and the sidebar badge reads 'Inbox 3'. Opening my new ENG-149 issue to triage it by changing its status.
+
+00:00:05.794 --> 00:00:07.794
+Issue detail dialog shows a Status combobox set to Backlog. Changing Status to 'Todo' to triage the issue out of the backlog/inbox.
+
+00:00:06.821 --> 00:00:08.821
+Selected 'Todo' as the new status. Checking the issue detail and the Inbox list/badge to verify the change took effect and the issue left the triage list.
+
+00:00:07.439 --> 00:00:09.439
+Status change failed: PATCH /api/issues/i1781307989927 returned 404 though the server created that issue (201) and it shows in the inbox. Testing a seed issue ENG-145 to isolate the bug.
+
+00:00:09.009 --> 00:00:10.003
+Opened seed issue ENG-145. Opening its Status dropdown to change Backlog to Todo and watch the network PATCH.

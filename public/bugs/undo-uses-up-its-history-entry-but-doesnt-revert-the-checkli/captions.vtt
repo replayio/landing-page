@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.726 --> 00:00:02.726
+Step 1: Verify the starting page
+
+00:00:01.066 --> 00:00:03.066
+Step 2: Open the Review-column card whose checklist has zero of two items done
+
+00:00:02.835 --> 00:00:05.182
+Step 3: Toggle the checkbox of the first checklist item "Tag transcripts" in the open card detail dialog
+
+00:00:05.182 --> 00:00:07.182
+Step 4: Close the card detail dialog
+
+00:00:07.149 --> 00:00:08.227
+Step 5: Click the Undo control in the board header
