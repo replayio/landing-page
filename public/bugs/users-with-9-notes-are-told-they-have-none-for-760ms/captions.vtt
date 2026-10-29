@@ -1,0 +1,34 @@
+WEBVTT
+
+00:00:00.200 --> 00:00:02.200
+Loaded the Collaborative AI Editor landing page; letting it settle before inspecting structure
+
+00:00:00.612 --> 00:00:02.612
+Landing page shows a name field, company workspace dropdown (Apple/Google/etc), and Open workspace button; no source maps served so flagged missing_sourcemaps
+
+00:00:00.787 --> 00:00:02.787
+About to click 'Open Apple workspace' to enter the collaborative editor
+
+00:00:02.296 --> 00:00:05.847
+Entered Apple workspace: left sidebar lists notes with delete buttons and a New note button; right pane says 'No note selected'. Opening a note to inspect the editor
+
+00:00:05.847 --> 00:00:07.847
+Note editor open: ProseMirror rich text with Bold/Italic/Strike/Code/Link toolbar, slash-command blocks, Rich/Markdown mode tabs, presence avatars, a Chat panel with the AI assistant 'Electra', and a status bar. Switching to Markdown mode
+
+00:00:07.190 --> 00:00:09.190
+Markdown mode renders a line-numbered raw markdown source editor. Opening the Share note dialog next
+
+00:00:08.086 --> 00:00:10.086
+Share dialog shows the note's share URL with Copy URL / Share / Close buttons. Closing and opening the user menu dropdown next
+
+00:00:09.571 --> 00:00:11.705
+User name button opens an 'Edit your display name' dialog with a text field, Cancel and Save. Cancelling and returning to Rich mode to inspect the slash-command block menu
+
+00:00:11.705 --> 00:00:21.859
+Clicking into an empty editor paragraph and typing '/' to reveal the block insertion menu
+
+00:00:21.859 --> 00:00:23.408
+Slash menu offers a large block palette: Headings, Bullet/Numbered/Task lists, Quote, Divider, Code block, Hint, Tabs, Expandable, Stepper, Embed, Page link, Columns, Image, Math, Table, Updates, OpenAPI, Mermaid. Dismissed it; now inspecting the Chat panel 'Show tools' toggle
+
+00:00:23.400 --> 00:00:23.408
+Explored landing entry, workspace notes list, rich+markdown editors, slash block palette, share dialog, display-name dialog, chat panel with tools/Copy JSON, and presence avatars. App has no login (identity is a display name). Wrapping up and creating journeys

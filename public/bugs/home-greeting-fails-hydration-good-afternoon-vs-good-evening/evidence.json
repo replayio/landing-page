@@ -1,0 +1,302 @@
+{
+ "sources": [
+  {
+   "path": "webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/Greeting.tsx",
+   "lines": [
+    {
+     "line": 1,
+     "text": "\"use client\";"
+    },
+    {
+     "line": 2,
+     "text": ""
+    },
+    {
+     "line": 3,
+     "text": "import { useEffect, useState } from \"react\";"
+    },
+    {
+     "line": 4,
+     "text": ""
+    },
+    {
+     "line": 5,
+     "text": "function greetingFor(hour: number) {"
+    },
+    {
+     "line": 6,
+     "text": "  if (hour < 12) return \"Good morning\";",
+     "hits": 0
+    },
+    {
+     "line": 7,
+     "text": "  if (hour < 18) return \"Good afternoon\";",
+     "hits": 0
+    },
+    {
+     "line": 8,
+     "text": "  return \"Good evening\";",
+     "hits": 80
+    },
+    {
+     "line": 9,
+     "text": "}"
+    },
+    {
+     "line": 10,
+     "text": ""
+    },
+    {
+     "line": 11,
+     "text": "export default function Greeting({ name }: { name: string }) {",
+     "hits": 81
+    },
+    {
+     "line": 13,
+     "text": ""
+    },
+    {
+     "line": 14,
+     "text": "  useEffect(() => {",
+     "hits": 80
+    },
+    {
+     "line": 15,
+     "text": "    const t = setInterval(() => setNow(new Date()), 1000);",
+     "hits": 38
+    },
+    {
+     "line": 16,
+     "text": "    return () => clearInterval(t);",
+     "hits": 2
+    },
+    {
+     "line": 17,
+     "text": "  }, []);"
+    },
+    {
+     "line": 18,
+     "text": ""
+    },
+    {
+     "line": 19,
+     "text": "  return ("
+    },
+    {
+     "line": 20,
+     "text": "    <div>",
+     "hits": 80
+    },
+    {
+     "line": 21,
+     "text": "      <h1>",
+     "hits": 80
+    },
+    {
+     "line": 22,
+     "text": "        {greetingFor(now.getHours())}, {name}",
+     "hits": 80
+    },
+    {
+     "line": 23,
+     "text": "      </h1>"
+    },
+    {
+     "line": 24,
+     "text": "      <div className=\"muted\">",
+     "hits": 80
+    },
+    {
+     "line": 25,
+     "text": "        {now.toLocaleDateString(\"en-US\", { weekday: \"long\", month: \"long\", day: \"numeric\" })}",
+     "hits": 80
+    },
+    {
+     "line": 26,
+     "text": "        {\" · \"}"
+    },
+    {
+     "line": 27,
+     "text": "        {now.toLocaleTimeString(\"en-US\", { hour: \"numeric\", minute: \"2-digit\", second: \"2-digit\" })}",
+     "hits": 80
+    },
+    {
+     "line": 28,
+     "text": "      </div>"
+    },
+    {
+     "line": 29,
+     "text": "    </div>"
+    },
+    {
+     "line": 30,
+     "text": "  );"
+    },
+    {
+     "line": 31,
+     "text": "}"
+    },
+    {
+     "line": 32,
+     "text": ""
+    }
+   ],
+   "focus": [
+    12,
+    6,
+    7,
+    15
+   ]
+  },
+  {
+   "path": "webpack-internal:///Users/blamy/Documents/qa-bug-bench/team-portal/components/Greeting.tsx",
+   "lines": [
+    {
+     "line": 1,
+     "text": "\"use client\";"
+    },
+    {
+     "line": 2,
+     "text": ""
+    },
+    {
+     "line": 3,
+     "text": "import { useEffect, useState } from \"react\";"
+    },
+    {
+     "line": 4,
+     "text": ""
+    },
+    {
+     "line": 5,
+     "text": "function greetingFor(hour: number) {"
+    },
+    {
+     "line": 6,
+     "text": "  if (hour < 12) return \"Good morning\";",
+     "hits": 0
+    },
+    {
+     "line": 7,
+     "text": "  if (hour < 18) return \"Good afternoon\";",
+     "hits": 0
+    },
+    {
+     "line": 8,
+     "text": "  return \"Good evening\";",
+     "hits": 80
+    },
+    {
+     "line": 9,
+     "text": "}"
+    },
+    {
+     "line": 10,
+     "text": ""
+    },
+    {
+     "line": 11,
+     "text": "export default function Greeting({ name }: { name: string }) {",
+     "hits": 81
+    },
+    {
+     "line": 13,
+     "text": ""
+    },
+    {
+     "line": 14,
+     "text": "  useEffect(() => {",
+     "hits": 80
+    },
+    {
+     "line": 15,
+     "text": "    const t = setInterval(() => setNow(new Date()), 1000);",
+     "hits": 38
+    },
+    {
+     "line": 16,
+     "text": "    return () => clearInterval(t);",
+     "hits": 2
+    },
+    {
+     "line": 17,
+     "text": "  }, []);"
+    },
+    {
+     "line": 18,
+     "text": ""
+    },
+    {
+     "line": 19,
+     "text": "  return ("
+    },
+    {
+     "line": 20,
+     "text": "    <div>",
+     "hits": 80
+    },
+    {
+     "line": 21,
+     "text": "      <h1>",
+     "hits": 80
+    },
+    {
+     "line": 22,
+     "text": "        {greetingFor(now.getHours())}, {name}",
+     "hits": 80
+    },
+    {
+     "line": 23,
+     "text": "      </h1>"
+    },
+    {
+     "line": 24,
+     "text": "      <div className=\"muted\">",
+     "hits": 80
+    },
+    {
+     "line": 25,
+     "text": "        {now.toLocaleDateString(\"en-US\", { weekday: \"long\", month: \"long\", day: \"numeric\" })}",
+     "hits": 80
+    },
+    {
+     "line": 26,
+     "text": "        {\" · \"}"
+    },
+    {
+     "line": 27,
+     "text": "        {now.toLocaleTimeString(\"en-US\", { hour: \"numeric\", minute: \"2-digit\", second: \"2-digit\" })}",
+     "hits": 80
+    },
+    {
+     "line": 28,
+     "text": "      </div>"
+    },
+    {
+     "line": 29,
+     "text": "    </div>"
+    },
+    {
+     "line": 30,
+     "text": "  );"
+    },
+    {
+     "line": 31,
+     "text": "}"
+    },
+    {
+     "line": 32,
+     "text": ""
+    }
+   ],
+   "focus": [
+    12,
+    6,
+    7,
+    15
+   ]
+  }
+ ],
+ "logpoints": [],
+ "screenshots": []
+}

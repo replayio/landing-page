@@ -1,0 +1,123 @@
+{
+ "sources": [
+  {
+   "path": "http://localhost:3205/src/pages/Profile.jsx",
+   "lines": [
+    {
+     "line": 49,
+     "text": "  }"
+    },
+    {
+     "line": 50,
+     "text": ""
+    },
+    {
+     "line": 51,
+     "text": "  async function handleSubmit(e) {"
+    },
+    {
+     "line": 52,
+     "text": "    e.preventDefault();"
+    },
+    {
+     "line": 53,
+     "text": "    setSaving(true);"
+    },
+    {
+     "line": 54,
+     "text": "    try {"
+    },
+    {
+     "line": 55,
+     "text": "      const res = await fetch('/api/profile', {"
+    },
+    {
+     "line": 56,
+     "text": "        method: 'PATCH',"
+    },
+    {
+     "line": 57,
+     "text": "        headers: { 'Content-Type': 'application/json' },"
+    },
+    {
+     "line": 58,
+     "text": "        body: JSON.stringify({ ...buildPayload(values, initial), version }),"
+    },
+    {
+     "line": 59,
+     "text": "      });"
+    },
+    {
+     "line": 60,
+     "text": "      const updated = await res.json();"
+    },
+    {
+     "line": 61,
+     "text": "      setVersion(updated.version);"
+    },
+    {
+     "line": 62,
+     "text": "      setInitial(values);"
+    },
+    {
+     "line": 63,
+     "text": "      queryClient.invalidateQueries({ queryKey: ['profile'] });"
+    },
+    {
+     "line": 64,
+     "text": "      queryClient.invalidateQueries({ queryKey: ['account'] });"
+    },
+    {
+     "line": 65,
+     "text": "      toast('Saved!');"
+    },
+    {
+     "line": 66,
+     "text": "    } catch {"
+    },
+    {
+     "line": 67,
+     "text": "      toast('Could not save your changes. Check your connection and try again.', 'error');"
+    },
+    {
+     "line": 68,
+     "text": "    } finally {"
+    },
+    {
+     "line": 69,
+     "text": "      setSaving(false);"
+    },
+    {
+     "line": 70,
+     "text": "    }"
+    },
+    {
+     "line": 71,
+     "text": "  }"
+    },
+    {
+     "line": 72,
+     "text": ""
+    },
+    {
+     "line": 73,
+     "text": "  return ("
+    }
+   ]
+  }
+ ],
+ "logpoints": [
+  {
+   "path": "http://localhost:3205/src/pages/Profile.jsx",
+   "line": 61,
+   "expression": "({ line61_setVersion_updated: updated, resStatus: res.status })",
+   "hits": [
+    {
+     "at": "2026-10-19T23:42:07.665Z",
+     "value": "{\"line61_setVersion_updated\":{\"error\":\"Profile was modified since it was loaded\"},\"resStatus\":409}"
+    }
+   ]
+  }
+ ],
+ "screenshots": []
+}

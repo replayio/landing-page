@@ -1,0 +1,66 @@
+/* The replay player (src/components/replay) reads shadcn-style tokens; these are the bug catalog's light theme,
+   so recordings look as they do there. */
+/* The token colors (tokens.css) use light-dark(), which Next's CSS minifier lowers to variables that only a
+   color-scheme declaration defines; without one every token falls back to the text color. */
+.replay-host,
+.bug-evidence {
+  color-scheme: light;
+}
+
+.bug-replay {
+  --background: #fff;
+  --foreground: #0b0b0f;
+  --card: #fff;
+  --primary: #0a84ff;
+  --muted: #f2f2f7;
+  --muted-foreground: rgba(60, 60, 67, 0.6);
+  --destructive: #ff3b30;
+  --border: rgba(60, 60, 67, 0.22);
+  --ring: #0a84ff;
+  --success: #34c759;
+  --warning: #ff9f0a;
+  --tertiary-foreground: rgba(60, 60, 67, 0.33);
+}
+
+/* The report's pre-rendered prose (data/bugs.json) */
+.bug-prose { font-size: 15px; line-height: 1.7; color: #4b5563; overflow-wrap: anywhere; }
+.bug-prose > * + * { margin-top: 10px; }
+.bug-prose strong { color: #111827; font-weight: 600; }
+.bug-prose em { color: #6b7280; }
+.bug-prose a { color: #f02d5e; font-weight: 500; }
+.bug-prose a:hover { opacity: 0.8; }
+.bug-prose code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.86em; background: #f3f4f6; padding: 1px 5px; border-radius: 4px; color: #111827; }
+.bug-prose pre { background: #111827; color: #e5e7eb; border-radius: 10px; padding: 14px 16px; overflow-x: auto; font-size: 12px; line-height: 1.55; }
+.bug-prose pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+.bug-prose ul { list-style: disc; padding-left: 1.25em; }
+.bug-prose ol { list-style: decimal; padding-left: 1.25em; }
+.bug-prose h3 { font-weight: 600; color: #111827; }
+
+/* Steps (BugStepper), as the bug catalog draws docstream's {% stepper %}: a numbered rail, and a screenshot
+   thumbnail beside the text whose card opens on hover or focus. */
+.bug-stepper { display: flex; flex-direction: column; }
+.bug-step { display: flex; gap: 14px; }
+.bug-step-rail { display: flex; flex-direction: column; align-items: center; }
+.bug-step-badge { width: 28px; height: 28px; flex: none; border-radius: 999px; background: #f3f4f6; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #111827; }
+.bug-step-line { width: 1px; flex: 1; background: #e5e7eb; margin: 4px 0; }
+.bug-step-main { flex: 1; min-width: 0; padding: 3px 0 28px; }
+.bug-step-title { font-weight: 600; color: #111827; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+.bug-step-media { display: flex; align-items: flex-start; gap: 16px; }
+@media (max-width: 560px) { .bug-step-media { flex-direction: column; gap: 8px; } }
+
+.bug-thumb { position: relative; display: inline-block; flex: none; border-radius: 10px; outline: none; }
+.bug-thumb-frame { position: relative; display: block; width: 168px; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid #e5e7eb; border-radius: 10px; background: #f3f4f6; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06); cursor: zoom-in; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+.bug-thumb:hover .bug-thumb-frame,
+.bug-thumb:focus-visible .bug-thumb-frame { border-color: #18181b; box-shadow: 0 0 0 2px #e5e7eb; }
+.bug-thumb-card { position: absolute; top: calc(100% + 10px); left: 0; z-index: 60; display: block; width: min(720px, calc(100vw - 32px)); overflow: hidden; padding: 10px; border: 1px solid #e5e7eb; border-radius: 16px; background: #fff; box-shadow: 0 18px 48px rgba(15, 23, 42, 0.22), 0 2px 8px rgba(15, 23, 42, 0.1); opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s; pointer-events: none; }
+.bug-thumb-card img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.bug-thumb-badge { position: absolute; right: 18px; bottom: 18px; padding: 2px 7px; border-radius: 6px; color: #f4f4f5; background: rgba(39, 39, 42, 0.78); font: 500 14px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums; }
+.bug-thumb:hover .bug-thumb-card,
+.bug-thumb:focus-visible .bug-thumb-card { opacity: 1; visibility: visible; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .bug-thumb-card { transition: none; } }
+
+/* Evidence probes: a step's tool calls and their output, collapsed */
+.bug-evidence { border: 1px solid #e5e7eb; border-radius: 12px; background: #fff; }
+.bug-evidence > summary { padding: 12px 16px; font-size: 15px; font-weight: 500; color: #111827; cursor: pointer; }
+.bug-evidence-body { display: flex; flex-direction: column; gap: 10px; padding: 0 16px 14px; }
+.bug-evidence-probe { max-height: 420px; overflow: auto; margin: 0; padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #f9fafb; color: #18181b; font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }

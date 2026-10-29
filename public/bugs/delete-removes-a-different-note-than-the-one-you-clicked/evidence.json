@@ -1,0 +1,301 @@
+{
+ "sources": [
+  {
+   "path": "https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js",
+   "lines": [
+    {
+     "line": 5129,
+     "text": "      for (let h = 0; h < f.length; h++)"
+    },
+    {
+     "line": 5130,
+     "text": "        if (f[h].get(\"id\") === d) {"
+    },
+    {
+     "line": 5131,
+     "text": "          if (f[h].get(\"title\") === a)"
+    },
+    {
+     "line": 5132,
+     "text": "            break;"
+    },
+    {
+     "line": 5133,
+     "text": "          f[h].set(\"title\", a), f[h].set(\"updatedAt\", Date.now());"
+    },
+    {
+     "line": 5134,
+     "text": "          break"
+    },
+    {
+     "line": 5135,
+     "text": "        }"
+    },
+    {
+     "line": 5136,
+     "text": "    }, deleteNote: d => {"
+    },
+    {
+     "line": 5137,
+     "text": "      if (!t)"
+    },
+    {
+     "line": 5138,
+     "text": "        return ;"
+    },
+    {
+     "line": 5139,
+     "text": "      const a = t.notes.toArray();"
+    },
+    {
+     "line": 5140,
+     "text": "      for (let f = 0; f < a.length; f++)"
+    },
+    {
+     "line": 5141,
+     "text": "        if (a[f].get(\"id\") === d) {"
+    },
+    {
+     "line": 5142,
+     "text": "          t.notes.delete(f, 1);"
+    },
+    {
+     "line": 5143,
+     "text": "          break"
+    },
+    {
+     "line": 5144,
+     "text": "        }"
+    },
+    {
+     "line": 5145,
+     "text": "    } }), [t]);"
+    },
+    {
+     "line": 5146,
+     "text": "  return { notes: i, ready: o, ...u }"
+    },
+    {
+     "line": 5147,
+     "text": "}"
+    },
+    {
+     "line": 5148,
+     "text": "function kr() {"
+    },
+    {
+     "line": 5149,
+     "text": "  const{ workspace: l } = nn.useParams(),"
+    },
+    {
+     "line": 5150,
+     "text": "    e = Sr(l),"
+    },
+    {
+     "line": 5151,
+     "text": "    t = rn({ strict: !1 });"
+    },
+    {
+     "line": 5152,
+     "text": "  return T.jsx("
+    },
+    {
+     "line": 5153,
+     "text": "    Bn,"
+    },
+    {
+     "line": 5154,
+     "text": "    {"
+    }
+   ]
+  }
+ ],
+ "logpoints": [
+  {
+   "path": "https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js",
+   "line": 5142,
+   "expression": "JSON.stringify({deleteId: d, notesLen: a.length})",
+   "hits": [
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"deleteId\":\"3111cdbd\",\"notesLen\":48}"
+    }
+   ]
+  },
+  {
+   "path": "https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js",
+   "line": 5141,
+   "expression": "JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\")})",
+   "hits": [
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"845761ce\",\"title\":\"Sample content for the new note.\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"d8b10b2c\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"0b0ba0c5\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"da20d313\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"c8b602f9\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"4fd68ab7\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"c980f5a1\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"4c35e1b5\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"0180708c\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"5cf27ece\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"a55fbd04\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"1c16ac3a\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"e4955171\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"5dcc205e\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"f93ecf69\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"8169ad78\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"6f4e8826\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"7fd590d8\",\"title\":\"\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"f33c3862\",\"title\":\"test-ox977z\"}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"75fbd7d7\",\"title\":\"\"}"
+    }
+   ]
+  },
+  {
+   "path": "https://collaborative-ai-editor.brett-lamy.workers.dev/assets/_workspace-Jnfl8jZH.js",
+   "line": 5141,
+   "expression": "JSON.stringify({id: a[f].get(\"id\"), title: a[f].get(\"title\"), updatedAt: a[f].get(\"updatedAt\")})",
+   "hits": [
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"845761ce\",\"title\":\"Sample content for the new note.\",\"updatedAt\":1788851218535}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"d8b10b2c\",\"title\":\"\",\"updatedAt\":1788252120740}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"0b0ba0c5\",\"title\":\"\",\"updatedAt\":1788252210471}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"da20d313\",\"title\":\"\",\"updatedAt\":1788250553411}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"c8b602f9\",\"title\":\"\",\"updatedAt\":1788250830125}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"4fd68ab7\",\"title\":\"\",\"updatedAt\":1788250153015}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"c980f5a1\",\"title\":\"\",\"updatedAt\":1788249916124}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"4c35e1b5\",\"title\":\"\",\"updatedAt\":1788249565079}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"0180708c\",\"title\":\"\",\"updatedAt\":1788248947451}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"5cf27ece\",\"title\":\"\",\"updatedAt\":1788248873142}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"a55fbd04\",\"title\":\"\",\"updatedAt\":1788248633188}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"1c16ac3a\",\"title\":\"\",\"updatedAt\":1788247540784}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"e4955171\",\"title\":\"\",\"updatedAt\":1787757408714}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"5dcc205e\",\"title\":\"\",\"updatedAt\":1787757038698}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"f93ecf69\",\"title\":\"\",\"updatedAt\":1787756421327}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"8169ad78\",\"title\":\"\",\"updatedAt\":1787756827242}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"6f4e8826\",\"title\":\"\",\"updatedAt\":1787755550041}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"7fd590d8\",\"title\":\"\",\"updatedAt\":1785793100414}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"f33c3862\",\"title\":\"test-ox977z\",\"updatedAt\":1788250598549}"
+    },
+    {
+     "at": "2026-09-08T07:05:12.511Z",
+     "value": "{\"id\":\"75fbd7d7\",\"title\":\"\",\"updatedAt\":1785791838426}"
+    }
+   ]
+  }
+ ],
+ "screenshots": []
+}

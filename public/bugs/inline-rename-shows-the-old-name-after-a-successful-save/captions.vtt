@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:01.777 --> 00:00:03.777
+Step 1: Verify the starting page
+
+00:00:02.038 --> 00:00:04.038
+Step 2: Click rename affordance for the first project row
+
+00:00:03.890 --> 00:00:05.890
+Step 3: Clear the inline 'Project name' field in the renaming row
+
+00:00:04.587 --> 00:00:06.587
+Step 4: Type the project's new name into the inline 'Project name' field
+
+00:00:05.243 --> 00:00:08.645
+Step 5: Click the row's Save control to commit the rename

@@ -1,0 +1,46 @@
+WEBVTT
+
+00:00:00.775 --> 00:00:02.775
+Step 1: Navigate to the Todoist-clone app
+
+00:00:01.748 --> 00:00:03.748
+Step 2: Click the 'Search' item in the sidebar primary navigation
+
+00:00:02.487 --> 00:00:04.487
+Step 3: Type the uppercase query 'BLOG' into the Search tasks input
+
+00:00:04.116 --> 00:00:06.116
+Step 4: Select all text already in the focused Search tasks input
+
+00:00:04.500 --> 00:00:06.500
+Step 5: Delete the selected text so the Search tasks input is empty before the next query
+
+00:00:05.127 --> 00:00:07.268
+Step 6: Replace the query with the partial substring 'tea'
+
+00:00:07.268 --> 00:00:09.268
+Step 7: Select all text already in the focused Search tasks input
+
+00:00:07.405 --> 00:00:09.405
+Step 8: Delete the selected text so the Search tasks input is empty before the next query
+
+00:00:08.038 --> 00:00:10.038
+Step 9: Replace the query with the multi-word query 'set up ci'
+
+00:00:09.831 --> 00:00:11.831
+Step 10: Select all text already in the focused Search tasks input
+
+00:00:10.190 --> 00:00:12.190
+Step 11: Delete the selected text so the Search tasks input is empty before the next query
+
+00:00:10.805 --> 00:00:12.805
+Step 12: Replace the query with 'zzqqxx' which matches no task
+
+00:00:12.317 --> 00:00:14.317
+Step 13: Select all text already in the focused Search tasks input
+
+00:00:12.751 --> 00:00:14.751
+Step 14: Delete the selected text so the Search tasks input is empty before the next query
+
+00:00:13.380 --> 00:00:15.654
+Step 15: Replace the query with 'review' to confirm the list recovers after a no-match query

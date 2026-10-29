@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { siteOrigin } from '~/lib/constants'
 import { getBlogPosts } from '~/lib/notion-blog'
 import { COMPARE_PAGES_UPDATED, competitors } from '~/components/compare/content'
+import { bugs } from '~/app/bugs/data/bugs'
 
 type ChangeFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
 
@@ -29,7 +30,7 @@ type Route = {
 }
 
 const ROUTES: Route[] = [
-  { path: '/', priority: 1.0, changeFrequency: 'weekly', lastModified: '2026-10-26' },
+  { path: '/', priority: 1.0, changeFrequency: 'weekly', lastModified: '2026-10-29' },
   { path: '/pricing', priority: 0.9, changeFrequency: 'weekly', lastModified: '2026-09-02' },
   { path: '/how-it-works', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-10-22' },
   { path: '/security', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-10-14' },
@@ -90,10 +91,25 @@ function compareRoutes(): Route[] {
   ]
 }
 
+/** One page per bug in the gallery (src/app/bugs). Bump the date when the catalog is re-imported. */
+const BUG_PAGES_UPDATED = '2026-10-29'
+
+function bugRoutes(): Route[] {
+  return [
+    { path: '/bugs', priority: 0.8, changeFrequency: 'monthly', lastModified: BUG_PAGES_UPDATED },
+    ...bugs.map((bug) => ({
+      path: `/bugs/${bug.slug}`,
+      priority: 0.5,
+      changeFrequency: 'yearly' as const,
+      lastModified: BUG_PAGES_UPDATED
+    }))
+  ]
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPosts = await getBlogPosts().catch(() => [])
 
-  const pages: MetadataRoute.Sitemap = [...ROUTES, ...compareRoutes()].map(
+  const pages: MetadataRoute.Sitemap = [...ROUTES, ...compareRoutes(), ...bugRoutes()].map(
     ({ path, priority, changeFrequency, lastModified }) => ({
       url: `${siteOrigin}${path}`,
       lastModified,

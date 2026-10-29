@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.000
+Landed on Replay QA app with a project sidebar; about to open a project to find its Settings tab
+
+00:00:01.360 --> 00:00:04.609
+Opened 'Checkout demo' project overview; clicking the Settings tab to find the Team Members section
+
+00:00:04.609 --> 00:00:06.688
+On Settings, found Team Members section; Invite button is disabled while the email field is empty. Typing a new member email now.
+
+00:00:06.688 --> 00:00:11.051
+Invite button became enabled after entering a valid email; clicking Invite now to add newmember@example.com as a Member.
+
+00:00:11.051 --> 00:00:14.403
+Clicking Invite surfaced an error alert 'Cannot add property 2, object is not extensible' and the member list still shows only the original 2 members — newmember@example.com was NOT added. This is the bug.

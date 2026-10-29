@@ -1,0 +1,790 @@
+{
+ "sources": [
+  {
+   "path": "http://localhost:3207/src/state/columns.jsx",
+   "lines": [
+    {
+     "line": 72,
+     "text": "    key: 'health',"
+    },
+    {
+     "line": 73,
+     "text": "    label: 'Health',"
+    },
+    {
+     "line": 74,
+     "text": "    width: 120,"
+    },
+    {
+     "line": 75,
+     "text": "    defaultDir: 'desc',"
+    },
+    {
+     "line": 76,
+     "text": "    render: (r) => ("
+    },
+    {
+     "line": 77,
+     "text": "      <div className=\"health\">",
+     "hits": 200
+    },
+    {
+     "line": 78,
+     "text": "        <div className=\"health-bar\">",
+     "hits": 200
+    },
+    {
+     "line": 79,
+     "text": "          <div className=\"health-fill\" style={{ width: `${r.health}%`, background: healthColor(r.health) }} />",
+     "hits": 200
+    },
+    {
+     "line": 80,
+     "text": "        </div>"
+    },
+    {
+     "line": 81,
+     "text": "        <span className=\"health-num\">{r.health}</span>",
+     "hits": 200
+    },
+    {
+     "line": 82,
+     "text": "      </div>"
+    },
+    {
+     "line": 83,
+     "text": "    ),"
+    },
+    {
+     "line": 84,
+     "text": "  },"
+    },
+    {
+     "line": 85,
+     "text": "  {"
+    },
+    {
+     "line": 86,
+     "text": "    key: 'trend',"
+    },
+    {
+     "line": 87,
+     "text": "    label: '12-mo trend',"
+    },
+    {
+     "line": 88,
+     "text": "    width: 100,"
+    },
+    {
+     "line": 89,
+     "text": "    sortable: false,"
+    },
+    {
+     "line": 90,
+     "text": "    render: (r) => <Sparkline values={r.trend} />,",
+     "hits": 200
+    },
+    {
+     "line": 91,
+     "text": "  },"
+    },
+    {
+     "line": 92,
+     "text": "  {"
+    },
+    {
+     "line": 93,
+     "text": "    key: 'owner',"
+    },
+    {
+     "line": 94,
+     "text": "    label: 'Owner',"
+    },
+    {
+     "line": 95,
+     "text": "    width: 170,"
+    },
+    {
+     "line": 96,
+     "text": "    sortValue: (r) => r.ownerId,",
+     "hits": 0
+    },
+    {
+     "line": 98,
+     "text": "  },"
+    },
+    {
+     "line": 99,
+     "text": "  {"
+    },
+    {
+     "line": 100,
+     "text": "    key: 'lastActive',"
+    },
+    {
+     "line": 101,
+     "text": "    label: 'Last active',"
+    },
+    {
+     "line": 102,
+     "text": "    width: 110,"
+    },
+    {
+     "line": 103,
+     "text": "    defaultDir: 'desc',"
+    },
+    {
+     "line": 104,
+     "text": "    sortValue: (r) => timestampSortKey(r.lastActive),",
+     "hits": 0
+    },
+    {
+     "line": 105,
+     "text": "    render: (r) => <span title={formatTimestamp(r.lastActive)}>{formatRelative(r.lastActive)}</span>,",
+     "hits": 200
+    },
+    {
+     "line": 106,
+     "text": "  },"
+    },
+    {
+     "line": 107,
+     "text": "  {"
+    },
+    {
+     "line": 108,
+     "text": "    key: 'created',"
+    },
+    {
+     "line": 109,
+     "text": "    label: 'Customer since',"
+    },
+    {
+     "line": 110,
+     "text": "    width: 120,"
+    },
+    {
+     "line": 111,
+     "text": "    defaultDir: 'desc',"
+    },
+    {
+     "line": 112,
+     "text": "    render: (r) => formatShortDate(r.created),",
+     "hits": 200
+    },
+    {
+     "line": 113,
+     "text": "  },"
+    },
+    {
+     "line": 114,
+     "text": "];"
+    },
+    {
+     "line": 115,
+     "text": ""
+    },
+    {
+     "line": 116,
+     "text": "export function sortRows(rows, sort, columns) {"
+    },
+    {
+     "line": 117,
+     "text": "  const col = columns.find((c) => c.key === sort.key);",
+     "hits": 5
+    },
+    {
+     "line": 118,
+     "text": "  if (!col) return rows;",
+     "hits": 0
+    },
+    {
+     "line": 119,
+     "text": "  const getValue = col.sortValue || ((r) => r[col.key]);",
+     "hits": 200
+    },
+    {
+     "line": 120,
+     "text": "  const dir = sort.dir === 'asc' ? 1 : -1;",
+     "hits": 1
+    },
+    {
+     "line": 121,
+     "text": "  return [...rows].sort((a, b) => {",
+     "hits": 1
+    },
+    {
+     "line": 122,
+     "text": "    const va = getValue(a);",
+     "hits": 200
+    }
+   ],
+   "focus": [
+    97,
+    117,
+    118,
+    119
+   ]
+  },
+  {
+   "path": "http://localhost:3207/src/components/OwnerCell.jsx",
+   "lines": [
+    {
+     "line": 1,
+     "text": "import { useEffect, useState } from 'react';"
+    },
+    {
+     "line": 2,
+     "text": "import { fetchUser } from '../lib/api.js';"
+    },
+    {
+     "line": 3,
+     "text": ""
+    },
+    {
+     "line": 4,
+     "text": "export default function OwnerCell({ ownerId }) {"
+    },
+    {
+     "line": 5,
+     "text": "  const [owner, setOwner] = useState(null);",
+     "hits": 200
+    },
+    {
+     "line": 6,
+     "text": ""
+    },
+    {
+     "line": 7,
+     "text": "  useEffect(() => {",
+     "hits": 200
+    },
+    {
+     "line": 8,
+     "text": "    let active = true;",
+     "hits": 200
+    },
+    {
+     "line": 10,
+     "text": "      .then((user) => {",
+     "hits": 200
+    },
+    {
+     "line": 11,
+     "text": "        if (active) setOwner(user);",
+     "hits": 200
+    },
+    {
+     "line": 12,
+     "text": "      })"
+    },
+    {
+     "line": 13,
+     "text": "      .catch(() => {});",
+     "hits": 200
+    },
+    {
+     "line": 14,
+     "text": "    return () => {",
+     "hits": 200
+    },
+    {
+     "line": 15,
+     "text": "      active = false;",
+     "hits": 200
+    },
+    {
+     "line": 16,
+     "text": "    };"
+    },
+    {
+     "line": 17,
+     "text": "  }, [ownerId]);"
+    },
+    {
+     "line": 18,
+     "text": ""
+    },
+    {
+     "line": 19,
+     "text": "  if (!owner) {",
+     "hits": 200
+    },
+    {
+     "line": 20,
+     "text": "    return ("
+    },
+    {
+     "line": 21,
+     "text": "      <span className=\"owner owner-loading\">",
+     "hits": 200
+    },
+    {
+     "line": 22,
+     "text": "        <span className=\"avatar avatar-placeholder\" />",
+     "hits": 200
+    },
+    {
+     "line": 23,
+     "text": "        <span className=\"owner-name skeleton-text\" />",
+     "hits": 200
+    },
+    {
+     "line": 24,
+     "text": "      </span>"
+    },
+    {
+     "line": 25,
+     "text": "    );"
+    },
+    {
+     "line": 26,
+     "text": "  }"
+    },
+    {
+     "line": 27,
+     "text": ""
+    },
+    {
+     "line": 28,
+     "text": "  return ("
+    },
+    {
+     "line": 29,
+     "text": "    <span className=\"owner\" title={owner.email}>"
+    },
+    {
+     "line": 30,
+     "text": "      <span className=\"avatar\" style={{ background: owner.color }}>",
+     "hits": 200
+    },
+    {
+     "line": 31,
+     "text": "        {owner.initials}"
+    },
+    {
+     "line": 32,
+     "text": "      </span>"
+    },
+    {
+     "line": 33,
+     "text": "      <span className=\"owner-name\">{owner.name}</span>",
+     "hits": 200
+    },
+    {
+     "line": 34,
+     "text": "    </span>"
+    },
+    {
+     "line": 35,
+     "text": "  );"
+    },
+    {
+     "line": 36,
+     "text": "}"
+    },
+    {
+     "line": 37,
+     "text": ""
+    }
+   ],
+   "focus": [
+    9
+   ]
+  },
+  {
+   "path": "http://localhost:3207/src/components/OwnerCell.jsx",
+   "lines": [
+    {
+     "line": 1,
+     "text": "import { useEffect, useState } from 'react';"
+    },
+    {
+     "line": 2,
+     "text": "import { fetchUser } from '../lib/api.js';"
+    },
+    {
+     "line": 3,
+     "text": ""
+    },
+    {
+     "line": 4,
+     "text": "export default function OwnerCell({ ownerId }) {"
+    },
+    {
+     "line": 5,
+     "text": "  const [owner, setOwner] = useState(null);",
+     "hits": 200
+    },
+    {
+     "line": 6,
+     "text": ""
+    },
+    {
+     "line": 7,
+     "text": "  useEffect(() => {",
+     "hits": 200
+    },
+    {
+     "line": 8,
+     "text": "    let active = true;",
+     "hits": 200
+    },
+    {
+     "line": 10,
+     "text": "      .then((user) => {",
+     "hits": 200
+    },
+    {
+     "line": 11,
+     "text": "        if (active) setOwner(user);",
+     "hits": 200
+    },
+    {
+     "line": 12,
+     "text": "      })"
+    },
+    {
+     "line": 13,
+     "text": "      .catch(() => {});",
+     "hits": 200
+    },
+    {
+     "line": 14,
+     "text": "    return () => {",
+     "hits": 200
+    },
+    {
+     "line": 15,
+     "text": "      active = false;",
+     "hits": 200
+    },
+    {
+     "line": 16,
+     "text": "    };"
+    },
+    {
+     "line": 17,
+     "text": "  }, [ownerId]);"
+    },
+    {
+     "line": 18,
+     "text": ""
+    },
+    {
+     "line": 19,
+     "text": "  if (!owner) {",
+     "hits": 200
+    },
+    {
+     "line": 20,
+     "text": "    return ("
+    },
+    {
+     "line": 21,
+     "text": "      <span className=\"owner owner-loading\">",
+     "hits": 200
+    },
+    {
+     "line": 22,
+     "text": "        <span className=\"avatar avatar-placeholder\" />",
+     "hits": 200
+    },
+    {
+     "line": 23,
+     "text": "        <span className=\"owner-name skeleton-text\" />",
+     "hits": 200
+    },
+    {
+     "line": 24,
+     "text": "      </span>"
+    },
+    {
+     "line": 25,
+     "text": "    );"
+    },
+    {
+     "line": 26,
+     "text": "  }"
+    },
+    {
+     "line": 27,
+     "text": ""
+    },
+    {
+     "line": 28,
+     "text": "  return ("
+    },
+    {
+     "line": 29,
+     "text": "    <span className=\"owner\" title={owner.email}>"
+    },
+    {
+     "line": 30,
+     "text": "      <span className=\"avatar\" style={{ background: owner.color }}>",
+     "hits": 200
+    },
+    {
+     "line": 31,
+     "text": "        {owner.initials}"
+    },
+    {
+     "line": 32,
+     "text": "      </span>"
+    },
+    {
+     "line": 33,
+     "text": "      <span className=\"owner-name\">{owner.name}</span>",
+     "hits": 200
+    },
+    {
+     "line": 34,
+     "text": "    </span>"
+    },
+    {
+     "line": 35,
+     "text": "  );"
+    },
+    {
+     "line": 36,
+     "text": "}"
+    },
+    {
+     "line": 37,
+     "text": ""
+    }
+   ],
+   "focus": [
+    9
+   ]
+  },
+  {
+   "path": "http://localhost:3207/src/state/columns.jsx",
+   "lines": [
+    {
+     "line": 72,
+     "text": "    key: 'health',"
+    },
+    {
+     "line": 73,
+     "text": "    label: 'Health',"
+    },
+    {
+     "line": 74,
+     "text": "    width: 120,"
+    },
+    {
+     "line": 75,
+     "text": "    defaultDir: 'desc',"
+    },
+    {
+     "line": 76,
+     "text": "    render: (r) => ("
+    },
+    {
+     "line": 77,
+     "text": "      <div className=\"health\">",
+     "hits": 200
+    },
+    {
+     "line": 78,
+     "text": "        <div className=\"health-bar\">",
+     "hits": 200
+    },
+    {
+     "line": 79,
+     "text": "          <div className=\"health-fill\" style={{ width: `${r.health}%`, background: healthColor(r.health) }} />",
+     "hits": 200
+    },
+    {
+     "line": 80,
+     "text": "        </div>"
+    },
+    {
+     "line": 81,
+     "text": "        <span className=\"health-num\">{r.health}</span>",
+     "hits": 200
+    },
+    {
+     "line": 82,
+     "text": "      </div>"
+    },
+    {
+     "line": 83,
+     "text": "    ),"
+    },
+    {
+     "line": 84,
+     "text": "  },"
+    },
+    {
+     "line": 85,
+     "text": "  {"
+    },
+    {
+     "line": 86,
+     "text": "    key: 'trend',"
+    },
+    {
+     "line": 87,
+     "text": "    label: '12-mo trend',"
+    },
+    {
+     "line": 88,
+     "text": "    width: 100,"
+    },
+    {
+     "line": 89,
+     "text": "    sortable: false,"
+    },
+    {
+     "line": 90,
+     "text": "    render: (r) => <Sparkline values={r.trend} />,",
+     "hits": 200
+    },
+    {
+     "line": 91,
+     "text": "  },"
+    },
+    {
+     "line": 92,
+     "text": "  {"
+    },
+    {
+     "line": 93,
+     "text": "    key: 'owner',"
+    },
+    {
+     "line": 94,
+     "text": "    label: 'Owner',"
+    },
+    {
+     "line": 95,
+     "text": "    width: 170,"
+    },
+    {
+     "line": 96,
+     "text": "    sortValue: (r) => r.ownerId,",
+     "hits": 0
+    },
+    {
+     "line": 98,
+     "text": "  },"
+    },
+    {
+     "line": 99,
+     "text": "  {"
+    },
+    {
+     "line": 100,
+     "text": "    key: 'lastActive',"
+    },
+    {
+     "line": 101,
+     "text": "    label: 'Last active',"
+    },
+    {
+     "line": 102,
+     "text": "    width: 110,"
+    },
+    {
+     "line": 103,
+     "text": "    defaultDir: 'desc',"
+    },
+    {
+     "line": 104,
+     "text": "    sortValue: (r) => timestampSortKey(r.lastActive),",
+     "hits": 0
+    },
+    {
+     "line": 105,
+     "text": "    render: (r) => <span title={formatTimestamp(r.lastActive)}>{formatRelative(r.lastActive)}</span>,",
+     "hits": 200
+    },
+    {
+     "line": 106,
+     "text": "  },"
+    },
+    {
+     "line": 107,
+     "text": "  {"
+    },
+    {
+     "line": 108,
+     "text": "    key: 'created',"
+    },
+    {
+     "line": 109,
+     "text": "    label: 'Customer since',"
+    },
+    {
+     "line": 110,
+     "text": "    width: 120,"
+    },
+    {
+     "line": 111,
+     "text": "    defaultDir: 'desc',"
+    },
+    {
+     "line": 112,
+     "text": "    render: (r) => formatShortDate(r.created),",
+     "hits": 200
+    },
+    {
+     "line": 113,
+     "text": "  },"
+    },
+    {
+     "line": 114,
+     "text": "];"
+    },
+    {
+     "line": 115,
+     "text": ""
+    },
+    {
+     "line": 116,
+     "text": "export function sortRows(rows, sort, columns) {"
+    },
+    {
+     "line": 117,
+     "text": "  const col = columns.find((c) => c.key === sort.key);",
+     "hits": 5
+    },
+    {
+     "line": 118,
+     "text": "  if (!col) return rows;",
+     "hits": 0
+    },
+    {
+     "line": 119,
+     "text": "  const getValue = col.sortValue || ((r) => r[col.key]);",
+     "hits": 200
+    },
+    {
+     "line": 120,
+     "text": "  const dir = sort.dir === 'asc' ? 1 : -1;",
+     "hits": 1
+    },
+    {
+     "line": 121,
+     "text": "  return [...rows].sort((a, b) => {",
+     "hits": 1
+    },
+    {
+     "line": 122,
+     "text": "    const va = getValue(a);",
+     "hits": 200
+    }
+   ],
+   "focus": [
+    97,
+    117,
+    118,
+    119
+   ]
+  }
+ ],
+ "logpoints": [],
+ "screenshots": []
+}

@@ -1,0 +1,13 @@
+/* Syntax token colors, from docstream's styles.css (they sit with its code blocks there, outside the replay
+   layer). The player's DevTools and HighlightedCode both tag tokens with these classes. */
+
+/* Syntax tokens (HighlightedCode). Palenight on dark color-schemes, same-hue AA colors on light ones.
+   Override any --docs-tok-* property to retheme. */
+.docs-tok-keyword { color: var(--docs-tok-keyword, light-dark(#8839C4, #C792EA)); }
+.docs-tok-type { color: var(--docs-tok-type, light-dark(#A15C00, #FFCB6B)); }
+.docs-tok-function { color: var(--docs-tok-function, light-dark(#2F5BD3, #82AAFF)); }
+.docs-tok-string { color: var(--docs-tok-string, light-dark(#23803A, #A5D6A7)); }
+.docs-tok-number { color: var(--docs-tok-number, light-dark(#C2410C, #F78C6C)); }
+.docs-tok-constant { color: var(--docs-tok-constant, light-dark(#C8283F, #F07178)); }
+.docs-tok-operator { color: var(--docs-tok-operator, light-dark(#0B7285, #89DDFF)); }
+.docs-tok-comment { color: var(--docs-tok-comment, light-dark(#6E6E7A, #8A8A98)); font-style: italic; }
