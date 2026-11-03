@@ -78,7 +78,6 @@ const MARKDOWN_BY_PATH: Record<string, string> = {
   '/how-it-works': '/agent/how-it-works.md',
   '/precog': '/agent/precog.md',
   '/pricing': '/agent/pricing.md',
-  '/debugging': '/agent/debugging.md',
   '/web-application-testing': '/agent/web-application-testing.md',
   '/continuous-testing': '/agent/continuous-testing.md',
   '/automated-qa-testing': '/agent/automated-qa-testing.md',
