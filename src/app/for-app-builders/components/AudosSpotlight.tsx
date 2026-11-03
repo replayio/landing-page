@@ -22,17 +22,11 @@ export function AudosSpotlight() {
           </h2>
           <div className="mt-6 space-y-4 leading-relaxed text-gray-600">
             <p>
-              Audos is an AI-powered startup studio with a mission to launch{' '}
-              <a
-                href="https://techcrunch.com/2025/06/26/this-ai-powered-startup-studio-plans-to-launch-100000-companies-a-year-really/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-accent transition hover:opacity-80"
-              >
-                100,000 companies a year
-              </a>
-              . Its AI agent works with everyday entrepreneurs to build their product, and Audos
-              invests up to $25,000 in each one to help them get to market.
+              Audos wants to help everyday entrepreneurs build one million $1M companies in the next
+              ten years. It aims to be the best place to build not just a product, but a business:
+              each entrepreneur gets a landing page, a V0 of their app, marketing, analytics, a
+              brand, and a community of other founders. Otto, Audos&apos;s flagship agent, works
+              alongside each one as their AI co-founder.
             </p>
             <p>
               At that volume, no team can hand-test what gets built. Audos integrated Replay
@@ -43,6 +37,16 @@ export function AudosSpotlight() {
               writing a test.
             </p>
           </div>
+          <figure className="mt-8 border-l-[3px] border-accent py-1 pl-5">
+            <blockquote className="text-lg leading-relaxed text-gray-900">
+              &ldquo;It was clear there was an attention to detail that we needed to help the people
+              who don&apos;t know what a console log is.&rdquo;
+            </blockquote>
+            <figcaption className="mt-2 text-sm text-gray-500">
+              Andres Zubillaga, Founding team, Audos (answering why they chose to partner with
+              Replay QA)
+            </figcaption>
+          </figure>
         </div>
       </Container>
     </section>
