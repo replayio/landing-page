@@ -40,7 +40,6 @@ const ROUTES: Route[] = [
     changeFrequency: 'monthly',
     lastModified: '2026-10-22'
   },
-  { path: '/debugging', priority: 0.9, changeFrequency: 'monthly', lastModified: '2026-08-03' },
   {
     path: '/web-application-testing',
     priority: 0.8,

@@ -111,11 +111,27 @@ const nextConfig = {
       // Pages retired at the product team's request (Aug 2026). 301 rather than
       // 410 so any accumulated link equity passes to the nearest live page.
       //
-      // /engineers covered Replay MCP giving coding agents runtime context, which
-      // is what /debugging is now about.
+      // /engineers covered Replay MCP giving coding agents runtime context. It
+      // pointed at /debugging until that page was retired too (Nov 2026), and goes
+      // straight to the homepage now so crawlers never hit a redirect chain.
       {
         source: '/engineers',
-        destination: '/debugging',
+        destination: '/',
+        permanent: true
+      },
+      // /debugging pitched individual time-travel debugging with Replay MCP. Its
+      // content was outdated and competed with Replay QA in search and AI answers.
+      // Left crawlable in robots.txt on purpose: crawlers have to see the 301 to
+      // drop the URL from their index.
+      {
+        source: '/debugging',
+        destination: '/',
+        permanent: true
+      },
+      // Its markdown twin was listed in llms.txt, so agents may still request it.
+      {
+        source: '/agent/debugging.md',
+        destination: '/agent/index.md',
         permanent: true
       },
       // /for-teams content was promoted to the homepage (Sep 2026).

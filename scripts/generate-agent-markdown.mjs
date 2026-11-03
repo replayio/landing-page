@@ -31,7 +31,6 @@ const ROUTES = [
   { pathname: '/how-it-works', slug: 'how-it-works', title: 'How It Works — Replay' },
   { pathname: '/precog', slug: 'precog', title: 'Precog — Replay' },
   { pathname: '/pricing', slug: 'pricing', title: 'Pricing — Replay' },
-  { pathname: '/debugging', slug: 'debugging', title: 'Debugging — Replay' },
   {
     pathname: '/web-application-testing',
     slug: 'web-application-testing',

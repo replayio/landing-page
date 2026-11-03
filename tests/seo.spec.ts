@@ -33,7 +33,6 @@ const ROUTES = [
   '/compare/qodo',
   '/compare/coding-agents',
   '/contact',
-  '/debugging',
   '/how-it-works',
   '/precog',
   '/pricing',
@@ -204,7 +203,7 @@ test.describe('sitemap', () => {
 
     // Every static route we advertise must be present.
     const paths = new Set(urls.map((u) => new URL(u).pathname))
-    for (const route of ['/', '/pricing', '/how-it-works', '/debugging', '/blog']) {
+    for (const route of ['/', '/pricing', '/how-it-works', '/blog']) {
       expect(paths.has(route), `sitemap is missing ${route}`).toBe(true)
     }
   })
@@ -266,7 +265,9 @@ test.describe('redirects', () => {
     ['/shoutouts', /\/$/],
     ['/examples', 'https://docs.replay.io/'],
     // Retired pages (Aug 2026). These must keep redirecting.
-    ['/engineers', /\/debugging$/],
+    ['/engineers', /\/$/],
+    ['/debugging', /\/$/],
+    ['/agent/debugging.md', /\/agent\/index\.md$/],
     ['/vibe-coders', /\/$/],
     ['/partner', /\/contact$/],
     ['/builder', /\/$/]
