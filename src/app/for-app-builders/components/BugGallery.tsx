@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { X } from 'lucide-react'
 import clsx from 'clsx'
 import 'rrweb-player/dist/style.css'
+// Modal and replay styles. Imported here, not only by the page, so other pages can reuse the gallery.
+import '../app-builders.css'
 import bugs from '../data/bugs.json'
 
 // Ticket content is rendered verbatim from the Replay QA bugs hall of fame (see data/bugs.json).

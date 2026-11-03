@@ -1,7 +1,9 @@
 import { Container } from '~/components/Container'
+import { Button } from '~/components/Button'
 import { BugGallery } from './BugGallery'
 
-export function BugReportsSection() {
+/** `showGalleryLink` adds a link to the full gallery at /bugs, for pages outside /for-app-builders. */
+export function BugReportsSection({ showGalleryLink = false }: { showGalleryLink?: boolean }) {
   return (
     <section className="relative isolate overflow-hidden bg-gray-50 py-16 md:py-24">
       <Container>
@@ -17,6 +19,13 @@ export function BugReportsSection() {
             </p>
           </div>
           <BugGallery />
+          {showGalleryLink && (
+            <div className="mt-10 text-center">
+              <Button href="/bugs" variant="outline" size="sm">
+                View our bug gallery
+              </Button>
+            </div>
+          )}
         </div>
       </Container>
     </section>
