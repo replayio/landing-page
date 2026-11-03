@@ -3,7 +3,8 @@ import { Container } from '~/components/Container'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
-import { BugReportSection, Faqs, FinalCTA } from '~/components/seo-landing/SeoLandingPage'
+import { Faqs, FinalCTA } from '~/components/seo-landing/SeoLandingPage'
+import { BugReportsSection } from '~/app/for-app-builders/components/BugReportsSection'
 import { ContentPageHeader } from '~/components/content-page/ContentPageHeader'
 import { seoVariants } from '~/components/seo-landing/content'
 import { ComparisonTable } from './ComparisonTable'
@@ -124,7 +125,7 @@ export function CompareHub() {
         <Groups relationships={['alongside', 'diy']} className="bg-white pb-16 md:pb-20" />
         <Matrix />
         <Groups relationships={['alternative']} className="bg-white py-16 md:py-20" />
-        <BugReportSection />
+        <BugReportsSection showGalleryLink />
         <div className="bg-white pt-16 md:pt-24" />
         <Faqs
           faqs={compareHub.faqs}

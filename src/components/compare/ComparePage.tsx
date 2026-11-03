@@ -2,16 +2,11 @@ import { Container } from '~/components/Container'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/layout/header'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
-import { BugReportSection, Faqs, FinalCTA } from '~/components/seo-landing/SeoLandingPage'
+import { Faqs, FinalCTA } from '~/components/seo-landing/SeoLandingPage'
+import { BugReportsSection } from '~/app/for-app-builders/components/BugReportsSection'
 import { ContentPageHeader, SummaryCard } from '~/components/content-page/ContentPageHeader'
 import { ComparisonTable } from './ComparisonTable'
-import {
-  RELATIONSHIP_GROUPS,
-  competitors,
-  replayColumn,
-  type Competitor,
-  type Point
-} from './content'
+import { competitors, replayColumn, type Competitor, type Point } from './content'
 
 export const COMPARE_HUB_PATH = '/compare'
 
@@ -200,7 +195,6 @@ function relatedLinks(competitor: Competitor) {
 export function ComparePage({ competitor }: { competitor: Competitor }) {
   const h = headings(competitor)
   const { relationship, together = [], replayFurther, strongerAt } = competitor
-  const group = RELATIONSHIP_GROUPS.find((g) => g.relationship === relationship)
 
   // Section order carries the framing: complementary tools lead with how they fit together,
   // alternatives lead with differences, and the DIY page leads with what the agent does well.
@@ -233,7 +227,7 @@ export function ComparePage({ competitor }: { competitor: Competitor }) {
             { label: 'Compare', href: COMPARE_HUB_PATH },
             { label: h.eyebrow, href: competitor.path }
           ]}
-          eyebrow={group?.heading}
+          eyebrow="Replay QA comparison"
           title={competitor.h1}
           intro={competitor.subhead}
           meta={[
@@ -257,7 +251,7 @@ export function ComparePage({ competitor }: { competitor: Competitor }) {
             />
           ))}
         <Choose competitor={competitor} />
-        <BugReportSection />
+        <BugReportsSection showGalleryLink />
         <div className="bg-white pt-16 md:pt-24" />
         <Faqs faqs={competitor.faqs} related={relatedLinks(competitor)} />
         <FinalCTA utmSource={`compare-${competitor.key}`} />
