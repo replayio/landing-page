@@ -4,7 +4,8 @@ import { Header } from '~/components/layout/header'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 import { ForTeamsHero } from './components/ForTeamsHero'
-import { WhatYouGetSection, VerificationProblemSection } from './components/WhatYouGetSection'
+import { WhatItIsSection } from './components/WhatItIsSection'
+import { VerificationProblemSection } from './components/VerificationProblemSection'
 import { BugGallerySection } from './components/BugGallerySection'
 import { HowItWorksSection } from './components/HowItWorksSection'
 import { WorkflowSection } from './components/WorkflowSection'
@@ -56,7 +57,7 @@ export default function HomePage() {
       <Header />
       <PageContentAnimate>
         <ForTeamsHero />
-        <WhatYouGetSection />
+        <WhatItIsSection />
         <BugGallerySection />
         <VerificationProblemSection />
         <HowItWorksSection />

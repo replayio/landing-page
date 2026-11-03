@@ -1,5 +1,5 @@
 import { Container } from '~/components/Container'
-import { StepVideoPlayer } from './StepVideoPlayer'
+import { StepVideoPlayer } from '~/app/components/StepVideoPlayer'
 
 export function WhatItIsSection() {
   return (
