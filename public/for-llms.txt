@@ -1,6 +1,6 @@
 # Replay QA — for-llms.txt
 # Machine-readable summary of Replay QA for LLM crawlers and AI assistants.
-# Last updated: 2026-10-22
+# Last updated: 2026-11-03
 
 ## What is Replay QA?
 
@@ -93,7 +93,7 @@ guess from. Used by teams shipping more pull requests than anyone can review by 
 ## Comparisons
 
 Overview: https://replay.io/compare. Competitor details below are from each vendor's public site
-and documentation, verified 2026-10-14 to 2026-10-22. Replay QA tests web apps only; tools listed with native mobile
+and documentation, verified 2026-10-14 to 2026-11-03. Replay QA tests web apps only; tools listed with native mobile
 support cover something Replay QA does not.
 
 - **Momentic** (https://replay.io/compare/momentic) — Alternative. Momentic's Mo agent explores
@@ -106,6 +106,10 @@ support cover something Replay QA does not.
 - **Tester Army** (https://replay.io/compare/tester-army) — Alternative. Plain-English test runs and
   goal-driven discovery runs on web and native mobile, with video, screenshots and logs. Replay QA
   needs no tests and adds root cause and a suggested fix.
+- **Rainforest QA** (https://replay.io/compare/rainforest-qa) — Alternative. A no-code test platform
+  with AI, plus managed Test Managers and a human tester crowd (including native mobile). Tests
+  are prompt- or human-authored and failures are triaged by people. Replay QA explores from a URL
+  and returns root cause and a suggested fix.
 - **PostHog self-driving** (https://replay.io/compare/posthog) — Different stage. PostHog finds
   issues in production user data and opens fix PRs. Replay QA tests before release and needs no
   users. Many teams use both.

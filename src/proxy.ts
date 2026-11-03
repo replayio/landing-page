@@ -85,6 +85,7 @@ const MARKDOWN_BY_PATH: Record<string, string> = {
   '/compare/momentic': '/agent/compare-momentic.md',
   '/compare/ranger': '/agent/compare-ranger.md',
   '/compare/tester-army': '/agent/compare-tester-army.md',
+  '/compare/rainforest-qa': '/agent/compare-rainforest-qa.md',
   '/compare/posthog': '/agent/compare-posthog.md',
   '/compare/qa-wolf': '/agent/compare-qa-wolf.md',
   '/compare/meticulous': '/agent/compare-meticulous.md',
