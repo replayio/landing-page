@@ -50,6 +50,7 @@ const ROUTES = [
   { pathname: '/compare/momentic', slug: 'compare-momentic', title: 'Replay QA vs Momentic — Replay' },
   { pathname: '/compare/ranger', slug: 'compare-ranger', title: 'Replay QA vs Ranger — Replay' },
   { pathname: '/compare/tester-army', slug: 'compare-tester-army', title: 'Replay QA vs Tester Army — Replay' },
+  { pathname: '/compare/rainforest-qa', slug: 'compare-rainforest-qa', title: 'Replay QA vs Rainforest QA — Replay' },
   { pathname: '/compare/posthog', slug: 'compare-posthog', title: 'Replay QA vs PostHog — Replay' },
   { pathname: '/compare/qa-wolf', slug: 'compare-qa-wolf', title: 'Replay QA vs QA Wolf — Replay' },
   { pathname: '/compare/meticulous', slug: 'compare-meticulous', title: 'Replay QA vs Meticulous — Replay' },

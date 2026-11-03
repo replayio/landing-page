@@ -6,6 +6,7 @@ export type CompetitorKey =
   | 'momentic'
   | 'ranger'
   | 'tester-army'
+  | 'rainforest-qa'
   | 'posthog'
   | 'qa-wolf'
   | 'meticulous'
@@ -102,7 +103,7 @@ const pricingAnswer =
  * lastmod is the later of this and its own `lastVerified`, so bump this when a template or hub
  * change alters what readers see, not for refactors or styling.
  */
-export const COMPARE_PAGES_UPDATED = '2026-10-22'
+export const COMPARE_PAGES_UPDATED = '2026-11-03'
 
 export const competitors: Competitor[] = [
   // ---------------------------------------------------------------- Alternatives
@@ -404,6 +405,109 @@ export const competitors: Competitor[] = [
     ]
   },
   {
+    key: 'rainforest-qa',
+    name: 'Rainforest QA',
+    relationship: 'alternative',
+    path: '/compare/rainforest-qa',
+    titleTag: 'Replay QA vs Rainforest QA: AI QA Testing Compared',
+    metaDescription:
+      'Replay QA vs Rainforest QA: no-code tests, Test Managers and human testers, or autonomous QA that records every session and returns root cause and a fix.',
+    h1: 'Replay QA vs Rainforest QA',
+    subhead:
+      'Rainforest QA pairs a no-code test platform with Test Managers and human testers. Replay QA is autonomous end to end: give it a URL and it explores the app, records every session, and returns the root cause and a suggested fix.',
+    oneLiner: 'No-code test platform with AI, managed Test Managers and a human tester crowd.',
+    tldr: [
+      'Rainforest tests come from a plain-English prompt per test, its no-code editor, or a Rainforest Test Manager. Replay QA explores from a URL and discovers user journeys itself.',
+      'Rainforest gives you video, browser logs and a HAR file to triage. Replay QA gives you a root cause with a confidence score and a suggested fix.',
+      'Rainforest offers human testers, native mobile through its tester crowd, and Safari, Edge and Firefox. Replay QA is automated and web only.'
+    ],
+    matrix: {
+      setup: { text: 'A prompt or editor session per test, or a Rainforest Test Manager.' },
+      testSuite: { text: 'No-code tests written by you or a Test Manager, with self-healing.' },
+      discovery: {
+        text: 'Runs your tests; an AI planner suggests what to test; human exploratory testing.'
+      },
+      evidence: { text: 'Failure screenshot, video, browser logs, HTTP traffic and a HAR file.' },
+      rootCause: { verdict: 'no', text: 'Not documented. You or a Test Manager triage failures.' },
+      codeFix: { verdict: 'no', text: 'No. Self-healing repairs tests, not your app.' },
+      traffic: { verdict: 'no', text: 'No.' },
+      mobile: {
+        verdict: 'partial',
+        text: 'Native apps by human testers only; automation on simulators.'
+      },
+      agents: { verdict: 'yes', text: 'MCP server to generate and run tests from coding agents.' },
+      pricing: { text: 'No public pricing; free trial, then sales.' }
+    },
+    replayFurther: [
+      {
+        title: 'A URL, not a test plan',
+        body: 'Rainforest needs each test written: from a prompt, in its visual editor, or by a Test Manager. Replay QA starts from a URL or a GitHub repo, maps the app and discovers the journeys itself.'
+      },
+      {
+        title: 'A root cause, not a video to watch',
+        body: 'Rainforest failures come with a screenshot, video, logs and a HAR file for a person to review. Replay QA agents time-travel through a deterministic recording of the session to find the root cause, with a confidence score.'
+      },
+      {
+        title: 'Fixes for your app, not your tests',
+        body: 'Rainforest’s self-healing repairs tests when the UI changes. Replay QA suggests a fix for the bug in your code, ready for a coding agent to apply.'
+      },
+      {
+        title: 'Pricing you can see',
+        body: 'Rainforest is sales-led with no published prices. Replay QA has a free plan with 25 credits a month, Starter at $20/month and Pro at $200/month.'
+      }
+    ],
+    strongerAt: [
+      {
+        title: 'People in the loop',
+        body: 'Dedicated Test Managers can write, maintain and triage your tests, and a tester crowd runs tests and exploratory sessions on demand. Replay QA is an autonomous product with no human testers.'
+      },
+      {
+        title: 'Native mobile and more browsers',
+        body: 'Human testers cover native iOS and Android apps, and automation runs on Chrome, Edge, Firefox and Safari. Replay QA tests web apps in Chromium.'
+      },
+      {
+        title: 'Track record',
+        body: 'Rainforest has 13 years in QA, with integrations for Jira, TestRail, CI tools and a REST API.'
+      }
+    ],
+    chooseThemIf: [
+      'You want a managed QA service with people who write and maintain your tests.',
+      'You need human testers, including on native mobile apps.',
+      'You need automated coverage across Safari, Edge and Firefox.'
+    ],
+    chooseReplayIf: [
+      'You want testing that runs from a URL, with no tests to write or manage.',
+      'You want a root cause and a suggested fix with every bug.',
+      'You want self-serve, published pricing.'
+    ],
+    faqs: [
+      {
+        question: 'Is Replay QA a Rainforest QA alternative?',
+        answer:
+          'Yes, for web apps. Both find bugs without you writing test code. Rainforest relies on prompt- or human-authored tests and human triage; Replay QA explores autonomously and returns root cause and a suggested fix. If you need human testers or native mobile, Rainforest covers that and Replay QA does not.'
+      },
+      {
+        question: 'Does Replay QA use human testers?',
+        answer: 'No. Replay QA is an autonomous product, not a managed service with human testers.'
+      },
+      {
+        question: 'Which browsers does Replay QA test in?',
+        answer: 'Replay QA tests web applications in a Chromium browser.'
+      },
+      { question: 'How much does Replay QA cost?', answer: pricingAnswer }
+    ],
+    lastVerified: '2026-11-03',
+    sources: [
+      'https://www.rainforestqa.com/',
+      'https://www.rainforestqa.com/pricing',
+      'https://www.rainforestqa.com/lp-qa-services',
+      'https://help.rainforestqa.com/docs/ai-powered-test-creation',
+      'https://help.rainforestqa.com/docs/how-to-debug-automation-results',
+      'https://help.rainforestqa.com/docs/supported-platforms',
+      'https://help.rainforestqa.com/docs/human-powered-testing'
+    ]
+  },
+  {
     key: 'posthog',
     name: 'PostHog',
     relationship: 'alternative',
@@ -538,8 +642,8 @@ export const competitors: Competitor[] = [
         body: 'QA Wolf keeps a regression suite running across web and mobile. Replay QA explores beyond the suite and, when something breaks, records the run and finds root cause in your app code.'
       },
       {
-        title: 'Both speak Playwright',
-        body: 'QA Wolf tests are open-source Playwright. Replay QA writes and runs its own Playwright tests too, so neither locks you into a proprietary format.'
+        title: 'Different deliverables',
+        body: 'QA Wolf hands you open-source Playwright and Appium tests you can keep. Replay QA hands you bug reports: it runs its own tests internally and returns root cause, a recording and a suggested fix, so the two do not overlap.'
       }
     ],
     replayFurther: [

@@ -24,6 +24,7 @@ const ROUTES = [
   '/compare/momentic',
   '/compare/ranger',
   '/compare/tester-army',
+  '/compare/rainforest-qa',
   '/compare/posthog',
   '/compare/qa-wolf',
   '/compare/meticulous',
