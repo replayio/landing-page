@@ -40,7 +40,7 @@ export const basementLog = `
 
 // TODO: update this data
 export const defaultMeta = {
-  title: 'Replay QA – Autonomous app testing for teams moving faster than ever',
+  title: 'Replay QA – Autonomous app testing for fast-moving teams',
   description:
     'Replay QA autonomously tests your web app for functional bugs, security vulnerabilities, accessibility failures, and performance problems — then files root-caused bug reports your coding agent can act on immediately.',
   ogImage: `${siteOrigin}/replayQA_og-image.png`,
