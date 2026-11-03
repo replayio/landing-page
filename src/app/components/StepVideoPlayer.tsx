@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import clsx from 'clsx'
-import { MOBILE_MEDIA } from '~/app/components/AutoplayVideo'
+import { MOBILE_MEDIA } from './AutoplayVideo'
 
 // Each step plays the first STEP_SECONDS of its /how-it-works clip, then the next step takes over, on a loop.
 const STEP_SECONDS = 5
