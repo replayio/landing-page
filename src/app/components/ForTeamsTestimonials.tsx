@@ -8,15 +8,16 @@ import harshiltomar from '~/images/testimonials/harshiltomar.jpg'
 import petermick from '~/images/testimonials/petermick.jpg'
 import kaiteeshiks from '~/images/testimonials/kaiteeshiks.jpg'
 
-type Testimonial = {
+export type Testimonial = {
   quote: string
   name: string
   handle: string
   href: string
-  image: typeof harshiltomar
+  // Without a photo, the caption shows the person's initials instead.
+  image?: typeof harshiltomar
 }
 
-const testimonials: Testimonial[] = [
+export const defaultTestimonials: Testimonial[] = [
   {
     quote:
       'Love the tooling! Our QA workflows and bug discovery has become 10X faster. The devs are able to cycle through loopholes much faster and delivery timelines have been enhanced',
@@ -52,7 +53,11 @@ function readingTime(quote: string) {
   return Math.min(MAX_MS, Math.max(MIN_MS, words * MS_PER_WORD))
 }
 
-export function ForTeamsTestimonials() {
+export function ForTeamsTestimonials({
+  testimonials = defaultTestimonials
+}: {
+  testimonials?: Testimonial[]
+}) {
   const [index, setIndex] = useState(0)
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
@@ -81,10 +86,10 @@ export function ForTeamsTestimonials() {
     const node = rootRef.current
     if (!node) return
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.1, rootMargin: '0px 0px -5% 0px' }
-    )
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      threshold: 0.1,
+      rootMargin: '0px 0px -5% 0px'
+    })
     observer.observe(node)
 
     // Start cycling immediately if the section is already on screen.
@@ -128,14 +133,26 @@ export function ForTeamsTestimonials() {
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                   <figcaption className="flex items-center justify-center gap-3.5">
-                    <Image
-                      src={t.image}
-                      alt={t.name}
-                      width={48}
-                      height={48}
-                      priority={i === 0}
-                      className="h-12 w-12 flex-shrink-0 rounded-full object-cover"
-                    />
+                    {t.image ? (
+                      <Image
+                        src={t.image}
+                        alt={t.name}
+                        width={48}
+                        height={48}
+                        priority={i === 0}
+                        className="h-12 w-12 flex-shrink-0 rounded-full object-cover"
+                      />
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-accent/10 text-sm font-semibold text-accent"
+                      >
+                        {t.name
+                          .split(' ')
+                          .map((part) => part[0])
+                          .join('')}
+                      </span>
+                    )}
                     <div className="text-left">
                       <p className="text-sm font-semibold text-gray-900">{t.name}</p>
                       <a
