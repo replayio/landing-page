@@ -1,6 +1,6 @@
 # Replay QA — for-llms.txt
 # Machine-readable summary of Replay QA for LLM crawlers and AI assistants.
-# Last updated: 2026-11-03
+# Last updated: 2026-11-04
 
 ## What is Replay QA?
 
@@ -48,6 +48,20 @@ Replay QA is designed to plug into autonomous coding pipelines as a runtime veri
 Trigger runs via REST API from your own orchestration, receive structured bug reports your agents
 can act on, and give your human reviewers a recording of every failure rather than a diff to
 guess from. Used by teams shipping more pull requests than anyone can review by hand.
+
+### Agencies and Dev Shops
+Agencies and dev shops use Replay QA to test every client app on every build without adding QA
+headcount. Each client app is its own project with its own repo, environment, test credentials,
+and schedule, and there is no test suite to write per client. Runs trigger on every push and
+pull request, reports flow into GitHub Issues, Linear, Jira, or a webhook, and pricing is based
+on analyses run rather than seats. Customer example: Natacha Grey of Swoon.ai, a small agency
+that covers its client projects without a dedicated QA team.
+
+### App Builder Platforms
+Platforms that let people build apps add Replay QA to their builder harness as an autonomous QA
+layer. One REST API call tests each app the platform builds in a real browser, and root-caused
+bugs flow back into the platform's build loop to be fixed before launch, so the people building
+on the platform never have to write a test. Customer example: Audos.
 
 ## How It Works (6 steps)
 
@@ -149,6 +163,8 @@ standard QA passes.
 Homepage:                  https://replay.io
 How it works:              https://replay.io/how-it-works
 For software factories:    https://replay.io/for-software-factories
+For agencies & dev shops:  https://replay.io/for-agencies-and-devshops
+For app builder platforms: https://replay.io/for-app-builders
 Web application testing:   https://replay.io/web-application-testing
 Continuous testing:        https://replay.io/continuous-testing
 Automated QA testing:      https://replay.io/automated-qa-testing

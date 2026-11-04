@@ -19,12 +19,9 @@ const title = 'Replay QA for Agencies and Dev Shops: More Clients, Same QA Budge
 const description =
   'Replay QA tests every client app on every build and hands your developers root-caused bug reports, so your team can ship faster and take on more clients without adding QA headcount.'
 
-// Unlisted: an inbound page we send agencies to directly, so it stays out of search, the sitemap
-// and the footer.
 export const metadata: Metadata = {
   title,
   description,
-  robots: { index: false, follow: false },
   alternates: {
     canonical: `${siteOrigin}/for-agencies-and-devshops`
   },
