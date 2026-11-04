@@ -41,6 +41,18 @@ const ROUTES: Route[] = [
     lastModified: '2026-10-22'
   },
   {
+    path: '/for-agencies-and-devshops',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+    lastModified: '2026-11-04'
+  },
+  {
+    path: '/for-app-builders',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+    lastModified: '2026-11-03'
+  },
+  {
     path: '/web-application-testing',
     priority: 0.8,
     changeFrequency: 'monthly',

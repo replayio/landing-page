@@ -126,7 +126,9 @@ const NAV_LINKS = [
 // SEO landing pages. Linked here so they are not orphans; they stay out of the header nav.
 const USE_CASE_LINKS = [
   ...seoVariants.map((v) => ({ label: v.eyebrow, href: v.path })),
-  { label: 'Software factories', href: '/for-software-factories' }
+  { label: 'Software factories', href: '/for-software-factories' },
+  { label: 'Agencies & Dev Shops', href: '/for-agencies-and-devshops' },
+  { label: 'App Builder Platforms', href: '/for-app-builders' }
 ]
 
 export function Footer() {

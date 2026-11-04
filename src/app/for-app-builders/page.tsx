@@ -21,11 +21,9 @@ const title = 'Replay QA for App Builder Platforms: The Autonomous QA Layer'
 const description =
   'Insert Replay QA into your builder harness for runtime visibility of the apps your platform builds. One API call tests each app in a real browser and returns root-caused bugs to your build loop.'
 
-// Unlisted: shared 1:1 with platform teams, so it stays out of search, the sitemap and the footer.
 export const metadata: Metadata = {
   title,
   description,
-  robots: { index: false, follow: false },
   alternates: {
     canonical: `${siteOrigin}/for-app-builders`
   },
