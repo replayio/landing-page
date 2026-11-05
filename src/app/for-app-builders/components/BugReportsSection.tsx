@@ -1,6 +1,7 @@
 import { Container } from '~/components/Container'
 import { Button } from '~/components/Button'
-import { BugGallery } from './BugGallery'
+import { BugCards } from '~/app/bugs/components/BugCards'
+import { homepageBugs, preview } from '~/app/bugs/data/bugs'
 
 /** `showGalleryLink` adds a link to the full gallery at /bugs, for pages outside /for-app-builders. */
 export function BugReportsSection({ showGalleryLink = false }: { showGalleryLink?: boolean }) {
@@ -18,7 +19,7 @@ export function BugReportsSection({ showGalleryLink = false }: { showGalleryLink
               context needed to do the job.
             </p>
           </div>
-          <BugGallery />
+          <BugCards bugs={homepageBugs.map(preview)} />
           {showGalleryLink && (
             <div className="mt-10 text-center">
               <Button href="/bugs" variant="outline" size="sm">
