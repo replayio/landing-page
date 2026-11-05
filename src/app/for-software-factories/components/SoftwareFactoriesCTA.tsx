@@ -8,7 +8,7 @@ export function SoftwareFactoriesCTA() {
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            Map Replay QA into your pipeline
+            Add Replay QA to your software factory today.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-gray-600 sm:text-lg">
             Bring your trigger model, environments, expected run volume, and the decision you need a
