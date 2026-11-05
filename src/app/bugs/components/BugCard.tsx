@@ -4,10 +4,19 @@ import { Bug as BugIcon } from 'lucide-react'
 import type { BugSummary } from '../data/bugs'
 import { BugMeta } from './BugMeta'
 
-export function BugCard({ bug }: { bug: BugSummary }) {
+/**
+ * A bug in the gallery. It links to the full report, so crawlers and modified clicks (new tab, new window) still
+ * reach it; with `onOpen`, a plain click opens the bug in a modal instead.
+ */
+export function BugCard({ bug, onOpen }: { bug: BugSummary; onOpen?: () => void }) {
   return (
     <Link
       href={`/bugs/${bug.slug}`}
+      onClick={(e) => {
+        if (!onOpen || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+        e.preventDefault()
+        onOpen()
+      }}
       className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg focus-visible:border-accent focus-visible:outline-none"
     >
       <span className="relative block aspect-[16/10] w-full overflow-hidden border-b border-gray-200 bg-gray-50">

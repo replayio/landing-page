@@ -6,7 +6,7 @@ import { Button } from '~/components/Button'
 import { defaultMeta, siteOrigin } from '~/lib/constants'
 import { PageContentAnimate } from '~/components/common/page-content-animate'
 import { BugGallery } from './components/BugGallery'
-import { bugs, summarize } from './data/bugs'
+import { bugs, preview } from './data/bugs'
 
 const title = 'Bug gallery: real bugs found by Replay QA'
 const description =
@@ -61,7 +61,7 @@ export default function BugsPage() {
                 </p>
               </div>
               <div className="mt-12">
-                <BugGallery bugs={bugs.map(summarize)} />
+                <BugGallery bugs={bugs.map(preview)} />
               </div>
               <div className="mt-16 text-center">
                 <Button

@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import { marked } from 'marked'
 
 // One bug per file in ./bugs, named by its slug. Prose fields are markdown.
 
@@ -55,6 +56,15 @@ export type BugSummary = Pick<
   Bug,
   'slug' | 'title' | 'severity' | 'category' | 'categoryName' | 'why' | 'project' | 'thumbnail'
 >
+
+// What a card's modal shows: the card, plus the replay and the finding, rendered to HTML here so the
+// browser doesn't need a markdown parser.
+export type BugPreview = BugSummary &
+  Pick<Bug, 'discovered' | 'replay'> & {
+    findingHtml: string
+    actualHtml: string
+    expectedHtml: string
+  }
 
 const CATEGORIES = {
   race: 'Races & ordering',
@@ -115,3 +125,14 @@ export const summarize = ({
   project,
   thumbnail
 }: Bug): BugSummary => ({ slug, title, severity, category, categoryName, why, project, thumbnail })
+
+const toHtml = (markdown: string) => (markdown ? marked.parse(markdown, { async: false }) : '')
+
+export const preview = (bug: Bug): BugPreview => ({
+  ...summarize(bug),
+  discovered: bug.discovered,
+  replay: bug.replay,
+  findingHtml: toHtml(bug.finding),
+  actualHtml: toHtml(bug.actual),
+  expectedHtml: toHtml(bug.expected)
+})

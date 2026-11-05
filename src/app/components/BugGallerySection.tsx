@@ -1,7 +1,7 @@
 import { Container } from '~/components/Container'
 import { Button } from '~/components/Button'
-import { BugCard } from '~/app/bugs/components/BugCard'
-import { bugs, homepageBugs } from '~/app/bugs/data/bugs'
+import { BugCards } from '~/app/bugs/components/BugCards'
+import { bugs, homepageBugs, preview } from '~/app/bugs/data/bugs'
 import { FaqAccordionList } from './FaqAccordionList'
 
 const outputFaqs = [
@@ -81,11 +81,7 @@ export function BugGallerySection() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {homepageBugs.map((bug) => (
-              <BugCard key={bug.slug} bug={bug} />
-            ))}
-          </div>
+          <BugCards bugs={homepageBugs.map(preview)} />
 
           <div className="mt-10 text-center">
             <Button href="/bugs" variant="outline" size="sm">

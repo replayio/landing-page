@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
-import type { BugSummary } from '../data/bugs'
-import { BugCard } from './BugCard'
+import type { BugPreview } from '../data/bugs'
+import { BugCards } from './BugCards'
 
-export function BugGallery({ bugs }: { bugs: BugSummary[] }) {
+export function BugGallery({ bugs }: { bugs: BugPreview[] }) {
   const [category, setCategory] = useState<string | null>(null)
   const categories = [...new Map(bugs.map((bug) => [bug.category, bug.categoryName]))]
   const shown = category ? bugs.filter((bug) => bug.category === category) : bugs
@@ -35,11 +35,7 @@ export function BugGallery({ bugs }: { bugs: BugSummary[] }) {
           filter(key, name, bugs.filter((bug) => bug.category === key).length)
         )}
       </div>
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {shown.map((bug) => (
-          <BugCard key={bug.slug} bug={bug} />
-        ))}
-      </div>
+      <BugCards bugs={shown} />
     </>
   )
 }
