@@ -11,16 +11,16 @@ const steps: SequenceStep[] = [
   },
   {
     title: 'Frustration signals detected',
-    body: 'Fullstory’s agentic session review spots rage clicks, dead clicks, and errors where something went wrong.',
+    body: 'Fullstory’s agentic session review spots rage clicks, dead clicks, and error clicks in each session.',
     logo: true
   },
   {
     title: 'Replay QA finds the root cause',
-    body: 'Reproduces the problem in a recorded browser, traces it to the code, and suggests a fix.',
+    body: 'Reproduces the problem in a recorded browser and traces it to the root cause in the code.',
     us: true
   },
   {
-    title: 'The fix goes where you work',
+    title: 'The report goes where you work',
     body: 'An agent-ready bug report lands in your issue tracker or goes straight to your coding agent.'
   }
 ]
@@ -37,16 +37,16 @@ export function HowItWorksSection() {
             How it works
           </p>
           <h2 className="mt-3 text-center text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-            From a frustrated user to a ready-to-ship fix.
+            From a frustrated user to a root-caused bug report.
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-gray-600">
-            Self-healing Mode is always on. Every frustrated session becomes a diagnosed bug, so
-            your app gets better from the way people actually use it.
+            Self-healing Mode runs in the background on your live app. Each frustrated session
+            becomes a diagnosed bug report.
           </p>
           <PostLaunchSequence
             steps={steps}
-            label="The Self-healing Mode sequence: real users on your site or app, frustration signals detected, Replay QA finds the root cause, and the fix goes to your issue tracker or coding agent. It runs continuously."
-            note="Always on: the next sessions run on the improved app."
+            label="The Self-healing Mode sequence: real users on your site or app, frustration signals detected, Replay QA finds the root cause, and the report goes to your issue tracker or coding agent. It runs continuously."
+            note="It keeps watching after each fix ships."
           />
         </div>
       </Container>

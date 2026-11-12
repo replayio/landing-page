@@ -53,7 +53,7 @@ guess from. Used by teams shipping more pull requests than anyone can review by 
 For live sites and web apps with real users. Fullstory's JavaScript snippet captures user
 sessions; when frustration signals (rage clicks, dead clicks, error clicks) appear in the session
 data, the session is handed to Replay QA automatically. Replay QA reproduces the problem in its own
-instrumented Chromium browser, finds the root cause, and writes a bug report with a suggested fix
+instrumented Chromium browser, finds the root cause, and writes a bug report with the runtime evidence
 that can be pushed to GitHub Issues, Linear, Jira, a webhook, or back to a coding agent. Replay
 does not record end users' browsers.
 
