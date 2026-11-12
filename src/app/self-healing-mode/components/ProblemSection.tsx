@@ -6,7 +6,7 @@ const points = [
     body: 'A user taps a button that does nothing, tries twice more, and leaves. No ticket, no email. The only trace is in the session.'
   },
   {
-    title: 'Session replay leaves the debugging to you',
+    title: 'Traditional session replay leaves debugging to you',
     body: 'You can watch the user get stuck. You still have to reproduce it, find the code path that failed, and work out the fix.'
   },
   {
@@ -21,8 +21,10 @@ export function ProblemSection() {
       <Container>
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-balance text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-              Your users are already reporting bugs. They&apos;re doing it with rage clicks.
+            <p className="text-sm font-bold uppercase tracking-wider text-accent">The Problem</p>
+            <h2 className="mt-3 text-balance text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
+              Your users are already reporting bugs. They&apos;re doing it with <em>rage clicks</em>
+              .
             </h2>
             <p className="mt-6 leading-relaxed text-gray-600">
               Tests catch what you thought to check. Real users find everything else, on real data,

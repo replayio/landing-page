@@ -17,6 +17,11 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       'No. Fullstory’s snippet captures the user sessions. Replay QA takes the signal from that session and reproduces the problem in its own instrumented Chromium browser, where it records everything it needs to find the root cause.'
   },
   {
+    question: 'What if I already use a session capture/replay tool?',
+    // TODO: placeholder answer. Replace before this ships, since it also goes into the FAQ schema.
+    answer: 'Answer coming soon.'
+  },
+  {
     question: 'What counts as a frustration signal?',
     answer:
       'Moments where a user hit a wall, such as rage clicks, clicks that do nothing, and clicks that trigger an error. Each one marks a spot in the session worth investigating.'
