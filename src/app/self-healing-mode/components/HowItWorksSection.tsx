@@ -3,7 +3,6 @@ import {
   PostLaunchSequence,
   type SequenceStep
 } from '~/app/for-app-builders/components/PostLaunchSequence'
-import { FeatureTable } from '~/app/for-app-builders/components/FeatureTable'
 
 const steps: SequenceStep[] = [
   {
@@ -48,30 +47,6 @@ export function HowItWorksSection() {
             steps={steps}
             label="The Self-healing Mode sequence: real users on your site or app, frustration signals detected, Replay QA finds the root cause, and the fix goes to your issue tracker or coding agent. It runs continuously."
             note="Always on: the next sessions run on the improved app."
-          />
-          <FeatureTable
-            rows={[
-              [
-                'Capture',
-                'Add Fullstory’s JavaScript snippet to your site or app. It records real user sessions as people use it.'
-              ],
-              [
-                'Detect',
-                'Fullstory’s agentic session review finds frustration signals in the session data, the moments a user got stuck, and hands each one to Replay QA automatically.'
-              ],
-              [
-                'Diagnose',
-                'Replay QA reproduces the problem in its own recorded browser, finds the root cause from what actually executed, and suggests a fix.'
-              ],
-              [
-                'Report',
-                'You get a detailed bug report with a severity, the recording evidence, the root cause and the suggested fix.'
-              ],
-              [
-                'Close the loop',
-                'Push the report into your issue tracker, or send it straight back to your coding agent to make the fix.'
-              ]
-            ]}
           />
         </div>
       </Container>
