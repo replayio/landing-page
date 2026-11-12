@@ -17,15 +17,15 @@ export function SelfHealingHero() {
               New in Replay QA: Self-healing Mode
             </span>
             <h1 className="text-balance font-display text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl xl:text-7xl">
-              Turn user frustration into fixes.
+              Turn user frustration into verified fixes.
             </h1>
             <p
               className="mx-auto mt-6 max-w-2xl animate-fadeInUp text-pretty text-lg leading-relaxed text-gray-700 opacity-0"
               style={{ animationDelay: '0.12s' }}
             >
               When a real user hits a bug in your live app, Self-healing Mode catches the moment and
-              hands it to Replay QA. You get the root cause and a suggested fix, in your issue
-              tracker or straight to your coding agent.
+              hands it to Replay QA. You get the root cause and the runtime evidence behind it, so
+              your coding agent can fix the bug without the guesswork.
             </p>
             <div
               className="mt-10 flex animate-fadeInUp flex-wrap items-center justify-center gap-3 opacity-0"
@@ -36,7 +36,7 @@ export function SelfHealingHero() {
                 target="_blank"
                 size="base"
               >
-                Turn on Self-healing Mode
+                Try Self-healing mode now
               </Button>
               <Button href="#how-it-works" variant="outline" size="base">
                 See how it works
@@ -54,7 +54,7 @@ export function SelfHealingHero() {
                 height={14}
                 className="h-3.5 w-auto"
               />
-              <span>session capture technology and agentic session review.</span>
+              <span>session capture technology.</span>
             </p>
           </div>
         </Container>

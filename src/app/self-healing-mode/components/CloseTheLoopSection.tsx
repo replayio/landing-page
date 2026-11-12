@@ -4,7 +4,7 @@ const destinations = [
   {
     eyebrow: 'For your team',
     title: 'Into the tracker you already use',
-    body: 'File reports to GitHub Issues, Linear, Jira, or any webhook. Each one carries the severity, the recording, the root cause and the suggested fix, so whoever picks it up starts from evidence.'
+    body: 'File reports to GitHub Issues, Linear, Jira, or any webhook. Each one carries the severity, the recording and the root cause analysis, so whoever picks it up starts from evidence.'
   },
   {
     eyebrow: 'For your agents',

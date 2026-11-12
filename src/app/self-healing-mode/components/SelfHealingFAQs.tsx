@@ -9,7 +9,7 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: 'What is Self-healing Mode?',
     answer:
-      'A mode of Replay QA for live apps with real users. Fullstory’s JavaScript snippet captures user sessions, and when frustration signals show up in the session data, Replay QA automatically runs a root cause analysis and writes a bug report with a suggested fix.'
+      'A mode of Replay QA for live apps with real users. Fullstory’s JavaScript snippet captures user sessions, and when frustration signals show up in the session data, Replay QA automatically runs a root cause analysis and writes a bug report with the evidence behind it.'
   },
   {
     question: 'Does Replay record my users’ browsers?',
@@ -19,12 +19,12 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
   {
     question: 'What counts as a frustration signal?',
     answer:
-      'Moments where a user clearly hit a wall, such as rage clicks, clicks that do nothing, and clicks that trigger an error. Each one marks a spot in the session worth investigating.'
+      'Moments where a user hit a wall, such as rage clicks, clicks that do nothing, and clicks that trigger an error. Each one marks a spot in the session worth investigating.'
   },
   {
     question: 'Does it fix the bug for me?',
     answer:
-      'It gives you a root cause and a suggested fix. You decide what happens next: file the report in your issue tracker for your team, or send it to your coding agent to make the change. Replay QA can then test the fix before it ships.'
+      'No. It gives you the root cause analysis and the runtime evidence behind it, which is what a coding agent needs to fix the bug without guessing. You decide what happens next: file the report in your issue tracker for your team, or send it to your coding agent to make the change. Replay QA can then test the fix before it ships.'
   },
   {
     question: 'My app doesn’t have users yet. Is this for me?',

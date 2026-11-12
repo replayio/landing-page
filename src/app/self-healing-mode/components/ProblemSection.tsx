@@ -6,7 +6,7 @@ const points = [
     body: 'A user taps a button that does nothing, tries twice more, and leaves. No ticket, no email. The only trace is in the session.'
   },
   {
-    title: 'Session replay shows what, not why',
+    title: 'Session replay leaves the debugging to you',
     body: 'You can watch the user get stuck. You still have to reproduce it, find the code path that failed, and work out the fix.'
   },
   {

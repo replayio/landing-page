@@ -1,7 +1,11 @@
 import { Container } from '~/components/Container'
 
 const rows: Array<[string, string, string]> = [
-  ['What you get', 'A video of what the user saw', 'The root cause and a suggested fix'],
+  [
+    'What you get',
+    'A video of what the user saw',
+    'The root cause, with the runtime evidence behind it'
+  ],
   [
     'Where it comes from',
     'A reconstruction of the page in the user’s browser',
@@ -21,15 +25,16 @@ export function WhyReplaySection() {
       <Container>
         <div className="mx-auto max-w-4xl">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-bold uppercase tracking-wider text-accent">Why it works</p>
+            <p className="text-sm font-bold uppercase tracking-wider text-accent">
+              How It&apos;s Different
+            </p>
             <h2 className="mt-3 text-balance text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
               Session replay shows you the symptom. Replay QA finds the cause.
             </h2>
             <p className="mt-6 leading-relaxed text-gray-600">
-              Detecting that something went wrong is the easy part. Self-healing Mode adds the hard
-              part: Replay QA reproduces the problem in its instrumented Chromium browser and
-              records every DOM change, network call and JavaScript frame, so the diagnosis comes
-              from what actually executed, not a guess from a video.
+              Replay QA reproduces the problem in its instrumented Chromium browser and records
+              every DOM change, network call and JavaScript frame, so the diagnosis comes from what
+              actually executed, not a guess from a video.
             </p>
           </div>
           {/* Below md the table would push the Self-healing column off-screen, so each row stacks. */}
