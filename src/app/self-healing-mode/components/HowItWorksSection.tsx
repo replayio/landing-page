@@ -7,16 +7,16 @@ import {
 const steps: SequenceStep[] = [
   {
     title: 'Real users on your site or app',
-    body: 'Fullstory’s JavaScript snippet captures each session as customers use your live app.'
-  },
-  {
-    title: 'Frustration signals detected',
-    body: 'Fullstory’s agentic session review spots rage clicks, dead clicks, and error clicks in each session.',
+    body: 'Fullstory’s JavaScript snippet captures each session as customers use your live app.',
     logo: true
   },
   {
+    title: 'Frustration signals detected',
+    body: 'Replay’s agent identifies the sessions where the bugs exist.'
+  },
+  {
     title: 'Replay QA finds the root cause',
-    body: 'Reproduces the problem in a recorded browser and traces it to the root cause in the code.',
+    body: 'The bug is reproduced and the root cause and supporting evidence are prepared.',
     us: true
   },
   {

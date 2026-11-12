@@ -27,8 +27,7 @@ export function ProblemSection() {
               .
             </h2>
             <p className="mt-6 leading-relaxed text-gray-600">
-              Tests catch what you thought to check. Real users find everything else, on real data,
-              in browsers and paths you never tried.
+              Tests catch what you thought to check. Real users find everything else.
             </p>
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
