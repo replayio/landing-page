@@ -8,7 +8,16 @@ import clsx from 'clsx'
 const STEP_MS = 1700
 const LOOP_MS = 1500
 
-const steps = [
+export type SequenceStep = {
+  title: string
+  body: string
+  /** Shows the Fullstory logo after the title. */
+  logo?: boolean
+  /** Renders the step as the dark "this is Replay QA" card. */
+  us?: boolean
+}
+
+const builderSteps: SequenceStep[] = [
   { title: 'User sessions on your site/app', body: 'Real users click through the live app.' },
   {
     title: 'Fullstory detects frustration signals',
@@ -26,7 +35,19 @@ const steps = [
   }
 ]
 
-export function PostLaunchSequence() {
+const builderLabel =
+  'The post-launch sequence: user sessions on your site or app, Fullstory detects frustration signals, Replay QA generates bug reports, and your builder fixes and lands changes. It runs continuously.'
+
+/** Defaults to the app-builder post-launch loop; other pages pass their own steps. */
+export function PostLaunchSequence({
+  steps = builderSteps,
+  label = builderLabel,
+  note = 'Always on: the next sessions run on the improved app.'
+}: {
+  steps?: SequenceStep[]
+  label?: string
+  note?: string
+}) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [phase, setPhase] = useState(-1)
 
@@ -55,13 +76,13 @@ export function PostLaunchSequence() {
       observer.disconnect()
       window.clearTimeout(timer)
     }
-  }, [])
+  }, [steps.length])
 
   return (
     <div
       ref={rootRef}
       role="img"
-      aria-label="The post-launch sequence: user sessions on your site or app, Fullstory detects frustration signals, Replay QA generates bug reports, and your builder fixes and lands changes. It runs continuously."
+      aria-label={label}
       className={clsx('ab-seq relative mt-10 pl-9', phase === steps.length && 'looping')}
     >
       <ol className="flex flex-col gap-[22px]">
@@ -121,9 +142,7 @@ export function PostLaunchSequence() {
       <div className="ab-seq-rail" aria-hidden="true">
         <i />
       </div>
-      <p className="mt-4 text-sm font-semibold text-accent">
-        ↺ Always on: the next sessions run on the improved app.
-      </p>
+      <p className="mt-4 text-sm font-semibold text-accent">↺ {note}</p>
     </div>
   )
 }

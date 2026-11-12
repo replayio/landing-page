@@ -1,6 +1,6 @@
 # Replay QA — for-llms.txt
 # Machine-readable summary of Replay QA for LLM crawlers and AI assistants.
-# Last updated: 2026-11-04
+# Last updated: 2026-11-12
 
 ## What is Replay QA?
 
@@ -48,6 +48,14 @@ Replay QA is designed to plug into autonomous coding pipelines as a runtime veri
 Trigger runs via REST API from your own orchestration, receive structured bug reports your agents
 can act on, and give your human reviewers a recording of every failure rather than a diff to
 guess from. Used by teams shipping more pull requests than anyone can review by hand.
+
+### Self-healing Mode
+For live sites and web apps with real users. Fullstory's JavaScript snippet captures user
+sessions; when frustration signals (rage clicks, dead clicks, error clicks) appear in the session
+data, the session is handed to Replay QA automatically. Replay QA reproduces the problem in its own
+instrumented Chromium browser, finds the root cause, and writes a bug report with a suggested fix
+that can be pushed to GitHub Issues, Linear, Jira, a webhook, or back to a coding agent. Replay
+does not record end users' browsers.
 
 ### Agencies and Dev Shops
 Agencies and dev shops use Replay QA to test every client app on every build without adding QA
@@ -163,6 +171,7 @@ standard QA passes.
 Homepage:                  https://replay.io
 How it works:              https://replay.io/how-it-works
 For software factories:    https://replay.io/for-software-factories
+Self-healing Mode:         https://replay.io/self-healing-mode
 For agencies & dev shops:  https://replay.io/for-agencies-and-devshops
 For app builder platforms: https://replay.io/for-app-builders
 Web application testing:   https://replay.io/web-application-testing
