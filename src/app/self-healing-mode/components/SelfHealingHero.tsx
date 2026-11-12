@@ -23,9 +23,8 @@ export function SelfHealingHero() {
               className="mx-auto mt-6 max-w-2xl animate-fadeInUp text-pretty text-lg leading-relaxed text-gray-700 opacity-0"
               style={{ animationDelay: '0.12s' }}
             >
-              When a real user hits a bug in your live app, Self-healing Mode catches the moment and
-              hands it to Replay QA. You get the root cause and the runtime evidence behind it, so
-              your coding agent can fix the bug without the guesswork.
+              When a real user hits a bug in your live app, Replay QA catches the moment and figures
+              out why.
             </p>
             <div
               className="mt-10 flex animate-fadeInUp flex-wrap items-center justify-center gap-3 opacity-0"
