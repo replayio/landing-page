@@ -116,7 +116,7 @@ const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Compare', href: '/compare' },
-  { label: 'ROI Calculator', href: '/roi-calculator' },
+  { label: 'Bug Gallery', href: '/bugs' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: navigation.company[0].href },
   { label: 'Contact', href: '/contact' }

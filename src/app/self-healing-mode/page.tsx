@@ -17,7 +17,7 @@ import '~/app/for-app-builders/app-builders.css'
 
 const title = 'Self-healing Mode for Replay QA: Turn User Frustration Into Fixes'
 const description =
-  'Self-healing Mode watches real user sessions for frustration signals and hands each one to Replay QA for a root cause analysis backed by runtime evidence, delivered to your issue tracker or straight to your coding agent.'
+  'Self-healing Mode turns frustrated user sessions into root-caused bug reports with evidence, sent to your issue tracker or straight to your coding agent.'
 
 export const metadata: Metadata = {
   title,
