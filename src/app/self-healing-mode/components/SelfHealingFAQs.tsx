@@ -12,6 +12,31 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
       'A mode of Replay QA for live apps with real users. Fullstory’s JavaScript snippet captures user sessions, and when frustration signals show up in the session data, Replay QA automatically runs a root cause analysis and writes a bug report with the evidence behind it.'
   },
   {
+    question: 'How do I set up Self-healing Mode?',
+    answer: (
+      <div className="space-y-3">
+        <p>
+          We&apos;ve made setup as easy as possible. After you create a Replay QA project for your
+          site or app, you&apos;ll see a Self-healing Mode option in the onboarding guide. It gives
+          you a prompt to feed your coding agent to set it all up.
+        </p>
+        <p>
+          The prompt tells your coding agent to install the Fullstory snippet in the head of your
+          web app, which is what captures user sessions. You&apos;ll need to deploy that change
+          before user sessions start flowing into Replay QA. You don&apos;t need a Fullstory
+          account, because Replay uses its own Fullstory API key. In a future version of
+          Self-healing Mode, you&apos;ll be able to bring your own Fullstory API key.
+        </p>
+        <p>
+          Once the snippet is deployed, user sessions are analyzed for frustration signals and bug
+          reports are generated automatically in your Replay QA project. You can integrate your
+          issue tracker to push the bugs there, connect your coding agent through Replay QA&apos;s
+          REST API so it can pull in the bug reports and fix them, or both.
+        </p>
+      </div>
+    )
+  },
+  {
     question: 'Does Replay record my users’ browsers?',
     answer:
       'No. Fullstory’s snippet captures the user sessions. Replay QA takes the signal from that session and reproduces the problem in its own instrumented Chromium browser, where it records everything it needs to find the root cause.'
