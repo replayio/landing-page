@@ -16,9 +16,9 @@ export function SoftwareFactoriesHero() {
               Replay QA for Software Factories
             </span>
             <h1 className="font-display text-4xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-6xl xl:text-7xl">
-              Your factory scales.
+              Your software factory scales.
               <br />
-              Bug reproduction doesn&apos;t.
+              But QA doesn&apos;t.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl animate-fadeInUp text-pretty text-lg leading-relaxed text-gray-700 opacity-0" style={{ animationDelay: '0.12s' }}>
               An autonomous factory is not complete when it generates code. It is complete when a
