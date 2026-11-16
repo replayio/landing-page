@@ -53,6 +53,28 @@
   font-style: italic;
 }
 
+/*
+ * Bookmark / link-preview blocks — rendered as CTA-style links so they're
+ * visible instead of silently dropped.
+ */
+.prose .notion-bookmark {
+  display: inline-block;
+  margin: 1em 0;
+  padding: 0.625rem 1.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  color: #111827;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.prose .notion-bookmark:hover {
+  border-color: #9ca3af;
+  background-color: #f9fafb;
+}
+
 .prose .token.comment,
 .prose .token.prolog,
 .prose .token.doctype,
