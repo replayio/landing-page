@@ -56,6 +56,20 @@ export function SelfHealingHero() {
               <span>session capture technology.</span>
             </p>
           </div>
+          <div
+            className="relative mx-auto mt-12 aspect-video w-full max-w-4xl animate-fadeInUp overflow-hidden rounded-xl border border-gray-200 bg-gray-900 opacity-0 shadow-lg"
+            style={{ animationDelay: '0.48s' }}
+          >
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src="https://www.youtube-nocookie.com/embed/--76dp7Rr_0"
+              title="Replay QA: Introducing Self-healing Mode"
+              frameBorder="0"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
         </Container>
       </div>
     </section>
