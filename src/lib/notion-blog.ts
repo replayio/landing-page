@@ -177,53 +177,6 @@ if (n2m) {
     return `[${url}](${url})`
   })
 
-  /**
-   * Bookmark blocks appear as card-like URL previews in Notion (often used for
-   * CTA links like "Try it now for free"). notion-to-md's default handler can
-   * silently produce empty output; this transformer renders them as styled link
-   * buttons so they are always visible.
-   */
-  n2m.setCustomTransformer('bookmark', async (block) => {
-    const b = block as Record<string, any>
-    const url: string | undefined = b.bookmark?.url
-    if (!url) return ''
-
-    const caption = (b.bookmark?.caption ?? []).map((c: any) => c.plain_text).join('').trim()
-    const label = caption || url
-
-    return (
-      `<a href="${url}" class="notion-bookmark" target="_blank" rel="noopener noreferrer">${label}</a>`
-    )
-  })
-
-  /**
-   * Link preview blocks (pasted URLs that Notion renders as rich previews).
-   */
-  n2m.setCustomTransformer('link_preview', async (block) => {
-    const b = block as Record<string, any>
-    const url: string | undefined = b.link_preview?.url
-    if (!url) return ''
-
-    return `<a href="${url}" class="notion-bookmark" target="_blank" rel="noopener noreferrer">${url}</a>`
-  })
-
-  /**
-   * Link-to-page blocks (internal Notion page links). Render as a simple link;
-   * the href will be resolved by the markdown link renderer if the target is a
-   * blog post.
-   */
-  n2m.setCustomTransformer('link_to_page', async (block) => {
-    const b = block as Record<string, any>
-    const ltp = b.link_to_page
-    if (!ltp) return ''
-
-    // Notion link_to_page can reference a page_id or database_id
-    const pageId: string | undefined = ltp.page_id ?? ltp.database_id
-    if (!pageId) return ''
-
-    const compactId = pageId.replace(/-/g, '').toLowerCase()
-    return `[${compactId}](/${compactId})`
-  })
 }
 
 let cachedDataSourceId: string | null = null
@@ -506,6 +459,7 @@ const loadBlogPostBySlug = async (
     const blocks = await withNotionRetry(`pageToMarkdown:${slug}`, () =>
       n2m.pageToMarkdown(post.id)
     )
+
     const markdown = n2m.toMarkdownString(blocks).parent ?? ''
     return { post, markdown }
   } catch (error) {

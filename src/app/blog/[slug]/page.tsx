@@ -129,6 +129,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="prose prose-lg mt-10 max-w-none prose-headings:font-semibold prose-a:text-accent prose-pre:rounded-xl prose-img:rounded-xl">
               <BlogPostBody markdown={markdown} notionIdToSlug={notionIdToSlug} />
             </div>
+
+            <section className="mt-14 rounded-2xl border border-gray-200 bg-gray-50 px-8 py-10 text-center">
+              <h2 className="text-2xl font-semibold tracking-tight text-gray-950">
+                Want to try Replay QA on your app?
+              </h2>
+              <p className="mx-auto mt-3 max-w-lg text-base text-gray-600">
+                Replay QA autonomously tests your web app, finds real bugs, and delivers
+                root-caused reports your team can act on. No test suite required.
+              </p>
+              <a
+                href="https://qa.replay.io/new?utm_source=blog"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+              >
+                Try it now for free
+              </a>
+            </section>
           </article>
         </Container>
       </main>
