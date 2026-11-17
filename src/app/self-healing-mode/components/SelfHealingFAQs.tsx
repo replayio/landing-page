@@ -37,6 +37,22 @@ const faqs: Array<{ question: string; answer: ReactNode }> = [
     )
   },
   {
+    question: 'Do I need to create a Fullstory account?',
+    answer: (
+      <div className="space-y-3">
+        <p>
+          No. We&apos;ve worked closely with the Fullstory team so a single prompt lets your agent
+          set everything up. For this early stage of the feature, user sessions are captured with
+          Replay&apos;s Fullstory API key.
+        </p>
+        <p>
+          This feature will evolve, and will likely require you to set up your own Fullstory account
+          and connect it to Replay QA with your own API key.
+        </p>
+      </div>
+    )
+  },
+  {
     question: 'Does Replay record my users’ browsers?',
     answer:
       'No. Fullstory’s snippet captures the user sessions. Replay QA takes the signal from that session and reproduces the problem in its own instrumented Chromium browser, where it records everything it needs to find the root cause.'
