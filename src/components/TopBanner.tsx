@@ -12,10 +12,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { ArrowRight } from 'lucide-react'
+import { SelfHealingVideo } from '~/components/SelfHealingVideo'
 
 const HREF = '/self-healing-mode'
-const VIDEO_ID = '--76dp7Rr_0'
-const VIDEO_ORIGIN = 'https://www.youtube-nocookie.com'
 // The Self-healing Mode launch on Product Hunt.
 const PRODUCT_HUNT_URL =
   'https://www.producthunt.com/products/replayio?launch=replay-qa-self-healing-mode'
@@ -32,15 +31,15 @@ const CLOSE_DELAY_MS = 200
  * nothing, so they keep the 0px default and never shift on load.
  *
  * Hovering (or tabbing into) the bar drops down a panel with the overview video. The panel
- * overlays the page instead of pushing it down, the iframe only loads on first open, and the
- * video pauses when the panel closes. Touch devices skip the panel and follow the link.
+ * overlays the page instead of pushing it down, the video only mounts on first open, and it
+ * pauses when the panel closes. Touch devices skip the panel and follow the link.
  */
 export function TopBanner() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const closeTimer = useRef<number | undefined>(undefined)
-  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
 
   const show = useCallback(() => {
     window.clearTimeout(closeTimer.current)
@@ -55,11 +54,7 @@ export function TopBanner() {
 
   // Pause playback whenever the panel closes, so nothing keeps playing out of sight.
   useEffect(() => {
-    if (open) return
-    iframeRef.current?.contentWindow?.postMessage(
-      JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
-      VIDEO_ORIGIN
-    )
+    if (!open) videoRef.current?.pause()
   }, [open])
 
   useEffect(() => () => window.clearTimeout(closeTimer.current), [])
@@ -132,20 +127,9 @@ export function TopBanner() {
                 open ? 'opacity-100' : 'opacity-0'
               )}
             >
-              <div className="aspect-video overflow-hidden rounded-lg border border-white/10 bg-black">
-                {loaded && (
-                  <iframe
-                    ref={iframeRef}
-                    className="h-full w-full"
-                    src={`${VIDEO_ORIGIN}/embed/${VIDEO_ID}?enablejsapi=1&rel=0`}
-                    title="Replay QA: Introducing Self-healing Mode"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
-                )}
-              </div>
+              {loaded && (
+                <SelfHealingVideo ref={videoRef} className="rounded-lg border border-white/10" />
+              )}
               <p className="mt-3 text-center text-sm text-gray-300">
                 We&apos;re live on Product Hunt today.{' '}
                 <a
