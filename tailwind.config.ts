@@ -65,6 +65,13 @@ export default {
         gradientShift: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' }
+        },
+        borderSpin: {
+          to: { transform: 'rotate(360deg)' }
+        },
+        glowPulse: {
+          '0%, 100%': { boxShadow: '0 0 4px 0 rgba(240, 45, 94, 0.35)' },
+          '50%': { boxShadow: '0 0 14px 2px rgba(240, 45, 94, 0.7)' }
         }
       },
       animation: {
@@ -74,7 +81,9 @@ export default {
         slideRightAndFade: 'slideRightAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
         fadeIn: 'fadeIn 1s ease-in-out forwards',
         fadeInUp: 'fadeInUp 0.9s ease-out forwards',
-        gradientShift: 'gradientShift 5s ease-in-out infinite'
+        gradientShift: 'gradientShift 5s ease-in-out infinite',
+        borderSpin: 'borderSpin 2.5s linear infinite',
+        glowPulse: 'glowPulse 2.5s ease-in-out infinite'
       },
       backgroundSize: {
         '200%': '200% 100%'
