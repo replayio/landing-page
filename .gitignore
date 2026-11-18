@@ -130,3 +130,6 @@ public/agent/*.md
 public/llms.txt
 public/llms-full.txt
 src/lib/markdown-agent-tokens.json
+
+# IndexNow sitemap snapshot (scripts/indexnow.mjs --snapshot)
+.indexnow/

@@ -16,6 +16,21 @@ function blogLegacyRedirect(request: NextRequest): NextResponse | null {
   return NextResponse.redirect(target, 301)
 }
 
+// IndexNow ownership check: search engines fetch /<key>.txt and expect the key as the body.
+// The key comes from the INDEXNOW_KEY env var (set in Vercel) rather than a committed file in
+// public/, so it stays out of the repo. scripts/indexnow.mjs submits URLs with the same key.
+function indexNowKeyFile(request: NextRequest): NextResponse | null {
+  const key = process.env.INDEXNOW_KEY
+  if (!key || request.nextUrl.pathname !== `/${key}.txt`) return null
+
+  return new NextResponse(key, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600, s-maxage=3600'
+    }
+  })
+}
+
 // Send TAAFT (theresanaiforthat.com) referral traffic landing on the homepage
 // straight to qa.replay.io, preserving the original ref/UTM query string.
 function taaftReferralRedirect(request: NextRequest): NextResponse | null {
@@ -159,6 +174,9 @@ export function proxy(request: NextRequest) {
 
   const taaftRedirect = taaftReferralRedirect(request)
   if (taaftRedirect) return taaftRedirect
+
+  const indexNowKey = indexNowKeyFile(request)
+  if (indexNowKey) return indexNowKey
 
   const pathname = request.nextUrl.pathname
 

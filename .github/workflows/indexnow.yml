@@ -1,0 +1,80 @@
+name: IndexNow
+# Tells IndexNow engines (Bing, Yandex, Seznam, Naver, ...) about pages that changed in each
+# production deploy. See scripts/indexnow.mjs for how changed pages are detected.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: 'URLs or paths to submit, comma or space separated (e.g. /compare,/pricing)'
+        required: true
+      dry_run:
+        description: 'Print what would be submitted without sending'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  statuses: read
+
+# Runs queue rather than overlap, so each one diffs against the snapshot the last one saved.
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      # Vercel deploys main on push; diff the sitemap only once that deploy is live.
+      - name: Wait for the Vercel production deploy
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 60); do
+            state=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/statuses" \
+              -q '[.[] | select(.context == "Vercel")][0].state')
+            echo "Vercel: ${state:-no status yet}"
+            case "$state" in
+              success) exit 0 ;;
+              failure|error) echo "Deploy failed; nothing to submit"; exit 1 ;;
+            esac
+            sleep 20
+          done
+          echo "Timed out waiting for the deploy"; exit 1
+
+      - name: Restore the previous sitemap snapshot
+        if: github.event_name == 'push'
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: .indexnow/sitemap.json
+          key: indexnow-sitemap-${{ github.run_id }}
+          restore-keys: indexnow-sitemap-
+
+      - name: Submit changed URLs
+        if: github.event_name == 'push'
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: node scripts/indexnow.mjs --snapshot .indexnow/sitemap.json
+
+      - name: Save the sitemap snapshot
+        if: github.event_name == 'push'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: .indexnow/sitemap.json
+          key: indexnow-sitemap-${{ github.run_id }}
+
+      - name: Submit URLs by hand
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          URLS: ${{ inputs.urls }}
+        run: node scripts/indexnow.mjs --urls "$URLS" ${{ inputs.dry_run && '--dry-run' || '' }}
