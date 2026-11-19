@@ -15,9 +15,6 @@ import { ArrowRight } from 'lucide-react'
 import { SelfHealingVideo } from '~/components/SelfHealingVideo'
 
 const HREF = '/self-healing-mode'
-// The Self-healing Mode launch on Product Hunt.
-const PRODUCT_HUNT_URL =
-  'https://www.producthunt.com/products/replayio?launch=replay-qa-self-healing-mode'
 
 // Routes that skip the banner. The page it links to doesn't need to announce itself.
 const HIDDEN_ON = new Set([HREF])
@@ -130,18 +127,6 @@ export function TopBanner() {
               {loaded && (
                 <SelfHealingVideo ref={videoRef} className="rounded-lg border border-white/10" />
               )}
-              <p className="mt-3 text-center text-sm text-gray-300">
-                We&apos;re live on Product Hunt today.{' '}
-                <a
-                  href={PRODUCT_HUNT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-semibold text-[#ff6154] underline decoration-[#ff6154]/40 underline-offset-2 transition hover:decoration-[#ff6154]"
-                >
-                  Come check us out
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </a>
-              </p>
             </div>
           </div>
         </div>
